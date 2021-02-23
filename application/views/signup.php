@@ -45,6 +45,13 @@
             <option value="punjab">Punjab</option>
         </select>
 
+        <!-- User role -->
+        <select name="user_role" id="defaultRegisterUserRoleLocation" class="form-control mb-4">
+            <option value="">User Role</option>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+        </select>
+
         <!-- Sign up button -->
         <button class="btn btn-info my-4" type="submit">Sign up</button> already a member?
         <a href="<?= base_url('login'); ?>" class="btn btn-success my-4" type="submit">Login</a>

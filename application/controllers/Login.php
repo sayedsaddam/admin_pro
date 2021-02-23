@@ -28,6 +28,7 @@ class Login extends CI_Controller{
             'username' => $this->input->post('username'),
             'password' => sha1($this->input->post('password')),
             'location' => $this->input->post('location'),
+            'user_role' => $this->input->post('user_role')
         );
         if($this->login_model->signup($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>User registration was successful. Now you can use your credentials to login to the system.');
@@ -47,8 +48,16 @@ class Login extends CI_Controller{
             $username = $login->username;
             $name = $login->fullname;
             $location = $login->location;
-            $this->session->set_userdata(array('id' => $id, 'username' => $username, 'fullname' => $name, 'location' => $location));
-            redirect('admin');
+            $role = $login->user_role;
+            $this->session->set_userdata(array('id' => $id, 'username' => $username, 'fullname' => $name, 'location' => $location, 'user_role' => $role));
+            if($this->session->userdata('user_role') == 'admin'){
+                redirect('admin');
+            }elseif($this->session->userdata('user_role') == 'user'){
+                redirect('users');
+            }else{
+                $this->session->set_flashdata('login_failed', "<strong>Oops! </strong>Something went wrong but don't fret, let's give it another shot.");
+                $this->index();
+            }
             // echo "Welcome aboard ". $this->session->userdata('fullname');
         }else{
             $this->session->set_flashdata('login_failed', "<strong>Oops! </strong>Something went wrong but don't fret, let's give it another shot.");

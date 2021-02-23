@@ -18,7 +18,7 @@ class Login_model extends CI_Model{
     }
     // Signin - Check for user credentials and login to the system.
     public function signin($username, $password){
-        $this->db->select('id, fullname, username, password, location');
+        $this->db->select('id, fullname, username, password, location, user_role');
         $this->db->from('users');
         $this->db->where(array('username' => $username, 'password' => $password));
         return $this->db->get()->row();
