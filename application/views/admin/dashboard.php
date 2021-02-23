@@ -1,3 +1,18 @@
+<div class="jumbotron jumbotron-fluid purple-gradient text-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-8">
+        <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
+        <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
+      </div>
+      <div class="col-lg-4 col-md-4 text-right">
+        <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
+        <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout</a>
+      </div>
+    </div>
+  
+  </div>
+</div>
 <div class="container my-5 py-5">
 
   <!-- Section: Block Content -->

@@ -12,7 +12,7 @@
     <div class="col-md-6">
     <h1 class="font-weight-bold grey-text display-4">CHIP Training and Consulting (Pvt.) Ltd. <span class="font-weight-light dark-text">Islamabad 44000.</span></h1>
         <h3 class="font-weight-light text-success">Admin & Procurement <br>department</h3>
-        <p class="text-grey font-weight-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed voluptatibus sapiente sit nam, ea error sequi exercitationem porro similique harum laborum, repellat veritatis quo accusantium at quaerat voluptas, architecto aperiam.</p>
+        <p class="text-grey font-weight-light">While CHIP Training & Consulting Pvt. Ltd. (CTC) was launched as an independent consultancy firm fairly recently, its roots go back to 1993 when it was initially a Swiss NGO Programme Office (SNPO as part of SDC / Embassy of Switzerland) later becoming an independent non-profit organization, namely CHIP (Civil Society Human & Institutional Development Programme).</p>
     </div>
     <!--Grid column-->
 
@@ -20,11 +20,11 @@
     <div class="col-md-6">
 
       <!-- Default form register -->
-      <form class="text-center" action="<?= base_url('login/register'); ?>">
+      <form class="text-center" action="<?= base_url('login/register'); ?>" method="post">
 
         <p class="h4 mb-4">Sign up | <span class="font-weight-light grey-text">Register a user.</span></p>
             <!-- First name -->
-            <input type="text" name="first_name" id="defaultRegisterFormFirstName" class="form-control mb-4" placeholder="Full name">
+            <input type="text" name="fullname" id="defaultRegisterFormFullName" class="form-control mb-4" placeholder="Full name">
 
         <!-- E-mail -->
         <input type="email" name="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="Email">
@@ -58,11 +58,12 @@
 
         <hr>
 
-        <!-- Terms of service -->
-        <p>By clicking
-          <em>Sign up</em> you agree to our
-          <a href="" target="_blank">terms of service</a>
-
+        <!-- Failure message if there is any. -->
+        <?php if($failed = $this->session->flashdata('failed')): ?>
+          <div class="alert alert-danger">
+            <?php $failed; ?>
+          </div>
+        <?php else: echo "&copy; ".date('Y')." <span class='font-weight-bold text-success'>CHIP</span> Training & Consulting (Pvt.) Ltd."; endif; ?>
       </form>
       <!-- Default form register -->
 

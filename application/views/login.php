@@ -13,7 +13,7 @@
 
         <h1 class="font-weight-bold grey-text display-4">CHIP Training and Consulting (Pvt.) Ltd. <span class="font-weight-light grey-text">Islamabad 44000.</span></h1>
         <h3 class="font-weight-light text-success">Admin & Procurement <br>department</h3>
-        <p class="text-grey font-weight-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed voluptatibus sapiente sit nam, ea error sequi exercitationem porro similique harum laborum, repellat veritatis quo accusantium at quaerat voluptas, architecto aperiam.</p>
+        <p class="text-grey font-weight-light">While CHIP Training & Consulting Pvt. Ltd. (CTC) was launched as an independent consultancy firm fairly recently, its roots go back to 1993 when it was initially a Swiss NGO Programme Office (SNPO as part of SDC / Embassy of Switzerland) later becoming an independent non-profit organization, namely CHIP (Civil Society Human & Institutional Development Programme).</p>
 
     </div>
     <!--Grid column-->
@@ -22,12 +22,12 @@
     <div class="col-md-6 justify-content-right">
 
       <!-- Default form login -->
-      <form class="text-center" action="<?= base_url('login/authenticate'); ?>">
+      <form class="text-center" action="<?= base_url('login/authenticate'); ?>" method="post">
 
         <p class="h4 mb-4">Sign in</p>
 
         <!-- Email -->
-        <input type="email" name="username" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="username">
+        <input type="text" name="username" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="username">
 
         <!-- Password -->
         <input type="password" name="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
@@ -61,7 +61,19 @@
             <a href="#" class="mx-1" role="button"><i class="fab fa-twitter"></i></a>
             <a href="#" class="mx-1" role="button"><i class="fab fa-linkedin-in"></i></a>
             <a href="#" class="mx-1" role="button"><i class="fab fa-github"></i></a>
-
+        
+        <hr>
+        <?php if($login_failed = $this->session->flashdata('login_failed')): ?>
+          <div class="alert alert-danger">
+            <?= $login_failed; ?>
+          </div>
+        <?php endif; ?>
+        <!-- Failure or Success message if there is any. -->
+        <?php if($success = $this->session->flashdata('success')): ?>
+          <div class="alert alert-danger">
+            <?php $success; ?>
+          </div>
+        <?php else: echo "&copy; ".date('Y')." <span class='font-weight-bold text-success'>CHIP</span> Training & Consulting (Pvt.) Ltd."; endif; ?>
       </form>
       <!-- Default form login -->
 
