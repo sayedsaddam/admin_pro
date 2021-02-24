@@ -199,7 +199,7 @@
                         <td>
                           <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
                           <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                          <a href="<?= base_url('admin/request_detail/'.$pen_req->id); ?>"><span class="badge badge-secondary"><i class="fa fa-eye"></i></span></a>
+                          <a href="<?= base_url('admin/request_detail/'.$pen_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                         </td>
                       </tr>
                     <?php endforeach; else: echo "<tr class='table-danger'><td colspan='4'>No requisitions yet.</td></tr>"; endif;  ?>
@@ -248,8 +248,8 @@
                         <td><?= date('M d, Y', strtotime($app_req->created_at)); ?></td>
                         <td>
                           <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
-                          <a href=""><span class="badge badge-info"><i class="fa fa-times"></i></span></a>
-                          <a href="<?= base_url('admin/request_detail/'.$app_req->id); ?>"><span class="badge badge-secondary"><i class="fa fa-eye"></i></span></a>
+                          <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                          <a href="<?= base_url('admin/request_detail/'.$app_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                         </td>
                       </tr>
                     <?php endforeach; else: echo "<tr class='table-danger'><td colspan='4'>No requisitions yet.</td></tr>"; endif; ?>
@@ -298,8 +298,8 @@
                         <td><?= date('M d, Y', strtotime($rej_req->created_at)); ?></td>
                         <td>
                           <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
-                          <a href=""><span class="badge badge-info"><i class="fa fa-times"></i></span></a>
-                          <a href="<?= base_url('admin/request_detail/'.$rej_req->id); ?>"><span class="badge badge-secondary"><i class="fa fa-eye"></i></span></a>
+                          <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                          <a href="<?= base_url('admin/request_detail/'.$rej_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                         </td>
                       </tr>
                     <?php endforeach; else: echo "<tr class='table-danger'><td colspan='4'>No requisitions yet.</td></tr>"; endif; ?>
