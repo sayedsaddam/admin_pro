@@ -114,7 +114,7 @@
                     </td>
                     <td><?= date('M d, Y', strtotime($req->created_at)); ?></td>
                     <td>
-                      <?php if($req->updated_at != NULL){ echo date('M d, Y', strtotime($req->updated_at)); }else{ echo "--"; } ?>
+                      <?php if($req->updated_at != NULL){ echo date('M d, Y', strtotime($req->updated_at)); }else{ echo "<span class='purple-text'>Nothing yet.</span>"; } ?>
                     </td>
                   </tr>
                 <?php endforeach; endif; ?>
