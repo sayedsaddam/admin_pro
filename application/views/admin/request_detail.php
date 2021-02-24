@@ -18,14 +18,16 @@
     <div class="row">
         <div class="col-lg-4 col-md-4">
             <!-- Card -->
-            <div class="card">
+            <div class="card purple-gradient">
                 <!-- Card content -->
-                <div class="card-body">
+                <div class="card-body white-text">
                 <!-- Title -->
                 <h4 class="card-title">Requester Info</h4>
-                <h3 class="font-weight-light purple-text"><?= $request_detail->fullname; ?></h3>
-                <h3 class="font-weight-light purple-text"><?= ucfirst($request_detail->location); ?></h3>
-                <h3 class="font-weight-light purple-text"><?= ucfirst($request_detail->user_role); ?></h3>
+                <hr>
+                <h3 class="font-weight-light"><?= $request_detail->fullname; ?></h3>
+                <h3 class="font-weight-light"><?= $request_detail->email; ?></h3>
+                <h3 class="font-weight-light"><?= ucfirst($request_detail->location); ?></h3>
+                <h3 class="font-weight-light"><?php if($request_detail->user_role == 'user'){ echo "Employee"; }else{ echo "Admininstrator"; } ?></h3>
                 </div>
             </div>
             <!-- Card -->
@@ -37,6 +39,7 @@
                 <div class="card-body font-weight-light">
                     <!-- Title -->
                     <h4 class="card-title">Item Info</h4>
+                    <hr>
                     <div class="row mb-4">
                         <div class="col-lg-3 col-md-3">
                             Item Name
@@ -67,6 +70,13 @@
                         </div>
                         <div class="col-lg-8 col-md-8">
                             <?= date('M d, Y', strtotime($request_detail->created_at)); ?>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-lg-12 col-md-12">
+                            <a href="" class="btn btn-success"><i class="fa fa-check"></i> Approve</a>
+                            <a href="" class="btn btn-secondary"><i class="fa fa-times"></i> Reject</a>
+                            <a href="javascript:history.go(-1)" class="btn btn-danger"><i class="fa fa-angle-left"></i> Back</a>
                         </div>
                     </div>
                 </div>

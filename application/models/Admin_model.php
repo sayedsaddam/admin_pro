@@ -62,6 +62,7 @@ class Admin_model extends CI_Model{
                             item_requisitions.created_at,
                             users.id as user_id,
                             users.fullname,
+                            users.email,
                             users.location,
                             users.user_role');
         $this->db->from('item_requisitions');
