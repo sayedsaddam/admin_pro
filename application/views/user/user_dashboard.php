@@ -98,20 +98,24 @@
                   <th class="font-weight-bold">Quantity</th>
                   <th class="font-weight-bold">Desciption</th>
                   <th class="font-weight-bold">Status</th>
-                  <th class="font-weight-bold">Date</th>
+                  <th class="font-weight-bold">Requested</th>
+                  <th class="font-weight-bold">Processed</th>
                 </tr>
               </thead>
               <tbody>
                 <?php if(!empty($requisitions)): foreach($requisitions as $req): ?>
                   <tr>
                     <th scope="row"><?= 'CTC-0'.$req->id; ?></th>
-                    <td><?= $req->item_name; ?></td>
+                    <td><?= ucfirst($req->item_name); ?></td>
                     <td><?= $req->item_qty; ?></td>
                     <td><?= $req->item_desc; ?></td>
                     <td>
                       <?php if($req->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($req->status == 1){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
                     </td>
                     <td><?= date('M d, Y', strtotime($req->created_at)); ?></td>
+                    <td>
+                      <?php if($req->updated_at != NULL){ echo date('M d, Y', strtotime($req->updated_at)); }else{ echo "--"; } ?>
+                    </td>
                   </tr>
                 <?php endforeach; endif; ?>
               </tbody>

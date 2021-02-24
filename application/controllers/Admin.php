@@ -41,7 +41,8 @@ class Admin extends CI_Controller{
             redirect('');
         }
         $data = array(
-            'status' => 1
+            'status' => 1,
+            'updated_at' => date('Y-m-d')
         );
         if($this->admin_model->approve_request($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Request approval was successful.');
@@ -57,7 +58,8 @@ class Admin extends CI_Controller{
             redirect('');
         }
         $data = array(
-            'status' => 2
+            'status' => 2,
+            'updated_at' => date('Y-m-d')
         );
         if($this->admin_model->approve_request($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Request rejection was successful.');

@@ -11,6 +11,7 @@ class Admin_model extends CI_Model{
                             item_requisitions.requested_by,
                             item_requisitions.status,
                             item_requisitions.created_at,
+                            item_requisitions.updated_at,
                             users.id as user_id,
                             users.fullname,
                             users.location');
@@ -27,6 +28,7 @@ class Admin_model extends CI_Model{
                             item_requisitions.requested_by,
                             item_requisitions.status,
                             item_requisitions.created_at,
+                            item_requisitions.updated_at,
                             users.id as user_id,
                             users.fullname,
                             users.location');
@@ -43,6 +45,7 @@ class Admin_model extends CI_Model{
                             item_requisitions.requested_by,
                             item_requisitions.status,
                             item_requisitions.created_at,
+                            item_requisitions.updated_at,
                             users.id as user_id,
                             users.fullname,
                             users.location');
@@ -60,6 +63,7 @@ class Admin_model extends CI_Model{
                             item_requisitions.requested_by,
                             item_requisitions.status,
                             item_requisitions.created_at,
+                            item_requisitions.updated_at,
                             users.id as user_id,
                             users.fullname,
                             users.email,

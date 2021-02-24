@@ -30,7 +30,7 @@ class User_model extends CI_Model{
     }
     // Get all requisition against requester.
     public function get_requisitions(){
-        $this->db->select('id, item_name, item_desc, item_qty, status, created_at');
+        $this->db->select('id, item_name, item_desc, item_qty, status, created_at, updated_at');
         $this->db->from('item_requisitions');
         $this->db->where('requested_by', $this->session->userdata('id'));
         return $this->db->get()->result();
