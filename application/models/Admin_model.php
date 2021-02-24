@@ -70,4 +70,16 @@ class Admin_model extends CI_Model{
         $this->db->where('item_requisitions.id', $id);
         return $this->db->get()->row();
     }
+    // Approve request.
+    public function approve_request($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('item_requisitions', $data);
+        return true;
+    }
+    // Reject request.
+    public function reject_request($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('item_requisitions', $data);
+        return true;
+    }
 }

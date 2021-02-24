@@ -29,11 +29,21 @@
   
   </div>
 </div>
-<div class="container my-5 py-5">
+<div class="container my-3 py-3">
 
   <!-- Section: Block Content -->
   <section>
-
+    <?php if($success = $this->session->flashdata('success')): ?>
+      <!-- Grid row -->
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <div class="alert alert-success">
+            <?= $success; ?>
+          </div>
+        </div>
+      </div>
+      <!-- Grid row -->
+    <?php endif; ?>
     <!-- Grid row -->
     <div class="row">
 
@@ -210,7 +220,7 @@
                 </tr>
               </thead>
               <tbody>
-                <?php if(!empty($approved_requistions)): foreach($approved_requistions as $app_req): ?>
+                <?php if(!empty($approved_requisitions)): foreach($approved_requisitions as $app_req): ?>
                   <tr>
                     <td><?= 'CTC-0'.$app_req->id; ?></td>
                     <td><?= $app_req->fullname; ?></td>
@@ -218,7 +228,7 @@
                     <td>
                       <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
                       <a href=""><span class="badge badge-info"><i class="fa fa-times"></i></span></a>
-                      <a href=""><span class="badge badge-secondary"><i class="fa fa-eye"></i></span></a>
+                      <a href="<?= base_url('admin/request_detail/'.$app_req->id); ?>"><span class="badge badge-secondary"><i class="fa fa-eye"></i></span></a>
                     </td>
                   </tr>
                 <?php endforeach; else: echo "<tr class='table-danger'><td colspan='4'>No requisitions yet.</td></tr>"; endif; ?>
@@ -268,7 +278,7 @@
                     <td>
                       <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
                       <a href=""><span class="badge badge-info"><i class="fa fa-times"></i></span></a>
-                      <a href=""><span class="badge badge-secondary"><i class="fa fa-eye"></i></span></a>
+                      <a href="<?= base_url('admin/request_detail/'.$rej_req->id); ?>"><span class="badge badge-secondary"><i class="fa fa-eye"></i></span></a>
                     </td>
                   </tr>
                 <?php endforeach; else: echo "<tr class='table-danger'><td colspan='4'>No requisitions yet.</td></tr>"; endif; ?>

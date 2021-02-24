@@ -29,4 +29,30 @@ class Admin extends CI_Controller{
         $data['request_detail'] = $this->admin_model->request_detail($id);
         $this->load->view('admin/commons/template', $data);
     }
+    // Approve request.
+    public function approve_request($id){
+        $data = array(
+            'status' => 1
+        );
+        if($this->admin_model->approve_request($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Request approval was successful.');
+            redirect('admin');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong in request approval. Please try again.');
+            redirect('admin/request_detail/'.$id);
+        }
+    }
+    // Reject request.
+    public function reject_request($id){
+        $data = array(
+            'status' => 2
+        );
+        if($this->admin_model->approve_request($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Request rejection was successful.');
+            redirect('admin');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong in request rejection. Please try again.');
+            redirect('admin/request_detail/'.$id);
+        }
+    }
 }
