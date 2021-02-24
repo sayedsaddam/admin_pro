@@ -51,4 +51,22 @@ class Admin_model extends CI_Model{
         $this->db->where('item_requisitions.status', 2);
         return $this->db->get()->result();
     }
+    // View requisition detail.
+    public function request_detail($id){
+        $this->db->select('item_requisitions.id,
+                            item_requisitions.item_name,
+                            item_requisitions.item_desc,
+                            item_requisitions.item_qty,
+                            item_requisitions.requested_by,
+                            item_requisitions.status,
+                            item_requisitions.created_at,
+                            users.id as user_id,
+                            users.fullname,
+                            users.location,
+                            users.user_role');
+        $this->db->from('item_requisitions');
+        $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
+        $this->db->where('item_requisitions.id', $id);
+        return $this->db->get()->row();
+    }
 }
