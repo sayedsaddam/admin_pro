@@ -16,13 +16,15 @@
 <div class="container my-3 py-3">
 <!--Section: Block Content-->
 <section>
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <div class="alert alert-success">
-                Request submission was successful.
-            </div>
-        </div>
-    </div>
+    <?php if($success = $this->session->flashdata('success')): ?>
+      <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <div class="alert alert-success">
+                  <?= $success; ?>
+              </div>
+          </div>
+      </div>
+    <?php endif; ?>
   <!--Grid row-->
   <div class="row">
 
@@ -32,7 +34,7 @@
         <i class="far fa-money-bill-alt fa-3x blue z-depth-1 p-4 rounded-left text-white"></i>
         <div class="media-body">
             <p class="text-uppercase mt-2 mb-1 ml-3"><small>pending requests</small></p>
-            <p class="font-weight-bold mb-1 ml-3">23</p>
+            <p class="font-weight-bold mb-1 ml-3"><?= $pending; ?></p>
         </div>
         </div>
 
@@ -47,7 +49,7 @@
         <i class="fas fa-chart-bar fa-3x deep-purple z-depth-1 p-4 rounded-left text-white"></i>
         <div class="media-body">
           <p class="text-uppercase mt-2 mb-1 ml-3"><small>Approved Requests</small></p>
-          <p class="font-weight-bold mb-1 ml-3">32</p>
+          <p class="font-weight-bold mb-1 ml-3"><?= $approved; ?></p>
         </div>
       </div>
 
@@ -62,7 +64,7 @@
         <i class="fas fa-download fa-3x pink z-depth-1 p-4 rounded-left text-white"></i>
         <div class="media-body">
           <p class="text-uppercase mt-2 mb-1 ml-3"><small>rejected requests</small></p>
-          <p class="font-weight-bold mb-1 ml-3">13</p>
+          <p class="font-weight-bold mb-1 ml-3"><?= $rejected; ?></p>
         </div>
       </div>
 
@@ -93,39 +95,33 @@
             <table class="table table-sm">
               <thead>
                 <tr>
-                  <th scope="col">Order ID</th>
-                  <th scope="col">Item</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Date</th>
+                  <th class="font-weight-bold">Order ID</th>
+                  <th class="font-weight-bold">Item</th>
+                  <th class="font-weight-bold">Quantity</th>
+                  <th class="font-weight-bold">Status</th>
+                  <th class="font-weight-bold">Date</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row"><a class="text-primary">OR1848</a></th>
-                  <td>Samsung Smart TV</td>
-                  <td><span class="badge badge-warning">Pending</span></td>
-                  <td>Feb 20, 2021</td>
-                </tr>
-                <tr>
-                  <th scope="row"><a class="text-primary">OR7429</a></th>
-                  <td>iPhone 6 Plus</td>
-                  <td><span class="badge badge-danger">Delivered</span></td>
-                  <td>Feb 20, 2021</td>
-                </tr>
-                <tr>
-                  <th scope="row"><a class="text-primary">OR9842</a></th>
-                  <td>Call of Duty IV</td>
-                  <td><span class="badge badge-success">Shipped</span></td>
-                  <td>Feb 20, 2021</td>
-                </tr>
+                <?php if(!empty($requisitions)): foreach($requisitions as $req): ?>
+                  <tr>
+                    <th scope="row"><?= 'CTC-0'.$req->id; ?></th>
+                    <td><?= $req->item_name; ?></td>
+                    <td><?= $req->item_qty; ?></td>
+                    <td>
+                      <?php if($req->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($req->status == 1){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
+                    </td>
+                    <td><?= date('M d, Y', strtotime($req->created_at)); ?></td>
+                  </tr>
+                <?php endforeach; endif; ?>
               </tbody>
             </table>
           </div>
           <div class="card-footer white py-3 d-flex justify-content-between">
             <button type="button" class="btn btn-primary btn-md px-3 my-0 ml-0" data-toggle="modal" data-target="#fullHeightModalLeft">
-                Place new order
+                <i class="fa fa-plus"></i> Place requisisition
             </button>
-            <button class="btn btn-light btn-md px-3 my-0 ml-0">View All Orders</button>
+            <a href="#0!" class="btn btn-light btn-md px-3 my-0 ml-0"><i class="fa fa-eye"></i> View All requisitions</a>
           </div>
         </div>
       </div>

@@ -15,6 +15,10 @@ class Users extends CI_Controller{
     public function index(){
         $data['title'] = 'Dashboard | Admin & Procurement';
         $data['body'] = 'user/user_dashboard';
+        $data['pending'] = $this->user_model->total_pending();
+        $data['approved'] = $this->user_model->total_approved();
+        $data['rejected'] = $this->user_model->total_rejected();
+        $data['requisitions'] = $this->user_model->get_requisitions();
         $this->load->view('admin/commons/template', $data);
     }
     // Created requisition
