@@ -12,6 +12,9 @@ class Admin extends CI_Controller{
     }
     // Load the dashboard.
     public function index(){
+        if(!$this->session->userdata('username')){
+            redirect('');
+        }
         $data['title'] = 'Home | Admin & Procurement';
         $data['body'] = 'admin/dashboard';
         $data['pending'] = $this->user_model->total_pending();
@@ -24,6 +27,9 @@ class Admin extends CI_Controller{
     }
     // Request detail - Filter by ID.
     public function request_detail($id){
+        if(!$this->session->userdata('username')){
+            redirect('');
+        }
         $data['title'] = 'Request Detail | Admin & Procurement';
         $data['body'] = 'admin/request_detail';
         $data['request_detail'] = $this->admin_model->request_detail($id);
@@ -31,6 +37,9 @@ class Admin extends CI_Controller{
     }
     // Approve request.
     public function approve_request($id){
+        if(!$this->session->userdata('username')){
+            redirect('');
+        }
         $data = array(
             'status' => 1
         );
@@ -44,6 +53,9 @@ class Admin extends CI_Controller{
     }
     // Reject request.
     public function reject_request($id){
+        if(!$this->session->userdata('username')){
+            redirect('');
+        }
         $data = array(
             'status' => 2
         );
