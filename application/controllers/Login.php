@@ -54,14 +54,10 @@ class Login extends CI_Controller{
                 redirect('admin');
             }elseif($this->session->userdata('user_role') == 'user'){
                 redirect('users');
-            }else{
-                $this->session->set_flashdata('login_failed', "<strong>Oops! </strong>Something went wrong but don't fret, let's give it another shot.");
-                $this->index();
             }
-            // echo "Welcome aboard ". $this->session->userdata('fullname');
         }else{
             $this->session->set_flashdata('login_failed', "<strong>Oops! </strong>Something went wrong but don't fret, let's give it another shot.");
-            $this->index();
+            redirect('login');
         }
     }
     // Logout - Terminate session and log the user out.

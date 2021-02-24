@@ -21,62 +21,63 @@
     <!--Grid column-->
     <div class="col-md-6 justify-content-right">
 
-      <!-- Default form login -->
-      <form class="text-center" action="<?= base_url('login/authenticate'); ?>" method="post">
+        <!-- Form -->
+        <form class="text-center" style="color: #757575;" action="<?= base_url('login/authenticate'); ?>" method="post">
 
-        <p class="h4 mb-4">Sign in</p>
+          <!-- Username -->
+          <div class="md-form">
+            <input type="text" name="username" class="form-control" required>
+            <label for="materialLoginFormUsername">Username</label>
+          </div>
 
-        <!-- Email -->
-        <input type="text" name="username" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="username">
+          <!-- Password -->
+          <div class="md-form">
+            <input type="password" name="password" class="form-control" required>
+            <label for="materialLoginFormPassword">Password</label>
+          </div>
 
-        <!-- Password -->
-        <input type="password" name="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
-
-        <div class="d-flex justify-content-around">
-          <div>
-            <!-- Remember me -->
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
-              <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+          <div class="d-flex justify-content-around">
+            <div>
+              <!-- Remember me -->
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="materialLoginFormRemember">
+                <label class="form-check-label" for="materialLoginFormRemember">Remember me</label>
+              </div>
+            </div>
+            <div>
+              <!-- Forgot password -->
+              <a href="">Forgot password?</a>
             </div>
           </div>
-          <div>
-            <!-- Forgot password -->
-            <a href="">Forgot password?</a>
-          </div>
-        </div>
 
-        <!-- Sign in button -->
-        <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+          <!-- Sign in button -->
+          <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
 
-        <!-- Register -->
-        <p>Not a member?
-          <a href="<?= base_url('login/signup'); ?>">Register</a>
-        </p>
+          <!-- Register -->
+          <p>Not a member?
+            <a href="<?= base_url('login/signup'); ?>">Register</a>
+          </p>
 
-        <!-- Social login -->
-        <p>or sign in with:</p>
-
-            <a href="#" class="mx-1" role="button"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="mx-1" role="button"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="mx-1" role="button"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="mx-1" role="button"><i class="fab fa-github"></i></a>
-        
-        <hr>
-        <?php if($login_failed = $this->session->flashdata('login_failed')): ?>
-          <div class="alert alert-danger">
-            <?= $login_failed; ?>
-          </div>
-        <?php endif; ?>
-        <!-- Failure or Success message if there is any. -->
-        <?php if($success = $this->session->flashdata('success')): ?>
-          <div class="alert alert-danger">
-            <?php $success; ?>
-          </div>
-        <?php else: echo "&copy; ".date('Y')." <span class='font-weight-bold text-success'>CHIP</span> Training & Consulting (Pvt.) Ltd."; endif; ?>
+          <!-- Social login -->
+          <p>or sign in with:</p>
+          <a type="button" class="btn-floating btn-fb btn-sm">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a type="button" class="btn-floating btn-tw btn-sm">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a type="button" class="btn-floating btn-li btn-sm">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a type="button" class="btn-floating btn-git btn-sm">
+            <i class="fab fa-github"></i>
+          </a>
       </form>
-      <!-- Default form login -->
-
+      <!-- Form -->
+      <!-- Failute message -->
+      <?php if($login_failed = $this->session->flashdata('login_failed')): ?>
+        <div class="alert alert-danger mt-4"><?= $login_failed; ?></div>
+      <?php endif; ?>
     </div>
     <!--Grid column-->
 

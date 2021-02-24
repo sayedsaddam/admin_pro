@@ -53,7 +53,6 @@
         </div>
       </div>
 
-
     </div>
     <!--Grid column-->
 
@@ -67,7 +66,6 @@
           <p class="font-weight-bold mb-1 ml-3"><?= $rejected; ?></p>
         </div>
       </div>
-
 
     </div>
     <!--Grid column-->
