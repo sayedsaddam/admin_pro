@@ -140,10 +140,10 @@
 
           <div class="card-header white-text primary-color">
             <div class="row">
-              <div class="col-lg-6">
-                Pending Requests
+              <div class="col-lg-8 col-md-8">
+                Pending Requests <span class="badge badge-light"><?= $pending; ?></span>
               </div>
-              <div class="col-lg-6 col-md-6 text-right">
+              <div class="col-lg-4 col-md-4 text-right">
                 <a href="" class="badge badge-dark text-uppercase">view <i class="fa fa-eye"></i></a>
               </div>
             </div>
@@ -153,25 +153,21 @@
             <table class="table table-sm">
               <thead class="black white-text">
                 <tr>
-                  <th>Sr</th>
+                  <th>ID</th>
                   <th>By</th>
                   <th>Date</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>John Doe</td>
-                  <td>Feb 20, 2021</td>
-                  <td><i class="fa fa-edit"></i></td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jane Doe</td>
-                  <td>Feb 20, 2021</td>
-                  <td><i class="fa fa-edit"></i></td>
-                </tr>
+                <?php if(!empty($pending_requisitions)): foreach($pending_requisitions as $pen_req): ?>
+                  <tr>
+                    <td><?= 'CTC-0'.$pen_req->id; ?></td>
+                    <td><?= $pen_req->fullname; ?></td>
+                    <td><?= date('M d, Y', strtotime($pen_req->created_at)); ?></td>
+                    <td><a data-toggle="modal" data-target="#action"><i class="fa fa-edit"></i></a></td>
+                  </tr>
+                <?php endforeach; else: echo "<tr class='table-danger'><td colspan='4'>No requisitions yet.</td></tr>"; endif;  ?>
               </tbody>
             </table>
           </div>
@@ -190,10 +186,10 @@
 
           <div class="card-header white-text primary-color">
             <div class="row">
-              <div class="col-lg-6 col-md-8">
-                Approved Requests
+              <div class="col-lg-8 col-md-8">
+                Approved Requests <span class="badge badge-light"><?= $approved; ?></span>
               </div>
-              <div class="col-lg-6 col-md-6 text-right">
+              <div class="col-lg-4 col-md-4 text-right">
                 <a href="" class="badge badge-dark text-uppercase">view <i class="fa fa-eye"></i></a>
               </div>
             </div>
@@ -203,25 +199,21 @@
           <table class="table table-sm">
               <thead class="black white-text">
                 <tr>
-                  <th>Sr</th>
+                  <th>ID</th>
                   <th>By</th>
                   <th>Date</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>John Doe</td>
-                  <td>Feb 20, 2021</td>
-                  <td><i class="fa fa-edit"></i></td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jane Doe</td>
-                  <td>Feb 20, 2021</td>
-                  <td><i class="fa fa-edit"></i></td>
-                </tr>
+                <?php if(!empty($approved_requistions)): foreach($approved_requistions as $app_req): ?>
+                  <tr>
+                    <td><?= 'CTC-0'.$app_req->id; ?></td>
+                    <td><?= $app_req->fullname; ?></td>
+                    <td><?= date('M d, Y', strtotime($app_req->created_at)); ?></td>
+                    <td><a data-toggle="modal" data-target="#action"><i class="fa fa-edit"></i></a></td>
+                  </tr>
+                <?php endforeach; else: echo "<tr class='table-danger'><td colspan='4'>No requisitions yet.</td></tr>"; endif; ?>
               </tbody>
             </table>
           </div>
@@ -240,10 +232,10 @@
 
           <div class="card-header white-text primary-color">
             <div class="row">
-              <div class="col-lg-6 col-md-6">
-                Rejected Requests
+              <div class="col-lg-8 col-md-8">
+                Rejected Requests <span class="badge badge-light"><?= $rejected; ?></span>
               </div>
-              <div class="col-lg-6 col-md-6 text-right">
+              <div class="col-lg-4 col-md-4 text-right">
                 <a href="" class="badge badge-dark text-right text-uppercase">view <i class="fa fa-eye"></i></a>
               </div>
             </div>
@@ -253,25 +245,21 @@
           <table class="table table-sm">
               <thead class="black white-text">
                 <tr>
-                  <th>Sr</th>
+                  <th>ID</th>
                   <th>By</th>
                   <th>Date</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>John Doe</td>
-                  <td>Feb 20, 2021</td>
-                  <td><i class="fa fa-edit"></i></td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jane Doe</td>
-                  <td>Feb 20, 2021</td>
-                  <td><i class="fa fa-edit"></i></td>
-                </tr>
+                <?php if(!empty($rejected_requisitions)): foreach($rejected_requisitions as $rej_req): ?>
+                  <tr>
+                    <td><?= 'CTC-0'.$rej_req->id; ?></td>
+                    <td><?= $rej_req->fullname; ?></td>
+                    <td><?= date('M d, Y', strtotime($rej_req->created_at)); ?></td>
+                    <td><a data-toggle="modal" data-target="#action"><i class="fa fa-edit"></i></a></td>
+                  </tr>
+                <?php endforeach; else: echo "<tr class='table-danger'><td colspan='4'>No requisitions yet.</td></tr>"; endif; ?>
               </tbody>
             </table>
           </div>
