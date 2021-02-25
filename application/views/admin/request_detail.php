@@ -82,6 +82,21 @@
                         </div>
                     </div>
                     <div class="row mb-4">
+                        <div class="col-lg-3 col-md-3">
+                            Updated on
+                        </div>
+                        <div class="col-lg-8 col-md-8">
+                            <?= date('M d, Y', strtotime($request_detail->updated_at)); ?>
+                            <?php if($request_detail->status == 1): ?>
+                                <span class="badge badge-success">Request Approved</span>
+                            <?php elseif($request_detail->status == 0): ?>
+                                <span class="badge badge-info">Request Pending</span>
+                            <?php else: ?>
+                                <span class="badge badge-danger">Request Rejected</span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
                         <div class="col-lg-12 col-md-12">
                             <a href="<?php echo base_url('admin/approve_request/'.$request_detail->id); ?>" class="btn btn-success <?php if($request_detail->status == 1){ echo "disabled"; } ?>"><i class="fa fa-check"></i> Approve</a>
                             <a href="<?= base_url('admin/reject_request/'.$request_detail->id); ?>" class="btn btn-secondary"><i class="fa fa-times"></i> Reject</a>

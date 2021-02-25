@@ -25,6 +25,27 @@ class Admin extends CI_Controller{
         $data['rejected_requisitions'] = $this->admin_model->rejected_requisitions();
         $this->load->view('admin/commons/template', $data);
     }
+    // Pending requests - listing
+    public function pending_requests(){
+        $data['title'] = 'Pending Requests | Admin & Procurement';
+        $data['body'] = 'admin/pending-requests';
+        $data['pending_requisitions'] = $this->admin_model->pending_requisitions();
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Approved requests - listing
+    public function approved_requests(){
+        $data['title'] = 'Approved Requests | Admin & Procurement';
+        $data['body'] = 'admin/approved-requests';
+        $data['approved_requisitions'] = $this->admin_model->approved_requisitions();
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Rejected requests - listing
+    public function rejected_requests(){
+        $data['title'] = 'Rejected Requests | Admin & Procurement';
+        $data['body'] = 'admin/rejected-requests';
+        $data['rejected_requisitions'] = $this->admin_model->rejected_requisitions();
+        $this->load->view('admin/commons/template', $data);
+    }
     // Request detail - Filter by ID.
     public function request_detail($id){
         if(!$this->session->userdata('username')){
@@ -68,5 +89,9 @@ class Admin extends CI_Controller{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong in request rejection. Please try again.');
             redirect('admin/request_detail/'.$id);
         }
+    }
+    // 404 page.
+    public function page_not_found(){
+        echo "We're sorry but the page you're looking for could not be found.";
     }
 }

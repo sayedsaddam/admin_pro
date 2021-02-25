@@ -35,16 +35,16 @@
       <ul class="list-group list-group-flush">
         <ul class="list-group">
           <li class="list-group-item">
-            <a class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-truck-moving"></i></a> Suppliers
+            <a href="<?= base_url('admin/suppliers'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-truck-moving"></i></a> Suppliers
           </li>
           <li class="list-group-item">
-            <a class="btn-floating btn-tw btn-sm"><i class="fas fa-warehouse"></i></a>Inventory
+            <a href="<?= base_url('admin/inventory'); ?>" class="btn-floating btn-tw btn-sm"><i class="fas fa-warehouse"></i></a>Inventory
           </li>
           <li class="list-group-item">
-            <a class="text-white btn-floating btn-li btn-sm"><i class="fas fa-users-cog"></i></a>Users
+            <a href="<?= base_url('admin/users'); ?>" class="text-white btn-floating btn-li btn-sm"><i class="fas fa-users-cog"></i></a>Users
           </li>
           <li class="list-group-item">
-            <a class="text-white btn-floating btn-slack btn-sm"><i class="fas fa-user-clock"></i></a>Requisitions
+            <a href="<?= base_url('admin/requisitions'); ?>" class="text-white btn-floating btn-slack btn-sm"><i class="fas fa-user-clock"></i></a>Requisitions
           </li>
           <li class="list-group-item">
             <a class="text-white btn-floating btn-yt btn-sm"><i class="fas fa-tachometer-alt"></i></a>Misc.
@@ -97,7 +97,7 @@
             <div class="card success-color white-text">
               <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
-                  <p class="h2-responsive font-weight-bold mt-n2 mb-0">53 %</p>
+                  <p class="h2-responsive font-weight-bold mt-n2 mb-0">53</p>
                   <p class="mb-0">Balochistan</p>
                 </div>
                 <div>
@@ -119,7 +119,7 @@
               <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
                   <p class="h2-responsive font-weight-bold mt-n2 mb-0">44</p>
-                  <p class="mb-0">KP</p>
+                  <p class="mb-0">Khyber PK</p>
                 </div>
                 <div>
                   <i class="fas fa-user-plus fa-4x text-black-40"></i>
@@ -175,7 +175,7 @@
                     Pending Requests <span class="badge badge-light"><?= $pending; ?></span>
                   </div>
                   <div class="col-lg-4 col-md-4 text-right">
-                    <a href="" class="badge badge-dark text-uppercase">view <i class="fa fa-eye"></i></a>
+                    <a href="<?= base_url('admin/pending_requests'); ?>" class="badge badge-dark text-uppercase">view <i class="fa fa-eye"></i></a>
                   </div>
                 </div>
               </div>
@@ -225,7 +225,7 @@
                     Approved Requests <span class="badge badge-light"><?= $approved; ?></span>
                   </div>
                   <div class="col-lg-4 col-md-4 text-right">
-                    <a href="" class="badge badge-dark text-uppercase">view <i class="fa fa-eye"></i></a>
+                    <a href="<?= base_url('admin/approved_requests'); ?>" class="badge badge-dark text-uppercase">view <i class="fa fa-eye"></i></a>
                   </div>
                 </div>
               </div>
@@ -275,7 +275,7 @@
                     Rejected Requests <span class="badge badge-light"><?= $rejected; ?></span>
                   </div>
                   <div class="col-lg-4 col-md-4 text-right">
-                    <a href="" class="badge badge-dark text-right text-uppercase">view <i class="fa fa-eye"></i></a>
+                    <a href="<?= base_url('admin/rejected_requests'); ?>" class="badge badge-dark text-right text-uppercase">view <i class="fa fa-eye"></i></a>
                   </div>
                 </div>
               </div>
