@@ -86,4 +86,20 @@ class Admin_model extends CI_Model{
         $this->db->update('item_requisitions', $data);
         return true;
     }
+    // Suppliers - Add new supplier
+    public function add_supplier($data){
+        $this->db->insert('suppliers', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // Get suppliers
+    public function get_suppliers(){
+        $this->db->select('id, name, email, phone, address, status, created_at');
+        $this->db->from('suppliers');
+        $this->db->where('status', 1);
+        return $this->db->get()->result();
+    }
 }

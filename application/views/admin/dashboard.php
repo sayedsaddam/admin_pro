@@ -26,7 +26,6 @@
         <h4 class="font-weight-bold orange-text mt-2">Admin Dashboard <i class="fa fa-chart-bar"></i></h4>
       </div>
     </div>
-  
   </div>
 </div>
 <div class="container-fluid my-3 py-3">
