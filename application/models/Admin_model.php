@@ -102,4 +102,10 @@ class Admin_model extends CI_Model{
         $this->db->where('status', 1);
         return $this->db->get()->result();
     }
+    // Remove supplier
+    public function delete_supplier($id){
+        $this->db->where('id', $id);
+        $this->db->delete('suppliers');
+        return true;
+    }
 }

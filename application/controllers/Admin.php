@@ -97,6 +97,32 @@ class Admin extends CI_Controller{
         $data['suppliers'] = $this->admin_model->get_suppliers();
         $this->load->view('admin/commons/template', $data);
     }
+    // Suppliers - Add new supplier
+    public function add_supplier(){
+        $data = array(
+            'name' => $this->input->post('name'),
+            'email' => $this->input->post('email'),
+            'phone' => $this->input->post('phone'),
+            'address' => $this->input->post('address')
+        );
+        if($this->admin_model->add_supplier($data)){
+            $this->session->set_flashdata('success', '<strong>Success! /strong>Supplier added successfully.');
+            redirect('admin/suppliers');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/suppliers');
+        }
+    }
+    // Suppliers - Remove supplier
+    public function delete_supplier($id){
+        if($this->admin_model->delete_supplier($id)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Supplier removal was successful.');
+            redirect('admin/suppliers');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/suppliers');
+        }
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";
