@@ -108,4 +108,25 @@ class Admin_model extends CI_Model{
         $this->db->delete('suppliers');
         return true;
     }
+    // Inventory - Add inventory.
+    public function add_inventory($data){
+        $this->db->insert('inventory', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // Inventory - Get inventory.
+    public function get_inventory(){
+        $this->db->select('id, item_name, item_desc, unit_price, item_qty, item_category, created_at');
+        $this->db->from('inventory');
+        return $this->db->get()->result();
+    }
+    // Remove inventory.
+    public function delete_inventory($id){
+        $this->db->where('id', $id);
+        $this->db->delete('inventory');
+        return true;
+    }
 }

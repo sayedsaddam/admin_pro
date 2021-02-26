@@ -9,6 +9,9 @@ class Admin extends CI_Controller{
         $this->load->model('login_model');
         $this->load->model('admin_model');
         $this->load->model('user_model');
+        if(!$this->session->userdata('username')){
+            redirect('');
+        }
     }
     // Load the dashboard.
     public function index(){
@@ -121,6 +124,40 @@ class Admin extends CI_Controller{
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
             redirect('admin/suppliers');
+        }
+    }
+    // Inventory - Go to inventory page.
+    public function inventory(){
+        $data['title'] = 'Inventory | Admin & Procurement';
+        $data['body'] = 'admin/inventory';
+        $data['inventory'] = $this->admin_model->get_inventory();
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Inventory - Add inventory.
+    public function add_inventory(){
+        $data = array(
+            'item_name' => $this->input->post('item_name'),
+            'item_desc' => $this->input->post('item_desc'),
+            'unit_price' => $this->input->post('unit_price'),
+            'item_qty' => $this->input->post('item_qty'),
+            'item_category' => $this->input->post('item_cat')
+        );
+        if($this->admin_model->add_inventory($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Inventory was added successfully');
+            redirect('admin/inventory');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/inventory');
+        }
+    }
+    // Inventory - Remove inventory
+    public function delete_inventory($id){
+        if($this->admin_model->delete_inventory()($id)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Inventory removal was successful.');
+            redirect('admin/inventory');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/inventory');
         }
     }
     // 404 page.
