@@ -160,6 +160,23 @@ class Admin extends CI_Controller{
             redirect('admin/inventory');
         }
     }
+    // Users - Go to users page where the users will be listed.
+    public function users(){
+        $data['title'] = 'Users | Admin & Procurement';
+        $data['body'] = 'admin/users';
+        $data['users'] = $this->admin_model->get_users();
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Users - Remove user.
+    public function delete_user($id){
+        if($this->admin_model->delete_user()($id)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>User removal was successful.');
+            redirect('admin/users');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/users');
+        }
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";

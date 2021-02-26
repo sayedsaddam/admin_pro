@@ -129,4 +129,16 @@ class Admin_model extends CI_Model{
         $this->db->delete('inventory');
         return true;
     }
+    // Users - Get all users
+    public function get_users(){
+        $this->db->select('id, fullname, email, username, location, user_role, created_at');
+        $this->db->from('users');
+        return $this->db->get()->result();
+    }
+    // Users = Remove users.
+    public function delete_user($id){
+        $this->db->where('id', $id);
+        $this->db->delete('users');
+        return true;
+    }
 }
