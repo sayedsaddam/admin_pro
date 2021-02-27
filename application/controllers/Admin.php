@@ -208,6 +208,16 @@ class Admin extends CI_Controller{
         $data['invoice'] = $this->admin_model->print_invoice($id);
         $this->load->view('admin/commons/template', $data);
     }
+    // Invoices - Remove invoices
+    public function delete_invoice($id){
+        if($this->admin_model->delete_invoice()($id)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Invoice removal was successful.');
+            redirect('admin/invoices');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/invoices');
+        }
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";

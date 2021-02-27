@@ -163,4 +163,10 @@ class Admin_model extends CI_Model{
         $this->db->where('id', $id);
         return $this->db->get()->row();
     }
+    // Invoices - Remove invoice
+    public function delete_invoice($id){
+        $this->db->where('id', $id);
+        $this->db->delete('invoices');
+        return true;
+    }
 }
