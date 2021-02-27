@@ -46,7 +46,7 @@
             <a href="<?= base_url('admin/requisitions'); ?>" class="text-white btn-floating btn-slack btn-sm"><i class="fas fa-user-clock"></i></a>Requisitions
           </li>
           <li class="list-group-item">
-            <a class="text-white btn-floating btn-yt btn-sm"><i class="fas fa-tachometer-alt"></i></a>Misc.
+            <a class="text-white btn-floating btn-yt btn-sm"><i class="fas fa-book"></i></a>Asset Register
           </li>
         </ul>
       </ul>
