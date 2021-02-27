@@ -18,15 +18,15 @@ class User_model extends CI_Model{
     }
     // Count pending requisitions
     public function total_pending(){
-        return $this->db->from('item_requisitions')->where('status', 0)->count_all_results();
+        return $this->db->from('item_requisitions')->where(array('status' => 0, 'requested_by' => $this->session->userdata('id')))->count_all_results();
     }
     // Count approved requisitions
     public function total_approved(){
-        return $this->db->from('item_requisitions')->where('status', 1)->count_all_results();
+        return $this->db->from('item_requisitions')->where(array('status' => 1, 'requested_by' => $this->session->userdata('id')))->count_all_results();
     }
     // Count rejected requisitions
     public function total_rejected(){
-        return $this->db->from('item_requisitions')->where('status', 2)->count_all_results();
+        return $this->db->from('item_requisitions')->where(array('status' => 2, 'requested_by' => $this->session->userdata('id')))->count_all_results();
     }
     // Get all requisition against requester.
     public function get_requisitions(){
