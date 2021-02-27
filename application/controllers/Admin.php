@@ -177,6 +177,37 @@ class Admin extends CI_Controller{
             redirect('admin/users');
         }
     }
+    // Invoices - Go to the invoices list page.
+    public function invoices(){
+        $data['title'] = 'Invoices | Admin & Procurement';
+        $data['body'] = 'admin/invoices';
+        $data['invoices'] = $this->admin_model->get_invoices();
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Invoices - Add invoice into the database.
+    public function add_invoice(){
+        $data = array(
+            'inv_no' => $this->input->post('inv_no'),
+            'vendor' => $this->input->post('vendor_name'),
+            'item' => $this->input->post('item_name'),
+            'amount' => $this->input->post('amount'),
+            'inv_desc' => $this->input->post('inv_desc')
+        );
+        if($this->admin_model->add_invoice($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Adding invoice was successful.');
+            redirect('admin/invoices');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/invoices');
+        }
+    }
+    // Invoices - print invoice
+    public function print_invoice($id){
+        $data['title'] = 'Print Invoice | Admin & Procurement';
+        $data['body'] = 'admin/print_invoice';
+        $data['invoice'] = $this->admin_model->print_invoice($id);
+        $this->load->view('admin/commons/template', $data);
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";

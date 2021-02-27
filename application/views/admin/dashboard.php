@@ -43,7 +43,7 @@
             <a href="<?= base_url('admin/users'); ?>" class="text-white btn-floating btn-li btn-sm"><i class="fas fa-users-cog"></i></a>Users
           </li>
           <li class="list-group-item">
-            <a href="<?= base_url('admin/requisitions'); ?>" class="text-white btn-floating btn-slack btn-sm"><i class="fas fa-user-clock"></i></a>Requisitions
+            <a href="<?= base_url('admin/invoices'); ?>" class="text-white btn-floating btn-slack btn-sm"><i class="fas fa-receipt"></i></a>Invoices
           </li>
           <li class="list-group-item">
             <a class="text-white btn-floating btn-yt btn-sm"><i class="fas fa-book"></i></a>Asset Register

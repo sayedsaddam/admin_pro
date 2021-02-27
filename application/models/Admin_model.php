@@ -141,4 +141,26 @@ class Admin_model extends CI_Model{
         $this->db->delete('users');
         return true;
     }
+    // Invoices - Add invoice
+    public function add_invoice($data){
+        $this->db->insert('invoices', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // Invoices - Get invoices
+    public function get_invoices(){
+        $this->db->select('id, inv_no, vendor, item, amount, inv_desc, created_at');
+        $this->db->from('invoices');
+        return $this->db->get()->result();
+    }
+    // Invoices - print invoice
+    public function print_invoice($id){
+        $this->db->select('id, inv_no, vendor, item, amount, inv_desc, created_at');
+        $this->db->from('invoices');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
+    }
 }
