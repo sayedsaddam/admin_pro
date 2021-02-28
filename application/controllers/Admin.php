@@ -192,6 +192,7 @@ class Admin extends CI_Controller{
     public function add_invoice(){
         $data = array(
             'inv_no' => $this->input->post('inv_no'),
+            'inv_date' => date('Y-m-d', strtotime($this->input->post('inv_date'))),
             'vendor' => $this->input->post('vendor_name'),
             'region' => $this->input->post('region'),
             'item' => $this->input->post('item_name'),

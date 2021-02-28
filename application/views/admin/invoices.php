@@ -88,46 +88,51 @@
       <div class="modal-body mx-3">
         <form action="<?=base_url('admin/add_invoice');?>" method="post" class="md-form">
             <div class="md-form mb-5">
-                <input name="inv_no" type="text" id="form34" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form34">Invoice number</label>
+              <input name="inv_no" type="text" id="form34" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="form34">Invoice number</label>
             </div>
 
             <div class="md-form mb-5">
-                <select name="vendor_name" id="selectListVendors" class="browser-default custom-select">
-                  <option value="" disabled selected>-- Select vendor/supplier --</option>
-                  <?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
-                    <option value="<?=$sup->name;?>"><?=$sup->name;?></option>
-                  <?php endforeach; endif; ?>
-                </select>
+              <input name="inv_date" type="date" id="form34" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="form34">Invoice date</label>
             </div>
 
             <div class="md-form mb-5">
-                <select name="region" class="browser-default custom-select" id="selectList">
-                  <option value="" disabled selected>--Select region--</option>
-                  <option value="islamabad">Islamabad</option>
-                  <option value="balochistan">Balochistan</option>
-                  <option value="khyber PK">Khyber PK</option>
-                  <option value="sindh">Sindh</option>
-                </select>
+              <select name="vendor_name" id="selectListVendors" class="browser-default custom-select">
+                <option value="" disabled selected>-- Select vendor/supplier --</option>
+                <?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
+                  <option value="<?=$sup->name;?>"><?=$sup->name;?></option>
+                <?php endforeach; endif; ?>
+              </select>
             </div>
 
             <div class="md-form mb-5">
-                <input name="item_name" type="text" id="form29" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form29">Item</label>
+              <select name="region" class="browser-default custom-select" id="selectList">
+                <option value="" disabled selected>--Select region--</option>
+                <option value="islamabad">Islamabad</option>
+                <option value="balochistan">Balochistan</option>
+                <option value="khyber PK">Khyber PK</option>
+                <option value="sindh">Sindh</option>
+              </select>
             </div>
 
             <div class="md-form mb-5">
-                <input name="amount" type="number" id="form32" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form32">Amount</label>
+              <input name="item_name" type="text" id="form29" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="form29">Item</label>
+            </div>
+
+            <div class="md-form mb-5">
+              <input name="amount" type="number" id="form32" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="form32">Amount</label>
             </div>
 
             <div class="md-form">
-                <textarea name="inv_desc" type="text" class="md-textarea form-control" rows="3"></textarea>
-                <label data-error="wrong" data-success="right" for="form8">Description</label>
+              <textarea name="inv_desc" type="text" class="md-textarea form-control" rows="3"></textarea>
+              <label data-error="wrong" data-success="right" for="form8">Description</label>
             </div>
 
             <div class="md-form mb-5">
-                <input type="submit" class="btn btn-primary" value="Save Changes">
+              <input type="submit" class="btn btn-primary" value="Save Changes">
             </div>
         </form>
       </div>
