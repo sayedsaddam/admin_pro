@@ -93,8 +93,12 @@
             </div>
 
             <div class="md-form mb-5">
-                <input name="vendor_name" type="text" id="form34" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form34">Vendor name</label>
+                <select name="vendor_name" id="selectListVendors" class="browser-default custom-select">
+                  <option value="" disabled selected>-- Select vendor/supplier --</option>
+                  <?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
+                    <option value="<?=$sup->name;?>"><?=$sup->name;?></option>
+                  <?php endforeach; endif; ?>
+                </select>
             </div>
 
             <div class="md-form mb-5">

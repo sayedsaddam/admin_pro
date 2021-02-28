@@ -183,6 +183,7 @@ class Admin extends CI_Controller{
     public function invoices(){
         $data['title'] = 'Invoices | Admin & Procurement';
         $data['body'] = 'admin/invoices';
+        $data['suppliers'] = $this->admin_model->get_suppliers();
         $data['invoices'] = $this->admin_model->get_invoices();
         $this->load->view('admin/commons/template', $data);
     }
