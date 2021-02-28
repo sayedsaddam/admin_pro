@@ -57,12 +57,20 @@
                             <p><?=$invoice->inv_desc;?></p>
                         </div>
                     </div>
-                    <div class="row mb-5">
+                    <div class="row">
                         <div class="col-md-6">
-                            <p>Date</p>
+                            <p>Invoice Date</p>
                         </div>
                         <div class="col-md-6">
-                            <p><?=date('F d, Y', strtotime($invoice->inv_no));?></p>
+                            <p><?=date('F d, Y', strtotime($invoice->inv_date));?></p>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <p>Entry Date</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><?=date('F d, Y', strtotime($invoice->created_at));?></p>
                         </div>
                     </div>
                     <!-- Button -->

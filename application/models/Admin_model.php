@@ -164,13 +164,13 @@ class Admin_model extends CI_Model{
     }
     // Invoices - Get invoices
     public function get_invoices(){
-        $this->db->select('id, inv_no, vendor, region, item, amount, inv_desc, created_at');
+        $this->db->select('id, inv_no, inv_date, vendor, region, item, amount, inv_desc, created_at');
         $this->db->from('invoices');
         return $this->db->get()->result();
     }
     // Invoices - print invoice
     public function print_invoice($id){
-        $this->db->select('id, inv_no, vendor, region, item, amount, inv_desc, created_at');
+        $this->db->select('id, inv_no, inv_date, vendor, region, item, amount, inv_desc, created_at');
         $this->db->from('invoices');
         $this->db->where('id', $id);
         return $this->db->get()->row();
