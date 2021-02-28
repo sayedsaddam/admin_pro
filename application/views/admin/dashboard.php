@@ -75,7 +75,7 @@
             <div class="card primary-color white-text">
               <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
-                  <p class="h2-responsive font-weight-bold mt-n2 mb-0">150</p>
+                  <p class="h2-responsive font-weight-bold mt-n2 mb-0"><?=number_format($total_isbd->isbd_total);?></p>
                   <p class="mb-0">Islamabad</p>
                 </div>
                 <div>
@@ -96,7 +96,7 @@
             <div class="card success-color white-text">
               <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
-                  <p class="h2-responsive font-weight-bold mt-n2 mb-0">53</p>
+                  <p class="h2-responsive font-weight-bold mt-n2 mb-0"><?=number_format($total_bln->bln_total);?></p>
                   <p class="mb-0">Balochistan</p>
                 </div>
                 <div>
@@ -117,7 +117,7 @@
             <div class="card light-blue lighten-1 white-text">
               <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
-                  <p class="h2-responsive font-weight-bold mt-n2 mb-0">44</p>
+                  <p class="h2-responsive font-weight-bold mt-n2 mb-0"><?=number_format($total_kp->kp_total);?></p>
                   <p class="mb-0">Khyber PK</p>
                 </div>
                 <div>
@@ -138,8 +138,8 @@
             <div class="card red accent-2 white-text">
               <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
-                  <p class="h2-responsive font-weight-bold mt-n2 mb-0">65</p>
-                  <p class="mb-0">Punjab</p>
+                  <p class="h2-responsive font-weight-bold mt-n2 mb-0"><?=number_format($total_sindh->sindh_total);?></p>
+                  <p class="mb-0">Sindh</p>
                 </div>
                 <div>
                   <i class="fas fa-chart-pie fa-4x text-black-40"></i>

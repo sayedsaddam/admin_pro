@@ -74,6 +74,18 @@ class Admin_model extends CI_Model{
         $this->db->where('item_requisitions.id', $id);
         return $this->db->get()->row();
     }
+    // Count pending requisitions
+    public function total_pending(){
+        return $this->db->from('item_requisitions')->where(array('status' => 0))->count_all_results();
+    }
+    // Count approved requisitions
+    public function total_approved(){
+        return $this->db->from('item_requisitions')->where(array('status' => 1))->count_all_results();
+    }
+    // Count rejected requisitions
+    public function total_rejected(){
+        return $this->db->from('item_requisitions')->where(array('status' => 2))->count_all_results();
+    }
     // Approve request.
     public function approve_request($id, $data){
         $this->db->where('id', $id);
@@ -168,5 +180,33 @@ class Admin_model extends CI_Model{
         $this->db->where('id', $id);
         $this->db->delete('invoices');
         return true;
+    }
+    // Expenses - region based - Islamabad
+    public function expenses_isbd(){
+        $this->db->select('SUM(amount) as isbd_total');
+        $this->db->from('invoices');
+        $this->db->where('region', 'islamabad');
+        return $this->db->get()->row();
+    }
+    // Expenses - region based - Balochistan
+    public function expenses_bln(){
+        $this->db->select('SUM(amount) as bln_total');
+        $this->db->from('invoices');
+        $this->db->where('region', 'balochistan');
+        return $this->db->get()->row();
+    }
+    // Expenses - region based - Khyber PK
+    public function expenses_kp(){
+        $this->db->select('SUM(amount) as kp_total');
+        $this->db->from('invoices');
+        $this->db->where('region', 'khyber PK');
+        return $this->db->get()->row();
+    }
+    // Expenses - region based - Sindh
+    public function expenses_sindh(){
+        $this->db->select('SUM(amount) as sindh_total');
+        $this->db->from('invoices');
+        $this->db->where('region', 'sindh');
+        return $this->db->get()->row();
     }
 }

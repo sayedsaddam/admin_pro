@@ -15,14 +15,15 @@ class Admin extends CI_Controller{
     }
     // Load the dashboard.
     public function index(){
-        if(!$this->session->userdata('username')){
-            redirect('');
-        }
         $data['title'] = 'Home | Admin & Procurement';
         $data['body'] = 'admin/dashboard';
-        $data['pending'] = $this->user_model->total_pending();
-        $data['approved'] = $this->user_model->total_approved();
-        $data['rejected'] = $this->user_model->total_rejected();
+        $data['total_isbd'] = $this->admin_model->expenses_isbd();
+        $data['total_bln'] = $this->admin_model->expenses_bln();
+        $data['total_kp'] = $this->admin_model->expenses_kp();
+        $data['total_sindh'] = $this->admin_model->expenses_sindh();
+        $data['pending'] = $this->admin_model->total_pending();
+        $data['approved'] = $this->admin_model->total_approved();
+        $data['rejected'] = $this->admin_model->total_rejected();
         $data['pending_requisitions'] = $this->admin_model->pending_requisitions();
         $data['approved_requisitions'] = $this->admin_model->approved_requisitions();
         $data['rejected_requisitions'] = $this->admin_model->rejected_requisitions();
