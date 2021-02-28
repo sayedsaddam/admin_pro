@@ -42,9 +42,11 @@
             <thead>
             <tr>
                 <th class="font-weight-bold">ID</th>
-                <th class="font-weight-bold">Supplier Name</th>
-                <th class="font-weight-bold">Supplier Email</th>
-                <th class="font-weight-bold">Supplier Phone</th>
+                <th class="font-weight-bold">Name</th>
+                <th class="font-weight-bold">Email</th>
+                <th class="font-weight-bold">Phone</th>
+                <th class="font-weight-bold">Region</th>
+                <th class="font-weight-bold">Category</th>
                 <th class="font-weight-bold">Status</th>
                 <th class="font-weight-bold">Date</th>
                 <th class="font-weight-bold">Action</th>
@@ -57,6 +59,8 @@
                 <td><?= $sup->name; ?></td>
                 <td><?= ucfirst($sup->email); ?></td>
                 <td><?= ucfirst($sup->phone); ?></td>
+                <td><?= ucfirst($sup->region); ?></td>
+                <td><?= ucfirst($sup->category); ?></td>
                 <td>
                     <?php if($sup->status == 1): ?>
                         <span class="badge badge-success">Active</span>
@@ -92,27 +96,50 @@
       <div class="modal-body mx-3">
         <form action="<?=base_url('admin/add_supplier');?>" method="post" class="md-form">
             <div class="md-form mb-5">
-                <input name="name" type="text" id="form34" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form34">Supplier name</label>
+              <input name="name" type="text" id="form34" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="form34">Supplier name</label>
             </div>
 
             <div class="md-form mb-5">
-                <input name="email" type="email" id="form29" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form29">Supplier email</label>
+              <select name="category" id="selectListCat" class="browser-default custom-select">
+                <option value="" disabled selected>--Select category--</option>
+                <option value="hotel">Hotel</option>
+                <option value="travel">Travel</option>
+                <option value="stationary">Stationary</option>
+                <option value="computers">Computers</option>
+                <option value="communications">Commnunications</option>
+                <option value="furnitures">Furnitures</option>
+                <option value="others">Others</option>
+              </select>
             </div>
 
             <div class="md-form mb-5">
-                <input name="phone" type="number" id="form32" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
+              <input name="email" type="email" id="form29" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="form29">Supplier email</label>
+            </div>
+
+            <div class="md-form mb-5">
+              <input name="phone" type="number" id="form32" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
+            </div>
+
+            <div class="md-form mb-5">
+              <select name="region" id="selectListRegion" class="browser-default custom-select">
+                <option value="" disabled selected>--Select region--</option>
+                <option value="islamabad">Islamabad</option>
+                <option value="balochistan">Balochistan</option>
+                <option value="khyber PK">Khyber PK</option>
+                <option value="sindh">Sindh</option>
+              </select>
             </div>
 
             <div class="md-form">
-                <textarea name="address" type="text" class="md-textarea form-control" rows="3"></textarea>
-                <label data-error="wrong" data-success="right" for="form8">Supplier Address</label>
+              <textarea name="address" type="text" class="md-textarea form-control" rows="3"></textarea>
+              <label data-error="wrong" data-success="right" for="form8">Supplier Address</label>
             </div>
 
             <div class="md-form mb-5">
-                <input type="submit" class="btn btn-primary" value="Save Changes">
+              <input type="submit" class="btn btn-primary" value="Save Changes">
             </div>
         </form>
       </div>

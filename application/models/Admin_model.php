@@ -97,7 +97,7 @@ class Admin_model extends CI_Model{
     }
     // Get suppliers
     public function get_suppliers(){
-        $this->db->select('id, name, email, phone, address, status, created_at');
+        $this->db->select('id, name, category, email, phone, region, address, status, created_at');
         $this->db->from('suppliers');
         $this->db->where('status', 1);
         return $this->db->get()->result();

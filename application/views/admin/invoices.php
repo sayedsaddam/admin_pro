@@ -98,7 +98,7 @@
             </div>
 
             <div class="md-form mb-5">
-                <select name="" class="browser-default custom-select" id="selectList">
+                <select name="region" class="browser-default custom-select" id="selectList">
                   <option value="" disabled selected>--Select region--</option>
                   <option value="islamabad">Islamabad</option>
                   <option value="balochistan">Balochistan</option>

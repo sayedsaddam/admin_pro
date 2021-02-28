@@ -104,8 +104,10 @@ class Admin extends CI_Controller{
     public function add_supplier(){
         $data = array(
             'name' => $this->input->post('name'),
+            'category' => $this->input->post('category'),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
+            'region' => $this->input->post('region'),
             'address' => $this->input->post('address')
         );
         if($this->admin_model->add_supplier($data)){
@@ -189,6 +191,7 @@ class Admin extends CI_Controller{
         $data = array(
             'inv_no' => $this->input->post('inv_no'),
             'vendor' => $this->input->post('vendor_name'),
+            'region' => $this->input->post('region'),
             'item' => $this->input->post('item_name'),
             'amount' => $this->input->post('amount'),
             'inv_desc' => $this->input->post('inv_desc')
