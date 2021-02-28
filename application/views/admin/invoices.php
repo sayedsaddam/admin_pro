@@ -44,6 +44,7 @@
                 <th class="font-weight-bold">ID</th>
                 <th class="font-weight-bold">Inv No.</th>
                 <th class="font-weight-bold">Vendor</th>
+                <th class="font-weight-bold">Region</th>
                 <th class="font-weight-bold">Item</th>
                 <th class="font-weight-bold">Amount</th>
                 <th class="font-weight-bold">Date</th>
@@ -56,6 +57,7 @@
                 <td><?= 'Inv-0'.$inv->id; ?></td>
                 <td><?= $inv->inv_no; ?></td>
                 <td><?= $inv->vendor; ?></td>
+                <td><?= ucfirst($inv->region); ?></td>
                 <td><?= $inv->item; ?></td>
                 <td><?= number_format($inv->amount); ?></td>
                 <td><?= date('M d, Y', strtotime($inv->created_at)); ?></td>
@@ -93,6 +95,16 @@
             <div class="md-form mb-5">
                 <input name="vendor_name" type="text" id="form34" class="form-control validate">
                 <label data-error="wrong" data-success="right" for="form34">Vendor name</label>
+            </div>
+
+            <div class="md-form mb-5">
+                <select name="" class="browser-default custom-select" id="selectList">
+                  <option value="" disabled selected>--Select region--</option>
+                  <option value="islamabad">Islamabad</option>
+                  <option value="balochistan">Balochistan</option>
+                  <option value="khyber PK">Khyber PK</option>
+                  <option value="sindh">Sindh</option>
+                </select>
             </div>
 
             <div class="md-form mb-5">

@@ -27,6 +27,14 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
+                            <p>Region</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><?=ucfirst($invoice->region);?></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
                             <p>Item Name</p>
                         </div>
                         <div class="col-md-6">
