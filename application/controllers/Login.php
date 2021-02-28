@@ -10,6 +10,9 @@ class Login extends CI_Controller{
         $this->load->model('admin_model');
     }
     public function index(){
+        if($this->session->userdata('username')){
+            redirect('admin');
+        }
         $data['title'] = 'Login | Admin & Procurement';
         $data['body'] = 'login';
         $this->load->view('admin/commons/template', $data);

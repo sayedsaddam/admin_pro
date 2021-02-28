@@ -18,62 +18,62 @@
 
     <!--Grid column-->
     <div class="col-md-6">
+      <fieldset <?php if(!$this->session->userdata('user_role') == 'admin'){ echo 'disabled'; } ?>>
+        <!-- Default form register -->
+        <form class="text-center" action="<?= base_url('login/register'); ?>" method="post">
 
-      <!-- Default form register -->
-      <form class="text-center" action="<?= base_url('login/register'); ?>" method="post">
+          <p class="h4 mb-4">Sign up | <span class="font-weight-light grey-text">Register a user.</span></p>
+          <!-- First name -->
+          <input type="text" name="fullname" id="defaultRegisterFormFullName" class="form-control mb-4" placeholder="Full name">
 
-        <p class="h4 mb-4">Sign up | <span class="font-weight-light grey-text">Register a user.</span></p>
-            <!-- First name -->
-            <input type="text" name="fullname" id="defaultRegisterFormFullName" class="form-control mb-4" placeholder="Full name">
+          <!-- E-mail -->
+          <input type="email" name="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="Email">
 
-        <!-- E-mail -->
-        <input type="email" name="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="Email">
+          <!-- username -->
+          <input type="text" name="username" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="Username">
 
-        <!-- username -->
-        <input type="text" name="username" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="Username">
+          <!-- Password -->
+          <input type="password" name="password" id="defaultRegisterFormPassword" class="form-control mb-4" placeholder="Password"
+            aria-describedby="defaultRegisterFormPasswordHelpBlock">
 
-        <!-- Password -->
-        <input type="password" name="password" id="defaultRegisterFormPassword" class="form-control mb-4" placeholder="Password"
-          aria-describedby="defaultRegisterFormPasswordHelpBlock">
-
-        <!-- Location -->
-        <select name="location" id="defaultRegisterFormLocation" class="form-control mb-4">
-            <option value="">Location</option>
+          <!-- Location -->
+          <select name="location" id="defaultRegisterFormLocation" class="browser-default custom-select mb-4">
+            <option value="" disabled selected>Location</option>
             <option value="islamabad">Islamabad</option>
             <option value="kp">KP</option>
             <option value="balochistan">Balochistan</option>
             <option value="punjab">Punjab</option>
-        </select>
+          </select>
 
-        <!-- User role -->
-        <select name="user_role" id="defaultRegisterUserRoleLocation" class="form-control mb-4">
-            <option value="">User Role</option>
+          <!-- User role -->
+          <select name="user_role" id="defaultRegisterUserRoleLocation" class="browser-default custom-select mb-4">
+            <option value="" disabled selected>User Role</option>
             <option value="user">User</option>
             <option value="admin">Admin</option>
-        </select>
+          </select>
 
-        <!-- Sign up button -->
-        <button class="btn btn-info my-4" type="submit">Sign up</button> already a member?
-        <a href="<?= base_url('login'); ?>" class="btn btn-success my-4" type="submit">Login</a>
-        <!-- Social register -->
-        <p>or sign up with:</p>
+          <!-- Sign up button -->
+          <button class="btn btn-info my-4" type="submit">Sign up</button> already a member?
+          <a href="<?= base_url('login'); ?>" class="btn btn-success my-4" type="submit">Login</a>
+          <!-- Social register -->
+          <p>or sign up with:</p>
 
             <a href="#" class="mx-1" role="button"><i class="fab fa-facebook-f"></i></a>
             <a href="#" class="mx-1" role="button"><i class="fab fa-twitter"></i></a>
             <a href="#" class="mx-1" role="button"><i class="fab fa-linkedin-in"></i></a>
             <a href="#" class="mx-1" role="button"><i class="fab fa-github"></i></a>
 
-        <hr>
+          <hr>
 
-        <!-- Failure message if there is any. -->
-        <?php if($failed = $this->session->flashdata('failed')): ?>
-          <div class="alert alert-danger">
-            <?php $failed; ?>
-          </div>
-        <?php else: echo "&copy; ".date('Y')." <span class='font-weight-bold text-success'>CHIP</span> Training & Consulting (Pvt.) Ltd."; endif; ?>
-      </form>
-      <!-- Default form register -->
-
+          <!-- Failure message if there is any. -->
+          <?php if($failed = $this->session->flashdata('failed')): ?>
+            <div class="alert alert-danger">
+              <?php $failed; ?>
+            </div>
+          <?php else: echo "&copy; ".date('Y')." <span class='font-weight-bold text-success'>CHIP</span> Training & Consulting (Pvt.) Ltd."; endif; ?>
+        </form>
+        <!-- Default form register -->
+      </fieldset>
     </div>
     <!--Grid column-->
 
