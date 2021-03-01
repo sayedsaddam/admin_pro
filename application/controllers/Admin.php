@@ -186,6 +186,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/invoices';
         $data['suppliers'] = $this->admin_model->get_suppliers();
         $data['invoices'] = $this->admin_model->get_invoices();
+        $data['projects'] = $this->admin_model->get_projects();
         $this->load->view('admin/commons/template', $data);
     }
     // Invoices - Add invoice into the database.
@@ -193,6 +194,7 @@ class Admin extends CI_Controller{
         $data = array(
             'inv_no' => $this->input->post('inv_no'),
             'inv_date' => date('Y-m-d', strtotime($this->input->post('inv_date'))),
+            'project' => $this->input->post('project'),
             'vendor' => $this->input->post('vendor_name'),
             'region' => $this->input->post('region'),
             'item' => $this->input->post('item_name'),

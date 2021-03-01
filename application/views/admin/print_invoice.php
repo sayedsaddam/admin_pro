@@ -19,6 +19,14 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
+                            <p>Project</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><?=$invoice->project;?></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
                             <p>Vendor Name</p>
                         </div>
                         <div class="col-md-6">

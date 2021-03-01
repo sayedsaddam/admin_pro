@@ -100,6 +100,15 @@
             </div>
 
             <div class="md-form mb-5">
+              <select name="project" class="browser-default custom-select" id="selectListProject">
+                <option value="" disabled selected>--Select project--</option>
+                <?php if(!empty($projects)): foreach($projects as $proj): ?>
+                  <option value="<?=$proj->project_name;?>"><?=$proj->project_name;?></option>
+                <?php endforeach; endif; ?>
+              </select>
+            </div>
+
+            <div class="md-form mb-5">
               <select name="vendor_name" id="selectListVendors" class="browser-default custom-select">
                 <option value="" disabled selected>-- Select vendor/supplier --</option>
                 <?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
