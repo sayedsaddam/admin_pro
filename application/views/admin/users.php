@@ -59,7 +59,7 @@
                 <td><?= $user->email; ?></td>
                 <td><?= $user->username; ?></td>
                 <td><?= $user->location; ?></td>
-                <td><?= $user->user_role; ?></td>
+                <td><?php if($user->user_role == 'user'){ echo "Staff"; }else{ echo "Adminstrator"; } ?></td>
                 <td><?= date('M d, Y', strtotime($user->created_at)); ?></td>
                 <td>
                     <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
