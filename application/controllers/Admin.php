@@ -172,7 +172,7 @@ class Admin extends CI_Controller{
     }
     // Users - Remove user.
     public function delete_user($id){
-        if($this->admin_model->delete_user()($id)){
+        if($this->admin_model->delete_user($id)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>User removal was successful.');
             redirect('admin/users');
         }else{
@@ -218,7 +218,7 @@ class Admin extends CI_Controller{
     }
     // Invoices - Remove invoices
     public function delete_invoice($id){
-        if($this->admin_model->delete_invoice()($id)){
+        if($this->admin_model->delete_invoice($id)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Invoice removal was successful.');
             redirect('admin/invoices');
         }else{
