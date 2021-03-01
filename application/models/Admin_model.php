@@ -18,6 +18,7 @@ class Admin_model extends CI_Model{
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->where('item_requisitions.status', 0);
+        $this->db->order_by('id', 'DESC');
         return $this->db->get()->result();
     }
     // Get approved requisitions.
@@ -35,6 +36,7 @@ class Admin_model extends CI_Model{
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->where('item_requisitions.status', 1);
+        $this->db->order_by('id', 'DESC');
         return $this->db->get()->result();
     }
     // Get rejected requisitions.
@@ -52,6 +54,7 @@ class Admin_model extends CI_Model{
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->where('item_requisitions.status', 2);
+        $this->db->order_by('id', 'DESC');
         return $this->db->get()->result();
     }
     // View requisition detail.
@@ -72,6 +75,7 @@ class Admin_model extends CI_Model{
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->where('item_requisitions.id', $id);
+        $this->db->order_by('id', 'DESC');
         return $this->db->get()->row();
     }
     // Count pending requisitions
@@ -112,6 +116,7 @@ class Admin_model extends CI_Model{
         $this->db->select('id, name, category, email, phone, region, address, status, created_at');
         $this->db->from('suppliers');
         $this->db->where('status', 1);
+        $this->db->order_by('id', 'DESC');
         return $this->db->get()->result();
     }
     // Remove supplier
@@ -133,6 +138,7 @@ class Admin_model extends CI_Model{
     public function get_inventory(){
         $this->db->select('id, item_name, item_desc, unit_price, item_qty, item_category, created_at');
         $this->db->from('inventory');
+        $this->db->order_by('id', 'DESC');
         return $this->db->get()->result();
     }
     // Remove inventory.
@@ -145,6 +151,7 @@ class Admin_model extends CI_Model{
     public function get_users(){
         $this->db->select('id, fullname, email, username, location, user_role, created_at');
         $this->db->from('users');
+        $this->db->order_by('id', 'DESC');
         return $this->db->get()->result();
     }
     // Users = Remove users.
@@ -166,6 +173,7 @@ class Admin_model extends CI_Model{
     public function get_invoices(){
         $this->db->select('id, inv_no, inv_date, project, vendor, region, item, amount, inv_desc, status, created_at');
         $this->db->from('invoices');
+        $this->db->order_by('id', 'DESC');
         return $this->db->get()->result();
     }
     // Invoices - print invoice
@@ -201,6 +209,7 @@ class Admin_model extends CI_Model{
         $this->db->select('id, project_name, project_desc, status, created_at');
         $this->db->from('projects');
         $this->db->where('status', 1);
+        $this->db->order_by('id', 'DESC');
         return $this->db->get()->result();
     }
     // Projects - Remove project
