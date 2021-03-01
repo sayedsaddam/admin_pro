@@ -60,7 +60,7 @@
                 <td><?= ucfirst($inv->region); ?></td>
                 <td><?= $inv->item; ?></td>
                 <td><?= number_format($inv->amount); ?></td>
-                <td><?= date('M d, Y', strtotime($inv->inv_date)); ?></td>
+                <td><?php if($inv->inv_date){ echo date('M d, Y', strtotime($inv->inv_date)); }else{ echo '--/--/--'; } ?></td>
                 <td>
                     <a href="<?=base_url('admin/print_invoice/'.$inv->id);?>"><span class="badge badge-primary"><i class="fa fa-print"></i></span></a>
                     <a href="<?=base_url('admin/delete_invoice/'.$inv->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>

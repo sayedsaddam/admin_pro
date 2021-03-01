@@ -62,7 +62,7 @@
                             <p>Invoice Date</p>
                         </div>
                         <div class="col-md-6">
-                            <p><?=date('F d, Y', strtotime($invoice->inv_date));?></p>
+                            <p><?php if($invoice->inv_date){echo date('F d, Y', strtotime($invoice->inv_date)); }else{ echo '--/--/--'; } ?></p>
                         </div>
                     </div>
                     <div class="row mb-5">
