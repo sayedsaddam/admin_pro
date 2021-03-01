@@ -46,6 +46,9 @@
             <a href="<?= base_url('admin/invoices'); ?>" class="text-white btn-floating btn-slack btn-sm"><i class="fas fa-receipt"></i></a>Invoices
           </li>
           <li class="list-group-item">
+            <a href="<?= base_url('admin/projects'); ?>" class="text-white btn-floating btn-tw btn-sm"><i class="fas fa-project-diagram"></i></a>Projects
+          </li>
+          <li class="list-group-item">
             <a class="text-white btn-floating btn-yt btn-sm"><i class="fas fa-book"></i></a>Asset Register
           </li>
         </ul>

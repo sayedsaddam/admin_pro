@@ -237,6 +237,37 @@ class Admin extends CI_Controller{
             redirect('admin/invoices');
         }
     }
+    // Projects - Go to projects page.
+    public function projects(){
+        $data['title'] = 'Projects | Admin & Procurement';
+        $data['body'] = 'admin/projects';
+        $data['projects'] = $this->admin_model->get_projects();
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Projects - Add new project
+    public function add_project(){
+        $data = array(
+            'project_name' => $this->input->post('project_name'),
+            'project_desc' => $this->input->post('project_desc')
+        );
+        if($this->admin_model->add_project($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Project was added successfully.');
+            redirect('admin/projects');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/projects');
+        }
+    }
+    // Projects - Remove project
+    public function delete_project($id){
+        if($this->admin_model->delete_project()($id)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Project removal was successful.');
+            redirect('admin/projects');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/projects');
+        }
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";

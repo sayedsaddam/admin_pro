@@ -187,32 +187,58 @@ class Admin_model extends CI_Model{
         $this->db->delete('invoices');
         return true;
     }
+    // Projects - Add project
+    public function add_project($data){
+        $this->db->insert('projects', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // Projects - Get projects.
+    public function get_projects(){
+        $this->db->select('id, project_name, project_desc, status, created_at');
+        $this->db->from('projects');
+        $this->db->where('status', 1);
+        return $this->db->get()->result();
+    }
+    // Projects - Remove project
+    public function delete_project($id){
+        $this->db->where('id', $id);
+        $this->db->delete('projects');
+        return true;
+    }
     // Expenses - region based - Islamabad
     public function expenses_isbd(){
         $this->db->select('SUM(amount) as isbd_total');
         $this->db->from('invoices');
-        $this->db->where('region', 'islamabad');
+        $this->db->where(array('region' => 'islamabad', 'status' => 1));
+        $this->db->like('created_at', date('Y-m'));
         return $this->db->get()->row();
     }
     // Expenses - region based - Balochistan
     public function expenses_bln(){
         $this->db->select('SUM(amount) as bln_total');
         $this->db->from('invoices');
-        $this->db->where('region', 'balochistan');
+        $this->db->where(array('region' => 'balochistan', 'status' => 1));
+        $this->db->like('created_at', date('Y-m'));
         return $this->db->get()->row();
     }
     // Expenses - region based - Khyber PK
     public function expenses_kp(){
         $this->db->select('SUM(amount) as kp_total');
         $this->db->from('invoices');
-        $this->db->where('region', 'khyber PK');
+        $this->db->where(array('region' => 'khyber PK', 'status' => 1));
+        $this->db->like('created_at', date('Y-m'));
         return $this->db->get()->row();
     }
     // Expenses - region based - Sindh
     public function expenses_sindh(){
         $this->db->select('SUM(amount) as sindh_total');
         $this->db->from('invoices');
-        $this->db->where('region', 'sindh');
+        $this->db->where(array('region' => 'sindh', 'status' => 1));
+        $this->db->like('created_at', date('Y-m'));
         return $this->db->get()->row();
     }
 }
