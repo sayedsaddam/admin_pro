@@ -65,6 +65,14 @@
                             <p><?php if($invoice->inv_date){echo date('F d, Y', strtotime($invoice->inv_date)); }else{ echo '--/--/--'; } ?></p>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>Invoice Status</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><?php if($invoice->status == 0){echo "<span class='badge badge-warning'>pending</span>"; }else{ echo "<span class='badge badge-success'>cleared</span>"; } ?></p>
+                        </div>
+                    </div>
                     <div class="row mb-5">
                         <div class="col-md-6">
                             <p>Entry Date</p>

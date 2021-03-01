@@ -48,6 +48,7 @@
                 <th class="font-weight-bold">Item</th>
                 <th class="font-weight-bold">Amount</th>
                 <th class="font-weight-bold">Date</th>
+                <th class="font-weight-bold">Status</th>
                 <th class="font-weight-bold">Action</th>
             </tr>
             </thead>
@@ -61,10 +62,11 @@
                 <td><?= $inv->item; ?></td>
                 <td><?= number_format($inv->amount); ?></td>
                 <td><?php if($inv->inv_date){ echo date('M d, Y', strtotime($inv->inv_date)); }else{ echo '--/--/--'; } ?></td>
+                <td><?php if($inv->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }else{ echo "<span class='badge badge-success'>cleared</span>"; } ?></td>
                 <td>
                     <a href="<?=base_url('admin/print_invoice/'.$inv->id);?>"><span class="badge badge-primary"><i class="fa fa-print"></i></span></a>
                     <a href="<?=base_url('admin/delete_invoice/'.$inv->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                    <a href="<?= base_url('admin/invoice_detail/'.$inv->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+                    <a href="<?= base_url('admin/invoice_status/'.$inv->id); ?>"><span class="badge badge-success"><i class="fa fa-check"></i></span></a>
                 </td>
                 </tr>
             <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>

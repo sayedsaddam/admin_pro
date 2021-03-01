@@ -224,6 +224,19 @@ class Admin extends CI_Controller{
             redirect('admin/invoices');
         }
     }
+    // Invoices - Changes invoice status to cleared
+    public function invoice_status($id){
+        $data = array(
+            'status' => 1
+        );
+        if($this->admin_model->update_status($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Invoice status change was successful.');
+            redirect('admin/invoices');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/invoices');
+        }
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";
