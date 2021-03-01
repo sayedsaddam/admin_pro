@@ -214,7 +214,7 @@ class Admin_model extends CI_Model{
         $this->db->select('SUM(amount) as isbd_total');
         $this->db->from('invoices');
         $this->db->where(array('region' => 'islamabad', 'status' => 1));
-        $this->db->like('created_at', date('Y-m'));
+        $this->db->like('inv_date', date('Y-m'));
         return $this->db->get()->row();
     }
     // Expenses - region based - Balochistan
@@ -222,7 +222,7 @@ class Admin_model extends CI_Model{
         $this->db->select('SUM(amount) as bln_total');
         $this->db->from('invoices');
         $this->db->where(array('region' => 'balochistan', 'status' => 1));
-        $this->db->like('created_at', date('Y-m'));
+        $this->db->like('inv_date', date('Y-m'));
         return $this->db->get()->row();
     }
     // Expenses - region based - Khyber PK
@@ -230,7 +230,7 @@ class Admin_model extends CI_Model{
         $this->db->select('SUM(amount) as kp_total');
         $this->db->from('invoices');
         $this->db->where(array('region' => 'khyber PK', 'status' => 1));
-        $this->db->like('created_at', date('Y-m'));
+        $this->db->like('inv_date', date('Y-m'));
         return $this->db->get()->row();
     }
     // Expenses - region based - Sindh
@@ -238,7 +238,7 @@ class Admin_model extends CI_Model{
         $this->db->select('SUM(amount) as sindh_total');
         $this->db->from('invoices');
         $this->db->where(array('region' => 'sindh', 'status' => 1));
-        $this->db->like('created_at', date('Y-m'));
+        $this->db->like('inv_date', date('Y-m'));
         return $this->db->get()->row();
     }
 }
