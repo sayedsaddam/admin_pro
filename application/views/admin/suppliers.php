@@ -70,7 +70,7 @@
                 </td>
                 <td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
                 <td>
-                    <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                    <a data-id="<?= $sup->id; ?>" class="supplier_info"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                     <a href="<?=base_url('admin/delete_supplier/'.$sup->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                     <a href="<?= base_url('admin/supplier_detail/'.$sup->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                 </td>
@@ -149,3 +149,92 @@
     </div>
   </div>
 </div>
+
+<!-- Edit supplier -->
+<div class="modal fade" id="edit_supplier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 font-weight-bold">Add Supplier</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body edit-modal-body mx-3">
+        <form action="<?=base_url('admin/add_supplier');?>" method="post" class="md-form">
+            <div class="md-form mb-5">
+              <input name="name" type="text" id="form34" class="form-control validate" value="">
+              <label data-error="wrong" data-success="right" for="form34">Supplier name</label>
+            </div>
+
+            <div class="md-form mb-5">
+              <select name="category" id="selectListCat" class="browser-default custom-select">
+                <option value="" disabled selected>--Select category--</option>
+                <option value="hotel">Hotel</option>
+                <option value="travel">Travel</option>
+                <option value="stationary">Stationary</option>
+                <option value="computers">Computers</option>
+                <option value="communications">Commnunications</option>
+                <option value="furnitures">Furnitures</option>
+                <option value="others">Others</option>
+              </select>
+            </div>
+
+            <div class="md-form mb-5">
+              <input name="email" type="email" id="form29" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="form29">Supplier email</label>
+            </div>
+
+            <div class="md-form mb-5">
+              <input name="phone" type="number" id="form32" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
+            </div>
+
+            <div class="md-form mb-5">
+              <select name="region" id="selectListRegion" class="browser-default custom-select">
+                <option value="" disabled selected>--Select region--</option>
+                <option value="islamabad">Islamabad</option>
+                <option value="balochistan">Balochistan</option>
+                <option value="khyber PK">Khyber PK</option>
+                <option value="sindh">Sindh</option>
+              </select>
+            </div>
+
+            <div class="md-form">
+              <textarea name="address" type="text" class="md-textarea form-control" rows="3"></textarea>
+              <label data-error="wrong" data-success="right" for="form8">Supplier Address</label>
+            </div>
+
+            <div class="md-form mb-5">
+              <input type="submit" class="btn btn-primary" value="Save Changes">
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-right">
+        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $('.supplier_info').click(function(){  
+    var supplier_id = $(this).data('id');
+    // AJAX request
+    $.ajax({
+    url: '<?= base_url('admin/edit_supplier/'); ?>' + supplier_id,
+    type: 'post',
+    data: {supplier_id: supplier_id},
+      success: function(response){ 
+        // Add response in Modal body
+        console.log(response);
+        $('.edit-modal-body').html(response);
+        // Display Modal
+        $('#edit_supplier').modal('show'); 
+      }
+    });
+  });
+});
+</script>

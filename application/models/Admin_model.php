@@ -125,6 +125,13 @@ class Admin_model extends CI_Model{
         $this->db->delete('suppliers');
         return true;
     }
+    // Get supplier for edit by id
+    public function edit_supplier($id){
+        $this->db->select('id, name, category, email, phone, region, address, status, created_at');
+        $this->db->from('suppliers');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
+    }
     // Inventory - Add inventory.
     public function add_inventory($data){
         $this->db->insert('inventory', $data);

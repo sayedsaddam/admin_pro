@@ -129,6 +129,11 @@ class Admin extends CI_Controller{
             redirect('admin/suppliers');
         }
     }
+    // Get single supplier by id
+    public function edit_supplier($id){
+        $supplier = $this->admin_model->edit_supplier($id);
+        echo json_encode($supplier);
+    }
     // Inventory - Go to inventory page.
     public function inventory(){
         $data['title'] = 'Inventory | Admin & Procurement';
