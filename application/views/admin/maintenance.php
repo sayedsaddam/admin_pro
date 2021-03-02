@@ -92,6 +92,16 @@
       <div class="modal-body mx-3">
         <form action="<?=base_url('admin/add_maintenance');?>" method="post" class="md-form">
             <div class="md-form mb-5">
+              <select name="region" class="browser-default custom-select" id="selectList">
+                <option value="" disabled selected>--Select region--</option>
+                <option value="islamabad">Islamabad</option>
+                <option value="balochistan">Balochistan</option>
+                <option value="khyber PK">Khyber PK</option>
+                <option value="sindh">Sindh</option>
+              </select>
+            </div>
+
+            <div class="md-form mb-5">
               <input name="maint_date" type="date" id="form34" class="form-control validate">
               <label data-error="wrong" data-success="right" for="form34">Date</label>
             </div>

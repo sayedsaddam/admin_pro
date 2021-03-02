@@ -280,6 +280,7 @@ class Admin extends CI_Controller{
     // Maintenance - Add new record
     public function add_maintenance(){
         $data = array(
+            'region' => $this->input->post('maint_region'),
             'maint_date' => $this->input->post('maint_date'),
             'maint_cat' => $this->input->post('maint_cat'),
             'maint_desc' => $this->input->post('maint_desc'),
