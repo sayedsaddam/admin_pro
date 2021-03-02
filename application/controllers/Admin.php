@@ -270,6 +270,43 @@ class Admin extends CI_Controller{
             redirect('admin/projects');
         }
     }
+    // Maintenance - Office equipments
+    public function maintenance(){
+        $data['title'] = 'Maintenance | Admin & Procurement';
+        $data['body'] = 'admin/maintenance';
+        $data['maintenance_items'] = $this->admin_model->get_maint_record();
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Maintenance - Add new record
+    public function add_maintenance(){
+        $data = array(
+            'maint_date' => $this->input->post('maint_date'),
+            'maint_cat' => $this->input->post('maint_cat'),
+            'maint_desc' => $this->input->post('maint_desc'),
+            'vendor' => $this->input->post('vendor'),
+            'qty_size' => $this->input->post('qty_size'),
+            'unit_price' => $this->input->post('unit_price'),
+            'total_amount' => $this->input->post('total_amount'),
+            'maint_remarks' => $this->input->post('remarks')
+        );
+        if($this->admin_model->add_maint_record($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Maintenance record was added successfully.');
+            redirect('admin/maintenance');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/maintenance');
+        }
+    }
+    // Maintenance - Delete a record
+    public function delete_record($id){
+        if($this->admin_model->delete_record($id)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Record removal was successful.');
+            redirect('admin/maintenace');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/maintenance');
+        }
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";

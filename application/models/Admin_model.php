@@ -250,4 +250,25 @@ class Admin_model extends CI_Model{
         $this->db->like('inv_date', date('Y-m'));
         return $this->db->get()->row();
     }
+    // Equipment maintenance - Add new record
+    public function add_maint_record($data){
+        $this->db->insert('equipment_maintenance', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // Equipment maintenance - Get maintenance record
+    public function get_maint_record(){
+        $this->db->select('id, maint_date, maint_cat, maint_desc, vendor, qty_size, unit_price, total_amount, maint_remarks, created_at');
+        $this->db->from('equipment_maintenance');
+        return $this->db->get()->result();
+    }
+    // Equipment maintenance = Delete record
+    public function delete_maint_record($id){
+        $this->db->where('id', $id);
+        $this->db->delete('equipment_maintenace');
+        return true;
+    }
 }

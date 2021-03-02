@@ -69,7 +69,7 @@
                     <a href="<?= base_url('admin/invoice_status/'.$inv->id); ?>"><span class="badge badge-success"><i class="fa fa-check"></i></span></a>
                 </td>
                 </tr>
-            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
+            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
             </tbody>
         </table>
         </div>
