@@ -261,7 +261,7 @@ class Admin_model extends CI_Model{
     }
     // Equipment maintenance - Get maintenance record
     public function get_maint_record(){
-        $this->db->select('id, maint_date, maint_cat, maint_desc, vendor, qty_size, unit_price, total_amount, maint_remarks, created_at');
+        $this->db->select('id, region, maint_date, maint_cat, maint_desc, vendor, qty_size, unit_price, total_amount, maint_remarks, created_at');
         $this->db->from('equipment_maintenance');
         return $this->db->get()->result();
     }
