@@ -57,7 +57,7 @@
             <tbody>
             <?php if(!empty($maintenance_items)): foreach($maintenance_items as $item): ?>
                 <tr>
-                <td><?= 'Inv-0'.$item->id; ?></td>
+                <td><?= 'CTC-0'.$item->id; ?></td>
                 <td><?= ucfirst($item->region); ?></td>
                 <td><?= date('M d, Y', strtotime($item->maint_date)); ?></td>
                 <td><?= $item->maint_cat; ?></td>
