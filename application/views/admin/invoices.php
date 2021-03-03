@@ -36,25 +36,25 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 col-md-12">
+      <div class="col-lg-12 col-md-12">
         <table class="table table-sm">
-            <caption>List of Invoices</caption>
-            <thead>
+          <caption>List of Invoices</caption>
+          <thead>
             <tr>
-                <th class="font-weight-bold">ID</th>
-                <th class="font-weight-bold">Inv No.</th>
-                <th class="font-weight-bold">Vendor</th>
-                <th class="font-weight-bold">Region</th>
-                <th class="font-weight-bold">Item</th>
-                <th class="font-weight-bold">Amount</th>
-                <th class="font-weight-bold">Date</th>
-                <th class="font-weight-bold">Status</th>
-                <th class="font-weight-bold">Action</th>
+              <th class="font-weight-bold">ID</th>
+              <th class="font-weight-bold">Inv No.</th>
+              <th class="font-weight-bold">Vendor</th>
+              <th class="font-weight-bold">Region</th>
+              <th class="font-weight-bold">Item</th>
+              <th class="font-weight-bold">Amount</th>
+              <th class="font-weight-bold">Date</th>
+              <th class="font-weight-bold">Status</th>
+              <th class="font-weight-bold">Action</th>
             </tr>
-            </thead>
-            <tbody>
+          </thead>
+          <tbody>
             <?php if(!empty($invoices)): foreach($invoices as $inv): ?>
-                <tr>
+              <tr>
                 <td><?= 'Inv-0'.$inv->id; ?></td>
                 <td><?= $inv->inv_no; ?></td>
                 <td><?= $inv->vendor; ?></td>
@@ -68,11 +68,16 @@
                     <a href="<?=base_url('admin/delete_invoice/'.$inv->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                     <a href="<?= base_url('admin/invoice_status/'.$inv->id); ?>"><span class="badge badge-success"><i class="fa fa-check"></i></span></a>
                 </td>
-                </tr>
+              </tr>
             <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
-            </tbody>
+          </tbody>
         </table>
-        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <?= $this->pagination->create_links(); ?>
+      </div>
     </div>
 </div>
 

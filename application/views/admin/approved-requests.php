@@ -15,41 +15,46 @@
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <table class="table table-sm">
-                <caption>List of Approved Requests</caption>
-                <thead>
-                    <tr>
-                        <th class="font-weight-bold">ID</th>
-                        <th class="font-weight-bold">Requested by</th>
-                        <th class="font-weight-bold">Item Name</th>
-                        <th class="font-weight-bold">Item Qty</th>
-                        <th class="font-weight-bold">Status</th>
-                        <th class="font-weight-bold">Date</th>
-                        <th class="font-weight-bold">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if(!empty($approved_requisitions)): foreach($approved_requisitions as $app_req): ?>
-                    <tr>
-                        <th><?= 'CTC-0'.$app_req->id; ?></th>
-                        <td><?= $app_req->fullname; ?></td>
-                        <td><?= ucfirst($app_req->item_name); ?></td>
-                        <td><?= ucfirst($app_req->item_qty); ?></td>
-                        <td>
-                            <span class="badge badge-success">Approved</span>
-                        </td>
-                        <td><?= date('M d, Y', strtotime($app_req->created_at)); ?></td>
-                        <td>
-                            <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
-                          <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                          <a href="<?= base_url('admin/request_detail/'.$app_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
-                        </td>
-                    </tr>
-                    <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif;  ?>
-                </tbody>
-            </table>
-        </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <table class="table table-sm">
+        <caption>List of Approved Requests</caption>
+        <thead>
+          <tr>
+            <th class="font-weight-bold">ID</th>
+            <th class="font-weight-bold">Requested by</th>
+            <th class="font-weight-bold">Item Name</th>
+            <th class="font-weight-bold">Item Qty</th>
+            <th class="font-weight-bold">Status</th>
+            <th class="font-weight-bold">Date</th>
+            <th class="font-weight-bold">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php if(!empty($approved_requisitions)): foreach($approved_requisitions as $app_req): ?>
+          <tr>
+            <th><?= 'CTC-0'.$app_req->id; ?></th>
+            <td><?= $app_req->fullname; ?></td>
+            <td><?= ucfirst($app_req->item_name); ?></td>
+            <td><?= ucfirst($app_req->item_qty); ?></td>
+            <td>
+                <span class="badge badge-success">Approved</span>
+            </td>
+            <td><?= date('M d, Y', strtotime($app_req->created_at)); ?></td>
+            <td>
+                <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+              <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+              <a href="<?= base_url('admin/request_detail/'.$app_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+            </td>
+          </tr>
+          <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif;  ?>
+        </tbody>
+      </table>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <?= $this->pagination->create_links(); ?>
+    </div>
+  </div>
 </div>

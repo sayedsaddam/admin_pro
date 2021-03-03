@@ -264,6 +264,7 @@ class Admin extends CI_Controller{
         }
         $url = 'admin/invoices';
         $rowscount = $this->admin_model->count_invoices();
+        paginate($url, $rowscount, $limit);
         $data['title'] = 'Invoices | Admin & Procurement';
         $data['body'] = 'admin/invoices';
         $data['suppliers'] = $this->admin_model->get_suppliers($limit, $offset);

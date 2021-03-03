@@ -15,41 +15,46 @@
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <table class="table table-sm">
-                <caption>List of Rejected Requests</caption>
-                <thead>
-                    <tr>
-                        <th class="font-weight-bold">ID</th>
-                        <th class="font-weight-bold">Requested by</th>
-                        <th class="font-weight-bold">Item Name</th>
-                        <th class="font-weight-bold">Item Qty</th>
-                        <th class="font-weight-bold">Status</th>
-                        <th class="font-weight-bold">Date</th>
-                        <th class="font-weight-bold">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if(!empty($rejected_requisitions)): foreach($rejected_requisitions as $rej_req): ?>
-                    <tr>
-                        <th><?= 'CTC-0'.$rej_req->id; ?></th>
-                        <td><?= $rej_req->fullname; ?></td>
-                        <td><?= ucfirst($rej_req->item_name); ?></td>
-                        <td><?= ucfirst($rej_req->item_qty); ?></td>
-                        <td>
-                            <span class="badge badge-danger">Rejected</span>
-                        </td>
-                        <td><?= date('M d, Y', strtotime($rej_req->created_at)); ?></td>
-                        <td>
-                            <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
-                          <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                          <a href="<?= base_url('admin/request_detail/'.$rej_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
-                        </td>
-                    </tr>
-                    <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif;  ?>
-                </tbody>
-            </table>
-        </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <table class="table table-sm">
+        <caption>List of Rejected Requests</caption>
+        <thead>
+          <tr>
+            <th class="font-weight-bold">ID</th>
+            <th class="font-weight-bold">Requested by</th>
+            <th class="font-weight-bold">Item Name</th>
+            <th class="font-weight-bold">Item Qty</th>
+            <th class="font-weight-bold">Status</th>
+            <th class="font-weight-bold">Date</th>
+            <th class="font-weight-bold">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php if(!empty($rejected_requisitions)): foreach($rejected_requisitions as $rej_req): ?>
+            <tr>
+              <th><?= 'CTC-0'.$rej_req->id; ?></th>
+              <td><?= $rej_req->fullname; ?></td>
+              <td><?= ucfirst($rej_req->item_name); ?></td>
+              <td><?= ucfirst($rej_req->item_qty); ?></td>
+              <td>
+                  <span class="badge badge-danger">Rejected</span>
+              </td>
+              <td><?= date('M d, Y', strtotime($rej_req->created_at)); ?></td>
+              <td>
+                  <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                <a href="<?= base_url('admin/request_detail/'.$rej_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+              </td>
+            </tr>
+          <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif;  ?>
+        </tbody>
+      </table>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <?= $this->pagination->create_links(); ?>
+    </div>
+  </div>
 </div>
