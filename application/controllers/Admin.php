@@ -9,6 +9,7 @@ class Admin extends CI_Controller{
         $this->load->model('login_model');
         $this->load->model('admin_model');
         $this->load->model('user_model');
+        $this->load->helper('paginate');
         if(!$this->session->userdata('username')){
             redirect('');
         }
@@ -116,6 +117,9 @@ class Admin extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
+        $url = 'admin/suppliers';
+        $rowscount = $this->admin_model->count_suppliers();
+        paginate($url, $rowscount, $limit);
         $data['title'] = 'Suppliers | Admin & Procurement';
         $data['body'] = 'admin/suppliers';
         $data['suppliers'] = $this->admin_model->get_suppliers($limit, $offset);

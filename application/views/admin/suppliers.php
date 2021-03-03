@@ -36,10 +36,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 col-md-12">
+      <div class="col-lg-12 col-md-12">
         <table class="table table-sm">
-            <caption>List of Suppliers</caption>
-            <thead>
+          <caption>List of Suppliers</caption>
+          <thead>
             <tr>
                 <th class="font-weight-bold">ID</th>
                 <th class="font-weight-bold">Name</th>
@@ -51,10 +51,10 @@
                 <th class="font-weight-bold">Date</th>
                 <th class="font-weight-bold">Action</th>
             </tr>
-            </thead>
-            <tbody>
+          </thead>
+          <tbody>
             <?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
-                <tr>
+              <tr>
                 <td><?= 'SUP-0'.$sup->id; ?></td>
                 <td><?= $sup->name; ?></td>
                 <td><?= ucfirst($sup->email); ?></td>
@@ -74,11 +74,16 @@
                     <a href="<?=base_url('admin/delete_supplier/'.$sup->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                     <a href="<?= base_url('admin/supplier_detail/'.$sup->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                 </td>
-                </tr>
+              </tr>
             <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
-            </tbody>
+          </tbody>
         </table>
-        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <?= $this->pagination->create_links(); ?>
+      </div>
     </div>
 </div>
 

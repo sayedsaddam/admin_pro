@@ -114,6 +114,10 @@ class Admin_model extends CI_Model{
             return false;
         }
     }
+    // Count suppliers
+    public function count_suppliers(){
+        return $this->db->from('suppliers')->where(array('status' => 1))->count_all_results();
+    }
     // Get suppliers
     public function get_suppliers($limit, $offset){
         $this->db->select('id, name, category, email, phone, region, address, status, created_at');
