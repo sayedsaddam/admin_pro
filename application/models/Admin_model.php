@@ -311,6 +311,14 @@ class Admin_model extends CI_Model{
         $this->db->where(array('region' => 'sindh', 'status' => 1));
         return $this->db->get()->row();
     }
+    // Overall stats - Annual expenses
+    public function annual_expenses(){
+        $this->db->select('SUM(amount) as annual_expenses');
+        $this->db->from('invoices');
+        $this->db->where('status', 1);
+        $this->db->like('inv_date', date('Y'));
+        return $this->db->get()->row();
+    }
     // Equipment maintenance - Get maintenance record
     public function get_maint_record($limit, $offset){
         $this->db->select('id, region, maint_date, maint_cat, maint_desc, vendor, qty_size, unit_price, total_amount, maint_remarks, created_at');

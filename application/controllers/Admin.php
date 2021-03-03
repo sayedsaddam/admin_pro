@@ -36,6 +36,7 @@ class Admin extends CI_Controller{
         $data['bln_stats'] = $this->admin_model->overall_stats_bln();
         $data['khyber_stats'] = $this->admin_model->overall_stats_khyber();
         $data['sindh_stats'] = $this->admin_model->overall_stats_sindh();
+        $data['annual_expense'] = $this->admin_model->annual_expenses();
         $this->load->view('admin/commons/template', $data);
     }
     // Pending requests - listing
