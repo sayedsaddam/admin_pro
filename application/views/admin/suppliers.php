@@ -164,12 +164,12 @@
       <div class="modal-body edit-modal-body mx-3">
         <form action="<?=base_url('admin/add_supplier');?>" method="post" class="md-form">
             <div class="md-form mb-5">
-              <input name="name" type="text" id="form34" class="form-control validate" value="">
+              <input name="name" type="text" id="supplier_name" class="form-control validate" value="">
               <label data-error="wrong" data-success="right" for="form34">Supplier name</label>
             </div>
 
             <div class="md-form mb-5">
-              <select name="category" id="selectListCat" class="browser-default custom-select">
+              <select name="category" id="category" class="browser-default custom-select">
                 <option value="" disabled selected>--Select category--</option>
                 <option value="hotel">Hotel</option>
                 <option value="travel">Travel</option>
@@ -182,17 +182,17 @@
             </div>
 
             <div class="md-form mb-5">
-              <input name="email" type="email" id="form29" class="form-control validate">
+              <input name="email" type="email" id="supplier_email" class="form-control validate">
               <label data-error="wrong" data-success="right" for="form29">Supplier email</label>
             </div>
 
             <div class="md-form mb-5">
-              <input name="phone" type="number" id="form32" class="form-control validate">
+              <input name="phone" type="number" id="supplier_phone" class="form-control validate">
               <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
             </div>
 
             <div class="md-form mb-5">
-              <select name="region" id="selectListRegion" class="browser-default custom-select">
+              <select name="region" id="region" class="browser-default custom-select">
                 <option value="" disabled selected>--Select region--</option>
                 <option value="islamabad">Islamabad</option>
                 <option value="balochistan">Balochistan</option>
@@ -202,7 +202,7 @@
             </div>
 
             <div class="md-form">
-              <textarea name="address" type="text" class="md-textarea form-control" rows="3"></textarea>
+              <textarea name="address" id="supplier_address" type="text" class="md-textarea form-control" rows="3"></textarea>
               <label data-error="wrong" data-success="right" for="form8">Supplier Address</label>
             </div>
 
@@ -225,12 +225,18 @@ $(document).ready(function(){
     // AJAX request
     $.ajax({
     url: '<?= base_url('admin/edit_supplier/'); ?>' + supplier_id,
-    type: 'post',
+    method: 'POST',
+    dataType: 'JSON',
     data: {supplier_id: supplier_id},
       success: function(response){ 
-        // Add response in Modal body
         console.log(response);
-        $('.edit-modal-body').html(response);
+        $('#supplier_name').val(response.name);
+        $('#category').val(response.category);
+        $('#supplier_email').val(response.email);
+        $('#supplier_phone').val(response.phone);
+        $('#region').val(response.region);
+        $('#supplier_address').val(response.address);
+        // $('.edit-modal-body').html(response);
         // Display Modal
         $('#edit_supplier').modal('show'); 
       }
