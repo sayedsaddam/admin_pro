@@ -156,13 +156,14 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title w-100 font-weight-bold">Add Supplier</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Update Supplier</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body edit-modal-body mx-3">
-        <form action="<?=base_url('admin/add_supplier');?>" method="post" class="md-form">
+        <form action="<?=base_url('admin/update_supplier');?>" method="post" class="md-form">
+            <input type="hidden" name="sup_id" id="supplierId" value="">
             <div class="md-form mb-5">
               <input name="name" type="text" id="supplier_name" class="form-control validate" value="">
               <label data-error="wrong" data-success="right" for="form34">Supplier name</label>
@@ -182,12 +183,12 @@
             </div>
 
             <div class="md-form mb-5">
-              <input name="email" type="email" id="supplier_email" class="form-control validate">
+              <input name="email" type="email" id="supplier_email" class="form-control validate" value="">
               <label data-error="wrong" data-success="right" for="form29">Supplier email</label>
             </div>
 
             <div class="md-form mb-5">
-              <input name="phone" type="number" id="supplier_phone" class="form-control validate">
+              <input name="phone" type="number" id="supplier_phone" class="form-control validate" value="">
               <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
             </div>
 
@@ -202,7 +203,7 @@
             </div>
 
             <div class="md-form">
-              <textarea name="address" id="supplier_address" type="text" class="md-textarea form-control" rows="3"></textarea>
+              <textarea name="address" id="supplier_address" type="text" value="" class="md-textarea form-control" rows="3"></textarea>
               <label data-error="wrong" data-success="right" for="form8">Supplier Address</label>
             </div>
 
@@ -230,6 +231,7 @@ $(document).ready(function(){
     data: {supplier_id: supplier_id},
       success: function(response){ 
         console.log(response);
+        $('#supplierId').val(response.id);
         $('#supplier_name').val(response.name);
         $('#category').val(response.category);
         $('#supplier_email').val(response.email);

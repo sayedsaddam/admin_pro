@@ -134,6 +134,25 @@ class Admin extends CI_Controller{
         $supplier = $this->admin_model->edit_supplier($id);
         echo json_encode($supplier);
     }
+    // Update supplier
+    public function update_supplier(){
+        $id = $this->input->post('sup_id');
+        $data = array(
+            'name' => $this->input->post('name'),
+            'category' => $this->input->post('category'),
+            'email' => $this->input->post('email'),
+            'phone' => $this->input->post('phone'),
+            'region' => $this->input->post('region'),
+            'address' => $this->input->post('address')
+        );
+        if($this->admin_model->update_supplier($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Supplier update was successful.');
+            redirect('admin/suppliers');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/suppliers');
+        }
+    }
     // Inventory - Go to inventory page.
     public function inventory(){
         $data['title'] = 'Inventory | Admin & Procurement';

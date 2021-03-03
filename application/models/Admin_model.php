@@ -132,6 +132,12 @@ class Admin_model extends CI_Model{
         $this->db->where('id', $id);
         return $this->db->get()->row();
     }
+    // Update supplier by ID.
+    public function update_supplier($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('suppliers', $data);
+        return true;
+    }
     // Inventory - Add inventory.
     public function add_inventory($data){
         $this->db->insert('inventory', $data);
