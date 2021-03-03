@@ -208,7 +208,7 @@
             </div>
 
             <div class="md-form">
-              <textarea name="address" id="supplier_address" type="text" value="" class="md-textarea form-control" rows="3"></textarea>
+              <textarea name="address" id="supplier_address" type="text" class="md-textarea form-control" rows="3"></textarea>
               <label data-error="wrong" data-success="right" for="form8">Supplier Address</label>
             </div>
 
