@@ -155,6 +155,10 @@ class Admin_model extends CI_Model{
             return false;
         }
     }
+    // Count inventory.
+    public function count_inventory(){
+        return $this->db->from('inventory')->count_all_results();
+    }
     // Inventory - Get inventory.
     public function get_inventory($limit, $offset){
         $this->db->select('id, item_name, item_desc, unit_price, item_qty, item_category, created_at');
@@ -168,6 +172,10 @@ class Admin_model extends CI_Model{
         $this->db->where('id', $id);
         $this->db->delete('inventory');
         return true;
+    }
+    // Count users.
+    public function count_users(){
+        return $this->db->from('users')->count_all_results();
     }
     // Users - Get all users
     public function get_users($limit, $offset){
@@ -191,6 +199,10 @@ class Admin_model extends CI_Model{
         }else{
             return false;
         }
+    }
+    // Count invoices.
+    public function count_invoices(){
+        return $this->db->from('invoices')->count_all_results();
     }
     // Invoices - Get invoices
     public function get_invoices($limit, $offset){
@@ -318,6 +330,10 @@ class Admin_model extends CI_Model{
         $this->db->where('status', 1);
         $this->db->like('inv_date', date('Y'));
         return $this->db->get()->row();
+    }
+    // Count maintenance record.
+    public function count_maint_record(){
+        return $this->db->from('equipment_maintenance')->count_all_results();
     }
     // Equipment maintenance - Get maintenance record
     public function get_maint_record($limit, $offset){

@@ -45,6 +45,9 @@ class Admin extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
+        $url = 'admin/pending_requests';
+        $rowscount = $this->admin_model->total_pending();
+        paginate($url, $rowscount, $limit);
         $data['title'] = 'Pending Requests | Admin & Procurement';
         $data['body'] = 'admin/pending-requests';
         $data['pending_requisitions'] = $this->admin_model->pending_requisitions($limit, $offset);
@@ -56,6 +59,9 @@ class Admin extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
+        $url = 'admin/approved_requests';
+        $rowscount = $this->admin_model->total_approved();
+        paginate($url, $rowscount, $limit);
         $data['title'] = 'Approved Requests | Admin & Procurement';
         $data['body'] = 'admin/approved-requests';
         $data['approved_requisitions'] = $this->admin_model->approved_requisitions($limit, $offset);
@@ -67,6 +73,9 @@ class Admin extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
+        $url = 'admin/rejected_requests';
+        $rowscount = $this->admin_model->total_rejected();
+        paginate($url, $rowscount, $limit);
         $data['title'] = 'Rejected Requests | Admin & Procurement';
         $data['body'] = 'admin/rejected-requests';
         $data['rejected_requisitions'] = $this->admin_model->rejected_requisitions($limit, $offset);
@@ -188,6 +197,9 @@ class Admin extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
+        $url = 'admin/inventory';
+        $rowscount = $this->admin_model->count_inventory();
+        paginate($url, $rowscount, $limit);
         $data['title'] = 'Inventory | Admin & Procurement';
         $data['body'] = 'admin/inventory';
         $data['inventory'] = $this->admin_model->get_inventory($limit, $offset);
@@ -226,6 +238,9 @@ class Admin extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
+        $url = 'admin/users';
+        $rowscount = $this->admin_model->count_users();
+        paginate($url, $rowscount, $limit);
         $data['title'] = 'Users | Admin & Procurement';
         $data['body'] = 'admin/users';
         $data['users'] = $this->admin_model->get_users($limit, $offset);
@@ -247,6 +262,8 @@ class Admin extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
+        $url = 'admin/invoices';
+        $rowscount = $this->admin_model->count_invoices();
         $data['title'] = 'Invoices | Admin & Procurement';
         $data['body'] = 'admin/invoices';
         $data['suppliers'] = $this->admin_model->get_suppliers($limit, $offset);
@@ -341,6 +358,9 @@ class Admin extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
+        $url = 'admin/maintenance';
+        $rowscount = $this->admin_model->count_maint_record();
+        paginate($url, $rowscount, $limit);
         $data['title'] = 'Maintenance | Admin & Procurement';
         $data['body'] = 'admin/maintenance';
         $data['maintenance_items'] = $this->admin_model->get_maint_record($limit, $offset);
