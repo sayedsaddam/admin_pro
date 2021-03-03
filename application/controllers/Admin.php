@@ -32,6 +32,10 @@ class Admin extends CI_Controller{
         $data['pending_requisitions'] = $this->admin_model->pending_requisitions($limit, $offset);
         $data['approved_requisitions'] = $this->admin_model->approved_requisitions($limit, $offset);
         $data['rejected_requisitions'] = $this->admin_model->rejected_requisitions($limit, $offset);
+        $data['isbd_stats'] = $this->admin_model->overall_stats_isbd();
+        $data['bln_stats'] = $this->admin_model->overall_stats_bln();
+        $data['khyber_stats'] = $this->admin_model->overall_stats_khyber();
+        $data['sindh_stats'] = $this->admin_model->overall_stats_sindh();
         $this->load->view('admin/commons/template', $data);
     }
     // Pending requests - listing

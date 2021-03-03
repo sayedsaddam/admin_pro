@@ -88,7 +88,7 @@
                   <i class="fas fa-shopping-bag fa-4x text-black-40"></i>
                 </div>
               </div>
-              <a class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
+              <a data-toggle="modal" data-target="#isbd_stats" class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
             </div>
             <!-- Card -->
 
@@ -109,7 +109,7 @@
                   <i class="fas fa-chart-bar fa-4x text-black-40"></i>
                 </div>
               </div>
-              <a class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
+              <a data-toggle="modal" data-target="#bln_stats" class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
             </div>
             <!-- Card -->
 
@@ -130,7 +130,7 @@
                   <i class="fas fa-user-plus fa-4x text-black-40"></i>
                 </div>
               </div>
-              <a class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
+              <a data-toggle="modal" data-target="#kp_stats" class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
             </div>
             <!-- Card -->
 
@@ -151,7 +151,7 @@
                   <i class="fas fa-chart-pie fa-4x text-black-40"></i>
                 </div>
               </div>
-              <a class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
+              <a data-toggle="modal" data-target="#sindh_stats" class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
             </div>
             <!-- Card -->
 
@@ -324,5 +324,92 @@
     </div>
   </div>
   
+</div>
 
+<!-- Overall stats - Islamabad -->
+<div class="modal fade" id="isbd_stats" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 font-weight-bold">Overall stats - Islamabad</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center mx-3">
+        <p class="font-weight-light">Overall statistics for Islamabad - Expenses are calculated for cleared invoices only.</p>
+        <h1 class="grey-text font-weight-bold display-2"><?=number_format($isbd_stats->isbd_total);?><span class="font-weight-light display-4 blue-text"><sub>pkr</sub></span></h1>
+      </div>
+      <div class="modal-footer d-flex justify-content-right">
+        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Overall stats - Balochistan -->
+<div class="modal fade" id="bln_stats" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 font-weight-bold">Overall stats - Balochistan</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center mx-3">
+        <p class="font-weight-light">Overall statistics for Balochistan - Expenses are calculated for cleared invoices only.</p>
+        <h1 class="grey-text font-weight-bold display-2"><?=number_format($bln_stats->bln_total);?><span class="font-weight-light display-4 blue-text"><sub>pkr</sub></span></h1>
+      </div>
+      <div class="modal-footer d-flex justify-content-right">
+        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Overall stats - Khyber PK -->
+<div class="modal fade" id="kp_stats" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 font-weight-bold">Overall stats - Khyber PK</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center mx-3">
+        <p class="font-weight-light">Overall statistics for Khyber PK - Expenses are calculated for cleared invoices only.</p>
+        <h1 class="grey-text font-weight-bold display-2"><?=number_format($khyber_stats->kp_total);?><span class="font-weight-light display-4 blue-text"><sub>pkr</sub></span></h1>
+      </div>
+      <div class="modal-footer d-flex justify-content-right">
+        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Overall stats - Sindh -->
+<div class="modal fade" id="sindh_stats" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 font-weight-bold">Overall stats - Sindh</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center mx-3">
+        <p class="font-weight-light">Overall statistics for Sindh - Expenses are calculated for cleared invoices only.</p>
+        <h1 class="grey-text font-weight-bold display-2"><?=number_format($sindh_stats->sindh_total);?><span class="font-weight-light display-4 blue-text"><sub>pkr</sub></span></h1>
+      </div>
+      <div class="modal-footer d-flex justify-content-right">
+        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
 </div>

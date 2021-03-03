@@ -283,6 +283,34 @@ class Admin_model extends CI_Model{
             return false;
         }
     }
+    // Overall stats - Islamabad
+    public function overall_stats_isbd(){
+        $this->db->select('SUM(amount) as isbd_total');
+        $this->db->from('invoices');
+        $this->db->where(array('region' => 'islamabad', 'status' => 1));
+        return $this->db->get()->row();
+    }
+    // Overall stats - Balochistan
+    public function overall_stats_bln(){
+        $this->db->select('SUM(amount) as bln_total');
+        $this->db->from('invoices');
+        $this->db->where(array('region' => 'balochistan', 'status' => 1));
+        return $this->db->get()->row();
+    }
+    // Overall stats - Khyber PK
+    public function overall_stats_khyber(){
+        $this->db->select('SUM(amount) as kp_total');
+        $this->db->from('invoices');
+        $this->db->where(array('region' => 'khyber PK', 'status' => 1));
+        return $this->db->get()->row();
+    }
+    // Overall stats - Sindh
+    public function overall_stats_sindh(){
+        $this->db->select('SUM(amount) as sindh_total');
+        $this->db->from('invoices');
+        $this->db->where(array('region' => 'sindh', 'status' => 1));
+        return $this->db->get()->row();
+    }
     // Equipment maintenance - Get maintenance record
     public function get_maint_record($limit, $offset){
         $this->db->select('id, region, maint_date, maint_cat, maint_desc, vendor, qty_size, unit_price, total_amount, maint_remarks, created_at');
