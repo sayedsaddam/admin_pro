@@ -4,7 +4,7 @@
  */
 class Admin_model extends CI_Model{
     // Get pending requisitions.
-    public function pending_requisitions(){
+    public function pending_requisitions($limit, $offset){
         $this->db->select('item_requisitions.id,
                             item_requisitions.item_name,
                             item_requisitions.item_qty,
@@ -19,10 +19,11 @@ class Admin_model extends CI_Model{
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->where('item_requisitions.status', 0);
         $this->db->order_by('id', 'DESC');
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Get approved requisitions.
-    public function approved_requisitions(){
+    public function approved_requisitions($limit, $offset){
         $this->db->select('item_requisitions.id,
                             item_requisitions.item_name,
                             item_requisitions.item_qty,
@@ -37,10 +38,11 @@ class Admin_model extends CI_Model{
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->where('item_requisitions.status', 1);
         $this->db->order_by('id', 'DESC');
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Get rejected requisitions.
-    public function rejected_requisitions(){
+    public function rejected_requisitions($limit, $offset){
         $this->db->select('item_requisitions.id,
                             item_requisitions.item_name,
                             item_requisitions.item_qty,
@@ -55,6 +57,7 @@ class Admin_model extends CI_Model{
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->where('item_requisitions.status', 2);
         $this->db->order_by('id', 'DESC');
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // View requisition detail.
@@ -112,11 +115,12 @@ class Admin_model extends CI_Model{
         }
     }
     // Get suppliers
-    public function get_suppliers(){
+    public function get_suppliers($limit, $offset){
         $this->db->select('id, name, category, email, phone, region, address, status, created_at');
         $this->db->from('suppliers');
         $this->db->where('status', 1);
         $this->db->order_by('id', 'DESC');
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Remove supplier
@@ -148,10 +152,11 @@ class Admin_model extends CI_Model{
         }
     }
     // Inventory - Get inventory.
-    public function get_inventory(){
+    public function get_inventory($limit, $offset){
         $this->db->select('id, item_name, item_desc, unit_price, item_qty, item_category, created_at');
         $this->db->from('inventory');
         $this->db->order_by('id', 'DESC');
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Remove inventory.
@@ -161,10 +166,11 @@ class Admin_model extends CI_Model{
         return true;
     }
     // Users - Get all users
-    public function get_users(){
+    public function get_users($limit, $offset){
         $this->db->select('id, fullname, email, username, location, user_role, created_at');
         $this->db->from('users');
         $this->db->order_by('id', 'DESC');
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Users = Remove users.
@@ -183,10 +189,11 @@ class Admin_model extends CI_Model{
         }
     }
     // Invoices - Get invoices
-    public function get_invoices(){
+    public function get_invoices($limit, $offset){
         $this->db->select('id, inv_no, inv_date, project, vendor, region, item, amount, inv_desc, status, created_at');
         $this->db->from('invoices');
         $this->db->order_by('id', 'DESC');
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Invoices - print invoice
@@ -273,9 +280,11 @@ class Admin_model extends CI_Model{
         }
     }
     // Equipment maintenance - Get maintenance record
-    public function get_maint_record(){
+    public function get_maint_record($limit, $offset){
         $this->db->select('id, region, maint_date, maint_cat, maint_desc, vendor, qty_size, unit_price, total_amount, maint_remarks, created_at');
         $this->db->from('equipment_maintenance');
+        $this->db->order_by('id', 'DESC');
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Equipment maintenance = Delete record

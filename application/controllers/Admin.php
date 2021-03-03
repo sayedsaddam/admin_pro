@@ -14,7 +14,11 @@ class Admin extends CI_Controller{
         }
     }
     // Load the dashboard.
-    public function index(){
+    public function index($offset = null){
+        $limit = 10;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
         $data['title'] = 'Home | Admin & Procurement';
         $data['body'] = 'admin/dashboard';
         $data['total_isbd'] = $this->admin_model->expenses_isbd();
@@ -24,30 +28,42 @@ class Admin extends CI_Controller{
         $data['pending'] = $this->admin_model->total_pending();
         $data['approved'] = $this->admin_model->total_approved();
         $data['rejected'] = $this->admin_model->total_rejected();
-        $data['pending_requisitions'] = $this->admin_model->pending_requisitions();
-        $data['approved_requisitions'] = $this->admin_model->approved_requisitions();
-        $data['rejected_requisitions'] = $this->admin_model->rejected_requisitions();
+        $data['pending_requisitions'] = $this->admin_model->pending_requisitions($limit, $offset);
+        $data['approved_requisitions'] = $this->admin_model->approved_requisitions($limit, $offset);
+        $data['rejected_requisitions'] = $this->admin_model->rejected_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
     // Pending requests - listing
-    public function pending_requests(){
+    public function pending_requests($offset = null){
+        $limit = 10;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
         $data['title'] = 'Pending Requests | Admin & Procurement';
         $data['body'] = 'admin/pending-requests';
-        $data['pending_requisitions'] = $this->admin_model->pending_requisitions();
+        $data['pending_requisitions'] = $this->admin_model->pending_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
     // Approved requests - listing
-    public function approved_requests(){
+    public function approved_requests($offset = null){
+        $limit = 10;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
         $data['title'] = 'Approved Requests | Admin & Procurement';
         $data['body'] = 'admin/approved-requests';
-        $data['approved_requisitions'] = $this->admin_model->approved_requisitions();
+        $data['approved_requisitions'] = $this->admin_model->approved_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
     // Rejected requests - listing
-    public function rejected_requests(){
+    public function rejected_requests($offset = null){
+        $limit = 10;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
         $data['title'] = 'Rejected Requests | Admin & Procurement';
         $data['body'] = 'admin/rejected-requests';
-        $data['rejected_requisitions'] = $this->admin_model->rejected_requisitions();
+        $data['rejected_requisitions'] = $this->admin_model->rejected_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
     // Request detail - Filter by ID.
@@ -95,10 +111,14 @@ class Admin extends CI_Controller{
         }
     }
     // Suppliers - Go to suppliers page.
-    public function suppliers(){
+    public function suppliers($offset = null){
+        $limit = 10;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
         $data['title'] = 'Suppliers | Admin & Procurement';
         $data['body'] = 'admin/suppliers';
-        $data['suppliers'] = $this->admin_model->get_suppliers();
+        $data['suppliers'] = $this->admin_model->get_suppliers($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
     // Suppliers - Add new supplier
@@ -154,10 +174,14 @@ class Admin extends CI_Controller{
         }
     }
     // Inventory - Go to inventory page.
-    public function inventory(){
+    public function inventory($offset = null){
+        $limit = 10;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
         $data['title'] = 'Inventory | Admin & Procurement';
         $data['body'] = 'admin/inventory';
-        $data['inventory'] = $this->admin_model->get_inventory();
+        $data['inventory'] = $this->admin_model->get_inventory($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
     // Inventory - Add inventory.
@@ -188,10 +212,14 @@ class Admin extends CI_Controller{
         }
     }
     // Users - Go to users page where the users will be listed.
-    public function users(){
+    public function users($offset = null){
+        $limit = 10;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
         $data['title'] = 'Users | Admin & Procurement';
         $data['body'] = 'admin/users';
-        $data['users'] = $this->admin_model->get_users();
+        $data['users'] = $this->admin_model->get_users($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
     // Users - Remove user.
@@ -205,11 +233,15 @@ class Admin extends CI_Controller{
         }
     }
     // Invoices - Go to the invoices list page.
-    public function invoices(){
+    public function invoices($offset = null){
+        $limit = 10;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
         $data['title'] = 'Invoices | Admin & Procurement';
         $data['body'] = 'admin/invoices';
-        $data['suppliers'] = $this->admin_model->get_suppliers();
-        $data['invoices'] = $this->admin_model->get_invoices();
+        $data['suppliers'] = $this->admin_model->get_suppliers($limit, $offset);
+        $data['invoices'] = $this->admin_model->get_invoices($limit, $offset);
         $data['projects'] = $this->admin_model->get_projects();
         $this->load->view('admin/commons/template', $data);
     }
@@ -295,10 +327,14 @@ class Admin extends CI_Controller{
         }
     }
     // Maintenance - Office equipments
-    public function maintenance(){
+    public function maintenance($offset = null){
+        $limit = 10;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
         $data['title'] = 'Maintenance | Admin & Procurement';
         $data['body'] = 'admin/maintenance';
-        $data['maintenance_items'] = $this->admin_model->get_maint_record();
+        $data['maintenance_items'] = $this->admin_model->get_maint_record($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
     // Maintenance - Add new record
