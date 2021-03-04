@@ -433,4 +433,18 @@ class Admin_model extends CI_Model{
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
+    // Search filters - assets search
+    public function search_asset_register($search){
+        $this->db->select('id, year, project, category, item, description, model, asset_code, serial_number, custodian_location, contact, designation, department, quantity, district_region, status, po_no, purchase_date, receive_date, created_at');
+        $this->db->from('items_detail');
+        $this->db->like('project', $search);
+        $this->db->or_like('category', $search);
+        $this->db->or_like('item', $search);
+        $this->db->or_like('custodian_location', $search);
+        $this->db->or_like('department', $search);
+        $this->db->or_like('serial_number', $search);
+        $this->db->or_like('district_region', $search);
+        $this->db->order_by('created_at', 'DESC');
+        return $this->db->get()->result();
+    }
 }

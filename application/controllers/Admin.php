@@ -521,6 +521,14 @@ class Admin extends CI_Controller{
         $data['results'] = $this->admin_model->search_invoices($search);
         $this->load->view('admin/commons/template', $data);
     }
+    // Search filters - search asset register
+    public function search_asset_register(){
+        $search = $this->input->get('search');
+        $data['title'] = 'Search Results > Asset Register';
+        $data['body'] = 'admin/asset-register';
+        $data['results'] = $this->admin_model->search_asset_register($search);
+        $this->load->view('admin/commons/template', $data);
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";
