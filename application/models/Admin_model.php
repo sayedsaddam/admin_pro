@@ -447,4 +447,15 @@ class Admin_model extends CI_Model{
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
+    // Search filters - equipment maintenance search
+    public function search_equip_maintenance($search){
+        $this->db->select('id, region, maint_date, maint_cat, maint_desc, vendor, qty_size, unit_price, total_amount, maint_remarks, created_at');
+        $this->db->from('equipment_maintenance');
+        $this->db->like('region', $search);
+        $this->db->or_like('maint_cat', $search);
+        $this->db->or_like('maint_desc', $search);
+        $this->db->or_like('vendor', $search);
+        $this->db->order_by('created_at', 'DESC');
+        return $this->db->get()->result();
+    }
 }
