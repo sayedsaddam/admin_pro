@@ -200,6 +200,13 @@ class Admin_model extends CI_Model{
             return false;
         }
     }
+    // Get suppliers for inovice form
+    public function get_suppliers_for_invoice(){
+        $this->db->select('id, name');
+        $this->db->from('suppliers');
+        $this->db->where('status', 1);
+        return $this->db->get()->result();
+    }
     // Count invoices.
     public function count_invoices(){
         return $this->db->from('invoices')->count_all_results();
