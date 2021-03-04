@@ -349,4 +349,16 @@ class Admin_model extends CI_Model{
         $this->db->delete('equipment_maintenace');
         return true;
     }
+    // Count all items for asset register
+    public function count_assets(){
+        return $this->db->from('items_detail')->count_all_results();
+    }
+    // Get assets/items.
+    public function get_assets($limit, $offset){
+        $this->db->select('id, year, project, category, item, description, model, asset_code, serial_number, custodian_location, contact, designation, department, quantity, district_region, status, po_no, purchase_date, receive_date, created_at');
+        $this->db->from('items_detail');
+        $this->db->order_by('id', 'ASC');
+        $this->db->limit($limit, $offset);
+        return $this->db->get()->result();
+    }
 }

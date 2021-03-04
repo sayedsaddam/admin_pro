@@ -398,6 +398,20 @@ class Admin extends CI_Controller{
             redirect('admin/maintenance');
         }
     }
+    // Asset register
+    public function asset_register($offset = null){
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'admin/asset_register';
+        $rowscount = $this->admin_model->count_assets();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Asset Register | Admin & Procurement';
+        $data['body'] = 'admin/asset-register';
+        $data['assets'] = $this->admin_model->get_assets($limit, $offset);
+        $this->load->view('admin/commons/template', $data);
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";
