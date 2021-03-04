@@ -349,6 +349,15 @@ class Admin_model extends CI_Model{
         $this->db->delete('equipment_maintenace');
         return true;
     }
+    // Assets - Add new item
+    public function add_item($data){
+        $this->db->insert('items_detail', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
     // Count all items for asset register
     public function count_assets(){
         return $this->db->from('items_detail')->count_all_results();
@@ -360,5 +369,18 @@ class Admin_model extends CI_Model{
         $this->db->order_by('id', 'ASC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
+    }
+    // Asset detail - view and edit.
+    public function asset_detail($id){
+        $this->db->select('id, year, project, category, item, description, model, asset_code, serial_number, custodian_location, contact, designation, department, quantity, district_region, status, po_no, purchase_date, receive_date, created_at');
+        $this->db->from('items_detail');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
+    }
+    // Asset detail - Update existing record
+    public function update_item($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('items_detail', $data);
+        return true;
     }
 }

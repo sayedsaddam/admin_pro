@@ -31,7 +31,7 @@
             </form>
         </div>
         <div class="col-lg-6 col-md-6 text-right">
-            <button data-toggle="modal" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</button>
+            <a href="<?= base_url('admin/add_asset'); ?>" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</a>
             <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
         </div>
     </div>
@@ -71,7 +71,7 @@
                 <td><?= date('M d, Y', strtotime($asset->purchase_date)); ?></td>
                 <td>
                     <a href="<?= base_url('admin/asset_detail/'.$asset->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                    <a href="<?=base_url('admin/delete_supplier/'.$asset->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                    <a href="<?=base_url('admin/delete_asset/'.$asset->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                 </td>
               </tr>
             <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='11'>No record found.</td></tr>"; endif; ?>

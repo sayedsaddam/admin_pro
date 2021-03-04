@@ -412,6 +412,82 @@ class Admin extends CI_Controller{
         $data['assets'] = $this->admin_model->get_assets($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
+    // Asset register - add new item.
+    public function add_asset(){
+        $data['title'] = 'Asset Detail';
+        $data['body'] = 'admin/asset-detail';
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Asset detail
+    public function asset_detail($id){
+        $data['title'] = 'Asset Detail';
+        $data['body'] = 'admin/asset-detail';
+        $data['edit'] = $this->admin_model->asset_detail($id);
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Add new asset into the database
+    public function save_item(){
+        $data = array(
+            'year' => $this->input->post('year'),
+            'project' => $this->input->post('project'),
+            'category' => $this->input->post('category'),
+            'item' => $this->input->post('item'),
+            'description' => $this->input->post('description'),
+            'model' => $this->input->post('model'),
+            'asset_code' => $this->input->post('asset_code'),
+            'serial_number' => $this->input->post('serial_no'),
+            'custodian_location' => $this->input->post('custodian'),
+            'designation' => $this->input->post('designation'),
+            'department' => $this->input->post('department'),
+            'quantity' => $this->input->post('quantity'),
+            'district_region' => $this->input->post('district'),
+            'status' => $this->input->post('status'),
+            'po_no' => $this->input->post('po_no'),
+            'contact' => $this->input->post('contact'),
+            'purchase_date' => $this->input->post('purchase_date'),
+            'receive_date' => $this->input->post('receive_date'),
+            'created_at' => date('Y-m-d')
+        );
+        if($this->admin_model->add_item($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
+            redirect('admin/asset_register');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
+            redirect('admin/asset_register');
+        }
+    }
+    // Update an existing asset record
+    public function update_item(){
+        $id = $this->input->post('id');
+        $data = array(
+            'year' => $this->input->post('year'),
+            'project' => $this->input->post('project'),
+            'category' => $this->input->post('category'),
+            'item' => $this->input->post('item'),
+            'description' => $this->input->post('description'),
+            'model' => $this->input->post('model'),
+            'asset_code' => $this->input->post('asset_code'),
+            'serial_number' => $this->input->post('serial_no'),
+            'custodian_location' => $this->input->post('custodian'),
+            'designation' => $this->input->post('designation'),
+            'department' => $this->input->post('department'),
+            'quantity' => $this->input->post('quantity'),
+            'district_region' => $this->input->post('district'),
+            'status' => $this->input->post('status'),
+            'po_no' => $this->input->post('po_no'),
+            'contact' => $this->input->post('contact'),
+            'purchase_date' => $this->input->post('purchase_date'),
+            'receive_date' => $this->input->post('receive_date'),
+            'created_at' => date('Y-m-d')
+        );
+        if($this->admin_model->update_item($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Item was updated successfully.');
+            redirect('admin/asset_register');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/asset_register');
+        }
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";
