@@ -390,4 +390,15 @@ class Admin_model extends CI_Model{
         $this->db->update('items_detail', $data);
         return true;
     }
+    //== ----------------------------------------- Search filters --------------------------------------- ==\\
+    // Search filters - suppliers search
+    public function search_suppliers($search){
+        $this->db->select('id, name, category, email, phone, region, address, status, created_at');
+        $this->db->from('suppliers');
+        $this->db->like('name', $search);
+        $this->db->or_like('category', $search);
+        $this->db->or_like('region', $search);
+        $this->db->order_by('created_at', 'DESC');
+        return $this->db->get()->result();
+    }
 }

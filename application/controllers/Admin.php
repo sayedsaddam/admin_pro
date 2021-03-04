@@ -488,6 +488,15 @@ class Admin extends CI_Controller{
             redirect('admin/asset_register');
         }
     }
+    //== ----------------------------------------- Search filters ---------------------------------------- ==\\
+    // Search filters = search suppliers
+    public function search_suppliers(){
+        $search = $this->input->get('search');
+        $data['title'] = 'Search Results > Suppliers';
+        $data['body'] = 'admin/suppliers';
+        $data['results'] = $this->admin_model->search_suppliers($search);
+        $this->load->view('admin/commons/template', $data);
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";
