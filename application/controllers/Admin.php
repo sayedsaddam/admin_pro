@@ -489,7 +489,7 @@ class Admin extends CI_Controller{
         }
     }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
-    // Search filters = search suppliers
+    // Search filters - search suppliers
     public function search_suppliers(){
         $search = $this->input->get('search');
         $data['title'] = 'Search Results > Suppliers';
@@ -503,6 +503,14 @@ class Admin extends CI_Controller{
         $data['title'] = 'Search Results > Inventory';
         $data['body'] = 'admin/inventory';
         $data['results'] = $this->admin_model->search_inventory($search);
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Search filters - search users
+    public function search_users(){
+        $search = $this->input->get('search');
+        $data['title'] = 'Search Results > Users';
+        $data['body'] = 'admin/users';
+        $data['results'] = $this->admin_model->search_users($search);
         $this->load->view('admin/commons/template', $data);
     }
     // 404 page.

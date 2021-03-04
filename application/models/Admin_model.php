@@ -411,4 +411,14 @@ class Admin_model extends CI_Model{
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
+    // Search filters - users search
+    public function search_users($search){
+        $this->db->select('id, fullname, email, username, location, user_role, created_at');
+        $this->db->from('users');
+        $this->db->like('fullname', $search);
+        $this->db->or_like('username', $search);
+        $this->db->or_like('location', $search);
+        $this->db->order_by('created_at', 'DESC');
+        return $this->db->get()->result();
+    }
 }
