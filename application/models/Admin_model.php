@@ -421,4 +421,16 @@ class Admin_model extends CI_Model{
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
+    // Search filters - invoices search
+    public function search_invoices($search){
+        $this->db->select('id, inv_no, inv_date, project, vendor, region, item, amount, inv_desc, status, created_at');
+        $this->db->from('invoices');
+        $this->db->like('inv_no', $search);
+        $this->db->or_like('project', $search);
+        $this->db->or_like('vendor', $search);
+        $this->db->or_like('region', $search);
+        $this->db->or_like('item', $search);
+        $this->db->order_by('created_at', 'DESC');
+        return $this->db->get()->result();
+    }
 }

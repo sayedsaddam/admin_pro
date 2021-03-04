@@ -513,6 +513,14 @@ class Admin extends CI_Controller{
         $data['results'] = $this->admin_model->search_users($search);
         $this->load->view('admin/commons/template', $data);
     }
+    // Search filters - search invoices
+    public function search_invoices(){
+        $search = $this->input->get('search');
+        $data['title'] = 'Search Results > Invoices';
+        $data['body'] = 'admin/invoices';
+        $data['results'] = $this->admin_model->search_invoices($search);
+        $this->load->view('admin/commons/template', $data);
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";
