@@ -401,4 +401,14 @@ class Admin_model extends CI_Model{
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
+    // Search filters - inventory search
+    public function search_inventory($search){
+        $this->db->select('id, item_name, item_desc, unit_price, item_qty, item_category, created_at');
+        $this->db->from('inventory');
+        $this->db->like('item_name', $search);
+        $this->db->or_like('item_desc', $search);
+        $this->db->or_like('item_category', $search);
+        $this->db->order_by('created_at', 'DESC');
+        return $this->db->get()->result();
+    }
 }
