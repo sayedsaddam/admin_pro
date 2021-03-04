@@ -52,6 +52,7 @@
                 <th class="font-weight-bold">Designation</th>
                 <th class="font-weight-bold">Department</th>
                 <th class="font-weight-bold">Purchase</th>
+                <th class="font-weight-bold">Age</th>
                 <th class="font-weight-bold">Action</th>
             </tr>
           </thead>
@@ -69,6 +70,12 @@
                 <td><?= ucfirst($asset->designation); ?></td>
                 <td><?= ucfirst($asset->department); ?></td>
                 <td><?= date('M d, Y', strtotime($asset->purchase_date)); ?></td>
+                <td>
+                  <?php $recDate = date('Y-m-d', strtotime($asset->purchase_date));
+                        $today = date("Y-m-d"); // Today's date
+                        $diff = date_diff(date_create($recDate), date_create($today));
+                        echo $diff->format('%yyr %mm %dd'); ?> 
+                </td>
                 <td>
                     <a href="<?= base_url('admin/asset_detail/'.$asset->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                     <a href="<?=base_url('admin/delete_asset/'.$asset->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
