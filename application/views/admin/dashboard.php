@@ -85,7 +85,7 @@
                   <p class="mb-0">Islamabad</p>
                 </div>
                 <div>
-                  <i class="fas fa-shopping-bag fa-4x text-black-40"></i>
+                  <i class="fas fa-map fa-4x text-black-40"></i>
                 </div>
               </div>
               <a data-toggle="modal" data-target="#isbd_stats" class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
@@ -106,7 +106,7 @@
                   <p class="mb-0">Balochistan</p>
                 </div>
                 <div>
-                  <i class="fas fa-chart-bar fa-4x text-black-40"></i>
+                  <i class="fas fa-map-marker fa-4x text-black-40"></i>
                 </div>
               </div>
               <a data-toggle="modal" data-target="#bln_stats" class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
@@ -127,7 +127,7 @@
                   <p class="mb-0">Khyber PK</p>
                 </div>
                 <div>
-                  <i class="fas fa-user-plus fa-4x text-black-40"></i>
+                  <i class="fas fa-map fa-4x text-black-40"></i>
                 </div>
               </div>
               <a data-toggle="modal" data-target="#kp_stats" class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
@@ -148,7 +148,7 @@
                   <p class="mb-0">Sindh</p>
                 </div>
                 <div>
-                  <i class="fas fa-chart-pie fa-4x text-black-40"></i>
+                  <i class="fas fa-map-marker fa-4x text-black-40"></i>
                 </div>
               </div>
               <a data-toggle="modal" data-target="#sindh_stats" class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>

@@ -89,6 +89,12 @@
                             <p><?=date('F d, Y', strtotime($invoice->created_at));?></p>
                         </div>
                     </div>
+                    <div class="row mb-5">
+                        <div class="col-md-12 text-right">
+                            <p>Printed by: <?= $this->session->userdata('fullname'); ?><br>************************</p>
+                        </div>
+                    </div>
+                    <br><br><br><br><br>
                     <!-- Button -->
                     <a href="#" class="btn btn-primary d-print-none" onclick="javascript:window.print();"><i class="fa fa-print"></i> Print</a>
                     <a href="javascript:history.go(-1)" class="btn btn-outline-danger d-print-none"><i class="fa fa-angle-left"></i> back</a>
