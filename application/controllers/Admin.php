@@ -227,9 +227,27 @@ class Admin extends CI_Controller{
         $inventory = $this->admin_model->edit_inventory($id);
         echo json_encode($inventory);
     }
+    // Inventory - update inventory info
+    public function update_inventory(){
+        $id = $this->input->post('id');
+        $data = array(
+            'item_name' => $this->input->post('item_name'),
+            'item_desc' => $this->input->post('item_desc'),
+            'unit_price' => $this->input->post('unit_price'),
+            'item_qty' => $this->input->post('item_qty'),
+            'item_category' => $this->input->post('item_cat')
+        );
+        if($this->admin_model->update_inventory($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Inventory was updated successfully');
+            redirect('admin/inventory');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/inventory');
+        }
+    }
     // Inventory - Remove inventory
     public function delete_inventory($id){
-        if($this->admin_model->delete_inventory()($id)){
+        if($this->admin_model->delete_inventory($id)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Inventory removal was successful.');
             redirect('admin/inventory');
         }else{

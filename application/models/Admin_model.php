@@ -174,6 +174,12 @@ class Admin_model extends CI_Model{
         $this->db->where('id', $id);
         return $this->db->get()->row();
     }
+    // Update Inventory
+    public function update_inventory($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('inventory', $data);
+        return true;
+    }
     // Remove inventory.
     public function delete_inventory($id){
         $this->db->where('id', $id);

@@ -168,8 +168,8 @@
         </button>
       </div>
       <div class="modal-body mx-3">
-        <form action="<?=base_url('admin/add_inventory');?>" method="post" class="md-form">
-            <input type="hidden" name="inventoryId" value="">
+        <form action="<?=base_url('admin/update_inventory');?>" method="post" class="md-form">
+            <input type="hidden" name="id" id="inventoryId" value="">
             <div class="md-form mb-5">
                 <input name="item_name" type="text" id="item_name" class="form-control validate" value="">
                 <label data-error="wrong" data-success="right" for="form34">Item name</label>
