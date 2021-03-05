@@ -31,7 +31,7 @@
       </form>
     </div>
     <div class="col-lg-6 col-md-6 text-right">
-      <button data-toggle="modal" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</button>
+      <button data-toggle="modal" data-target="#add_inventory" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</button>
       <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
     </div>
   </div>
@@ -65,7 +65,7 @@
                 <td><?= number_format($inv->unit_price * $inv->item_qty); ?></td>
                 <td><?= date('M d, Y', strtotime($inv->created_at)); ?></td>
                 <td>
-                    <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                    <a data-id="<?= $inv->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                     <a href="<?=base_url('admin/delete_inventory/'.$inv->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                     <a href="<?= base_url('admin/inventory_detail/'.$inv->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                 </td>
@@ -85,7 +85,7 @@
                 <td><?= number_format($res->unit_price * $res->item_qty); ?></td>
                 <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                 <td>
-                    <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                    <a data-id="<?= $res->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                     <a href="<?=base_url('admin/delete_inventory/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                     <a href="<?= base_url('admin/inventory_detail/'.$res->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                 </td>
@@ -103,8 +103,8 @@
   </div>
 </div>
 
-<!-- Add supplier -->
-<div class="modal fade" id="add_supplier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<!-- Add inventory -->
+<div class="modal fade" id="add_inventory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -155,3 +155,85 @@
     </div>
   </div>
 </div>
+
+<!-- Update inventory -->
+<div class="modal fade" id="edit_inventory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 font-weight-bold">Update Inventory</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <form action="<?=base_url('admin/add_inventory');?>" method="post" class="md-form">
+            <input type="hidden" name="inventoryId" value="">
+            <div class="md-form mb-5">
+                <input name="item_name" type="text" id="item_name" class="form-control validate" value="">
+                <label data-error="wrong" data-success="right" for="form34">Item name</label>
+            </div>
+
+            <div class="md-form mb-5">
+                <input name="item_desc" type="text" id="item_desc" class="form-control validate" value="">
+                <label data-error="wrong" data-success="right" for="form29">Item description</label>
+            </div>
+
+            <div class="md-form mb-5">
+                <input name="unit_price" type="number" id="unit_price" class="form-control validate" value="">
+                <label data-error="wrong" data-success="right" for="form32">Unit price</label>
+            </div>
+
+            <div class="md-form mb-5">
+                <input name="item_qty" type="number" id="item_qty" class="form-control validate" value="">
+                <label data-error="wrong" data-success="right" for="form32">Item quantity</label>
+            </div>
+
+            <div class="md-form mb-5">
+                <select name="item_cat" id="item_cat" class="browser-default custom-select">
+                    <option value="" disabled selected>--select category--</option>
+                    <option value="stationary">Stationary</option>
+                    <option value="electronics">Electronics</option>
+                </select>
+            </div>
+
+            <div class="md-form mb-5">
+                <input type="submit" class="btn btn-primary" value="Save Changes">
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-right">
+        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Script for showing up the modal -->
+<script>
+$(document).ready(function(){
+  $('.inventory').click(function(){  
+    var inventory_id = $(this).data('id');
+    // AJAX request
+    $.ajax({
+    url: '<?= base_url('admin/edit_inventory/'); ?>' + inventory_id,
+    method: 'POST',
+    dataType: 'JSON',
+    data: {inventory_id: inventory_id},
+      success: function(response){ 
+        console.log(response);
+        $('#inventoryId').val(response.id);
+        $('#item_name').val(response.item_name);
+        $('#item_desc').val(response.item_desc);
+        $('#unit_price').val(response.unit_price);
+        $('#item_qty').val(response.item_qty);
+        $('#item_cat').val(response.item_category);
+        // $('.edit-modal-body').html(response);
+        // // Display Modal
+        $('#edit_inventory').modal('show'); 
+      }
+    });
+  });
+});
+</script>

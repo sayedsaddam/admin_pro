@@ -222,6 +222,11 @@ class Admin extends CI_Controller{
             redirect('admin/inventory');
         }
     }
+    // Invnetory - Edit inventory
+    public function edit_inventory($id){
+        $inventory = $this->admin_model->edit_inventory($id);
+        echo json_encode($inventory);
+    }
     // Inventory - Remove inventory
     public function delete_inventory($id){
         if($this->admin_model->delete_inventory()($id)){

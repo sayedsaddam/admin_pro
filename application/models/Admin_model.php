@@ -167,6 +167,13 @@ class Admin_model extends CI_Model{
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
+    // Edit inventory - Get record for edit.
+    public function edit_inventory($id){
+        $this->db->select('id, item_name, item_desc, unit_price, item_qty, item_category, created_at');
+        $this->db->from('inventory');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
+    }
     // Remove inventory.
     public function delete_inventory($id){
         $this->db->where('id', $id);
