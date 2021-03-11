@@ -511,6 +511,16 @@ class Admin extends CI_Controller{
             redirect('admin/asset_register');
         }
     }
+    // Delete asset
+    public function delete_asset($id){
+        if($this->admin_model->delete_asset($id)){
+            $this->session->set_flashdata('success', '<strong>Delete! </strong>Item was deleted successfully.');
+            redirect('admin/asset_register');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/asset_register');
+        }
+    }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){

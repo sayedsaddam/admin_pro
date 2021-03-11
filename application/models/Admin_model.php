@@ -403,6 +403,12 @@ class Admin_model extends CI_Model{
         $this->db->update('items_detail', $data);
         return true;
     }
+    // Asset register - Delete an asset
+    public function delete_asset($id){
+        $this->db->where('id', $id);
+        $this->db->delete('items_detail');
+        return true;
+    }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){
