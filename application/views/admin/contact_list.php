@@ -42,18 +42,19 @@
           <thead>
             <tr>
                 <th class="font-weight-bold">ID</th>
-                <th class="font-weight-bold">Year</th>
-                <th class="font-weight-bold">Project</th>
-                <th class="font-weight-bold">Item</th>
-                <!-- <th class="font-weight-bold">Model</th> -->
-                <th class="font-weight-bold">Asset Code</th>
-                <th class="font-weight-bold">Serial #</th>
-                <th class="font-weight-bold">Custodian</th>
+                <th class="font-weight-bold">Name</th>
                 <th class="font-weight-bold">Designation</th>
-                <th class="font-weight-bold">Department</th>
-                <th class="font-weight-bold">Purchase</th>
-                <th class="font-weight-bold">Age</th>
-                <th class="font-weight-bold">Action</th>
+                <th class="font-weight-bold">Project</th>
+                <th class="font-weight-bold">District</th>
+                <th class="font-weight-bold">Province</th>
+                <th class="font-weight-bold">Gender</th>
+                <th class="font-weight-bold">CNIC</th>
+                <th class="font-weight-bold">Personal Contact</th>
+                <th class="font-weight-bold">Official Contact</th>
+                <th class="font-weight-bold">Grader</th>
+                <th class="font-weight-bold">Supervisor</th>
+                <th class="font-weight-bold">DoB</th>
+                <th class="font-weight-bold">DoJ</th>
             </tr>
           </thead>
           <?php if(empty($results)): ?>
@@ -64,7 +65,7 @@
                   <td><?= $asset->year; ?></td>
                   <td><?= ucfirst($asset->project); ?></td>
                   <td><?= ucfirst($asset->item); ?></td>
-                  <!-- <td><?= ucfirst($asset->model); ?></td> -->
+                  <td><?= ucfirst($asset->model); ?></td>
                   <td><?= ucfirst($asset->asset_code); ?></td>
                   <td><?= ucfirst($asset->serial_number); ?></td>
                   <td><?= ucfirst($asset->custodian_location); ?></td>
@@ -77,12 +78,14 @@
                           $diff = date_diff(date_create($recDate), date_create($today));
                           echo $diff->format('%yyr %mm %dd'); ?> 
                   </td>
+                  <td></td>
+                  <td></td>
                   <td>
                       <a href="<?= base_url('admin/asset_detail/'.$asset->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                       <a href="<?=base_url('admin/delete_asset/'.$asset->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                   </td>
                 </tr>
-              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
+              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='14'>No record found.</td></tr>"; endif; ?>
             </tbody> 
           <?php else: ?>
             <tbody>
