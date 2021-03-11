@@ -54,6 +54,9 @@
           <li class="list-group-item">
             <a href="<?= base_url('admin/maintenance'); ?>" class="text-white btn-floating btn-li btn-sm"><i class="fas fa-cog"></i></a>Maintenance
           </li>
+          <li class="list-group-item">
+            <a href="<?= base_url('admin/contact_list'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-phone"></i></a>Contact List
+          </li>
         </ul>
       </ul>
     </div>

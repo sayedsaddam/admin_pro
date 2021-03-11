@@ -521,6 +521,13 @@ class Admin extends CI_Controller{
             redirect('admin/asset_register');
         }
     }
+    // Contact list - Master contact list
+    public function contact_list(){
+        $data['title'] = 'Contact List | Admin & Procurement';
+        $data['body'] = 'admin/contact_list';
+        $data['contacts'] = $this->admin_model->get_contacts();
+        $this->load->view('admin/commons/template', $data);
+    }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){

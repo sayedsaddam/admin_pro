@@ -409,6 +409,10 @@ class Admin_model extends CI_Model{
         $this->db->delete('items_detail');
         return true;
     }
+    // Contact list - get all contacts.
+    public function get_contacts(){
+        
+    }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){

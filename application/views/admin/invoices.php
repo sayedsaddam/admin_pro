@@ -74,7 +74,7 @@
             </tbody>
           <?php else: ?>
             <tbody>
-              <?php if(!empty($results)): foreach($results as $res): ?>
+              <?php if(!empty($results)): $expenses = 0; foreach($results as $res): $expenses += $res->amount; ?>
                 <tr>
                   <td><?= 'Inv-0'.$res->id; ?></td>
                   <td><?= $res->inv_no; ?></td>
@@ -91,6 +91,11 @@
                   </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
+              <tr class="bg-success">
+                <td colspan="5" class="text-white font-weight-bold">Total</td>
+                <td class="text-white font-weight-bold"><?= number_format($expenses); ?></td>
+                <td colspan="3"></td>
+              </tr>
             </tbody>
           <?php endif; ?>
         </table>
