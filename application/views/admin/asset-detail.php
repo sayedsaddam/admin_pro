@@ -4,21 +4,23 @@
 * Author: Saddam
 */
 ?>
-<style type="text/css">
-  .para p{
-    padding-top: 12px;
-    color: #ff8d00;
-  }
-  .para{
-    background: #d6dad282;
-  }
-</style>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.select2').select2(); // Searchable dropdown lists/select boxes.
-  });
-</script>
-<section class="secMainWidth container mt-4">
+<div class="jumbotron jumbotron-fluid blue-gradient text-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-8">
+        <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
+        <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
+      </div>
+      <div class="col-lg-4 col-md-4 text-right">
+        <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
+        <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
+        <h4 class="font-weight-bold orange-text mt-2">Admin Dashboard <i class="fa fa-chart-bar"></i><br><span class="font-weight-light orange-text">Asset Detail | <a href="<?=base_url('admin');?>" class="text-light font-weight-bold">Home</a></span></h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="secMainWidth container mt-4 mb-4">
   <section class="secFormLayout">
     <div class="mainInputBg">
       <div class="row">

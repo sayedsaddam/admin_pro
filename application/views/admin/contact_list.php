@@ -31,7 +31,7 @@
             </form>
         </div>
         <div class="col-lg-6 col-md-6 text-right">
-            <a href="<?= base_url('admin/add_asset'); ?>" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</a>
+            <a href="<?= base_url('admin/add_contact'); ?>" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</a>
             <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
         </div>
     </div>
@@ -55,34 +55,35 @@
                 <th class="font-weight-bold">Supervisor</th>
                 <th class="font-weight-bold">DoB</th>
                 <th class="font-weight-bold">DoJ</th>
+                <th class="font-weight-bold">Action</th>
             </tr>
           </thead>
           <?php if(empty($results)): ?>
             <tbody>
-              <?php if(!empty($assets)): foreach($assets as $asset): ?>
+              <?php if(!empty($contacts)): foreach($contacts as $contact): ?>
                 <tr>
-                  <td><?= 'CTC-0'.$asset->id; ?></td>
-                  <td><?= $asset->year; ?></td>
-                  <td><?= ucfirst($asset->project); ?></td>
-                  <td><?= ucfirst($asset->item); ?></td>
-                  <td><?= ucfirst($asset->model); ?></td>
-                  <td><?= ucfirst($asset->asset_code); ?></td>
-                  <td><?= ucfirst($asset->serial_number); ?></td>
-                  <td><?= ucfirst($asset->custodian_location); ?></td>
-                  <td><?= ucfirst($asset->designation); ?></td>
-                  <td><?= ucfirst($asset->department); ?></td>
-                  <td><?= date('M d, Y', strtotime($asset->purchase_date)); ?></td>
+                  <td><?= 'CTC-0'.$contact->id; ?></td>
+                  <td><?= $contact->name; ?></td>
+                  <td><?= ucfirst($contact->designation); ?></td>
+                  <td><?= ucfirst($contact->project); ?></td>
+                  <td><?= ucfirst($contact->district); ?></td>
+                  <td><?= ucfirst($contact->province); ?></td>
+                  <td><?= ucfirst($contact->gender); ?></td>
+                  <td><?= ucfirst($contact->cnic); ?></td>
+                  <td><?= ucfirst($contact->personal_contact); ?></td>
+                  <td><?= ucfirst($contact->official_contact); ?></td>
+                  <td><?= $contact->grader; ?></td>
+                  <td><?= $contact->supervisor; ?></td>
                   <td>
-                    <?php $recDate = date('Y-m-d', strtotime($asset->purchase_date));
-                          $today = date("Y-m-d"); // Today's date
-                          $diff = date_diff(date_create($recDate), date_create($today));
-                          echo $diff->format('%yyr %mm %dd'); ?> 
+                    <?php echo date('M d, Y', strtotime($contact->dob)); // $recDate = date('Y-m-d', strtotime($contact->purchase_date));
+                          // $today = date("Y-m-d"); // Today's date
+                          // $diff = date_diff(date_create($recDate), date_create($today));
+                          // echo $diff->format('%yyr %mm %dd'); ?> 
                   </td>
-                  <td></td>
-                  <td></td>
+                  <td><?= date('M d, Y', strtotime($contact->doj)); ?></td>
                   <td>
-                      <a href="<?= base_url('admin/asset_detail/'.$asset->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                      <a href="<?=base_url('admin/delete_asset/'.$asset->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                      <a href="<?= base_url('admin/contact_detail/'.$contact->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+                      <a href="<?=base_url('admin/delete_contact/'.$contact->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                   </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='14'>No record found.</td></tr>"; endif; ?>
@@ -121,7 +122,7 @@
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12">
-        <?php if(empty($results) AND !empty($assets)){ echo $this->pagination->create_links(); } ?>
+        <?php //if(empty($results) AND !empty($contacts)){ echo $this->pagination->create_links(); } ?>
       </div>
     </div>
 </div>

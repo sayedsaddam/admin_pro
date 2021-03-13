@@ -419,7 +419,25 @@ class Admin_model extends CI_Model{
     }
     // Contact list - get all contacts.
     public function get_contacts(){
-        
+        $this->db->select('*');
+        $this->db->from('contact_list');
+        return $this->db->get()->result();
+    }
+    // Contact list - Add new contact
+    public function add_contact($data){
+        $this->db->insert('contact_list', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // Contact list - Contact detail
+    public function contact_detail($id){
+        $this->db->select('*');
+        $this->db->from('contact_list');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
     }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search

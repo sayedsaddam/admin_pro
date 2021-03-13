@@ -529,6 +529,46 @@ class Admin extends CI_Controller{
         $data['contacts'] = $this->admin_model->get_contacts();
         $this->load->view('admin/commons/template', $data);
     }
+    // Contact list - Load, view or edit contact.
+    public function add_contact(){
+        $data['title'] = 'Contact List | Admin & Procurement';
+        $data['body'] = 'admin/add_contact';
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Contact list - Save new contact.
+    public function save_contact(){
+        $data = array(
+            'name' => $this->input->post('name'),
+            'designation' => $this->input->post('designation'),
+            'project' => $this->input->post('project'),
+            'district' => $this->input->post('district'),
+            'province' => $this->input->post('province'),
+            'gender' => $this->input->post('gender'),
+            'cnic' => $this->input->post('cnic'),
+            'personal_contact' => $this->input->post('personal_contact'),
+            'official_contact' => $this->input->post('official_contact'),
+            'email' => $this->input->post('email'),
+            'address' => $this->input->post('address'),
+            'grader' => $this->input->post('grader'),
+            'supervisor' => $this->input->post('supervisor'),
+            'dob' => $this->input->post('dob'),
+            'doj' => $this->input->post('doj')
+        );
+        if($this->admin_model->add_contact($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Contact information was added successfully.');
+            redirect('admin/contact_list');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/contact_list');
+        }
+    }
+    // Contact list - contact detail
+    public function contact_detail($id){
+        $data['title'] = 'Contact List | Admin & Procurement';
+        $data['body'] = 'admin/add_contact';
+        $data['edit'] = $this->admin_model->contact_detail($id);
+        $this->load->view('admin/commons/template', $data);
+    }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){
