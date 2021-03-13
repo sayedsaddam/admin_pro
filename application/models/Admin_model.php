@@ -445,6 +445,12 @@ class Admin_model extends CI_Model{
         $this->db->update('contact_list', $data);
         return true;
     }
+    // Contact list - Delete contact.
+    public function delete_contact($id){
+        $this->db->where('id', $id);
+        $this->db->delete('contact_list');
+        return true;
+    }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){

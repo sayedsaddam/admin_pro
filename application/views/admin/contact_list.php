@@ -96,7 +96,7 @@
                   <td><?= $res->year; ?></td>
                   <td><?= ucfirst($res->project); ?></td>
                   <td><?= ucfirst($res->item); ?></td>
-                  <!-- <td><?= ucfirst($res->model); ?></td> -->
+                  <td><?= ucfirst($res->model); ?></td>
                   <td><?= ucfirst($res->asset_code); ?></td>
                   <td><?= ucfirst($res->serial_number); ?></td>
                   <td><?= ucfirst($res->custodian_location); ?></td>

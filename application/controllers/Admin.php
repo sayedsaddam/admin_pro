@@ -596,6 +596,16 @@ class Admin extends CI_Controller{
             redirect('admin/contact_list');
         }
     }
+    // Contact list - delete contact
+    public function delete_contact($id){
+        if($this->admin_model->delete_contact($id)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Contact information was deleted successfully.');
+            redirect('admin/contact_list');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/contact_list');
+        }
+    }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){
