@@ -76,94 +76,116 @@
         <?php endif; ?>
         <!-- Grid row -->
         <div class="row">
-
-          <!-- Grid column -->
-          <div class="col-md-6 col-lg-3 mb-4">
-
-            <!-- Card -->
-            <div class="card primary-color white-text">
-              <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="h2-responsive font-weight-bold mt-n2 mb-0"><?=number_format($total_isbd->isbd_total);?></p>
-                  <p class="mb-0">Islamabad</p>
+          <div class="col-md-12">
+            <div class="card-group">
+              <div class="card mb-4">
+                <div class="view overlay">
+                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg"
+                    alt="Card image cap">
+                  <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
                 </div>
-                <div>
-                  <i class="fas fa-map fa-4x text-black-40"></i>
-                </div>
-              </div>
-              <a data-toggle="modal" data-target="#isbd_stats" class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
-            </div>
-            <!-- Card -->
-
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-6 col-lg-3 mb-4">
-
-            <!-- Card -->
-            <div class="card success-color white-text">
-              <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="h2-responsive font-weight-bold mt-n2 mb-0"><?=number_format($total_bln->bln_total);?></p>
-                  <p class="mb-0">Balochistan</p>
-                </div>
-                <div>
-                  <i class="fas fa-map-marker fa-4x text-black-40"></i>
+                <div class="card-body text-center">
+                  <h4 class="card-title">Islamabad</h4>
+                  <div class="row">
+                    <div class="col-md-6">CTC Own</div>
+                    <div class="col-md-6"><?=number_format($total_isbd->ctc_own_isbd);?></div>
+                  </div>
+                  <div class="row mt-2 mb-4">
+                    <div class="col-md-6">Projects</div>
+                    <div class="col-md-6"><?=number_format($total_isbd->isbd_total);?></div>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-md">Read more</button>
                 </div>
               </div>
-              <a data-toggle="modal" data-target="#bln_stats" class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
-            </div>
-            <!-- Card -->
-
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-6 col-lg-3 mb-4">
-
-            <!-- Card -->
-            <div class="card light-blue lighten-1 white-text">
-              <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="h2-responsive font-weight-bold mt-n2 mb-0"><?=number_format($total_kp->kp_total);?></p>
-                  <p class="mb-0">Khyber PK</p>
+              <div class="card mb-4">
+                <div class="view overlay">
+                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg"
+                    alt="Card image cap">
+                  <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
                 </div>
-                <div>
-                  <i class="fas fa-map fa-4x text-black-40"></i>
-                </div>
-              </div>
-              <a data-toggle="modal" data-target="#kp_stats" class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
-            </div>
-            <!-- Card -->
-
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-6 col-lg-3 mb-4">
-
-            <!-- Card -->
-            <div class="card red accent-2 white-text">
-              <div class="card-body d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="h2-responsive font-weight-bold mt-n2 mb-0"><?=number_format($total_sindh->sindh_total);?></p>
-                  <p class="mb-0">Sindh</p>
-                </div>
-                <div>
-                  <i class="fas fa-map-marker fa-4x text-black-40"></i>
+                <div class="card-body text-center">
+                  <h4 class="card-title">Khyber PK</h4>
+                  <div class="row">
+                    <div class="col-md-6">CTC Own</div>
+                    <div class="col-md-6"><?=number_format($total_kp->ctc_own_kp);?></div>
+                  </div>
+                  <div class="row mt-2 mb-4">
+                    <div class="col-md-6">Projects</div>
+                    <div class="col-md-6"><?=number_format($total_kp->kp_total);?></div>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-md">Read more</button>
                 </div>
               </div>
-              <a data-toggle="modal" data-target="#sindh_stats" class="card-footer footer-hover small text-center white-text border-0 p-2">More info<i class="fas fa-arrow-circle-right pl-2"></i></a>
+              <div class="card mb-4">
+                <div class="view overlay">
+                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg"
+                    alt="Card image cap">
+                  <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+                <div class="card-body text-center">
+                  <h4 class="card-title">Balochistan</h4>
+                  <div class="row">
+                    <div class="col-md-6">CTC Own</div>
+                    <div class="col-md-6"><?=number_format($total_bln->ctc_own_bln);?></div>
+                  </div>
+                  <div class="row mt-2 mb-4">
+                    <div class="col-md-6">Projects</div>
+                    <div class="col-md-6"><?=number_format($total_bln->bln_total);?></div>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-md">Read more</button>
+                </div>
+              </div>
+              <div class="card mb-4">
+                <div class="view overlay">
+                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg"
+                    alt="Card image cap">
+                  <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+                <div class="card-body text-center">
+                  <h4 class="card-title">Punjab</h4>
+                  <div class="row">
+                    <div class="col-md-6">CTC Own</div>
+                    <div class="col-md-6"><?=number_format($total_punjab->ctc_own_punjab);?></div>
+                  </div>
+                  <div class="row mt-2 mb-4">
+                    <div class="col-md-6">Projects</div>
+                    <div class="col-md-6"><?=number_format($total_punjab->punjab_total);?></div>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-md">Read more</button>
+                </div>
+              </div>
+              <div class="card mb-4">
+                <div class="view overlay">
+                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg"
+                    alt="Card image cap">
+                  <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+                <div class="card-body text-center">
+                  <h4 class="card-title">Sindh</h4>
+                  <div class="row">
+                    <div class="col-md-6">CTC Own</div>
+                    <div class="col-md-6"><?=number_format($total_sindh->ctc_own_sindh);?></div>
+                  </div>
+                  <div class="row mt-2 mb-4">
+                    <div class="col-md-6">Projects</div>
+                    <div class="col-md-6"><?=number_format($total_sindh->sindh_total);?></div>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-md">Read more</button>
+                </div>
+              </div>
             </div>
-            <!-- Card -->
-
           </div>
-          <!-- Grid column -->
-
         </div>
-        <!-- Grid row -->
-
       </section>
       <!-- Section: Block Content -->
       <hr>

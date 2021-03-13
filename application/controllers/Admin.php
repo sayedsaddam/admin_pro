@@ -26,6 +26,7 @@ class Admin extends CI_Controller{
         $data['total_bln'] = $this->admin_model->expenses_bln();
         $data['total_kp'] = $this->admin_model->expenses_kp();
         $data['total_sindh'] = $this->admin_model->expenses_sindh();
+        $data['total_punjab'] = $this->admin_model->expenses_punjab();
         $data['pending'] = $this->admin_model->total_pending();
         $data['approved'] = $this->admin_model->total_approved();
         $data['rejected'] = $this->admin_model->total_rejected();
