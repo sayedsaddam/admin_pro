@@ -439,6 +439,12 @@ class Admin_model extends CI_Model{
         $this->db->where('id', $id);
         return $this->db->get()->row();
     }
+    // contact list - update contact.
+    public function update_contact($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('contact_list', $data);
+        return true;
+    }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){
