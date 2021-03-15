@@ -138,6 +138,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Suppliers | Admin & Procurement';
         $data['body'] = 'admin/suppliers';
         $data['suppliers'] = $this->admin_model->get_suppliers($limit, $offset);
+        $data['locations'] = $this->admin_model->list_locations_suppliers();
         $this->load->view('admin/commons/template', $data);
     }
     // Suppliers - Add new supplier
@@ -147,6 +148,7 @@ class Admin extends CI_Controller{
             'category' => $this->input->post('category'),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
+            'location' => $this->input->post('location'),
             'region' => $this->input->post('region'),
             'address' => $this->input->post('address')
         );
@@ -181,6 +183,7 @@ class Admin extends CI_Controller{
             'category' => $this->input->post('category'),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
+            'location' => $this->input->post('location'),
             'region' => $this->input->post('region'),
             'address' => $this->input->post('address')
         );

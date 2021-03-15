@@ -105,6 +105,12 @@ class Admin_model extends CI_Model{
         $this->db->update('item_requisitions', $data);
         return true;
     }
+    // List locations for supplier form
+    public function list_locations_suppliers(){
+        $this->db->select('id, name');
+        $this->db->from('locations');
+        return $this->db->get()->result();
+    }
     // Suppliers - Add new supplier
     public function add_supplier($data){
         $this->db->insert('suppliers', $data);
@@ -120,7 +126,7 @@ class Admin_model extends CI_Model{
     }
     // Get suppliers
     public function get_suppliers($limit, $offset){
-        $this->db->select('id, name, category, email, phone, region, address, status, created_at');
+        $this->db->select('id, name, category, email, phone, location, region, address, status, created_at');
         $this->db->from('suppliers');
         $this->db->where('status', 1);
         $this->db->order_by('id', 'DESC');
@@ -135,7 +141,7 @@ class Admin_model extends CI_Model{
     }
     // Get supplier for edit by id
     public function edit_supplier($id){
-        $this->db->select('id, name, category, email, phone, region, address, status, created_at');
+        $this->db->select('id, name, category, email, phone, location, region, address, status, created_at');
         $this->db->from('suppliers');
         $this->db->where('id', $id);
         return $this->db->get()->row();
@@ -488,7 +494,7 @@ class Admin_model extends CI_Model{
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){
-        $this->db->select('id, name, category, email, phone, region, address, status, created_at');
+        $this->db->select('id, name, category, email, phone, location, region, address, status, created_at');
         $this->db->from('suppliers');
         $this->db->like('name', $search);
         $this->db->or_like('category', $search);

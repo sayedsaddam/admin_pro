@@ -45,6 +45,7 @@
                 <th class="font-weight-bold">Name</th>
                 <th class="font-weight-bold">Email</th>
                 <th class="font-weight-bold">Phone</th>
+                <th class="font-weight-bold">Location</th>
                 <th class="font-weight-bold">Region</th>
                 <th class="font-weight-bold">Category</th>
                 <th class="font-weight-bold">Status</th>
@@ -60,6 +61,7 @@
                   <td><?= $sup->name; ?></td>
                   <td><?= ucfirst($sup->email); ?></td>
                   <td><?= ucfirst($sup->phone); ?></td>
+                  <td><?= ucfirst($sup->location); ?></td>
                   <td><?= ucfirst($sup->region); ?></td>
                   <td><?= ucfirst($sup->category); ?></td>
                   <td>
@@ -86,6 +88,7 @@
                   <td><?= $res->name; ?></td>
                   <td><?= ucfirst($res->email); ?></td>
                   <td><?= ucfirst($res->phone); ?></td>
+                  <td><?= ucfirst($res->location); ?></td>
                   <td><?= ucfirst($res->region); ?></td>
                   <td><?= ucfirst($res->category); ?></td>
                   <td>
@@ -157,12 +160,22 @@
             </div>
 
             <div class="md-form mb-5">
+              <select name="location" id="supplier_location" class="browser-default custom-select">
+                <option value="" disabled selected>--Select location--</option>
+                <?php if(!empty($locations)): foreach($locations as $loc): ?>
+                  <option value="<?= $loc->name ?>"><?= $loc->name; ?></option>
+                <?php endforeach; endif; ?>
+              </select>
+            </div>
+
+            <div class="md-form mb-5">
               <select name="region" id="selectListRegion" class="browser-default custom-select">
                 <option value="" disabled selected>--Select region--</option>
                 <option value="islamabad">Islamabad</option>
                 <option value="balochistan">Balochistan</option>
                 <option value="khyber PK">Khyber PK</option>
                 <option value="sindh">Sindh</option>
+                <option value="punjab">Punjab</option>
               </select>
             </div>
 
@@ -224,6 +237,15 @@
               <input name="phone" type="number" id="supplier_phone" class="form-control validate" value="">
               <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
             </div>
+            
+            <div class="md-form mb-5">
+              <select name="location" id="supplier_location" class="browser-default custom-select">
+                <option value="" disabled selected>--Select location--</option>
+                <?php if(!empty($locations)): foreach($locations as $loc): ?>
+                  <option value="<?= $loc->name ?>"><?= $loc->name; ?></option>
+                <?php endforeach; endif; ?>
+              </select>
+            </div>
 
             <div class="md-form mb-5">
               <select name="region" id="region" class="browser-default custom-select">
@@ -232,6 +254,7 @@
                 <option value="balochistan">Balochistan</option>
                 <option value="khyber PK">Khyber PK</option>
                 <option value="sindh">Sindh</option>
+                <option value="punjab">Punjab</option>
               </select>
             </div>
 
@@ -269,6 +292,7 @@ $(document).ready(function(){
         $('#category').val(response.category);
         $('#supplier_email').val(response.email);
         $('#supplier_phone').val(response.phone);
+        $('#supplier_location').val(response.location);
         $('#region').val(response.region);
         $('#supplier_address').val(response.address);
         // $('.edit-modal-body').html(response);
