@@ -38,7 +38,7 @@
     <div class="row">
       <div class="col-lg-12 col-md-12">
         <table class="table table-sm">
-          <caption><?php if(empty($results)){ echo 'List of Assets'; }else{ echo 'Search Results'; } ?></caption>
+          <caption><?php if(empty($results)){ echo 'List of Contacts'; }else{ echo 'Search Results'; } ?></caption>
           <thead>
             <tr>
                 <th class="font-weight-bold">ID</th>

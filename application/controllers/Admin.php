@@ -606,6 +606,47 @@ class Admin extends CI_Controller{
             redirect('admin/contact_list');
         }
     }
+    // Location - Load the page and list existing locations.
+    public function locations(){
+        $data['title'] = 'Locations | Admin & Procurement';
+        $data['body'] = 'admin/locations';
+        $data['locations'] = $this->admin_model->get_locations();
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Locations - Add new location
+    public function add_location(){
+        $data = array(
+            'name' => $this->input->post('location_name'),
+            'province' => $this->input->post('province')
+        );
+        if($this->admin_model->add_location($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Location information was added successfully.');
+            redirect('admin/locations');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/locations');
+        }
+    }
+    // Locations - Edit location
+    public function edit_location($id){
+        $location = $this->admin_model->edit_location($id);
+        echo json_encode($location);
+    }
+    // Locations - update location
+    public function update_location(){
+        $id = $this->input->post('id');
+        $data = array(
+            'name' => $this->input->post('location_name'),
+            'province' => $this->input->post('province')
+        );
+        if($this->admin_model->update_location($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Location information was updated successfully.');
+            redirect('admin/locations');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/locations');
+        }
+    }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){

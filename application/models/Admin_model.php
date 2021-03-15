@@ -451,6 +451,34 @@ class Admin_model extends CI_Model{
         $this->db->delete('contact_list');
         return true;
     }
+    // Locations - Get locations
+    public function get_locations(){
+        $this->db->select('id, name, province, created_at');
+        $this->db->from('locations');
+        return $this->db->get()->result();
+    }
+    // Location - Add new location
+    public function add_location($data){
+        $this->db->insert('locations', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // Locations - get location by ID for edit
+    public function edit_location($id){
+        $this->db->select('id, name, province');
+        $this->db->from('locations');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
+    }
+    // Locations - Update location
+    public function update_location($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('locations', $data);
+        return true;
+    }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){

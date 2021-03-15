@@ -59,8 +59,8 @@
                         <label>Gender</label>
                         <select name="gender" class="form-control">
                             <option value="" disabled selected>-- Select Gender --</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
+                            <option value="Male" <?php if(!empty($edit) AND $edit->gender == 'Male'){ echo 'selected'; } ?>>Male</option>
+                            <option value="Female" <?php if(!empty($edit) AND $edit->gender == 'Female'){ echo 'selected'; } ?>>Female</option>
                         </select>
                     </div>
                     <div class="form-group">
