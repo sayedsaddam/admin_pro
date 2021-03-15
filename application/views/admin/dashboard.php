@@ -86,7 +86,7 @@
             <div class="card-group">
               <div class="card mb-4">
                 <div class="view overlay">
-                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg"
+                  <img class="card-img-top img-fluid" src="<?= base_url('assets/img/head_office.jpeg'); ?>"
                     alt="Card image cap">
                   <a href="#!">
                     <div class="mask rgba-white-slight"></div>
@@ -107,7 +107,7 @@
               </div>
               <div class="card mb-4">
                 <div class="view overlay">
-                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg"
+                  <img class="card-img-top" src="<?= base_url('assets/img/kp.jpeg'); ?>"
                     alt="Card image cap">
                   <a href="#!">
                     <div class="mask rgba-white-slight"></div>
@@ -128,7 +128,7 @@
               </div>
               <div class="card mb-4">
                 <div class="view overlay">
-                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg"
+                  <img class="card-img-top" src="<?= base_url('assets/img/bln.jpeg'); ?>"
                     alt="Card image cap">
                   <a href="#!">
                     <div class="mask rgba-white-slight"></div>
@@ -149,7 +149,7 @@
               </div>
               <div class="card mb-4">
                 <div class="view overlay">
-                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg"
+                  <img class="card-img-top" src="<?= base_url('assets/img/punjab.jpeg'); ?>"
                     alt="Card image cap">
                   <a href="#!">
                     <div class="mask rgba-white-slight"></div>
@@ -170,7 +170,7 @@
               </div>
               <div class="card mb-4">
                 <div class="view overlay">
-                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg"
+                  <img class="card-img-top" src="<?= base_url('assets/img/sindh.jpeg'); ?>"
                     alt="Card image cap">
                   <a href="#!">
                     <div class="mask rgba-white-slight"></div>
