@@ -156,6 +156,7 @@
                 <option value="balochistan">Balochistan</option>
                 <option value="khyber PK">Khyber PK</option>
                 <option value="sindh">Sindh</option>
+                <option value="punjab">Punjab</option>
               </select>
             </div>
 
