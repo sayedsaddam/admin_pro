@@ -647,6 +647,16 @@ class Admin extends CI_Controller{
             redirect('admin/locations');
         }
     }
+    // Locations - Delete location by ID.
+    public function delete_location($id){
+        if($this->admin_model->delete_location($id)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Location information was deleted successfully.');
+            redirect('admin/locations');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/locations');
+        }
+    }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){

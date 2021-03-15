@@ -58,7 +58,7 @@
                     <td><?= date('M d, Y', strtotime($loc->created_at)); ?></td>
                     <td>
                         <a data-id="<?= $loc->id; ?>" class="location_info"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                        <a href="<?=base_url('admin/delete_contact/'.$loc->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                        <a href="<?=base_url('admin/delete_location/'.$loc->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                     </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='14'>No record found.</td></tr>"; endif; ?>
@@ -72,7 +72,7 @@
                   <td></td>
                   <td>
                       <a href="<?= base_url('admin/asset_detail/'.$res->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                      <a href="<?=base_url('admin/delete_asset/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                      <a href="<?=base_url('admin/delete_location/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                   </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>

@@ -479,6 +479,12 @@ class Admin_model extends CI_Model{
         $this->db->update('locations', $data);
         return true;
     }
+    // Location - Delete location
+    public function delete_location($id){
+        $this->db->where('id', $id);
+        $this->db->delete('location');
+        return true;
+    }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){
