@@ -25,9 +25,13 @@ class Admin extends CI_Controller{
         $data['total_isbd'] = $this->admin_model->expenses_isbd();
         $data['ctc_own_isbd'] = $this->admin_model->ctc_own_isbd();
         $data['total_bln'] = $this->admin_model->expenses_bln();
+        $data['ctc_own_bln'] = $this->admin_model->ctc_own_bln();
         $data['total_kp'] = $this->admin_model->expenses_kp();
+        $data['ctc_own_kp'] = $this->admin_model->ctc_own_kp();
         $data['total_sindh'] = $this->admin_model->expenses_sindh();
+        $data['ctc_own_sindh'] = $this->admin_model->ctc_own_sindh();
         $data['total_punjab'] = $this->admin_model->expenses_punjab();
+        $data['ctc_own_punjab'] = $this->admin_model->ctc_own_punjab();
         $data['pending'] = $this->admin_model->total_pending();
         $data['approved'] = $this->admin_model->total_approved();
         $data['rejected'] = $this->admin_model->total_rejected();

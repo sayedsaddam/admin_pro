@@ -117,7 +117,7 @@
                   <h4 class="card-title">Khyber PK</h4>
                   <div class="row">
                     <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($total_kp->ctc_own_kp);?></div>
+                    <div class="col-md-6"><?=number_format($ctc_own_kp->ctc_own_kp);?></div>
                   </div>
                   <div class="row mt-2 mb-4">
                     <div class="col-md-6">Projects</div>
@@ -138,7 +138,7 @@
                   <h4 class="card-title">Balochistan</h4>
                   <div class="row">
                     <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($total_bln->ctc_own_bln);?></div>
+                    <div class="col-md-6"><?=number_format($ctc_own_bln->ctc_own_bln);?></div>
                   </div>
                   <div class="row mt-2 mb-4">
                     <div class="col-md-6">Projects</div>
@@ -159,7 +159,7 @@
                   <h4 class="card-title">Punjab</h4>
                   <div class="row">
                     <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($total_punjab->ctc_own_punjab);?></div>
+                    <div class="col-md-6"><?=number_format($ctc_own_punjab->ctc_own_punjab);?></div>
                   </div>
                   <div class="row mt-2 mb-4">
                     <div class="col-md-6">Projects</div>
@@ -180,7 +180,7 @@
                   <h4 class="card-title">Sindh</h4>
                   <div class="row">
                     <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($total_sindh->ctc_own_sindh);?></div>
+                    <div class="col-md-6"><?=number_format($ctc_own_sindh->ctc_own_sindh);?></div>
                   </div>
                   <div class="row mt-2 mb-4">
                     <div class="col-md-6">Projects</div>

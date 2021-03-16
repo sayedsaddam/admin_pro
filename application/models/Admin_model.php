@@ -301,7 +301,7 @@ class Admin_model extends CI_Model{
         $this->db->like('inv_date', date('Y-m'));
         return $this->db->get()->row();
     }
-    // Expenses - CTC Own
+    // Expenses - CTC Own Isbd
     public function ctc_own_isbd(){
         $this->db->select('SUM(IF(project="CTC OWN", amount, 0)) as ctc_own_isbd');
         $this->db->from('invoices');
@@ -311,7 +311,15 @@ class Admin_model extends CI_Model{
     }
     // Expenses - region based - Balochistan
     public function expenses_bln(){
-        $this->db->select('SUM(IF(region="balochistan", amount, 0)) as bln_total, SUM(IF(project="CTC OWN", amount, 0)) as ctc_own_bln');
+        $this->db->select('SUM(IF(region="balochistan", amount, 0)) as bln_total');
+        $this->db->from('invoices');
+        $this->db->where(array('region' => 'balochistan', 'status' => 1, 'project !=' => 'CTC OWN'));
+        $this->db->like('inv_date', date('Y-m'));
+        return $this->db->get()->row();
+    }
+    // Expenses - ctc own Bln
+    public function ctc_own_bln(){
+        $this->db->select('SUM(IF(project="CTC OWN", amount, 0)) as ctc_own_bln');
         $this->db->from('invoices');
         $this->db->where(array('region' => 'balochistan', 'status' => 1));
         $this->db->like('inv_date', date('Y-m'));
@@ -319,7 +327,15 @@ class Admin_model extends CI_Model{
     }
     // Expenses - region based - Khyber PK
     public function expenses_kp(){
-        $this->db->select('SUM(IF(region="khyber PK", amount, 0)) as kp_total, SUM(IF(project="CTC OWN", amount, 0)) as ctc_own_kp');
+        $this->db->select('SUM(IF(region="khyber PK", amount, 0)) as kp_total');
+        $this->db->from('invoices');
+        $this->db->where(array('region' => 'khyber PK', 'status' => 1, 'project !=' => 'CTC OWN'));
+        $this->db->like('inv_date', date('Y-m'));
+        return $this->db->get()->row();
+    }
+    // Expenses - ctc own KP
+    public function ctc_own_kp(){
+        $this->db->select('SUM(IF(project="CTC OWN", amount, 0)) as ctc_own_kp');
         $this->db->from('invoices');
         $this->db->where(array('region' => 'khyber PK', 'status' => 1));
         $this->db->like('inv_date', date('Y-m'));
@@ -327,15 +343,31 @@ class Admin_model extends CI_Model{
     }
     // Expenses - region based - Sindh
     public function expenses_sindh(){
-        $this->db->select('SUM(IF(region="sindh", amount, 0)) as sindh_total, SUM(IF(project="CTC OWN", amount, 0)) as ctc_own_sindh');
+        $this->db->select('SUM(IF(region="sindh", amount, 0)) as sindh_total');
         $this->db->from('invoices');
-        $this->db->where(array('region' => 'sindh', 'status' => 1));
+        $this->db->where(array('region' => 'sindh', 'status' => 1, 'project !=' => 'CTC OWN'));
         $this->db->like('inv_date', date('Y-m'));
         return $this->db->get()->row();
     }
+   // Expenses - ctc own Sindh
+   public function ctc_own_sindh(){
+    $this->db->select('SUM(IF(project="CTC OWN", amount, 0)) as ctc_own_sindh');
+    $this->db->from('invoices');
+    $this->db->where(array('region' => 'sindh', 'status' => 1));
+    $this->db->like('inv_date', date('Y-m'));
+    return $this->db->get()->row();
+   } 
     // Expenses - region based - Sindh
     public function expenses_punjab(){
-        $this->db->select('SUM(IF(region="punjab", amount, 0)) as punjab_total, SUM(IF(project="CTC OWN", amount, 0)) as ctc_own_punjab');
+        $this->db->select('SUM(IF(region="punjab", amount, 0)) as punjab_total');
+        $this->db->from('invoices');
+        $this->db->where(array('region' => 'sindh', 'status' => 1, 'project !=' => 'CTC OWN'));
+        $this->db->like('inv_date', date('Y-m'));
+        return $this->db->get()->row();
+    }
+    // Expenses - ctc own Punjab
+    public function ctc_own_punjab(){
+        $this->db->select('SUM(IF(project="CTC OWN", amount, 0)) as ctc_own_punjab');
         $this->db->from('invoices');
         $this->db->where(array('region' => 'sindh', 'status' => 1));
         $this->db->like('inv_date', date('Y-m'));
