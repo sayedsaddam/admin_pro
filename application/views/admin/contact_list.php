@@ -55,6 +55,7 @@
                 <th class="font-weight-bold">Supervisor</th>
                 <th class="font-weight-bold">DoB</th>
                 <th class="font-weight-bold">DoJ</th>
+                <th class="font-weight-bold">Service</th>
                 <th class="font-weight-bold">Action</th>
             </tr>
           </thead>
@@ -62,7 +63,7 @@
             <tbody>
               <?php if(!empty($contacts)): foreach($contacts as $contact): ?>
                 <tr>
-                  <td><?= 'CTC-0'.$contact->id; ?></td>
+                  <td><?= 'CTC-'.$contact->id; ?></td>
                   <td><?= $contact->name; ?></td>
                   <td><?= ucfirst($contact->designation); ?></td>
                   <td><?= ucfirst($contact->project); ?></td>
@@ -75,12 +76,15 @@
                   <td><?= $contact->grader; ?></td>
                   <td><?= $contact->supervisor; ?></td>
                   <td>
-                    <?php echo date('M d, Y', strtotime($contact->dob)); // $recDate = date('Y-m-d', strtotime($contact->purchase_date));
-                          // $today = date("Y-m-d"); // Today's date
-                          // $diff = date_diff(date_create($recDate), date_create($today));
-                          // echo $diff->format('%yyr %mm %dd'); ?> 
+                    <?php echo date('M d, Y', strtotime($contact->dob)); ?> 
                   </td>
                   <td><?= date('M d, Y', strtotime($contact->doj)); ?></td>
+                  <td>
+                    <?php $joinDate = date('Y-m-d', strtotime($contact->doj));
+                          $today = date("Y-m-d"); // Today's date
+                          $diff = date_diff(date_create($joinDate), date_create($today));
+                          echo $diff->format('%yyr %mm %dd'); ?>
+                  </td>
                   <td>
                       <a href="<?= base_url('admin/contact_detail/'.$contact->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                       <a href="<?=base_url('admin/delete_contact/'.$contact->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
@@ -92,7 +96,7 @@
             <tbody>
               <?php if(!empty($results)): foreach($results as $res): ?>
                 <tr>
-                  <td><?= 'CTC-0'.$res->id; ?></td>
+                  <td><?= 'CTC-'.$res->id; ?></td>
                   <td><?= $res->year; ?></td>
                   <td><?= ucfirst($res->project); ?></td>
                   <td><?= ucfirst($res->item); ?></td>
@@ -122,7 +126,7 @@
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12">
-        <?php //if(empty($results) AND !empty($contacts)){ echo $this->pagination->create_links(); } ?>
+        <?php if(empty($results) AND !empty($contacts)){ echo $this->pagination->create_links(); } ?>
       </div>
     </div>
 </div>

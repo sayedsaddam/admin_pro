@@ -476,10 +476,15 @@ class Admin_model extends CI_Model{
         $this->db->delete('items_detail');
         return true;
     }
+    // Count contacts
+    public function count_contacts(){
+        return $this->db->from('contact_list')->count_all_results();
+    }
     // Contact list - get all contacts.
-    public function get_contacts(){
+    public function get_contacts($limit, $offset){
         $this->db->select('*');
         $this->db->from('contact_list');
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Contact list - Add new contact

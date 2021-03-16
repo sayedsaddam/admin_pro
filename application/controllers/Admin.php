@@ -551,10 +551,17 @@ class Admin extends CI_Controller{
         }
     }
     // Contact list - Master contact list
-    public function contact_list(){
+    public function contact_list($offset = null){
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'admin/contact_list';
+        $rowscount = $this->admin_model->count_contacts();
+        paginate($url, $rowscount, $limit);
         $data['title'] = 'Contact List | Admin & Procurement';
         $data['body'] = 'admin/contact_list';
-        $data['contacts'] = $this->admin_model->get_contacts();
+        $data['contacts'] = $this->admin_model->get_contacts($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
     // Contact list - Load, view or edit contact.
