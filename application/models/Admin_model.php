@@ -274,6 +274,19 @@ class Admin_model extends CI_Model{
         $this->db->order_by('id', 'DESC');
         return $this->db->get()->result();
     }
+    // Project - Get project by id
+    public function edit_project($id){
+        $this->db->select('id, project_name, project_desc');
+        $this->db->from('projects');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
+    }
+    // Projects - Update project
+    public function update_project($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('projects', $data);
+        return true;
+    }
     // Projects - Remove project
     public function delete_project($id){
         $this->db->where('id', $id);

@@ -15,6 +15,13 @@
 </div>
 
 <div class="container">
+    <?php if($success = $this->session->flashdata('success')): ?>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-success"><?=$success;?></div>
+        </div>
+      </div>
+    <?php endif; ?>
     <div class="row mb-4">
         <div class="col-lg-6 col-md-6">
             <form action="#0" method="get" class="md-form form-inline">
@@ -55,7 +62,7 @@
                 <td>
                     <a href="<?= base_url('admin/project_status/'.$proj->id); ?>"><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
                     <a href="<?= base_url('admin/delete_project/'.$proj->id); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                    <!-- <a href=""><span class="badge badge-info"><i class="fa fa-eye"></i></span></a> -->
+                    <a data-id="<?=$proj->id;?>" class="project-info"><span class="badge badge-info"><i class="fa fa-edit"></i></span></a>
                 </td>
                 </tr>
             <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
@@ -65,7 +72,7 @@
     </div>
 </div>
 
-<!-- Add invoice -->
+<!-- Add project -->
 <div class="modal fade" id="add_project" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -99,3 +106,61 @@
     </div>
   </div>
 </div>
+<!-- Update project -->
+<div class="modal fade" id="edit_project" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 font-weight-bold">Update Project</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <form action="<?=base_url('admin/update_project');?>" method="post" class="md-form">
+            <input type="hidden" name="project_id" id="project_id">
+            <div class="md-form mb-5">
+              <input name="project_name" type="text" id="project_name" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="form34">Project name</label>
+            </div>
+
+            <div class="md-form">
+              <textarea name="project_desc" id="project_description" class="md-textarea form-control" rows="3"></textarea>
+              <label data-error="wrong" data-success="right" for="form8">Project Description</label>
+            </div>
+
+            <div class="md-form mb-5">
+              <input type="submit" class="btn btn-primary" value="Save Changes">
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-right">
+        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $('.project-info').click(function(){  
+    var project_id = $(this).data('id');
+    // AJAX request
+    $.ajax({
+    url: '<?= base_url('admin/edit_project/'); ?>' + project_id,
+    method: 'POST',
+    dataType: 'JSON',
+    data: {project_id: project_id},
+      success: function(response){ 
+        console.log(response);
+        $('#project_id').val(response.id)
+        $('#project_name').val(response.project_name);
+        $('#project_description').val(response.project_desc);
+        // Display Modal
+        $('#edit_project').modal('show');
+      }
+    });
+  });
+});
+</script>

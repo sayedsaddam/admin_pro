@@ -370,6 +370,26 @@ class Admin extends CI_Controller{
             redirect('admin/projects');
         }
     }
+    // Projects - edit project
+    public function edit_project($id){
+        $project = $this->admin_model->edit_project($id);
+        echo json_encode($project);
+    }
+    // Projects - update project
+    public function update_project(){
+        $id = $this->input->post('project_id');
+        $data = array(
+            'project_name' => $this->input->post('project_name'),
+            'project_desc' => $this->input->post('project_desc')
+        );
+        if($this->admin_model->update_project($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Project update was successful.');
+            redirect('admin/projects');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/projects');
+        }
+    }
     // Projects - Remove project
     public function delete_project($id){
         if($this->admin_model->delete_project()($id)){
