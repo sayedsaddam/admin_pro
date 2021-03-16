@@ -622,6 +622,7 @@ class Admin extends CI_Controller{
             'grader' => $this->input->post('grader'),
             'supervisor' => $this->input->post('supervisor'),
             'dob' => $this->input->post('dob'),
+            'doj' => $this->input->post('doj')
         );
         if($this->admin_model->update_contact($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Contact information was updated successfully.');
