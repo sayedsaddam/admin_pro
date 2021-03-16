@@ -741,6 +741,14 @@ class Admin extends CI_Controller{
         $data['results'] = $this->admin_model->search_equip_maintenance($search);
         $this->load->view('admin/commons/template', $data);
     }
+    // Search filters - Search contact list
+    public function search_contact_list(){
+        $search = $this->input->get('search');
+        $data['title'] = 'Search Results > Contact List';
+        $data['body'] = 'admin/contact_list';
+        $data['results'] = $this->admin_model->search_contact_list($search);
+        $this->load->view('admin/commons/template', $data);
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";

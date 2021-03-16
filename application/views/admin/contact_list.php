@@ -90,35 +90,40 @@
                       <a href="<?=base_url('admin/delete_contact/'.$contact->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                   </td>
                 </tr>
-              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='14'>No record found.</td></tr>"; endif; ?>
+              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='16'>No record found.</td></tr>"; endif; ?>
             </tbody> 
           <?php else: ?>
             <tbody>
               <?php if(!empty($results)): foreach($results as $res): ?>
                 <tr>
                   <td><?= 'CTC-'.$res->id; ?></td>
-                  <td><?= $res->year; ?></td>
-                  <td><?= ucfirst($res->project); ?></td>
-                  <td><?= ucfirst($res->item); ?></td>
-                  <td><?= ucfirst($res->model); ?></td>
-                  <td><?= ucfirst($res->asset_code); ?></td>
-                  <td><?= ucfirst($res->serial_number); ?></td>
-                  <td><?= ucfirst($res->custodian_location); ?></td>
+                  <td><?= $res->name; ?></td>
                   <td><?= ucfirst($res->designation); ?></td>
-                  <td><?= ucfirst($res->department); ?></td>
-                  <td><?= date('M d, Y', strtotime($res->purchase_date)); ?></td>
+                  <td><?= ucfirst($res->project); ?></td>
+                  <td><?= ucfirst($res->district); ?></td>
+                  <td><?= ucfirst($res->province); ?></td>
+                  <td><?= ucfirst($res->gender); ?></td>
+                  <td><?= ucfirst($res->cnic); ?></td>
+                  <td><?= ucfirst($res->personal_contact); ?></td>
+                  <td><?= ucfirst($res->official_contact); ?></td>
+                  <td><?= $res->grader; ?></td>
+                  <td><?= $res->supervisor; ?></td>
                   <td>
-                    <?php $recDate = date('Y-m-d', strtotime($res->purchase_date));
+                    <?php echo date('M d, Y', strtotime($res->dob)); ?> 
+                  </td>
+                  <td><?= date('M d, Y', strtotime($res->doj)); ?></td>
+                  <td>
+                    <?php $joinDate = date('Y-m-d', strtotime($res->doj));
                           $today = date("Y-m-d"); // Today's date
-                          $diff = date_diff(date_create($recDate), date_create($today));
-                          echo $diff->format('%yyr %mm %dd'); ?> 
+                          $diff = date_diff(date_create($joinDate), date_create($today));
+                          echo $diff->format('%yyr %mm %dd'); ?>
                   </td>
                   <td>
-                      <a href="<?= base_url('admin/asset_detail/'.$res->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                      <a href="<?=base_url('admin/delete_asset/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                      <a href="<?= base_url('admin/contact_detail/'.$res->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+                      <a href="<?=base_url('admin/delete_contact/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                   </td>
                 </tr>
-              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
+              <?php endforeach; endif; ?>
             </tbody>
         <?php endif; ?>
         </table>

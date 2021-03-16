@@ -617,4 +617,17 @@ class Admin_model extends CI_Model{
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
+    // Search filters - contact list search
+    public function search_contact_list($search){
+        $this->db->select('*');
+        $this->db->from('contact_list');
+        $this->db->like('name', $search);
+        $this->db->or_like('project', $search);
+        $this->db->or_like('province', $search);
+        $this->db->or_like('gender', $search);
+        $this->db->or_like('grader', $search);
+        $this->db->or_like('designation', $search);
+        $this->db->order_by('created_at', 'DESC');
+        return $this->db->get()->result();
+    }
 }
