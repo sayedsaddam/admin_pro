@@ -23,6 +23,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Home | Admin & Procurement';
         $data['body'] = 'admin/dashboard';
         $data['total_isbd'] = $this->admin_model->expenses_isbd();
+        $data['ctc_own_isbd'] = $this->admin_model->ctc_own_isbd();
         $data['total_bln'] = $this->admin_model->expenses_bln();
         $data['total_kp'] = $this->admin_model->expenses_kp();
         $data['total_sindh'] = $this->admin_model->expenses_sindh();

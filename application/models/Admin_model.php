@@ -295,7 +295,15 @@ class Admin_model extends CI_Model{
     }
     // Expenses - region based - Islamabad
     public function expenses_isbd(){
-        $this->db->select('SUM(IF(region="islamabad", amount, 0)) as isbd_total, SUM(IF(project="CTC OWN", amount, 0)) as ctc_own_isbd');
+        $this->db->select('SUM(IF(region="islamabad", amount, 0)) as isbd_total');
+        $this->db->from('invoices');
+        $this->db->where(array('region' => 'islamabad', 'status' => 1, 'project !=' => 'CTC OWN'));
+        $this->db->like('inv_date', date('Y-m'));
+        return $this->db->get()->row();
+    }
+    // Expenses - CTC Own
+    public function ctc_own_isbd(){
+        $this->db->select('SUM(IF(project="CTC OWN", amount, 0)) as ctc_own_isbd');
         $this->db->from('invoices');
         $this->db->where(array('region' => 'islamabad', 'status' => 1));
         $this->db->like('inv_date', date('Y-m'));

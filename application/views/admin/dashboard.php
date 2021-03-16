@@ -96,7 +96,7 @@
                   <h4 class="card-title">Islamabad</h4>
                   <div class="row">
                     <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($total_isbd->ctc_own_isbd);?></div>
+                    <div class="col-md-6"><?=number_format($ctc_own_isbd->ctc_own_isbd);?></div>
                   </div>
                   <div class="row mt-2 mb-4">
                     <div class="col-md-6">Projects</div>
