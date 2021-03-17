@@ -7,6 +7,12 @@ class User_model extends CI_Model{
     {
         parent::__construct();
     }
+    // Get inventory items to list in the dropdown for user request submission.
+    public function get_items(){
+        $this->db->select('id, item_name, item_qty');
+        $this->db->from('inventory');
+        return $this->db->get()->result();
+    }
     // Create an item requisition
     public function create_requisition($data){
         $this->db->insert('item_requisitions', $data);
@@ -34,10 +40,19 @@ class User_model extends CI_Model{
     }
     // Get all requisition against requester.
     public function get_requisitions($limit, $offset){
-        $this->db->select('id, item_name, item_desc, item_qty, status, created_at, updated_at');
+        $this->db->select('item_requisitions.id,
+                            item_requisitions.item_name,
+                            item_requisitions.item_desc,
+                            item_requisitions.item_qty,
+                            item_requisitions.status,
+                            item_requisitions.created_at,
+                            item_requisitions.updated_at,
+                            inventory.id as inv_id,
+                            inventory.item_name as inv_name');
         $this->db->from('item_requisitions');
-        $this->db->where('requested_by', $this->session->userdata('id'));
-        $this->db->order_by('created_at', 'desc');
+        $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
+        $this->db->where('item_requisitions.requested_by', $this->session->userdata('id'));
+        $this->db->order_by('item_requisitions.created_at', 'desc');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }

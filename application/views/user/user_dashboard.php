@@ -98,7 +98,7 @@
                 <?php if(!empty($requisitions)): foreach($requisitions as $req): ?>
                   <tr>
                     <th scope="row"><?= 'CTC-0'.$req->id; ?></th>
-                    <td><?= ucfirst($req->item_name); ?></td>
+                    <td><?= ucfirst($req->inv_name); ?></td>
                     <td><?= $req->item_qty; ?></td>
                     <td><?= $req->item_desc; ?></td>
                     <td>
@@ -149,9 +149,9 @@
                             <label for="itemName">Item name</label>
                             <select name="item_name" id="item_name" class="browser-default custom-select">
                                 <option value="" disabled selected>-- Select Item --</option>
-                                <option value="chalk">Chalk</option>
-                                <option value="pen">Pen</option>
-                                <option value="printing paper">Printing Paper</option>
+                                <?php if(!empty($items)): foreach($items as $item): ?>
+                                  <option value="<?=$item->id;?>"><?=$item->item_name;?></option>
+                                <?php endforeach; endif; ?>
                             </select>
                         </div>
                         <div class="form-group">
