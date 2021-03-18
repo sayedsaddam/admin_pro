@@ -179,9 +179,21 @@ class Admin_model extends CI_Model{
     }
     // Inventory - Get inventory.
     public function get_inventory($limit, $offset){
-        $this->db->select('id, item_name, item_desc, unit_price, item_qty, item_category, created_at');
+        $this->db->select('inventory.id,
+                            inventory.item_name,
+                            inventory.item_desc,
+                            inventory.unit_price,
+                            inventory.item_qty,
+                            inventory.item_category,
+                            inventory.created_at,
+                            item_requisitions.id as req_id,
+                            item_requisitions.item_name as req_name,
+                            item_requisitions.item_qty as req_qty,
+                            item_requisitions.status');
         $this->db->from('inventory');
+        $this->db->join('item_requisitions', 'inventory.id = item_requisitions.item_name', 'left');
         $this->db->order_by('id', 'DESC');
+        $this->db->group_by('inventory.id');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -574,12 +586,24 @@ class Admin_model extends CI_Model{
     }
     // Search filters - inventory search
     public function search_inventory($search){
-        $this->db->select('id, item_name, item_desc, unit_price, item_qty, item_category, created_at');
+        $this->db->select('inventory.id,
+                            inventory.item_name,
+                            inventory.item_desc,
+                            inventory.unit_price,
+                            inventory.item_qty,
+                            inventory.item_category,
+                            inventory.created_at,
+                            item_requisitions.id as req_id,
+                            item_requisitions.item_name as req_name,
+                            item_requisitions.item_qty as req_qty,
+                            item_requisitions.status');
         $this->db->from('inventory');
-        $this->db->like('item_name', $search);
-        $this->db->or_like('item_desc', $search);
-        $this->db->or_like('item_category', $search);
-        $this->db->order_by('created_at', 'DESC');
+        $this->db->join('item_requisitions', 'inventory.id = item_requisitions.item_name', 'left');
+        $this->db->like('inventory.item_name', $search);
+        $this->db->or_like('inventory.item_desc', $search);
+        $this->db->or_like('inventory.item_category', $search);
+        $this->db->group_by('inventory.id');
+        $this->db->order_by('inventory.created_at', 'DESC');
         return $this->db->get()->result();
     }
     // Search filters - users search

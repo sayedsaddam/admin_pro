@@ -60,9 +60,9 @@
                 <td><?= $inv->item_name; ?></td>
                 <td><?= ucfirst($inv->item_desc); ?></td>
                 <td><?= ucfirst($inv->item_category); ?></td>
-                <td><?= ucfirst($inv->item_qty); ?></td>
+                <td><?php if($inv->status == 1){ $remaining_items = $inv->item_qty - $inv->req_qty; echo $remaining_items;  }else{ echo $inv->item_qty; } ?></td>
                 <td><?= number_format($inv->unit_price) ?></td>
-                <td><?= number_format($inv->unit_price * $inv->item_qty); ?></td>
+                <td><?php if($inv->status == 1){ echo number_format($inv->unit_price * $remaining_items); }else{ echo number_format($inv->unit_price * $inv->item_qty); } ?></td>
                 <td><?= date('M d, Y', strtotime($inv->created_at)); ?></td>
                 <td>
                     <a data-id="<?= $inv->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
@@ -80,9 +80,9 @@
                 <td><?= $res->item_name; ?></td>
                 <td><?= ucfirst($res->item_desc); ?></td>
                 <td><?= ucfirst($res->item_category); ?></td>
-                <td><?= ucfirst($res->item_qty); ?></td>
+                <td><?php if($res->status == 1){ $remaining_items = $res->item_qty - $res->req_qty; echo $remaining_items;  }else{ echo $res->item_qty; } ?></td>
                 <td><?= number_format($res->unit_price) ?></td>
-                <td><?= number_format($res->unit_price * $res->item_qty); ?></td>
+                <td><?php if($res->status == 1){ echo number_format($res->unit_price * $remaining_items); }else{ echo number_format($res->unit_price * $res->item_qty); } ?></td>
                 <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                 <td>
                     <a data-id="<?= $res->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
