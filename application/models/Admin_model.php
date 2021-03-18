@@ -83,9 +83,12 @@ class Admin_model extends CI_Model{
                             users.fullname,
                             users.email,
                             users.location,
-                            users.user_role');
+                            users.user_role,
+                            inventory.id as inv_id,
+                            inventory.item_name as inv_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
+        $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
         $this->db->where('item_requisitions.id', $id);
         $this->db->order_by('id', 'DESC');
         return $this->db->get()->row();
