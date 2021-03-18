@@ -35,7 +35,7 @@
           <tr>
             <th><?= 'CTC-0'.$app_req->id; ?></th>
             <td><?= $app_req->fullname; ?></td>
-            <td><?= ucfirst($app_req->item_name); ?></td>
+            <td><?= ucfirst($app_req->inv_name); ?></td>
             <td><?= ucfirst($app_req->item_qty); ?></td>
             <td>
                 <span class="badge badge-success">Approved</span>

@@ -35,7 +35,7 @@
             <tr>
               <th><?= 'CTC-0'.$rej_req->id; ?></th>
               <td><?= $rej_req->fullname; ?></td>
-              <td><?= ucfirst($rej_req->item_name); ?></td>
+              <td><?= ucfirst($rej_req->inv_name); ?></td>
               <td><?= ucfirst($rej_req->item_qty); ?></td>
               <td>
                   <span class="badge badge-danger">Rejected</span>

@@ -35,7 +35,7 @@
             <tr>
               <td><?= 'CTC-0'.$pen_req->id; ?></td>
               <td><?= $pen_req->fullname; ?></td>
-              <td><?= ucfirst($pen_req->item_name); ?></td>
+              <td><?= ucfirst($pen_req->inv_name); ?></td>
               <td><?= ucfirst($pen_req->item_qty); ?></td>
               <td>
                   <span class="badge badge-warning">Pending</span>

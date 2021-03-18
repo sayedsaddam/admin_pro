@@ -14,9 +14,12 @@ class Admin_model extends CI_Model{
                             item_requisitions.updated_at,
                             users.id as user_id,
                             users.fullname,
-                            users.location');
+                            users.location,
+                            inventory.id as inv_id,
+                            inventory.item_name as inv_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
+        $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
         $this->db->where('item_requisitions.status', 0);
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
@@ -33,9 +36,12 @@ class Admin_model extends CI_Model{
                             item_requisitions.updated_at,
                             users.id as user_id,
                             users.fullname,
-                            users.location');
+                            users.location,
+                            inventory.id as inv_id,
+                            inventory.item_name as inv_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
+        $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
         $this->db->where('item_requisitions.status', 1);
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
@@ -52,9 +58,12 @@ class Admin_model extends CI_Model{
                             item_requisitions.updated_at,
                             users.id as user_id,
                             users.fullname,
-                            users.location');
+                            users.location,
+                            inventory.id as inv_id,
+                            inventory.item_name as inv_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
+        $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
         $this->db->where('item_requisitions.status', 2);
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
