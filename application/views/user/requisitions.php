@@ -45,7 +45,7 @@
                 <?php if(!empty($requisitions)): foreach($requisitions as $req): ?>
                   <tr>
                     <th scope="row"><?= 'CTC-0'.$req->id; ?></th>
-                    <td><?= ucfirst($req->item_name); ?></td>
+                    <td><?= ucfirst($req->inv_name); ?></td>
                     <td><?= $req->item_qty; ?></td>
                     <td><?= $req->item_desc; ?></td>
                     <td>
