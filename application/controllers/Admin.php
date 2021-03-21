@@ -643,10 +643,17 @@ class Admin extends CI_Controller{
         }
     }
     // Location - Load the page and list existing locations.
-    public function locations(){
+    public function locations($offset = null){
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'admin/locations';
+        $rowscount = $this->admin_model->count_locations();
+        paginate($url, $rowscount, $limit);
         $data['title'] = 'Locations | Admin & Procurement';
         $data['body'] = 'admin/locations';
-        $data['locations'] = $this->admin_model->get_locations();
+        $data['locations'] = $this->admin_model->get_locations($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
     // Locations - Add new location

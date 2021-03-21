@@ -50,7 +50,7 @@
           </thead>
           <?php if(empty($results)): ?>
             <tbody>
-              <?php if(!empty($locations)): $serial=1; foreach($locations as $loc): ?>
+              <?php if(!empty($locations)): $serial= $this->uri->segment(3) + 1; foreach($locations as $loc): ?>
                 <tr>
                     <td><?= $serial++; ?></td>
                     <td><?= $loc->name; ?></td>
@@ -84,7 +84,7 @@
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12">
-        <?php //if(empty($results) AND !empty($contacts)){ echo $this->pagination->create_links(); } ?>
+        <?php if(empty($results) AND !empty($locations)){ echo $this->pagination->create_links(); } ?>
       </div>
     </div>
 </div>

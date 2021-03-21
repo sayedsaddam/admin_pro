@@ -539,10 +539,15 @@ class Admin_model extends CI_Model{
         $this->db->delete('contact_list');
         return true;
     }
+    // count location to add pagination.
+    public function count_locations(){
+        return $this->db->from('locations')->count_all_results();
+    }
     // Locations - Get locations
-    public function get_locations(){
+    public function get_locations($limit, $offset){
         $this->db->select('id, name, province, created_at');
         $this->db->from('locations');
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Location - Add new location
