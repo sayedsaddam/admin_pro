@@ -700,6 +700,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Search Results > Suppliers';
         $data['body'] = 'admin/suppliers';
         $data['results'] = $this->admin_model->search_suppliers($search);
+        $data['locations'] = $this->admin_model->list_locations_suppliers();
         $this->load->view('admin/commons/template', $data);
     }
     // Search filters - search inventory
@@ -748,6 +749,14 @@ class Admin extends CI_Controller{
         $data['title'] = 'Search Results > Contact List';
         $data['body'] = 'admin/contact_list';
         $data['results'] = $this->admin_model->search_contact_list($search);
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Search filters - Search locations list
+    public function search_locations(){
+        $search = $this->input->get('search');
+        $data['title'] = 'Search Results > Locations';
+        $data['body'] = 'admin/locations';
+        $data['results'] = $this->admin_model->search_locations($search);
         $this->load->view('admin/commons/template', $data);
     }
     // 404 page.

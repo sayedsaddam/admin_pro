@@ -24,8 +24,8 @@
     <?php endif; ?>
     <div class="row mb-4">
         <div class="col-lg-6 col-md-6">
-            <form action="<?= base_url('admin/search_contact_list'); ?>" method="get" class="md-form form-inline">
-                <input type="text" name="search" id="" class="form-control md-form col-5">
+            <form action="<?= base_url('admin/search_locations'); ?>" method="get" class="md-form form-inline">
+                <input type="text" name="search" id="" class="form-control md-form col-5" required>
                 <label for="">Search Query</label>
                 <input type="submit" value="go &raquo;" class="btn btn-outline-primary rounded-pill">
             </form>
@@ -65,13 +65,14 @@
             </tbody> 
           <?php else: ?>
             <tbody>
-              <?php if(!empty($results)): foreach($results as $res): ?>
+              <?php if(!empty($results)): $serial = 1; foreach($results as $res): ?>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><?= $serial++; ?></td>
+                  <td><?= $res->name; ?></td>
+                  <td><?= $res->province ?></td>
+                  <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                   <td>
-                      <a href="<?= base_url('admin/asset_detail/'.$res->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+                      <a data-id="<?= $res->id; ?>" class="location_info"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                       <a href="<?=base_url('admin/delete_location/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                   </td>
                 </tr>

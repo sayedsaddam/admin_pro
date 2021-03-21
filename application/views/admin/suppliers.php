@@ -25,7 +25,7 @@
     <div class="row mb-4">
         <div class="col-lg-6 col-md-6">
             <form action="<?=base_url('admin/search_suppliers');?>" method="get" class="md-form form-inline">
-                <input type="text" name="search" id="" class="form-control md-form col-5">
+                <input type="text" name="search" id="" class="form-control md-form col-5" required>
                 <label for="">Search Query</label>
                 <input type="submit" value="go &raquo;" class="btn btn-outline-primary rounded-pill">
             </form>
@@ -78,7 +78,7 @@
                       <a href="<?= base_url('admin/supplier_detail/'.$sup->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                   </td>
                 </tr>
-              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
+              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
             </tbody>
           <?php else: ?>
             <tbody>
@@ -163,7 +163,7 @@
               <select name="location" id="supplier_location" class="browser-default custom-select">
                 <option value="" disabled selected>--Select location--</option>
                 <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                  <option value="<?= $loc->name ?>"><?= $loc->name; ?></option>
+                  <option value="<?php echo $loc->name ?>"><?php echo $loc->name; ?></option>
                 <?php endforeach; endif; ?>
               </select>
             </div>

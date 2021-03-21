@@ -12,6 +12,9 @@
   .text-black-40 {
     color: rgba(0, 0, 0, 0.4)
   }
+  img{
+    height: 150px;
+  }
 </style>
 <div class="jumbotron jumbotron-fluid blue-gradient text-light">
   <div class="container-fluid">
@@ -83,17 +86,17 @@
         <!-- Grid row -->
         <div class="row">
           <div class="col-md-12">
-            <div class="card-group">
+            <div class="card-deck">
               <div class="card mb-4">
                 <div class="view overlay">
-                  <img class="card-img-top img-fluid" src="<?= base_url('assets/img/head_office.jpeg'); ?>"
-                    alt="Card image cap">
+                  <img class="card-img-top" src="<?= base_url('assets/img/head_office.jpeg'); ?>"
+                    alt="Islamabad-stats">
                   <a href="#!">
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center">
-                  <h4 class="card-title">Islamabad</h4>
+                <div class="card-body text-center text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title font-weight-bold text-light">Islamabad</h4>
                   <div class="row">
                     <div class="col-md-6">CTC Own</div>
                     <div class="col-md-6"><?=number_format($ctc_own_isbd->ctc_own_isbd);?></div>
@@ -102,7 +105,7 @@
                     <div class="col-md-6">Projects</div>
                     <div class="col-md-6"><?=number_format($total_isbd->isbd_total);?></div>
                   </div>
-                  <button type="button" class="btn btn-primary btn-md">Read more</button>
+                  <button type="button" class="btn btn-outline-light btn-md">Read more</button>
                 </div>
               </div>
               <div class="card mb-4">
@@ -113,8 +116,8 @@
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center">
-                  <h4 class="card-title">Khyber PK</h4>
+                <div class="card-body text-center text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title font-weight-bold">Khyber PK</h4>
                   <div class="row">
                     <div class="col-md-6">CTC Own</div>
                     <div class="col-md-6"><?=number_format($ctc_own_kp->ctc_own_kp);?></div>
@@ -123,7 +126,7 @@
                     <div class="col-md-6">Projects</div>
                     <div class="col-md-6"><?=number_format($total_kp->kp_total);?></div>
                   </div>
-                  <button type="button" class="btn btn-primary btn-md">Read more</button>
+                  <button type="button" class="btn btn-outline-light btn-md">Read more</button>
                 </div>
               </div>
               <div class="card mb-4">
@@ -134,8 +137,8 @@
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center">
-                  <h4 class="card-title">Balochistan</h4>
+                <div class="card-body text-center text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title font-weight-bold">Balochistan</h4>
                   <div class="row">
                     <div class="col-md-6">CTC Own</div>
                     <div class="col-md-6"><?=number_format($ctc_own_bln->ctc_own_bln);?></div>
@@ -144,7 +147,7 @@
                     <div class="col-md-6">Projects</div>
                     <div class="col-md-6"><?=number_format($total_bln->bln_total);?></div>
                   </div>
-                  <button type="button" class="btn btn-primary btn-md">Read more</button>
+                  <button type="button" class="btn btn-outline-light btn-md">Read more</button>
                 </div>
               </div>
               <div class="card mb-4">
@@ -155,8 +158,8 @@
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center">
-                  <h4 class="card-title">Punjab</h4>
+                <div class="card-body text-center text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title font-weight-bold">Punjab</h4>
                   <div class="row">
                     <div class="col-md-6">CTC Own</div>
                     <div class="col-md-6"><?=number_format($ctc_own_punjab->ctc_own_punjab);?></div>
@@ -165,7 +168,7 @@
                     <div class="col-md-6">Projects</div>
                     <div class="col-md-6"><?=number_format($total_punjab->punjab_total);?></div>
                   </div>
-                  <button type="button" class="btn btn-primary btn-md">Read more</button>
+                  <button type="button" class="btn btn-outline-light btn-md">Read more</button>
                 </div>
               </div>
               <div class="card mb-4">
@@ -176,8 +179,8 @@
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center">
-                  <h4 class="card-title">Sindh</h4>
+                <div class="card-body text-center text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title font-weight-bold">Sindh</h4>
                   <div class="row">
                     <div class="col-md-6">CTC Own</div>
                     <div class="col-md-6"><?=number_format($ctc_own_sindh->ctc_own_sindh);?></div>
@@ -186,7 +189,7 @@
                     <div class="col-md-6">Projects</div>
                     <div class="col-md-6"><?=number_format($total_sindh->sindh_total);?></div>
                   </div>
-                  <button type="button" class="btn btn-primary btn-md">Read more</button>
+                  <button type="button" class="btn btn-outline-light btn-md">Read more</button>
                 </div>
               </div>
             </div>
@@ -197,7 +200,7 @@
       <hr>
       <!-- Section: tasks list -->
       <section>
-        <div class="row">
+        <div class="row no-gutters">
 
           <!-- Grid column -->
           <div class="col-lg-4 col-md-12 mb-4">

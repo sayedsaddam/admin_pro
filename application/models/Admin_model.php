@@ -570,7 +570,7 @@ class Admin_model extends CI_Model{
     // Location - Delete location
     public function delete_location($id){
         $this->db->where('id', $id);
-        $this->db->delete('location');
+        $this->db->delete('locations');
         return true;
     }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
@@ -663,6 +663,15 @@ class Admin_model extends CI_Model{
         $this->db->or_like('gender', $search);
         $this->db->or_like('grader', $search);
         $this->db->or_like('designation', $search);
+        $this->db->order_by('created_at', 'DESC');
+        return $this->db->get()->result();
+    }
+    // Search filters - locations list search
+    public function search_locations($search){
+        $this->db->select('id, name, province, created_at');
+        $this->db->from('locations');
+        $this->db->like('name', $search);
+        $this->db->or_like('province', $search);
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
