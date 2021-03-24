@@ -56,4 +56,26 @@ class User_model extends CI_Model{
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
+    // =----------------------------------------------- Employee Leaves -----------------------------------------------== //
+    // Apply leave
+    public function apply_leave($data){
+        $this->db->insert('employee_leaves', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // Count number of leaves for currently logged in user.
+    public function total_leaves(){
+        return $this->db->where('emp_id', $this->session->userdata('id'))->from('employee_leaves')->count_all_results();
+    }
+    // Get leaves > Track leaves record.
+    public function track_leaves($limit, $offset){
+        $this->db->select('id, emp_id, leave_type, leave_from, leave_to, no_of_days, leave_reason, leave_status, created_at');
+        $this->db->from('employee_leaves');
+        $this->db->where('emp_id', $this->session->userdata('id'));
+        $this->db->limit($limit, $offset);
+        return $this->db->get()->result();
+    }
 }

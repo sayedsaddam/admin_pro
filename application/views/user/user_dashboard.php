@@ -9,6 +9,8 @@
         <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
         <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
         <h4 class="font-weight-bold orange-text mt-2">Employee Dashboard <i class="fa fa-chart-bar"></i></h4>
+        <button data-toggle="modal" data-target="#apply_leave" type="button" class="btn btn-outline-light btn-sm">Apply Leave</button>
+        <a href="<?= base_url('users/track_leaves'); ?>" class="btn btn-outline-success btn-sm">Track Leaves</a>
       </div>
     </div>
   </div>
@@ -30,7 +32,7 @@
     <div class="row">
 
       <!--Grid column-->
-      <div class="col-lg-4 col-md-12 mb-4">
+      <div class="col-lg-3 col-md-12 mb-3">
         <div class="media blue lighten-2 text-white z-depth-1 rounded">
           <i class="fas fa-spinner fa-3x blue z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
@@ -42,7 +44,7 @@
       <!--Grid column-->
 
       <!--Grid column-->
-      <div class="col-lg-4 col-md-6 mb-4">
+      <div class="col-lg-3 col-md-6 mb-3">
         <div class="media deep-purple lighten-2 text-white z-depth-1 rounded">
           <i class="fas fa-check-double fa-3x deep-purple z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
@@ -54,12 +56,25 @@
       <!--Grid column-->
 
       <!--Grid column-->
-      <div class="col-lg-4 col-md-6 mb-4">
+      <div class="col-lg-3 col-md-6 mb-3">
         <div class="media pink lighten-2 text-white z-depth-1 rounded">
           <i class="fas fa-times fa-3x pink z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
             <p class="text-uppercase mt-2 mb-1 ml-3"><small>rejected requests</small></p>
             <p class="font-weight-bold mb-1 ml-3"><?= $rejected; ?></p>
+          </div>
+        </div>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-3 col-md-6 mb-3">
+        <div class="media green lighten-2 text-white z-depth-1 rounded">
+          <i class="fas fa-times fa-3x green z-depth-1 p-4 rounded-left text-white"></i>
+          <div class="media-body">
+            <p class="text-uppercase mt-2 mb-1 ml-3"><small class="font-weight-bold">leaves <span class="badge badge-primary">22</span></small></p>
+            <p class="font-weight-lighter mb-1 ml-3 mb-0"><?php echo 'Availed : '. 10; ?></p>
+            <p class="font-weight-lighter mb-1 ml-3"><?php echo 'Balance : '. 12; ?></p>
           </div>
         </div>
       </div>
@@ -126,7 +141,7 @@
   <!-- Section: Block Content -->
 </div>
 
-<!-- Full Height Modal Right -->
+<!-- Full Height Modal Left > Place requisition -->
 <div class="modal fade left" id="fullHeightModalLeft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
@@ -169,6 +184,68 @@
                     <!-- Form -->
                 </div>
             </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- Full Height Modal Left -->
+
+<!-- Full Height Modal Right > Apply Leave -->
+<div class="modal fade right" id="apply_leave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-right" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title w-100" id="myModalLabel">Apply Leave</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <h4 class="font-weight-lighter mb-5 text-center">Pleas fill out the form below.</h4>
+              <!-- Form -->
+              <form action="<?= base_url('users/apply_leave'); ?>" method="post">
+                  <!-- First name -->
+                  <div class="form-group">
+                      <label for="itemName">Leave Type</label>
+                      <select name="leave_type" id="leave_type" class="browser-default custom-select">
+                          <option value="" disabled selected>-- Select Type --</option>
+                          <option value="Annual">Annual</option>
+                          <option value="Casual">Casual</option>
+                          <option value="Medical">Medical</option>
+                          <option value="Maternity">Maternity</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
+                      <label for="from_date">Date From</label>
+                      <input type="date" name="from_date" id="from_date" class="form-control">
+                  </div>
+                  <div class="form-group">
+                      <label for="to_date">Date To</label>
+                      <input type="date" name="to_date" id="to_date" class="form-control">
+                  </div>
+                  <div class="form-group">
+                      <label for="no_of_days">Number of Days</label>
+                      <input type="number" name="no_of_days" id="no_of_days" placeholder="No. of days..." class="form-control">
+                  </div>
+                  <div class="form-group">
+                      <label for="reason">Reason for Leave</label>
+                      <textarea name="leave_reason" id="leave_reason" rows="3" class="form-control" placeholder="Reason for leave..."></textarea>
+                  </div>
+                  
+                  <div class="form-group">
+                      <input type="submit" name="submit" class="btn btn-primary" value="Apply Leave">
+                  </div>
+              </form>
+              <!-- Form -->
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
