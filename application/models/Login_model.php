@@ -7,6 +7,13 @@ class Login_model extends CI_Model{
     {
         parent::__construct();
     }
+    // Get all users where role is supervisor.
+    public function get_supervisors(){
+        $this->db->select('id, fullname, user_role');
+        $this->db->from('users');
+        $this->db->where('user_role', 'supervisor');
+        return $this->db->get()->result();
+    }
     // Sign up - Created new user account.
     public function signup($data){
         $this->db->insert('users', $data);
@@ -16,9 +23,9 @@ class Login_model extends CI_Model{
             return false;
         }
     }
-    // Signin - Check for user credentials and login to the system.
+    // Signin - Check for user credentials and login to the system. > This table will no hold all employees data.
     public function signin($username, $password){
-        $this->db->select('id, fullname, username, password, location, user_role');
+        $this->db->select('id, fullname, username, department, password, location, user_role');
         $this->db->from('users');
         $this->db->where(array('username' => $username, 'password' => $password));
         return $this->db->get()->row();

@@ -18,6 +18,7 @@ class Login extends CI_Controller{
     public function signup(){
         $data['title'] = 'Sign Up | Admin & Procurement';
         $data['body'] = 'signup';
+        $data['supervisors'] = $this->login_model->get_supervisors();
         $this->load->view('admin/commons/template', $data);
     }
     // Register/created new user.
@@ -27,12 +28,14 @@ class Login extends CI_Controller{
             'email' => $this->input->post('email'),
             'username' => $this->input->post('username'),
             'password' => sha1($this->input->post('password')),
+            'department' => $this->input->post('department'),
             'location' => $this->input->post('location'),
-            'user_role' => $this->input->post('user_role')
+            'user_role' => $this->input->post('user_role'),
+            'supervisor' => $this->input->post('supervisor')
         );
         if($this->login_model->signup($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>User registration was successful. Now you can use your credentials to login to the system.');
-            redirect('login');
+            redirect('admin/users');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
             redirect('login/signup');
@@ -49,11 +52,14 @@ class Login extends CI_Controller{
             $name = $login->fullname;
             $location = $login->location;
             $role = $login->user_role;
-            $this->session->set_userdata(array('id' => $id, 'username' => $username, 'fullname' => $name, 'location' => $location, 'user_role' => $role));
+            $department = $login->department;
+            $this->session->set_userdata(array('id' => $id, 'username' => $username, 'fullname' => $name, 'location' => $location, 'user_role' => $role, 'department' => $department));
             if($this->session->userdata('user_role') == 'admin'){
                 redirect('admin');
             }elseif($this->session->userdata('user_role') == 'user'){
                 redirect('users');
+            }elseif($this->session->userdata('user_role') == 'supervisor'){
+                redirect('supervisor');
             }
         }else{
             $this->session->set_flashdata('login_failed', "<strong>Oops! </strong>Something went wrong but don't fret, let's give it another shot.");
