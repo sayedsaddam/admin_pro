@@ -83,6 +83,7 @@
                             <th class="font-weight-bold">Days</th>
                             <th class="font-weight-bold">Requested</th>
                             <th class="font-weight-bold">Status</th>
+                            <th class="font-weight-bold">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,14 +95,18 @@
                                 <td><?= date('M d, Y', strtotime($leave->leave_to)); ?></td>
                                 <td><?= $leave->no_of_days; ?></td>
                                 <td><?= date('M d, Y', strtotime($leave->created_at)); ?></td>
-                                <td><?php if($leave->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($leave->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-dander">rejected</span>'; } ?></td>
+                                <td><?php if($leave->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($leave->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
+                                <td>
+                                    <a data-id="<?= $leave->id; ?>" class="badge badge-primary approve_leave" title="Approve leave..."><i class="fa fa-check"></i></a>
+                                    <a data-id="<?= $leave->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
+                                </td>
                             </tr>
                             <?php endforeach; else: echo '<tr class="table-danger"><td colspan="7" align="center">No record found.</td></tr>'; endif; ?>
                         </tbody>
                     </table>
                 </div>
                 <div class="card-footer white py-3 d-flex justify-content-between">
-                    <?php echo 'Pagination will be displayed here....'; ?>
+                    <a href="" class="btn btn-outline-primary">View All</a>
                 </div>
             </div>
         </div>
@@ -130,7 +135,7 @@
                         <tbody>
                             <?php if(!empty($requisitions)): foreach($requisitions as $req): ?>
                             <tr>
-                                <td scope="row"><?= 'CTC-0'.$req->id; ?></td>
+                                <td scope="row"><?= 'CTC-'.$req->id; ?></td>
                                 <td><?= ucfirst($req->inv_name); ?></td>
                                 <td><?= $req->item_qty; ?></td>
                                 <td><?= $req->item_desc; ?></td>
@@ -147,7 +152,7 @@
                     </table>
                 </div>
                 <div class="card-footer white py-3 d-flex justify-content-between">
-                    <?php echo 'Pagination will be displayed here....'; ?>
+                    <a href="" class="btn btn-outline-primary">View All</a>
                 </div>
             </div>
         </div>
@@ -155,3 +160,107 @@
   </section>
   <!-- Section: Block Content -->
 </div>
+<!-- Modal > Leave approval -->
+<div class="modal fade" id="approve_leave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Leave Approval Form</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="<?= base_url('supervisor/approve_leave'); ?>" method="post">
+                    <input type="hidden" name="id" id="app_leave_id" value="">
+                    <div class="form-group">
+                        <label for="remarks">Supervisor Remarks</label>
+                        <textarea name="remarks" rows="3" class="form-control" placeholder="Supervisor Remarks..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal > Leave rejection. -->
+<div class="modal fade" id="reject_leave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Leave Rejection Form</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="<?= base_url('supervisor/reject_leave'); ?>" method="post">
+                    <input type="hidden" name="id" id="rej_leave_id" value="">
+                    <div class="form-group">
+                        <label for="remarks">Supervisor Remarks</label>
+                        <textarea name="remarks" rows="3" class="form-control" placeholder="Supervisor Remarks..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-danger">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function(){
+  $('.approve_leave').click(function(){  // Leave approval modal will be displayed.
+    var leave_id = $(this).data('id');
+    // AJAX request
+    $.ajax({
+    url: '<?= base_url('supervisor/leave_info/'); ?>' + leave_id,
+    method: 'POST',
+    dataType: 'JSON',
+    data: {leave_id: leave_id},
+      success: function(response){ 
+        console.log(response);
+        $('#app_leave_id').val(response.id);
+        // Display Modal
+        $('#approve_leave').modal('show'); 
+      }
+    });
+  });
+  // 
+  $('.reject_leave').click(function(){  
+    var leave_id = $(this).data('id');
+    // AJAX request
+    $.ajax({
+    url: '<?= base_url('supervisor/leave_info/'); ?>' + leave_id,
+    method: 'POST',
+    dataType: 'JSON',
+    data: {leave_id: leave_id},
+      success: function(response){ 
+        console.log(response);
+        $('#rej_leave_id').val(response.id);
+        // Display Modal
+        $('#reject_leave').modal('show'); 
+      }
+    });
+  });
+});
+</script>
