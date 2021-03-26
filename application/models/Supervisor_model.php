@@ -39,12 +39,13 @@ class Supervisor_model extends CI_Model{
                             users.id as user_id,
                             users.fullname,
                             users.location,
+                            users.supervisor,
                             inventory.id as inv_id,
                             inventory.item_name as inv_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
-        $this->db->where('item_requisitions.status', 0);
+        $this->db->where('users.supervisor', $this->session->userdata('id'));
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
@@ -60,6 +61,12 @@ class Supervisor_model extends CI_Model{
     public function leave_actions($id, $data){
         $this->db->where('id', $id);
         $this->db->update('employee_leaves', $data);
+        return true;
+    }
+    // Approve request > Approve or reject items requisition.
+    public function request_actions($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('item_requisitions', $data);
         return true;
     }
 }

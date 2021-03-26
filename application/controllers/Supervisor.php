@@ -54,4 +54,38 @@ class Supervisor extends CI_Controller{
             redirect($_SERVER['HTTP_REFERER']);
         }
     }
+    // Approve item request.
+    public function approve_request($id){
+        if(!$this->session->userdata('username')){
+            redirect('');
+        }
+        $data = array(
+            'status' => 1,
+            'updated_at' => date('Y-m-d')
+        );
+        if($this->supervisor_model->request_actions($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Request approval was successful.');
+            redirect($_SERVER['HTTP_REFERER']);
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong in request approval. Please try again.');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+    // Approve item request.
+    public function reject_request($id){
+        if(!$this->session->userdata('username')){
+            redirect('');
+        }
+        $data = array(
+            'status' => 2,
+            'updated_at' => date('Y-m-d')
+        );
+        if($this->supervisor_model->request_actions($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Request rejection was successful.');
+            redirect($_SERVER['HTTP_REFERER']);
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong in request rejection. Please try again.');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
 }

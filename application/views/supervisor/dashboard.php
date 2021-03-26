@@ -127,8 +127,8 @@
                             <th class="font-weight-bold">Item</th>
                             <th class="font-weight-bold">Quantity</th>
                             <th class="font-weight-bold">Desciption</th>
-                            <th class="font-weight-bold">Status</th>
                             <th class="font-weight-bold">Requested</th>
+                            <th class="font-weight-bold">Status</th>
                             <th class="font-weight-bold">Processed</th>
                             </tr>
                         </thead>
@@ -139,12 +139,13 @@
                                 <td><?= ucfirst($req->inv_name); ?></td>
                                 <td><?= $req->item_qty; ?></td>
                                 <td><?= $req->item_desc; ?></td>
-                                <td>
-                                <?php if($req->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($req->status == 1){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
-                                </td>
                                 <td><?= date('M d, Y', strtotime($req->created_at)); ?></td>
                                 <td>
-                                <?php if($req->updated_at != NULL){ echo date('M d, Y', strtotime($req->updated_at)); }else{ echo "<span class='purple-text'>Nothing yet.</span>"; } ?>
+                                  <?php if($req->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($req->status == 1){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
+                                </td>
+                                <td>
+                                  <a href="<?= base_url('supervisor/approve_request/'.$req->id); ?>" class="badge badge-primary" title="Approve request..." onclick="javascript: return confirm('Are you sure to perform this action?');"><i class="fa fa-check"></i></a>
+                                  <a href="<?= base_url('supervisor/reject_request/'.$req->id); ?>" class="badge badge-danger" title="Reject request..." onclick="javascript: return confirm('Are you sure to perform this action?');"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                             <?php endforeach; else: echo '<tr class="table-danger"><td colspan="7" align="center">No record found.</td></tr>'; endif; ?>
