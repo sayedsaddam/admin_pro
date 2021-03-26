@@ -179,7 +179,7 @@
                     <input type="hidden" name="id" id="app_leave_id" value="">
                     <div class="form-group">
                         <label for="remarks">Supervisor Remarks</label>
-                        <textarea name="remarks" rows="3" class="form-control" placeholder="Supervisor Remarks..."></textarea>
+                        <textarea name="remarks" rows="3" id="app_sup_remarks" class="form-control" placeholder="Supervisor Remarks..."></textarea>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success">Save Changes</button>
@@ -213,7 +213,7 @@
                     <input type="hidden" name="id" id="rej_leave_id" value="">
                     <div class="form-group">
                         <label for="remarks">Supervisor Remarks</label>
-                        <textarea name="remarks" rows="3" class="form-control" placeholder="Supervisor Remarks..."></textarea>
+                        <textarea name="remarks" id="rej_sup_remarks" rows="3" class="form-control" placeholder="Supervisor Remarks..."></textarea>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-danger">Save Changes</button>
@@ -241,6 +241,7 @@ $(document).ready(function(){
       success: function(response){ 
         console.log(response);
         $('#app_leave_id').val(response.id);
+        $('#app_sup_remarks').val(response.sup_remarks);
         // Display Modal
         $('#approve_leave').modal('show'); 
       }
@@ -258,6 +259,7 @@ $(document).ready(function(){
       success: function(response){ 
         console.log(response);
         $('#rej_leave_id').val(response.id);
+        $('#rej_sup_remarks').val(response.sup_remarks);
         // Display Modal
         $('#reject_leave').modal('show'); 
       }
