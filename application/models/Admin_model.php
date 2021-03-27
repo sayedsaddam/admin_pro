@@ -578,6 +578,50 @@ class Admin_model extends CI_Model{
         $this->db->delete('locations');
         return true;
     }
+    // count leaves
+    public function count_leaves(){
+        return $this->db->from('employee_leaves')->count_all_results();
+    }
+    // Leaves information for admin.
+    public function get_leave_applications($limit, $offset){
+        $this->db->select('employee_leaves.id,
+                            employee_leaves.emp_id,
+                            employee_leaves.leave_from,
+                            employee_leaves.leave_to,
+                            employee_leaves.no_of_days,
+                            employee_leaves.leave_reason,
+                            employee_leaves.leave_status,
+                            employee_leaves.created_at,
+                            users.id as user_id,
+                            users.fullname,
+                            users.department,
+                            users.supervisor');
+        $this->db->from('employee_leaves');
+        $this->db->join('users', 'employee_leaves.emp_id = users.id', 'left');
+        $this->db->where('employee_leaves.leave_status', 1);
+        $this->db->limit($limit, $offset);
+        return $this->db->get()->result();
+    }
+    // Leaves information for admin.
+    public function get_leave_detail($id){
+        $this->db->select('employee_leaves.id,
+                            employee_leaves.emp_id,
+                            employee_leaves.leave_from,
+                            employee_leaves.leave_to,
+                            employee_leaves.no_of_days,
+                            employee_leaves.leave_reason,
+                            employee_leaves.sup_remarks,
+                            employee_leaves.leave_status,
+                            employee_leaves.created_at,
+                            users.id as user_id,
+                            users.fullname,
+                            users.department,
+                            users.supervisor');
+        $this->db->from('employee_leaves');
+        $this->db->join('users', 'employee_leaves.emp_id = users.id', 'left');
+        $this->db->where(array('employee_leaves.leave_status' => 1, 'employee_leaves.id' => $id));
+        return $this->db->get()->row();
+    }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){

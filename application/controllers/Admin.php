@@ -9,6 +9,7 @@ class Admin extends CI_Controller{
         $this->load->model('login_model');
         $this->load->model('admin_model');
         $this->load->model('user_model');
+        $this->load->model('supervisor_model');
         $this->load->helper('paginate');
         if(!$this->session->userdata('username')){
             redirect('');
@@ -699,6 +700,27 @@ class Admin extends CI_Controller{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
             redirect('admin/locations');
         }
+    }
+    // Leaves information
+    public function leaves_info($offset = null){
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'admin/leaves_info';
+        $rowscount = $this->admin_model->count_leaves();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Leaves Info | Admin & Procurement';
+        $data['body'] = 'admin/leaves';
+        $data['leaves'] = $this->admin_model->get_leave_applications($limit, $offset);
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Leave detail by ID.
+    public function leave_detail($id){
+        $data['title'] = 'Leave Detail > Leaves Info';
+        $data['body'] = 'admin/leave_detail';
+        $data['leave'] = $this->admin_model->get_leave_detail($id);
+        $this->load->view('admin/commons/template', $data);
     }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers

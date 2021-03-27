@@ -43,6 +43,9 @@
             <a href="<?= base_url('admin/suppliers'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-truck-moving"></i></a> Suppliers
           </li>
           <li class="list-group-item">
+            <a href="<?= base_url('admin/leaves_info'); ?>" class="text-white btn-floating btn-tw btn-sm"><i class="fas fa-sign"></i></a>Leaves Info
+          </li>
+          <li class="list-group-item">
             <a href="<?= base_url('admin/locations'); ?>" class="text-white btn-floating btn-slack btn-sm"><i class="fas fa-map-marker"></i></a>Locations
           </li>
           <li class="list-group-item">
