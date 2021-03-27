@@ -14,55 +14,61 @@
   </div>
 </div>
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="card card-list">
-                <div class="card-header white d-flex justify-content-between align-items-center py-3">
-                    <p class="h5-responsive font-weight-bold mb-0">Leave Requests</p>
-                    <ul class="list-unstyled d-flex align-items-center mb-0">
-                    <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
-                    <li><i class="fas fa-times fa-sm pl-3"></i></li>
-                    </ul>
-                </div>
-                <div class="card-body">
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                            <th class="font-weight-bold">ID</th>
-                            <th class="font-weight-bold">Employee</th>
-                            <th class="font-weight-bold">Leave From</th>
-                            <th class="font-weight-bold">Leave To</th>
-                            <th class="font-weight-bold">Days</th>
-                            <th class="font-weight-bold">Requested</th>
-                            <th class="font-weight-bold">Status</th>
-                            <th class="font-weight-bold">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if(!empty($leaves)): foreach($leaves as $leave): ?>
-                            <tr>
-                                <td scope="row"><?= 'CTC-'.$leave->id; ?></td>
-                                <td><?= ucfirst($leave->fullname); ?></td>
-                                <td><?= date('M d, Y', strtotime($leave->leave_from)); ?></td>
-                                <td><?= date('M d, Y', strtotime($leave->leave_to)); ?></td>
-                                <td><?= $leave->no_of_days; ?></td>
-                                <td><?= date('M d, Y', strtotime($leave->created_at)); ?></td>
-                                <td><?php if($leave->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($leave->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
-                                <td>
-                                    <a href="<?= base_url('admin/leave_detail/'.$leave->id); ?>" class="badge badge-primary" title="Leave detail..."><i class="fa fa-print"></i></a>
-                                    <a data-id="<?= $leave->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
-                                </td>
-                            </tr>
-                            <?php endforeach; else: echo '<tr class="table-danger"><td colspan="8" align="center">No record found.</td></tr>'; endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card-footer white py-3 d-flex justify-content-between">
-                    <?= $this->pagination->create_links(); ?>
-                </div>
-            </div>
-        </div> 
+  <div class="row mb-4">
+    <div class="col-6">
+      <a href="<?= base_url('admin/daily_attendance'); ?>" class="btn btn-outline-unique"><i class="fa fa-eye"></i> attendance register</a>
+      <button data-toggle="modal" data-target="#add_attendance" type="button" class="btn btn-outline-info"><i class="fa fa-plus"></i> add attendance</button>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-list">
+        <div class="card-header white d-flex justify-content-between align-items-center py-3">
+          <p class="h5-responsive font-weight-bold mb-0">Leave Requests</p>
+          <ul class="list-unstyled d-flex align-items-center mb-0">
+            <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
+            <li><i class="fas fa-times fa-sm pl-3"></i></li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th class="font-weight-bold">ID</th>
+                <th class="font-weight-bold">Employee</th>
+                <th class="font-weight-bold">Leave From</th>
+                <th class="font-weight-bold">Leave To</th>
+                <th class="font-weight-bold">Days</th>
+                <th class="font-weight-bold">Requested</th>
+                <th class="font-weight-bold">Status</th>
+                <th class="font-weight-bold">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php if(!empty($leaves)): foreach($leaves as $leave): ?>
+              <tr>
+                <td scope="row"><?= 'CTC-'.$leave->id; ?></td>
+                <td><?= ucfirst($leave->fullname); ?></td>
+                <td><?= date('M d, Y', strtotime($leave->leave_from)); ?></td>
+                <td><?= date('M d, Y', strtotime($leave->leave_to)); ?></td>
+                <td><?= $leave->no_of_days; ?></td>
+                <td><?= date('M d, Y', strtotime($leave->created_at)); ?></td>
+                <td><?php if($leave->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($leave->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
+                <td>
+                  <a href="<?= base_url('admin/leave_detail/'.$leave->id); ?>" class="badge badge-primary" title="Leave detail..."><i class="fa fa-print"></i></a>
+                  <a data-id="<?= $leave->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
+                </td>
+              </tr>
+              <?php endforeach; else: echo '<tr class="table-danger"><td colspan="8" align="center">No record found.</td></tr>'; endif; ?>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer white py-3 d-flex justify-content-between">
+          <?= $this->pagination->create_links(); ?>
+        </div>
+      </div>
+    </div> 
+  </div>
 </div>
 
 <!-- Modal > Leave rejection. -->
@@ -94,6 +100,52 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal > Add Attendance -->
+<div class="modal fade" id="add_attendance" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 font-weight-bold">Add Attendance</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center mx-3">
+        <div class="row">
+          <div class="col-12 table-responsive">
+           <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th><input type="checkbox" id="checkAll"></th>
+                <th class="font-weight-bold">Employee</th>
+                <th class="font-weight-bold">Time In</th>
+                <th class="font-weight-bold">Time Out</th>
+                <th class="font-weight-bold">Total Hours</th>
+                <th class="font-weight-bold">Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox" id="checkAll" value="1"></td>
+                <td>John Doe</td>
+                <td><input type="text" name="time_in" id="time_in" class="form-control form-control-sm" placeholder="Time in"></td>
+                <td><input type="text" name="time_out" id="time_out" class="form-control form-control-sm" placeholder="Time Out"></td>
+                <td><input type="text" name="total_hrs" id="total_hrs" class="form-control form-control-sm" placeholder="Total hours"></td>
+                <td><input type="text" name="remarks" id="remarks" class="form-control form-control-sm" placeholder="Remarks"></td>
+              </tr>
+            </tbody>
+           </table>     
+          </div>
+        </div>
+        
+      </div>
+      <div class="modal-footer d-flex justify-content-right">
+        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
       </div>
     </div>
   </div>
