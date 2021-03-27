@@ -23,6 +23,7 @@ class Users extends CI_Controller{
         $data['pending'] = $this->user_model->total_pending();
         $data['approved'] = $this->user_model->total_approved();
         $data['rejected'] = $this->user_model->total_rejected();
+        $data['availed_leaves'] = $this->user_model->all_approved_leaves();
         $data['items'] = $this->user_model->get_items();
         $data['requisitions'] = $this->user_model->get_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);

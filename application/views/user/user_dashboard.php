@@ -9,14 +9,12 @@
         <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
         <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
         <h4 class="font-weight-bold orange-text mt-2">Employee Dashboard <i class="fa fa-chart-bar"></i></h4>
-        <button data-toggle="modal" data-target="#apply_leave" type="button" class="btn btn-outline-light btn-sm">Apply Leave</button>
-        <a href="<?= base_url('users/track_leaves'); ?>" class="btn btn-outline-success btn-sm">Track Leaves</a>
       </div>
     </div>
   </div>
 </div>
 
-<div class="container my-3 py-3">
+<div class="container-fluid my-2 py-2">
   <!--Section: Block Content-->
   <section>
     <?php if($success = $this->session->flashdata('success')): ?>
@@ -28,6 +26,17 @@
           </div>
       </div>
     <?php endif; ?>
+    <!-- Grid row -->
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <button data-toggle="modal" data-target="#apply_leave" type="button" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Apply Leave</button>
+        <a href="<?= base_url('users/track_leaves'); ?>" class="btn btn-outline-secondary"><i class="fa fa-eye"></i> Track Leaves</a>
+        <button type="button" class="btn btn-outline-unique" data-toggle="modal" data-target="#fullHeightModalLeft"><i class="fa fa-plus"></i> Place requisisition</button>
+        <a href="<?= base_url('users/requisitions'); ?>" class="btn btn-outline-dark"><i class="fa fa-eye"></i> View requisitions</a>
+        <a href="" class="btn btn-outline-info"><i class="fa fa-plus"></i> Apply Travel</a>
+        <a href="" class="btn btn-outline-purple"><i class="fa fa-eye"></i> Travel History</a>
+      </div>
+    </div>
     <!--Grid row-->
     <div class="row">
 
@@ -72,9 +81,9 @@
         <div class="media green lighten-2 text-white z-depth-1 rounded">
           <i class="fas fa-times fa-3x green z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
-            <p class="text-uppercase mt-2 mb-1 ml-3"><small class="font-weight-bold">leaves <span class="badge badge-primary">22</span></small></p>
-            <p class="font-weight-lighter mb-1 ml-3 mb-0"><?php echo 'Availed : '. 10; ?></p>
-            <p class="font-weight-lighter mb-1 ml-3"><?php echo 'Balance : '. 12; ?></p>
+            <p class="text-uppercase mt-2 mb-1 ml-3"><small class="font-weight-bold">leaves - 22</small></p>
+            <p class="font-weight-lighter mb-1 ml-3 mb-0"><?php echo 'Availed : '. $availed_leaves->no_of_days; ?></p>
+            <p class="font-weight-lighter mb-1 ml-3"><?php echo 'Balance : '. (22 - $availed_leaves->no_of_days); ?></p>
           </div>
         </div>
       </div>
@@ -129,11 +138,11 @@
             </table>
           </div>
           <div class="card-footer white py-3 d-flex justify-content-between">
-            <button type="button" class="btn btn-primary btn-md px-3 my-0 ml-0" data-toggle="modal" data-target="#fullHeightModalLeft">
+            <!-- <button type="button" class="btn btn-primary btn-md px-3 my-0 ml-0" data-toggle="modal" data-target="#fullHeightModalLeft">
                 <i class="fa fa-plus"></i> Place requisisition
             </button>
             <a href="<?= base_url('users/requisitions'); ?>" class="btn btn-light btn-md px-3 my-0 ml-0"><i class="fa fa-eye"></i> View All requisitions</a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

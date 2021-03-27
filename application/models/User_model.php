@@ -70,6 +70,13 @@ class User_model extends CI_Model{
     public function total_leaves(){
         return $this->db->where('emp_id', $this->session->userdata('id'))->from('employee_leaves')->count_all_results();
     }
+    // Count approved leaves.
+    public function all_approved_leaves(){
+        $this->db->select('id, emp_id, leave_status, no_of_days');
+        $this->db->from('employee_leaves');
+        $this->db->where(array('emp_id' => $this->session->userdata('id'), 'leave_status' => 1));
+        return $this->db->get()->row();
+    }
     // Get leaves > Track leaves record.
     public function track_leaves($limit, $offset){
         $this->db->select('id, emp_id, leave_type, leave_from, leave_to, no_of_days, leave_reason, leave_status, created_at');
