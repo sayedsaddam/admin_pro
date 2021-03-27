@@ -82,8 +82,8 @@
           <i class="fas fa-times fa-3x green z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
             <p class="text-uppercase mt-2 mb-1 ml-3"><small class="font-weight-bold">leaves - 22</small></p>
-            <p class="font-weight-lighter mb-1 ml-3 mb-0"><?php echo 'Availed : '. $availed_leaves->no_of_days; ?></p>
-            <p class="font-weight-lighter mb-1 ml-3"><?php echo 'Balance : '. (22 - $availed_leaves->no_of_days); ?></p>
+            <p class="font-weight-lighter mb-1 ml-3 mb-0"><?php if(!empty($availed_leaves)){ echo 'Availed : '. $availed_leaves->no_of_days; } ?></p>
+            <p class="font-weight-lighter mb-1 ml-3"><?php if(!empty($availed_leaves)){ echo 'Balance : '. (22 - $availed_leaves->no_of_days); } ?></p>
           </div>
         </div>
       </div>
