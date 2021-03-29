@@ -85,4 +85,18 @@ class User_model extends CI_Model{
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
+    //== ------------------------------------------ Travel and hotel stay ----------------------------------------------- ==//
+    // Apply travel
+    public function apply_travel($data){
+        $this->db->insert('travel_hotel_stay', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // Travel history
+    public function travel_history(){
+        return $this->db->from('travel_hotel_stay')->get()->result();
+    }
 }

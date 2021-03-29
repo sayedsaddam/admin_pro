@@ -90,4 +90,37 @@ class Users extends CI_Controller{
         $data['leaves'] = $this->user_model->track_leaves($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
+    
+    //== ---------------------------------------------- Employee Travel Requests --------------------------------------------- ==//
+    // Place a travel request.
+    public function apply_travel(){
+        $data = array(
+            'visit_of' => $this->input->post('visit_of'),
+            'requested_by' => $this->input->post('requested_by'),
+            'assignment' => $this->input->post('assignment'),
+            'place_of_visit' => $this->input->post('place_of_visit'),
+            'visit_date_start' => $this->input->post('visit_start'),
+            'visit_date_end' => $this->input->post('visit_end'),
+            'charge_to' => $this->input->post('charge_to'),
+            'request_type' => $this->input->post('request_type'),
+            'stay_request_type' => $this->input->post('stay_request'),
+            'staying_at' => $this->input->post('staying_at'),
+            'check_in' => $this->input->post('check_in'),
+            'check_out' => $this->input->post('check_out'),
+            'payment_mode' => $this->input->post('payment_mode'),
+            'approx_cash' => $this->input->post('approx_cash')
+        );
+        if($this->user_model->apply_travel($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Your application for travel has been submitted successfully.');
+            redirect('users');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('users');
+        }
+    }
+    // Track travel history.
+    public function travel_history(){
+        $data = $this->user_model->travel_history();
+        echo json_encode($data);
+    }
 }

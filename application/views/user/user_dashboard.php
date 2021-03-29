@@ -29,12 +29,12 @@
     <!-- Grid row -->
     <div class="row mb-4">
       <div class="col-12 text-center">
-        <button data-toggle="modal" data-target="#apply_leave" type="button" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Apply Leave</button>
+        <button data-toggle="modal" data-target="#apply_leave" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Apply Leave</button>
         <a href="<?= base_url('users/track_leaves'); ?>" class="btn btn-outline-secondary"><i class="fa fa-eye"></i> Track Leaves</a>
-        <button type="button" class="btn btn-outline-unique" data-toggle="modal" data-target="#fullHeightModalLeft"><i class="fa fa-plus"></i> Place requisisition</button>
-        <a href="<?= base_url('users/requisitions'); ?>" class="btn btn-outline-dark"><i class="fa fa-eye"></i> View requisitions</a>
-        <a href="" class="btn btn-outline-info"><i class="fa fa-plus"></i> Apply Travel</a>
-        <a href="" class="btn btn-outline-purple"><i class="fa fa-eye"></i> Travel History</a>
+        <button class="btn btn-outline-unique" data-toggle="modal" data-target="#fullHeightModalLeft"><i class="fa fa-envelope"></i> Place requisisition</button>
+        <a href="<?= base_url('users/requisitions'); ?>" class="btn btn-outline-dark"><i class="fa fa-envelope"></i> View requisitions</a>
+        <button data-toggle="modal" data-target="#apply_travel" class="btn btn-outline-info"><i class="fa fa-plane"></i> Apply Travel</button>
+        <a href="<?= base_url('users/travel_history'); ?>" class="btn btn-outline-purple"><i class="fa fa-plane"></i> Travel History</a>
       </div>
     </div>
     <!--Grid row-->
@@ -217,7 +217,7 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-lg-12 col-md-12">
-              <h4 class="font-weight-lighter mb-5 text-center">Pleas fill out the form below.</h4>
+              <h4 class="font-weight-lighter mb-5 text-center">Please fill out the form below.</h4>
               <!-- Form -->
               <form action="<?= base_url('users/apply_leave'); ?>" method="post">
                   <!-- First name -->
@@ -250,6 +250,125 @@
                   
                   <div class="form-group">
                       <input type="submit" name="submit" class="btn btn-primary" value="Apply Leave">
+                  </div>
+              </form>
+              <!-- Form -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- Full Height Modal Right -->
+
+<!-- Full Height Modal Right > Apply Travel -->
+<div class="modal fade left" id="apply_travel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-xl modal-right" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title w-100" id="myModalLabel">Travel Application Form</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <h4 class="font-weight-lighter mb-5 text-center">Please fill out the form below.</h4>
+              <!-- Form -->
+              <form action="<?= base_url('users/apply_travel'); ?>" method="post">
+                  <input type="hidden" name="requested_by" value="<?= $this->session->userdata('id'); ?>">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="visit_of">Visit of</label>
+                        <select name="visit_of" class="browser-default custom-select" required>
+                          <option value="" selected disabled>Select one</option>
+                          <option value="staff">Staff</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="assignment">Assignment</label>
+                        <input type="text" name="assignment" class="form-control" placeholder="assignment...">
+                      </div>
+                      <div class="form-group">
+                        <label for="place_of_visit">Place of Visit</label>
+                        <input type="text" name="place_of_visit" class="form-control" placeholder="place of visit...">
+                      </div>
+                      <div class="form-group">
+                        <label for="visit_start">Visit Start Date</label>
+                        <input type="date" name="visit_start" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="visit_end">Visit End Date</label>
+                        <input type="date" name="visit_end" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="charge">Charge To</label>
+                        <input type="text" name="charge_to" class="form-control" placeholder="charge to...">
+                      </div>
+                      <div class="form-group">
+                        <label for="travel_request_type">Travel Request Type</label>
+                        <select name="request_type" class="browser-default custom-select" required>
+                          <option value="" selected disabled>Select one</option>
+                          <option value="by air">By Air</option>
+                          <option value="rented car">Rented Card</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="stay_request">Hotel Stay Request</label>
+                        <select name="stay_request" class="browser-default custom-select" required>
+                          <option value="" selected disabled>Select one</option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                          <option value="single room">Single Room</option>
+                          <option value="twins">Twins</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="staying_at">Staying at</label>
+                        <select name="staying_at" class="browser-default custom-select" required>
+                          <option value="" selected disabled>Select one</option>
+                          <option value="hotel">Hotel</option>
+                          <option value="guest house">Guest House</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="check_in">Check In</label>
+                        <input type="date" name="check_in" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="check_out">Check Out</label>
+                        <input type="date" name="check_out" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="payment_mode">Payment Mode</label>
+                        <select name="payment_mode" class="browser-default custom-select" required>
+                          <option value="" selected disabled>Select one</option>
+                          <option value="bill to CTC">Bill to CTC</option>
+                          <option value="cash">Cash</option>
+                          <option value="credit card">Credit Card</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="approx_cash">Approx. Cash Needed</label>
+                        <input type="text" name="approx_cash" class="form-control" placeholder="approximate cash...">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <input type="submit" class="btn btn-primary" value="Submit Request">
+                      <input type="reset" class="btn btn-danger" value="clear form">
+                    </div>
                   </div>
               </form>
               <!-- Form -->
