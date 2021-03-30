@@ -7,6 +7,7 @@ class Supervisor extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('supervisor_model');
+        $this->load->helper('paginate');
     }
     public function index($offset = null){
         $limit = 10;
@@ -21,6 +22,20 @@ class Supervisor extends CI_Controller{
         $data['leaves'] = $this->supervisor_model->get_leave_applications($limit, $offset);
         $data['requisitions'] = $this->supervisor_model->get_requisitions($limit, $offset);
         $data['travels'] = $this->supervisor_model->get_travel_applications($limit, $offset);
+        $this->load->view('admin/commons/template', $data);
+    }
+    // list all leaves > on a separate page with pagination.
+    public function view_all_leaves($offset = null){
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'supervisor/view_all_leaves';
+        $rowscount = $this->supervisor_model->total_leave_applications();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Leave Applications | Admin & Procurement';
+        $data['body'] = 'supervisor/leaves_list';
+        $data['leaves'] = $this->supervisor_model->get_leave_applications($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
     // Get leave info to pass ID to hidden field in form for approving or rejecting leave.

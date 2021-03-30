@@ -41,6 +41,7 @@ class Supervisor_model extends CI_Model{
     public function get_leave_applications($limit, $offset){
         $this->db->select('employee_leaves.id,
                             employee_leaves.emp_id,
+                            employee_leaves.leave_type,
                             employee_leaves.leave_from,
                             employee_leaves.leave_to,
                             employee_leaves.no_of_days,

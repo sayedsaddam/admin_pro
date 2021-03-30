@@ -117,7 +117,7 @@
                   </table>
               </div>
               <div class="card-footer white py-3 d-flex justify-content-between">
-                  <a href="" class="btn btn-outline-primary">View All</a>
+                  <a href="<?= base_url('supervisor/view_all_leaves'); ?>" class="btn btn-outline-primary">View All</a>
               </div>
           </div>
       </div>
