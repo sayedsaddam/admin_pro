@@ -34,7 +34,7 @@
         <button class="btn btn-outline-unique" data-toggle="modal" data-target="#fullHeightModalLeft"><i class="fa fa-envelope"></i> Place requisisition</button>
         <a href="<?= base_url('users/requisitions'); ?>" class="btn btn-outline-dark"><i class="fa fa-envelope"></i> View requisitions</a>
         <button data-toggle="modal" data-target="#apply_travel" class="btn btn-outline-info"><i class="fa fa-plane"></i> Apply Travel</button>
-        <a href="<?= base_url('users/travel_history'); ?>" class="btn btn-outline-purple"><i class="fa fa-plane"></i> Travel History</a>
+        <a href="<?= base_url('users/travel_history'); ?>" class="btn btn-outline-purple"><i class="fa fa-plane"></i> Travel History <span class="badge badge-info"><?= $total_travels; ?></span></a>
       </div>
     </div>
     <!--Grid row-->

@@ -95,6 +95,10 @@ class User_model extends CI_Model{
             return false;
         }
     }
+    // Total leaves by currently logged in employee.
+    public function total_travel_requests(){
+        return $this->db->where('requested_by', $this->session->userdata('id'))->from('travel_hotel_stay')->count_all_results();
+    }
     // Travel history
     public function travel_history(){
         return $this->db->where('requested_by', $this->session->userdata('id'))->from('travel_hotel_stay')->get()->result();
