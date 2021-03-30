@@ -122,8 +122,17 @@ class Users extends CI_Controller{
         }
     }
     // Track travel history.
-    public function travel_history(){
-        $data = $this->user_model->travel_history();
-        echo json_encode($data);
+    public function travel_history($offset = null){
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'users/travel_history';
+        $rowscount = $this->user_model->total_travel_requests();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Travel History | Admin & Procurement';
+        $data['body'] = 'user/travel_history';
+        $data['travels'] = $this->user_model->travel_history($limit, $offset);
+        $this->load->view('admin/commons/template', $data);   
     }
 }
