@@ -94,6 +94,8 @@ class Users extends CI_Controller{
     //== ---------------------------------------------- Employee Travel Requests --------------------------------------------- ==//
     // Place a travel request.
     public function apply_travel(){
+        $stay_request = $this->input->post('stay_request');
+        $stay_request_one = $this->input->post('stay_request_one');
         $data = array(
             'visit_of' => $this->input->post('visit_of'),
             'requested_by' => $this->input->post('requested_by'),
@@ -103,7 +105,7 @@ class Users extends CI_Controller{
             'visit_date_end' => $this->input->post('visit_end'),
             'charge_to' => $this->input->post('charge_to'),
             'request_type' => $this->input->post('request_type'),
-            'stay_request_type' => $this->input->post('stay_request'),
+            'stay_request_type' => $stay_request.', '.$stay_request_one,
             'staying_at' => $this->input->post('staying_at'),
             'check_in' => $this->input->post('check_in'),
             'check_out' => $this->input->post('check_out'),

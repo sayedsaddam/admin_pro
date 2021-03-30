@@ -325,13 +325,14 @@
                     <div class="col-6">
                       <div class="form-group">
                         <label for="stay_request">Hotel Stay Request</label>
-                        <select name="stay_request" class="browser-default custom-select" required>
-                          <option value="" selected disabled>Select one</option>
-                          <option value="male">Male</option>
-                          <option value="female">Female</option>
-                          <option value="single room">Single Room</option>
-                          <option value="twins">Twins</option>
-                        </select>
+                        <div class="row">
+                          <div class="col-3"><input type="radio" name="stay_request" value="Male"> Male</div>
+                          <div class="col-6"><input type="radio" name="stay_request" value="Female"> Female</div>
+                        </div>
+                        <div class="row">
+                          <div class="col-3"><input type="radio" name="stay_request_one" value="Single Room"> Single Room</div>
+                          <div class="col-6"><input type="radio" name="stay_request_one" value="Twins"> Twins</div>
+                        </div>
                       </div>
                       <div class="form-group">
                         <label for="staying_at">Staying at</label>
