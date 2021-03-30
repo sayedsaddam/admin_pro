@@ -97,6 +97,6 @@ class User_model extends CI_Model{
     }
     // Travel history
     public function travel_history(){
-        return $this->db->from('travel_hotel_stay')->get()->result();
+        return $this->db->where('requested_by', $this->session->userdata('id'))->from('travel_hotel_stay')->get()->result();
     }
 }
