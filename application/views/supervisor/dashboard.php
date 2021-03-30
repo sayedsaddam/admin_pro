@@ -63,100 +63,163 @@
   <!-- Section: Requisitions list -->
   <section>
     <div class="row">
-        <div class="col-6">
-            <div class="card card-list">
-                <div class="card-header white d-flex justify-content-between align-items-center py-3">
-                    <p class="h5-responsive font-weight-bold mb-0">Leave Requests</p>
-                    <ul class="list-unstyled d-flex align-items-center mb-0">
-                    <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
-                    <li><i class="fas fa-times fa-sm pl-3"></i></li>
-                    </ul>
-                </div>
-                <div class="card-body">
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                            <th class="font-weight-bold">ID</th>
-                            <th class="font-weight-bold">Employee</th>
-                            <th class="font-weight-bold">Leave From</th>
-                            <th class="font-weight-bold">Leave To</th>
-                            <th class="font-weight-bold">Days</th>
-                            <th class="font-weight-bold">Requested</th>
-                            <th class="font-weight-bold">Status</th>
-                            <th class="font-weight-bold">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if(!empty($leaves)): foreach($leaves as $leave): ?>
-                            <tr>
-                                <td scope="row"><?= 'CTC-'.$leave->id; ?></td>
-                                <td><?= ucfirst($leave->fullname); ?></td>
-                                <td><?= date('M d, Y', strtotime($leave->leave_from)); ?></td>
-                                <td><?= date('M d, Y', strtotime($leave->leave_to)); ?></td>
-                                <td><?= $leave->no_of_days; ?></td>
-                                <td><?= date('M d, Y', strtotime($leave->created_at)); ?></td>
-                                <td><?php if($leave->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($leave->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
-                                <td>
-                                    <a data-id="<?= $leave->id; ?>" class="badge badge-primary approve_leave" title="Approve leave..."><i class="fa fa-check"></i></a>
-                                    <a data-id="<?= $leave->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
-                                </td>
-                            </tr>
-                            <?php endforeach; else: echo '<tr class="table-danger"><td colspan="7" align="center">No record found.</td></tr>'; endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card-footer white py-3 d-flex justify-content-between">
-                    <a href="" class="btn btn-outline-primary">View All</a>
-                </div>
-            </div>
+      <div class="col-6">
+          <div class="card card-list">
+              <div class="card-header white d-flex justify-content-between align-items-center py-3">
+                  <p class="h5-responsive font-weight-bold mb-0">Leave Requests</p>
+                  <ul class="list-unstyled d-flex align-items-center mb-0">
+                  <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
+                  <li><i class="fas fa-times fa-sm pl-3"></i></li>
+                  </ul>
+              </div>
+              <div class="card-body">
+                  <table class="table table-sm">
+                      <thead>
+                          <tr>
+                          <th class="font-weight-bold">ID</th>
+                          <th class="font-weight-bold">Employee</th>
+                          <th class="font-weight-bold">Leave From</th>
+                          <th class="font-weight-bold">Leave To</th>
+                          <th class="font-weight-bold">Days</th>
+                          <th class="font-weight-bold">Requested</th>
+                          <th class="font-weight-bold">Status</th>
+                          <th class="font-weight-bold">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php if(!empty($leaves)): foreach($leaves as $leave): ?>
+                          <tr>
+                              <td scope="row"><?= 'CTC-'.$leave->id; ?></td>
+                              <td><?= ucfirst($leave->fullname); ?></td>
+                              <td><?= date('M d, Y', strtotime($leave->leave_from)); ?></td>
+                              <td><?= date('M d, Y', strtotime($leave->leave_to)); ?></td>
+                              <td><?= $leave->no_of_days; ?></td>
+                              <td><?= date('M d, Y', strtotime($leave->created_at)); ?></td>
+                              <td><?php if($leave->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($leave->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
+                              <td>
+                                  <a data-id="<?= $leave->id; ?>" class="badge badge-primary approve_leave" title="Approve leave..."><i class="fa fa-check"></i></a>
+                                  <a data-id="<?= $leave->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
+                              </td>
+                          </tr>
+                          <?php endforeach; else: echo '<tr class="table-danger"><td colspan="7" align="center">No record found.</td></tr>'; endif; ?>
+                      </tbody>
+                  </table>
+              </div>
+              <div class="card-footer white py-3 d-flex justify-content-between">
+                  <a href="" class="btn btn-outline-primary">View All</a>
+              </div>
+          </div>
+      </div>
+      <div class="col-6">
+          <div class="card card-list">
+              <div class="card-header white d-flex justify-content-between align-items-center py-3">
+                  <p class="h5-responsive font-weight-bold mb-0">Item Requests</p>
+                  <ul class="list-unstyled d-flex align-items-center mb-0">
+                  <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
+                  <li><i class="fas fa-times fa-sm pl-3"></i></li>
+                  </ul>
+              </div>
+              <div class="card-body">
+                  <table class="table table-sm">
+                      <thead>
+                          <tr>
+                          <th class="font-weight-bold">Order ID</th>
+                          <th class="font-weight-bold">Item</th>
+                          <th class="font-weight-bold">Quantity</th>
+                          <th class="font-weight-bold">Desciption</th>
+                          <th class="font-weight-bold">Requested</th>
+                          <th class="font-weight-bold">Status</th>
+                          <th class="font-weight-bold">Processed</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php if(!empty($requisitions)): foreach($requisitions as $req): ?>
+                          <tr>
+                              <td scope="row"><?= 'CTC-'.$req->id; ?></td>
+                              <td><?= ucfirst($req->inv_name); ?></td>
+                              <td><?= $req->item_qty; ?></td>
+                              <td><?= $req->item_desc; ?></td>
+                              <td><?= date('M d, Y', strtotime($req->created_at)); ?></td>
+                              <td>
+                                <?php if($req->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($req->status == 1){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
+                              </td>
+                              <td>
+                                <a href="<?= base_url('supervisor/approve_request/'.$req->id); ?>" class="badge badge-primary" title="Approve request..." onclick="javascript: return confirm('Are you sure to perform this action?');"><i class="fa fa-check"></i></a>
+                                <a href="<?= base_url('supervisor/reject_request/'.$req->id); ?>" class="badge badge-danger" title="Reject request..." onclick="javascript: return confirm('Are you sure to perform this action?');"><i class="fa fa-times"></i></a>
+                              </td>
+                          </tr>
+                          <?php endforeach; else: echo '<tr class="table-danger"><td colspan="7" align="center">No record found.</td></tr>'; endif; ?>
+                      </tbody>
+                  </table>
+              </div>
+              <div class="card-footer white py-3 d-flex justify-content-between">
+                  <a href="" class="btn btn-outline-primary">View All</a>
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card card-list">
+          <div class="card-header white d-flex justify-content-between align-items-center py-3">
+            <p class="h5-responsive font-weight-bold mb-0">Travel History | <small><a href="javascript:history.go(-1)" class="grey-text"><i class="fa fa-angle-left"></i> Back</a></small></p>
+            <ul class="list-unstyled d-flex align-items-center mb-0">
+              <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
+              <li><i class="fas fa-times fa-sm pl-3"></i></li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th class="font-weight-bold">ID</th>
+                  <th class="font-weight-bold">Employee</th>
+                  <th class="font-weight-bold">Visit of</th>
+                  <th class="font-weight-bold">Assignment</th>
+                  <th class="font-weight-bold">Place of Visit</th>
+                  <th class="font-weight-bold">Request Type</th>
+                  <th class="font-weight-bold">Stay Req. Type</th>
+                  <th class="font-weight-bold">Staying At</th>
+                  <th class="font-weight-bold">From</th>
+                  <th class="font-weight-bold">To</th>
+                  <th class="font-weight-bold">Charge To</th>
+                  <th class="font-weight-bold">Status</th>
+                  <th class="font-weight-bold">Requested On</th>
+                  <th class="font-weight-bold">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php if(!empty($travels)): foreach($travels as $travel): ?>
+                  <tr>
+                    <td><?= 'CTC-0'.$travel->id; ?></td>
+                    <td><?= $travel->fullname; ?></td>
+                    <td><?= ucfirst($travel->visit_of); ?></td>
+                    <td><?= $travel->assignment; ?></td>
+                    <td><?= $travel->place_of_visit; ?></td>
+                    <td><?= ucfirst($travel->request_type); ?></td>
+                    <td><?= ucfirst($travel->stay_request_type); ?></td>
+                    <td><?= ucfirst($travel->staying_at); ?></td>
+                    <td><?= date('M d, Y', strtotime($travel->visit_date_start)); ?></td>
+                    <td><?= date('M d, Y', strtotime($travel->visit_date_end)); ?></td>
+                    <td><?= ucfirst($travel->charge_to); ?></td>
+                    <td>
+                        <?php if($travel->travel_status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($travel->travel_status == 1){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
+                    </td>
+                    <td><?= date('M d, Y', strtotime($travel->created_at)); ?></td>
+                    <td>
+                      <a href="<?= base_url('supervisor/approve_travel/'.$travel->id); ?>" class="badge badge-primary" title="Approve request..." onclick="javascript: return confirm('Are you sure to perform this action?');"><i class="fa fa-check"></i></a>
+                      <a href="<?= base_url('supervisor/reject_travel/'.$travel->id); ?>" class="badge badge-danger" title="Reject request..." onclick="javascript: return confirm('Are you sure to perform this action?');"><i class="fa fa-times"></i></a>
+                    </td>
+                  </tr>
+                <?php endforeach; else: echo "<tr class='table-danger'><td colspan='7' align='center'>No record found.</td></tr>"; endif; ?>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer white py-3 d-flex justify-content-between">
+            <a href="" class="btn btn-outline-primary">view all</a>
+          </div>
         </div>
-        <div class="col-6">
-            <div class="card card-list">
-                <div class="card-header white d-flex justify-content-between align-items-center py-3">
-                    <p class="h5-responsive font-weight-bold mb-0">Item Requests</p>
-                    <ul class="list-unstyled d-flex align-items-center mb-0">
-                    <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
-                    <li><i class="fas fa-times fa-sm pl-3"></i></li>
-                    </ul>
-                </div>
-                <div class="card-body">
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                            <th class="font-weight-bold">Order ID</th>
-                            <th class="font-weight-bold">Item</th>
-                            <th class="font-weight-bold">Quantity</th>
-                            <th class="font-weight-bold">Desciption</th>
-                            <th class="font-weight-bold">Requested</th>
-                            <th class="font-weight-bold">Status</th>
-                            <th class="font-weight-bold">Processed</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if(!empty($requisitions)): foreach($requisitions as $req): ?>
-                            <tr>
-                                <td scope="row"><?= 'CTC-'.$req->id; ?></td>
-                                <td><?= ucfirst($req->inv_name); ?></td>
-                                <td><?= $req->item_qty; ?></td>
-                                <td><?= $req->item_desc; ?></td>
-                                <td><?= date('M d, Y', strtotime($req->created_at)); ?></td>
-                                <td>
-                                  <?php if($req->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($req->status == 1){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
-                                </td>
-                                <td>
-                                  <a href="<?= base_url('supervisor/approve_request/'.$req->id); ?>" class="badge badge-primary" title="Approve request..." onclick="javascript: return confirm('Are you sure to perform this action?');"><i class="fa fa-check"></i></a>
-                                  <a href="<?= base_url('supervisor/reject_request/'.$req->id); ?>" class="badge badge-danger" title="Reject request..." onclick="javascript: return confirm('Are you sure to perform this action?');"><i class="fa fa-times"></i></a>
-                                </td>
-                            </tr>
-                            <?php endforeach; else: echo '<tr class="table-danger"><td colspan="7" align="center">No record found.</td></tr>'; endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card-footer white py-3 d-flex justify-content-between">
-                    <a href="" class="btn btn-outline-primary">View All</a>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
   </section>
   <!-- Section: Block Content -->

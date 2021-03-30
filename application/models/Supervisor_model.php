@@ -8,7 +8,7 @@ class Supervisor_model extends CI_Model{
         parent::__construct();
     }
     // Get leave applications by employees.
-    public function get_leave_applications(){
+    public function get_leave_applications($limit, $offset){
         $this->db->select('employee_leaves.id,
                             employee_leaves.emp_id,
                             employee_leaves.leave_from,
@@ -23,6 +23,8 @@ class Supervisor_model extends CI_Model{
                             users.supervisor');
         $this->db->from('employee_leaves');
         $this->db->join('users', 'employee_leaves.emp_id = users.id', 'left');
+        $this->db->limit($limit, $offset);
+        $this->db->order_by('employee_leaves.created_at', 'DESC');
         $this->db->where('users.supervisor', $this->session->userdata('id'));
         return $this->db->get()->result();
     }
@@ -46,7 +48,7 @@ class Supervisor_model extends CI_Model{
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
         $this->db->where('users.supervisor', $this->session->userdata('id'));
-        $this->db->order_by('id', 'DESC');
+        $this->db->order_by('item_requisitions.id', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -67,6 +69,25 @@ class Supervisor_model extends CI_Model{
     public function request_actions($id, $data){
         $this->db->where('id', $id);
         $this->db->update('item_requisitions', $data);
+        return true;
+    }
+    // Get leave applications by employees.
+    public function get_travel_applications(){
+        $this->db->select('travel_hotel_stay.*,
+                            users.id as user_id,
+                            users.fullname,
+                            users.department,
+                            users.supervisor');
+        $this->db->from('travel_hotel_stay');
+        $this->db->join('users', 'travel_hotel_stay.requested_by = users.id', 'left');
+        $this->db->where('users.supervisor', $this->session->userdata('id'));
+        $this->db->order_by('travel_hotel_stay.created_at', 'DESC');
+        return $this->db->get()->result();
+    }
+    // Travel actions > Approve or reject travel requisition
+    public function travel_actions($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('travel_hotel_stay', $data);
         return true;
     }
 }
