@@ -7,6 +7,36 @@ class Supervisor_model extends CI_Model{
     {
         parent::__construct();
     }
+    // Count all leave applications for logged in supervisor.
+    public function total_leave_applications(){
+        $this->db->select('employee_leaves.id,
+                            employee_leaves.emp_id,
+                            users.supervisor');
+        $this->db->from('employee_leaves');
+        $this->db->join('users', 'employee_leaves.emp_id = users.id', 'left');
+        $this->db->where('users.supervisor', $this->session->userdata('id'));
+        return $this->db->count_all_results();
+    }
+    // Count all items requisitions for logged in supervisor.
+    public function total_item_requisitions(){
+        $this->db->select('item_requisitions.id,
+                            item_requisitions.requested_by,
+                            users.supervisor');
+        $this->db->from('item_requisitions');
+        $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
+        $this->db->where('users.supervisor', $this->session->userdata('id'));
+        return $this->db->count_all_results();
+    }
+    // Count all travel requisitions for logged in supervisor.
+    public function total_travel_requisitions(){
+        $this->db->select('travel_hotel_stay.id,
+                            travel_hotel_stay.requested_by,
+                            users.supervisor');
+        $this->db->from('travel_hotel_stay');
+        $this->db->join('users', 'travel_hotel_stay.requested_by = users.id', 'left');
+        $this->db->where('users.supervisor', $this->session->userdata('id'));
+        return $this->db->count_all_results();
+    }
     // Get leave applications by employees.
     public function get_leave_applications($limit, $offset){
         $this->db->select('employee_leaves.id,

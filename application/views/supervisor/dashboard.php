@@ -33,24 +33,35 @@
     <div class="row mb-4">
 
       <!--Grid column-->
-      <div class="col-lg-6 col-md-12 mb-6">
+      <div class="col-lg-4 col-md-12 mb-4">
         <div class="media blue lighten-2 text-white z-depth-1 rounded">
           <i class="fas fa-paper-plane fa-3x blue z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
               <p class="text-uppercase mt-2 mb-1 ml-3"><small>leave requests</small></p>
-              <p class="font-weight-bold mb-1 ml-3">100</p>
+              <p class="font-weight-bold mb-1 ml-3"><?= $total_leaves; ?></p>
           </div>
         </div>
       </div>
       <!--Grid column-->
 
       <!--Grid column-->
-      <div class="col-lg-6 col-md-6 mb-6">
+      <div class="col-lg-4 col-md-6 mb-4">
         <div class="media deep-purple lighten-2 text-white z-depth-1 rounded">
           <i class="fas fa-envelope fa-3x deep-purple z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
             <p class="text-uppercase mt-2 mb-1 ml-3"><small>item requests</small></p>
-            <p class="font-weight-bold mb-1 ml-3">100</p>
+            <p class="font-weight-bold mb-1 ml-3"><?= $total_requisitions; ?></p>
+          </div>
+        </div>
+      </div>
+      <!--Grid column-->
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="media green lighten-2 text-white z-depth-1 rounded">
+          <i class="fas fa-plane fa-3x green z-depth-1 p-4 rounded-left text-white"></i>
+          <div class="media-body">
+            <p class="text-uppercase mt-2 mb-1 ml-3"><small>travel requests</small></p>
+            <p class="font-weight-bold mb-1 ml-3"><?= $total_travels; ?></p>
           </div>
         </div>
       </div>
