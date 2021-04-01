@@ -52,6 +52,20 @@ class Supervisor extends CI_Controller{
         $data['requisitions'] = $this->supervisor_model->get_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
+    // list all travel history > on a separate page with pagination.
+    public function view_travel_history($offset = null){
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'supervisor/view_item_requisitions';
+        $rowscount = $this->supervisor_model->total_item_requisitions();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Item Requisitions | Admin & Procurement';
+        $data['body'] = 'supervisor/travels_list';
+        $data['travels'] = $this->supervisor_model->get_travel_applications($limit, $offset);
+        $this->load->view('admin/commons/template', $data);
+    }
     // Get leave info to pass ID to hidden field in form for approving or rejecting leave.
     public function leave_info($id){
         $leave_info = $this->supervisor_model->get_leave_info($id);

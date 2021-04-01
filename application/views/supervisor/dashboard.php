@@ -227,7 +227,7 @@
             </table>
           </div>
           <div class="card-footer white py-3 d-flex justify-content-between">
-            <a href="" class="btn btn-outline-primary">view all</a>
+            <a href="<?= base_url('supervisor/view_travel_history'); ?>" class="btn btn-outline-primary">view all</a>
           </div>
         </div>
       </div>
