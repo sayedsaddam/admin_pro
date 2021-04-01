@@ -5,7 +5,7 @@
         <img src="<?= base_url('assets/img/chip.png'); ?>" alt="admin-and-procurement" class="img-thumbnail" width="200">
       </div>
       <div class="col-lg-7 col-md-7">
-        <h1 class="font-weight-bold">Admin & Procurement</h1>
+        <h1 class="font-weight-bold">Admin & Procurement |<a href="<?= base_url('users'); ?>" class="btn btn-outline-light btn-sm" title="Click to go to employee board where you can place requisition, apply leave & other stuff...">employee dashboard</a></h1>
         <h5 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h5>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
