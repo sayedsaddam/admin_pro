@@ -722,6 +722,20 @@ class Admin extends CI_Controller{
         $data['leave'] = $this->admin_model->get_leave_detail($id);
         $this->load->view('admin/commons/template', $data);
     }
+    // Travels and hotel stays information.
+    public function travels_info($offset = null){
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'admin/travels_info';
+        $rowscount = $this->admin_model->total_travel_requests();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Travle & Stay Info | Admin & Procurement';
+        $data['body'] = 'admin/travels_info';
+        $data['travels'] = $this->admin_model->total_travel_requisitions($limit, $offset);
+        $this->load->view('admin/commons/template', $data);
+    }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){

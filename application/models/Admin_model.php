@@ -622,6 +622,23 @@ class Admin_model extends CI_Model{
         $this->db->where(array('employee_leaves.leave_status' => 1, 'employee_leaves.id' => $id));
         return $this->db->get()->row();
     }
+    // Total travel requests.
+    public function total_travel_requests(){
+        return $this->db->from('travel_hotel_stay')->count_all_results();
+    }
+    // Count all travel requisitions for logged in supervisor.
+    public function total_travel_requisitions($limit, $offset){
+        $this->db->select('travel_hotel_stay.*,
+                            users.id as user_id,
+                            users.fullname,
+                            users.department,
+                            users.supervisor');
+        $this->db->from('travel_hotel_stay');
+        $this->db->join('users', 'travel_hotel_stay.requested_by = users.id', 'left');
+        $this->db->limit($limit, $offset);
+        $this->db->order_by('travel_hotel_stay.created_at', 'DESC');
+        return $this->db->get()->result();
+    }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){

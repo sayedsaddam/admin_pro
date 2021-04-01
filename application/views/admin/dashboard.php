@@ -46,6 +46,9 @@
             <a href="<?= base_url('admin/leaves_info'); ?>" class="text-white btn-floating btn-tw btn-sm"><i class="fas fa-sign"></i></a>Attd. & Leaves
           </li>
           <li class="list-group-item">
+            <a href="<?= base_url('admin/travels_info'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-plane"></i></a>Travels Info
+          </li>
+          <li class="list-group-item">
             <a href="<?= base_url('admin/locations'); ?>" class="text-white btn-floating btn-slack btn-sm"><i class="fas fa-map-marker"></i></a>Locations
           </li>
           <li class="list-group-item">
@@ -108,7 +111,7 @@
                     <div class="col-md-6">Projects</div>
                     <div class="col-md-6"><?=number_format($total_isbd->isbd_total);?></div>
                   </div>
-                  <button type="button" class="btn btn-outline-light btn-md">Read more</button>
+                  <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
               </div>
               <div class="card mb-4">
@@ -129,7 +132,7 @@
                     <div class="col-md-6">Projects</div>
                     <div class="col-md-6"><?=number_format($total_kp->kp_total);?></div>
                   </div>
-                  <button type="button" class="btn btn-outline-light btn-md">Read more</button>
+                  <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
               </div>
               <div class="card mb-4">
@@ -150,7 +153,7 @@
                     <div class="col-md-6">Projects</div>
                     <div class="col-md-6"><?=number_format($total_bln->bln_total);?></div>
                   </div>
-                  <button type="button" class="btn btn-outline-light btn-md">Read more</button>
+                  <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
               </div>
               <div class="card mb-4">
@@ -171,7 +174,7 @@
                     <div class="col-md-6">Projects</div>
                     <div class="col-md-6"><?=number_format($total_punjab->punjab_total);?></div>
                   </div>
-                  <button type="button" class="btn btn-outline-light btn-md">Read more</button>
+                  <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
               </div>
               <div class="card mb-4">
@@ -192,7 +195,7 @@
                     <div class="col-md-6">Projects</div>
                     <div class="col-md-6"><?=number_format($total_sindh->sindh_total);?></div>
                   </div>
-                  <button type="button" class="btn btn-outline-light btn-md">Read more</button>
+                  <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
               </div>
             </div>
