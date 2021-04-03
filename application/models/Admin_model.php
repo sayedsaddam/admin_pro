@@ -652,6 +652,41 @@ class Admin_model extends CI_Model{
         $this->db->where('travel_hotel_stay.id', $travel_id);
         return $this->db->get()->row();
     }
+    // Daily attendance section. > Get employees for daily attendance.
+    public function attendance_employees(){
+        $this->db->select('id, fullname');
+        $this->db->from('users');
+        $this->db->where('user_role !=', 'admin');
+        return $this->db->get()->result();
+    }
+    // Save attendance.
+    public function add_daily_attendance($data){
+        $this->db->insert_batch('daily_attendance', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // Count attendace record for pagination.
+    public function count_attendace(){
+        return $this->db->from('daily_attendance')->count_all_results();
+    }
+    // Get daily attendance
+    public function get_daily_attendance($limit, $offset){
+        $this->db->select('daily_attendance.id,
+                            daily_attendance.emp_id,
+                            daily_attendance.time_in,
+                            daily_attendance.time_out,
+                            daily_attendance.remarks,
+                            daily_attendance.created_at,
+                            users.id,
+                            users.fullname');
+        $this->db->from('daily_attendance');
+        $this->db->join('users', 'daily_attendance.emp_id = users.id', 'left');
+        $this->db->limit($limit, $offset);
+        return $this->db->get()->result();
+    }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){

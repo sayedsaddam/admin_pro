@@ -713,6 +713,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Leaves Info | Admin & Procurement';
         $data['body'] = 'admin/leaves';
         $data['leaves'] = $this->admin_model->get_leave_applications($limit, $offset);
+        $data['users'] = $this->admin_model->attendance_employees();
         $this->load->view('admin/commons/template', $data);
     }
     // Leave detail by ID.
@@ -742,6 +743,57 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/print_travel';
         $data['travel'] = $this->admin_model->print_travel($travel_id);
         // echo json_encode($data['travel']); exit;
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Add daily attendance.
+    public function add_daily_attendance(){
+        $time_in = array();
+        $time_out = array();
+        $remarks = array();
+        foreach($_POST['time_in'] as $key => $value){ // $value = Time In
+            if($value != ''){
+                array_push($time_in, $value);
+            }
+        }
+        foreach($_POST['time_out'] as $key1 => $value1){ // $value1 =  Time out
+            if($value1 != ''){
+                array_push($time_out, $value1);
+            }
+        }
+        foreach($_POST['remarks'] as $key2 => $value2){ // $value2 = Remarks
+            if($value2 != ''){
+                array_push($remarks, $value2);
+            }
+        }
+        for($i = 0; $i < count($_POST['emp_id']); $i++){
+            $data[$i] = array(
+                'emp_id' => $_POST['emp_id'][$i],
+                'time_in' => $time_in[$i],
+                'time_out' => $time_out[$i],
+                'remarks' => $remarks[$i]
+            );
+        }
+        if($this->admin_model->add_daily_attendance($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Daily attendance record was added successfully.');
+            redirect($_SERVER['HTTP_REFERER']);
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong.Please try again!');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+    // List daily attendance.
+    public function daily_attendance($offset = null){
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'admin/daily_attendance';
+        $rowscount = $this->admin_model->count_attendace();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Daily Attendance | Admin & Procurement';
+        $data['body'] = 'admin/daily_attendance';
+        $data['attendance'] = $this->admin_model->get_daily_attendance($limit, $offset);
+        $data['users'] = $this->admin_model->attendance_employees();
         $this->load->view('admin/commons/template', $data);
     }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
