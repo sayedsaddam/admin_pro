@@ -68,6 +68,7 @@
                                     <td>
                                         <a href="<?= base_url('supervisor/approve_travel/'.$travel->id); ?>" class="badge badge-primary" title="Approve request..." onclick="javascript: return confirm('Are you sure to perform this action?');"><i class="fa fa-check"></i></a>
                                         <a href="<?= base_url('supervisor/reject_travel/'.$travel->id); ?>" class="badge badge-danger" title="Reject request..." onclick="javascript: return confirm('Are you sure to perform this action?');"><i class="fa fa-times"></i></a>
+                                        <a href="<?= base_url('admin/print_travel/'.$travel->id); ?>" class="badge badge-secondary" title="Print request..."><i class="fa fa-print"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach; else: echo "<tr class='table-danger'><td colspan='7' align='center'>No record found.</td></tr>"; endif; ?>

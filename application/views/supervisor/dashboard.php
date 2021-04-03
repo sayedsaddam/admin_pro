@@ -173,7 +173,7 @@
       <div class="col-12">
         <div class="card card-list">
           <div class="card-header white d-flex justify-content-between align-items-center py-3">
-            <p class="h5-responsive font-weight-bold mb-0">Travel History | <small><a href="javascript:history.go(-1)" class="grey-text"><i class="fa fa-angle-left"></i> Back</a></small></p>
+            <p class="h5-responsive font-weight-bold mb-0">Travel History</p>
             <ul class="list-unstyled d-flex align-items-center mb-0">
               <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
               <li><i class="fas fa-times fa-sm pl-3"></i></li>

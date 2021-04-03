@@ -736,6 +736,14 @@ class Admin extends CI_Controller{
         $data['travels'] = $this->admin_model->total_travel_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
+    // View travel detail and print by ID.
+    public function print_travel($travel_id){
+        $data['title'] = 'Print Travel > Travel History';
+        $data['body'] = 'admin/print_travel';
+        $data['travel'] = $this->admin_model->print_travel($travel_id);
+        // echo json_encode($data['travel']); exit;
+        $this->load->view('admin/commons/template', $data);
+    }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){

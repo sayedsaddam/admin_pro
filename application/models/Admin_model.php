@@ -639,6 +639,19 @@ class Admin_model extends CI_Model{
         $this->db->order_by('travel_hotel_stay.created_at', 'DESC');
         return $this->db->get()->result();
     }
+    // Travel detail > Print travel request form.
+    // Count all travel requisitions for logged in supervisor.
+    public function print_travel($travel_id){
+        $this->db->select('travel_hotel_stay.*,
+                            users.id as user_id,
+                            users.fullname,
+                            users.department,
+                            users.supervisor');
+        $this->db->from('travel_hotel_stay');
+        $this->db->join('users', 'travel_hotel_stay.requested_by = users.id', 'left');
+        $this->db->where('travel_hotel_stay.id', $travel_id);
+        return $this->db->get()->row();
+    }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){
