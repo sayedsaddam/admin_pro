@@ -70,7 +70,7 @@
           </div>
           <div class="card-footer white py-3 d-flex justify-content-between">
             <button type="button" class="btn btn-primary px-3 my-0 ml-0" data-toggle="modal" data-target="#apply_travel">
-                <i class="fa fa-plane"></i> Apply Leave
+                <i class="fa fa-plane"></i> Apply travel
             </button>
             <?= $this->pagination->create_links(); ?>
           </div>
@@ -135,7 +135,9 @@
                         <select name="request_type" class="browser-default custom-select" required>
                           <option value="" selected disabled>Select one</option>
                           <option value="by air">By Air</option>
-                          <option value="rented car">Rented Card</option>
+                          <option value="rented car">Rented Car</option>
+                          <option value="self">Self</option>
+                          <option value="public transport">Public Transport</option>
                         </select>
                       </div>
                     </div>
