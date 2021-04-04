@@ -133,6 +133,7 @@
                 <tr>
                   <th><input type="checkbox" id="checkAll"></th>
                   <th class="font-weight-bold">Employee</th>
+                  <th class="font-weight-bold">Approved Timings</th>
                   <th class="font-weight-bold">Time In</th>
                   <th class="font-weight-bold">Time Out</th>
                   <th class="font-weight-bold">Remarks</th>
@@ -143,13 +144,14 @@
                   <tr>
                     <td><input type="checkbox" name="emp_id[]" value="<?= $user->id; ?>"></td>
                     <td><?= $user->fullname; ?></td>
+                    <td><input type="text" name="approved_time[]" id="approved_time" class="form-control form-control-sm" placeholder="Approved timing" value="09:00"></td>
                     <td><input type="text" name="time_in[]" id="time_in" class="form-control form-control-sm" placeholder="Time in"></td>
                     <td><input type="text" name="time_out[]" id="time_out" class="form-control form-control-sm" placeholder="Time Out"></td>
                     <td><input type="text" name="remarks[]" id="remarks" class="form-control form-control-sm" placeholder="Remarks"></td>
                   </tr>
                 <?php endforeach; endif; ?>
                 <tr>
-                  <td colspan="5" align="left">
+                  <td colspan="6" align="left">
                     <input type="submit" class="btn btn-primary btn-md" value="Submit">
                     <input type="reset" class="btn btn-danger btn-md" value="clear">
                   </td>

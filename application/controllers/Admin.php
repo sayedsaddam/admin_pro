@@ -750,6 +750,7 @@ class Admin extends CI_Controller{
         $time_in = array();
         $time_out = array();
         $remarks = array();
+        $approved_timings = array();
         foreach($_POST['time_in'] as $key => $value){ // $value = Time In
             if($value != ''){
                 array_push($time_in, $value);
@@ -765,9 +766,15 @@ class Admin extends CI_Controller{
                 array_push($remarks, $value2);
             }
         }
+        foreach($_POST['approved_time'] as $key3 => $value3){ // $value3 = Approved timings
+            if($value3 != ''){
+                array_push($approved_timings, $value3);
+            }
+        }
         for($i = 0; $i < count($_POST['emp_id']); $i++){
             $data[$i] = array(
                 'emp_id' => $_POST['emp_id'][$i],
+                'approved_timings' => $approved_timings[$i],
                 'time_in' => $time_in[$i],
                 'time_out' => $time_out[$i],
                 'remarks' => $remarks[$i]

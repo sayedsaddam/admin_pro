@@ -676,6 +676,7 @@ class Admin_model extends CI_Model{
     public function get_daily_attendance($limit, $offset){
         $this->db->select('daily_attendance.id,
                             daily_attendance.emp_id,
+                            daily_attendance.approved_timings,
                             daily_attendance.time_in,
                             daily_attendance.time_out,
                             daily_attendance.remarks,

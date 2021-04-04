@@ -46,27 +46,35 @@
               <tr>
                 <th class="font-weight-bold">ID</th>
                 <th class="font-weight-bold">Employee</th>
+                <th class="font-weight-bold">App. Timings</th>
                 <th class="font-weight-bold">Check In</th>
                 <th class="font-weight-bold">Check Out</th>
                 <th class="font-weight-bold">Total Hours</th>
+                <th class="font-weight-bold">Late / Early</th>
                 <th class="font-weight-bold">Date</th>
                 <th class="font-weight-bold">Action</th>
               </tr>
             </thead>
             <tbody>
               <?php if(!empty($attendance)): foreach($attendance as $att): ?>
-              <?php $start = date_create($att->time_in);
-                    $end = date_create($att->time_out);
-                    $diff=date_diff($end, $start); ?>
+              <?php $check_in = date_create($att->time_in);
+                    $check_out = date_create($att->time_out);
+                    $diff = date_diff($check_out, $check_in); 
+                    // Late arrival calculations
+                    $approved_time = date_create($att->approved_timings);
+                    $arrival_time = date_create($att->time_in);
+                    $late_arrival = date_diff($approved_time, $arrival_time); ?>
               <tr>
                 <td scope="row"><?= 'CTC-'.$att->id; ?></td>
                 <td><?= ucfirst($att->fullname); ?></td>
-                <td><?= date('H:i', strtotime($att->time_in)); ?></td>
-                <td><?= date('H:i', strtotime($att->time_out)); ?></td>
-                <td><?php echo $diff->h.'h '.$diff->i.'m'; ?></td>
+                <td><?= $att->approved_timings; ?></td>
+                <td><?= date('h:i', strtotime($att->time_in)); ?></td>
+                <td><?= date('h:i', strtotime($att->time_out)); ?></td>
+                <td><?= $diff->h.'h '.$diff->i.'m'; ?></td>
+                <td><?= $late_arrival->h.'h '.$late_arrival->i.'m'; ?></td>
                 <td><?= date('M d, Y', strtotime($att->created_at)); ?></td>
                 <td>
-                  <a href="<?= base_url('admin/leave_detail/'.$att->id); ?>" class="badge badge-primary" title="Leave detail..."><i class="fa fa-print"></i></a>
+                  <a href="#" class="badge badge-primary" title="Leave detail..."><i class="fa fa-print"></i></a>
                   <a data-id="<?= $att->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
                 </td>
               </tr>
@@ -102,6 +110,7 @@
                 <tr>
                   <th><input type="checkbox" id="checkAll"></th>
                   <th class="font-weight-bold">Employee</th>
+                  <th class="font-weight-bold">Approved Timings</th>
                   <th class="font-weight-bold">Time In</th>
                   <th class="font-weight-bold">Time Out</th>
                   <th class="font-weight-bold">Remarks</th>
@@ -112,13 +121,14 @@
                   <tr>
                     <td><input type="checkbox" name="emp_id[]" value="<?= $user->id; ?>"></td>
                     <td><?= $user->fullname; ?></td>
+                    <td><input type="text" name="approved_time[]" id="approved_time" class="form-control form-control-sm" placeholder="Approved timing" value="09:00"></td>
                     <td><input type="text" name="time_in[]" id="time_in" class="form-control form-control-sm" placeholder="Time in"></td>
                     <td><input type="text" name="time_out[]" id="time_out" class="form-control form-control-sm" placeholder="Time Out"></td>
                     <td><input type="text" name="remarks[]" id="remarks" class="form-control form-control-sm" placeholder="Remarks"></td>
                   </tr>
                 <?php endforeach; endif; ?>
                 <tr>
-                  <td colspan="5" align="left">
+                  <td colspan="6" align="left">
                     <input type="submit" class="btn btn-primary btn-md" value="Submit">
                     <input type="reset" class="btn btn-danger btn-md" value="clear">
                   </td>
