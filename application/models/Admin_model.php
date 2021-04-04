@@ -688,6 +688,22 @@ class Admin_model extends CI_Model{
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
+    // Attendance report
+    public function attendance_report($date_from, $date_to){
+        $this->db->select('daily_attendance.id,
+                            daily_attendance.emp_id,
+                            daily_attendance.approved_timings,
+                            daily_attendance.time_in,
+                            daily_attendance.time_out,
+                            daily_attendance.remarks,
+                            daily_attendance.created_at,
+                            users.id,
+                            users.fullname');
+        $this->db->from('daily_attendance');
+        $this->db->join('users', 'daily_attendance.emp_id = users.id', 'left');
+        $this->db->where(array('daily_attendance.created_at >=' => $date_from, 'daily_attendance.created_at <=' => $date_to));
+        return $this->db->get()->result();
+    }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){

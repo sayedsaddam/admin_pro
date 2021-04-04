@@ -803,6 +803,15 @@ class Admin extends CI_Controller{
         $data['users'] = $this->admin_model->attendance_employees();
         $this->load->view('admin/commons/template', $data);
     }
+    // Attendance report
+    public function attendance_report(){
+        $date_from = date('Y-m-d', strtotime($this->input->get('date_from')));
+        $date_to = date('Y-m-d', strtotime($this->input->get('date_to')));
+        $data['title'] = "Search Results > Attendance Report";
+        $data['body'] = 'admin/daily_attendance';
+        $data['results'] = $this->admin_model->attendance_report($date_from, $date_to);
+        $this->load->view('admin/commons/template', $data);
+    }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){
