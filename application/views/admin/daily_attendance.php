@@ -86,7 +86,7 @@
                   <a data-id="<?= $att->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
                 </td>
               </tr>
-              <?php endforeach; else: echo '<tr class="table-danger"><td colspan="8" align="center">No record found.</td></tr>'; endif; ?>
+              <?php endforeach; else: echo '<tr class="table-danger"><td colspan="9" align="center">No record found.</td></tr>'; endif; ?>
             </tbody>
             <?php elseif(!empty($results)): ?>
               <tbody>
@@ -112,7 +112,7 @@
                   <a data-id="<?= $res->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
                 </td>
               </tr>
-              <?php endforeach; else: echo '<tr class="table-danger"><td colspan="8" align="center">No record found.</td></tr>'; ?>
+              <?php endforeach; else: echo '<tr class="table-danger"><td colspan="9" align="center">No record found.</td></tr>'; ?>
             </tbody>
             <?php endif; ?>
           </table>
