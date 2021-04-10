@@ -1,7 +1,7 @@
 <div class="container mt-5 pt-5">
     <div class="row">
         <div class="col-12 text-center mb-3">
-        <small>[CTC-HR&OPS-Transportation-F-7.4-a-1/1]<br>[Travel and Hotel Stay Request From <?= date('F, Y'); ?>]</small>
+        <small>[CTC-HR&OPS-Transportation-F-7.4-a-1/1]<br>[Travel and Hotel Stay Request Form <?= date('F, Y'); ?>]</small>
         </div>
     </div>
     <div class="row">
