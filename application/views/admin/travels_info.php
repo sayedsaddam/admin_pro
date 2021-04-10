@@ -76,7 +76,6 @@
                         </table>
                     </div>
                     <div class="card-footer white py-3 d-flex justify-content-between">
-                        <a href="<?= base_url('supervisor/view_travel_history'); ?>" class="btn btn-outline-primary">view all</a>
                         <?= $this->pagination->create_links(); ?>
                     </div>
                 </div>

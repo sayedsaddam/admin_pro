@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid blue-gradient text-light">
+<div class="jumbotron jumbotron-fluid blue-gradient text-light d-print-none">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-8">
@@ -24,7 +24,7 @@
       </div>
     </div>
   <?php endif; ?>
-  <div class="row mb-4">
+  <div class="row mb-4 d-print-none">
     <div class="col-6">
       <a href="<?= base_url('admin/daily_attendance'); ?>" class="btn btn-outline-unique"><i class="fa fa-eye"></i> attendance register</a>
       <button data-toggle="modal" data-target="#add_attendance" type="button" class="btn btn-outline-info"><i class="fa fa-plus"></i> add attendance</button>
@@ -40,14 +40,15 @@
   <div class="row">
     <div class="col-12">
       <div class="card card-list">
-        <div class="card-header white d-flex justify-content-between align-items-center py-3">
-          <p class="h5-responsive font-weight-bold mb-0"><?php if(empty($results)){ echo 'Daily Attendance'; }else{ echo 'Search Results'; } ?> | <small><a href="javascript:history.go(-1)">&laquo; Back</a></small></p>
+        <div class="card-header white d-flex justify-content-between align-items-center py-3 d-print-none">
+          <p class="h5-responsive font-weight-bold mb-0"><?php if(empty($results)){ echo 'Daily Attendance'; }else{ echo 'Search Results'; } ?> | <small class="d-print-none"><a href="javascript:history.go(-1)">&laquo; Back</a></small></p>
           <ul class="list-unstyled d-flex align-items-center mb-0">
             <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
             <li><i class="fas fa-times fa-sm pl-3"></i></li>
           </ul>
         </div>
         <div class="card-body">
+          <h2 class="mb-4 d-none d-print-block">Attendance Report | <small class="font-weight-lighter">from <?= date('F jS', strtotime($_GET['date_from'])).' to '.date('F jS, Y', strtotime($_GET['date_to'])); ?></small></h2>
           <table class="table table-sm">
             <thead>
               <tr>
@@ -59,7 +60,7 @@
                 <th class="font-weight-bold">Total Hours</th>
                 <th class="font-weight-bold">Late / Early</th>
                 <th class="font-weight-bold">Date</th>
-                <th class="font-weight-bold">Action</th>
+                <th class="font-weight-bold d-print-none">Action</th>
               </tr>
             </thead>
             <?php if(empty($results)): ?>
@@ -81,7 +82,7 @@
                 <td><?= $diff->h.'h '.$diff->i.'m'; ?></td>
                 <td><?= $late_arrival->h.'h '.$late_arrival->i.'m'; ?></td>
                 <td><?= date('M d, Y', strtotime($att->created_at)); ?></td>
-                <td>
+                <td class="d-print-none">
                   <a href="#" class="badge badge-primary" title="Leave detail..."><i class="fa fa-print"></i></a>
                   <a data-id="<?= $att->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
                 </td>
@@ -107,12 +108,12 @@
                 <td><?= $diff->h.'h '.$diff->i.'m'; ?></td>
                 <td><?= $late_arrival->h.'h '.$late_arrival->i.'m'; ?></td>
                 <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
-                <td>
+                <td class="d-print-none">
                   <a href="#" class="badge badge-primary" title="Leave detail..."><i class="fa fa-print"></i></a>
                   <a data-id="<?= $res->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
                 </td>
               </tr>
-              <?php endforeach; else: echo '<tr class="table-danger"><td colspan="9" align="center">No record found.</td></tr>'; ?>
+              <?php endforeach; echo '<tr class="d-print-none"><td colspan="8"><button class="btn btn-primary" onclick="javascript:window.print();">Print Report</button></td></tr>'; else: echo '<tr class="table-danger"><td colspan="9" align="center">No record found.</td></tr>'; ?>
             </tbody>
             <?php endif; ?>
           </table>
