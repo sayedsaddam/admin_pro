@@ -93,7 +93,7 @@
                   <?php if($att->time_in > $att->approved_timings){ echo $late_arrival->h.'h '.$late_arrival->i.'m'; }else{ echo 'In time.'; } ?>
                 </td>
                 <td>
-                  <?php if($att->time_out < $early_leave){ echo $early_leave->h.'h '.$early_leave->i.'m'; }else{ echo '--'; } ?>
+                  <?php if($att->time_out < $leaving_time){ echo $early_leave->h.'h '.$early_leave->i.'m'; }else{ echo 'In time.'; } ?>
                 </td>
                 <td><?= date('M d, Y', strtotime($att->created_at)); ?></td>
                 <td class="d-print-none">
@@ -130,7 +130,7 @@
                   <?php if($res->time_in > $res->approved_timings){ echo $late_arrival->h.'h '.$late_arrival->i.'m'; }else{ echo 'In time.'; } ?>
                 </td>
                 <td>
-                  <?php echo $early_leave->h.'h '.$early_leave->i.'m'; ?>
+                  <?php if($res->time_out < $leaving_time){ echo $early_leave->h.'h '.$early_leave->i.'m'; }else{ echo 'In time.'; } ?>
                 </td>
                 <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                 <td class="d-print-none">
