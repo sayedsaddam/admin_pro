@@ -149,6 +149,10 @@
       </div>
     </div> 
   </div>
+  <div class="row">
+    <div class="col-6 d-none d-print-block">_______________________<br>Approved By</div>
+    <div class="col-6 d-none d-print-block text-right">_______________________<br>Verified By</div>
+  </div>
 </div>
 
 <!-- Modal > Add Attendance -->
