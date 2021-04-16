@@ -49,8 +49,8 @@
         </div>
         <div class="card-body">
           <?php if(!empty($results)): ?>
-            <h2 class="mb-4 d-none d-print-block">Attendance Report | <small class="font-weight-lighter">from <?= date('F jS', strtotime($_GET['date_from'])).' to '.date('F jS, Y', strtotime($_GET['date_to'])); ?></small></h2>
-          <?php else: echo "<h2 class='mb-4 d-none d-print-block'>Attendance Report</h2>"; endif; ?>
+            <h2 class="mb-4 d-none d-print-block text-center">Attendance Report | <small class="font-weight-lighter">from <?= date('F jS', strtotime($_GET['date_from'])).' to '.date('F jS, Y', strtotime($_GET['date_to'])); ?></small></h2>
+          <?php else: echo "<h2 class='mb-4 d-none d-print-block text-center'>Attendance Report</h2>"; endif; ?>
           <table class="table table-sm">
             <thead>
               <tr>
