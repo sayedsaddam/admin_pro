@@ -689,7 +689,7 @@ class Admin_model extends CI_Model{
         return $this->db->get()->result();
     }
     // Attendance report
-    public function attendance_report($date_from, $date_to){
+    public function attendance_report($date_from, $date_to, $employee){
         $this->db->select('daily_attendance.id,
                             daily_attendance.emp_id,
                             daily_attendance.approved_timings,
@@ -702,6 +702,9 @@ class Admin_model extends CI_Model{
         $this->db->from('daily_attendance');
         $this->db->join('users', 'daily_attendance.emp_id = users.id', 'left');
         $this->db->where(array('daily_attendance.created_at >=' => $date_from, 'daily_attendance.created_at <=' => $date_to));
+        if($employee != ''){
+            $this->db->where('daily_attendance.emp_id', $employee);
+        }
         return $this->db->get()->result();
     }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\

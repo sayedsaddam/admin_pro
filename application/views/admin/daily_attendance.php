@@ -25,14 +25,20 @@
     </div>
   <?php endif; ?>
   <div class="row mb-4 d-print-none">
-    <div class="col-6">
+    <div class="col-5">
       <a href="<?= base_url('admin/daily_attendance'); ?>" class="btn btn-outline-unique"><i class="fa fa-eye"></i> attendance register</a>
       <button data-toggle="modal" data-target="#add_attendance" type="button" class="btn btn-outline-info"><i class="fa fa-plus"></i> add attendance</button>
     </div>
-    <div class="col-6 text-right">
+    <div class="col-7 text-right">
       <form action="<?= base_url('admin/attendance_report'); ?>" method="get" class="form-inline">
         <input type="date" name="date_from" class="form-control mr-4" title="Date from...">
         <input type="date" name="date_to" class="form-control mr-3" title="Date to...">
+        <select name="employee" id="employee" class="browser-default custom-select">
+          <option value="">Select Employee</option>
+          <?php foreach($users as $user): ?>
+            <option value="<?= $user->id; ?>"><?= $user->fullname; ?></option>
+          <?php endforeach; ?>
+        </select>
         <input type="submit" class="btn btn-primary btn-md" value="Go">
       </form>
     </div>
@@ -101,11 +107,11 @@
                   <a data-id="<?= $att->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
                 </td>
               </tr>
-              <?php endforeach; else: echo '<tr class="table-danger"><td colspan="9" align="center">No record found.</td></tr>'; endif; ?>
+              <?php endforeach; else: echo '<tr class="table-danger"><td colspan="10" align="center">No record found.</td></tr>'; endif; ?>
             </tbody>
             <?php elseif(!empty($results)): ?>
               <tbody>
-              <?php foreach($results as $res): ?>
+              <?php $total_hrs = 0; foreach($results as $res): ?>
               <?php $check_in = date_create($res->time_in);
                   $check_out = date_create($res->time_out);
                   $diff = date_diff($check_out, $check_in); 
@@ -138,7 +144,12 @@
                   <a data-id="<?= $res->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
                 </td>
               </tr>
-              <?php endforeach; echo '<tr class="d-print-none"><td colspan="10"><button class="btn btn-primary" onclick="javascript:window.print();">Print Report</button></td></tr>'; else: echo '<tr class="table-danger"><td colspan="9" align="center">No record found.</td></tr>'; ?>
+              <?php $total_hrs += $diff->h + $diff->m; ?>
+              <?php endforeach; echo '<tr class="table-success"><td colspan="5" class="font-weight-bold">Total Hours</td><td colspan="5" class="font-weight-bold">'.$total_hrs.' Hrs. </td></tr><tr class="d-print-none"><td colspan="10"><button class="btn btn-primary" onclick="javascript:window.print();">Print Report</button></td></tr>'; else: echo '<tr class="table-danger"><td colspan="9" align="center">No record found.</td></tr>'; ?>
+              <tr class="table-success">
+                
+                
+              </tr>
             </tbody>
             <?php endif; ?>
           </table>
