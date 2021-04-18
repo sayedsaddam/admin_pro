@@ -87,7 +87,7 @@
                     if($allowed_timings == '09:00'){ $leaving_time .= '18:00'; }elseif($allowed_timings == '09:30'){ $leaving_time .= '18:30'; }elseif($allowed_timings == '10:00'){ $leaving_time .= '19:00'; }
                     $approved_time_leave = date_create($leaving_time); // Approved time for leaving - taking off.
                     $time_to_leave = date_create($att->time_out); // Time of employee leaving / taking off.
-                    $early_leave = date_diff($approved_time_leave, $time_to_leave); ?>
+                    $early_leave = date_diff($approved_time_leave, $time_to_leave); // Time difference b/w leaving times. ?>
               <tr>
                 <td scope="row"><?= 'CTC-'.$att->id; ?></td>
                 <td><?= ucfirst($att->fullname); ?></td>
@@ -111,7 +111,9 @@
             </tbody>
             <?php elseif(!empty($results)): ?>
               <tbody>
-              <?php $total_hrs = 0; foreach($results as $res): ?>
+              <?php $total_hrs = 0;
+                    $total_mins = 0;
+                    foreach($results as $res): ?>
               <?php $check_in = date_create($res->time_in);
                   $check_out = date_create($res->time_out);
                   $diff = date_diff($check_out, $check_in); 
@@ -144,8 +146,8 @@
                   <a data-id="<?= $res->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
                 </td>
               </tr>
-              <?php $total_hrs += $diff->h + $diff->m; ?>
-              <?php endforeach; echo '<tr class="table-success"><td colspan="5" class="font-weight-bold">Total Hours</td><td colspan="5" class="font-weight-bold">'.$total_hrs.' Hrs. </td></tr><tr class="d-print-none"><td colspan="10"><button class="btn btn-primary" onclick="javascript:window.print();">Print Report</button></td></tr>'; else: echo '<tr class="table-danger"><td colspan="9" align="center">No record found.</td></tr>'; ?>
+              <?php $total_hrs += $diff->h; $total_mins += $diff->i; ?>
+              <?php endforeach; echo '<tr class="table-success"><td colspan="5" class="font-weight-bold">Total Hours</td><td colspan="5" class="font-weight-bold">'.$total_hrs .'h '. $total_mins.'m. </td></tr><tr class="d-print-none"><td colspan="10"><button class="btn btn-primary" onclick="javascript:window.print();">Print Report</button></td></tr>'; else: echo '<tr class="table-danger"><td colspan="9" align="center">No record found.</td></tr>'; ?>
               <tr class="table-success">
                 
                 
