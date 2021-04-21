@@ -43,6 +43,27 @@
       </form>
     </div>
   </div>
+  <!-- <div class="row">
+    <div class="col-12 table-responsive">
+      Report
+      <table class="table table-bordered table-sm">
+        <tr>
+          <th>Name/Date</th>
+          <?php foreach($attendance as $att_date): ?>
+            <th><?= date('m/d/y', strtotime($att_date->created_at)); ?></th>
+          <?php endforeach; ?>
+        </tr>
+        <?php foreach($attendance as $att): ?>
+        <tr>
+          <td><?= $att->fullname; ?></td>
+          <?php foreach($attendance as $att_times): ?>
+            <td><?= date('h:i a', strtotime($att->time_in)).' - '.date('h:i a', strtotime($att->time_out)); ?></td>
+          <?php endforeach; ?>
+        </tr>
+        <?php endforeach; ?>
+      </table>
+    </div>
+  </div> -->
   <div class="row">
     <div class="col-12">
       <div class="card card-list">
