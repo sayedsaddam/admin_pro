@@ -49,18 +49,18 @@
       <table class="table table-bordered table-sm">
         <tr>
           <th>Name/Date</th>
-          <?php foreach($attendance as $att_date): ?>
-            <th><?= date('m/d/y', strtotime($att_date->created_at)); ?></th>
-          <?php endforeach; ?>
+          <?php if(!empty($attendance)): foreach($attendance as $att_date): ?>
+            <th><?= date('d', strtotime($att_date->created_at)); ?></th>
+          <?php endforeach; endif; ?>
         </tr>
-        <?php foreach($attendance as $att): ?>
+        <?php if(!empty($attendance)): foreach($attendance as $att): ?>
         <tr>
           <td><?= $att->fullname; ?></td>
           <?php foreach($attendance as $att_times): ?>
             <td><?= date('h:i a', strtotime($att->time_in)).' - '.date('h:i a', strtotime($att->time_out)); ?></td>
           <?php endforeach; ?>
         </tr>
-        <?php endforeach; ?>
+        <?php endforeach; endif; ?>
       </table>
     </div>
   </div> -->
@@ -167,12 +167,8 @@
                   <a data-id="<?= $res->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
                 </td>
               </tr>
-              <?php $total_hrs += $diff->h; $total_mins += $diff->i; ?>
-              <?php endforeach; echo '<tr class="table-success"><td colspan="5" class="font-weight-bold">Total Hours</td><td colspan="5" class="font-weight-bold">'.$total_hrs .'h '. $total_mins.'m. </td></tr><tr class="d-print-none"><td colspan="10"><button class="btn btn-primary" onclick="javascript:window.print();">Print Report</button></td></tr>'; else: echo '<tr class="table-danger"><td colspan="9" align="center">No record found.</td></tr>'; ?>
-              <tr class="table-success">
-                
-                
-              </tr>
+              <?php $total_hrs += $diff->h*60; $total_mins += $diff->i; $total_time = ($total_hrs+$total_mins) ?>
+              <?php endforeach; echo '<tr class="table-success"><td colspan="5" class="font-weight-bold">Total Hours</td><td colspan="5" class="font-weight-bold">'.number_format($total_time/60, 2) .'h </td></tr><tr class="d-print-none"><td colspan="10"><button class="btn btn-primary" onclick="javascript:window.print();">Print Report</button></td></tr>'; else: echo '<tr class="table-danger"><td colspan="9" align="center">No record found.</td></tr>'; ?>
             </tbody>
             <?php endif; ?>
           </table>
