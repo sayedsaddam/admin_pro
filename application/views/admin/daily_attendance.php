@@ -68,7 +68,7 @@
                     echo '<td>'.date('d/m ', strtotime($att->created_at)).'- '.$att->time_in.'-'.$att->time_out.'</td>'; 
                     $total_hours += $diff->h*60; $total_minutes += $diff->i; $total_time = ($total_hours+$total_minutes);
                   } // @endforeach
-                  echo '<td>Total hrs. '.(@$total_time/60).'</td>'; ?>
+                  if(!empty($emp_attendance)){ echo '<td>Total = '.(@$total_time/60).'</td>'; } ?>
           </tr>
           <?php endforeach; endif; ?>
           <tr>
