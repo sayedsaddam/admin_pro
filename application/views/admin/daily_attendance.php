@@ -43,27 +43,40 @@
       </form>
     </div>
   </div>
-  <!-- <div class="row">
+  <div class="row">
     <div class="col-12 table-responsive">
-      Report
+      <h3>Report</h3>
       <table class="table table-bordered table-sm">
-        <tr>
-          <th>Name/Date</th>
-          <?php if(!empty($attendance)): foreach($attendance as $att_date): ?>
-            <th><?= date('d', strtotime($att_date->created_at)); ?></th>
+        <thead>
+          <tr>
+            <th class="font-weight-bold">Name/Date</th>
+            <th colspan="31" class="font-weight-bold text-center">Attendance</th>
+            <?php //for($date = 1; $date <= 31; $date++){ echo '<th class="font-weight-bold">'.$date.'</th>'; } ?>
+          </tr>
+        </thead>
+        <tbody>
+          <?php if(!empty($users)): foreach($users as $user): ?>
+          <tr>
+            <td><?= $user->fullname; ?></td>
+            <?php $emp_attendance = $this->admin_model->get_employee_attendance($user->id);
+                  $total_hours = 0;
+                  $total_minutes = 0;
+                  foreach($emp_attendance as $att){ // @startforeach
+                    $check_in = date_create($att->time_in);
+                    $check_out = date_create($att->time_out);
+                    $diff = date_diff($check_out, $check_in);
+                    echo '<td>'.date('d/m ', strtotime($att->created_at)).'- '.$att->time_in.'-'.$att->time_out.'</td>'; 
+                    $total_hours += $diff->h*60; $total_minutes += $diff->i; $total_time = ($total_hours+$total_minutes);
+                  } // @endforeach
+                  echo '<td>Total hrs. '.(@$total_time/60).'</td>'; ?>
+          </tr>
           <?php endforeach; endif; ?>
-        </tr>
-        <?php if(!empty($attendance)): foreach($attendance as $att): ?>
-        <tr>
-          <td><?= $att->fullname; ?></td>
-          <?php foreach($attendance as $att_times): ?>
-            <td><?= date('h:i a', strtotime($att->time_in)).' - '.date('h:i a', strtotime($att->time_out)); ?></td>
-          <?php endforeach; ?>
-        </tr>
-        <?php endforeach; endif; ?>
+          <tr>
+          </tr>
+        </tbody>
       </table>
     </div>
-  </div> -->
+  </div>
   <div class="row">
     <div class="col-12">
       <div class="card card-list">
@@ -128,7 +141,7 @@
                   <a data-id="<?= $att->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
                 </td>
               </tr>
-              <?php endforeach; else: echo '<tr class="table-danger"><td colspan="10" align="center">No record found.</td></tr>'; endif; ?>
+              <?php endforeach; else: echo '<th class="table-danger"><td colspan="10" align="center">No record found.</td></th>'; endif; ?>
             </tbody>
             <?php elseif(!empty($results)): ?>
               <tbody>
@@ -167,7 +180,7 @@
                   <a data-id="<?= $res->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
                 </td>
               </tr>
-              <?php $total_hrs += $diff->h*60; $total_mins += $diff->i; $total_time = ($total_hrs+$total_mins) ?>
+              <?php $total_hrs += $diff->h*60; $total_mins += $diff->i; $total_time = ($total_hrs+$total_mins); ?>
               <?php endforeach; echo '<tr class="table-success"><td colspan="5" class="font-weight-bold">Total Hours</td><td colspan="5" class="font-weight-bold">'.number_format($total_time/60, 2) .'h </td></tr><tr class="d-print-none"><td colspan="10"><button class="btn btn-primary" onclick="javascript:window.print();">Print Report</button></td></tr>'; else: echo '<tr class="table-danger"><td colspan="9" align="center">No record found.</td></tr>'; ?>
             </tbody>
             <?php endif; ?>

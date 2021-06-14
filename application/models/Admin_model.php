@@ -707,6 +707,21 @@ class Admin_model extends CI_Model{
         }
         return $this->db->get()->result();
     }
+    // Get daily attendance based on employee/user id.
+    public function get_employee_attendance($user_id){ // user_id = employee_id
+        $this->db->select('id, emp_id, time_in, time_out, created_at');
+        $this->db->from('daily_attendance');
+        $this->db->where(array('emp_id' => $user_id));
+        // $this->db->like('created_at', date('Y-m'));
+        return $this->db->get()->result();
+    }
+    // Search employee attendance.
+    public function search_employee_attendance($date_from, $date_to, $user_id){
+        $this->db->select('id, emp_id, time_in, time_out, created_at');
+        $this->db->from('daily_attendance');
+        $this->db->where(array('create_at >=' => $date_from, 'created_at <=' => $date_to, 'emp_id' => $user_id));
+        return $this->db->get()->result();
+    }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){
