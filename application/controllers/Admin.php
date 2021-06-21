@@ -212,6 +212,7 @@ class Admin extends CI_Controller{
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Inventory | Admin & Procurement';
         $data['body'] = 'admin/inventory';
+        $data['locations'] = $this->login_model->get_locations();
         $data['inventory'] = $this->admin_model->get_inventory($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
@@ -829,6 +830,7 @@ class Admin extends CI_Controller{
         $search = $this->input->get('search');
         $data['title'] = 'Search Results > Inventory';
         $data['body'] = 'admin/inventory';
+        $data['locations'] = $this->login_model->get_locations();
         $data['results'] = $this->admin_model->search_inventory($search);
         $this->load->view('admin/commons/template', $data);
     }

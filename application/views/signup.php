@@ -55,10 +55,9 @@
           <!-- Location -->
           <select name="location" id="defaultRegisterFormLocation" class="browser-default custom-select mb-4" required>
             <option value="" disabled selected>Location</option>
-            <option value="islamabad">Islamabad</option>
-            <option value="kp">KP</option>
-            <option value="balochistan">Balochistan</option>
-            <option value="punjab">Punjab</option>
+            <?php foreach($locations as $loc): ?>
+              <option value="<?= $loc->name; ?>"><?= $loc->name; ?></option>
+            <?php endforeach; ?>
           </select>
 
           <!-- User role -->

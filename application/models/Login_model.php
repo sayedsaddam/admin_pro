@@ -14,6 +14,10 @@ class Login_model extends CI_Model{
         $this->db->where('user_role', 'supervisor');
         return $this->db->get()->result();
     }
+    // Get all locations.
+    public function get_locations(){
+        return $this->db->get('locations')->result();
+    }
     // Sign up - Created new user account.
     public function signup($data){
         $this->db->insert('users', $data);

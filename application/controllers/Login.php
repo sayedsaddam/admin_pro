@@ -19,6 +19,7 @@ class Login extends CI_Controller{
         $data['title'] = 'Sign Up | Admin & Procurement';
         $data['body'] = 'signup';
         $data['supervisors'] = $this->login_model->get_supervisors();
+        $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/template', $data);
     }
     // Register/created new user.

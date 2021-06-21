@@ -145,6 +145,15 @@
             </div>
 
             <div class="md-form mb-5">
+              <select name="item_loc" id="for32" class="browser-default custom-select">
+                  <option value="" disabled selected>--select location--</option>
+                  <?php foreach($locations as $loc): ?>
+                    <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
+                  <?php endforeach; ?>
+              </select>
+            </div>
+
+            <div class="md-form mb-5">
                 <input type="submit" class="btn btn-primary" value="Save Changes">
             </div>
         </form>
@@ -191,11 +200,20 @@
             </div>
 
             <div class="md-form mb-5">
-                <select name="item_cat" id="item_cat" class="browser-default custom-select">
-                    <option value="" disabled selected>--select category--</option>
-                    <option value="stationary">Stationary</option>
-                    <option value="electronics">Electronics</option>
-                </select>
+              <select name="item_cat" id="item_cat" class="browser-default custom-select">
+                  <option value="" disabled selected>--select category--</option>
+                  <option value="stationary">Stationary</option>
+                  <option value="electronics">Electronics</option>
+              </select>
+            </div>
+
+            <div class="md-form mb-5">
+              <select name="item_loc" id="for32" class="browser-default custom-select">
+                  <option value="" disabled selected>--select location--</option>
+                  <?php foreach($locations as $loc): ?>
+                    <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
+                  <?php endforeach; ?>
+              </select>
             </div>
 
             <div class="md-form mb-5">
