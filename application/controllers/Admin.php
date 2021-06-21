@@ -223,7 +223,8 @@ class Admin extends CI_Controller{
             'item_desc' => $this->input->post('item_desc'),
             'unit_price' => $this->input->post('unit_price'),
             'item_qty' => $this->input->post('item_qty'),
-            'item_category' => $this->input->post('item_cat')
+            'item_category' => $this->input->post('item_cat'),
+            'item_loc' => $this->input->post('item_loc')
         );
         if($this->admin_model->add_inventory($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Inventory was added successfully');
@@ -246,7 +247,8 @@ class Admin extends CI_Controller{
             'item_desc' => $this->input->post('item_desc'),
             'unit_price' => $this->input->post('unit_price'),
             'item_qty' => $this->input->post('item_qty'),
-            'item_category' => $this->input->post('item_cat')
+            'item_category' => $this->input->post('item_cat'),
+            'item_loc' => $this->input->post('item_loc')
         );
         if($this->admin_model->update_inventory($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Inventory was updated successfully');

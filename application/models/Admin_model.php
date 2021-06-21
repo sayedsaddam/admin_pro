@@ -185,13 +185,17 @@ class Admin_model extends CI_Model{
                             inventory.unit_price,
                             inventory.item_qty,
                             inventory.item_category,
+                            inventory.item_loc,
                             inventory.created_at,
                             item_requisitions.id as req_id,
                             item_requisitions.item_name as req_name,
                             item_requisitions.item_qty as req_qty,
-                            item_requisitions.status');
+                            item_requisitions.status,
+                            locations.id as loc_id,
+                            locations.name');
         $this->db->from('inventory');
         $this->db->join('item_requisitions', 'inventory.id = item_requisitions.item_name', 'left');
+        $this->db->join('locations', 'inventory.item_loc = locations.id', 'left');
         $this->db->order_by('id', 'DESC');
         $this->db->group_by('inventory.id');
         $this->db->limit($limit, $offset);
@@ -199,7 +203,7 @@ class Admin_model extends CI_Model{
     }
     // Edit inventory - Get record for edit.
     public function edit_inventory($id){
-        $this->db->select('id, item_name, item_desc, unit_price, item_qty, item_category, created_at');
+        $this->db->select('id, item_name, item_desc, unit_price, item_qty, item_category, item_loc, created_at');
         $this->db->from('inventory');
         $this->db->where('id', $id);
         return $this->db->get()->row();
@@ -741,13 +745,17 @@ class Admin_model extends CI_Model{
                             inventory.unit_price,
                             inventory.item_qty,
                             inventory.item_category,
+                            inventory.item_loc,
                             inventory.created_at,
                             item_requisitions.id as req_id,
                             item_requisitions.item_name as req_name,
                             item_requisitions.item_qty as req_qty,
-                            item_requisitions.status');
+                            item_requisitions.status,
+                            locations.id as loc_id,
+                            locations.name');
         $this->db->from('inventory');
         $this->db->join('item_requisitions', 'inventory.id = item_requisitions.item_name', 'left');
+        $this->db->join('locations', 'inventory.item_loc = locations.id', 'left');
         $this->db->like('inventory.item_name', $search);
         $this->db->or_like('inventory.item_desc', $search);
         $this->db->or_like('inventory.item_category', $search);

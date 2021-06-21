@@ -45,6 +45,7 @@
             <th class="font-weight-bold">Item Name</th>
             <th class="font-weight-bold">Description</th>
             <th class="font-weight-bold">Category</th>
+            <th class="font-weight-bold">Location</th>
             <th class="font-weight-bold">Item Qty</th>
             <th class="font-weight-bold">Unit Price</th>
             <th class="font-weight-bold">Total Price</th>
@@ -60,6 +61,7 @@
                 <td><?= $inv->item_name; ?></td>
                 <td><?= ucfirst($inv->item_desc); ?></td>
                 <td><?= ucfirst($inv->item_category); ?></td>
+                <td><?= ucfirst($inv->name); ?></td>
                 <td><?php if($inv->status == 1){ $remaining_items = $inv->item_qty - $inv->req_qty; echo $remaining_items;  }else{ echo $inv->item_qty; } ?></td>
                 <td><?= number_format($inv->unit_price) ?></td>
                 <td><?php if($inv->status == 1){ echo number_format($inv->unit_price * $remaining_items); }else{ echo number_format($inv->unit_price * $inv->item_qty); } ?></td>
@@ -80,6 +82,7 @@
                 <td><?= $res->item_name; ?></td>
                 <td><?= ucfirst($res->item_desc); ?></td>
                 <td><?= ucfirst($res->item_category); ?></td>
+                <td><?= ucfirst($res->name); ?></td>
                 <td><?php if($res->status == 1){ $remaining_items = $res->item_qty - $res->req_qty; echo $remaining_items;  }else{ echo $res->item_qty; } ?></td>
                 <td><?= number_format($res->unit_price) ?></td>
                 <td><?php if($res->status == 1){ echo number_format($res->unit_price * $remaining_items); }else{ echo number_format($res->unit_price * $res->item_qty); } ?></td>
@@ -208,7 +211,7 @@
             </div>
 
             <div class="md-form mb-5">
-              <select name="item_loc" id="for32" class="browser-default custom-select">
+              <select name="item_loc" id="item_loc" class="browser-default custom-select">
                   <option value="" disabled selected>--select location--</option>
                   <?php foreach($locations as $loc): ?>
                     <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
@@ -247,6 +250,7 @@ $(document).ready(function(){
         $('#unit_price').val(response.unit_price);
         $('#item_qty').val(response.item_qty);
         $('#item_cat').val(response.item_category);
+        $('#item_loc').val(response.item_loc);
         // $('.edit-modal-body').html(response);
         // // Display Modal
         $('#edit_inventory').modal('show'); 
