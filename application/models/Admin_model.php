@@ -663,6 +663,13 @@ class Admin_model extends CI_Model{
         $this->db->where('user_role !=', 'admin');
         return $this->db->get()->result();
     }
+    // get employees for attendance => filter by region.
+    public function filter_employee_by_region($location){
+        $this->db->select('id, fullname');
+        $this->db->from('users');
+        $this->db->where(array('user_role !=' => 'admin', 'location' => $location));
+        return $this->db->get()->result();
+    }
     // Save attendance.
     public function add_daily_attendance($data){
         $this->db->insert_batch('daily_attendance', $data);

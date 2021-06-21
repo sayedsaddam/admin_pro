@@ -210,39 +210,39 @@
         </button>
       </div>
       <div class="modal-body text-center mx-3">
+        <div class="row">
+          <div class="col-12">
+            <select name="city" id="city" class="brower-default custom-select mb-4">
+              <option value="" selected disabled>--select region--</option>
+              <?php if(!empty($locations)): foreach($locations as $loc): ?>
+                <option value="<?= $loc->name; ?>"><?= $loc->name; ?></option>
+              <?php endforeach; endif; ?>
+            </select>
+          </div>
+        </div>
         <form action="<?= base_url('admin/add_daily_attendance'); ?>" method="post">
           <div class="row">
             <div class="col-12 table-responsive">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th><input type="checkbox" id="checkAll"></th>
-                  <th class="font-weight-bold">Employee</th>
-                  <th class="font-weight-bold">Approved Timings</th>
-                  <th class="font-weight-bold">Time In</th>
-                  <th class="font-weight-bold">Time Out</th>
-                  <th class="font-weight-bold">Remarks</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php if(!empty($users)): foreach($users as $user): ?>
+              <table class="table table-bordered">
+                <thead>
                   <tr>
-                    <td><input type="checkbox" name="emp_id[]" value="<?= $user->id; ?>"></td>
-                    <td><?= $user->fullname; ?></td>
-                    <td><input type="text" name="approved_time[]" id="approved_time" class="form-control form-control-sm" placeholder="Approved timing" value="09:00"></td>
-                    <td><input type="text" name="time_in[]" id="time_in" class="form-control form-control-sm" placeholder="Time in"></td>
-                    <td><input type="text" name="time_out[]" id="time_out" class="form-control form-control-sm" placeholder="Time Out"></td>
-                    <td><input type="text" name="remarks[]" id="remarks" class="form-control form-control-sm" placeholder="Remarks"></td>
+                    <th><input type="checkbox" id="checkAll"></th>
+                    <th class="font-weight-bold">Employee</th>
+                    <th class="font-weight-bold">Approved Timings</th>
+                    <th class="font-weight-bold">Time In</th>
+                    <th class="font-weight-bold">Time Out</th>
+                    <th class="font-weight-bold">Remarks</th>
                   </tr>
-                <?php endforeach; endif; ?>
-                <tr>
-                  <td colspan="6" align="left">
-                    <input type="submit" class="btn btn-primary btn-md" value="Submit">
-                    <input type="reset" class="btn btn-danger btn-md" value="clear">
-                  </td>
-                </tr>
-              </tbody>
-            </table>     
+                </thead>
+                <tbody id="employees_attendance">
+                </tbody>
+              </table>     
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 text-left">
+              <input type="submit" class="btn btn-primary btn-md" value="Submit">
+              <input type="reset" class="btn btn-danger btn-md" value="clear">
             </div>
           </div>
         </form>
@@ -253,3 +253,36 @@
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function(){
+    $('#city').on('change', function(){
+      var filterEmployees = $(this).val();
+      $.ajax({
+        url: '<?= base_url(); ?>admin/filter_by_region/' + filterEmployees,
+        method:'POST',
+        dataType: 'json',
+        data: {filterEmployees: filterEmployees},
+        success: function(data){
+          console.log(data);
+          if(data){
+            $('#employees_attendance').html('');
+            $.each(data, function(index, res){
+              $('#employees_attendance').append(`<tr>
+                      <td><input type="checkbox" name="emp_id[]" value="${res.id}"></td>
+                      <td>${res.fullname}</td>
+                      <td><input type="text" name="approved_time[]" id="approved_time" class="form-control form-control-sm" placeholder="Approved timing" value="09:00"></td>
+                      <td><input type="text" name="time_in[]" id="time_in" class="form-control form-control-sm" placeholder="Time in"></td>
+                      <td><input type="text" name="time_out[]" id="time_out" class="form-control form-control-sm" placeholder="Time Out"></td>
+                      <td><input type="text" name="remarks[]" id="remarks" class="form-control form-control-sm" placeholder="Remarks"></td>
+                    </tr>`);
+            });
+          }
+        }
+      });
+    });
+     // Check all
+    $("#checkAll").click(function(){
+        $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+  });
+</script>

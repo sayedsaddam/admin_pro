@@ -717,6 +717,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/leaves';
         $data['leaves'] = $this->admin_model->get_leave_applications($limit, $offset);
         $data['users'] = $this->admin_model->attendance_employees();
+        $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/template', $data);
     }
     // Leave detail by ID.
@@ -747,6 +748,11 @@ class Admin extends CI_Controller{
         $data['travel'] = $this->admin_model->print_travel($travel_id);
         // echo json_encode($data['travel']); exit;
         $this->load->view('admin/commons/template', $data);
+    }
+    // Get employees for attendance => filter by region.
+    public function filter_by_region($location){
+        $employees = $this->admin_model->filter_employee_by_region($location);
+        echo json_encode($employees);
     }
     // Add daily attendance.
     public function add_daily_attendance(){
@@ -804,6 +810,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/daily_attendance';
         $data['attendance'] = $this->admin_model->get_daily_attendance($limit, $offset);
         $data['users'] = $this->admin_model->attendance_employees();
+        $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/template', $data);
     }
     // Attendance report
