@@ -839,4 +839,23 @@ class Admin_model extends CI_Model{
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
+    // Search filters - Leaves report.
+    public function search_leaves($date_from, $date_to){
+        $this->db->select('employee_leaves.id,
+                            employee_leaves.emp_id,
+                            employee_leaves.leave_from,
+                            employee_leaves.leave_to,
+                            employee_leaves.no_of_days,
+                            employee_leaves.leave_reason,
+                            employee_leaves.leave_status,
+                            employee_leaves.created_at,
+                            users.id as user_id,
+                            users.fullname,
+                            users.department,
+                            users.supervisor');
+        $this->db->from('employee_leaves');
+        $this->db->join('users', 'employee_leaves.emp_id = users.id', 'left');
+        $this->db->where(array('employee_leaves.leave_status' => 1, 'employee_leaves.created_at >=' => $date_from, 'employee_leaves.created_at <=' => $date_to));
+        return $this->db->get()->result();
+    }
 }

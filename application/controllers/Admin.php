@@ -891,6 +891,15 @@ class Admin extends CI_Controller{
         $data['results'] = $this->admin_model->search_locations($search);
         $this->load->view('admin/commons/template', $data);
     }
+    // Search filters - Search leaves report between two dates.
+    public function leaves_report(){
+        $date_from = $this->input->get('date_from');
+        $date_to = $this->input->get('date_to');
+        $data['title'] = 'Leaves Report > Leaves Info';
+        $data['body'] = 'admin/leaves';
+        $data['results'] = $this->admin_model->search_leaves($date_from, $date_to);
+        $this->load->view('admin/commons/template', $data);
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";

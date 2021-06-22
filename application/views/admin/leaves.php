@@ -28,12 +28,21 @@
       <a href="<?= base_url('admin/daily_attendance'); ?>" class="btn btn-outline-unique"><i class="fa fa-eye"></i> attendance register</a>
       <button data-toggle="modal" data-target="#add_attendance" type="button" class="btn btn-outline-info"><i class="fa fa-plus"></i> add attendance</button>
     </div>
+    <div class="col-6">
+      <form action="<?= base_url('admin/leaves_report'); ?>" method="get" class="form-inline">
+          <input type="date" name="date_from" class="form-control mr-2" title="Date from...">
+          <input type="date" name="date_to" class="form-control mr-2" title="Date to...">
+          <input type="submit" class="btn btn-primary btn-md" value="Go">
+        </form>
+    </div>
   </div>
   <div class="row">
     <div class="col-12">
       <div class="card card-list">
         <div class="card-header white d-flex justify-content-between align-items-center py-3">
-          <p class="h5-responsive font-weight-bold mb-0">Leave Requests</p>
+          <p class="h5-responsive font-weight-bold mb-0">
+            <?php if(!empty($leaves)){ echo 'Leave Requests'; }else{ echo 'Search Results <a href="javascript:history.go(-1)">&laquo; Back</a>'; } ?>
+          </p>
           <ul class="list-unstyled d-flex align-items-center mb-0">
             <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
             <li><i class="fas fa-times fa-sm pl-3"></i></li>
@@ -53,27 +62,47 @@
                 <th class="font-weight-bold">Action</th>
               </tr>
             </thead>
-            <tbody>
-              <?php if(!empty($leaves)): foreach($leaves as $leave): ?>
-              <tr>
-                <td scope="row"><?= 'CTC-'.$leave->id; ?></td>
-                <td><?= ucfirst($leave->fullname); ?></td>
-                <td><?= date('M d, Y', strtotime($leave->leave_from)); ?></td>
-                <td><?= date('M d, Y', strtotime($leave->leave_to)); ?></td>
-                <td><?= $leave->no_of_days; ?></td>
-                <td><?= date('M d, Y', strtotime($leave->created_at)); ?></td>
-                <td><?php if($leave->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($leave->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
-                <td>
-                  <a href="<?= base_url('admin/leave_detail/'.$leave->id); ?>" class="badge badge-primary" title="Leave detail..."><i class="fa fa-print"></i></a>
-                  <a data-id="<?= $leave->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
-                </td>
-              </tr>
-              <?php endforeach; else: echo '<tr class="table-danger"><td colspan="8" align="center">No record found.</td></tr>'; endif; ?>
-            </tbody>
+            <?php if(empty($results)): ?>
+              <tbody>
+                <?php if(!empty($leaves)): foreach($leaves as $leave): ?>
+                <tr>
+                  <td scope="row"><?= 'CTC-'.$leave->id; ?></td>
+                  <td><?= ucfirst($leave->fullname); ?></td>
+                  <td><?= date('M d, Y', strtotime($leave->leave_from)); ?></td>
+                  <td><?= date('M d, Y', strtotime($leave->leave_to)); ?></td>
+                  <td><?= $leave->no_of_days; ?></td>
+                  <td><?= date('M d, Y', strtotime($leave->created_at)); ?></td>
+                  <td><?php if($leave->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($leave->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
+                  <td>
+                    <a href="<?= base_url('admin/leave_detail/'.$leave->id); ?>" class="badge badge-primary" title="Leave detail..."><i class="fa fa-print"></i></a>
+                    <a data-id="<?= $leave->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
+                  </td>
+                </tr>
+                <?php endforeach; else: echo '<tr class="table-danger"><td colspan="8" align="center">No record found.</td></tr>'; endif; ?>
+              </tbody>
+            <?php elseif(empty($leaves)): ?>
+              <tbody>
+                <?php if(!empty($results)): foreach($results as $res): ?>
+                <tr>
+                  <td scope="row"><?= 'CTC-'.$res->id; ?></td>
+                  <td><?= ucfirst($res->fullname); ?></td>
+                  <td><?= date('M d, Y', strtotime($res->leave_from)); ?></td>
+                  <td><?= date('M d, Y', strtotime($res->leave_to)); ?></td>
+                  <td><?= $res->no_of_days; ?></td>
+                  <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
+                  <td><?php if($res->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($res->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
+                  <td>
+                    <a href="<?= base_url('admin/leave_detail/'.$res->id); ?>" class="badge badge-primary" title="Leave detail..."><i class="fa fa-print"></i></a>
+                    <a data-id="<?= $res->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
+                  </td>
+                </tr>
+                <?php endforeach; else: echo '<tr class="table-danger"><td colspan="8" align="center">No record found.</td></tr>'; endif; ?>
+              </tbody>
+            <?php endif; ?>
           </table>
         </div>
         <div class="card-footer white py-3 d-flex justify-content-between">
-          <?= $this->pagination->create_links(); ?>
+          <?php if(empty($results) && !empty($leaves)){ echo $this->pagination->create_links(); } ?>
         </div>
       </div>
     </div> 
