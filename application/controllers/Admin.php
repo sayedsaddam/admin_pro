@@ -798,17 +798,17 @@ class Admin extends CI_Controller{
         }
     }
     // List daily attendance.
-    public function daily_attendance($offset = null){
-        $limit = 15;
-        if(!empty($offset)){
-            $this->uri->segment(3);
-        }
-        $url = 'admin/daily_attendance';
-        $rowscount = $this->admin_model->count_attendace();
-        paginate($url, $rowscount, $limit);
+    public function daily_attendance(){
+        // $limit = 15;
+        // if(!empty($offset)){
+        //     $this->uri->segment(3);
+        // }
+        // $url = 'admin/daily_attendance';
+        // $rowscount = $this->admin_model->count_attendace();
+        // paginate($url, $rowscount, $limit);
         $data['title'] = 'Daily Attendance | Admin & Procurement';
         $data['body'] = 'admin/daily_attendance';
-        $data['attendance'] = $this->admin_model->get_daily_attendance($limit, $offset);
+        $data['attendance'] = $this->admin_model->get_daily_attendance();
         $data['users'] = $this->admin_model->attendance_employees();
         $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/template', $data);
@@ -817,10 +817,10 @@ class Admin extends CI_Controller{
     public function attendance_report(){
         $date_from = date('Y-m-d', strtotime($this->input->get('date_from')));
         $date_to = date('Y-m-d', strtotime($this->input->get('date_to')));
-        $employee = $this->input->get('employee');
+        // $employee = $this->input->get('employee');
         $data['title'] = "Search Results > Attendance Report";
         $data['body'] = 'admin/daily_attendance';
-        $data['results'] = $this->admin_model->attendance_report($date_from, $date_to, $employee);
+        $data['results'] = $this->admin_model->attendance_report($date_from, $date_to);
         $data['users'] = $this->admin_model->attendance_employees();
         $this->load->view('admin/commons/template', $data);
     }
