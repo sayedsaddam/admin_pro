@@ -762,6 +762,7 @@ class Admin_model extends CI_Model{
         $this->db->like('inventory.item_name', $search);
         $this->db->or_like('inventory.item_desc', $search);
         $this->db->or_like('inventory.item_category', $search);
+        $this->db->or_like('locations.name', $search);
         $this->db->group_by('inventory.id');
         $this->db->order_by('inventory.created_at', 'DESC');
         return $this->db->get()->result();
