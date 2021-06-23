@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid blue-gradient text-light">
+<div class="jumbotron jumbotron-fluid blue-gradient text-light d-print-none">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-8">
@@ -23,7 +23,7 @@
       </div>
     </div>
   <?php endif; ?>
-  <div class="row mb-4">
+  <div class="row mb-4 d-print-none">
     <div class="col-6">
       <a href="<?= base_url('admin/daily_attendance'); ?>" class="btn btn-outline-unique"><i class="fa fa-eye"></i> attendance register</a>
       <button data-toggle="modal" data-target="#add_attendance" type="button" class="btn btn-outline-info"><i class="fa fa-plus"></i> add attendance</button>
@@ -41,9 +41,9 @@
       <div class="card card-list">
         <div class="card-header white d-flex justify-content-between align-items-center py-3">
           <p class="h5-responsive font-weight-bold mb-0">
-            <?php if(!empty($leaves)){ echo 'Leave Requests'; }else{ echo 'Search Results <a href="javascript:history.go(-1)">&laquo; Back</a>'; } ?>
+            <?php if(!empty($leaves)){ echo 'Leave Requests'; }else{ echo 'Leaves Report <a class="d-print-none" href="javascript:history.go(-1)">&laquo; Back</a>'; } ?>
           </p>
-          <ul class="list-unstyled d-flex align-items-center mb-0">
+          <ul class="list-unstyled d-flex align-items-center mb-0 d-print-none">
             <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
             <li><i class="fas fa-times fa-sm pl-3"></i></li>
           </ul>
@@ -59,7 +59,7 @@
                 <th class="font-weight-bold">Days</th>
                 <th class="font-weight-bold">Requested</th>
                 <th class="font-weight-bold">Status</th>
-                <th class="font-weight-bold">Action</th>
+                <th class="font-weight-bold d-print-none">Action</th>
               </tr>
             </thead>
             <?php if(empty($results)): ?>
@@ -73,7 +73,7 @@
                   <td><?= $leave->no_of_days; ?></td>
                   <td><?= date('M d, Y', strtotime($leave->created_at)); ?></td>
                   <td><?php if($leave->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($leave->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
-                  <td>
+                  <td class="d-print-none">
                     <a href="<?= base_url('admin/leave_detail/'.$leave->id); ?>" class="badge badge-primary" title="Leave detail..."><i class="fa fa-print"></i></a>
                     <a data-id="<?= $leave->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
                   </td>
@@ -91,7 +91,7 @@
                   <td><?= $res->no_of_days; ?></td>
                   <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                   <td><?php if($res->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($res->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
-                  <td>
+                  <td class="d-print-none">
                     <a href="<?= base_url('admin/leave_detail/'.$res->id); ?>" class="badge badge-primary" title="Leave detail..."><i class="fa fa-print"></i></a>
                     <a data-id="<?= $res->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
                   </td>
@@ -100,6 +100,11 @@
               </tbody>
             <?php endif; ?>
           </table>
+          <div class="row">
+            <div class="col-12">
+              <button class="btn btn-primary d-print-none" onclick="javascript:window.print();">Print</button>
+            </div>
+          </div>
         </div>
         <div class="card-footer white py-3 d-flex justify-content-between">
           <?php if(empty($results) && !empty($leaves)){ echo $this->pagination->create_links(); } ?>

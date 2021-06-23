@@ -99,6 +99,11 @@
       </table>
     </div>
   </div>
+  <div class="row">
+    <div class="col-12">
+      <button class="btn btn-primary d-print-none" onclick="javascript:window.print();">Print</button>
+    </div>
+  </div>
   <div class="row pt-5 mt-3">
     <div class="col-6 d-none d-print-block">_______________________<br>Approved By</div>
     <div class="col-6 d-none d-print-block text-right">_______________________<br>Verified By</div>
