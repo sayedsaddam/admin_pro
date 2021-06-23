@@ -82,8 +82,8 @@
           <i class="fas fa-times fa-3x green z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
             <p class="text-uppercase mt-2 mb-1 ml-3"><small class="font-weight-bold">leaves - 22</small></p>
-            <p class="font-weight-lighter mb-1 ml-3 mb-0"><?php if(!empty($availed_leaves)){ echo 'Availed : '. $availed_leaves->no_of_days; } ?></p>
-            <p class="font-weight-lighter mb-1 ml-3"><?php if(!empty($availed_leaves)){ echo 'Balance : '. (22 - $availed_leaves->no_of_days); } ?></p>
+            <p class="font-weight-lighter mb-1 ml-3 mb-0"><?php if(!empty($availed_leaves)){ echo 'Availed : '. $availed_leaves->availed_leaves; } ?></p>
+            <p class="font-weight-lighter mb-1 ml-3"><?php if(!empty($availed_leaves)){ echo 'Balance : '. (22 - $availed_leaves->availed_leaves); } ?></p>
           </div>
         </div>
       </div>
@@ -224,11 +224,12 @@
                   <div class="form-group">
                       <label for="itemName">Leave Type</label>
                       <select name="leave_type" id="leave_type" class="browser-default custom-select">
-                          <option value="" disabled selected>-- Select Type --</option>
+                          <option value="" disabled selected>-- Leave Type --</option>
                           <option value="Annual">Annual</option>
                           <option value="Casual">Casual</option>
-                          <option value="Medical">Medical</option>
+                          <option value="Sick">Sick</option>
                           <option value="Maternity">Maternity</option>
+                          <option value="Compensatory">Compensatory</option>
                       </select>
                   </div>
                   <div class="form-group">
@@ -241,7 +242,7 @@
                   </div>
                   <div class="form-group">
                       <label for="no_of_days">Number of Days</label>
-                      <input type="number" name="no_of_days" id="no_of_days" placeholder="No. of days..." class="form-control">
+                      <input type="text" name="no_of_days" id="no_of_days" placeholder="No. of days..." class="form-control">
                   </div>
                   <div class="form-group">
                       <label for="reason">Reason for Leave</label>

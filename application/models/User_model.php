@@ -72,7 +72,7 @@ class User_model extends CI_Model{
     }
     // Count approved leaves.
     public function all_approved_leaves(){
-        $this->db->select('id, emp_id, leave_status, no_of_days');
+        $this->db->select('id, emp_id, leave_status, SUM(no_of_days) as availed_leaves');
         $this->db->from('employee_leaves');
         $this->db->where(array('emp_id' => $this->session->userdata('id'), 'leave_status' => 1));
         return $this->db->get()->row();
