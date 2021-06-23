@@ -146,6 +146,7 @@
                 <?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
                   <option value="<?=$sup->name;?>"><?=$sup->name;?></option>
                 <?php endforeach; endif; ?>
+                <option value="Other">Other</option>
               </select>
             </div>
 
