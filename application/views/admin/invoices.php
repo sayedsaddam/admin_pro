@@ -153,11 +153,9 @@
             <div class="md-form mb-5">
               <select name="region" class="browser-default custom-select" id="selectList">
                 <option value="" disabled selected>--Select region--</option>
-                <option value="islamabad">Islamabad</option>
-                <option value="balochistan">Balochistan</option>
-                <option value="khyber PK">Khyber PK</option>
-                <option value="sindh">Sindh</option>
-                <option value="punjab">Punjab</option>
+                <?php foreach($locations as $loc): ?>
+                  <option value="<?= $loc->name; ?>"><?= ucfirst($loc->name); ?></option>
+                <?php endforeach; ?>
               </select>
             </div>
 
@@ -167,7 +165,7 @@
             </div>
 
             <div class="md-form mb-5">
-              <input name="amount" type="number" id="form32" class="form-control validate">
+              <input name="amount" type="text" id="form32" class="form-control validate">
               <label data-error="wrong" data-success="right" for="form32">Amount</label>
             </div>
 

@@ -306,6 +306,7 @@ class Admin extends CI_Controller{
         $data['suppliers'] = $this->admin_model->get_suppliers_for_invoice();
         $data['invoices'] = $this->admin_model->get_invoices($limit, $offset);
         $data['projects'] = $this->admin_model->get_projects();
+        $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/template', $data);
     }
     // Invoices - Add invoice into the database.
