@@ -88,7 +88,7 @@
                   <td><?= ucfirst($res->fullname); ?></td>
                   <td><?= date('M d, Y', strtotime($res->leave_from)); ?></td>
                   <td><?= date('M d, Y', strtotime($res->leave_to)); ?></td>
-                  <td><?= $res->total_availed_leaves; ?></td>
+                  <td title="Availed and remaining leaves."><?= 'Av: '.$res->total_availed_leaves.', Re: '.(22 - $res->total_availed_leaves); ?></td>
                   <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                   <td><?php if($res->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($res->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
                   <td class="d-print-none">
