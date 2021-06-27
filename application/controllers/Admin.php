@@ -818,11 +818,12 @@ class Admin extends CI_Controller{
     public function attendance_report(){
         $date_from = date('Y-m-d', strtotime($this->input->get('date_from')));
         $date_to = date('Y-m-d', strtotime($this->input->get('date_to')));
+        $location = $this->input->get('location');
         // $employee = $this->input->get('employee');
         $data['title'] = "Search Results > Attendance Report";
         $data['body'] = 'admin/daily_attendance';
         $data['results'] = $this->admin_model->attendance_report($date_from, $date_to);
-        $data['users'] = $this->admin_model->attendance_employees();
+        $data['users'] = $this->admin_model->filter_employee_by_region($location);
         $this->load->view('admin/commons/template', $data);
     }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\

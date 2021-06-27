@@ -25,21 +25,21 @@
     </div>
   <?php endif; ?>
   <div class="row mb-4 d-print-none">
-    <div class="col-7">
-      <a href="<?= base_url('admin/daily_attendance'); ?>" class="btn btn-outline-unique"><i class="fa fa-eye"></i> attendance register</a>
-      <button data-toggle="modal" data-target="#add_attendance" type="button" class="btn btn-outline-info"><i class="fa fa-plus"></i> add attendance</button>
-      <a href="javascript:history.go(-1)" class="btn btn-outline-danger">&laquo; Back</a>
+    <div class="col-5">
+      <a href="<?= base_url('admin/daily_attendance'); ?>" class="btn btn-outline-unique btn-sm"><i class="fa fa-eye"></i> attendance register</a>
+      <button data-toggle="modal" data-target="#add_attendance" type="button" class="btn btn-outline-info btn-sm"><i class="fa fa-plus"></i> add attendance</button>
+      <a href="javascript:history.go(-1)" class="btn btn-outline-danger btn-sm">&laquo; Back</a>
     </div>
-    <div class="col-5 text-right">
+    <div class="col-7 text-right">
       <form action="<?= base_url('admin/attendance_report'); ?>" method="get" class="form-inline">
         <input type="date" name="date_from" class="form-control mr-2 ml-5" title="Date from...">
         <input type="date" name="date_to" class="form-control mr-2" title="Date to...">
-        <!-- <select name="employee" id="employee" class="browser-default custom-select">
-          <option value="">Select Employee</option>
-          <?php foreach($users as $user): ?>
-            <option value="<?= $user->id; ?>"><?= $user->fullname; ?></option>
+        <select name="location" id="location" class="browser-default custom-select mr-3">
+          <option value="" selected>--Select Location--</option>
+          <?php foreach($locations as $location): ?>
+            <option value="<?= $location->name; ?>"><?= ucfirst($location->name); ?></option>
           <?php endforeach; ?>
-        </select> -->
+        </select>
         <input type="submit" class="btn btn-primary btn-md" value="Go &raquo;">
       </form>
     </div>
