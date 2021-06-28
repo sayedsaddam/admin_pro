@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
   <?php if($success = $this->session->flashdata('success')): ?>
     <div class="row">
       <div class="col-lg-12 col-md-12">
@@ -46,7 +46,8 @@
             <th class="font-weight-bold">Description</th>
             <th class="font-weight-bold">Category</th>
             <th class="font-weight-bold">Location</th>
-            <th class="font-weight-bold">Item Qty</th>
+            <th class="font-weight-bold">Original Value</th>
+            <th class="font-weight-bold">Current Value</th>
             <th class="font-weight-bold">Unit Price</th>
             <th class="font-weight-bold">Total Price</th>
             <th class="font-weight-bold">Date</th>
@@ -62,6 +63,7 @@
                 <td><?= ucfirst($inv->item_desc); ?></td>
                 <td><?= ucfirst($inv->item_category); ?></td>
                 <td><?= ucfirst($inv->name); ?></td>
+                <td><?= $inv->item_qty; ?></td>
                 <td><?php if($inv->status == 1){ $remaining_items = $inv->item_qty - $inv->req_qty; echo $remaining_items;  }else{ echo $inv->item_qty; } ?></td>
                 <td><?= number_format($inv->unit_price) ?></td>
                 <td><?php if($inv->status == 1){ echo number_format($inv->unit_price * $remaining_items); }else{ echo number_format($inv->unit_price * $inv->item_qty); } ?></td>
@@ -83,6 +85,7 @@
                 <td><?= ucfirst($res->item_desc); ?></td>
                 <td><?= ucfirst($res->item_category); ?></td>
                 <td><?= ucfirst($res->name); ?></td>
+                <td><?= $res->item_qty; ?></td>
                 <td><?php if($res->status == 1){ $remaining_items = $res->item_qty - $res->req_qty; echo $remaining_items;  }else{ echo $res->item_qty; } ?></td>
                 <td><?= number_format($res->unit_price) ?></td>
                 <td><?php if($res->status == 1){ echo number_format($res->unit_price * $remaining_items); }else{ echo number_format($res->unit_price * $res->item_qty); } ?></td>
