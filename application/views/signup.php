@@ -56,7 +56,7 @@
           <select name="location" id="defaultRegisterFormLocation" class="browser-default custom-select mb-4" required>
             <option value="" disabled selected>Location</option>
             <?php foreach($locations as $loc): ?>
-              <option value="<?= $loc->name; ?>"><?= $loc->name; ?></option>
+              <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
             <?php endforeach; ?>
           </select>
 

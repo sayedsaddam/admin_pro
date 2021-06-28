@@ -11,6 +11,7 @@ class User_model extends CI_Model{
     public function get_items(){
         $this->db->select('id, item_name, item_qty');
         $this->db->from('inventory');
+        $this->db->where('item_loc', $this->session->userdata('location'));
         return $this->db->get()->result();
     }
     // Create an item requisition
