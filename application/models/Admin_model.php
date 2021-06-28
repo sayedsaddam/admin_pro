@@ -837,7 +837,7 @@ class Admin_model extends CI_Model{
         return $this->db->get()->result();
     }
     // Search filters - Leaves report.
-    public function search_leaves($date_from, $date_to){
+    public function search_leaves($date_from, $date_to, $location){
         $this->db->select('employee_leaves.id,
                             employee_leaves.emp_id,
                             employee_leaves.leave_from,
@@ -850,10 +850,11 @@ class Admin_model extends CI_Model{
                             users.id as user_id,
                             users.fullname,
                             users.department,
-                            users.supervisor');
+                            users.supervisor,
+                            users.location');
         $this->db->from('employee_leaves');
         $this->db->join('users', 'employee_leaves.emp_id = users.id', 'left');
-        $this->db->where(array('employee_leaves.leave_status' => 1, 'employee_leaves.created_at >=' => $date_from, 'employee_leaves.created_at <=' => $date_to));
+        $this->db->where(array('employee_leaves.leave_status' => 1, 'employee_leaves.created_at >=' => $date_from, 'employee_leaves.created_at <=' => $date_to, 'users.location' => $location));
         $this->db->group_by('employee_leaves.emp_id');
         return $this->db->get()->result();
     }

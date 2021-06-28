@@ -13,7 +13,7 @@
     </div>
   </div>
 </div>
-<div class="container">
+<div class="container-fluid">
   <?php if($success = $this->session->flashdata('success')): ?>
     <div class="row">
       <div class="col-12">
@@ -24,14 +24,20 @@
     </div>
   <?php endif; ?>
   <div class="row mb-4 d-print-none">
-    <div class="col-6">
+    <div class="col-5">
       <a href="<?= base_url('admin/daily_attendance'); ?>" class="btn btn-outline-unique"><i class="fa fa-eye"></i> attendance register</a>
       <button data-toggle="modal" data-target="#add_attendance" type="button" class="btn btn-outline-info"><i class="fa fa-plus"></i> add attendance</button>
     </div>
-    <div class="col-6">
+    <div class="col-7">
       <form action="<?= base_url('admin/leaves_report'); ?>" method="get" class="form-inline">
           <input type="date" name="date_from" class="form-control mr-2" title="Date from...">
           <input type="date" name="date_to" class="form-control mr-2" title="Date to...">
+          <select name="location" id="location" class="browser-default custom-select mr-3">
+            <option value="" selected>--Select Location--</option>
+            <?php foreach($locations as $location): ?>
+              <option value="<?= $location->name; ?>"><?= ucfirst($location->name); ?></option>
+            <?php endforeach; ?>
+          </select>
           <input type="submit" class="btn btn-primary btn-md" value="Go">
         </form>
     </div>
@@ -41,7 +47,7 @@
       <div class="card card-list">
         <div class="card-header white d-flex justify-content-between align-items-center py-3">
           <p class="h5-responsive font-weight-bold mb-0">
-            <?php if(!empty($leaves)){ echo 'Leave Requests'; }else{ echo 'Leaves Report <a class="d-print-none" href="javascript:history.go(-1)">&laquo; Back</a>'; } ?>
+            <?php if(!empty($leaves)){ echo 'Leave Requests'; }else{ echo 'Leaves Report &raquo; '.ucfirst($_GET['location']).' <a class="d-print-none" href="javascript:history.go(-1)">&laquo; Back</a>'; } ?>
           </p>
           <ul class="list-unstyled d-flex align-items-center mb-0 d-print-none">
             <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
@@ -54,10 +60,18 @@
               <tr>
                 <th class="font-weight-bold">ID</th>
                 <th class="font-weight-bold">Employee</th>
-                <th class="font-weight-bold">Leave From</th>
-                <th class="font-weight-bold">Leave To</th>
-                <th class="font-weight-bold">Days</th>
-                <th class="font-weight-bold">Requested</th>
+                <th class="font-weight-bold">
+                  <?php if(empty($results)){ echo 'Leave From'; }else{ echo 'Accrued Leaves'; } ?>
+                </th>
+                <th class="font-weight-bold">
+                  <?php if(empty($results)){ echo 'Leave To'; }else{ echo 'Availed'; } ?>
+                </th>
+                <th class="font-weight-bold">
+                  <?php if(empty($results)){ echo 'Days'; }else{ echo 'Balance'; } ?>
+                </th>
+                <th class="font-weight-bold">
+                  <?php if(empty($results)){ echo 'Requested'; }else{ echo 'Location'; } ?>
+                </th>
                 <th class="font-weight-bold">Status</th>
                 <th class="font-weight-bold d-print-none">Action</th>
               </tr>
@@ -86,14 +100,13 @@
                 <tr>
                   <td scope="row"><?= 'CTC-'.$res->id; ?></td>
                   <td><?= ucfirst($res->fullname); ?></td>
-                  <td><?= date('M d, Y', strtotime($res->leave_from)); ?></td>
-                  <td><?= date('M d, Y', strtotime($res->leave_to)); ?></td>
-                  <td title="Availed and remaining leaves."><?= 'Av: '.$res->total_availed_leaves.', Re: '.(22 - $res->total_availed_leaves); ?></td>
-                  <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
-                  <td><?php if($res->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($res->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
+                  <td><?= '22'; ?></td>
+                  <td><?= $res->total_availed_leaves; ?></td>
+                  <td><?= (22 - $res->total_availed_leaves); ?></td>
+                  <td><?= ucfirst($res->location); ?></td>
+                  <td>--</td>
                   <td class="d-print-none">
-                    <a href="<?= base_url('admin/leave_detail/'.$res->id); ?>" class="badge badge-primary" title="Leave detail..."><i class="fa fa-print"></i></a>
-                    <a data-id="<?= $res->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
+                    --
                   </td>
                 </tr>
                 <?php endforeach; else: echo '<tr class="table-danger"><td colspan="8" align="center">No record found.</td></tr>'; endif; ?>

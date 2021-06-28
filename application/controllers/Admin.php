@@ -897,9 +897,11 @@ class Admin extends CI_Controller{
     public function leaves_report(){
         $date_from = $this->input->get('date_from');
         $date_to = $this->input->get('date_to');
+        $location = $this->input->get('location');
         $data['title'] = 'Leaves Report > Leaves Info';
         $data['body'] = 'admin/leaves';
-        $data['results'] = $this->admin_model->search_leaves($date_from, $date_to);
+        $data['locations'] = $this->login_model->get_locations();
+        $data['results'] = $this->admin_model->search_leaves($date_from, $date_to, $location);
         $this->load->view('admin/commons/template', $data);
     }
     // 404 page.
