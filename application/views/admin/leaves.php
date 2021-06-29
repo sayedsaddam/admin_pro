@@ -35,7 +35,7 @@
           <select name="location" id="location" class="browser-default custom-select mr-3">
             <option value="" selected>--Select Location--</option>
             <?php foreach($locations as $location): ?>
-              <option value="<?= $location->name; ?>"><?= ucfirst($location->name); ?></option>
+              <option value="<?= $location->id; ?>"><?= ucfirst($location->name); ?></option>
             <?php endforeach; ?>
           </select>
           <input type="submit" class="btn btn-primary btn-md" value="Go">
@@ -47,7 +47,7 @@
       <div class="card card-list">
         <div class="card-header white d-flex justify-content-between align-items-center py-3">
           <p class="h5-responsive font-weight-bold mb-0">
-            <?php if(!empty($leaves)){ echo 'Leave Requests'; }else{ echo 'Leaves Report &raquo; '.ucfirst($_GET['location']).' <a class="d-print-none" href="javascript:history.go(-1)">&laquo; Back</a>'; } ?>
+            <?php if(!empty($leaves)){ echo 'Leave Requests'; }else{ echo 'Leaves Report &raquo; '.ucfirst($results[0]->name).' <a class="d-print-none" href="javascript:history.go(-1)">&laquo; Back</a>'; } ?>
           </p>
           <ul class="list-unstyled d-flex align-items-center mb-0 d-print-none">
             <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
@@ -69,9 +69,11 @@
                 <th class="font-weight-bold">
                   <?php if(empty($results)){ echo 'Days'; }else{ echo 'Balance'; } ?>
                 </th>
-                <th class="font-weight-bold">
-                  <?php if(empty($results)){ echo 'Requested'; }else{ echo 'Location'; } ?>
-                </th>
+                <?php if(empty($results)): ?>
+                  <th class="font-weight-bold">
+                    Requested
+                  </th>
+                <?php endif; ?>
                 <th class="font-weight-bold">Status</th>
                 <th class="font-weight-bold d-print-none">Action</th>
               </tr>
@@ -103,7 +105,6 @@
                   <td><?= '22'; ?></td>
                   <td><?= $res->total_availed_leaves; ?></td>
                   <td><?= (22 - $res->total_availed_leaves); ?></td>
-                  <td><?= ucfirst($res->location); ?></td>
                   <td>--</td>
                   <td class="d-print-none">
                     --

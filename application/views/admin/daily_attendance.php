@@ -37,7 +37,7 @@
         <select name="location" id="location" class="browser-default custom-select mr-3">
           <option value="" selected>--Select Location--</option>
           <?php foreach($locations as $location): ?>
-            <option value="<?= $location->name; ?>"><?= ucfirst($location->name); ?></option>
+            <option value="<?= $location->id; ?>"><?= ucfirst($location->name); ?></option>
           <?php endforeach; ?>
         </select>
         <input type="submit" class="btn btn-primary btn-md" value="Go &raquo;">
