@@ -189,7 +189,7 @@ class Admin_model extends CI_Model{
                             inventory.created_at,
                             item_requisitions.id as req_id,
                             item_requisitions.item_name as req_name,
-                            SUM(item_requisitions.item_qty) as req_qty,
+                            SUM(IF(status=1, item_requisitions.item_qty, 0)) as req_qty,
                             item_requisitions.status,
                             locations.id as loc_id,
                             locations.name');
@@ -752,7 +752,7 @@ class Admin_model extends CI_Model{
                             inventory.created_at,
                             item_requisitions.id as req_id,
                             item_requisitions.item_name as req_name,
-                            SUM(item_requisitions.item_qty) as req_qty,
+                            SUM(IF(status=1, item_requisitions.item_qty, 0)) as req_qty,
                             item_requisitions.status,
                             locations.id as loc_id,
                             locations.name');
