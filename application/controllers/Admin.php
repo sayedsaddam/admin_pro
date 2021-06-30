@@ -422,6 +422,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Maintenance | Admin & Procurement';
         $data['body'] = 'admin/maintenance';
         $data['maintenance_items'] = $this->admin_model->get_maint_record($limit, $offset);
+        $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/template', $data);
     }
     // Maintenance - Add new record

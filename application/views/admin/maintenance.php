@@ -80,7 +80,7 @@
             </tbody>
           <?php else: ?>
             <tbody>
-              <?php if(!empty($results)): foreach($results as $res): $total = 0; ?>
+              <?php if(!empty($results)): $total = 0; foreach($results as $res): ?>
                 <tr>
                   <td><?= 'CTC-0'.$res->id; ?></td>
                   <td><?= ucfirst($res->region); ?></td>
@@ -129,12 +129,11 @@
       <div class="modal-body mx-3">
         <form action="<?=base_url('admin/add_maintenance');?>" method="post" class="md-form">
             <div class="md-form mb-5">
-              <select name="region" class="browser-default custom-select" id="selectList">
+              <select name="maint_region" class="browser-default custom-select" id="selectList">
                 <option value="" disabled selected>--Select region--</option>
-                <option value="islamabad">Islamabad</option>
-                <option value="balochistan">Balochistan</option>
-                <option value="khyber PK">Khyber PK</option>
-                <option value="sindh">Sindh</option>
+                <?php foreach($locations as $loc): ?>
+                  <option value="<?= $loc->name; ?>"><?= ucfirst($loc->name); ?></option>
+                <?php endforeach; ?>
               </select>
             </div>
 
