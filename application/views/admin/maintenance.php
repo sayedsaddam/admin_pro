@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid blue-gradient text-light">
+<div class="jumbotron jumbotron-fluid blue-gradient text-light d-print-none">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-8">
@@ -22,7 +22,7 @@
       </div>
     </div>
   <?php endif; ?>
-  <div class="row mb-4">
+  <div class="row mb-4 d-print-none">
     <div class="col-lg-6 col-md-6">
       <form action="<?= base_url('admin/search_equip_maintenance'); ?>" method="get" class="md-form form-inline">
         <input type="text" name="search" id="" class="form-control md-form col-5">
@@ -33,12 +33,14 @@
     <div class="col-lg-6 col-md-6 text-right">
       <button data-toggle="modal" data-target="#add_maintenance" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</button>
       <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
+      <button class="btn btn-primary d-print-none" onclick="javascript:window.print();">Print</button>
     </div>
   </div>
     <div class="row">
       <div class="col-lg-12 col-md-12">
+        <h2 class="d-none d-print-block mb-3">Maintenance Report</h2>
         <table class="table table-sm">
-          <caption><?php if(empty($results)){ echo 'List of Equipment Maintenance'; }else{ echo 'Search Results'; } ?></caption>
+          <caption class="d-print-none"><?php if(empty($results)){ echo 'List of Equipment Maintenance'; }else{ echo 'Search Results'; } ?></caption>
           <thead>
             <tr>
               <th class="font-weight-bold">ID</th>
@@ -51,7 +53,7 @@
               <th class="font-weight-bold">Price</th>
               <th class="font-weight-bold">Amount</th>
               <th class="font-weight-bold">Remarks</th>
-              <th class="font-weight-bold">Action</th>
+              <th class="font-weight-bold d-print-none">Action</th>
             </tr>
           </thead>
           <?php if(empty($results)): ?>
@@ -65,10 +67,10 @@
                   <td><?= ucfirst($item->maint_desc); ?></td>
                   <td><?= $item->vendor; ?></td>
                   <td><?= $item->qty_size; ?></td>
-                  <td><?= $item->unit_price; ?></td>
+                  <td><?= number_format($item->unit_price); ?></td>
                   <td><?= number_format($item->total_amount); ?></td>
                   <td><?= ucfirst($item->maint_remarks); ?></td>
-                  <td>
+                  <td class="d-print-none">
                       <a href="<?=base_url('admin/print_record/'.$item->id);?>"><span class="badge badge-primary"><i class="fa fa-print"></i></span></a>
                       <a href="<?=base_url('admin/delete_record/'.$item->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                       <!-- <a href="<?= base_url('admin/invoice_status/'.$item->id); ?>"><span class="badge badge-success"><i class="fa fa-check"></i></span></a> -->
@@ -78,7 +80,7 @@
             </tbody>
           <?php else: ?>
             <tbody>
-              <?php if(!empty($results)): foreach($results as $res): ?>
+              <?php if(!empty($results)): foreach($results as $res): $total = 0; ?>
                 <tr>
                   <td><?= 'CTC-0'.$res->id; ?></td>
                   <td><?= ucfirst($res->region); ?></td>
@@ -87,16 +89,20 @@
                   <td><?= ucfirst($res->maint_desc); ?></td>
                   <td><?= $res->vendor; ?></td>
                   <td><?= $res->qty_size; ?></td>
-                  <td><?= $res->unit_price; ?></td>
-                  <td><?= number_format($res->total_amount); ?></td>
+                  <td><?= number_format($res->unit_price); ?></td>
+                  <td><?= number_format($res->total_amount); $total += $res->total_amount; ?></td>
                   <td><?= ucfirst($res->maint_remarks); ?></td>
-                  <td>
+                  <td class="d-print-none">
                       <a href="<?=base_url('admin/print_record/'.$res->id);?>"><span class="badge badge-primary"><i class="fa fa-print"></i></span></a>
                       <a href="<?=base_url('admin/delete_record/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                       <!-- <a href="<?= base_url('admin/invoice_status/'.$res->id); ?>"><span class="badge badge-success"><i class="fa fa-check"></i></span></a> -->
                   </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
+              <tr class="table-success">
+                <td class="font-weight-bold" colspan="8">Total</td>
+                <td class="font-weight-bold" colspan="3"><?= number_format($total); ?></td>
+              </tr>
             </tbody>
           <?php endif; ?>
         </table>

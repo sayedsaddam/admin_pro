@@ -72,7 +72,7 @@
                         echo '<td>'.date('d/m ', strtotime($att->created_at)).'- '.$att->time_in.'-'.$att->time_out.'</td>'; 
                         $total_hours += $diff->h*60; $total_minutes += $diff->i; $total_time = ($total_hours+$total_minutes);
                       } // @endforeach
-                      if(!empty($emp_attendance)){ echo '<td>Total = '.(@$total_time/60).', Avg '.number_format(($total_time/60)/count($emp_attendance), 2).'</td>'; } ?>
+                      if(!empty($emp_attendance)){ echo '<td>Total hrs = '.(@$total_time/60).', Avg '.number_format((@$total_time/60)/count($emp_attendance), 2).', No. of Days '.count($emp_attendance).'</td>'; } ?>
               </tr>
             <?php endforeach; endif; ?>
           </tbody>
@@ -91,7 +91,7 @@
                         echo '<td>'.date('d/m ', strtotime($att->created_at)).'- '.$att->time_in.'-'.$att->time_out.'</td>'; 
                         $total_hours += $diff->h*60; $total_minutes += $diff->i; $total_time = ($total_hours+$total_minutes);
                       } // @endforeach
-                      if(!empty($emp_attendance)){ echo '<td>Total = '.(@$total_time/60).', Avg '.number_format(($total_time/60)/count($emp_attendance), 2).'</td>'; } ?>
+                      if(!empty($emp_attendance)){ echo '<td>Total hrs = '.(@$total_time/60).', Avg '.number_format((@$total_time/60)/count($emp_attendance), 2).', No. of Days '.count($emp_attendance).'</td>'; } ?>
               </tr>
             <?php endforeach; endif; ?>
           </tbody>
