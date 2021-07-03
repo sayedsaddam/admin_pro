@@ -58,8 +58,8 @@ class Supervisor extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
-        $url = 'supervisor/view_item_requisitions';
-        $rowscount = $this->supervisor_model->total_item_requisitions();
+        $url = 'supervisor/view_travel_history';
+        $rowscount = $this->supervisor_model->total_travel_requisitions();
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Item Requisitions | Admin & Procurement';
         $data['body'] = 'supervisor/travels_list';
