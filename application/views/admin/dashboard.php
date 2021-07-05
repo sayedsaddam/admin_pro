@@ -42,9 +42,9 @@
           <li class="list-group-item">
             <a href="<?= base_url('admin/suppliers'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-truck-moving"></i></a> Suppliers
           </li>
-          <li class="list-group-item">
+          <!-- <li class="list-group-item">
             <a href="<?= base_url('admin/leaves_info'); ?>" class="text-white btn-floating btn-tw btn-sm"><i class="fas fa-sign"></i></a>Attd. & Leaves
-          </li>
+          </li> -->
           <li class="list-group-item">
             <a href="<?= base_url('admin/travels_info'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-plane"></i></a>Travels Info
           </li>
