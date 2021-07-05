@@ -85,7 +85,7 @@ class Supervisor_model extends CI_Model{
     }
     // Get leave info
     public function get_leave_info($id){
-        $this->db->select('id, emp_id, sup_remarks');
+        $this->db->select('id, emp_id, leave_reason, sup_remarks');
         $this->db->from('employee_leaves');
         $this->db->where('id', $id);
         return $this->db->get()->row();
