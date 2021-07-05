@@ -86,6 +86,13 @@ class User_model extends CI_Model{
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
+    // Leave detail > Reason for leave.
+    public function leave_detail($id){
+        $this->db->select('id, leave_reason, sup_remarks');
+        $this->db->from('employee_leaves');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
+    }
     //== ------------------------------------------ Travel and hotel stay ----------------------------------------------- ==//
     // Apply travel
     public function apply_travel($data){

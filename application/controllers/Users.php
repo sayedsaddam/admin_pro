@@ -91,7 +91,11 @@ class Users extends CI_Controller{
         $data['leaves'] = $this->user_model->track_leaves($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
-    
+    // Leave detail > Reason for leaving.
+    public function leave_detail($id){
+        $leave_detail = $this->user_model->leave_detail($id);
+        echo json_encode($leave_detail);
+    }
     //== ---------------------------------------------- Employee Travel Requests --------------------------------------------- ==//
     // Place a travel request.
     public function apply_travel(){

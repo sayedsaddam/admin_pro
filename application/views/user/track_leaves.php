@@ -39,6 +39,7 @@
                   <th class="font-weight-bold">No of Days</th>
                   <th class="font-weight-bold">Status</th>
                   <th class="font-weight-bold">Applied</th>
+                  <th class="font-weight-bold">Detail</th>
                 </tr>
               </thead>
               <tbody>
@@ -53,6 +54,7 @@
                         <?php if($leave->leave_status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($leave->leave_status == 1){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
                     </td>
                     <td><?= date('M d, Y', strtotime($leave->created_at)); ?></td>
+                    <td><a data-id="<?= $leave->id; ?>" class="btn btn-outline-info btn-sm leave_detail">Detail</a></td>
                   </tr>
                 <?php endforeach; else: echo "<tr class='table-danger'><td colspan='7' align='center'>No record found.</td></tr>"; endif; ?>
               </tbody>
@@ -132,3 +134,56 @@
   </div>
 </div>
 <!-- Full Height Modal Right -->
+
+<!-- Leave detail > Reason for leave -->
+<div class="modal fade right" id="leave_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-lg modal-right" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title w-100" id="myModalLabel">Leave Detail</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <div class="row mb-3">
+                <div class="col-4">Leave Reason: </div>
+                <div class="col-8 leave_reason"></div>
+              </div>
+              <div class="row">
+                <div class="col-4">Supervisor Remarks: </div>
+                <div class="col-8 sup_remarks"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- Leave detail > Reason for leave -->
+<script>
+  $(document).ready(function(){
+    $('.leave_detail').click(function(){
+      var leave_id = $(this).data('id');
+      $.ajax({
+        url: '<?= base_url('users/leave_detail/'); ?>' + leave_id,
+        method: 'POST',
+        dataType: 'JSON',
+        data:{leave_id: leave_id},
+        success: function(response){
+          console.log(response);
+          $('.leave_reason').html(response.leave_reason);
+          $('.sup_remarks').html(response.sup_remarks);
+          $('#leave_detail').modal('show');
+        }
+      });
+    });
+  });
+</script>
