@@ -127,7 +127,7 @@
             <select name="city" id="city" class="brower-default custom-select mb-4">
               <option value="" selected disabled>--select region--</option>
               <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                <option value="<?= $loc->name; ?>"><?= $loc->name; ?></option>
+                <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
               <?php endforeach; endif; ?>
             </select>
           </div>
