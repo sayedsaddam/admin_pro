@@ -23,8 +23,8 @@
         <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid">
       </div>
       <div class="col-lg-7 col-md-7">
-        <h1 class="display-4 font-weight-bold">Admin & Procurement</h1>
-        <h5 class="font-weight-bold light-text">AH Group of Companies (Pvt). Ltd.</h5>
+        <h1 class="display-4 font-weight-bold mb-0">Admin & Procurement</h1>
+        <h3 class="font-weight-bold light-text">AH Group of Companies (Pvt). Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
         <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>

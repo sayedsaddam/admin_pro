@@ -706,29 +706,6 @@ class Admin extends CI_Controller{
             redirect('admin/locations');
         }
     }
-    // Leaves information
-    // public function leaves_info($offset = null){
-    //     $limit = 15;
-    //     if(!empty($offset)){
-    //         $this->uri->segment(3);
-    //     }
-    //     $url = 'admin/leaves_info';
-    //     $rowscount = $this->admin_model->count_leaves();
-    //     paginate($url, $rowscount, $limit);
-    //     $data['title'] = 'Leaves Info | Admin & Procurement';
-    //     $data['body'] = 'admin/leaves';
-    //     $data['leaves'] = $this->admin_model->get_leave_applications($limit, $offset);
-    //     $data['users'] = $this->admin_model->attendance_employees();
-    //     $data['locations'] = $this->login_model->get_locations();
-    //     $this->load->view('admin/commons/template', $data);
-    // }
-    // Leave detail by ID.
-    // public function leave_detail($id){
-    //     $data['title'] = 'Leave Detail > Leaves Info';
-    //     $data['body'] = 'admin/leave_detail';
-    //     $data['leave'] = $this->admin_model->get_leave_detail($id);
-    //     $this->load->view('admin/commons/template', $data);
-    // }
     // Travels and hotel stays information.
     public function travels_info($offset = null){
         $limit = 15;
@@ -751,82 +728,6 @@ class Admin extends CI_Controller{
         // echo json_encode($data['travel']); exit;
         $this->load->view('admin/commons/template', $data);
     }
-    // Get employees for attendance => filter by region.
-    public function filter_by_region($location){
-        $employees = $this->admin_model->filter_employee_by_region($location);
-        echo json_encode($employees);
-    }
-    // Add daily attendance.
-    // public function add_daily_attendance(){
-    //     $time_in = array();
-    //     $time_out = array();
-    //     $remarks = array();
-    //     $approved_timings = array();
-    //     foreach($_POST['time_in'] as $key => $value){ // $value = Time In
-    //         if($value != ''){
-    //             array_push($time_in, $value);
-    //         }
-    //     }
-    //     foreach($_POST['time_out'] as $key1 => $value1){ // $value1 =  Time out
-    //         if($value1 != ''){
-    //             array_push($time_out, $value1);
-    //         }
-    //     }
-    //     foreach($_POST['remarks'] as $key2 => $value2){ // $value2 = Remarks
-    //         if($value2 != ''){
-    //             array_push($remarks, $value2);
-    //         }
-    //     }
-    //     foreach($_POST['approved_time'] as $key3 => $value3){ // $value3 = Approved timings
-    //         if($value3 != ''){
-    //             array_push($approved_timings, $value3);
-    //         }
-    //     }
-    //     for($i = 0; $i < count($_POST['emp_id']); $i++){
-    //         $data[$i] = array(
-    //             'emp_id' => $_POST['emp_id'][$i],
-    //             'approved_timings' => $approved_timings[$i],
-    //             'time_in' => $time_in[$i],
-    //             'time_out' => $time_out[$i],
-    //             'remarks' => $remarks[$i]
-    //         );
-    //     }
-    //     if($this->admin_model->add_daily_attendance($data)){
-    //         $this->session->set_flashdata('success', '<strong>Success! </strong>Daily attendance record was added successfully.');
-    //         redirect($_SERVER['HTTP_REFERER']);
-    //     }else{
-    //         $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong.Please try again!');
-    //         redirect($_SERVER['HTTP_REFERER']);
-    //     }
-    // }
-    // List daily attendance.
-    // public function daily_attendance(){
-    //     // $limit = 15;
-    //     // if(!empty($offset)){
-    //     //     $this->uri->segment(3);
-    //     // }
-    //     // $url = 'admin/daily_attendance';
-    //     // $rowscount = $this->admin_model->count_attendace();
-    //     // paginate($url, $rowscount, $limit);
-    //     $data['title'] = 'Daily Attendance | Admin & Procurement';
-    //     $data['body'] = 'admin/daily_attendance';
-    //     $data['attendance'] = $this->admin_model->get_daily_attendance();
-    //     $data['users'] = $this->admin_model->attendance_employees();
-    //     $data['locations'] = $this->login_model->get_locations();
-    //     $this->load->view('admin/commons/template', $data);
-    // }
-    // Attendance report
-    // public function attendance_report(){
-    //     $date_from = date('Y-m-d', strtotime($this->input->get('date_from')));
-    //     $date_to = date('Y-m-d', strtotime($this->input->get('date_to')));
-    //     $location = $this->input->get('location');
-    //     // $employee = $this->input->get('employee');
-    //     $data['title'] = "Search Results > Attendance Report";
-    //     $data['body'] = 'admin/daily_attendance';
-    //     $data['results'] = $this->admin_model->attendance_report($date_from, $date_to);
-    //     $data['users'] = $this->admin_model->filter_employee_by_region($location);
-    //     $this->load->view('admin/commons/template', $data);
-    // }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){
@@ -892,17 +793,6 @@ class Admin extends CI_Controller{
         $data['title'] = 'Search Results > Locations';
         $data['body'] = 'admin/locations';
         $data['results'] = $this->admin_model->search_locations($search);
-        $this->load->view('admin/commons/template', $data);
-    }
-    // Search filters - Search leaves report between two dates.
-    public function leaves_report(){
-        $date_from = $this->input->get('date_from');
-        $date_to = $this->input->get('date_to');
-        $location = $this->input->get('location');
-        $data['title'] = 'Leaves Report > Leaves Info';
-        $data['body'] = 'admin/leaves';
-        $data['locations'] = $this->login_model->get_locations();
-        $data['results'] = $this->admin_model->search_leaves($date_from, $date_to, $location);
         $this->load->view('admin/commons/template', $data);
     }
     // 404 page.

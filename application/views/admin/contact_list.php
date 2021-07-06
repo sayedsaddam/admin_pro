@@ -5,7 +5,7 @@
         <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid" width="200">
       </div>
       <div class="col-lg-7 col-md-7">
-        <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
+        <h2 class="display-4 font-weight-bold mb-0">Admin & Procurement</h2>
         <h3 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">

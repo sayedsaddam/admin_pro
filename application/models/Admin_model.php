@@ -586,46 +586,6 @@ class Admin_model extends CI_Model{
     public function count_leaves(){
         return $this->db->from('employee_leaves')->count_all_results();
     }
-    // Leaves information for admin.
-    public function get_leave_applications($limit, $offset){
-        $this->db->select('employee_leaves.id,
-                            employee_leaves.emp_id,
-                            employee_leaves.leave_from,
-                            employee_leaves.leave_to,
-                            employee_leaves.no_of_days,
-                            employee_leaves.leave_reason,
-                            employee_leaves.leave_status,
-                            employee_leaves.created_at,
-                            users.id as user_id,
-                            users.fullname,
-                            users.department,
-                            users.supervisor');
-        $this->db->from('employee_leaves');
-        $this->db->join('users', 'employee_leaves.emp_id = users.id', 'left');
-        $this->db->where('employee_leaves.leave_status', 1);
-        $this->db->limit($limit, $offset);
-        return $this->db->get()->result();
-    }
-    // Leaves information for admin.
-    public function get_leave_detail($id){
-        $this->db->select('employee_leaves.id,
-                            employee_leaves.emp_id,
-                            employee_leaves.leave_from,
-                            employee_leaves.leave_to,
-                            employee_leaves.no_of_days,
-                            employee_leaves.leave_reason,
-                            employee_leaves.sup_remarks,
-                            employee_leaves.leave_status,
-                            employee_leaves.created_at,
-                            users.id as user_id,
-                            users.fullname,
-                            users.department,
-                            users.supervisor');
-        $this->db->from('employee_leaves');
-        $this->db->join('users', 'employee_leaves.emp_id = users.id', 'left');
-        $this->db->where(array('employee_leaves.leave_status' => 1, 'employee_leaves.id' => $id));
-        return $this->db->get()->row();
-    }
     // Total travel requests.
     public function total_travel_requests(){
         return $this->db->from('travel_hotel_stay')->count_all_results();
@@ -655,79 +615,6 @@ class Admin_model extends CI_Model{
         $this->db->join('users', 'travel_hotel_stay.requested_by = users.id', 'left');
         $this->db->where('travel_hotel_stay.id', $travel_id);
         return $this->db->get()->row();
-    }
-    // Daily attendance section. > Get employees for daily attendance.
-    public function attendance_employees(){
-        $this->db->select('id, fullname');
-        $this->db->from('users');
-        $this->db->where('user_role !=', 'admin');
-        return $this->db->get()->result();
-    }
-    // get employees for attendance => filter by region.
-    public function filter_employee_by_region($location){
-        $this->db->select('id, fullname');
-        $this->db->from('users');
-        $this->db->where(array('user_role !=' => 'admin', 'location' => $location));
-        return $this->db->get()->result();
-    }
-    // Save attendance.
-    public function add_daily_attendance($data){
-        $this->db->insert_batch('daily_attendance', $data);
-        if($this->db->affected_rows() > 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    // Count attendace record for pagination.
-    public function count_attendace(){
-        return $this->db->from('daily_attendance')->count_all_results();
-    }
-    // Get daily attendance
-    public function get_daily_attendance(){
-        $this->db->select('daily_attendance.id,
-                            daily_attendance.emp_id,
-                            daily_attendance.approved_timings,
-                            daily_attendance.time_in,
-                            daily_attendance.time_out,
-                            daily_attendance.remarks,
-                            daily_attendance.created_at,
-                            users.id,
-                            users.fullname');
-        $this->db->from('daily_attendance');
-        $this->db->join('users', 'daily_attendance.emp_id = users.id', 'left');
-        return $this->db->get()->result();
-    }
-    // Attendance report
-    public function attendance_report($date_from, $date_to){
-        $this->db->select('daily_attendance.id,
-                            daily_attendance.emp_id,
-                            daily_attendance.approved_timings,
-                            daily_attendance.time_in,
-                            daily_attendance.time_out,
-                            daily_attendance.remarks,
-                            daily_attendance.created_at,
-                            users.id,
-                            users.fullname');
-        $this->db->from('daily_attendance');
-        $this->db->join('users', 'daily_attendance.emp_id = users.id', 'left');
-        $this->db->where(array('daily_attendance.created_at >=' => $date_from, 'daily_attendance.created_at <=' => $date_to));
-        return $this->db->get()->result();
-    }
-    // Get daily attendance based on employee/user id.
-    public function get_employee_attendance($user_id){ // user_id = employee_id
-        $this->db->select('id, emp_id, time_in, time_out, created_at');
-        $this->db->from('daily_attendance');
-        $this->db->where(array('emp_id' => $user_id));
-        $this->db->like('created_at', date('Y-m'));
-        return $this->db->get()->result();
-    }
-    // Search employee attendance.
-    public function search_employee_attendance($date_from, $date_to, $user_id){
-        $this->db->select('id, emp_id, time_in, time_out, created_at');
-        $this->db->from('daily_attendance');
-        $this->db->where(array('created_at >=' => $date_from, 'created_at <=' => $date_to, 'emp_id' => $user_id));
-        return $this->db->get()->result();
     }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
@@ -834,31 +721,6 @@ class Admin_model extends CI_Model{
         $this->db->like('name', $search);
         $this->db->or_like('province', $search);
         $this->db->order_by('created_at', 'DESC');
-        return $this->db->get()->result();
-    }
-    // Search filters - Leaves report.
-    public function search_leaves($date_from, $date_to, $location){
-        $this->db->select('employee_leaves.id,
-                            employee_leaves.emp_id,
-                            employee_leaves.leave_from,
-                            employee_leaves.leave_to,
-                            employee_leaves.no_of_days,
-                            SUM(no_of_days) as total_availed_leaves,
-                            employee_leaves.leave_reason,
-                            employee_leaves.leave_status,
-                            employee_leaves.created_at,
-                            users.id as user_id,
-                            users.fullname,
-                            users.department,
-                            users.supervisor,
-                            users.location,
-                            locations.id,
-                            locations.name');
-        $this->db->from('employee_leaves');
-        $this->db->join('users', 'employee_leaves.emp_id = users.id', 'left');
-        $this->db->join('locations', 'users.location = locations.id', 'left');
-        $this->db->where(array('employee_leaves.leave_status' => 1, 'employee_leaves.created_at >=' => $date_from, 'employee_leaves.created_at <=' => $date_to, 'users.location' => $location));
-        $this->db->group_by('employee_leaves.emp_id');
         return $this->db->get()->result();
     }
 }
