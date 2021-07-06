@@ -88,7 +88,7 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
-                    <h4 class="font-weight-lighter mb-5">Pleas fill out the form below.</h4>
+                    <h4 class="font-weight-lighter mb-5">Please fill out the form below.</h4>
                     <!-- Form -->
                     <form action="<?= base_url('users/create_requisition'); ?>" method="post">
                         <!-- First name -->
@@ -103,11 +103,11 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <input type="text" name="description" id="description" class="form-control">
+                            <textarea name="description" id="description" class="form-control" placeholder="Description..."></textarea>
                         </div>
                         <div class="form-group">
                             <label for="quantity">Quantity</label>
-                            <input type="number" name="quantity" class="form-control">
+                            <input type="number" name="quantity" class="form-control" placeholder="Item Quantity...">
                         </div>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-primary" value="Save Changes">

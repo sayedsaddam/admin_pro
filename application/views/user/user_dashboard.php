@@ -165,7 +165,7 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
-                    <h4 class="font-weight-lighter mb-5">Pleas fill out the form below.</h4>
+                    <h4 class="font-weight-lighter mb-5">Please fill out the form below.</h4>
                     <!-- Form -->
                     <form action="<?= base_url('users/create_requisition'); ?>" method="post">
                         <!-- First name -->
@@ -180,11 +180,10 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <input type="text" name="description" id="description" class="form-control">
-                        </div>
+                            <textarea name="description" id="description" class="form-control" placeholder="Description..."></textarea>
                         <div class="form-group">
                             <label for="quantity">Quantity</label>
-                            <input type="number" name="quantity" class="form-control">
+                            <input type="number" name="quantity" class="form-control" placeholder="Item quantity...">
                         </div>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-primary" value="Save Changes">
@@ -203,7 +202,7 @@
 <!-- Full Height Modal Left -->
 
 <!-- Full Height Modal Right > Apply Leave -->
-<div class="modal fade right" id="apply_leave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade right" id="apply_leave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
   aria-hidden="true">
   <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
   <div class="modal-dialog modal-right" role="document">
@@ -266,7 +265,7 @@
 <!-- Full Height Modal Right -->
 
 <!-- Full Height Modal Right > Apply Travel -->
-<div class="modal fade left" id="apply_travel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade left" id="apply_travel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
   aria-hidden="true">
   <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
   <div class="modal-dialog modal-xl modal-right" role="document">
