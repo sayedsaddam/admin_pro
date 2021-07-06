@@ -41,7 +41,7 @@
     <div class="row">
 
       <!--Grid column-->
-      <div class="col-lg-3 col-md-12 mb-3">
+      <div class="col-lg-4 col-md-12 mb-3">
         <div class="media blue lighten-2 text-white z-depth-1 rounded">
           <i class="fas fa-spinner fa-3x blue z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
@@ -53,7 +53,7 @@
       <!--Grid column-->
 
       <!--Grid column-->
-      <div class="col-lg-3 col-md-6 mb-3">
+      <div class="col-lg-4 col-md-6 mb-3">
         <div class="media deep-purple lighten-2 text-white z-depth-1 rounded">
           <i class="fas fa-check-double fa-3x deep-purple z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
@@ -65,25 +65,12 @@
       <!--Grid column-->
 
       <!--Grid column-->
-      <div class="col-lg-3 col-md-6 mb-3">
+      <div class="col-lg-4 col-md-6 mb-3">
         <div class="media pink lighten-2 text-white z-depth-1 rounded">
           <i class="fas fa-times fa-3x pink z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
             <p class="text-uppercase mt-2 mb-1 ml-3"><small>rejected requests</small></p>
             <p class="font-weight-bold mb-1 ml-3"><?= $rejected; ?></p>
-          </div>
-        </div>
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-3 col-md-6 mb-3">
-        <div class="media green lighten-2 text-white z-depth-1 rounded">
-          <i class="fas fa-times fa-3x green z-depth-1 p-4 rounded-left text-white"></i>
-          <div class="media-body">
-            <p class="text-uppercase mt-2 mb-1 ml-3"><small class="font-weight-bold">leaves - 22</small></p>
-            <p class="font-weight-lighter mb-1 ml-3 mb-0"><?php if(!empty($availed_leaves)){ echo 'Availed : '. $availed_leaves->availed_leaves; } ?></p>
-            <p class="font-weight-lighter mb-1 ml-3"><?php if(!empty($availed_leaves)){ echo 'Balance : '. (22 - $availed_leaves->availed_leaves); } ?></p>
           </div>
         </div>
       </div>
