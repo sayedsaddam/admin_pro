@@ -226,9 +226,18 @@ class Admin_model extends CI_Model{
     }
     // Users - Get all users
     public function get_users($limit, $offset){
-        $this->db->select('id, fullname, email, username, location, user_role, created_at');
+        $this->db->select('users.id,
+                            users.fullname,
+                            users.email,
+                            users.username,
+                            users.location, 
+                            users.user_role,
+                            users.created_at,
+                            locations.id as loc_id,
+                            locations.name');
         $this->db->from('users');
-        $this->db->order_by('id', 'DESC');
+        $this->db->join('locations', 'users.location = locations.id', 'left');
+        $this->db->order_by('users.id', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -769,12 +778,21 @@ class Admin_model extends CI_Model{
     }
     // Search filters - users search
     public function search_users($search){
-        $this->db->select('id, fullname, email, username, location, user_role, created_at');
+        $this->db->select('users.id,
+                            users.fullname,
+                            users.email,
+                            users.username,
+                            users.location,
+                            users.user_role,
+                            users.created_at,
+                            locations.id as loc_id,
+                            locations.name');
         $this->db->from('users');
+        $this->db->join('locations', 'users.location = locations.id', 'left');
         $this->db->like('fullname', $search);
         $this->db->or_like('username', $search);
-        $this->db->or_like('location', $search);
-        $this->db->order_by('created_at', 'DESC');
+        $this->db->or_like('locations.name', $search);
+        $this->db->order_by('users.created_at', 'DESC');
         return $this->db->get()->result();
     }
     // Search filters - invoices search

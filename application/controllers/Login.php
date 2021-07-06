@@ -42,6 +42,35 @@ class Login extends CI_Controller{
             redirect('login/signup');
         }
     }
+    // Edit user.
+    public function edit_user($id){
+        $data['title'] = 'Edit User | Admin & Procurement';
+        $data['body'] = 'signup';
+        $data['supervisors'] = $this->login_model->get_supervisors();
+        $data['locations'] = $this->login_model->get_locations();
+        $data['edit'] = $this->login_model->edit_user($id);
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Update user
+    public function update_user(){
+        $id = $this->input->post('user_id');
+        $data = array(
+            'fullname' => $this->input->post('fullname'),
+            'email' => $this->input->post('email'),
+            'username' => $this->input->post('username'),
+            'department' => $this->input->post('department'),
+            'location' => $this->input->post('location'),
+            'user_role' => $this->input->post('user_role'),
+            'supervisor' => $this->input->post('supervisor')
+        );
+        if($this->login_model->update_user($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Updating user was successful.');
+            redirect('admin/users');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('login/signup');
+        }
+    }
     // Check for credentials and log the user in.
     public function authenticate(){
         $username = $this->input->post('username');

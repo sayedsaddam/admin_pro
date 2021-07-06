@@ -59,11 +59,11 @@
                             <td><?= $user->fullname; ?></td>
                             <td><?= $user->email; ?></td>
                             <td><?= $user->username; ?></td>
-                            <td><?= $user->location; ?></td>
+                            <td><?= ucfirst($user->name); ?></td>
                             <td><?php if($user->user_role == 'user'){ echo "Staff"; }else{ echo "Adminstrator"; } ?></td>
                             <td><?= date('M d, Y', strtotime($user->created_at)); ?></td>
                             <td>
-                                <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                                <a href="<?=base_url('login/edit_user/'.$user->id);?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                                 <a href="<?=base_url('admin/delete_user/'.$user->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                                 <a href="<?= base_url('admin/user_detail/'.$user->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                             </td>
@@ -78,11 +78,11 @@
                             <td><?= $res->fullname; ?></td>
                             <td><?= $res->email; ?></td>
                             <td><?= $res->username; ?></td>
-                            <td><?= $res->location; ?></td>
+                            <td><?= ucfirst($res->name); ?></td>
                             <td><?php if($res->user_role == 'user'){ echo "Staff"; }else{ echo "Adminstrator"; } ?></td>
                             <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                             <td>
-                                <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                                <a href="<?=base_url('login/edit_user/'.$res->id);?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                                 <a href="<?=base_url('admin/delete_user/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                                 <a href="<?= base_url('admin/user_detail/'.$res->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                             </td>
@@ -93,4 +93,5 @@
             </table>
         </div>
     </div>
+    <?php if(!empty($users) && empty($results)){ echo $this->pagination->create_links(); } ?>
 </div>
