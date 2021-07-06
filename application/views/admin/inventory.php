@@ -125,6 +125,24 @@
       </div>
       <div class="modal-body mx-3">
         <form action="<?=base_url('admin/add_inventory');?>" method="post" class="md-form">
+            
+           <div class="md-form mb-5">
+              <select name="item_loc" id="for32" class="browser-default custom-select">
+                  <option value="" disabled selected>--select location--</option>
+                  <?php foreach($locations as $loc): ?>
+                    <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
+                  <?php endforeach; ?>
+              </select>
+            </div>
+
+            <div class="md-form mb-5">
+                <select name="item_cat" id="for32" class="browser-default custom-select">
+                    <option value="" disabled selected>--select category--</option>
+                    <option value="stationary">Stationary</option>
+                    <option value="electronics">Electronics</option>
+                </select>
+            </div>
+
             <div class="md-form mb-5">
                 <input name="item_name" type="text" id="form34" class="form-control validate">
                 <label data-error="wrong" data-success="right" for="form34">Item name</label>
@@ -143,23 +161,6 @@
             <div class="md-form mb-5">
                 <input name="item_qty" type="number" id="form32" class="form-control validate">
                 <label data-error="wrong" data-success="right" for="form32">Item quantity</label>
-            </div>
-
-            <div class="md-form mb-5">
-                <select name="item_cat" id="for32" class="browser-default custom-select">
-                    <option value="" disabled selected>--select category--</option>
-                    <option value="stationary">Stationary</option>
-                    <option value="electronics">Electronics</option>
-                </select>
-            </div>
-
-            <div class="md-form mb-5">
-              <select name="item_loc" id="for32" class="browser-default custom-select">
-                  <option value="" disabled selected>--select location--</option>
-                  <?php foreach($locations as $loc): ?>
-                    <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
-                  <?php endforeach; ?>
-              </select>
             </div>
 
             <div class="md-form mb-5">
