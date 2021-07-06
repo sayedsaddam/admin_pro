@@ -728,6 +728,13 @@ class Admin extends CI_Controller{
         // echo json_encode($data['travel']); exit;
         $this->load->view('admin/commons/template', $data);
     }
+    // Categories and sub-categories
+    public function categories(){
+        $data['title'] = 'Categories > Admin & Procurement';
+        $data['body'] = 'admin/categories';
+        $data['categories'] = $this->admin_model->categories();
+        $this->load->view('admin/commons/template', $data);
+    }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){

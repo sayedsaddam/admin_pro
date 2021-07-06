@@ -616,6 +616,10 @@ class Admin_model extends CI_Model{
         $this->db->where('travel_hotel_stay.id', $travel_id);
         return $this->db->get()->row();
     }
+    // Categories > List categories and sub categories
+    public function categories(){
+        
+    }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){
