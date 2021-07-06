@@ -1,9 +1,12 @@
-<div class="jumbotron jumbotron-fluid blue-gradient text-light">
-  <div class="container">
+<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-8 col-md-8">
+      <div class="col-lg-1 col-md-1">
+        <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid" width="200">
+      </div>
+      <div class="col-lg-7 col-md-7">
         <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
-        <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
+        <h3 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
         <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
