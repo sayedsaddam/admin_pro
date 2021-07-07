@@ -16,3 +16,189 @@
     </div>
   </div>
 </div>
+
+<div class="container">
+  <?php if($success = $this->session->flashdata('success')): ?>
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="alert alert-success"><?=$success;?></div>
+      </div>
+    </div>
+  <?php endif; ?>
+  <div class="row mb-4">
+    <div class="col-lg-6 col-md-6">
+      <form action="<?= base_url('admin/search_inventory'); ?>" method="get" class="md-form form-inline">
+        <input type="text" name="search" id="" class="form-control md-form col-5">
+        <label for="">Search Query</label>
+        <input type="submit" value="go &raquo;" class="btn btn-outline-primary rounded-pill">
+      </form>
+    </div>
+    <div class="col-lg-6 col-md-6 text-right">
+      <button data-toggle="modal" data-target="#add_inventory" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</button>
+      <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <table class="table table-sm">
+        <caption><?php if(empty($results)){ echo 'List of Categories'; }else{ echo 'Search Results'; } ?></caption>
+        <thead>
+          <tr>
+            <th class="font-weight-bold">ID</th>
+            <th class="font-weight-bold">Category Name</th>
+            <th class="font-weight-bold">Added By</th>
+            <th class="font-weight-bold">Date Added</th>
+            <th class="font-weight-bold">Action</th>
+          </tr>
+        </thead>
+        <?php if(empty($results)): ?>
+          <tbody>
+            <?php if(!empty($categories)): foreach($categories as $cat): ?>
+              <tr>
+                <td><?= 'Inv-0'.$cat->id; ?></td>
+                <td><?= $cat->item_name; ?></td>
+                <td><?= number_format($cat->unit_price) ?></td>
+                <td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
+                <td>
+                    <a data-id="<?= $cat->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+                    <a href="<?=base_url('admin/delete_inventory/'.$cat->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                    <a href="<?= base_url('admin/inventory_detail/'.$cat->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+                </td>
+              </tr>
+            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='5'>No record found.</td></tr>"; endif; ?>
+          </tbody>
+        <?php else: ?>
+          <tbody>
+            <?php if(!empty($results)): foreach($results as $res): ?>
+              <tr>
+                <td><?= 'Inv-0'.$res->id; ?></td>
+                <td><?= $res->item_name; ?></td>
+                <td><?= number_format($res->unit_price) ?></td>
+                <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
+                <td>
+                    <a data-id="<?= $res->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+                    <a href="<?=base_url('admin/delete_inventory/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                    <a href="<?= base_url('admin/inventory_detail/'.$res->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+                </td>
+              </tr>
+            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
+          </tbody>
+        <?php endif; ?>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <?php if(!empty($inventory) AND empty($results)){ echo $this->pagination->create_links(); } ?>
+    </div>
+  </div>
+</div>
+
+<!-- Add inventory -->
+<div class="modal fade" id="add_inventory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 font-weight-bold">Add Category</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <form action="<?=base_url('admin/add_category');?>" method="post" class="md-form">
+            
+           <div class="md-form mb-5">
+              <select name="item_loc" id="for32" class="browser-default custom-select">
+                  <option value="" disabled selected>--select location--</option>
+                  <?php foreach($locations as $loc): ?>
+                    <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
+                  <?php endforeach; ?>
+              </select>
+            </div>
+
+            <div class="md-form mb-5">
+                <input name="item_name" type="text" id="form34" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="form34">Category name</label>
+            </div>
+
+            <div class="md-form mb-5">
+                <input type="submit" class="btn btn-primary" value="Save Changes">
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-right">
+        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update inventory -->
+<div class="modal fade" id="edit_inventory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 font-weight-bold">Update Category</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <form action="<?=base_url('admin/update_category');?>" method="post" class="md-form">
+            
+           <div class="md-form mb-5">
+              <select name="item_loc" id="for32" class="browser-default custom-select">
+                  <option value="" disabled selected>--select location--</option>
+                  <?php foreach($locations as $loc): ?>
+                    <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
+                  <?php endforeach; ?>
+              </select>
+            </div>
+
+            <div class="md-form mb-5">
+                <input name="item_name" type="text" id="form34" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="form34">Category name</label>
+            </div>
+
+            <div class="md-form mb-5">
+                <input type="submit" class="btn btn-primary" value="Save Changes">
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-right">
+        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Script for showing up the modal -->
+<script>
+$(document).ready(function(){
+  $('.inventory').click(function(){  
+    var inventory_id = $(this).data('id');
+    // AJAX request
+    $.ajax({
+    url: '<?= base_url('admin/edit_inventory/'); ?>' + inventory_id,
+    method: 'POST',
+    dataType: 'JSON',
+    data: {inventory_id: inventory_id},
+      success: function(response){ 
+        console.log(response);
+        $('#inventoryId').val(response.id);
+        $('#item_name').val(response.item_name);
+        $('#item_desc').val(response.item_desc);
+        $('#unit_price').val(response.unit_price);
+        $('#item_qty').val(response.item_qty);
+        $('#item_cat').val(response.item_category);
+        $('#item_loc').val(response.item_loc);
+        // $('.edit-modal-body').html(response);
+        // // Display Modal
+        $('#edit_inventory').modal('show'); 
+      }
+    });
+  });
+});
+</script>

@@ -618,7 +618,9 @@ class Admin_model extends CI_Model{
     }
     // Categories > List categories and sub categories
     public function categories(){
-        
+        $this->db->select('id, cat_name, added_by, created_at');
+        $this->db->from('categories');
+        return $this->db->get()->result();
     }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search

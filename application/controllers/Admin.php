@@ -733,6 +733,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Categories > Admin & Procurement';
         $data['body'] = 'admin/categories';
         $data['categories'] = $this->admin_model->categories();
+        $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/template', $data);
     }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
