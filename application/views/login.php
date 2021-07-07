@@ -11,9 +11,9 @@
     <!--Grid column-->
     <div class="col-md-6">
 
-        <h1 class="font-weight-bold grey-text display-4">CHIP Training and Consulting (Pvt.) Ltd. <span class="font-weight-light grey-text">Islamabad 44000.</span></h1>
-        <h3 class="font-weight-light text-success">Admin & Procurement <br>department</h3>
-        <p class="text-grey font-weight-light">While CHIP Training & Consulting Pvt. Ltd. (CTC) was launched as an independent consultancy firm fairly recently, its roots go back to 1993 when it was initially a Swiss NGO Programme Office (SNPO as part of SDC / Embassy of Switzerland) later becoming an independent non-profit organization, namely CHIP (Civil Society Human & Institutional Development Programme).</p>
+        <h1 class="font-weight-bold grey-text display-4">AH Group of Companies (Pvt.) Ltd. <span class="font-weight-light grey-text">Islamabad, 44000.</span></h1>
+        <h3 class="font-weight-light text-success">Admin & Procurement.</h3>
+        <p class="text-grey font-weight-light text-justify">We are an emerging group of various businesses like real estate development, architecture development, construction services and planning, corporate brand building, Investment planning, sales & marketing services, and digital services.</p>
 
     </div>
     <!--Grid column-->
