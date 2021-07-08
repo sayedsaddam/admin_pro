@@ -29,6 +29,11 @@ class Users extends CI_Controller{
         $data['requisitions'] = $this->user_model->get_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
+    // Get sub categories based on category ID.
+    public function get_sub_categories($cat_id){
+        $sub_categories = $this->user_model->get_sub_categories($cat_id);
+        echo json_encode($sub_categories);
+    }
     // Created requisition
     public function create_requisition(){
         $data = array(

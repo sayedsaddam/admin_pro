@@ -7,11 +7,22 @@ class User_model extends CI_Model{
     {
         parent::__construct();
     }
-    // Get inventory items to list in the dropdown for user request submission.
+    // Get inventory items to list in the dropdown for user request submission > get the main categories.
     public function get_items(){
-        $this->db->select('id, category');
+        $this->db->select('inventory.id,
+                            inventory.category,
+                            inventory.name,
+                            categories.id as cat_id,
+                            categories.cat_name');
         $this->db->from('inventory');
-        // $this->db->where('item_loc', $this->session->userdata('location'));
+        $this->db->join('categories', 'inventory.category = categories.id', 'left');
+        return $this->db->get()->result();
+    }
+    // Get sub categories for placing requisition
+    public function get_sub_categories($cat_id){
+        $this->db->select('id, name, quantity, unit_price');
+        $this->db->from('sub_categories');
+        $this->db->where('cat_id', $cat_id);
         return $this->db->get()->result();
     }
     // Create an item requisition
@@ -49,7 +60,7 @@ class User_model extends CI_Model{
                             item_requisitions.created_at,
                             item_requisitions.updated_at,
                             inventory.id as inv_id,
-                            inventory.item_name as inv_name');
+                            inventory.name as inv_name');
         $this->db->from('item_requisitions');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
         $this->db->where('item_requisitions.requested_by', $this->session->userdata('id'));

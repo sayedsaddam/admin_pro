@@ -28,9 +28,7 @@
     <?php endif; ?>
     <!-- Grid row -->
     <div class="row mb-4">
-      <div class="col-12 text-center">
-        <button data-toggle="modal" data-target="#apply_leave" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Apply Leave</button>
-        <a href="<?= base_url('users/track_leaves'); ?>" class="btn btn-outline-secondary"><i class="fa fa-eye"></i> Track Leaves</a>
+      <div class="col-12 text-right">
         <button class="btn btn-outline-unique" data-toggle="modal" data-target="#fullHeightModalLeft"><i class="fa fa-envelope"></i> Place requisisition</button>
         <a href="<?= base_url('users/requisitions'); ?>" class="btn btn-outline-dark"><i class="fa fa-envelope"></i> View requisitions</a>
         <button data-toggle="modal" data-target="#apply_travel" class="btn btn-outline-info"><i class="fa fa-plane"></i> Apply Travel</button>
@@ -155,19 +153,25 @@
                     <h4 class="font-weight-lighter mb-5">Please fill out the form below.</h4>
                     <!-- Form -->
                     <form action="<?= base_url('users/create_requisition'); ?>" method="post">
-                        <!-- First name -->
+                        <!-- item name -->
                         <div class="form-group">
                             <label for="itemName">Item name</label>
-                            <select name="item_name" id="item_name" class="browser-default custom-select">
-                                <option value="" disabled selected>-- Select Item --</option>
+                            <select name="category" id="category" class="browser-default custom-select">
+                                <option value="" disabled selected>-- Main Category --</option>
                                 <?php if(!empty($items)): foreach($items as $item): ?>
-                                  <option value="<?=$item->id;?>"><?=$item->item_name;?></option>
+                                  <option value="<?=$item->cat_id;?>"><?=$item->cat_name;?></option>
                                 <?php endforeach; endif; ?>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea name="description" id="description" class="form-control" placeholder="Description..."></textarea>
+                            <label for="itemName">Item name</label>
+                            <select name="sub_category" id="sub_category" class="browser-default custom-select">
+                              <option value="" disabled selected>-- Sub Category --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="description">Description</label>
+                          <textarea name="description" id="description" class="form-control" placeholder="Description..."></textarea>
                         <div class="form-group">
                             <label for="quantity">Quantity</label>
                             <input type="number" name="quantity" class="form-control" placeholder="Item quantity...">
@@ -187,69 +191,6 @@
   </div>
 </div>
 <!-- Full Height Modal Left -->
-
-<!-- Full Height Modal Right > Apply Leave -->
-<div class="modal fade right" id="apply_leave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
-  aria-hidden="true">
-  <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
-  <div class="modal-dialog modal-right" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title w-100" id="myModalLabel">Apply Leave</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-lg-12 col-md-12">
-              <h4 class="font-weight-lighter mb-5 text-center">Please fill out the form below.</h4>
-              <!-- Form -->
-              <form action="<?= base_url('users/apply_leave'); ?>" method="post">
-                  <!-- First name -->
-                  <div class="form-group">
-                      <label for="itemName">Leave Type</label>
-                      <select name="leave_type" id="leave_type" class="browser-default custom-select">
-                          <option value="" disabled selected>-- Leave Type --</option>
-                          <option value="Annual">Annual</option>
-                          <option value="Casual">Casual</option>
-                          <option value="Sick">Sick</option>
-                          <option value="Maternity">Maternity</option>
-                          <option value="Compensatory">Compensatory</option>
-                      </select>
-                  </div>
-                  <div class="form-group">
-                      <label for="from_date">Date From</label>
-                      <input type="date" name="from_date" id="from_date" class="form-control">
-                  </div>
-                  <div class="form-group">
-                      <label for="to_date">Date To</label>
-                      <input type="date" name="to_date" id="to_date" class="form-control">
-                  </div>
-                  <div class="form-group">
-                      <label for="no_of_days">Number of Days</label>
-                      <input type="text" name="no_of_days" id="no_of_days" placeholder="No. of days..." class="form-control">
-                  </div>
-                  <div class="form-group">
-                      <label for="reason">Reason for Leave</label>
-                      <textarea name="leave_reason" id="leave_reason" rows="3" class="form-control" placeholder="Reason for leave..."></textarea>
-                  </div>
-                  
-                  <div class="form-group">
-                      <input type="submit" name="submit" class="btn btn-primary" value="Apply Leave">
-                  </div>
-              </form>
-              <!-- Form -->
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-    </div>
-  </div>
-</div>
-<!-- Full Height Modal Right -->
 
 <!-- Full Height Modal Right > Apply Travel -->
 <div class="modal fade left" id="apply_travel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
@@ -372,3 +313,30 @@
   </div>
 </div>
 <!-- Full Height Modal Right -->
+<script>
+$(document).ready(function(){
+ 
+ // City change
+ $('#category').on('change', function(){
+   var category = $(this).val();
+
+   // AJAX request
+   $.ajax({
+     url:'<?=base_url('users/get_sub_categories/')?>' + category,
+     method: 'post',
+     data: {category: category},
+     dataType: 'json',
+     success: function(response){
+      console.log(response);
+       // Remove options 
+       $('#sub_category').find('option').not(':first').remove();
+
+       // Add options
+       $.each(response,function(index, data){
+          $('#sub_category').append('<option value="'+data['id']+'">'+data['name']+'</option>');
+       });
+     }
+  });
+});
+});
+</script>
