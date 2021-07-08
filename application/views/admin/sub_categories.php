@@ -28,7 +28,7 @@
   <div class="row mb-4">
     <div class="col-lg-6 col-md-6">
       <form action="<?= base_url('admin/search_sub_categories'); ?>" method="get" class="md-form form-inline">
-        <input type="text" name="search" id="" class="form-control md-form col-5">
+        <input type="text" name="search" id="myInput" class="form-control md-form col-5">
         <label for="">Search Query</label>
         <input type="submit" value="go &raquo;" class="btn btn-outline-primary btn-sm rounded-pill">
       </form>
@@ -40,61 +40,59 @@
   </div>
   <div class="row">
     <div class="col-lg-12 col-md-12">
-      <table class="table table-sm">
-        <caption><?php if(empty($results)){ echo 'List of Sub Categories'; }else{ echo 'Search Results'; } ?></caption>
-        <thead>
-          <tr>
-            <th class="font-weight-bold">ID</th>
-            <th class="font-weight-bold">Name</th>
-            <th class="font-weight-bold">Parent Category</th>
-            <th class="font-weight-bold">Quantity</th>
-            <th class="font-weight-bold">Unit Price</th>
-            <th class="font-weight-bold">Total Cost</th>
-            <th class="font-weight-bold">Added By</th>
-            <th class="font-weight-bold">Date Added</th>
-            <th class="font-weight-bold">Action</th>
-          </tr>
-        </thead>
-        <?php if(empty($results)): ?>
-          <tbody>
-            <?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
-              <tr>
-                <td><?= 'AHG-0'.$cat->id; ?></td>
-                <td><?= $cat->name; ?></td>
-                <td><?= $cat->cat_name; ?></td>
-                <td><?= $cat->quantity; ?></td>
-                <td><?= $cat->unit_price; ?></td>
-                <td><?= number_format($cat->quantity * $cat->unit_price); ?></td>
-                <td><?= $cat->fullname; ?></td>
-                <td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
-                <td>
-                    <a title="Edit" data-id="<?= $cat->id; ?>" class="category"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                    <a title="Delete" href="<?=base_url('admin/delete_sub_category/'.$cat->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                </td>
-              </tr>
-            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
-          </tbody>
-        <?php else: ?>
-          <tbody>
-            <?php if(!empty($results)): foreach($results as $res): ?>
-              <tr>
-                <td><?= 'AHG-0'.$res->id; ?></td>
-                <td><?= $res->name; ?></td>
-                <td><?= $res->cat_name; ?></td>
-                <td><?= $res->quantity; ?></td>
-                <td><?= $res->unit_price; ?></td>
-                <td><?= number_format($res->quantity * $res->unit_price); ?></td>
-                <td><?= $res->fullname; ?></td>
-                <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
-                <td>
-                    <a title="Edit" data-id="<?= $res->id; ?>" class="category"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                    <a title="Delete" href="<?=base_url('admin/delete_sub_category/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                </td>
-              </tr>
-            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
-          </tbody>
-        <?php endif; ?>
-      </table>
+        <?php if(!empty($sub_categories)){ echo '<h5>Sub categories for: '.$sub_categories[0]->cat_name.'</h5>'; } ?>
+        <table class="table table-sm">
+            <caption><?php if(empty($results)){ echo 'List of Sub Categories'; }else{ echo 'Search Results'; } ?></caption>
+            <thead>
+            <tr>
+                <th class="font-weight-bold">ID</th>
+                <th class="font-weight-bold">Name</th>
+                <th class="font-weight-bold">Quantity</th>
+                <th class="font-weight-bold">Unit Price</th>
+                <th class="font-weight-bold">Total Cost</th>
+                <th class="font-weight-bold">Added By</th>
+                <th class="font-weight-bold">Date Added</th>
+                <th class="font-weight-bold">Action</th>
+            </tr>
+            </thead>
+            <?php if(empty($results)): ?>
+            <tbody id="myTable">
+                <?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
+                <tr>
+                    <td><?= 'AHG-0'.$cat->id; ?></td>
+                    <td><?= $cat->name; ?></td>
+                    <td><?= $cat->quantity; ?></td>
+                    <td><?= $cat->unit_price; ?></td>
+                    <td><?= number_format($cat->quantity * $cat->unit_price); ?></td>
+                    <td><?= $cat->fullname; ?></td>
+                    <td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
+                    <td>
+                        <a title="Edit" data-id="<?= $cat->id; ?>" class="category"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+                        <a title="Delete" href="<?=base_url('admin/delete_sub_category/'.$cat->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                    </td>
+                </tr>
+                <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
+            </tbody>
+            <?php else: ?>
+            <tbody>
+                <?php if(!empty($results)): foreach($results as $res): ?>
+                <tr>
+                    <td><?= 'AHG-0'.$res->id; ?></td>
+                    <td><?= $res->name; ?></td>
+                    <td><?= $res->quantity; ?></td>
+                    <td><?= $res->unit_price; ?></td>
+                    <td><?= number_format($res->quantity * $res->unit_price); ?></td>
+                    <td><?= $res->fullname; ?></td>
+                    <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
+                    <td>
+                        <a title="Edit" data-id="<?= $res->id; ?>" class="category"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+                        <a title="Delete" href="<?=base_url('admin/delete_sub_category/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                    </td>
+                </tr>
+                <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
+            </tbody>
+            <?php endif; ?>
+        </table>
     </div>
   </div>
   <div class="row">
@@ -209,6 +207,16 @@ $(document).ready(function(){
         // // Display Modal
         $('#edit_inventory').modal('show'); 
       }
+    });
+  });
+});
+</script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
 });
