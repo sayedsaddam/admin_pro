@@ -788,6 +788,30 @@ class Admin extends CI_Controller{
             redirect($_SERVER['HTTP_REFERER']);
         }
     }
+    // Sub categories > Listing and adding sub categories
+    public function sub_categories($cat_id){ // $id = category ID
+        $data['title'] = 'Sub Categories | Categories';
+        $data['body'] = 'admin/sub_categories';
+        $data['sub_categories'] = $this->admin_model->sub_categories($cat_id);
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Adding a sub category
+    public function add_sub_category(){
+        $data = array(
+            'cat_id' => $this->input->post('parent_category'),
+            'name' => $this->input->post('name'),
+            'unit_price' => $this->input->post('unit_price'),
+            'quantity' => $this->input->post('quantity'),
+            'added_by' => $this->session->userdata('id')
+        );
+        if($this->admin_model->add_sub_category($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Category was added successfully.');
+            redirect($_SERVER['HTTP_REFERER']);
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){
