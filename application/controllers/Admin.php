@@ -729,10 +729,17 @@ class Admin extends CI_Controller{
         $this->load->view('admin/commons/template', $data);
     }
     // Categories and sub-categories
-    public function categories(){
+    public function categories($offset = null){
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'admin/categories';
+        $rowscount = $this->admin_model->count_categories();
+        paginate($url, $rowscount, $limit);
         $data['title'] = 'Categories > Admin & Procurement';
         $data['body'] = 'admin/categories';
-        $data['categories'] = $this->admin_model->categories();
+        $data['categories'] = $this->admin_model->categories($limit, $offset);
         $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/template', $data);
     }
@@ -764,6 +771,16 @@ class Admin extends CI_Controller{
             'cat_name' => $this->input->post('cat_name')
         );
         if($this->admin_model->update_category($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Updating a category was successful.');
+            redirect($_SERVER['HTTP_REFERER']);
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+    // Delete category by ID
+    public function delete_category($id){
+        if($this->admin_model->delete_category($id)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Updating a category was successful.');
             redirect($_SERVER['HTTP_REFERER']);
         }else{
@@ -836,6 +853,14 @@ class Admin extends CI_Controller{
         $data['title'] = 'Search Results > Locations';
         $data['body'] = 'admin/locations';
         $data['results'] = $this->admin_model->search_locations($search);
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Search filters - search users
+    public function search_categories(){
+        $search = $this->input->get('search');
+        $data['title'] = 'Search Results > Categories';
+        $data['body'] = 'admin/categories';
+        $data['results'] = $this->admin_model->search_categories($search);
         $this->load->view('admin/commons/template', $data);
     }
     // 404 page.

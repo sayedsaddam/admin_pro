@@ -27,7 +27,7 @@
   <?php endif; ?>
   <div class="row mb-4">
     <div class="col-lg-6 col-md-6">
-      <form action="<?= base_url('admin/search_inventory'); ?>" method="get" class="md-form form-inline">
+      <form action="<?= base_url('admin/search_categories'); ?>" method="get" class="md-form form-inline">
         <input type="text" name="search" id="" class="form-control md-form col-5">
         <label for="">Search Query</label>
         <input type="submit" value="go &raquo;" class="btn btn-outline-primary btn-sm rounded-pill">
@@ -62,12 +62,11 @@
                 <td><?= $cat->fullname; ?></td>
                 <td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
                 <td>
-                    <a data-id="<?= $cat->id; ?>" class="category"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                    <a href="<?=base_url('admin/delete_category/'.$cat->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                    <a href="<?= base_url('admin/category_detail/'.$cat->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+                    <a title="Edit" data-id="<?= $cat->id; ?>" class="category"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+                    <a title="Delete" href="<?=base_url('admin/delete_category/'.$cat->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                 </td>
               </tr>
-            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='5'>No record found.</td></tr>"; endif; ?>
+            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='6'>No record found.</td></tr>"; endif; ?>
           </tbody>
         <?php else: ?>
           <tbody>
@@ -75,13 +74,12 @@
               <tr>
                 <td><?= 'AHG-0'.$res->id; ?></td>
                 <td><?= $res->cat_name; ?></td>
-                <td><?= $res->name; ?></td>
+                <td><?= ucfirst($res->name); ?></td>
                 <td><?= $res->fullname; ?></td>
                 <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                 <td>
-                    <a data-id="<?= $res->id; ?>" class="category"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                    <a href="<?=base_url('admin/delete_category/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                    <a href="<?= base_url('admin/category_detail/'.$res->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+                    <a title="Edit" data-id="<?= $res->id; ?>" class="category"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+                    <a title="Delete" href="<?=base_url('admin/delete_category/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                 </td>
               </tr>
             <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
@@ -92,7 +90,7 @@
   </div>
   <div class="row">
     <div class="col-lg-12 col-md-12">
-      <?php if(!empty($inventory) AND empty($results)){ echo $this->pagination->create_links(); } ?>
+      <?php if(!empty($categories) AND empty($results)){ echo $this->pagination->create_links(); } ?>
     </div>
   </div>
 </div>

@@ -616,8 +616,12 @@ class Admin_model extends CI_Model{
         $this->db->where('travel_hotel_stay.id', $travel_id);
         return $this->db->get()->row();
     }
+    // Count categories
+    public function count_categories(){
+        return $this->db->from('categories')->count_all_results();
+    }
     // Categories > List categories and sub categories
-    public function categories(){
+    public function categories($limit, $offset){
         $this->db->select('categories.id,
                             categories.cat_name,
                             categories.added_by,
@@ -628,6 +632,7 @@ class Admin_model extends CI_Model{
         $this->db->from('categories');
         $this->db->join('users', 'categories.added_by = users.id', 'left');
         $this->db->join('locations', 'categories.cat_location = locations.id', 'left');
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Add category.
@@ -650,6 +655,12 @@ class Admin_model extends CI_Model{
     public function update_category($id, $data){
         $this->db->where('id', $id);
         $this->db->update('categories', $data);
+        return true;
+    }
+    // Delete category by ID
+    public function delete_category($id){
+        $this->db->where('id', $id);
+        $this->db->delete('categories');
         return true;
     }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
@@ -756,6 +767,22 @@ class Admin_model extends CI_Model{
         $this->db->from('locations');
         $this->db->like('name', $search);
         $this->db->or_like('province', $search);
+        $this->db->order_by('created_at', 'DESC');
+        return $this->db->get()->result();
+    }
+    // Search filters - locations list search
+    public function search_categories($search){
+        $this->db->select('categories.id,
+                            categories.cat_location,
+                            categories.cat_name,
+                            categories.created_at,
+                            locations.name,
+                            users.fullname');
+        $this->db->from('categories');
+        $this->db->join('locations', 'categories.cat_location = locations.id', 'left');
+        $this->db->join('users', 'categories.added_by = users.id', 'left');
+        $this->db->like('categories.cat_name', $search);
+        $this->db->or_like('locations.name', $search);
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
