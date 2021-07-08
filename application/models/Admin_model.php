@@ -16,7 +16,7 @@ class Admin_model extends CI_Model{
                             users.fullname,
                             users.location,
                             inventory.id as inv_id,
-                            inventory.item_name as inv_name');
+                            inventory.name as inv_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
@@ -38,7 +38,7 @@ class Admin_model extends CI_Model{
                             users.fullname,
                             users.location,
                             inventory.id as inv_id,
-                            inventory.item_name as inv_name');
+                            inventory.name as inv_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
@@ -60,7 +60,7 @@ class Admin_model extends CI_Model{
                             users.fullname,
                             users.location,
                             inventory.id as inv_id,
-                            inventory.item_name as inv_name');
+                            inventory.name as inv_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
@@ -85,7 +85,7 @@ class Admin_model extends CI_Model{
                             users.location,
                             users.user_role,
                             inventory.id as inv_id,
-                            inventory.item_name as inv_name');
+                            inventory.name as inv_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
@@ -180,30 +180,27 @@ class Admin_model extends CI_Model{
     // Inventory - Get inventory.
     public function get_inventory($limit, $offset){
         $this->db->select('inventory.id,
-                            inventory.item_name,
-                            inventory.item_desc,
-                            inventory.unit_price,
-                            inventory.item_qty,
-                            inventory.item_category,
-                            inventory.item_loc,
+                            inventory.category,
+                            inventory.name,
                             inventory.created_at,
-                            item_requisitions.id as req_id,
-                            item_requisitions.item_name as req_name,
-                            SUM(IF(status=1, item_requisitions.item_qty, 0)) as req_qty,
-                            item_requisitions.status,
-                            locations.id as loc_id,
-                            locations.name');
+                            categories.id as cat_id,
+                            categories.cat_name,
+                            categories.cat_location,
+                            sub_categories.id as sub_cat_id,
+                            sub_categories.name as sub_cat_name,
+                            sub_categories.quantity,
+                            sub_categories.unit_price');
         $this->db->from('inventory');
-        $this->db->join('item_requisitions', 'inventory.id = item_requisitions.item_name', 'left');
-        $this->db->join('locations', 'inventory.item_loc = locations.id', 'left');
-        $this->db->order_by('id', 'DESC');
+        $this->db->join('categories', 'inventory.category = categories.id', 'left');
+        $this->db->join('sub_categories', 'inventory.name = sub_categories.id', 'left');
+        $this->db->order_by('inventory.id', 'DESC');
         $this->db->group_by('inventory.id');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Edit inventory - Get record for edit.
     public function edit_inventory($id){
-        $this->db->select('id, item_name, item_desc, unit_price, item_qty, item_category, item_loc, created_at');
+        $this->db->select('id, created_at');
         $this->db->from('inventory');
         $this->db->where('id', $id);
         return $this->db->get()->row();
@@ -714,12 +711,9 @@ class Admin_model extends CI_Model{
     // Search filters - inventory search
     public function search_inventory($search){
         $this->db->select('inventory.id,
-                            inventory.item_name,
+                            inventory.name,
                             inventory.item_desc,
-                            inventory.unit_price,
-                            inventory.item_qty,
-                            inventory.item_category,
-                            inventory.item_loc,
+                            inventory.category,
                             inventory.created_at,
                             item_requisitions.id as req_id,
                             item_requisitions.item_name as req_name,
@@ -730,7 +724,7 @@ class Admin_model extends CI_Model{
         $this->db->from('inventory');
         $this->db->join('item_requisitions', 'inventory.id = item_requisitions.item_name', 'left');
         $this->db->join('locations', 'inventory.item_loc = locations.id', 'left');
-        $this->db->like('inventory.item_name', $search);
+        $this->db->like('inventory.name', $search);
         $this->db->or_like('inventory.item_desc', $search);
         $this->db->or_like('inventory.item_category', $search);
         $this->db->or_like('locations.name', $search);

@@ -45,15 +45,12 @@
         <thead>
           <tr>
             <th class="font-weight-bold">ID</th>
-            <th class="font-weight-bold">Item Name</th>
-            <th class="font-weight-bold">Description</th>
+            <th class="font-weight-bold">Name</th>
             <th class="font-weight-bold">Category</th>
-            <th class="font-weight-bold">Location</th>
-            <th class="font-weight-bold">Original Value</th>
-            <th class="font-weight-bold">Current Value</th>
+            <th class="font-weight-bold">Quantity</th>
             <th class="font-weight-bold">Unit Price</th>
-            <th class="font-weight-bold">Total Price</th>
-            <th class="font-weight-bold">Date</th>
+            <th class="font-weight-bold">Total Cost</th>
+            <th class="font-weight-bold">Date Added</th>
             <th class="font-weight-bold">Action</th>
           </tr>
         </thead>
@@ -62,14 +59,11 @@
             <?php if(!empty($inventory)): foreach($inventory as $inv): ?>
               <tr>
                 <td><?= 'Inv-0'.$inv->id; ?></td>
-                <td><?= $inv->item_name; ?></td>
-                <td><?= ucfirst($inv->item_desc); ?></td>
-                <td><?= ucfirst($inv->item_category); ?></td>
-                <td><?= ucfirst($inv->name); ?></td>
-                <td><?= $inv->item_qty; ?></td>
-                <td><?php if($inv->status == 1){ $remaining_items = $inv->item_qty - $inv->req_qty; echo $remaining_items;  }else{ echo $inv->item_qty; } ?></td>
+                <td><?= $inv->sub_cat_name; ?></td>
+                <td><?= $inv->cat_name; ?></td>
+                <td><?= $inv->quantity; ?></td>
                 <td><?= number_format($inv->unit_price) ?></td>
-                <td><?php if($inv->status == 1){ echo number_format($inv->unit_price * $remaining_items); }else{ echo number_format($inv->unit_price * $inv->item_qty); } ?></td>
+                <td><?= number_format($inv->unit_price * $inv->quantity); ?></td>
                 <td><?= date('M d, Y', strtotime($inv->created_at)); ?></td>
                 <td>
                     <a data-id="<?= $inv->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
@@ -83,15 +77,12 @@
           <tbody>
             <?php if(!empty($results)): foreach($results as $res): ?>
               <tr>
-                <td><?= 'Inv-0'.$res->id; ?></td>
-                <td><?= $res->item_name; ?></td>
-                <td><?= ucfirst($res->item_desc); ?></td>
-                <td><?= ucfirst($res->item_category); ?></td>
-                <td><?= ucfirst($res->name); ?></td>
-                <td><?= $res->item_qty; ?></td>
-                <td><?php if($res->status == 1){ $remaining_items = $res->item_qty - $res->req_qty; echo $remaining_items;  }else{ echo $res->item_qty; } ?></td>
+              <td><?= 'Inv-0'.$res->id; ?></td>
+                <td><?= $res->sub_cat_name; ?></td>
+                <td><?= $res->cat_name; ?></td>
+                <td><?= $res->quantity; ?></td>
                 <td><?= number_format($res->unit_price) ?></td>
-                <td><?php if($res->status == 1){ echo number_format($res->unit_price * $remaining_items); }else{ echo number_format($res->unit_price * $res->item_qty); } ?></td>
+                <td><?= number_format($res->unit_price * $res->quantity); ?></td>
                 <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                 <td>
                     <a data-id="<?= $res->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
@@ -126,46 +117,29 @@
       <div class="modal-body mx-3">
         <form action="<?=base_url('admin/add_inventory');?>" method="post" class="md-form">
             
-           <div class="md-form mb-5">
-              <select name="item_loc" id="for32" class="browser-default custom-select">
-                  <option value="" disabled selected>--select location--</option>
-                  <?php foreach($locations as $loc): ?>
-                    <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
-                  <?php endforeach; ?>
-              </select>
-            </div>
+          <div class="md-form mb-5">
+            <select name="category" id="for32" class="browser-default custom-select">
+              <option value="" disabled selected>--select category--</option>
+              <?php foreach($locations as $loc): ?>
+                <option value="<?= $loc->id; ?>"><?= ucfirst($loc->name); ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
 
-            <div class="md-form mb-5">
-                <select name="item_cat" id="for32" class="browser-default custom-select">
-                    <option value="" disabled selected>--select category--</option>
-                    <option value="stationary">Stationary</option>
-                    <option value="electronics">Electronics</option>
-                </select>
-            </div>
+          <div class="md-form mb-5">
+            <select name="item_cat" id="for32" class="browser-default custom-select">
+              <option value="" disabled selected>--select item--</option>
+            </select>
+          </div>
+        
+          <div class="md-form">
+            <textarea name="item_desc" id="form7" class="md-textarea form-control" rows="3"></textarea>
+            <label for="form7">Item Desctiption</label>
+          </div>
 
-            <div class="md-form mb-5">
-                <input name="item_name" type="text" id="form34" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form34">Item name</label>
-            </div>
-
-            <div class="md-form mb-5">
-                <input name="item_desc" type="text" id="form29" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form29">Item description</label>
-            </div>
-
-            <div class="md-form mb-5">
-                <input name="unit_price" type="number" id="form32" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form32">Unit price</label>
-            </div>
-
-            <div class="md-form mb-5">
-                <input name="item_qty" type="number" id="form32" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form32">Item quantity</label>
-            </div>
-
-            <div class="md-form mb-5">
-                <input type="submit" class="btn btn-primary" value="Save Changes">
-            </div>
+          <div class="md-form mb-5">
+            <input type="submit" class="btn btn-primary" value="Save Changes">
+          </div>
         </form>
       </div>
       <div class="modal-footer d-flex justify-content-right">

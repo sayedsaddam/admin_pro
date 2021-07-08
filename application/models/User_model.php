@@ -9,9 +9,9 @@ class User_model extends CI_Model{
     }
     // Get inventory items to list in the dropdown for user request submission.
     public function get_items(){
-        $this->db->select('id, item_name, item_qty');
+        $this->db->select('id, category');
         $this->db->from('inventory');
-        $this->db->where('item_loc', $this->session->userdata('location'));
+        // $this->db->where('item_loc', $this->session->userdata('location'));
         return $this->db->get()->result();
     }
     // Create an item requisition
