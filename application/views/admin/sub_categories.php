@@ -27,7 +27,7 @@
   <?php endif; ?>
   <div class="row mb-4">
     <div class="col-lg-6 col-md-6">
-      <form action="<?= base_url('admin/search_categories'); ?>" method="get" class="md-form form-inline">
+      <form action="<?= base_url('admin/search_sub_categories'); ?>" method="get" class="md-form form-inline">
         <input type="text" name="search" id="" class="form-control md-form col-5">
         <label for="">Search Query</label>
         <input type="submit" value="go &raquo;" class="btn btn-outline-primary btn-sm rounded-pill">
@@ -41,7 +41,7 @@
   <div class="row">
     <div class="col-lg-12 col-md-12">
       <table class="table table-sm">
-        <caption><?php if(empty($results)){ echo 'List of Categories'; }else{ echo 'Search Results'; } ?></caption>
+        <caption><?php if(empty($results)){ echo 'List of Sub Categories'; }else{ echo 'Search Results'; } ?></caption>
         <thead>
           <tr>
             <th class="font-weight-bold">ID</th>
@@ -69,7 +69,7 @@
                 <td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
                 <td>
                     <a title="Edit" data-id="<?= $cat->id; ?>" class="category"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                    <a title="Delete" href="<?=base_url('admin/delete_category/'.$cat->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                    <a title="Delete" href="<?=base_url('admin/delete_sub_category/'.$cat->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                 </td>
               </tr>
             <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
@@ -78,7 +78,7 @@
           <tbody>
             <?php if(!empty($results)): foreach($results as $res): ?>
               <tr>
-                <td><?= 'AHG-0'.$cat->id; ?></td>
+                <td><?= 'AHG-0'.$res->id; ?></td>
                 <td><?= $res->name; ?></td>
                 <td><?= $res->cat_name; ?></td>
                 <td><?= $res->quantity; ?></td>
@@ -88,7 +88,7 @@
                 <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                 <td>
                     <a title="Edit" data-id="<?= $res->id; ?>" class="category"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                    <a title="Delete" href="<?=base_url('admin/delete_category/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                    <a title="Delete" href="<?=base_url('admin/delete_sub_category/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                 </td>
               </tr>
             <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
@@ -158,22 +158,22 @@
         </button>
       </div>
       <div class="modal-body mx-3">
-        <form action="<?=base_url('admin/add_sub_category');?>" method="post" class="md-form"> 
-            <input type="hidden" name="parent_category" value="">
+        <form action="<?=base_url('admin/update_sub_category');?>" method="post" class="md-form"> 
+            <input type="hidden" name="sub_cat_id" id="subId" value="">
 
             <div class="md-form mb-5">
-                <input name="name" type="text" id="form34" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form34">Sub category name</label>
+                <input name="name" type="text" id="name" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="name">Sub category name</label>
             </div>
 
             <div class="md-form mb-5">
-                <input name="unit_price" type="text" id="form34" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form34">Unit Price</label>
+                <input name="unit_price" type="text" id="unit_price" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="unit_price">Unit Price</label>
             </div>
 
             <div class="md-form mb-5">
-                <input name="quantity" type="text" id="form34" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form34">Quantity</label>
+                <input name="quantity" type="text" id="qty" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="qty">Quantity</label>
             </div>
 
             <div class="md-form mb-5">
@@ -195,15 +195,16 @@ $(document).ready(function(){
     var category_id = $(this).data('id');
     // AJAX request
     $.ajax({
-    url: '<?= base_url('admin/edit_category/'); ?>' + category_id,
+    url: '<?= base_url('admin/edit_sub_category/'); ?>' + category_id,
     method: 'POST',
     dataType: 'JSON',
     data: {category_id: category_id},
       success: function(response){ 
         console.log(response);
-        $('#cat_id').val(response.id);
-        $('#cat_location').val(response.cat_location);
-        $('#cat_name').val(response.cat_name);
+        $('#subId').val(response.id);
+        $('#name').val(response.name);
+        $('#unit_price').val(response.unit_price);
+        $('#qty').val(response.quantity);
         // $('.edit-modal-body').html(response);
         // // Display Modal
         $('#edit_inventory').modal('show'); 

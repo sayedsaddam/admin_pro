@@ -781,7 +781,7 @@ class Admin extends CI_Controller{
     // Delete category by ID
     public function delete_category($id){
         if($this->admin_model->delete_category($id)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Updating a category was successful.');
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Deleting a category was successful.');
             redirect($_SERVER['HTTP_REFERER']);
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
@@ -806,6 +806,37 @@ class Admin extends CI_Controller{
         );
         if($this->admin_model->add_sub_category($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Category was added successfully.');
+            redirect($_SERVER['HTTP_REFERER']);
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+    // Edit sub category > get sub category by ID
+    public function edit_sub_category($id){
+        $sub_category = $this->admin_model->edit_sub_category($id);
+        echo json_encode($sub_category);
+    }
+    // Update sub category by ID
+    public function update_sub_category(){
+        $id = $this->input->post('sub_cat_id');
+        $data = array(
+            'name' => $this->input->post('name'),
+            'unit_price' => $this->input->post('unit_price'),
+            'quantity' => $this->input->post('quantity')
+        );
+        if($this->admin_model->update_sub_category($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Category was updated successfully.');
+            redirect($_SERVER['HTTP_REFERER']);
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+    // Delete sub category
+    public function delete_sub_category($id){
+        if($this->admin_model->delete_sub_category($id)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Deleting a category was successful.');
             redirect($_SERVER['HTTP_REFERER']);
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
@@ -879,12 +910,20 @@ class Admin extends CI_Controller{
         $data['results'] = $this->admin_model->search_locations($search);
         $this->load->view('admin/commons/template', $data);
     }
-    // Search filters - search users
+    // Search filters - search categories
     public function search_categories(){
         $search = $this->input->get('search');
         $data['title'] = 'Search Results > Categories';
         $data['body'] = 'admin/categories';
         $data['results'] = $this->admin_model->search_categories($search);
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Search filters - search sub categories
+    public function search_sub_categories(){
+        $search = $this->input->get('search');
+        $data['title'] = 'Search Results > Categories';
+        $data['body'] = 'admin/sub_categories';
+        $data['results'] = $this->admin_model->search_sub_categories($search);
         $this->load->view('admin/commons/template', $data);
     }
     // 404 page.

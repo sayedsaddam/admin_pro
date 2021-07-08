@@ -681,6 +681,25 @@ class Admin_model extends CI_Model{
             return false;
         }
     }
+    // Edit sub category
+    public function edit_sub_category($id){
+        $this->db->select('id, name, quantity, unit_price');
+        $this->db->from('sub_categories');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
+    }
+    // Update sub category by ID
+    public function update_sub_category($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('sub_categories', $data);
+        return true;
+    }
+    // Delete sub category by ID
+    public function delete_sub_category($id){
+        $this->db->where('id', $id);
+        $this->db->delete('sub_categories');
+        return true;
+    }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){
@@ -801,6 +820,17 @@ class Admin_model extends CI_Model{
         $this->db->join('users', 'categories.added_by = users.id', 'left');
         $this->db->like('categories.cat_name', $search);
         $this->db->or_like('locations.name', $search);
+        $this->db->order_by('created_at', 'DESC');
+        return $this->db->get()->result();
+    }
+    // Search filters - locations list search
+    public function search_sub_categories($search){
+        $this->db->select('sub_categories.id, sub_categories.cat_id, sub_categories.name, sub_categories.unit_price, sub_categories.quantity, sub_categories.added_by, sub_categories.created_at, categories.id as parent_cat, categories.cat_name, users.fullname');
+        $this->db->from('sub_categories');
+        $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
+        $this->db->join('users', 'sub_categories.added_by = users.id', 'left');
+        $this->db->like('sub_categories.name', $search);
+        $this->db->or_like('categories.cat_name', $search);
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
