@@ -30,7 +30,7 @@
       <form action="<?= base_url('admin/search_inventory'); ?>" method="get" class="md-form form-inline">
         <input type="text" name="search" id="" class="form-control md-form col-5">
         <label for="">Search Query</label>
-        <input type="submit" value="go &raquo;" class="btn btn-outline-primary rounded-pill">
+        <input type="submit" value="go &raquo;" class="btn btn-outline-primary btn-sm rounded-pill">
       </form>
     </div>
     <div class="col-lg-6 col-md-6 text-right">
@@ -46,6 +46,7 @@
           <tr>
             <th class="font-weight-bold">ID</th>
             <th class="font-weight-bold">Category Name</th>
+            <th class="font-weight-bold">Category Location</th>
             <th class="font-weight-bold">Added By</th>
             <th class="font-weight-bold">Date Added</th>
             <th class="font-weight-bold">Action</th>
@@ -55,14 +56,15 @@
           <tbody>
             <?php if(!empty($categories)): foreach($categories as $cat): ?>
               <tr>
-                <td><?= 'Inv-0'.$cat->id; ?></td>
-                <td><?= $cat->item_name; ?></td>
-                <td><?= number_format($cat->unit_price) ?></td>
+                <td><?= 'AHG-0'.$cat->id; ?></td>
+                <td><?= $cat->cat_name; ?></td>
+                <td><?= ucfirst($cat->name); ?></td>
+                <td><?= $cat->fullname; ?></td>
                 <td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
                 <td>
-                    <a data-id="<?= $cat->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                    <a href="<?=base_url('admin/delete_inventory/'.$cat->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                    <a href="<?= base_url('admin/inventory_detail/'.$cat->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+                    <a data-id="<?= $cat->id; ?>" class="category"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+                    <a href="<?=base_url('admin/delete_category/'.$cat->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                    <a href="<?= base_url('admin/category_detail/'.$cat->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                 </td>
               </tr>
             <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='5'>No record found.</td></tr>"; endif; ?>
@@ -71,14 +73,15 @@
           <tbody>
             <?php if(!empty($results)): foreach($results as $res): ?>
               <tr>
-                <td><?= 'Inv-0'.$res->id; ?></td>
-                <td><?= $res->item_name; ?></td>
-                <td><?= number_format($res->unit_price) ?></td>
+                <td><?= 'AHG-0'.$res->id; ?></td>
+                <td><?= $res->cat_name; ?></td>
+                <td><?= $res->name; ?></td>
+                <td><?= $res->fullname; ?></td>
                 <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                 <td>
-                    <a data-id="<?= $res->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                    <a href="<?=base_url('admin/delete_inventory/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                    <a href="<?= base_url('admin/inventory_detail/'.$res->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+                    <a data-id="<?= $res->id; ?>" class="category"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+                    <a href="<?=base_url('admin/delete_category/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                    <a href="<?= base_url('admin/category_detail/'.$res->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                 </td>
               </tr>
             <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
@@ -109,16 +112,16 @@
         <form action="<?=base_url('admin/add_category');?>" method="post" class="md-form">
             
            <div class="md-form mb-5">
-              <select name="item_loc" id="for32" class="browser-default custom-select">
+              <select name="cat_location" id="for32" class="browser-default custom-select">
                   <option value="" disabled selected>--select location--</option>
                   <?php foreach($locations as $loc): ?>
-                    <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
+                    <option value="<?= $loc->id; ?>"><?= ucfirst($loc->name); ?></option>
                   <?php endforeach; ?>
               </select>
             </div>
 
             <div class="md-form mb-5">
-                <input name="item_name" type="text" id="form34" class="form-control validate">
+                <input name="cat_name" type="text" id="form34" class="form-control validate">
                 <label data-error="wrong" data-success="right" for="form34">Category name</label>
             </div>
 
@@ -147,24 +150,24 @@
       </div>
       <div class="modal-body mx-3">
         <form action="<?=base_url('admin/update_category');?>" method="post" class="md-form">
-            
-           <div class="md-form mb-5">
-              <select name="item_loc" id="for32" class="browser-default custom-select">
-                  <option value="" disabled selected>--select location--</option>
-                  <?php foreach($locations as $loc): ?>
-                    <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
-                  <?php endforeach; ?>
-              </select>
-            </div>
+          <input type="hidden" name="id" id="cat_id" value="">
+          <div class="md-form mb-5">
+            <select name="cat_location" id="cat_location" class="browser-default custom-select">
+                <option value="" disabled selected>--select location--</option>
+                <?php foreach($locations as $loc): ?>
+                  <option value="<?= $loc->id; ?>"><?= ucfirst($loc->name); ?></option>
+                <?php endforeach; ?>
+            </select>
+          </div>
 
-            <div class="md-form mb-5">
-                <input name="item_name" type="text" id="form34" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form34">Category name</label>
-            </div>
+          <div class="md-form mb-5">
+              <input name="cat_name" type="text" id="cat_name" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="cat_name">Category name</label>
+          </div>
 
-            <div class="md-form mb-5">
-                <input type="submit" class="btn btn-primary" value="Save Changes">
-            </div>
+          <div class="md-form mb-5">
+              <input type="submit" class="btn btn-primary" value="Save Changes">
+          </div>
         </form>
       </div>
       <div class="modal-footer d-flex justify-content-right">
@@ -177,23 +180,19 @@
 <!-- Script for showing up the modal -->
 <script>
 $(document).ready(function(){
-  $('.inventory').click(function(){  
-    var inventory_id = $(this).data('id');
+  $('.category').click(function(){  
+    var category_id = $(this).data('id');
     // AJAX request
     $.ajax({
-    url: '<?= base_url('admin/edit_inventory/'); ?>' + inventory_id,
+    url: '<?= base_url('admin/edit_category/'); ?>' + category_id,
     method: 'POST',
     dataType: 'JSON',
-    data: {inventory_id: inventory_id},
+    data: {category_id: category_id},
       success: function(response){ 
         console.log(response);
-        $('#inventoryId').val(response.id);
-        $('#item_name').val(response.item_name);
-        $('#item_desc').val(response.item_desc);
-        $('#unit_price').val(response.unit_price);
-        $('#item_qty').val(response.item_qty);
-        $('#item_cat').val(response.item_category);
-        $('#item_loc').val(response.item_loc);
+        $('#cat_id').val(response.id);
+        $('#cat_location').val(response.cat_location);
+        $('#cat_name').val(response.cat_name);
         // $('.edit-modal-body').html(response);
         // // Display Modal
         $('#edit_inventory').modal('show'); 

@@ -736,6 +736,41 @@ class Admin extends CI_Controller{
         $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/template', $data);
     }
+    // Adding a category
+    public function add_category(){
+        $data = array(
+            'cat_location' => $this->input->post('cat_location'),
+            'cat_name' => $this->input->post('cat_name'),
+            'added_by' => $this->session->userdata('id')
+        );
+        if($this->admin_model->add_category($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Category was added successfully.');
+            redirect($_SERVER['HTTP_REFERER']);
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+    // Edit category > Get category by ID to update it
+    public function edit_category($id){
+        $category = $this->admin_model->edit_category($id);
+        echo json_encode($category);
+    }
+    // Adding a category
+    public function update_category(){
+        $id = $this->input->post('id');
+        $data = array(
+            'cat_location' => $this->input->post('cat_location'),
+            'cat_name' => $this->input->post('cat_name')
+        );
+        if($this->admin_model->update_category($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Updating a category was successful.');
+            redirect($_SERVER['HTTP_REFERER']);
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){

@@ -618,9 +618,39 @@ class Admin_model extends CI_Model{
     }
     // Categories > List categories and sub categories
     public function categories(){
-        $this->db->select('id, cat_name, added_by, created_at');
+        $this->db->select('categories.id,
+                            categories.cat_name,
+                            categories.added_by,
+                            categories.cat_location,
+                            categories.created_at,
+                            users.fullname,
+                            locations.name');
         $this->db->from('categories');
+        $this->db->join('users', 'categories.added_by = users.id', 'left');
+        $this->db->join('locations', 'categories.cat_location = locations.id', 'left');
         return $this->db->get()->result();
+    }
+    // Add category.
+    public function add_category($data){
+        $this->db->insert('categories', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // Edit category > Get category by ID to update.
+    public function edit_category($id){
+        $this->db->select('id, cat_name, cat_location');
+        $this->db->from('categories');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
+    }
+    // Update category
+    public function update_category($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('categories', $data);
+        return true;
     }
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
