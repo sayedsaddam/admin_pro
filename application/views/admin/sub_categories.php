@@ -40,7 +40,7 @@
   </div>
   <div class="row">
     <div class="col-lg-12 col-md-12">
-        <?php if(!empty($sub_categories)){ echo '<h5>Sub categories for: '.$sub_categories[0]->cat_name.'</h5>'; } ?>
+        <?php if(!empty($sub_categories)){ echo '<h5>Sub categories for <span class="purple-text font-italic"> '.$sub_categories[0]->cat_name.'</span></h5>'; } ?>
         <table class="table table-sm">
             <caption><?php if(empty($results)){ echo 'List of Sub Categories'; }else{ echo 'Search Results'; } ?></caption>
             <thead>
