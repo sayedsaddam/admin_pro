@@ -13,7 +13,7 @@ class User_model extends CI_Model{
                             categories.cat_name,
                             inventory.id,
                             inventory.category,
-                            inventory.name,');
+                            inventory.name');
         $this->db->from('categories');
         $this->db->join('inventory', 'categories.id = inventory.category', 'left');
         $this->db->group_by('inventory.category');
@@ -22,7 +22,7 @@ class User_model extends CI_Model{
     }
     // Get sub categories for placing requisition
     public function get_sub_categories($cat_id){
-        $this->db->select('id, name, quantity, unit_price');
+        $this->db->select('id, name');
         $this->db->from('sub_categories');
         $this->db->where('cat_id', $cat_id);
         return $this->db->get()->result();
@@ -68,38 +68,9 @@ class User_model extends CI_Model{
                             sub_categories.name as sub_cat_name');
         $this->db->from('item_requisitions');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
-        $this->db->join('sub_categories', 'inventory.name = sub_categories.id', 'left');
+        $this->db->join('sub_categories', 'item_requisitions.item_name = sub_categories.id', 'left');
         $this->db->where('item_requisitions.requested_by', $this->session->userdata('id'));
         $this->db->order_by('item_requisitions.created_at', 'desc');
-        $this->db->limit($limit, $offset);
-        return $this->db->get()->result();
-    }
-    // =----------------------------------------------- Employee Leaves -----------------------------------------------== //
-    // Apply leave
-    public function apply_leave($data){
-        $this->db->insert('employee_leaves', $data);
-        if($this->db->affected_rows() > 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    // Count number of leaves for currently logged in user.
-    public function total_leaves(){
-        return $this->db->where('emp_id', $this->session->userdata('id'))->from('employee_leaves')->count_all_results();
-    }
-    // Count approved leaves.
-    public function all_approved_leaves(){
-        $this->db->select('id, emp_id, leave_status, SUM(no_of_days) as availed_leaves');
-        $this->db->from('employee_leaves');
-        $this->db->where(array('emp_id' => $this->session->userdata('id'), 'leave_status' => 1));
-        return $this->db->get()->row();
-    }
-    // Get leaves > Track leaves record.
-    public function track_leaves($limit, $offset){
-        $this->db->select('id, emp_id, leave_type, leave_from, leave_to, no_of_days, leave_reason, leave_status, created_at');
-        $this->db->from('employee_leaves');
-        $this->db->where('emp_id', $this->session->userdata('id'));
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
