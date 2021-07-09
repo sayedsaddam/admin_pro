@@ -238,12 +238,12 @@
                   <tbody>
                     <?php if(!empty($pending_requisitions)): foreach($pending_requisitions as $pen_req): ?>
                       <tr>
-                        <td><?= 'CTC-0'.$pen_req->id; ?></td>
+                        <td><?= 'AHG-0'.$pen_req->id; ?></td>
                         <td><?= $pen_req->fullname; ?></td>
                         <td><?= date('M d, Y', strtotime($pen_req->created_at)); ?></td>
                         <td>
-                          <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
-                          <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                          <a href="<?= base_url('admin/approve_request/'.$pen_req->id); ?>"><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                          <a href="<?= base_url('admin/reject_request/'.$pen_req->id); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                           <a href="<?= base_url('admin/request_detail/'.$pen_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                         </td>
                       </tr>
@@ -288,12 +288,12 @@
                   <tbody>
                     <?php if(!empty($approved_requisitions)): foreach($approved_requisitions as $app_req): ?>
                       <tr>
-                        <td><?= 'CTC-0'.$app_req->id; ?></td>
+                        <td><?= 'AHG-0'.$app_req->id; ?></td>
                         <td><?= $app_req->fullname; ?></td>
                         <td><?= date('M d, Y', strtotime($app_req->created_at)); ?></td>
                         <td>
-                          <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
-                          <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                          <a href="<?= base_url('admin/approve_request/'.$app_req->id); ?>"><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                          <a href="<?= base_url('admin/reject_request/'.$app_req->id); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                           <a href="<?= base_url('admin/request_detail/'.$app_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                         </td>
                       </tr>
@@ -338,12 +338,12 @@
                   <tbody>
                     <?php if(!empty($rejected_requisitions)): foreach($rejected_requisitions as $rej_req): ?>
                       <tr>
-                        <td><?= 'CTC-0'.$rej_req->id; ?></td>
+                        <td><?= 'AHG-0'.$rej_req->id; ?></td>
                         <td><?= $rej_req->fullname; ?></td>
                         <td><?= date('M d, Y', strtotime($rej_req->created_at)); ?></td>
                         <td>
-                          <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
-                          <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                          <a href="<?= base_url('admin/approve_request/'.$rej_req->id); ?>"><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                          <a href="<?= base_url('admin/reject_request/'.$rej_req->id); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                           <a href="<?= base_url('admin/request_detail/'.$rej_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                         </td>
                       </tr>

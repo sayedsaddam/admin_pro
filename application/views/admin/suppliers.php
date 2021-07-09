@@ -30,7 +30,7 @@
             <form action="<?=base_url('admin/search_suppliers');?>" method="get" class="md-form form-inline">
                 <input type="text" name="search" id="" class="form-control md-form col-5" required>
                 <label for="">Search Query</label>
-                <input type="submit" value="go &raquo;" class="btn btn-outline-primary rounded-pill">
+                <input type="submit" value="go &raquo;" class="btn btn-outline-primary btn-sm rounded-pill">
             </form>
         </div>
         <div class="col-lg-6 col-md-6 text-right">
@@ -134,62 +134,51 @@
       </div>
       <div class="modal-body mx-3">
         <form action="<?=base_url('admin/add_supplier');?>" method="post" class="md-form">
-            <div class="md-form mb-5">
-              <input name="name" type="text" id="form34" class="form-control validate">
-              <label data-error="wrong" data-success="right" for="form34">Supplier name</label>
-            </div>
+          <div class="md-form mb-5">
+            <select name="location" id="" class="browser-default custom-select">
+              <option value="" disabled selected>--Select location--</option>
+              <?php if(!empty($locations)): foreach($locations as $loc): ?>
+                <option value="<?php echo $loc->name ?>"><?php echo ucfirst($loc->name); ?></option>
+              <?php endforeach; endif; ?>
+            </select>
+          </div>
+            
+          <div class="md-form mb-5">
+            <input name="name" type="text" id="form34" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="form34">Supplier name</label>
+          </div>
 
-            <div class="md-form mb-5">
-              <select name="category" id="selectListCat" class="browser-default custom-select">
-                <option value="" disabled selected>--Select category--</option>
-                <option value="hotel">Hotel</option>
-                <option value="travel">Travel</option>
-                <option value="stationary">Stationary</option>
-                <option value="computers">Computers</option>
-                <option value="communications">Commnunications</option>
-                <option value="furnitures">Furnitures</option>
-                <option value="others">Others</option>
-              </select>
-            </div>
+          <div class="md-form mb-5">
+            <select name="category" id="selectListCat" class="browser-default custom-select">
+              <option value="" disabled selected>--Select category--</option>
+              <option value="hotel">Hotel</option>
+              <option value="travel">Travel</option>
+              <option value="stationary">Stationary</option>
+              <option value="computers">Computers</option>
+              <option value="communications">Commnunications</option>
+              <option value="furnitures">Furnitures</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
 
-            <div class="md-form mb-5">
-              <input name="email" type="email" id="form29" class="form-control validate">
-              <label data-error="wrong" data-success="right" for="form29">Supplier email</label>
-            </div>
+          <div class="md-form mb-5">
+            <input name="email" type="email" id="form29" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="form29">Supplier email</label>
+          </div>
 
-            <div class="md-form mb-5">
-              <input name="phone" type="number" id="form32" class="form-control validate">
-              <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
-            </div>
+          <div class="md-form mb-5">
+            <input name="phone" type="number" id="form32" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
+          </div>
 
-            <div class="md-form mb-5">
-              <select name="location" id="supplier_location" class="browser-default custom-select">
-                <option value="" disabled selected>--Select location--</option>
-                <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                  <option value="<?php echo $loc->name ?>"><?php echo $loc->name; ?></option>
-                <?php endforeach; endif; ?>
-              </select>
-            </div>
+          <div class="md-form">
+            <textarea name="address" type="text" class="md-textarea form-control" rows="3"></textarea>
+            <label data-error="wrong" data-success="right" for="form8">Supplier Address</label>
+          </div>
 
-            <div class="md-form mb-5">
-              <select name="region" id="selectListRegion" class="browser-default custom-select">
-                <option value="" disabled selected>--Select region--</option>
-                <option value="islamabad">Islamabad</option>
-                <option value="balochistan">Balochistan</option>
-                <option value="khyber PK">Khyber PK</option>
-                <option value="sindh">Sindh</option>
-                <option value="punjab">Punjab</option>
-              </select>
-            </div>
-
-            <div class="md-form">
-              <textarea name="address" type="text" class="md-textarea form-control" rows="3"></textarea>
-              <label data-error="wrong" data-success="right" for="form8">Supplier Address</label>
-            </div>
-
-            <div class="md-form mb-5">
-              <input type="submit" class="btn btn-primary" value="Save Changes">
-            </div>
+          <div class="md-form mb-5">
+            <input type="submit" class="btn btn-primary" value="Save Changes">
+          </div>
         </form>
       </div>
       <div class="modal-footer d-flex justify-content-right">
@@ -212,63 +201,51 @@
       </div>
       <div class="modal-body edit-modal-body mx-3">
         <form action="<?=base_url('admin/update_supplier');?>" method="post" class="md-form">
-            <input type="hidden" name="sup_id" id="supplierId" value="">
-            <div class="md-form mb-5">
-              <input name="name" type="text" id="supplier_name" class="form-control validate" value="">
-              <label data-error="wrong" data-success="right" for="form34">Supplier name</label>
-            </div>
+          <input type="hidden" name="sup_id" id="supplierId" value="">
+          <div class="md-form mb-5">
+            <select name="location" id="supplier_location" class="browser-default custom-select">
+              <option value="" disabled selected>--Select location--</option>
+              <?php if(!empty($locations)): foreach($locations as $loc): ?>
+                <option value="<?= $loc->name ?>"><?= ucfirst($loc->name); ?></option>
+              <?php endforeach; endif; ?>
+            </select>
+          </div>
+          <div class="md-form mb-5">
+            <input name="name" type="text" id="supplier_name" class="form-control validate" value="">
+            <label data-error="wrong" data-success="right" for="form34">Supplier name</label>
+          </div>
 
-            <div class="md-form mb-5">
-              <select name="category" id="category" class="browser-default custom-select">
-                <option value="" disabled selected>--Select category--</option>
-                <option value="hotel">Hotel</option>
-                <option value="travel">Travel</option>
-                <option value="stationary">Stationary</option>
-                <option value="computers">Computers</option>
-                <option value="communications">Commnunications</option>
-                <option value="furnitures">Furnitures</option>
-                <option value="others">Others</option>
-              </select>
-            </div>
+          <div class="md-form mb-5">
+            <select name="category" id="category" class="browser-default custom-select">
+              <option value="" disabled selected>--Select category--</option>
+              <option value="hotel">Hotel</option>
+              <option value="travel">Travel</option>
+              <option value="stationary">Stationary</option>
+              <option value="computers">Computers</option>
+              <option value="communications">Commnunications</option>
+              <option value="furnitures">Furnitures</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
 
-            <div class="md-form mb-5">
-              <input name="email" type="email" id="supplier_email" class="form-control validate" value="">
-              <label data-error="wrong" data-success="right" for="form29">Supplier email</label>
-            </div>
+          <div class="md-form mb-5">
+            <input name="email" type="email" id="supplier_email" class="form-control validate" value="">
+            <label data-error="wrong" data-success="right" for="form29">Supplier email</label>
+          </div>
 
-            <div class="md-form mb-5">
-              <input name="phone" type="number" id="supplier_phone" class="form-control validate" value="">
-              <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
-            </div>
-            
-            <div class="md-form mb-5">
-              <select name="location" id="supplier_location" class="browser-default custom-select">
-                <option value="" disabled selected>--Select location--</option>
-                <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                  <option value="<?= $loc->name ?>"><?= $loc->name; ?></option>
-                <?php endforeach; endif; ?>
-              </select>
-            </div>
+          <div class="md-form mb-5">
+            <input name="phone" type="number" id="supplier_phone" class="form-control validate" value="">
+            <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
+          </div>
 
-            <div class="md-form mb-5">
-              <select name="region" id="region" class="browser-default custom-select">
-                <option value="" disabled selected>--Select region--</option>
-                <option value="islamabad">Islamabad</option>
-                <option value="balochistan">Balochistan</option>
-                <option value="khyber PK">Khyber PK</option>
-                <option value="sindh">Sindh</option>
-                <option value="punjab">Punjab</option>
-              </select>
-            </div>
+          <div class="md-form">
+            <textarea name="address" id="supplier_address" type="text" class="md-textarea form-control" rows="3"></textarea>
+            <label data-error="wrong" data-success="right" for="form8">Supplier Address</label>
+          </div>
 
-            <div class="md-form">
-              <textarea name="address" id="supplier_address" type="text" class="md-textarea form-control" rows="3"></textarea>
-              <label data-error="wrong" data-success="right" for="form8">Supplier Address</label>
-            </div>
-
-            <div class="md-form mb-5">
-              <input type="submit" class="btn btn-primary" value="Save Changes">
-            </div>
+          <div class="md-form mb-5">
+            <input type="submit" class="btn btn-primary" value="Save Changes">
+          </div>
         </form>
       </div>
       <div class="modal-footer d-flex justify-content-right">
@@ -296,7 +273,6 @@ $(document).ready(function(){
         $('#supplier_email').val(response.email);
         $('#supplier_phone').val(response.phone);
         $('#supplier_location').val(response.location);
-        $('#region').val(response.region);
         $('#supplier_address').val(response.address);
         // $('.edit-modal-body').html(response);
         // Display Modal

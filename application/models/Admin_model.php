@@ -7,6 +7,7 @@ class Admin_model extends CI_Model{
     public function pending_requisitions($limit, $offset){
         $this->db->select('item_requisitions.id,
                             item_requisitions.item_name,
+                            item_requisitions.item_desc,
                             item_requisitions.item_qty,
                             item_requisitions.requested_by,
                             item_requisitions.status,
@@ -15,11 +16,18 @@ class Admin_model extends CI_Model{
                             users.id as user_id,
                             users.fullname,
                             users.location,
+                            users.supervisor,
                             inventory.id as inv_id,
-                            inventory.name as inv_name');
+                            inventory.name as inv_name,
+                            sub_categories.id as sub_cat_id,
+                            sub_categories.name as sub_cat_name,
+                            categories.id as cat_id,
+                            categories.cat_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
+        $this->db->join('sub_categories', 'inventory.name = sub_categories.id', 'left');
+        $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->where('item_requisitions.status', 0);
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
@@ -29,6 +37,7 @@ class Admin_model extends CI_Model{
     public function approved_requisitions($limit, $offset){
         $this->db->select('item_requisitions.id,
                             item_requisitions.item_name,
+                            item_requisitions.item_desc,
                             item_requisitions.item_qty,
                             item_requisitions.requested_by,
                             item_requisitions.status,
@@ -37,11 +46,18 @@ class Admin_model extends CI_Model{
                             users.id as user_id,
                             users.fullname,
                             users.location,
+                            users.supervisor,
                             inventory.id as inv_id,
-                            inventory.name as inv_name');
+                            inventory.name as inv_name,
+                            sub_categories.id as sub_cat_id,
+                            sub_categories.name as sub_cat_name,
+                            categories.id as cat_id,
+                            categories.cat_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
+        $this->db->join('sub_categories', 'inventory.name = sub_categories.id', 'left');
+        $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->where('item_requisitions.status', 1);
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
@@ -51,6 +67,7 @@ class Admin_model extends CI_Model{
     public function rejected_requisitions($limit, $offset){
         $this->db->select('item_requisitions.id,
                             item_requisitions.item_name,
+                            item_requisitions.item_desc,
                             item_requisitions.item_qty,
                             item_requisitions.requested_by,
                             item_requisitions.status,
@@ -59,11 +76,18 @@ class Admin_model extends CI_Model{
                             users.id as user_id,
                             users.fullname,
                             users.location,
+                            users.supervisor,
                             inventory.id as inv_id,
-                            inventory.name as inv_name');
+                            inventory.name as inv_name,
+                            sub_categories.id as sub_cat_id,
+                            sub_categories.name as sub_cat_name,
+                            categories.id as cat_id,
+                            categories.cat_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
+        $this->db->join('sub_categories', 'inventory.name = sub_categories.id', 'left');
+        $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->where('item_requisitions.status', 2);
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
@@ -81,17 +105,24 @@ class Admin_model extends CI_Model{
                             item_requisitions.updated_at,
                             users.id as user_id,
                             users.fullname,
-                            users.email,
                             users.location,
+                            users.supervisor,
+                            users.email,
                             users.user_role,
                             inventory.id as inv_id,
                             inventory.name as inv_name,
                             sub_categories.id as sub_cat_id,
-                            sub_categories.name as sub_cat_name');
+                            sub_categories.name as sub_cat_name,
+                            categories.id as cat_id,
+                            categories.cat_name,
+                            locations.id as loc_id,
+                            locations.name as loc_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
-        $this->db->join('sub_categories', 'inventory.name = sub_categories.name', 'left');
+        $this->db->join('sub_categories', 'inventory.name = sub_categories.id', 'left');
+        $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
+        $this->db->join('locations', 'users.location = locations.id', 'left');
         $this->db->where('item_requisitions.id', $id);
         $this->db->order_by('id', 'DESC');
         return $this->db->get()->row();

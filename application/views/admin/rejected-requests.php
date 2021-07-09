@@ -1,12 +1,12 @@
-<div class="jumbotron jumbotron-fluid blue-gradient text-light">
-  <div class="container">
+<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-lg-1 col-md-1">
         <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid">
       </div>
       <div class="col-lg-7 col-md-7">
         <h2 class="display-4 font-weight-bold mb-0">Admin & Procurement</h2>
-        <h3 class="font-weight-bold text-dark">AH Group of Companies (Pvt.) Ltd.</h3>
+        <h3 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
         <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
@@ -27,6 +27,7 @@
             <th class="font-weight-bold">ID</th>
             <th class="font-weight-bold">Requested by</th>
             <th class="font-weight-bold">Item Name</th>
+            <th class="font-weight-bold">Category</th>
             <th class="font-weight-bold">Item Qty</th>
             <th class="font-weight-bold">Status</th>
             <th class="font-weight-bold">Date</th>
@@ -38,7 +39,8 @@
             <tr>
               <th><?= 'CTC-0'.$rej_req->id; ?></th>
               <td><?= $rej_req->fullname; ?></td>
-              <td><?= ucfirst($rej_req->inv_name); ?></td>
+              <td><?= ucfirst($rej_req->sub_cat_name); ?></td>
+              <td><?= ucfirst($rej_req->cat_name); ?></td>
               <td><?= ucfirst($rej_req->item_qty); ?></td>
               <td>
                   <span class="badge badge-danger">Rejected</span>
@@ -50,7 +52,7 @@
                 <a href="<?= base_url('admin/request_detail/'.$rej_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
               </td>
             </tr>
-          <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif;  ?>
+          <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='8'>No record found.</td></tr>"; endif;  ?>
         </tbody>
       </table>
     </div>

@@ -6,7 +6,7 @@
       </div>
       <div class="col-lg-7 col-md-7">
         <h2 class="display-4 font-weight-bold mb-0">Admin & Procurement</h2>
-        <h3 class="font-weight-bold text-dark">AH Group of Companies (Pvt.) Ltd.</h3>
+        <h3 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
         <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
@@ -29,7 +29,7 @@
                 <hr>
                 <h3 class="font-weight-light"><?= $request_detail->fullname; ?></h3>
                 <h3 class="font-weight-light"><?= $request_detail->email; ?></h3>
-                <h3 class="font-weight-light"><?= ucfirst($request_detail->location); ?></h3>
+                <h3 class="font-weight-light"><?= ucfirst($request_detail->loc_name); ?></h3>
                 <h3 class="font-weight-light"><?php if($request_detail->user_role == 'user'){ echo "Employee"; }else{ echo "Admininstrator"; } ?></h3>
                 </div>
             </div>
@@ -58,6 +58,14 @@
                         </div>
                         <div class="col-lg-8 col-md-8">
                             <?= ucfirst($request_detail->sub_cat_name); ?>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-lg-3 col-md-3">
+                            Category
+                        </div>
+                        <div class="col-lg-8 col-md-8">
+                            <?= ucfirst($request_detail->cat_name); ?>
                         </div>
                     </div>
                     <div class="row mb-4">
