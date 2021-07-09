@@ -1,12 +1,12 @@
-<div class="jumbotron jumbotron-fluid blue-gradient text-light">
+<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-1 col-md-1">
-        <img src="<?= base_url('assets/img/chip.png'); ?>" alt="admin-and-procurement" class="img-thumbnail" width="200">
+        <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid">
       </div>
       <div class="col-lg-7 col-md-7">
-        <h1 class="font-weight-bold">Admin & Procurement |<a href="<?= base_url('users'); ?>" class="btn btn-outline-light btn-sm" title="Click to go to employee board where you can place requisition, apply leave & other stuff...">employee dashboard</a></h1>
-        <h5 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h5>
+        <h1 class="font-weight-bold mb-0">Admin & Procurement |<a href="<?= base_url('users'); ?>" class="btn btn-outline-light" title="Click to go to employee board where you can place requisition, apply leave & other stuff...">employee dashboard</a></h1>
+        <h5 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h5>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
         <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
