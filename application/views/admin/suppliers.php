@@ -268,11 +268,11 @@ $(document).ready(function(){
       success: function(response){ 
         console.log(response);
         $('#supplierId').val(response.id);
+        $('#supplier_location').val(response.location);
         $('#supplier_name').val(response.name);
         $('#category').val(response.category);
         $('#supplier_email').val(response.email);
         $('#supplier_phone').val(response.phone);
-        $('#supplier_location').val(response.location);
         $('#supplier_address').val(response.address);
         // $('.edit-modal-body').html(response);
         // Display Modal
