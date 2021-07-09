@@ -211,6 +211,17 @@ class Admin_model extends CI_Model{
     public function count_inventory(){
         return $this->db->from('inventory')->count_all_results();
     }
+    // get inventory for adding an inventory
+    public function get_categories(){
+        return $this->db->from('categories')->get()->result();
+    }
+    // Get sub categories based on cat_id
+    public function get_sub_categories($cat_id){
+        $this->db->select('id, name, quantity, unit_price');
+        $this->db->from('sub_categories');
+        $this->db->where('cat_id', $cat_id);
+        return $this->db->get()->result();
+    }
     // Inventory - Get inventory.
     public function get_inventory($limit, $offset){
         $this->db->select('inventory.id,

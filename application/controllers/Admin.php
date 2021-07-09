@@ -213,18 +213,22 @@ class Admin extends CI_Controller{
         $data['title'] = 'Inventory | Admin & Procurement';
         $data['body'] = 'admin/inventory';
         $data['locations'] = $this->login_model->get_locations();
+        $data['categories'] = $this->admin_model->get_categories();
         $data['inventory'] = $this->admin_model->get_inventory($limit, $offset);
         $this->load->view('admin/commons/template', $data);
+    }
+    // Get all sub categories based on cat_id
+    public function get_sub_categories($cat_id){
+        $sub_categories = $this->admin_model->get_sub_categories($cat_id);
+        echo json_encode($sub_categories);
     }
     // Inventory - Add inventory.
     public function add_inventory(){
         $data = array(
-            'item_name' => $this->input->post('item_name'),
-            'item_desc' => $this->input->post('item_desc'),
-            'unit_price' => $this->input->post('unit_price'),
-            'item_qty' => $this->input->post('item_qty'),
-            'item_category' => $this->input->post('item_cat'),
-            'item_loc' => $this->input->post('item_loc')
+            'location' => $this->input->post('location'),
+            'category' => $this->input->post('category'),
+            'name' => $this->input->post('item_name'),
+            'item_desc' => $this->input->post('item_desc')
         );
         if($this->admin_model->add_inventory($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Inventory was added successfully');

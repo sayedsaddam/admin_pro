@@ -71,7 +71,7 @@
                     <a href="<?= base_url('admin/inventory_detail/'.$inv->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                 </td>
               </tr>
-            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
+            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='8'>No record found.</td></tr>"; endif; ?>
           </tbody>
         <?php else: ?>
           <tbody>
@@ -90,7 +90,7 @@
                     <a href="<?= base_url('admin/inventory_detail/'.$res->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                 </td>
               </tr>
-            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
+            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='8'>No record found.</td></tr>"; endif; ?>
           </tbody>
         <?php endif; ?>
       </table>
@@ -116,10 +116,9 @@
       </div>
       <div class="modal-body mx-3">
         <form action="<?=base_url('admin/add_inventory');?>" method="post" class="md-form">
-            
           <div class="md-form mb-5">
-            <select name="category" id="for32" class="browser-default custom-select">
-              <option value="" disabled selected>--select category--</option>
+            <select name="location" id="for32" class="browser-default custom-select">
+              <option value="" disabled selected>--select location--</option>
               <?php foreach($locations as $loc): ?>
                 <option value="<?= $loc->id; ?>"><?= ucfirst($loc->name); ?></option>
               <?php endforeach; ?>
@@ -127,7 +126,16 @@
           </div>
 
           <div class="md-form mb-5">
-            <select name="item_cat" id="for32" class="browser-default custom-select">
+            <select name="category" id="category" class="browser-default custom-select">
+              <option value="" disabled selected>--select category--</option>
+              <?php if(!empty($categories)): foreach($categories as $cat): ?>
+                <option value="<?= $cat->id; ?>"><?= $cat->cat_name; ?></option>
+              <?php endforeach; endif; ?>
+            </select>
+          </div>
+
+          <div class="md-form mb-5">
+            <select name="item_name" id="item_name" class="browser-default custom-select">
               <option value="" disabled selected>--select item--</option>
             </select>
           </div>
@@ -161,48 +169,40 @@
         </button>
       </div>
       <div class="modal-body mx-3">
-        <form action="<?=base_url('admin/update_inventory');?>" method="post" class="md-form">
-            <input type="hidden" name="id" id="inventoryId" value="">
-            <div class="md-form mb-5">
-                <input name="item_name" type="text" id="item_name" class="form-control validate" value="">
-                <label data-error="wrong" data-success="right" for="form34">Item name</label>
-            </div>
+        <form action="<?=base_url('admin/add_inventory');?>" method="post" class="md-form">
+          <input type="hidden" name="category" value="<?php  ?>">
+          <div class="md-form mb-5">
+            <select name="location" id="for32" class="browser-default custom-select">
+              <option value="" disabled selected>--select location--</option>
+              <?php foreach($locations as $loc): ?>
+                <option value="<?= $loc->id; ?>"><?= ucfirst($loc->name); ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
 
-            <div class="md-form mb-5">
-                <input name="item_desc" type="text" id="item_desc" class="form-control validate" value="">
-                <label data-error="wrong" data-success="right" for="form29">Item description</label>
-            </div>
+          <div class="md-form mb-5">
+            <select name="category" id="for32" class="browser-default custom-select">
+              <option value="" disabled selected>--select category--</option>
+              <?php if(!empty($categories)): foreach($categories as $cat): ?>
+                <option value="<?= $cat->id; ?>"><?= $cat->cat_name; ?></option>
+              <?php endforeach; endif; ?>
+            </select>
+          </div>
 
-            <div class="md-form mb-5">
-                <input name="unit_price" type="number" id="unit_price" class="form-control validate" value="">
-                <label data-error="wrong" data-success="right" for="form32">Unit price</label>
-            </div>
+          <div class="md-form mb-5">
+            <select name="item_name" id="for32" class="browser-default custom-select">
+              <option value="" disabled selected>--select item--</option>
+            </select>
+          </div>
+        
+          <div class="md-form">
+            <textarea name="item_desc" id="form7" class="md-textarea form-control" rows="3"></textarea>
+            <label for="form7">Item Desctiption</label>
+          </div>
 
-            <div class="md-form mb-5">
-                <input name="item_qty" type="number" id="item_qty" class="form-control validate" value="">
-                <label data-error="wrong" data-success="right" for="form32">Item quantity</label>
-            </div>
-
-            <div class="md-form mb-5">
-              <select name="item_cat" id="item_cat" class="browser-default custom-select">
-                  <option value="" disabled selected>--select category--</option>
-                  <option value="stationary">Stationary</option>
-                  <option value="electronics">Electronics</option>
-              </select>
-            </div>
-
-            <div class="md-form mb-5">
-              <select name="item_loc" id="item_loc" class="browser-default custom-select">
-                  <option value="" disabled selected>--select location--</option>
-                  <?php foreach($locations as $loc): ?>
-                    <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
-                  <?php endforeach; ?>
-              </select>
-            </div>
-
-            <div class="md-form mb-5">
-                <input type="submit" class="btn btn-primary" value="Save Changes">
-            </div>
+          <div class="md-form mb-5">
+            <input type="submit" class="btn btn-primary" value="Save Changes">
+          </div>
         </form>
       </div>
       <div class="modal-footer d-flex justify-content-right">
@@ -238,5 +238,32 @@ $(document).ready(function(){
       }
     });
   });
+});
+</script>
+<script>
+$(document).ready(function(){
+ 
+ // City change
+ $('#category').on('change', function(){
+   var category = $(this).val();
+
+   // AJAX request
+   $.ajax({
+     url:'<?=base_url('admin/get_sub_categories/')?>' + category,
+     method: 'post',
+     data: {category: category},
+     dataType: 'json',
+     success: function(response){
+      console.log(response);
+       // Remove options 
+       $('#item_name').find('option').not(':first').remove();
+
+       // Add options
+       $.each(response,function(index, data){
+          $('#item_name').append('<option value="'+data['id']+'">'+data['name']+'</option>');
+       });
+     }
+  });
+});
 });
 </script>
