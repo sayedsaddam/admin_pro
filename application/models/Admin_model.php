@@ -26,7 +26,7 @@ class Admin_model extends CI_Model{
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
-        $this->db->join('sub_categories', 'inventory.name = sub_categories.id', 'left');
+        $this->db->join('sub_categories', 'item_requisitions.item_name = sub_categories.id', 'left');
         $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->where('item_requisitions.status', 0);
         $this->db->order_by('id', 'DESC');
@@ -56,7 +56,7 @@ class Admin_model extends CI_Model{
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
-        $this->db->join('sub_categories', 'inventory.name = sub_categories.id', 'left');
+        $this->db->join('sub_categories', 'item_requisitions.item_name = sub_categories.id', 'left');
         $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->where('item_requisitions.status', 1);
         $this->db->order_by('id', 'DESC');
@@ -86,7 +86,7 @@ class Admin_model extends CI_Model{
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
-        $this->db->join('sub_categories', 'inventory.name = sub_categories.id', 'left');
+        $this->db->join('sub_categories', 'item_requisitions.item_name = sub_categories.id', 'left');
         $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->where('item_requisitions.status', 2);
         $this->db->order_by('id', 'DESC');
@@ -709,7 +709,7 @@ class Admin_model extends CI_Model{
     }
     // Sub Categories > List sub categories
     public function sub_categories($cat_id){
-        $this->db->select('sub_categories.id, sub_categories.cat_id, sub_categories.name, sub_categories.unit_price, sub_categories.quantity, sub_categories.added_by, sub_categories.created_at, categories.id as parent_cat, categories.cat_name, users.fullname');
+        $this->db->select('sub_categories.id, sub_categories.cat_id, sub_categories.name, sub_categories.added_by, sub_categories.created_at, categories.id as parent_cat, categories.cat_name, users.fullname');
         $this->db->from('sub_categories');
         $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->join('users', 'sub_categories.added_by = users.id', 'left');
@@ -727,7 +727,7 @@ class Admin_model extends CI_Model{
     }
     // Edit sub category
     public function edit_sub_category($id){
-        $this->db->select('id, name, quantity, unit_price');
+        $this->db->select('id, name');
         $this->db->from('sub_categories');
         $this->db->where('id', $id);
         return $this->db->get()->row();
@@ -868,7 +868,7 @@ class Admin_model extends CI_Model{
     }
     // Search filters - locations list search
     public function search_sub_categories($search){
-        $this->db->select('sub_categories.id, sub_categories.cat_id, sub_categories.name, sub_categories.unit_price, sub_categories.quantity, sub_categories.added_by, sub_categories.created_at, categories.id as parent_cat, categories.cat_name, users.fullname');
+        $this->db->select('sub_categories.id, sub_categories.cat_id, sub_categories.name, sub_categories.added_by, sub_categories.created_at, categories.id as parent_cat, categories.cat_name, users.fullname');
         $this->db->from('sub_categories');
         $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->join('users', 'sub_categories.added_by = users.id', 'left');

@@ -47,9 +47,6 @@
             <tr>
                 <th class="font-weight-bold">ID</th>
                 <th class="font-weight-bold">Name</th>
-                <th class="font-weight-bold">Quantity</th>
-                <th class="font-weight-bold">Unit Price</th>
-                <th class="font-weight-bold">Total Cost</th>
                 <th class="font-weight-bold">Added By</th>
                 <th class="font-weight-bold">Date Added</th>
                 <th class="font-weight-bold">Action</th>
@@ -61,9 +58,6 @@
                 <tr>
                     <td><?= 'AHG-0'.$cat->id; ?></td>
                     <td><?= $cat->name; ?></td>
-                    <td><?= $cat->quantity; ?></td>
-                    <td><?= $cat->unit_price; ?></td>
-                    <td><?= number_format($cat->quantity * $cat->unit_price); ?></td>
                     <td><?= $cat->fullname; ?></td>
                     <td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
                     <td>
@@ -79,9 +73,6 @@
                 <tr>
                     <td><?= 'AHG-0'.$res->id; ?></td>
                     <td><?= $res->name; ?></td>
-                    <td><?= $res->quantity; ?></td>
-                    <td><?= $res->unit_price; ?></td>
-                    <td><?= number_format($res->quantity * $res->unit_price); ?></td>
                     <td><?= $res->fullname; ?></td>
                     <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                     <td>
@@ -123,16 +114,6 @@
             </div>
 
             <div class="md-form mb-5">
-                <input name="unit_price" type="text" id="form34" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form34">Unit Price</label>
-            </div>
-
-            <div class="md-form mb-5">
-                <input name="quantity" type="text" id="form34" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="form34">Quantity</label>
-            </div>
-
-            <div class="md-form mb-5">
                 <input type="submit" class="btn btn-primary" value="Save Changes">
             </div>
         </form>
@@ -165,16 +146,6 @@
             </div>
 
             <div class="md-form mb-5">
-                <input name="unit_price" type="text" id="unit_price" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="unit_price">Unit Price</label>
-            </div>
-
-            <div class="md-form mb-5">
-                <input name="quantity" type="text" id="qty" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="qty">Quantity</label>
-            </div>
-
-            <div class="md-form mb-5">
                 <input type="submit" class="btn btn-primary" value="Save Changes">
             </div>
         </form>
@@ -201,8 +172,6 @@ $(document).ready(function(){
         console.log(response);
         $('#subId').val(response.id);
         $('#name').val(response.name);
-        $('#unit_price').val(response.unit_price);
-        $('#qty').val(response.quantity);
         // $('.edit-modal-body').html(response);
         // // Display Modal
         $('#edit_inventory').modal('show'); 

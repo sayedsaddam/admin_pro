@@ -806,8 +806,6 @@ class Admin extends CI_Controller{
         $data = array(
             'cat_id' => $this->input->post('parent_category'),
             'name' => $this->input->post('name'),
-            'unit_price' => $this->input->post('unit_price'),
-            'quantity' => $this->input->post('quantity'),
             'added_by' => $this->session->userdata('id')
         );
         if($this->admin_model->add_sub_category($data)){
