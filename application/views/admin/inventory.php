@@ -45,6 +45,7 @@
         <thead>
           <tr>
             <th class="font-weight-bold">ID</th>
+            <th class="font-weight-bold">Location</th>
             <th class="font-weight-bold">Name</th>
             <th class="font-weight-bold">Category</th>
             <th class="font-weight-bold">Quantity</th>
@@ -59,11 +60,12 @@
             <?php if(!empty($inventory)): foreach($inventory as $inv): ?>
               <tr>
                 <td><?= 'Inv-0'.$inv->id; ?></td>
+                <td><?= $inv->loc_name; ?></td>
                 <td><?= $inv->sub_cat_name; ?></td>
                 <td><?= $inv->cat_name; ?></td>
-                <td><?= $inv->quantity; ?></td>
+                <td><?= $inv->item_qty; ?></td>
                 <td><?= number_format($inv->unit_price) ?></td>
-                <td><?= number_format($inv->unit_price * $inv->quantity); ?></td>
+                <td><?= number_format($inv->unit_price * $inv->item_qty); ?></td>
                 <td><?= date('M d, Y', strtotime($inv->created_at)); ?></td>
                 <td>
                     <a data-id="<?= $inv->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
@@ -77,12 +79,13 @@
           <tbody>
             <?php if(!empty($results)): foreach($results as $res): ?>
               <tr>
-              <td><?= 'Inv-0'.$res->id; ?></td>
+                <td><?= 'Inv-0'.$res->id; ?></td>
+                <td><?= $res->loc_name; ?></td>
                 <td><?= $res->sub_cat_name; ?></td>
                 <td><?= $res->cat_name; ?></td>
-                <td><?= $res->quantity; ?></td>
+                <td><?= $res->item_qty; ?></td>
                 <td><?= number_format($res->unit_price) ?></td>
-                <td><?= number_format($res->unit_price * $res->quantity); ?></td>
+                <td><?= number_format($res->unit_price * $res->item_qty); ?></td>
                 <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                 <td>
                     <a data-id="<?= $res->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
@@ -139,6 +142,16 @@
               <option value="" disabled selected>--select item--</option>
             </select>
           </div>
+
+          <div class="md-form mb-5">
+            <input type="text" name="item_qty" id="item_qty" class="form-control" required>
+            <label for="item-qty">Quantity</label>
+          </div>
+
+          <div class="md-form mb-5">
+            <input type="number" name="unit_price" id="unit_price" class="form-control" required>
+            <label for="item-qty">Unit Price</label>
+          </div>
         
           <div class="md-form">
             <textarea name="item_desc" id="form7" class="md-textarea form-control" rows="3"></textarea>
@@ -193,6 +206,16 @@
             <select name="item_name" id="for32" class="browser-default custom-select">
               <option value="" disabled selected>--select item--</option>
             </select>
+          </div>
+
+          <div class="md-form mb-5">
+            <input type="text" name="item_qty" id="item_qty" class="form-control" required>
+            <label for="item-qty">Quantity</label>
+          </div>
+
+          <div class="md-form mb-5">
+            <input type="number" name="unit_price" id="unit_price" class="form-control" required>
+            <label for="item-qty">Unit Price</label>
           </div>
         
           <div class="md-form">

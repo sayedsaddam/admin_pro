@@ -228,6 +228,8 @@ class Admin extends CI_Controller{
             'location' => $this->input->post('location'),
             'category' => $this->input->post('category'),
             'name' => $this->input->post('item_name'),
+            'item_qty' => $this->input->post('item_qty'),
+            'unit_price' => $this->input->post('unit_price'),
             'item_desc' => $this->input->post('item_desc')
         );
         if($this->admin_model->add_inventory($data)){
@@ -247,12 +249,12 @@ class Admin extends CI_Controller{
     public function update_inventory(){
         $id = $this->input->post('id');
         $data = array(
-            'item_name' => $this->input->post('item_name'),
-            'item_desc' => $this->input->post('item_desc'),
-            'unit_price' => $this->input->post('unit_price'),
+            'location' => $this->input->post('location'),
+            'category' => $this->input->post('category'),
+            'name' => $this->input->post('item_name'),
             'item_qty' => $this->input->post('item_qty'),
-            'item_category' => $this->input->post('item_cat'),
-            'item_loc' => $this->input->post('item_loc')
+            'unit_price' => $this->input->post('unit_price'),
+            'item_desc' => $this->input->post('item_desc')
         );
         if($this->admin_model->update_inventory($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Inventory was updated successfully');

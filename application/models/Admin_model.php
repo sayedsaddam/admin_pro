@@ -227,17 +227,19 @@ class Admin_model extends CI_Model{
         $this->db->select('inventory.id,
                             inventory.category,
                             inventory.name,
+                            inventory.item_qty,
+                            inventory.unit_price,
                             inventory.created_at,
                             categories.id as cat_id,
                             categories.cat_name,
                             categories.cat_location,
                             sub_categories.id as sub_cat_id,
                             sub_categories.name as sub_cat_name,
-                            sub_categories.quantity,
-                            sub_categories.unit_price');
+                            locations.name as loc_name');
         $this->db->from('inventory');
         $this->db->join('categories', 'inventory.category = categories.id', 'left');
         $this->db->join('sub_categories', 'inventory.name = sub_categories.id', 'left');
+        $this->db->join('locations', 'categories.cat_location = locations.id', 'left');
         $this->db->order_by('inventory.id', 'DESC');
         $this->db->group_by('inventory.id');
         $this->db->limit($limit, $offset);
@@ -756,23 +758,25 @@ class Admin_model extends CI_Model{
     // Search filters - inventory search
     public function search_inventory($search){
         $this->db->select('inventory.id,
-                            inventory.name,
-                            inventory.item_desc,
                             inventory.category,
+                            inventory.name,
+                            inventory.item_qty,
+                            inventory.unit_price,
                             inventory.created_at,
-                            item_requisitions.id as req_id,
-                            item_requisitions.item_name as req_name,
-                            SUM(IF(status=1, item_requisitions.item_qty, 0)) as req_qty,
-                            item_requisitions.status,
-                            locations.id as loc_id,
-                            locations.name');
+                            categories.id as cat_id,
+                            categories.cat_name,
+                            categories.cat_location,
+                            sub_categories.id as sub_cat_id,
+                            sub_categories.name as sub_cat_name,
+                            locations.name as loc_name');
         $this->db->from('inventory');
-        $this->db->join('item_requisitions', 'inventory.id = item_requisitions.item_name', 'left');
-        $this->db->join('locations', 'inventory.item_loc = locations.id', 'left');
+        $this->db->join('categories', 'inventory.category = categories.id', 'left');
+        $this->db->join('sub_categories', 'inventory.name = sub_categories.id', 'left');
+        $this->db->join('locations', 'categories.cat_location = locations.id', 'left');
         $this->db->like('inventory.name', $search);
         $this->db->or_like('inventory.item_desc', $search);
-        $this->db->or_like('inventory.item_category', $search);
-        $this->db->or_like('locations.name', $search);
+        $this->db->or_like('categories.cat_name', $search);
+        // $this->db->or_like('locations.name', $search);
         $this->db->group_by('inventory.id');
         $this->db->order_by('inventory.created_at', 'DESC');
         return $this->db->get()->result();

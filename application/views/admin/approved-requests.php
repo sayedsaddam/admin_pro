@@ -37,7 +37,7 @@
         <tbody>
           <?php if(!empty($approved_requisitions)): foreach($approved_requisitions as $app_req): ?>
           <tr>
-            <th><?= 'CTC-0'.$app_req->id; ?></th>
+            <th><?= 'AHG-0'.$app_req->id; ?></th>
             <td><?= $app_req->fullname; ?></td>
             <td><?= ucfirst($app_req->sub_cat_name); ?></td>
             <td><?= ucfirst($app_req->cat_name); ?></td>
