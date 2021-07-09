@@ -30,22 +30,10 @@
       </div>
     <?php endif; ?>
     <!--Grid row-->
-    <div class="row mb-4">
+    <div class="row mb-6">
 
       <!--Grid column-->
-      <div class="col-lg-4 col-md-12 mb-4">
-        <div class="media blue lighten-2 text-white z-depth-1 rounded">
-          <i class="fas fa-paper-plane fa-3x blue z-depth-1 p-4 rounded-left text-white"></i>
-          <div class="media-body">
-              <p class="text-uppercase mt-2 mb-1 ml-3"><small>leave requests</small></p>
-              <p class="font-weight-bold mb-1 ml-3"><?= $total_leaves; ?></p>
-          </div>
-        </div>
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-4 col-md-6 mb-4">
+      <div class="col-lg-6 col-md-6 mb-4">
         <div class="media deep-purple lighten-2 text-white z-depth-1 rounded">
           <i class="fas fa-envelope fa-3x deep-purple z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
@@ -56,7 +44,7 @@
       </div>
       <!--Grid column-->
       <!--Grid column-->
-      <div class="col-lg-4 col-md-6 mb-4">
+      <div class="col-lg-6 col-md-6 mb-4">
         <div class="media green lighten-2 text-white z-depth-1 rounded">
           <i class="fas fa-plane fa-3x green z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
@@ -74,60 +62,11 @@
   <!-- Section: Requisitions list -->
   <section>
     <div class="row">
-      <div class="col-6">
-          <div class="card card-list">
-              <div class="card-header white d-flex justify-content-between align-items-center py-3">
-                  <p class="h5-responsive font-weight-bold mb-0">Leave Requests</p>
-                  <ul class="list-unstyled d-flex align-items-center mb-0">
-                  <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
-                  <li><i class="fas fa-times fa-sm pl-3"></i></li>
-                  </ul>
-              </div>
-              <div class="card-body">
-                  <table class="table table-sm">
-                      <thead>
-                          <tr>
-                          <th class="font-weight-bold">ID</th>
-                          <th class="font-weight-bold">Employee</th>
-                          <th class="font-weight-bold">Leave From</th>
-                          <th class="font-weight-bold">Leave To</th>
-                          <th class="font-weight-bold">Days</th>
-                          <th class="font-weight-bold">Requested</th>
-                          <th class="font-weight-bold">Status</th>
-                          <th class="font-weight-bold">Action</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <?php if(!empty($leaves)): foreach($leaves as $leave): ?>
-                          <tr>
-                              <td scope="row"><?= 'CTC-'.$leave->id; ?></td>
-                              <td><?= ucfirst($leave->fullname); ?></td>
-                              <td><?= date('M d, Y', strtotime($leave->leave_from)); ?></td>
-                              <td><?= date('M d, Y', strtotime($leave->leave_to)); ?></td>
-                              <td><?= $leave->no_of_days; ?></td>
-                              <td><?= date('M d, Y', strtotime($leave->created_at)); ?></td>
-                              <td><?php if($leave->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($leave->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
-                              <td>
-                                  <a data-id="<?= $leave->id; ?>" class="badge badge-primary approve_leave" title="Approve leave..."><i class="fa fa-check"></i></a>
-                                  <a data-id="<?= $leave->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
-                              </td>
-                          </tr>
-                          <?php endforeach; else: echo '<tr class="table-danger"><td colspan="7" align="center">No record found.</td></tr>'; endif; ?>
-                      </tbody>
-                  </table>
-              </div>
-              <div class="card-footer white py-3 d-flex justify-content-between">
-                  <a href="<?= base_url('supervisor/view_all_leaves'); ?>" class="btn btn-outline-primary">View All</a>
-              </div>
-          </div>
-      </div>
-      <div class="col-6">
+      <div class="col-12">
           <div class="card card-list">
               <div class="card-header white d-flex justify-content-between align-items-center py-3">
                   <p class="h5-responsive font-weight-bold mb-0">Item Requests</p>
-                  <ul class="list-unstyled d-flex align-items-center mb-0">
-                  <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
-                  <li><i class="fas fa-times fa-sm pl-3"></i></li>
+                  <small>Hover the mouse cursor over the description to view complete detail.</small>
                   </ul>
               </div>
               <div class="card-body">
@@ -135,9 +74,11 @@
                       <thead>
                           <tr>
                           <th class="font-weight-bold">Order ID</th>
+                          <th class="font-weight-bold">Employee</th>
                           <th class="font-weight-bold">Item</th>
+                          <th class="font-weight-bold">Category</th>
                           <th class="font-weight-bold">Quantity</th>
-                          <th class="font-weight-bold">Desciption</th>
+                          <th class="font-weight-bold">Description</th>
                           <th class="font-weight-bold">Requested</th>
                           <th class="font-weight-bold">Status</th>
                           <th class="font-weight-bold">Processed</th>
@@ -146,10 +87,12 @@
                       <tbody>
                           <?php if(!empty($requisitions)): foreach($requisitions as $req): ?>
                           <tr>
-                              <td scope="row"><?= 'CTC-'.$req->id; ?></td>
-                              <td><?= ucfirst($req->inv_name); ?></td>
+                              <td scope="row"><?= 'AHG-'.$req->id; ?></td>
+                              <td><?= ucfirst($req->fullname); ?></td>
+                              <td><?= ucfirst($req->sub_cat_name); ?></td>
+                              <td><?= ucfirst($req->cat_name); ?></td>
                               <td><?= $req->item_qty; ?></td>
-                              <td><?= $req->item_desc; ?></td>
+                              <td title="<?= $req->item_desc; ?>"><?= substr($req->item_desc, 0, 10).' &hellip;'; ?></td>
                               <td><?= date('M d, Y', strtotime($req->created_at)); ?></td>
                               <td>
                                 <?php if($req->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($req->status == 1){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
@@ -202,7 +145,7 @@
               <tbody>
                 <?php if(!empty($travels)): foreach($travels as $travel): ?>
                   <tr>
-                    <td><?= 'CTC-0'.$travel->id; ?></td>
+                    <td><?= 'AHG-0'.$travel->id; ?></td>
                     <td><?= $travel->fullname; ?></td>
                     <td><?= ucfirst($travel->visit_of); ?></td>
                     <td><?= $travel->assignment; ?></td>

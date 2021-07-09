@@ -23,10 +23,7 @@
       	<div class="card card-list">
           <div class="card-header white d-flex justify-content-between align-items-center py-3">
             <p class="h5-responsive font-weight-bold mb-0">Recent Requisitions | <small><a href="javascript:history.go(-1)" class="grey-text"><i class="fa fa-angle-left"></i> Back</a></small></p>
-            <ul class="list-unstyled d-flex align-items-center mb-0">
-              <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
-              <li><i class="fas fa-times fa-sm pl-3"></i></li>
-            </ul>
+            <small>Hover the mouse cursor over the description to view complete detail.</small>
           </div>
           <div class="card-body">
             <table class="table table-sm">
@@ -36,8 +33,9 @@
                         <th class="font-weight-bold">Order ID</th>
                         <th class="font-weight-bold">Employee</th>
                         <th class="font-weight-bold">Item</th>
+                        <th class="font-weight-bold">Category</th>
                         <th class="font-weight-bold">Quantity</th>
-                        <th class="font-weight-bold">Desciption</th>
+                        <th class="font-weight-bold">Description</th>
                         <th class="font-weight-bold">Requested</th>
                         <th class="font-weight-bold">Status</th>
                         <th class="font-weight-bold">Action</th>
@@ -46,11 +44,12 @@
                 <tbody>
                     <?php if(!empty($requisitions)): foreach($requisitions as $req): ?>
                     <tr>
-                        <td><?= 'CTC-'.$req->id; ?></td>
+                        <td><?= 'AHG-'.$req->id; ?></td>
                         <td><?= $req->fullname; ?></td>
-                        <td><?= ucfirst($req->inv_name); ?></td>
+                        <td><?= ucfirst($req->sub_cat_name); ?></td>
+                        <td><?= ucfirst($req->cat_name); ?></td>
                         <td><?= $req->item_qty; ?></td>
-                        <td><?= $req->item_desc; ?></td>
+                        <td title="<?= $req->item_desc; ?>"><?= substr($req->item_desc, 0, 10).' &hellip;'; ?></td>
                         <td><?= date('M d, Y', strtotime($req->created_at)); ?></td>
                         <td>
                         <?php if($req->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($req->status == 1){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
