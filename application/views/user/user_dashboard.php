@@ -1,9 +1,12 @@
-<div class="jumbotron jumbotron-fluid blue-gradient text-light">
+<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-8 col-md-8">
-        <h1 class="font-weight-bold">Admin & Procurement <?php if($this->session->userdata('user_role') == 'supervisor'): ?>|<a href="<?= base_url('supervisor'); ?>" class="btn btn-outline-light btn-sm">Supervisor board</a><?php endif; ?></h1>
-        <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
+      <div class="col-lg-1 col-md-1">
+        <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid">
+      </div>
+      <div class="col-lg-7 col-md-7">
+        <h1 class="display-4 font-weight-bold mb-0">Admin & Procurement <?php if($this->session->userdata('user_role') == 'supervisor'): ?>|<a href="<?= base_url('supervisor'); ?>" class="btn btn-outline-light btn-sm">Supervisor board</a><?php endif; ?></h1>
+        <h2 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h2>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
         <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
