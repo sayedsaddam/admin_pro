@@ -1,5 +1,5 @@
 <div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-lg-1 col-md-1">
         <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid">

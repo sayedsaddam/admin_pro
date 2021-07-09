@@ -85,10 +85,13 @@ class Admin_model extends CI_Model{
                             users.location,
                             users.user_role,
                             inventory.id as inv_id,
-                            inventory.name as inv_name');
+                            inventory.name as inv_name,
+                            sub_categories.id as sub_cat_id,
+                            sub_categories.name as sub_cat_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
+        $this->db->join('sub_categories', 'inventory.name = sub_categories.name', 'left');
         $this->db->where('item_requisitions.id', $id);
         $this->db->order_by('id', 'DESC');
         return $this->db->get()->row();

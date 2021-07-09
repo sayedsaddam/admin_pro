@@ -57,7 +57,7 @@
                             Item Name
                         </div>
                         <div class="col-lg-8 col-md-8">
-                            <?= ucfirst($request_detail->inv_name); ?>
+                            <?= ucfirst($request_detail->sub_cat_name); ?>
                         </div>
                     </div>
                     <div class="row mb-4">
