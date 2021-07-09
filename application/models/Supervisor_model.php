@@ -50,7 +50,7 @@ class Supervisor_model extends CI_Model{
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
-        $this->db->join('sub_categories', 'inventory.name = sub_categories.id', 'left');
+        $this->db->join('sub_categories', 'item_requisitions.item_name = sub_categories.id', 'left');
         $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->where('users.supervisor', $this->session->userdata('id'));
         $this->db->order_by('item_requisitions.id', 'DESC');
