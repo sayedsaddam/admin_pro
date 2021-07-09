@@ -106,8 +106,8 @@
               <tbody>
                 <?php if(!empty($requisitions)): foreach($requisitions as $req): ?>
                   <tr>
-                    <th scope="row"><?= 'CTC-0'.$req->id; ?></th>
-                    <td><?= ucfirst($req->inv_name); ?></td>
+                    <th scope="row"><?= 'AHG-0'.$req->id; ?></th>
+                    <td><?= ucfirst($req->sub_cat_name); ?></td>
                     <td><?= $req->item_qty; ?></td>
                     <td><?= $req->item_desc; ?></td>
                     <td>
@@ -118,7 +118,7 @@
                       <?php if($req->updated_at != NULL){ echo date('M d, Y', strtotime($req->updated_at)); }else{ echo "<span class='purple-text'>Nothing yet.</span>"; } ?>
                     </td>
                   </tr>
-                <?php endforeach; endif; ?>
+                <?php endforeach; else: echo '<tr class="table-danger"><td colspan="7" align="center">Looks like you have no requisistions yet.</td></tr>'; endif; ?>
               </tbody>
             </table>
           </div>
@@ -155,7 +155,7 @@
                     <form action="<?= base_url('users/create_requisition'); ?>" method="post">
                         <!-- item name -->
                         <div class="form-group">
-                            <label for="itemName">Item name</label>
+                            <label for="itemName">Category</label>
                             <select name="category" id="category" class="browser-default custom-select">
                                 <option value="" disabled selected>-- Main Category --</option>
                                 <?php if(!empty($items)): foreach($items as $item): ?>

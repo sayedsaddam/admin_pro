@@ -44,8 +44,8 @@
               <tbody>
                 <?php if(!empty($requisitions)): foreach($requisitions as $req): ?>
                   <tr>
-                    <th scope="row"><?= 'CTC-0'.$req->id; ?></th>
-                    <td><?= ucfirst($req->inv_name); ?></td>
+                    <td scope="row"><?= 'AHG-0'.$req->id; ?></td>
+                    <td><?= ucfirst($req->sub_cat_name); ?></td>
                     <td><?= $req->item_qty; ?></td>
                     <td><?= $req->item_desc; ?></td>
                     <td>
@@ -56,7 +56,7 @@
                       <?php if($req->updated_at != NULL){ echo date('M d, Y', strtotime($req->updated_at)); }else{ echo "<span class='purple-text'>Nothing yet.</span>"; } ?>
                     </td>
                   </tr>
-                <?php endforeach; endif; ?>
+                <?php endforeach; else: echo '<tr class="table-danger"><td colspan="7" align="center">Looks like you have no requisistions yet.</td></tr>'; endif; ?>
               </tbody>
             </table>
           </div>
@@ -73,7 +73,7 @@
   <!-- Section: Requisitions -->
 </div>
 
-<!-- Full Height Modal Right -->
+<!-- Full Height Modal Left > Place requisition -->
 <div class="modal fade left" id="fullHeightModalLeft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
@@ -91,23 +91,28 @@
                     <h4 class="font-weight-lighter mb-5">Please fill out the form below.</h4>
                     <!-- Form -->
                     <form action="<?= base_url('users/create_requisition'); ?>" method="post">
-                        <!-- First name -->
+                        <!-- item name -->
                         <div class="form-group">
-                            <label for="itemName">Item name</label>
-                            <select name="item_name" id="item_name" class="browser-default custom-select">
-                                <option value="" disabled selected>-- Select Item --</option>
-                                <option value="chalk">Chalk</option>
-                                <option value="pen">Pen</option>
-                                <option value="printing paper">Printing Paper</option>
+                            <label for="itemName">Category</label>
+                            <select name="category" id="category" class="browser-default custom-select">
+                                <option value="" disabled selected>-- Main Category --</option>
+                                <?php if(!empty($items)): foreach($items as $item): ?>
+                                  <option value="<?=$item->cat_id;?>"><?=$item->cat_name;?></option>
+                                <?php endforeach; endif; ?>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea name="description" id="description" class="form-control" placeholder="Description..."></textarea>
+                            <label for="itemName">Item name</label>
+                            <select name="sub_category" id="sub_category" class="browser-default custom-select">
+                              <option value="" disabled selected>-- Sub Category --</option>
+                            </select>
                         </div>
                         <div class="form-group">
+                          <label for="description">Description</label>
+                          <textarea name="description" id="description" class="form-control" placeholder="Description..."></textarea>
+                        <div class="form-group">
                             <label for="quantity">Quantity</label>
-                            <input type="number" name="quantity" class="form-control" placeholder="Item Quantity...">
+                            <input type="number" name="quantity" class="form-control" placeholder="Item quantity...">
                         </div>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-primary" value="Save Changes">
@@ -123,4 +128,31 @@
     </div>
   </div>
 </div>
-<!-- Full Height Modal Right -->
+<!-- Full Height Modal Left -->
+<script>
+$(document).ready(function(){
+ 
+ // City change
+ $('#category').on('change', function(){
+   var category = $(this).val();
+
+   // AJAX request
+   $.ajax({
+     url:'<?=base_url('users/get_sub_categories/')?>' + category,
+     method: 'post',
+     data: {category: category},
+     dataType: 'json',
+     success: function(response){
+      console.log(response);
+       // Remove options 
+       $('#sub_category').find('option').not(':first').remove();
+
+       // Add options
+       $.each(response,function(index, data){
+          $('#sub_category').append('<option value="'+data['id']+'">'+data['name']+'</option>');
+       });
+     }
+  });
+});
+});
+</script>

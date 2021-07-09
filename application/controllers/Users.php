@@ -37,7 +37,7 @@ class Users extends CI_Controller{
     // Created requisition
     public function create_requisition(){
         $data = array(
-            'item_name' => $this->input->post('item_name'),
+            'item_name' => $this->input->post('sub_category'), // Name of sub category > item name
             'item_desc' => $this->input->post('description'),
             'item_qty' => $this->input->post('quantity'),
             'requested_by' => $this->session->userdata('id')
@@ -61,6 +61,7 @@ class Users extends CI_Controller{
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Requisitions | Admin & Procurement';
         $data['body'] = 'user/requisitions';
+        $data['items'] = $this->user_model->get_items();
         $data['requisitions'] = $this->user_model->get_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }

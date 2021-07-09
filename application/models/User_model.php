@@ -9,13 +9,15 @@ class User_model extends CI_Model{
     }
     // Get inventory items to list in the dropdown for user request submission > get the main categories.
     public function get_items(){
-        $this->db->select('inventory.id,
+        $this->db->select('categories.id as cat_id,
+                            categories.cat_name,
+                            inventory.id,
                             inventory.category,
-                            inventory.name,
-                            categories.id as cat_id,
-                            categories.cat_name');
-        $this->db->from('inventory');
-        $this->db->join('categories', 'inventory.category = categories.id', 'left');
+                            inventory.name,');
+        $this->db->from('categories');
+        $this->db->join('inventory', 'categories.id = inventory.category', 'left');
+        $this->db->group_by('inventory.category');
+        $this->db->order_by('categories.cat_name', 'asc');
         return $this->db->get()->result();
     }
     // Get sub categories for placing requisition
@@ -60,9 +62,13 @@ class User_model extends CI_Model{
                             item_requisitions.created_at,
                             item_requisitions.updated_at,
                             inventory.id as inv_id,
-                            inventory.name as inv_name');
+                            inventory.name as inv_name,
+                            inventory.category,
+                            sub_categories.id as sub_cat_id,
+                            sub_categories.name as sub_cat_name');
         $this->db->from('item_requisitions');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
+        $this->db->join('sub_categories', 'inventory.name = sub_categories.id', 'left');
         $this->db->where('item_requisitions.requested_by', $this->session->userdata('id'));
         $this->db->order_by('item_requisitions.created_at', 'desc');
         $this->db->limit($limit, $offset);
