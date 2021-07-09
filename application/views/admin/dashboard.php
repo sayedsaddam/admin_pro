@@ -101,15 +101,11 @@
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center text-light" style="background-color: #607D8B;">
-                  <h4 class="card-title font-weight-bold text-light">Islamabad</h4>
-                  <div class="row">
-                    <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($ctc_own_isbd->ctc_own_isbd);?></div>
-                  </div>
-                  <div class="row mt-2 mb-4">
-                    <div class="col-md-6">Projects</div>
-                    <div class="col-md-6"><?=number_format($total_isbd->isbd_total);?></div>
+                <div class="card-body text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title font-weight-bold text-center text-light">Islamabad</h4>
+                  <div class="row mt-2">
+                    <div class="col-6">Exp</div>
+                    <div class="col-6">100,000</div>
                   </div>
                   <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
@@ -122,15 +118,11 @@
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center text-light" style="background-color: #607D8B;">
-                  <h4 class="card-title font-weight-bold">Khyber PK</h4>
-                  <div class="row">
-                    <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($ctc_own_kp->ctc_own_kp);?></div>
-                  </div>
-                  <div class="row mt-2 mb-4">
-                    <div class="col-md-6">Projects</div>
-                    <div class="col-md-6"><?=number_format($total_kp->kp_total);?></div>
+                <div class="card-body text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title text-center font-weight-bold">Peshawar</h4>
+                  <div class="row mt-2">
+                    <div class="col-6">Exp</div>
+                    <div class="col-6">200,000</div>
                   </div>
                   <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
@@ -143,15 +135,11 @@
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center text-light" style="background-color: #607D8B;">
-                  <h4 class="card-title font-weight-bold">Balochistan</h4>
-                  <div class="row">
-                    <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($ctc_own_bln->ctc_own_bln);?></div>
-                  </div>
-                  <div class="row mt-2 mb-4">
-                    <div class="col-md-6">Projects</div>
-                    <div class="col-md-6"><?=number_format($total_bln->bln_total);?></div>
+                <div class="card-body text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title text-center font-weight-bold">Hangu</h4>
+                  <div class="row mt-2">
+                    <div class="col-6">Exp</div>
+                    <div class="col-6">250,000</div>
                   </div>
                   <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
@@ -164,15 +152,11 @@
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center text-light" style="background-color: #607D8B;">
-                  <h4 class="card-title font-weight-bold">Punjab</h4>
-                  <div class="row">
-                    <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($ctc_own_punjab->ctc_own_punjab);?></div>
-                  </div>
-                  <div class="row mt-2 mb-4">
-                    <div class="col-md-6">Projects</div>
-                    <div class="col-md-6"><?=number_format($total_punjab->punjab_total);?></div>
+                <div class="card-body text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title text-center font-weight-bold">Kohat</h4>
+                  <div class="row mt-2">
+                    <div class="col-6">Exp</div>
+                    <div class="col-6">150,000</div>
                   </div>
                   <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
@@ -185,15 +169,11 @@
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center text-light" style="background-color: #607D8B;">
-                  <h4 class="card-title font-weight-bold">Sindh</h4>
-                  <div class="row">
-                    <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($ctc_own_sindh->ctc_own_sindh);?></div>
-                  </div>
-                  <div class="row mt-2 mb-4">
-                    <div class="col-md-6">Projects</div>
-                    <div class="col-md-6"><?=number_format($total_sindh->sindh_total);?></div>
+                <div class="card-body text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title text-center font-weight-bold">Murree</h4>
+                  <div class="row mt-2">
+                    <div class="col-6">Expense</div>
+                    <div class="col-6">130,000</div>
                   </div>
                   <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
