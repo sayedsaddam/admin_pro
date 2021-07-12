@@ -701,6 +701,7 @@ class Admin_model extends CI_Model{
                             daily_attendance.time_in,
                             daily_attendance.time_out,
                             daily_attendance.remarks,
+                            daily_attendance.attendance_date,
                             daily_attendance.created_at,
                             users.id,
                             users.fullname');
@@ -716,6 +717,7 @@ class Admin_model extends CI_Model{
                             daily_attendance.time_in,
                             daily_attendance.time_out,
                             daily_attendance.remarks,
+                            daily_attendance.attendance_date,
                             daily_attendance.created_at,
                             users.id,
                             users.fullname');
@@ -726,7 +728,7 @@ class Admin_model extends CI_Model{
     }
     // Get daily attendance based on employee/user id.
     public function get_employee_attendance($user_id){ // user_id = employee_id
-        $this->db->select('id, emp_id, time_in, time_out, created_at');
+        $this->db->select('id, emp_id, time_in, time_out, attendance_date, created_at');
         $this->db->from('daily_attendance');
         $this->db->where(array('emp_id' => $user_id));
         $this->db->like('created_at', date('Y-m'));
@@ -734,7 +736,7 @@ class Admin_model extends CI_Model{
     }
     // Search employee attendance.
     public function search_employee_attendance($date_from, $date_to, $user_id){
-        $this->db->select('id, emp_id, time_in, time_out, created_at');
+        $this->db->select('id, emp_id, time_in, time_out, attendance_date, created_at');
         $this->db->from('daily_attendance');
         $this->db->where(array('created_at >=' => $date_from, 'created_at <=' => $date_to, 'emp_id' => $user_id));
         return $this->db->get()->result();

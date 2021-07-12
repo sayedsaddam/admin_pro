@@ -69,7 +69,7 @@
                         $check_in = date_create($att->time_in);
                         $check_out = date_create($att->time_out);
                         $diff = date_diff($check_out, $check_in);
-                        echo '<td>'.date('d/m ', strtotime($att->created_at)).'- '.$att->time_in.'-'.$att->time_out.'</td>'; 
+                        echo '<td>'.date('d/m ', strtotime($att->attendance_date)).'- '.$att->time_in.'-'.$att->time_out.'</td>'; 
                         $total_hours += $diff->h*60; $total_minutes += $diff->i; $total_time = ($total_hours+$total_minutes);
                       } // @endforeach
                       if(!empty($emp_attendance)){ echo '<td>Total hrs = '.(@$total_time/60).', Avg '.number_format((@$total_time/60)/count($emp_attendance), 2).', No. of Days '.count($emp_attendance).'</td>'; } ?>
@@ -88,7 +88,7 @@
                         $check_in = date_create($att->time_in);
                         $check_out = date_create($att->time_out);
                         $diff = date_diff($check_out, $check_in);
-                        echo '<td>'.date('d/m ', strtotime($att->created_at)).'- '.$att->time_in.'-'.$att->time_out.'</td>'; 
+                        echo '<td>'.date('d/m ', strtotime($att->attendance_date)).'- '.$att->time_in.'-'.$att->time_out.'</td>'; 
                         $total_hours += $diff->h*60; $total_minutes += $diff->i; $total_time = ($total_hours+$total_minutes);
                       } // @endforeach
                       if(!empty($emp_attendance)){ echo '<td>Total hrs = '.(@$total_time/60).', Avg '.number_format((@$total_time/60)/count($emp_attendance), 2).', No. of Days '.count($emp_attendance).'</td>'; } ?>
@@ -113,7 +113,7 @@
 <!-- Modal > Add Attendance -->
 <div class="modal fade" id="add_attendance" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-fluid" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title w-100 font-weight-bold">Add Attendance | <small class="font-weight-light">The time format to be used, must be 24hrs.</small></h4>
@@ -143,6 +143,7 @@
                     <th class="font-weight-bold">Approved Timings</th>
                     <th class="font-weight-bold">Time In</th>
                     <th class="font-weight-bold">Time Out</th>
+                    <th class="font-weight-bold">Attendace Date</th>
                     <th class="font-weight-bold">Remarks</th>
                   </tr>
                 </thead>
@@ -185,6 +186,7 @@
                       <td><input type="text" name="approved_time[]" id="approved_time" class="form-control form-control-sm" placeholder="Approved timing" value="09:00"></td>
                       <td><input type="text" name="time_in[]" id="time_in" class="form-control form-control-sm" placeholder="Time in"></td>
                       <td><input type="text" name="time_out[]" id="time_out" class="form-control form-control-sm" placeholder="Time Out"></td>
+                      <td><input type="date" name="attendance_date[]" class="form-control form-control-sm"></td>
                       <td><input type="text" name="remarks[]" id="remarks" class="form-control form-control-sm" placeholder="Remarks"></td>
                     </tr>`);
             });
