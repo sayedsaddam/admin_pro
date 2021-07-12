@@ -343,6 +343,7 @@
                           <option value="" selected disabled>Select one</option>
                           <option value="hotel">Hotel</option>
                           <option value="guest house">Guest House</option>
+                          <option value="none">None</option>
                         </select>
                       </div>
                       <div class="form-group">
@@ -360,6 +361,7 @@
                           <option value="bill to CTC">Bill to CTC</option>
                           <option value="cash">Cash</option>
                           <option value="credit card">Credit Card</option>
+                          <option value="none">None</option>
                         </select>
                       </div>
                       <div class="form-group">

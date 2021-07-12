@@ -64,7 +64,7 @@
                     </td>
                     <td><?= date('M d, Y', strtotime($travel->created_at)); ?></td>
                   </tr>
-                <?php endforeach; else: echo "<tr class='table-danger'><td colspan='7' align='center'>No record found.</td></tr>"; endif; ?>
+                <?php endforeach; else: echo "<tr class='table-danger'><td colspan='12' align='center'>No record found.</td></tr>"; endif; ?>
               </tbody>
             </table>
           </div>
@@ -159,6 +159,7 @@
                           <option value="" selected disabled>Select one</option>
                           <option value="hotel">Hotel</option>
                           <option value="guest house">Guest House</option>
+                          <option value="none">None</option>
                         </select>
                       </div>
                       <div class="form-group">
@@ -176,6 +177,7 @@
                           <option value="bill to CTC">Bill to CTC</option>
                           <option value="cash">Cash</option>
                           <option value="credit card">Credit Card</option>
+                          <option value="none">None</option>
                         </select>
                       </div>
                       <div class="form-group">
