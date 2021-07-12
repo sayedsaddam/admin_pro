@@ -54,7 +54,7 @@
                                             <td><?= 'CTC-0'.$travel->id; ?></td>
                                             <td><?= $travel->fullname; ?></td>
                                             <td><?= ucfirst($travel->visit_of); ?></td>
-                                            <td><?= $travel->assignment; ?></td>
+                                            <td title="<?= $travel->assignment; ?>"><?= substr($travel->assignment, 0, 10).' &hellip;'; ?></td>
                                             <td><?= $travel->place_of_visit; ?></td>
                                             <td><?= ucfirst($travel->request_type); ?></td>
                                             <td><?= ucfirst($travel->stay_request_type); ?></td>
@@ -81,7 +81,7 @@
                                             <td><?= 'CTC-0'.$travel->id; ?></td>
                                             <td><?= $travel->fullname; ?></td>
                                             <td><?= ucfirst($travel->visit_of); ?></td>
-                                            <td><?= $travel->assignment; ?></td>
+                                            <td title="<?= $travel->assignment; ?>"><?= substr($travel->assignment, 0, 10).' &hellip;'; ?></td>
                                             <td><?= $travel->place_of_visit; ?></td>
                                             <td><?= ucfirst($travel->request_type); ?></td>
                                             <td><?= ucfirst($travel->stay_request_type); ?></td>
