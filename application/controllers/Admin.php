@@ -751,6 +751,14 @@ class Admin extends CI_Controller{
         // echo json_encode($data['travel']); exit;
         $this->load->view('admin/commons/template', $data);
     }
+    // Search travel requisitions.
+    public function search_travel_requisitions(){
+        $search = $this->input->get('search');
+        $data['title'] = 'Travle & Stay Info | Admin & Procurement';
+        $data['body'] = 'admin/travels_info';
+        $data['results'] = $this->admin_model->search_travel_requisitions($search);
+        $this->load->view('admin/commons/template', $data);
+    }
     // Get employees for attendance => filter by region.
     public function filter_by_region($location){
         $employees = $this->admin_model->filter_employee_by_region($location);

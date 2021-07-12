@@ -882,4 +882,20 @@ class Admin_model extends CI_Model{
         $this->db->group_by('employee_leaves.emp_id');
         return $this->db->get()->result();
     }
+    // Search in travel requisitions
+    // Count all travel requisitions for logged in supervisor.
+    public function search_travel_requisitions($search){
+        $this->db->select('travel_hotel_stay.*,
+                            users.id as user_id,
+                            users.fullname,
+                            users.department,
+                            users.supervisor');
+        $this->db->from('travel_hotel_stay');
+        $this->db->join('users', 'travel_hotel_stay.requested_by = users.id', 'left');
+        $this->db->like('users.fullname', $search);
+        $this->db->or_like('travel_hotel_stay.place_of_visit', $search);
+        $this->db->or_like('travel_hotel_stay.assignment', $search);
+        $this->db->or_like('travel_hotel_stay.visit_of', $search);
+        return $this->db->get()->result();
+    }
 }
