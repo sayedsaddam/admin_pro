@@ -36,6 +36,7 @@
         <a href="<?= base_url('users/requisitions'); ?>" class="btn btn-outline-dark"><i class="fa fa-envelope"></i> View requisitions</a>
         <button data-toggle="modal" data-target="#apply_travel" class="btn btn-outline-info"><i class="fa fa-plane"></i> Apply Travel</button>
         <a href="<?= base_url('users/travel_history'); ?>" class="btn btn-outline-purple"><i class="fa fa-plane"></i> Travel History <span class="badge badge-info"><?= $total_travels; ?></span></a>
+        <a href="<?= base_url('users/profile'); ?>" class="btn btn-outline-info"><i class="fa fa-user"></i> User Profile</a>
       </div>
     </div>
     <!--Grid row-->
@@ -112,7 +113,7 @@
                     <th scope="row"><?= 'AHG-0'.$req->id; ?></th>
                     <td><?= ucfirst($req->sub_cat_name); ?></td>
                     <td><?= $req->item_qty; ?></td>
-                    <td><?= $req->item_desc; ?></td>
+                    <td title="<?= $req->item_desc; ?>"><?= substr($req->item_desc, 0, 10).' &hellip;'; ?></td>
                     <td>
                       <?php if($req->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($req->status == 1){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
                     </td>

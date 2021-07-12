@@ -92,4 +92,18 @@ class User_model extends CI_Model{
     public function travel_history($limit, $offset){
         return $this->db->where('requested_by', $this->session->userdata('id'))->from('travel_hotel_stay')->limit($limit, $offset)->get()->result();
     }
+    //== ------------------------------------------------ Profile ------------------------------------------------------- ==//
+    // User/employee profile
+    public function profile(){
+        $this->db->select('id, fullname, email, username, department, user_role, supervisor, created_at');
+        $this->db->from('users');
+        $this->db->where('id', $this->session->userdata('id'));
+        return $this->db->get()->row();
+    }
+    // Update user/employee profile
+    public function update_profile($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('users', $data);
+        return true;
+    }
 }
