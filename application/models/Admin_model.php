@@ -612,6 +612,7 @@ class Admin_model extends CI_Model{
         $this->db->from('employee_leaves');
         $this->db->join('users', 'employee_leaves.emp_id = users.id', 'left');
         $this->db->where('employee_leaves.leave_status', 1);
+        $this->db->order_by('employee_leaves.created_at', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
