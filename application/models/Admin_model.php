@@ -217,7 +217,7 @@ class Admin_model extends CI_Model{
     }
     // Get sub categories based on cat_id
     public function get_sub_categories($cat_id){
-        $this->db->select('id, name, quantity, unit_price');
+        $this->db->select('id, name');
         $this->db->from('sub_categories');
         $this->db->where('cat_id', $cat_id);
         return $this->db->get()->result();
