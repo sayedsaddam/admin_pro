@@ -766,38 +766,39 @@ class Admin extends CI_Controller{
     }
     // Add daily attendance.
     public function add_daily_attendance(){
-        $time_in = array();
-        $time_out = array();
-        $remarks = array();
-        $approved_timings = array();
-        $attendance_date = array();
-        foreach($_POST['time_in'] as $key => $value){ // $value = Time In
-            if($value != ''){
-                array_push($time_in, $value);
+        if (isset($_POST)){
+            $time_in = array();
+            $time_out = array();
+            $remarks = array();
+            $approved_timings = array();
+            $attendance_date = array();
+            foreach ($_POST['time_in'] as $key => $value) { // $value = Time In
+                if ($value != '') {
+                    array_push($time_in, $value);
+                }
             }
-        }
-        foreach($_POST['time_out'] as $key1 => $value1){ // $value1 =  Time out
-            if($value1 != ''){
-                array_push($time_out, $value1);
+            foreach ($_POST['time_out'] as $key1 => $value1) { // $value1 =  Time out
+                if ($value1 != '') {
+                    array_push($time_out, $value1);
+                }
             }
-        }
-        foreach($_POST['remarks'] as $key2 => $value2){ // $value2 = Remarks
-            if($value2 != ''){
-                array_push($remarks, $value2);
+            foreach ($_POST['remarks'] as $key2 => $value2) { // $value2 = Remarks
+                if ($value2 != '') {
+                    array_push($remarks, $value2);
+                }
             }
-        }
-        foreach($_POST['approved_time'] as $key3 => $value3){ // $value3 = Approved timings
-            if($value3 != ''){
-                array_push($approved_timings, $value3);
+            foreach ($_POST['approved_time'] as $key3 => $value3) { // $value3 = Approved timings
+                if ($value3 != '') {
+                    array_push($approved_timings, $value3);
+                }
             }
-        }
-        foreach($_POST['attendance_date'] as $key4 => $value4){
-            if($value4 != ''){
-                array_push($attendance_date, $value4);
+            foreach ($_POST['attendance_date'] as $key4 => $value4) {
+                if ($value4 != '') {
+                    array_push($attendance_date, $value4);
+                }
             }
-        }
-        for($i = 0; $i < count($_POST['emp_id']); $i++){
-            $data[$i] = array(
+            for ($i = 0; $i < count($_POST['emp_id']); $i++) {
+                $data[$i] = array(
                 'emp_id' => $_POST['emp_id'][$i],
                 'approved_timings' => $approved_timings[$i],
                 'time_in' => $time_in[$i],
@@ -805,13 +806,14 @@ class Admin extends CI_Controller{
                 'attendance_date' => $attendance_date[$i],
                 'remarks' => $remarks[$i]
             );
-        }
-        if($this->admin_model->add_daily_attendance($data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Daily attendance record was added successfully.');
-            redirect($_SERVER['HTTP_REFERER']);
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong.Please try again!');
-            redirect($_SERVER['HTTP_REFERER']);
+            }
+            if ($this->admin_model->add_daily_attendance($data)) {
+                $this->session->set_flashdata('success', '<strong>Success! </strong>Daily attendance record was added successfully.');
+                redirect($_SERVER['HTTP_REFERER']);
+            } else {
+                $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong.Please try again!');
+                redirect($_SERVER['HTTP_REFERER']);
+            }
         }
     }
     // List daily attendance.
