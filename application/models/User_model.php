@@ -111,4 +111,9 @@ class User_model extends CI_Model{
     public function travel_history($limit, $offset){
         return $this->db->where('requested_by', $this->session->userdata('id'))->from('travel_hotel_stay')->limit($limit, $offset)->get()->result();
     }
+    //== ------------------------------------------------- User profile ----------------------------------------------------- ==//
+    // Profile > view profile
+    public function profile(){
+        
+    }
 }

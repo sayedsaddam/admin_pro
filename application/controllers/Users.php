@@ -139,4 +139,8 @@ class Users extends CI_Controller{
         $data['travels'] = $this->user_model->travel_history($limit, $offset);
         $this->load->view('admin/commons/template', $data);   
     }
+    // Profile > user profile
+    public function profile(){
+        echo 'Profile of '.$this->session->userdata('fullname');
+    }
 }
