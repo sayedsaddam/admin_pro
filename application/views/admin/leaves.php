@@ -236,8 +236,8 @@
                       <td><input type="checkbox" name="emp_id[]" value="${res.id}"></td>
                       <td>${res.fullname}</td>
                       <td><input type="text" name="approved_time[]" id="approved_time" class="form-control form-control-sm" placeholder="Approved timing" value="09:00"></td>
-                      <td><input type="text" name="time_in[]" id="time_in" class="form-control form-control-sm" placeholder="Time in"></td>
-                      <td><input type="text" name="time_out[]" id="time_out" class="form-control form-control-sm" placeholder="Time Out"></td>
+                      <td><input type="text" name="time_in[]" id="time_in" class="form-control form-control-sm" value="09:00"></td>
+                      <td><input type="text" name="time_out[]" id="time_out" class="form-control form-control-sm" value="18:00"></td>
                       <td><input type="date" name="attendance_date[]" class="form-control form-control-sm"></td>
                       <td><input type="text" name="remarks[]" id="remarks" class="form-control form-control-sm" placeholder="Remarks"></td>
                     </tr>`);
