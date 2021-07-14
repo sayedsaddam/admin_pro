@@ -174,13 +174,16 @@
       </div>
       <div class="modal-body text-center mx-3">
         <div class="row">
-            <div class="col-12">
+            <div class="col-6">
               <select name="city" id="city" class="brower-default custom-select mb-4">
                 <option value="" selected disabled>--select region--</option>
                 <?php if(!empty($locations)): foreach($locations as $loc): ?>
                   <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
                 <?php endforeach; endif; ?>
               </select>
+            </div>
+            <div class="col-6">
+              <input type="date" name="" id="attd_date" class="form-control">
             </div>
           </div>
           <form action="<?= base_url('admin/add_daily_attendance'); ?>" method="post">
@@ -238,7 +241,7 @@
                       <td><input type="text" name="approved_time[]" id="approved_time" class="form-control form-control-sm" placeholder="Approved timing" value="09:00"></td>
                       <td><input type="text" name="time_in[]" id="time_in" class="form-control form-control-sm" value="09:00"></td>
                       <td><input type="text" name="time_out[]" id="time_out" class="form-control form-control-sm" value="18:00"></td>
-                      <td><input type="date" name="attendance_date[]" class="form-control form-control-sm"></td>
+                      <td><input type="date" name="attendance_date[]" class="form-control form-control-sm attendance_date"></td>
                       <td><input type="text" name="remarks[]" id="remarks" class="form-control form-control-sm" placeholder="Remarks"></td>
                     </tr>`);
             });
@@ -267,6 +270,11 @@
   // Check all
     $("#checkAll").click(function(){
         $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+    // Attendance date > Add date to all the date fields inside form.
+    $('#attd_date').on('change', function(){
+      var attnd_date = $(this).val();
+      $('.attendance_date').val(attnd_date);
     });
 });
 </script>
