@@ -141,6 +141,9 @@ class Users extends CI_Controller{
     }
     // Profile > user profile
     public function profile(){
-        echo 'Profile of '.$this->session->userdata('fullname');
+        $data['title'] = 'Profile | Admin & Procurement';
+        $data['body'] = 'user/profile';
+        $data['profile'] = $this->user_model->profile();
+        $this->load->view('admin/commons/template', $data);
     }
 }

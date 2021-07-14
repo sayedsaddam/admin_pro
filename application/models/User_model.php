@@ -114,6 +114,11 @@ class User_model extends CI_Model{
     //== ------------------------------------------------- User profile ----------------------------------------------------- ==//
     // Profile > view profile
     public function profile(){
-        
+        $this->db->select('users.*, locations.id as loc_id, locations.name, projects.id as project_id, projects.project_name');
+        $this->db->from('users');
+        $this->db->join('locations', 'users.location = locations.id', 'left');
+        $this->db->join('projects', 'users.project = projects.id', 'left');
+        $this->db->where('users.id', $this->session->userdata('id'));
+        return $this->db->get()->row();
     }
 }
