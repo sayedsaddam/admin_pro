@@ -68,9 +68,11 @@
                       foreach($emp_attendance as $att){ // @startforeach
                         $check_in = date_create($att->time_in);
                         $check_out = date_create($att->time_out);
-                        $diff = date_diff($check_out, $check_in);
-                        echo '<td>'.date('d/m ', strtotime($att->attendance_date)).'- '.$att->time_in.'-'.$att->time_out.'</td>'; 
-                        $total_hours += $diff->h*60; $total_minutes += $diff->i; $total_time = ($total_hours+$total_minutes);
+                        if($check_in != '0' &&  $check_out != '0'){
+                          $diff = date_diff($check_out, $check_in);
+                          echo '<td>'.date('d/m ', strtotime($att->attendance_date)).'- '.$att->time_in.'-'.$att->time_out.'</td>'; 
+                          $total_hours += $diff->h*60; $total_minutes += $diff->i; $total_time = ($total_hours+$total_minutes);
+                        }                       
                       } // @endforeach
                       if(!empty($emp_attendance)){ echo '<td>Total hrs = '.number_format(@$total_time/60, 2).', Avg '.round((@$total_time/60)/count($emp_attendance), 2).', No. of Days '.count($emp_attendance).'</td>'; } ?>
               </tr>
@@ -87,9 +89,11 @@
                       foreach($emp_attendance as $att){ // @startforeach
                         $check_in = date_create($att->time_in);
                         $check_out = date_create($att->time_out);
-                        $diff = date_diff($check_out, $check_in);
-                        echo '<td>'.date('d/m ', strtotime($att->attendance_date)).'- '.$att->time_in.'-'.$att->time_out.'</td>'; 
-                        $total_hours += $diff->h*60; $total_minutes += $diff->i; $total_time = ($total_hours+$total_minutes);
+                        if($check_in != '0' && $check_out != '0'){
+                          $diff = date_diff($check_out, $check_in);
+                          echo '<td>'.date('d/m ', strtotime($att->attendance_date)).'- '.$att->time_in.'-'.$att->time_out.'</td>'; 
+                          $total_hours += $diff->h*60; $total_minutes += $diff->i; $total_time = ($total_hours+$total_minutes);
+                        }
                       } // @endforeach
                       if(!empty($emp_attendance)){ echo '<td>Total hrs = '.number_format(@$total_time/60, 2).', Avg '.round((@$total_time/60)/count($emp_attendance), 2).', No. of Days '.count($emp_attendance).'</td>'; } ?>
               </tr>
