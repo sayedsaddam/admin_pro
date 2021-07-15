@@ -732,6 +732,7 @@ class Admin_model extends CI_Model{
         $this->db->from('daily_attendance');
         $this->db->where(array('emp_id' => $user_id));
         $this->db->like('created_at', date('Y-m'));
+        $this->db->order_by('daily_attendance.attendance_date', 'ASC');
         return $this->db->get()->result();
     }
     // Search employee attendance.
