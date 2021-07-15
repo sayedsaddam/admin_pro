@@ -11,6 +11,7 @@ class Users extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('user_model');
+        $this->load->model('login_model');
         $this->load->helper('paginate');
     }
     public function index($offset = null){
@@ -144,6 +145,7 @@ class Users extends CI_Controller{
         $data['title'] = 'Profile | Admin & Procurement';
         $data['body'] = 'user/profile';
         $data['profile'] = $this->user_model->profile();
+        $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/template', $data);
     }
 }
