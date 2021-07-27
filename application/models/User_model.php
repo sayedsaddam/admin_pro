@@ -121,4 +121,10 @@ class User_model extends CI_Model{
         $this->db->where('users.id', $this->session->userdata('id'));
         return $this->db->get()->row();
     }
+    // Update profile
+    public function update_profile($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('users', $data);
+        return true;
+    }
 }

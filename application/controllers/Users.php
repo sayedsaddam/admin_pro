@@ -148,4 +148,32 @@ class Users extends CI_Controller{
         $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/template', $data);
     }
+    // Update profile.
+    public function update_profile(){
+        $id = $this->session->userdata('id');
+        $data = array(
+            'fullname' => $this->input->post('fullname'),
+            'email' => $this->input->post('email'),
+            'username' => $this->input->post('username'),
+            'department' => $this->input->post('department'),
+            'location' => $this->input->post('location'),
+            'designation' => $this->input->post('designation'),
+            'province' => $this->input->post('province'),
+            'gender' => $this->input->post('gender'),
+            'cnic' => $this->input->post('cnic'),
+            'personal_contact' => $this->input->post('personal_contact'),
+            'official_contact' => $this->input->post('official_contact'),
+            'address' => $this->input->post('address'),
+            'grader' => $this->input->post('grader'),
+            'dob' => $this->input->post('dob'),
+            'doj' => $this->input->post('doj')
+        );
+        if($this->user_model->update_profile($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Updating profile was successful.');
+            redirect($_SERVER['HTTP_REFERER']);
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
 }

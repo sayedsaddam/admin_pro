@@ -15,40 +15,37 @@
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-3">
+        <div class="col-md-3 col-lg-3 col-sm-12">
             <div class="card">
                 <div class="card-header blue-gradient text-light">
                     <h5 class="card-title">Personal Info</h5>
                 </div>
                 <div class="card-body">
-                    <ul>
-                        <li><?= $profile->fullname; ?></li>
-                        <li><?= $profile->email; ?></li>
-                        <li><?= $profile->username; ?></li>
-                        <li><?= ucfirst($profile->department); ?></li>
-                        <li><?= ucfirst($profile->name); ?></li>
-                        <li><?= ucfirst($profile->user_role); ?></li>
-                        <li><?= ucfirst($profile->designation); ?></li>
-                        <li><?= ucfirst($profile->project_name); ?></li>
-                        <li><?= ucfirst($profile->gender); ?></li>
-                        <li><?= $profile->cnic; ?></li>
-                        <li><?= $profile->personal_contact; ?></li>
-                        <li><?= $profile->official_contact; ?></li>
-                        <li><?= $profile->address; ?></li>
-                        <li><?= date('M d, Y', strtotime($profile->dob)); ?></li>
-                        <li><?= date('M d, Y', strtotime($profile->doj)); ?></li>
-                        <li><?= date('M d, Y', strtotime($profile->created_at)); ?></li>
-                    </ul>
+                    <p>Name: <strong><?= $profile->fullname; ?></strong></p>
+                    <p>Email: <strong><?= $profile->email; ?></strong></p>
+                    <p>Username: <strong><?= $profile->username; ?></strong></p>
+                    <p>Dept: <strong><?= ucfirst($profile->department); ?></strong></p>
+                    <p>Location: <strong><?= ucfirst($profile->name); ?></strong></p>
+                    <p>Role: <strong><?= ucfirst($profile->user_role); ?></strong></p>
+                    <p>Designation: <strong><?= ucfirst($profile->designation); ?></strong></p>
+                    <p>Project: <strong><?= ucfirst($profile->project_name); ?></strong></p>
+                    <p>Gender: <strong><?= ucfirst($profile->gender); ?></strong></p>
+                    <p>CNIC: <strong><?= $profile->cnic; ?></strong></p>
+                    <p>Contact: <strong><?= $profile->personal_contact; ?></strong></p>
+                    <p>Contact (Office): <strong><?= $profile->official_contact; ?></strong></p>
+                    <p>Birthday: <strong><?= date('M d, Y', strtotime($profile->dob)); ?></strong></p>
+                    <p>Joining Date: <strong><?= date('M d, Y', strtotime($profile->doj)); ?></strong></p>
+                    <p>Registered: <strong><?= date('M d, Y', strtotime($profile->created_at)); ?></strong></p>
                 </div>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-md-9 col-lg-9 col-sm-12">
             <div class="card mb-5">
                 <div class="card-header blue-gradient text-light">
                     <h5 class="card-title">Update Profile</h5>
                 </div>
                 <div class="card-body">
-                    <form action="" method="post">
+                    <form action="<?= base_url('users/update_profile'); ?>" method="post">
                         <div class="row">
                             <div class="col-6">
                                 <div class="md-form">
@@ -72,7 +69,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="md-form">
-                                    <input type="text" name="email" id="materialLoginFormDept" class="form-control">
+                                    <input type="text" name="department" id="materialLoginFormDept" class="form-control">
                                     <label for="materialLoginFormDept">Department</label>
                                 </div>
                             </div>
@@ -104,7 +101,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="md-form">
-                                    <select name="location" id="defaultRegisterFormLocation" class="browser-default custom-select mb-4" required>
+                                    <select name="gender" id="defaultRegisterFormLocation" class="browser-default custom-select mb-4" required>
                                         <option value="" disabled selected>Gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
