@@ -808,11 +808,14 @@ class Admin extends CI_Controller{
             'name' => $this->input->post('name'),
             'added_by' => $this->session->userdata('id')
         );
-        if($this->admin_model->add_sub_category($data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Category was added successfully.');
-            redirect($_SERVER['HTTP_REFERER']);
-        }else{
+        $checkIfExist = $this->db->select('name')->from('sub_categories')->where('name', strtolower($data['name']))->get()->row(); // Get sub_category name.
+        if(strtolower($checkIfExist->name) != NULL){
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect($_SERVER['HTTP_REFERER']); 
+            exit;
+        }
+        elseif($this->admin_model->add_sub_category($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Category was added successfully.');
             redirect($_SERVER['HTTP_REFERER']);
         }
     }

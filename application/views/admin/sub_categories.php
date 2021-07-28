@@ -24,6 +24,12 @@
         <div class="alert alert-success"><?=$success;?></div>
       </div>
     </div>
+  <?php elseif($failed = $this->session->flashdata('failed')): ?>
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="alert alert-danger"><?=$failed;?></div>
+      </div>
+    </div>
   <?php endif; ?>
   <div class="row mb-4">
     <div class="col-lg-6 col-md-6">
