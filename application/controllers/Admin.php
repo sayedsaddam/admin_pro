@@ -933,6 +933,9 @@ class Admin extends CI_Controller{
         $data['results'] = $this->admin_model->search_sub_categories($search);
         $this->load->view('admin/commons/template', $data);
     }
+    function initial_commit(){
+        echo "This is initial commit on new repository just cloned";
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";
