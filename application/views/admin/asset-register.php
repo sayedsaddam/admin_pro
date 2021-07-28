@@ -52,6 +52,7 @@
                 <th class="font-weight-bold">Asset Code</th>
                 <th class="font-weight-bold">Serial #</th>
                 <th class="font-weight-bold">Custodian</th>
+                <th class="font-weight-bold">Usefull Life(Years)</th>
                 <th class="font-weight-bold">Designation</th>
                 <th class="font-weight-bold">Department</th>
                 <th class="font-weight-bold">Purchase</th>
@@ -71,6 +72,7 @@
                   <td><?= ucfirst($asset->asset_code); ?></td>
                   <td><?= ucfirst($asset->serial_number); ?></td>
                   <td><?= ucfirst($asset->custodian_location); ?></td>
+                  <td><?= ucfirst($asset->usefull); ?></td>
                   <td><?= ucfirst($asset->designation); ?></td>
                   <td><?= ucfirst($asset->department); ?></td>
                   <td><?= date('M d, Y', strtotime($asset->purchase_date)); ?></td>
@@ -99,6 +101,7 @@
                   <td><?= ucfirst($res->asset_code); ?></td>
                   <td><?= ucfirst($res->serial_number); ?></td>
                   <td><?= ucfirst($res->custodian_location); ?></td>
+                  <td><?= ucfirst($res->useful); ?></td>
                   <td><?= ucfirst($res->designation); ?></td>
                   <td><?= ucfirst($res->department); ?></td>
                   <td><?= date('M d, Y', strtotime($res->purchase_date)); ?></td>

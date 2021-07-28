@@ -483,7 +483,7 @@ class Admin extends CI_Controller{
         $this->load->view('admin/commons/template', $data);
     }
     // Asset detail
-    public function asset_detail($id){
+    public function asset_detail($id){  
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
         $data['edit'] = $this->admin_model->asset_detail($id);
@@ -508,6 +508,7 @@ class Admin extends CI_Controller{
             'status' => $this->input->post('status'),
             'po_no' => $this->input->post('po_no'),
             'contact' => $this->input->post('contact'),
+            'usefull' => $this->input->post('usefull'),
             'purchase_date' => $this->input->post('purchase_date'),
             'receive_date' => $this->input->post('receive_date'),
             'created_at' => date('Y-m-d')
@@ -540,6 +541,7 @@ class Admin extends CI_Controller{
             'status' => $this->input->post('status'),
             'po_no' => $this->input->post('po_no'),
             'contact' => $this->input->post('contact'),
+            'usefull' => $this->input->post('usefull'),
             'purchase_date' => $this->input->post('purchase_date'),
             'receive_date' => $this->input->post('receive_date'),
             'created_at' => date('Y-m-d')

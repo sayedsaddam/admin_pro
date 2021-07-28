@@ -56,6 +56,8 @@
                 <input type="text" name="po_no" class="form-control" placeholder="P.O Number" value="<?php if(!empty($edit)){ echo $edit->po_no; } ?>">
                 <label>Contact</label>
                 <input type="text" name="contact" class="form-control" placeholder="Contact" value="<?php if(!empty($edit)){ echo $edit->contact; } ?>">
+                <label>Usefull Life(Years)</label>
+                <input type="text" name="usefull" class="form-control" placeholder="Usefull Life" value="<?php if(!empty($edit)){ echo $edit->usefull; } ?>">
               </div>
               <div class="col-lg-6">
                 <label>Serial Number</label>
