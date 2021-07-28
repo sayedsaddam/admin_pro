@@ -812,7 +812,7 @@ class Admin extends CI_Controller{
         );
         $checkIfExist = $this->db->select('name')->from('sub_categories')->where('name', strtolower($data['name']))->get()->row(); // Get sub_category name.
         if(strtolower($checkIfExist->name) != NULL){
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Record already exists, try adding a different one.');
             redirect($_SERVER['HTTP_REFERER']); 
             exit;
         }
