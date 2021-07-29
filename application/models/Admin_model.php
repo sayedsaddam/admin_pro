@@ -877,4 +877,65 @@ class Admin_model extends CI_Model{
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
+    
+    
+    // Count all items 
+    public function count_item(){
+        return $this->db->from('items')->count_all_results();
+    }
+    // Get items.
+    public function get_items($limit, $offset){
+        $this->db->select('id, location, category, sub_category, type_name, model, serial_number, supplier,price, depreciation,purchasedate, created_at');
+        $this->db->from('items');
+        $this->db->order_by('id', 'ASC');
+        $this->db->limit($limit, $offset);
+        return $this->db->get()->result();
+    }
+    // Assets - Add new item
+    public function item_save($data){
+        $this->db->insert('items', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    } 
+    // item detail - view and edit.
+    public function item_detail($id){
+        $this->db->select('id, location, category, sub_category, type_name, model, serial_number, supplier,price, depreciation,purchasedate, created_at');
+        $this->db->from('items');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
+    }
+
+    // get inventory for adding an inventory
+    public function get_item_categories(){
+        return $this->db->from('categories')->get()->result();
+    }
+    // Get sub categories based on cat_id
+    public function get_item_sub_categories($cat_id){
+        $this->db->select('id, name');
+        $this->db->from('sub_categories');
+        $this->db->where('cat_id', $cat_id);
+        return $this->db->get()->result();
+    }
+    
+    // Locations - Get item locations
+    public function get_item_location(){
+        $this->db->select('id, name, province, created_at');
+        $this->db->from('locations'); 
+        return $this->db->get()->result();
+    }
+    // Asset detail - Update existing record
+    public function modify_item($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('items', $data);
+        return true;
+    }
+    // Item register - Delete an Item
+    public function delete_item($id){
+        $this->db->where('id', $id);
+        $this->db->delete('items_detail');
+        return true;
+    }
 }

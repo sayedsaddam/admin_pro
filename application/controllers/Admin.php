@@ -935,6 +935,106 @@ class Admin extends CI_Controller{
         $data['results'] = $this->admin_model->search_sub_categories($search);
         $this->load->view('admin/commons/template', $data);
     }
+
+
+    //Item register 
+       public function item_register($offset = null){ 
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'admin/item_register';
+        $rowscount = $this->admin_model->count_item();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Item Register | Admin & Procurement';
+        $data['body'] = 'admin/item-register';
+        $data['items'] = $this->admin_model->get_items($limit, $offset);
+        $this->load->view('admin/commons/template', $data);
+    }
+    // item register - add new item.
+    public function add_item(){
+        $data['title'] = 'Item Detail';
+        $data['body'] = 'admin/item-detail';  
+        $data['categories'] = $this->admin_model->get_item_categories();
+        $data['locations'] = $this->admin_model->get_item_location(); 
+        $this->load->view('admin/commons/template', $data);
+    }
+
+    // Add new Item into the database
+    public function item_save(){ 
+        $data = array(
+            'location' => $this->input->post('location'),
+            'category' => $this->input->post('category'),
+            'sub_category' => $this->input->post('sub_category'),
+            'type_name' => $this->input->post('type_name'),
+            'model' => $this->input->post('model'),
+            'serial_number' => $this->input->post('serial_number'),
+            'supplier' => $this->input->post('supplier'),
+            'price' => $this->input->post('price'),
+            'purchasedate' => $this->input->post('purchasedate'),
+            'depreciation' => $this->input->post('depreciation'), 
+            'created_at' => date('Y-m-d')
+        );
+        if($this->admin_model->item_save($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
+            redirect('admin/item_register');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
+            redirect('admin/item_register');
+        }
+    }
+    
+    // Update an existing asset record
+    public function modify_item(){
+        $id = $this->input->post('id'); 
+        $data = array(
+            'location' => $this->input->post('location'),
+            'category' => $this->input->post('category'),
+            'sub_category' => $this->input->post('sub_category'),
+            'type_name' => $this->input->post('type_name'),
+            'model' => $this->input->post('model'),
+            'serial_number' => $this->input->post('serial_number'),
+            'supplier' => $this->input->post('supplier'),
+            'price' => $this->input->post('price'),
+            'purchasedate' => $this->input->post('purchasedate'),
+            'depreciation' => $this->input->post('depreciation'), 
+            'created_at' => date('Y-m-d')
+        );
+        if($this->admin_model->modify_item($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Item was updated successfully.');
+            redirect('admin/item_register');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/item_register');
+        }
+    }
+    // Item detail
+    public function item_detail($id){  
+        $data['title'] = 'Item Detail';
+        $data['body'] = 'admin/item-detail';
+        $data['edit'] = $this->admin_model->item_detail($id);
+        $data['categories'] = $this->admin_model->get_item_categories();
+        $data['locations'] = $this->admin_model->get_item_location(); 
+
+        $this->load->view('admin/commons/template', $data);
+    }
+     // Get all sub categories based on cat_id of items
+    public function get_item_sub_categories($cat_id){
+        $sub_categories = $this->admin_model->get_item_sub_categories($cat_id);
+        echo json_encode($sub_categories);
+    }
+    
+    // Delete item
+    public function delete_item($id){
+        if($this->admin_model->delete_item($id)){
+            $this->session->set_flashdata('success', '<strong>Delete! </strong>Item was deleted successfully.');
+            redirect('admin/asset_register');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/asset_register');
+        }
+    }
+    
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";
