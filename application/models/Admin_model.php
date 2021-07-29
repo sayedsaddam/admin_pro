@@ -876,15 +876,24 @@ class Admin_model extends CI_Model{
         $this->db->or_like('categories.cat_name', $search);
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
-    }
-    
-    
+    } 
     // Count all items 
     public function count_item(){
         return $this->db->from('items')->count_all_results();
     }
     // Get items.
     public function get_items($limit, $offset){
+        $this->db->select('items.id, items.location, items.category, items.sub_category, items.type_name, items.model, items.serial_number, items.supplier,items.price, items.depreciation,items.purchasedate, items.created_at,sub_categories.name as names, categories.cat_name, locations.name');
+        $this->db->from('items');
+        $this->db->join('categories', 'items.category = categories.id', 'left');
+        $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
+        $this->db->join('locations', 'items.location = locations.id', 'left');
+        $this->db->order_by('id', 'ASC');
+        $this->db->limit($limit, $offset);
+        return $this->db->get()->result();
+
+
+
         $this->db->select('id, location, category, sub_category, type_name, model, serial_number, supplier,price, depreciation,purchasedate, created_at');
         $this->db->from('items');
         $this->db->order_by('id', 'ASC');
@@ -907,7 +916,6 @@ class Admin_model extends CI_Model{
         $this->db->where('id', $id);
         return $this->db->get()->row();
     }
-
     // get inventory for adding an inventory
     public function get_item_categories(){
         return $this->db->from('categories')->get()->result();
@@ -918,8 +926,7 @@ class Admin_model extends CI_Model{
         $this->db->from('sub_categories');
         $this->db->where('cat_id', $cat_id);
         return $this->db->get()->result();
-    }
-    
+    } 
     // Locations - Get item locations
     public function get_item_location(){
         $this->db->select('id, name, province, created_at');

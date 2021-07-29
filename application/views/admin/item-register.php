@@ -65,9 +65,9 @@
               <?php if(!empty($items)): foreach($items as $item): ?>
                 <tr>
                   <td><?= 'CTC-0'.$item->id; ?></td>
-                  <td><?= $item->location; ?></td>
-                  <td><?= ucfirst($item->category); ?></td>
-                  <td><?= ucfirst($item->sub_category); ?></td>
+                  <td><?= $item->name; ?></td>
+                  <td><?= ucfirst($item->cat_name); ?></td>
+                  <td><?= ucfirst($item->names); ?></td>
                    <td><?= ucfirst($item->type_name); ?></td>  
                   <td><?= ucfirst($item->model); ?></td>
                   <td><?= ucfirst($item->serial_number); ?></td>
