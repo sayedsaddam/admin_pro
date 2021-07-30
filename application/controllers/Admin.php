@@ -948,7 +948,7 @@ class Admin extends CI_Controller{
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Item Register | Admin & Procurement';
         $data['body'] = 'admin/item-register';
-        $data['items'] = $this->admin_model->get_items($limit, $offset);
+        $data['items'] = $this->admin_model->get_items($limit, $offset); 
         $this->load->view('admin/commons/template', $data);
     }
     // item register - add new item.
@@ -1015,7 +1015,6 @@ class Admin extends CI_Controller{
         $data['edit'] = $this->admin_model->item_detail($id);
         $data['categories'] = $this->admin_model->get_item_categories();
         $data['locations'] = $this->admin_model->get_item_location(); 
-
         $this->load->view('admin/commons/template', $data);
     }
      // Get all sub categories based on cat_id of items
@@ -1034,7 +1033,71 @@ class Admin extends CI_Controller{
             redirect('admin/asset_register');
         }
     }
-    
+     // Assignment Item List- 
+     public function assign_item_list($offset = null){
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        } 
+        $url = 'admin/assign_item_list';
+        $rowscount = $this->admin_model->count_item_assign();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Assign Item list';
+        $data['body'] = 'admin/assign-item-list'; 
+        $data['items'] = $this->admin_model->check_assign_list($limit, $offset); 
+        $this->load->view('admin/commons/template', $data);
+    }
+      // Assignment Item form- To employ
+      public function assign_item(){
+        $data['title'] = 'Assign Item';
+        $data['body'] = 'admin/assign-item'; 
+        $data['assign_to'] = $this->admin_model->assign_to();
+        $data['assign_by'] = $this->admin_model->assign_by(); 
+        $data['get_item'] = $this->admin_model->get_item(); 
+        $this->load->view('admin/commons/template', $data);
+    }
+        // assign_item_save into the database
+        public function assign_item_save(){ 
+        $assign = $this->input->post('assign_to'); 
+        $inventory_status = 1;
+        if(!empty($assign)){
+        $data = array(
+            'assignd_to' => $assign,
+            'item_id' => $this->input->post('item_id'),
+            'assignd_by' => $this->input->post('assign_by'),
+            'description' => $this->input->post('description'),  
+            'status' => 1,  
+            'created_at' => date('Y-m-d'),
+        );
+        $invantory = array( 
+            'status' => 1,   
+        );
+        } 
+        if($this->admin_model->assign_item_save($data,$invantory)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Item was assignd successfully.');
+            redirect('admin/item_register');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
+            redirect('admin/item_register');
+        }
+        }
+        // assign_item_save into the database
+        public function return_item($id){   
+            $data = array(   
+                'status' => 0,  
+                'return_back_date' => date('Y-m-d')
+            );
+            $invantory = array( 
+                'status' => 0,   
+            ); 
+            if($this->admin_model->return_item_save($data,$invantory,$id)){
+                $this->session->set_flashdata('success', '<strong>Success! </strong>Item was return back successfully.');
+                redirect('admin/item_register');
+            }else{
+                $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
+                redirect('admin/item_register');
+            }
+        }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";

@@ -34,7 +34,7 @@
             </form>
         </div>
         <div class="col-lg-6 col-md-6 text-right">
-            <a href="<?= base_url('admin/add_item'); ?>" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</a>
+            <a href="<?= base_url('admin/assign_item'); ?>" data-target="#" class="btn btn-outline-info"><i class="fa fa-plus"></i> Assign Item</a>
             <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
         </div>
     </div>
@@ -45,19 +45,13 @@
           <thead>
             <tr>
                 <th class="font-weight-bold">ID</th>
-                <th class="font-weight-bold">Location</th>
-                <th class="font-weight-bold">Category</th>
-                <th class="font-weight-bold">Sub Category</th>
+                <th class="font-weight-bold">Assign By</th>
+                <th class="font-weight-bold">Assign To</th>
+                <th class="font-weight-bold">Item</th>
                 <!-- <th class="font-weight-bold">Model</th> -->
-                <th class="font-weight-bold">Type Name</th>
-                <th class="font-weight-bold">Model</th>
-                <th class="font-weight-bold">Serial Number</th>
-                <th class="font-weight-bold">Supplier</th>
-                <th class="font-weight-bold">Price</th>
-                <th class="font-weight-bold">Depreciation</th>
+                <th class="font-weight-bold">Description</th>
                 <th class="font-weight-bold">Assignd</th>
-                <th class="font-weight-bold">Purchase Date</th>
-                <th class="font-weight-bold">Time</th>
+                <th class="font-weight-bold">Assignd Date</th> 
                 <th class="font-weight-bold">Action</th>
             </tr>
           </thead>
@@ -65,23 +59,16 @@
             <tbody>
               <?php if(!empty($items)): foreach($items as $item): ?>
                 <tr>
-                  <td><?= 'CTC-0'.$item->id; ?></td>
-                  <td><?= $item->name; ?></td>
-                  <td><?= ucfirst($item->cat_name); ?></td>
-                  <td><?= ucfirst($item->names); ?></td>
-                   <td><?= ucfirst($item->type_name); ?></td>  
-                  <td><?= ucfirst($item->model); ?></td>
-                  <td><?= ucfirst($item->serial_number); ?></td>
-                  <td><?= ucfirst($item->price); ?></td>
-                  <td><?= ucfirst($item->supplier); ?></td>
-                  <td><?= ucfirst($item->depreciation); ?></td>
-                  <td><?= ucfirst($item->status); ?></td>
-                  <td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
-                  <td><?= ucfirst($item->created_at); ?></td> 
+                  <td><?= 'CTC-0'.$item->item_id; ?></td>
+                  <td><?= $item->assignd_by; ?></td>
+                  <td><?= ucfirst($item->fullname); ?></td>
+                  <td><?= ucfirst($item->sub_cat_name); ?></td>
+                   <td><?= ucfirst($item->description); ?></td>  
+                  <td><?php if($item->status == 1){ echo "<span class='btn btn-success btn btn-sm'>Assignd</span>";}else{echo "<span class='btn btn-danger btn btn-sm'>pending</span>";} ?></td>
+                  <td><?= ucfirst($item->created_at); ?></td>  
                   <td>
-                      <a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                      <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
-                      <a href="<?=base_url('admin/delete_item/'.$item->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                      <a href="<?= base_url('admin/assign_item/'.$item->item_id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
+                      <a href="<?= base_url('admin/return_item/'.$item->item_id); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> 
                   </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>

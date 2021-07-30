@@ -883,24 +883,36 @@ class Admin_model extends CI_Model{
     }
     // Get items.
     public function get_items($limit, $offset){
-        $this->db->select('items.id, items.location, items.category, items.sub_category, items.type_name, items.model, items.serial_number, items.supplier,items.price, items.depreciation,items.purchasedate, items.created_at,sub_categories.name as names, categories.cat_name, locations.name');
+        $this->db->select('items.id, items.location,
+                           items.category, 
+                           items.sub_category,
+                           items.type_name, 
+                           items.model, 
+                           items.serial_number, 
+                           items.supplier,
+                           items.price, 
+                           items.depreciation,
+                           items.purchasedate, 
+                           items.created_at,
+                           sub_categories.name as names, 
+                           categories.cat_name, 
+                           locations.name, 
+                           item_assignment.status');
         $this->db->from('items');
         $this->db->join('categories', 'items.category = categories.id', 'left');
         $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
         $this->db->join('locations', 'items.location = locations.id', 'left');
+        $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
         $this->db->order_by('id', 'ASC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
-
-
-
         $this->db->select('id, location, category, sub_category, type_name, model, serial_number, supplier,price, depreciation,purchasedate, created_at');
         $this->db->from('items');
         $this->db->order_by('id', 'ASC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
-    // Assets - Add new item
+    // Item - Add new item
     public function item_save($data){
         $this->db->insert('items', $data);
         if($this->db->affected_rows() > 0){
@@ -933,11 +945,86 @@ class Admin_model extends CI_Model{
         $this->db->from('locations'); 
         return $this->db->get()->result();
     }
-    // Asset detail - Update existing record
+    // uupdate Item - Update existing record
     public function modify_item($id, $data){
         $this->db->where('id', $id);
         $this->db->update('items', $data);
         return true;
+    } 
+     // Item Assign - Assignment Item
+    public function assign_to(){ 
+        $this->db->select('id, fullname');
+        $this->db->from('users'); 
+        return $this->db->get()->result();
+    }
+    // Item Assign By - Assign By Item
+    public function assign_by(){ 
+        $this->db->select('id, username');
+        $this->db->from('users'); 
+        $this->db->where('id', $this->session->userdata('id'));
+        return $this->db->get()->result();
+    }
+    // Get Item  - Get Item
+    public function get_item(){ 
+        // return $this->db->from('categories')->get()->result();
+        $this->db->select('inventory.id,inventory.name,sub_categories.name');
+        $this->db->from('inventory');  
+        $this->db->join('sub_categories','inventory.name = sub_categories.id', 'left');
+        return $this->db->get()->result();
+    }
+    
+    // Assign Item Save - 
+    public function assign_item_save($data,$invantory){
+      $this->db->insert('item_assignment', $data);
+      $this->db->update('inventory', $invantory);
+      if($this->db->affected_rows() > 0){
+          return true;
+      }else{
+          return false;
+      }
+  }
+  // Return Item Save - 
+  public function return_item_save($data,$invantory,$id){
+    $this->db->where('item_assignment.id', $id);
+    $this->db->update('item_assignment', $data); 
+    $this->db->update('inventory', $invantory);
+    if($this->db->affected_rows() > 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+    // Check Assign Item  - Check Assign Item show at item register page
+    public function check_assign(){ 
+        $this->db->select('status');
+        $this->db->from('item_assignment'); 
+        $this->db->where('status',1);
+        return $this->db->get()->result();
+    }
+     // Count all items s
+     public function count_item_assign(){
+        return $this->db->from('item_assignment')->count_all_results();
+    }
+      // Check Assign list  - Check Assign list 
+      public function check_assign_list($limit, $offset){  
+        $this->db->select('item_assignment.id as item_id,
+                           item_assignment.assignd_to, 
+                           item_assignment.assignd_by,
+                           item_assignment.item_id,
+                           item_assignment.description,
+                           item_assignment.status,
+                           item_assignment.created_at,
+                           users.id,
+                           users.fullname,
+                           users.username,
+                           inventory.name,
+                           sub_categories.name as sub_cat_name');
+        $this->db->from('item_assignment'); 
+        $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+        $this->db->join('inventory', 'item_assignment.item_id = inventory.name', 'left');
+        $this->db->join('sub_categories','item_assignment.item_id = sub_categories.id', 'left'); 
+        // $this->db->limit($limit, $offset);
+        return $this->db->get()->result();
     }
     // Item register - Delete an Item
     public function delete_item($id){
