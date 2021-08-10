@@ -27,8 +27,9 @@
     <?php endif; ?>
     <div class="row mb-4">
         <div class="col-lg-6 col-md-6">
-            <form action="<?= base_url('admin/search_asset_register'); ?>" method="get" class="md-form form-inline">
-                <input type="text" name="search" id="" class="form-control md-form col-5">
+            <!-- <form action="<?= base_url('admin/search_assign_items'); ?>" method="get" class="md-form form-inline"> -->
+            <form action="#" method="get" class="md-form form-inline">
+                <input type="text" name="search" id="myInput" class="form-control md-form col-5">
                 <label for="">Search Query</label>
                 <input type="submit" value="go &raquo;" class="btn btn-outline-primary rounded-pill">
             </form>
@@ -48,27 +49,32 @@
                 <th class="font-weight-bold">Assign By</th>
                 <th class="font-weight-bold">Assign To</th>
                 <th class="font-weight-bold">Item</th>
+                <th class="font-weight-bold">Item Type</th>
                 <!-- <th class="font-weight-bold">Model</th> -->
                 <th class="font-weight-bold">Description</th>
+                <th class="font-weight-bold">Item Status</th>
                 <th class="font-weight-bold">Assignd</th>
                 <th class="font-weight-bold">Assignd Date</th> 
                 <th class="font-weight-bold">Action</th>
             </tr>
           </thead>
           <?php if(empty($results)): ?>
-            <tbody>
+            <tbody id="myTable">
               <?php if(!empty($items)): foreach($items as $item): ?>
                 <tr>
-                  <td><?= 'CTC-0'.$item->item_id; ?></td>
+                  <td><?= 'CTC-0'.$item->item_ids; ?></td>
                   <td><?= $item->assignd_by; ?></td>
                   <td><?= ucfirst($item->fullname); ?></td>
                   <td><?= ucfirst($item->sub_cat_name); ?></td>
+                  <td><?= ucfirst($item->type_name); ?></td>
                    <td><?= ucfirst($item->description); ?></td>  
-                  <td><?php if($item->status == 1){ echo "<span class='btn btn-success btn btn-sm'>Assignd</span>";}else{echo "<span class='btn btn-danger btn btn-sm'>pending</span>";} ?></td>
-                  <td><?= ucfirst($item->created_at); ?></td>  
+                   <td><?= ucfirst($item->item_status); ?></td>  
+                  <td><?php if($item->status == 1){ echo "<span class='btn btn-success btn btn-sm'>Assignd</span>";}else{echo "<span class='btn btn-danger btn btn-sm'>Available</span>";} ?></td>
+                  <td><?= date('M d, Y', strtotime($item->created_at)); ?></td>
+                  
                   <td>
-                      <a href="<?= base_url('admin/assign_item/'.$item->item_id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
-                      <a href="<?= base_url('admin/return_item/'.$item->item_id); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> 
+                      <a href="<?= base_url('admin/assign_item/'.$item->item_ids); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
+                      <a href="<?= base_url('admin/return_item/'.$item->item_ids); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> 
                   </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
@@ -78,26 +84,16 @@
               <?php if(!empty($results)): foreach($results as $res): ?>
                 <tr>
                   <td><?= 'CTC-0'.$res->id; ?></td>
-                  <td><?= $res->year; ?></td>
-                  <td><?= ucfirst($res->project); ?></td>
-                  <td><?= ucfirst($res->item); ?></td>
-                  <!-- <td><?= ucfirst($res->model); ?></td> -->
-                  <td><?= ucfirst($res->asset_code); ?></td>
-                  <td><?= ucfirst($res->serial_number); ?></td>
-                  <td><?= ucfirst($res->custodian_location); ?></td>
-                  <td><?= ucfirst($res->useful); ?></td>
-                  <td><?= ucfirst($res->designation); ?></td>
-                  <td><?= ucfirst($res->department); ?></td>
-                  <td><?= date('M d, Y', strtotime($res->purchase_date)); ?></td>
+                  <td><?= $res->assignd_by; ?></td>
+                  <td><?= ucfirst($res->fullname); ?></td>
+                  <td><?= ucfirst($res->sub_cat_name); ?></td>
+                   <td><?= ucfirst($res->description); ?></td>  
+                   <td><?= ucfirst($res->item_status); ?></td>  
+                  <td><?php if($res->status == 1){ echo "<span class='btn btn-success btn btn-sm'>Assignd</span>";}else{echo "<span class='btn btn-danger btn btn-sm'>Available</span>";} ?></td>
+                  <td><?= ucfirst($res->created_at); ?></td>  
                   <td>
-                    <?php $recDate = date('Y-m-d', strtotime($res->purchase_date));
-                          $today = date("Y-m-d"); // Today's date
-                          $diff = date_diff(date_create($recDate), date_create($today));
-                          echo $diff->format('%yyr %mm %dd'); ?> 
-                  </td>
-                  <td>
-                      <a href="<?= base_url('admin/asset_detail/'.$res->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                      <a href="<?=base_url('admin/delete_asset/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                      <a href="<?= base_url('admin/assign_item/'.$res->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
+                      <a href="<?= base_url('admin/return_item/'.$res->id); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> 
                   </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
@@ -112,3 +108,14 @@
       </div>
     </div>
 </div>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>

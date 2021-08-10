@@ -59,7 +59,7 @@
         </thead>
         <?php if(empty($results)): ?>
           <tbody>
-            <?php if(!empty($inventory)): foreach($inventory as $inv): ?>
+            <?php if(!empty($assign_inventory)): foreach($assign_inventory as $inv): ?>
               <tr>
                 <td><?= 'Inv-0'.$inv->id; ?></td>
                 <td><?= $inv->loc_name; ?></td>
@@ -69,7 +69,7 @@
                 <td><?= number_format($inv->unit_price) ?></td>
                 <td><?= number_format($inv->unit_price * $inv->item_qty); ?></td>
                 <td><?= date('M d, Y', strtotime($inv->created_at)); ?></td>
-                <td><?php if($inv->status == 0){echo "<span class='btn btn-sm btn-warning'>pending</span>";}  ?></td>
+                <td><?php if($inv->status == 1){echo "<span class='btn btn-sm btn-success'>Assigned</span>";}  ?></td>
                 <td>
                     <a data-id="<?= $inv->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                     <a href="<?=base_url('admin/delete_inventory/'.$inv->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>

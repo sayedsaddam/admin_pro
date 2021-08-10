@@ -37,29 +37,93 @@
           <form action="<?php if(empty($edit)){ echo base_url('admin/assign_item_save'); }else{ echo base_url('admin/modify_item'); } ?>" method="post">
             <input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
             <div class="row">
-              <div class="col-lg-6">   
-                  <label>Assign To</label>
-            <select name="assign_to" id="assign_to" class="browser-default custom-select">
-              <option value="" disabled selected>--Select--</option>
-              <?php if(!empty($assign_to)): foreach($assign_to as $assign): ?>
-                <option value="<?= $assign->id; ?>"><?= $assign->fullname; ?></option>
+              <div class="col-lg-6">  
+                
+
+               <!-- Select Location -->
+               <label>Select Location</label>
+            <select name="location" id="location" class="browser-default custom-select">
+              <option value="" disabled selected>--select location--</option>
+              <?php if(!empty($locations)): foreach($locations as $loc): ?>
+                <option value="<?= $loc->id; ?>" <?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>><?= $loc->name; ?></option>
               <?php endforeach; endif; ?>
             </select>
-            <label>Description</label>
-                <textarea name="description" id="description" cols="64" rows="2" class="form-control"></textarea>   
+
+               <!-- Select Category -->
+               <label>Select Category</label>
+            <select name="category" id="category" class="browser-default custom-select">
+              <option value="" disabled selected>--select category--</option>
+              <?php if(!empty($get_category)): foreach($get_category as $cat): ?>
+                <option value="<?= $cat->id; ?>" <?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>><?= $cat->cat_name; ?></option>
+              <?php endforeach; endif; ?>
+            </select>
+            
+
+            
+          <!-- <label>Item status</label> -->                 
+             <label for="">Item Type</label>
+             <select name="item_type" id="item_type" class="browser-default custom-select">
+             <option value="" disabled selected>--select item type--</option>
+             </select> 
+
+             <!-- <label>Item status</label> -->                 
+             <label for="">Item Status</label>
+                <select name="item_status" id="item_status" class="browser-default custom-select">
+                  <option value="" disabled selected>--Item Status--</option>  
+                  <option value="new">New</option>
+                  <option value="used">Used</option>
+                  <option value="Reforbished">Reforbished</option> 
+                </select>  
+         
               </div>
               <div class="col-lg-6">
                 <!-- <label>Assign By</label> -->
                 <input type="hidden" name="assign_by" class="form-control" placeholder="assign_by " value="<?php echo $this->session->userdata('id');  ?>">
                 
-            <label for="">Select Item</label>
+                 
+              <lsbel>Assign To</label>
+                <select name="employ" id="employ" class="browser-default custom-select">
+              <option value="" disabled selected>--select employee--</option>
+            </select> 
+
+
+            
+            <!-- <label for="">Select Item</label>
             <select name="item_id" id="item_id" class="browser-default custom-select">
               <option value="" disabled selected>--select Item--</option>
               <?php if(!empty($get_item)): foreach($get_item as $cat): ?>
                 <option value="<?= $cat->id; ?>" <?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->name; ?></option>
               <?php endforeach; endif; ?>
-            </select>   
-              </div>
+            </select>  -->
+            
+
+            <lsbel>Select Item</label>
+                <select name="item_id" id="item_id" class="browser-default custom-select item_ids">
+              <option value="" disabled selected>--select item--</option>
+            </select> 
+
+               <!-- ------ item model get on base of item type ------ -->
+               <!-- <label for="">Item Model</label>
+             <select name="item_model" id="item_model" class="browser-default custom-select">
+             <option value="" disabled selected>--select item model--</option>
+             </select>  -->
+
+             <!-- // select model -->
+             <label for="">Model</label>
+             <select name="item_model" id="item_model" class="browser-default custom-select">
+              <option value="" disabled selected>--select Model--</option>
+              <?php if(!empty($get_model)): foreach($get_model as $get_models): ?>
+                <option value="<?= $get_models->id; ?>" <?php if(!empty($edit) && $edit->id == $get_models->id){ echo 'selected'; } ?>><?= $get_models->model; ?></option>
+              <?php endforeach; endif; ?>
+            </select> 
+  
+             <!-- item description -->
+             <label>Description</label>
+                <textarea name="description" id="description" cols="64" rows="2" class="form-control"></textarea>
+             
+                 
+          </div>
+ 
             </div><br>
             <div class="row">
               <div class="col-lg-12 text-right">
@@ -77,3 +141,113 @@
     </div>
   </section>
 </section> 
+
+<script>
+$(document).ready(function(){
+ 
+ // City change
+ $('#location').on('change', function(){
+   var location = $(this).val(); 
+   // AJAX request
+   $.ajax({
+     url:'<?=base_url('admin/get_location_employ/')?>' + location,
+     method: 'post',
+     data: {location: location},
+     dataType: 'json',
+     success: function(response){
+      console.log(response);
+       // Remove options 
+       $('#employ').find('option').not(':first').remove();
+
+       // Add options
+       $.each(response,function(index, data){
+        $('#employ').append('<option value="'+data['id']+'">'+data['fullname']+'</option>'); 
+       });
+     }
+  });
+});
+});
+
+// item type auto load against item
+$(document).ready(function(){
+ // City change
+ $('#item_id').on('change', function(){
+   var item_id = $(this).val();   
+   // AJAX request
+   $.ajax({
+     url:'<?=base_url('admin/get_item_type/')?>' + item_id,
+     method: 'post',
+     data: {item_id: item_id},
+     dataType: 'json',
+     success: function(response){
+      console.log(response);
+       // Remove options 
+       $('#item_type').find('option').not(':first').remove();
+       // Add options
+       $.each(response,function(index, data){
+        if (data['quantity'] == '0') {
+            return false 
+        }
+        $('#item_type').append('<option value="'+data['id']+'">'+data['type_name']+' ('+data['quantity']+')'+'</option>'); 
+       });
+     }
+  });
+});
+});
+
+
+// load item model against item type
+$(document).ready(function(){
+ // City change
+ $('#item_type').on('change', function(){
+   var item_type = $(this).val();  
+   alert(item_type);
+   // AJAX request
+   $.ajax({
+     url:'<?=base_url('admin/get_item_model/')?>' + item_type,
+     method: 'get',
+     data: {item_type: item_type},
+     dataType: 'json',
+     success: function(response){
+      console.log(response);
+       // Remove options 
+       $('#item_model').find('option').not(':first').remove();
+       // Add options
+       $.each(response,function(index, data){
+        if (data['quantity'] == '0') {
+            return false 
+        }
+        $('#item_model').append('<option value="'+data['id']+'|'+data['type_name']+'">'+data['type_name']+' ('+data['quantity']+')'+'</option>'); 
+       });
+     }
+  });
+});
+});
+
+
+// get category
+$(document).ready(function(){
+ // City change
+ $('#category').on('change', function(){
+   var category = $(this).val(); 
+   // AJAX request
+   $.ajax({
+     url:'<?=base_url('admin/get_assign_category/')?>' + category,
+     method: 'post',
+     data: {category: category},
+     dataType: 'json',
+     success: function(response){
+      console.log(response);
+       // Remove options 
+       $('#item_id').find('option').not(':first').remove();
+
+       // Add options
+       $.each(response,function(index, data){
+        $('#item_id').append('<option value="'+data['id']+'">'+data['name']+'</option>'); 
+       });
+     }
+  });
+});
+});
+
+</script>

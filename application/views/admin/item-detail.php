@@ -38,7 +38,7 @@
             <input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
             <div class="row">
               <div class="col-lg-6">   
-            <select name="location" id="location" class="browser-default custom-select">
+            <select name="location" id="location" class="browser-default custom-select" required>
               <option value="" disabled selected>--select Location--</option>
               <?php if(!empty($locations)): foreach($locations as $loc): ?>
                 <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
@@ -50,12 +50,26 @@
               <option value="" disabled selected>--select item--</option>
             </select> 
             </select>
-                <label>Model</label>
-                <input type="text" name="model" class="form-control" placeholder="model" value="<?php if(!empty($edit)){ echo $edit->model; } ?>">
-                <label>Supplier</label>
-                <input type="text" name="supplier" class="form-control" placeholder="supplier" value="<?php if(!empty($edit)){ echo $edit->supplier; } ?>">
-                <label>Depreciation</label>
-                <input type="number" name="depreciation" class="form-control" placeholder="depreciation" value="<?php if(!empty($edit)){ echo $edit->depreciation; } ?>">  
+                <label>Quantity</label>
+              <input type="text" name="quantity" class="form-control" required placeholder="Quantity" value="<?php if(!empty($edit)){ echo $edit->quantity; }else{ echo '1'; } ?>" readonly>
+              <label>Model</label>
+              <input type="text" name="model" class="form-control" placeholder="model" value="<?php if(!empty($edit)){ echo $edit->model; } ?>">
+                <label>Selct Supplier</label>
+            <select name="supplier" id="supplier" class="browser-default custom-select">
+              <option value="" disabled selected>--select Suplier--</option>
+              <?php if(!empty($supplier)): foreach($supplier as $sup): ?>
+                <option value="<?= $sup->name; ?>" <?php if(!empty($edit) && $edit->id == $sup->id){ echo 'selected'; } ?>><?= $sup->name; ?></option>
+              <?php endforeach; endif; ?>
+            </select> 
+                <label>Depreciation %</label>
+                <select name="depreciation" id="depreciation" class="browser-default custom-select">
+                 <option value="">--depreciation--</option>
+                 <option value="5">5%</option>
+                 <option value="10">10%</option>
+                 <option value="15">15%</option>
+                 <option value="20">20%</option>
+                 <option value="30">30%</option>
+                </select> 
               </div>
               <div class="col-lg-6">  
             <select name="category" id="category" class="browser-default custom-select">
@@ -65,18 +79,38 @@
               <?php endforeach; endif; ?>
             </select>
                 <label>Type Name</label>
-                <input type="text" name="type_name" class="form-control" placeholder="type name" value="<?php if(!empty($edit)){ echo $edit->type_name; } ?>">
+                <select name="type_name" class="form-control" required>
+              <option value="" disabled selected>--Select Type--</option>
+                  <option value="1|samsung">Samsung</option>
+                  <option value="2|Nokia">Nokia</option>
+                  <option value="3|Oppo">Oppo</option>
+                  <option value="4|Huawei">Huawei</option>
+                  <option value="5|Iphones">Iphones</option>
+                  <option value="6|HTC">HTC</option>
+                  <option value="7|LG">LG</option>
+                  <option value="8|Sony">Sony</option>
+                  <option value="9|Lenova">Lenova</option>
+                </select>
+                 
                 <label>Serial Number</label>
                 <input type="text" name="serial_number" class="form-control" placeholder="serial number" value="<?php if(!empty($edit)){ echo $edit->serial_number; } ?>">
                 <label>Price</label>
                 <input type="number" name="price" class="form-control" placeholder="price" value="<?php if(!empty($edit)){ echo $edit->price; } ?>">
+                <label>Status</label>
+                <select name="status" id="status" class="browser-default custom-select">
+                  <option value="">--item status --</option>
+                  <option value="new">new</option>
+                  <option value="used">used</option>
+                  <option value="refurbished">refurbished</option>
+                </select>
+
                 <label>Purchase Date</label>
                 <input type="date" name="purchasedate" class="form-control" placeholder="purchase_date" value="<?php if(!empty($edit)){ echo $edit->purchasedate; } ?>">   
               </div>
             </div><br>
             <div class="row">
               <div class="col-lg-12 text-right">
-                <a href="javascript:history.go(-1);" class="btn btn-default">Back</a>
+                <a href="javascript:history.go(-1);" class="btn btn-danger">Back</a>
                 <?php if(empty($edit)): ?>
                   <button type="submit" class="btn btn-default">Add Item</button>
                 <?php else: ?>

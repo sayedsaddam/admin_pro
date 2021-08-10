@@ -49,7 +49,8 @@
                 <th class="font-weight-bold">Email</th>
                 <th class="font-weight-bold">Phone</th>
                 <th class="font-weight-bold">Location</th>
-                <th class="font-weight-bold">Region</th>
+                <th class="font-weight-bold">Ntn Number</th>
+                <th class="font-weight-bold">Rating( (*)</th>
                 <th class="font-weight-bold">Category</th>
                 <th class="font-weight-bold">Status</th>
                 <th class="font-weight-bold">Date</th>
@@ -65,7 +66,8 @@
                   <td><?= ucfirst($sup->email); ?></td>
                   <td><?= ucfirst($sup->phone); ?></td>
                   <td><?= ucfirst($sup->location); ?></td>
-                  <td><?= ucfirst($sup->region); ?></td>
+                  <td><?= ucfirst($sup->ntn_number); ?></td>
+                  <td><?php if(!empty($sup->rating)){ echo '<span style="color:  orange;font-size: 18px;font-weight: bold">'.ucfirst($sup->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>';}else{echo 'none';} ?></td>
                   <td><?= ucfirst($sup->category); ?></td>
                   <td>
                       <?php if($sup->status == 1): ?>
@@ -92,6 +94,8 @@
                   <td><?= ucfirst($res->email); ?></td>
                   <td><?= ucfirst($res->phone); ?></td>
                   <td><?= ucfirst($res->location); ?></td>
+                  <td><?= ucfirst($res->ntn_number); ?></td>
+                  <td><?php  echo '<span style="color:  orange;font-size: 18px;font-weight: bold">'.ucfirst($res->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>'; ?></td> 
                   <td><?= ucfirst($res->region); ?></td>
                   <td><?= ucfirst($res->category); ?></td>
                   <td>
@@ -149,7 +153,8 @@
           </div>
 
           <div class="md-form mb-5">
-            <select name="category" id="selectListCat" class="browser-default custom-select">
+            <!-- <select name="category" id="selectListCat" class="browser-default custom-select"> -->
+            <select name="category[]" id="selectListCat" class="form-control" required multiple>
               <option value="" disabled selected>--Select category--</option>
               <option value="hotel">Hotel</option>
               <option value="travel">Travel</option>
@@ -169,6 +174,16 @@
           <div class="md-form mb-5">
             <input name="phone" type="number" id="form32" class="form-control validate">
             <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
+          </div>
+
+          <div class="md-form mb-5">
+            <input name="ntn_number" type="number" id="ntn_number" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="ntn_number">NTN Number</label>
+          </div>
+
+          <div class="md-form mb-5">
+            <input name="rating" type="text" id="rating" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="form32">Rating </label>
           </div>
 
           <div class="md-form">
@@ -213,10 +228,9 @@
           <div class="md-form mb-5">
             <input name="name" type="text" id="supplier_name" class="form-control validate" value="">
             <label data-error="wrong" data-success="right" for="form34">Supplier name</label>
-          </div>
-
+          </div> 
           <div class="md-form mb-5">
-            <select name="category" id="category" class="browser-default custom-select">
+            <select name="category[]" id="category" class="browser-default custom-select" required multiple>
               <option value="" disabled selected>--Select category--</option>
               <option value="hotel">Hotel</option>
               <option value="travel">Travel</option>
@@ -236,6 +250,16 @@
           <div class="md-form mb-5">
             <input name="phone" type="number" id="supplier_phone" class="form-control validate" value="">
             <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
+          </div>
+
+          <div class="md-form mb-5">
+            <input name="phone" type="number" id="supplier_ntn" class="form-control validate" value="">
+            <label data-error="wrong" data-success="right" for="form32">Supplier Ntn</label>
+          </div>
+
+          <div class="md-form mb-5">
+            <input name="phone" type="number" id="supplier_rating" class="form-control validate" value="">
+            <label data-error="wrong" data-success="right" for="form32">Supplier Rating</label>
           </div>
 
           <div class="md-form">
@@ -273,6 +297,8 @@ $(document).ready(function(){
         $('#category').val(response.category);
         $('#supplier_email').val(response.email);
         $('#supplier_phone').val(response.phone);
+        $('#supplier_ntn').val(response.ntn_number);
+        $('#supplier_rating').val(response.rating);
         $('#supplier_address').val(response.address);
         // $('.edit-modal-body').html(response);
         // Display Modal
