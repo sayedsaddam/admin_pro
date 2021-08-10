@@ -935,12 +935,23 @@ class Admin_model extends CI_Model{
         $this->db->order_by('id', 'ASC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result(); 
-    }
-    // get_item_card
+    } 
     // Item - Add new item
-    public function item_save($data,$data_type){
-        $this->db->insert('item_model', $data_type);
-        $this->db->insert('items', $data);
+    public function item_save($data,$model){
+       $this->db->insert('items', $data);
+       $type =  $this->input->post('type_name');
+    //    echo $type;exit;
+        $this->db->select('id');
+        $this->db->from('items');
+        $this->db->where('type_name', $type);
+        $this->db->order_by('id', 'DESC'); 
+       $type_id = $this->db->get()->result(); 
+       $res = $type_id[0]->id; 
+         $item_type = array(
+            'item_type' => $res,
+            'model' => $this->input->post('model')
+        );  
+        $this->db->insert('item_model', $item_type);
         if($this->db->affected_rows() > 0){
             return true;
         }else{
@@ -949,7 +960,7 @@ class Admin_model extends CI_Model{
     } 
     // item detail - view and edit.
     public function item_detail($id){
-        $this->db->select('id, location, category, sub_category, type_name, model, serial_number, supplier,price, depreciation,purchasedate,quantity, created_at');
+        $this->db->select('id, location, category,status, sub_category, type_name, model, serial_number, supplier,price, depreciation,purchasedate,quantity, created_at');
         $this->db->from('items');
         $this->db->where('id', $id);
         return $this->db->get()->row();
@@ -958,6 +969,12 @@ class Admin_model extends CI_Model{
     public function get_item_categories(){
         return $this->db->from('categories')->get()->result();
     }
+    // get items status for edit item
+    public function status_items(){
+        $this->db->select('id,status');
+        return $this->db->from('items')->get()->result();
+    }
+    
      // get Supplier for adding an item
     public function get_item_supplier(){
         $this->db->select('id, name');
@@ -1085,7 +1102,7 @@ class Admin_model extends CI_Model{
     }
     // Get item type based on item
     public function get_item_type($item_id){
-              $this->db->select('items.id,items.quantity, items.sub_category,items.type_name,sub_categories.id as sub_id,sub_categories.name');
+              $this->db->select('items.id,items.quantity, items.sub_category,items.type_name,items.model,sub_categories.id as sub_id,sub_categories.name');
               $this->db->from('items');  
               $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
               $this->db->where('sub_category', $item_id);
@@ -1094,9 +1111,10 @@ class Admin_model extends CI_Model{
     }
     // Get item model based on item type
     public function get_item_model($item_type){
-              $this->db->select('items.id,item_model.item_type,item_model.model');
-              $this->db->from('items');   
-              $this->db->where('items.type_name', $item_type);
+              $this->db->select('items.id,items.quantity,items.type_name,item_model.item_type,item_model.model');
+              $this->db->from('item_model');   
+              $this->db->join('items', 'items.id = item_model.item_type', 'left');
+              $this->db->where('item_model.item_type', $item_type);
               return $this->db->get()->result();
     }
  // Get item quantity based on item id

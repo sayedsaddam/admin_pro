@@ -53,7 +53,7 @@
                 <!-- <th class="font-weight-bold">Model</th> -->
                 <th class="font-weight-bold">Description</th>
                 <th class="font-weight-bold">Item Status</th>
-                <th class="font-weight-bold">Assignd</th>
+                <th class="font-weight-bold">Status</th>
                 <th class="font-weight-bold">Assignd Date</th> 
                 <th class="font-weight-bold">Action</th>
             </tr>
@@ -69,7 +69,7 @@
                   <td><?= ucfirst($item->type_name); ?></td>
                    <td><?= ucfirst($item->description); ?></td>  
                    <td><?= ucfirst($item->item_status); ?></td>  
-                  <td><?php if($item->status == 1){ echo "<span class='btn btn-success btn btn-sm'>Assignd</span>";}else{echo "<span class='btn btn-danger btn btn-sm'>Available</span>";} ?></td>
+                  <td><?php if($item->status == 1){ echo "<span class='btn btn-danger btn btn-sm'>Assignd</span>";}else{echo "<span class='btn btn-success btn btn-sm'>Available</span>";} ?></td>
                   <td><?= date('M d, Y', strtotime($item->created_at)); ?></td>
                   
                   <td>

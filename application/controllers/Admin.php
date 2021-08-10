@@ -955,8 +955,7 @@ class Admin extends CI_Controller{
         $data['results'] = $this->admin_model->search_sub_categories($search);
         $this->load->view('admin/commons/template', $data);
     }
-
-
+ 
     //Item register 
        public function item_register($offset = null){ 
         $limit = 15;
@@ -983,18 +982,17 @@ class Admin extends CI_Controller{
 
     // Add new Item into the database
     public function item_save(){  
-        
+        $model = $this->input->post('model');
         $result = $this->input->post('type_name');
+    //     $result_explode = explode('|', $result);
         
-        $result_explode = explode('|', $result);
-        
-       $type_id =  $result_explode[0];
-       $type_name = $result_explode[1];  
+    //    $type_id =  $result_explode[0];
+    //    $type_name = $result_explode[1];  
         $data = array(
             'location' => $this->input->post('location'),
             'category' => $this->input->post('category'),
             'sub_category' => $this->input->post('sub_category'),
-            'type_name' => $type_name,
+            'type_name' => $this->input->post('type_name'),
             'status' => $this->input->post('status'),
             'quantity' => $this->input->post('quantity'),
             'model' => $this->input->post('model'),
@@ -1006,11 +1004,11 @@ class Admin extends CI_Controller{
             'depreciation' => $this->input->post('depreciation'), 
             'created_at' => date('Y-m-d')
         );
-        $data_type = array(
-            'item_type' => $type_id,
-            'model' => $this->input->post('model')
-        ); 
-        if($this->admin_model->item_save($data,$data_type)){
+        // $data_type = array(
+        //     'item_type' => $type_id,
+        //     'model' => $this->input->post('model')
+        // ); 
+        if($this->admin_model->item_save($data,$model)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
             redirect('admin/item_register');
         }else{
@@ -1051,6 +1049,7 @@ class Admin extends CI_Controller{
         $data['categories'] = $this->admin_model->get_item_categories();
         $data['supplier'] = $this->admin_model->get_item_supplier();
         $data['locations'] = $this->admin_model->get_item_location(); 
+        $data['status'] = $this->admin_model->status_items(); 
         $this->load->view('admin/commons/template', $data);
     }
      // Get all sub categories based on cat_id of items
@@ -1185,7 +1184,7 @@ class Admin extends CI_Controller{
         echo json_encode($get_item_type);
     }  
     // Get item model against item type
-    public function get_item_model($item_type){
+    public function get_item_model($item_type){ 
         $get_item_model = $this->admin_model->get_item_model($item_type);
         echo json_encode($get_item_model);
     }   

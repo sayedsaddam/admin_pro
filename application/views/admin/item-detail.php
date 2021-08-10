@@ -38,12 +38,13 @@
             <input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
             <div class="row">
               <div class="col-lg-6">   
+
             <select name="location" id="location" class="browser-default custom-select" required>
-              <option value="" disabled selected>--select Location--</option>
+            <option value="" disabled selected>--select Location--</option>
               <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
+                <option value="<?= $loc->id; ?>" <?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>><?= $loc->name; ?></option>
               <?php endforeach; endif; ?>
-            </select>
+            </select> 
             <br><br>
             
             <select name="sub_category" id="item_name" class="browser-default custom-select">
@@ -78,18 +79,18 @@
                 <option value="<?= $cat->id; ?>" <?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->cat_name; ?></option>
               <?php endforeach; endif; ?>
             </select>
-                <label>Type Name</label>
+                <label>Type Name</label>  
                 <select name="type_name" class="form-control" required>
               <option value="" disabled selected>--Select Type--</option>
-                  <option value="1|samsung">Samsung</option>
-                  <option value="2|Nokia">Nokia</option>
-                  <option value="3|Oppo">Oppo</option>
-                  <option value="4|Huawei">Huawei</option>
-                  <option value="5|Iphones">Iphones</option>
-                  <option value="6|HTC">HTC</option>
-                  <option value="7|LG">LG</option>
-                  <option value="8|Sony">Sony</option>
-                  <option value="9|Lenova">Lenova</option>
+                  <option value="samsung">Samsung</option>
+                  <option value="Nokia">Nokia</option>
+                  <option value="Oppo">Oppo</option>
+                  <option value="Huawei">Huawei</option>
+                  <option value="Iphones">Iphones</option>
+                  <option value="HTC">HTC</option>
+                  <option value="LG">LG</option>
+                  <option value="Sony">Sony</option>
+                  <option value="Lenova">Lenova</option>
                 </select>
                  
                 <label>Serial Number</label>
@@ -97,12 +98,20 @@
                 <label>Price</label>
                 <input type="number" name="price" class="form-control" placeholder="price" value="<?php if(!empty($edit)){ echo $edit->price; } ?>">
                 <label>Status</label>
-                <select name="status" id="status" class="browser-default custom-select">
+                <!-- <select name="status" id="status" class="browser-default custom-select">
                   <option value="">--item status --</option>
                   <option value="new">new</option>
                   <option value="used">used</option>
                   <option value="refurbished">refurbished</option>
-                </select>
+                </select> -->
+
+                 
+            <select name="status" id="status" class="browser-default custom-select">
+              <option value="" disabled selected>--select status--</option>
+              <?php if(!empty($status)): foreach($status as $stat): ?>
+                <option value="<?= $stat->id; ?>" <?php if(!empty($edit) && $edit->id == $stat->id){ echo 'selected'; } ?>><?= $stat->status; ?></option>
+              <?php endforeach; endif; ?>
+            </select>
 
                 <label>Purchase Date</label>
                 <input type="date" name="purchasedate" class="form-control" placeholder="purchase_date" value="<?php if(!empty($edit)){ echo $edit->purchasedate; } ?>">   

@@ -27,7 +27,8 @@
   <section class="secFormLayout">
     <div class="mainInputBg">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12"> 
+          
           <h3><?php if(empty($edit)){ echo "Assign Item"; }else{ echo "Update Item"; } ?></h3><hr>
           <?php if($success = $this->session->flashdata('success')): ?>
             <div class="alert alert-success text-center">
@@ -37,7 +38,11 @@
           <form action="<?php if(empty($edit)){ echo base_url('admin/assign_item_save'); }else{ echo base_url('admin/modify_item'); } ?>" method="post">
             <input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
             <div class="row">
-              <div class="col-lg-6">  
+            <div class="col-lg-2"> 
+              <label for="">Detail message <span class="fa fa-arrow-down"></span></label> 
+<p id="message" style="font-weight: bold"></p>
+            </div>
+              <div class="col-lg-5">  
                 
 
                <!-- Select Location -->
@@ -64,7 +69,7 @@
              <label for="">Item Type</label>
              <select name="item_type" id="item_type" class="browser-default custom-select">
              <option value="" disabled selected>--select item type--</option>
-             </select> 
+             </select>
 
              <!-- <label>Item status</label> -->                 
              <label for="">Item Status</label>
@@ -76,7 +81,7 @@
                 </select>  
          
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-5">
                 <!-- <label>Assign By</label> -->
                 <input type="hidden" name="assign_by" class="form-control" placeholder="assign_by " value="<?php echo $this->session->userdata('id');  ?>">
                 
@@ -103,19 +108,12 @@
             </select> 
 
                <!-- ------ item model get on base of item type ------ -->
-               <!-- <label for="">Item Model</label>
+               <label for="">Item Model</label>
              <select name="item_model" id="item_model" class="browser-default custom-select">
              <option value="" disabled selected>--select item model--</option>
-             </select>  -->
+             </select> 
 
-             <!-- // select model -->
-             <label for="">Model</label>
-             <select name="item_model" id="item_model" class="browser-default custom-select">
-              <option value="" disabled selected>--select Model--</option>
-              <?php if(!empty($get_model)): foreach($get_model as $get_models): ?>
-                <option value="<?= $get_models->id; ?>" <?php if(!empty($edit) && $edit->id == $get_models->id){ echo 'selected'; } ?>><?= $get_models->model; ?></option>
-              <?php endforeach; endif; ?>
-            </select> 
+     
   
              <!-- item description -->
              <label>Description</label>
@@ -180,14 +178,11 @@ $(document).ready(function(){
      data: {item_id: item_id},
      dataType: 'json',
      success: function(response){
-      console.log(response);
+      console.log(response[0].quantity); 
        // Remove options 
        $('#item_type').find('option').not(':first').remove();
        // Add options
-       $.each(response,function(index, data){
-        if (data['quantity'] == '0') {
-            return false 
-        }
+       $.each(response,function(index, data){ 
         $('#item_type').append('<option value="'+data['id']+'">'+data['type_name']+' ('+data['quantity']+')'+'</option>'); 
        });
      }
@@ -200,12 +195,11 @@ $(document).ready(function(){
 $(document).ready(function(){
  // City change
  $('#item_type').on('change', function(){
-   var item_type = $(this).val();  
-   alert(item_type);
+   var item_type = $(this).val();   
    // AJAX request
    $.ajax({
      url:'<?=base_url('admin/get_item_model/')?>' + item_type,
-     method: 'get',
+     method: 'post',
      data: {item_type: item_type},
      dataType: 'json',
      success: function(response){
@@ -215,9 +209,11 @@ $(document).ready(function(){
        // Add options
        $.each(response,function(index, data){
         if (data['quantity'] == '0') {
-            return false 
+          var res = "OOPS! We are sorry your item "+response[0].type_name+" <span style='color: blue'> ( "+response[0].model+" )</span> quantity  <span style='color: red'> is not available </span>  select the another one";  
+          $('#message').append(res); 
+             return true  
         }
-        $('#item_model').append('<option value="'+data['id']+'|'+data['type_name']+'">'+data['type_name']+' ('+data['quantity']+')'+'</option>'); 
+        $('#item_model').append('<option value="'+data['id']+'">'+data['model']+'</option>');
        });
      }
   });
