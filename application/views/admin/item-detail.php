@@ -37,7 +37,7 @@
           <form action="<?php if(empty($edit)){ echo base_url('admin/item_save'); }else{ echo base_url('admin/modify_item'); } ?>" method="post">
             <input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
             <div class="row">
-              <div class="col-lg-6">   
+              <div class="col-lg-6">    
 
             <select name="location" id="location" class="browser-default custom-select" required>
             <option value="" disabled selected>--select Location--</option>
@@ -45,10 +45,15 @@
                 <option value="<?= $loc->id; ?>" <?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>><?= $loc->name; ?></option>
               <?php endforeach; endif; ?>
             </select> 
-            <br><br>
-            
+            <br><br> 
+            <!-- <select name="sub_category" id="item_name" class="browser-default custom-select">
+              <option value="" disabled selected>--select item--</option>
+            </select>  --> 
             <select name="sub_category" id="item_name" class="browser-default custom-select">
               <option value="" disabled selected>--select item--</option>
+              <?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
+                <option value="<?= $cat->id; ?>" <?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->name; ?></option>
+              <?php endforeach; endif; ?>
             </select> 
             </select>
                 <label>Quantity</label>
@@ -65,6 +70,7 @@
                 <label>Depreciation %</label>
                 <select name="depreciation" id="depreciation" class="browser-default custom-select">
                  <option value="">--depreciation--</option>
+                 
                  <option value="5">5%</option>
                  <option value="10">10%</option>
                  <option value="15">15%</option>
@@ -80,19 +86,7 @@
               <?php endforeach; endif; ?>
             </select>
                 <label>Type Name</label>  
-                <select name="type_name" class="form-control" required>
-              <option value="" disabled selected>--Select Type--</option>
-                  <option value="samsung">Samsung</option>
-                  <option value="Nokia">Nokia</option>
-                  <option value="Oppo">Oppo</option>
-                  <option value="Huawei">Huawei</option>
-                  <option value="Iphones">Iphones</option>
-                  <option value="HTC">HTC</option>
-                  <option value="LG">LG</option>
-                  <option value="Sony">Sony</option>
-                  <option value="Lenova">Lenova</option>
-                </select>
-                 
+                <input type="text" name="type_name" class="form-control" required placeholder="plz enter type...">
                 <label>Serial Number</label>
                 <input type="text" name="serial_number" class="form-control" placeholder="serial number" value="<?php if(!empty($edit)){ echo $edit->serial_number; } ?>">
                 <label>Price</label>
@@ -108,9 +102,9 @@
                  
             <select name="status" id="status" class="browser-default custom-select">
               <option value="" disabled selected>--select status--</option>
-              <?php if(!empty($status)): foreach($status as $stat): ?>
-                <option value="<?= $stat->id; ?>" <?php if(!empty($edit) && $edit->id == $stat->id){ echo 'selected'; } ?>><?= $stat->status; ?></option>
-              <?php endforeach; endif; ?>
+             <option value="new">new</option>
+             <option value="used">used</option>
+             <option value="refurbished">refurbished</option>
             </select>
 
                 <label>Purchase Date</label>

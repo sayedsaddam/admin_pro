@@ -68,12 +68,12 @@
                   <td><?= $item->name; ?></td>
                   <td><?= ucfirst($item->cat_name); ?></td>
                   <td><?= ucfirst($item->names); ?></td>
-                   <td><a href="<?= base_url('admin/item_card/'.$item->id); ?>"><span style="color: blue;"><?= ucfirst($item->type_name); ?></span></a></td>  
+                   <td><a href="<?= base_url('admin/item_card/'.$item->id) ?>"><span style="color: blue;"><?= ucfirst($item->type_name); ?></span></a></td>  
                   <td><?= ucfirst($item->model); ?></td>
                   <td><?= ucfirst($item->serial_number); ?></td>
                   <td><?= ucfirst($item->supplier); ?></td>
-                  <td><?= ucfirst($item->price); ?></td>
-                  <td><?= ucfirst($item->depreciation).' (%)'; ?></td>
+                  <td><?= number_format(floatval($item->price)); ?></td>  
+                  <td><?= $item->depreciation.' (%)'; ?></td>
                   <!-- <td><?= ucfirst($item->status); ?></td> -->
                   <td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td> 
                   <td>
@@ -92,12 +92,12 @@
                   <td><?= $item->name; ?></td>
                   <td><?= ucfirst($item->cat_name); ?></td>
                   <td><?= ucfirst($item->names); ?></td>
-                   <td><a href="<?= base_url('admin/item_card/'.$item->type_name); ?>"><span style="color: blue;"><?= ucfirst($item->type_name); ?></span></a></td>  
+                   <td><a href="<?= base_url('admin/item_card/'.$item->id); ?>"><span style="color: blue;"><?= ucfirst($item->type_name); ?></span></a></td>  
                   <td><?= ucfirst($item->model); ?></td>
                   <td><?= ucfirst($item->serial_number); ?></td>
                   <td><?= ucfirst($item->supplier); ?></td>
-                  <td><?= ucfirst($item->price); ?></td>
-                  <td><?= ucfirst($item->depreciation).' (%)'; ?></td>
+                  <td><? $item->price; ?></td>
+                  <td><?= $item->depreciation.' (%)'; ?></td>
                   <!-- <td><?= ucfirst($item->status); ?></td> -->
                   <td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
                   <td><?= ucfirst($item->created_at); ?></td> 

@@ -513,25 +513,15 @@ class Admin extends CI_Controller{
     // Add new asset into the database
     public function save_item(){
         $data = array(
-            'year' => $this->input->post('year'),
-            'project' => $this->input->post('project'),
-            'category' => $this->input->post('category'),
-            'item' => $this->input->post('item'),
+            'purchase_date' => $this->input->post('purchase_date'), 
+            'category' => $this->input->post('category'), 
             'description' => $this->input->post('description'),
-            'model' => $this->input->post('model'),
-            'asset_code' => $this->input->post('asset_code'),
-            'serial_number' => $this->input->post('serial_no'),
-            'custodian_location' => $this->input->post('custodian'),
-            'designation' => $this->input->post('designation'),
-            'department' => $this->input->post('department'),
             'quantity' => $this->input->post('quantity'),
-            'district_region' => $this->input->post('district'),
-            'status' => $this->input->post('status'),
-            'po_no' => $this->input->post('po_no'),
-            'contact' => $this->input->post('contact'),
-            'usefull' => $this->input->post('usefull'),
-            'purchase_date' => $this->input->post('purchase_date'),
-            'receive_date' => $this->input->post('receive_date'),
+            'location' => $this->input->post('location'),
+            'designation' => $this->input->post('designation'),
+            'user' => $this->input->post('user'),
+            'remarks' => $this->input->post('remarks'),
+            'giveaway' => $this->input->post('giveaway'), 
             'created_at' => date('Y-m-d')
         );
         if($this->admin_model->add_item($data)){
@@ -546,25 +536,15 @@ class Admin extends CI_Controller{
     public function update_item(){
         $id = $this->input->post('id');
         $data = array(
-            'year' => $this->input->post('year'),
-            'project' => $this->input->post('project'),
-            'category' => $this->input->post('category'),
-            'item' => $this->input->post('item'),
+            'purchase_date' => $this->input->post('purchase_date'), 
+            'category' => $this->input->post('category'), 
             'description' => $this->input->post('description'),
-            'model' => $this->input->post('model'),
-            'asset_code' => $this->input->post('asset_code'),
-            'serial_number' => $this->input->post('serial_no'),
-            'custodian_location' => $this->input->post('custodian'),
-            'designation' => $this->input->post('designation'),
-            'department' => $this->input->post('department'),
             'quantity' => $this->input->post('quantity'),
-            'district_region' => $this->input->post('district'),
-            'status' => $this->input->post('status'),
-            'po_no' => $this->input->post('po_no'),
-            'contact' => $this->input->post('contact'),
-            'usefull' => $this->input->post('usefull'),
-            'purchase_date' => $this->input->post('purchase_date'),
-            'receive_date' => $this->input->post('receive_date'),
+            'location' => $this->input->post('location'),
+            'designation' => $this->input->post('designation'),
+            'user' => $this->input->post('user'),
+            'remarks' => $this->input->post('remarks'),
+            'giveaway' => $this->input->post('giveaway'), 
             'created_at' => date('Y-m-d')
         );
         if($this->admin_model->update_item($id, $data)){
@@ -1047,6 +1027,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/item-detail';
         $data['edit'] = $this->admin_model->item_detail($id);
         $data['categories'] = $this->admin_model->get_item_categories();
+        $data['sub_categories'] = $this->admin_model->get_item_sub_category();    
         $data['supplier'] = $this->admin_model->get_item_supplier();
         $data['locations'] = $this->admin_model->get_item_location(); 
         $data['status'] = $this->admin_model->status_items(); 
@@ -1096,7 +1077,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/assign-item'; 
         $data['assign_to'] = $this->admin_model->assign_to();
         $data['assign_by'] = $this->admin_model->assign_by(); 
-        $data['get_item'] = $this->admin_model->get_item(); 
+        $data['get_item'] = $this->admin_model->get_item();  
         $data['get_model'] = $this->admin_model->get_model(); 
         $data['get_category'] = $this->admin_model->get_category(); 
         $data['locations'] = $this->admin_model->get_item_location(); 
@@ -1105,7 +1086,7 @@ class Admin extends CI_Controller{
         // assign_item_save into the database
         public function assign_item_save(){ 
         $item_id = $this->input->post('item_id'); 
-        $item_type = $this->input->post('item_type');
+        $item_type = $this->input->post('item_type'); 
         $assign = $this->input->post('employ');   
         if(!empty($assign)){
         $data = array(
@@ -1113,7 +1094,8 @@ class Admin extends CI_Controller{
             'item_id' => $this->input->post('item_id'),
             'assignd_by' => $this->input->post('assign_by'),
             'item_status' => $this->input->post('item_status'), 
-            'item_type' => $this->input->post('item_type'),
+            'item_type' => $this->input->post('item_id'), 
+            'item_type_id' => $this->input->post('item_type'), 
             'description' => $this->input->post('description'),  
             'quantity' => 1,  
             'status' => 1,  
@@ -1129,7 +1111,7 @@ class Admin extends CI_Controller{
             'return_back_date' => null,   
         );
         } 
-        if($this->admin_model->assign_item_save($data,$item,$invantory,$item_id)){
+        if($this->admin_model->assign_item_save($data,$item,$invantory,$item_id,$item_type)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Item was assignd successfully.');
             redirect('admin/item_register');
         }else{
@@ -1138,7 +1120,8 @@ class Admin extends CI_Controller{
         }
         }
         // assign_item_save into the database
-        public function return_item($id){   
+        public function return_item($item_id,$id){  
+            // echo $item_id;exit;
             // $id =  $this->uri->segment(3);
             $data = array(   
                 'status' => 0,  
@@ -1150,7 +1133,7 @@ class Admin extends CI_Controller{
              $item = array( 
                 'stat' => 1,   
             ); 
-            if($this->admin_model->return_item_save($data,$invantory,$item,$id)){
+            if($this->admin_model->return_item_save($data,$invantory,$item,$item_id,$id)){
                 $this->session->set_flashdata('success', '<strong>Success! </strong>Item was return back successfully.');
                 redirect('admin/item_register');
             }else{
@@ -1187,10 +1170,19 @@ class Admin extends CI_Controller{
     public function get_item_model($item_type){ 
         $get_item_model = $this->admin_model->get_item_model($item_type);
         echo json_encode($get_item_model);
+    } 
+    // Get item model against item type
+    public function get_item_serial_umber($id){
+   
+        $get_item_serial_umber = $this->admin_model->get_item_serial_umber($id);
+        echo json_encode($get_item_serial_umber);
     }   
-    
+
     //Item card 
-    public function item_card($name,$offset = null){ 
+    // public function item_card($id,$model,$offset = null){  
+    public function item_card($id,$offset = null){  
+        // $model_explode = explode('/', $model); 
+        // $model =  $model_explode[0]; 
         $limit = 15;
      if(!empty($offset)){
          $this->uri->segment(3);
@@ -1200,7 +1192,7 @@ class Admin extends CI_Controller{
      paginate($url, $rowscount, $limit);
      $data['title'] = 'Item Register | Admin & Procurement';
      $data['body'] = 'admin/item-card';
-     $data['items'] = $this->admin_model->get_item_card($limit, $offset,$name); 
+     $data['items'] = $this->admin_model->get_item_card($limit, $offset,$id); 
      $this->load->view('admin/commons/template', $data);
  }
 

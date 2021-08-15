@@ -139,10 +139,10 @@
       <div class="modal-body mx-3">
         <form action="<?=base_url('admin/add_supplier');?>" method="post" class="md-form">
           <div class="md-form mb-5">
-            <select name="location" id="" class="browser-default custom-select">
+            <select name="location" id="location" class="browser-default custom-select">
               <option value="" disabled selected>--Select location--</option>
               <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                <option value="<?php echo $loc->name ?>"><?php echo ucfirst($loc->name); ?></option>
+                <option value="<?php echo $loc->id ?>"><?php echo ucfirst($loc->name); ?></option>
               <?php endforeach; endif; ?>
             </select>
           </div>
@@ -283,6 +283,7 @@
 $(document).ready(function(){
   $('.supplier_info').click(function(){  
     var supplier_id = $(this).data('id');
+    alert(supplier_id)
     // AJAX request
     $.ajax({
     url: '<?= base_url('admin/edit_supplier/'); ?>' + supplier_id,

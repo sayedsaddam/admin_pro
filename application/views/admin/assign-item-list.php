@@ -64,7 +64,7 @@
                 <tr>
                   <td><?= 'CTC-0'.$item->item_ids; ?></td>
                   <td><?= $item->assignd_by; ?></td>
-                  <td><?= ucfirst($item->fullname); ?></td>
+                  <td><?= ucfirst($item->supplier); ?></td>
                   <td><?= ucfirst($item->sub_cat_name); ?></td>
                   <td><?= ucfirst($item->type_name); ?></td>
                    <td><?= ucfirst($item->description); ?></td>  
@@ -74,7 +74,7 @@
                   
                   <td>
                       <a href="<?= base_url('admin/assign_item/'.$item->item_ids); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
-                      <a href="<?= base_url('admin/return_item/'.$item->item_ids); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> 
+                      <a href="<?= base_url('admin/return_item/'.$item->item_type_id.'/'.$item->item_ids); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> 
                   </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
@@ -85,7 +85,7 @@
                 <tr>
                   <td><?= 'CTC-0'.$res->id; ?></td>
                   <td><?= $res->assignd_by; ?></td>
-                  <td><?= ucfirst($res->fullname); ?></td>
+                  <td><?= ucfirst($res->supplier); ?></td>
                   <td><?= ucfirst($res->sub_cat_name); ?></td>
                    <td><?= ucfirst($res->description); ?></td>  
                    <td><?= ucfirst($res->item_status); ?></td>  

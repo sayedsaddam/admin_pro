@@ -11,6 +11,8 @@
                     <h2 class="font-weight-light text-center mb-0">Islamabad, 44000</h2>
                     <h3 class="font-weight-lighter text-center mb-5">Item Record</h3>
                     <hr class="mb-5"> 
+                    <?php if(!empty($items)): ?>
+
                     <div class="row">
                     <div class="col-md-6">
                     <p>Location</p>
@@ -77,6 +79,7 @@
             <p>Price</p>
             </div>
             <div class="col-md-6">
+            <!-- <p>      <?= number_format($items[0]->price);?>    </p> -->
             <p>      <?= $items[0]->price;?>    </p>
             </div>
             </div>
@@ -96,6 +99,7 @@
             <div class="col-md-6"><p>
                      <?php if($items[0]->depreciation > 0){ 
                      $depreciation = ($items[0]->price*$items[0]->depreciation / 100) ; 
+                    //  echo number_format(floatval($items[0]->price - $depreciation));
                      echo $items[0]->price - $depreciation;
                     
                     }
@@ -103,6 +107,9 @@
             </p>
             </div>
             </div>
+            <?php else : echo "<span style='color: red;font-weight: bold'>This item still not assign to any emplye </span>";?>
+
+            <?php endif; ?>
 ____________________________________________________________________________________________________________________________________________________
                      
                     <?php if(!empty($items)): foreach($items as $item): ?>
@@ -120,7 +127,7 @@ ________________________________________________________________________________
                         $returned_date = ($returned_date) ? date('M d, Y', strtotime($item->return_back_date)) : ' Still In custody';
                     ?>
            <span>
-                    <?= ucfirst($item->fullname)?> <?php 
+                    <?= ucfirst($item->supplier)?> <?php 
                         if(!empty($item->assign_date))
                         {echo "  on  : <strong>".date('M d, Y', strtotime($item->assign_date)).'</strong>';} 
                         else{
@@ -136,13 +143,20 @@ ________________________________________________________________________________
                 </div>
                 </div>
 <?php } ?>
-                    <?php endforeach; endif; ?>
+
+
+                    <?php endforeach;  ?>
+     
+                    
                     <div class="row mt-3">
                     <a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>&nbsp
                       <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>&nbsp
                       <a href="<?=base_url('admin/delete_item/'.$item->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                  </div>
- 
+                  </div> 
+
+<?php 
+ endif;
+?>
                     <div class="row mb-1">
                         <div class="col-md-12 text-right">
                             <p>Printed by: <?= $this->session->userdata('fullname'); ?><br>************************</p>

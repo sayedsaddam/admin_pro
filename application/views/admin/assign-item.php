@@ -47,7 +47,7 @@
 
                <!-- Select Location -->
                <label>Select Location</label>
-            <select name="location" id="location" class="browser-default custom-select">
+            <select name="location" id="location" class="browser-default custom-select" required>
               <option value="" disabled selected>--select location--</option>
               <?php if(!empty($locations)): foreach($locations as $loc): ?>
                 <option value="<?= $loc->id; ?>" <?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>><?= $loc->name; ?></option>
@@ -56,7 +56,7 @@
 
                <!-- Select Category -->
                <label>Select Category</label>
-            <select name="category" id="category" class="browser-default custom-select">
+            <select name="category" id="category" class="browser-default custom-select" required>
               <option value="" disabled selected>--select category--</option>
               <?php if(!empty($get_category)): foreach($get_category as $cat): ?>
                 <option value="<?= $cat->id; ?>" <?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>><?= $cat->cat_name; ?></option>
@@ -111,10 +111,7 @@
                <label for="">Item Model</label>
              <select name="item_model" id="item_model" class="browser-default custom-select">
              <option value="" disabled selected>--select item model--</option>
-             </select> 
-
-     
-  
+             </select>  
              <!-- item description -->
              <label>Description</label>
                 <textarea name="description" id="description" cols="64" rows="2" class="form-control"></textarea>
@@ -146,6 +143,7 @@ $(document).ready(function(){
  // City change
  $('#location').on('change', function(){
    var location = $(this).val(); 
+ 
    // AJAX request
    $.ajax({
      url:'<?=base_url('admin/get_location_employ/')?>' + location,
@@ -159,7 +157,7 @@ $(document).ready(function(){
 
        // Add options
        $.each(response,function(index, data){
-        $('#employ').append('<option value="'+data['id']+'">'+data['fullname']+'</option>'); 
+        $('#employ').append('<option value="'+data['id']+'">'+data['name']+'</option>'); 
        });
      }
   });
@@ -170,7 +168,7 @@ $(document).ready(function(){
 $(document).ready(function(){
  // City change
  $('#item_id').on('change', function(){
-   var item_id = $(this).val();   
+   var item_id = $(this).val();  
    // AJAX request
    $.ajax({
      url:'<?=base_url('admin/get_item_type/')?>' + item_id,
@@ -195,7 +193,7 @@ $(document).ready(function(){
 $(document).ready(function(){
  // City change
  $('#item_type').on('change', function(){
-   var item_type = $(this).val();   
+   var item_type = $(this).val();  
    // AJAX request
    $.ajax({
      url:'<?=base_url('admin/get_item_model/')?>' + item_type,
@@ -204,22 +202,21 @@ $(document).ready(function(){
      dataType: 'json',
      success: function(response){
       console.log(response);
-       // Remove options 
+       // Remove options
        $('#item_model').find('option').not(':first').remove();
        // Add options
        $.each(response,function(index, data){
         if (data['quantity'] == '0') {
           var res = "OOPS! We are sorry your item "+response[0].type_name+" <span style='color: blue'> ( "+response[0].model+" )</span> quantity  <span style='color: red'> is not available </span>  select the another one";  
           $('#message').append(res); 
-             return true  
+             return true
         }
-        $('#item_model').append('<option value="'+data['id']+'">'+data['model']+'</option>');
+        $('#item_model').append('<option value="'+data['id']+data['model']+'">'+data['model']+'</option>');
        });
      }
   });
 });
-});
-
+}); 
 
 // get category
 $(document).ready(function(){
@@ -236,7 +233,6 @@ $(document).ready(function(){
       console.log(response);
        // Remove options 
        $('#item_id').find('option').not(':first').remove();
-
        // Add options
        $.each(response,function(index, data){
         $('#item_id').append('<option value="'+data['id']+'">'+data['name']+'</option>'); 

@@ -38,46 +38,26 @@
             <input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
             <div class="row">
               <div class="col-lg-6">
-                <label>Year</label>
-                <input type="text" name="year" class="form-control" placeholder="Year" value="<?php if(!empty($edit)){ echo $edit->year; } ?>">
-                <label>Project</label>
-                <input type="text" name="project" class="form-control" placeholder="Project" value="<?php if(!empty($edit)){ echo $edit->project; } ?>">
                 <label>Category</label>
-                <input type="text" name="category" class="form-control" placeholder="Category" value="<?php if(!empty($edit)){ echo $edit->category; } ?>">
-                <label>Item</label>
-                <input type="text" name="item" class="form-control" placeholder="Item" value="<?php if(!empty($edit)){ echo $edit->item; } ?>">
-                <label>Description</label>
-                <textarea name="description" class="form-control" placeholder="Desctiption..."><?php if(!empty($edit)){ echo $edit->description; } ?></textarea>
-                <label>Model</label>
-                <input type="text" name="model" class="form-control" placeholder="Model" value="<?php if(!empty($edit)){ echo $edit->model; } ?>">
-                <label>Asset Code</label>
-                <input type="text" name="asset_code" class="form-control" placeholder="Asset Code" value="<?php if(!empty($edit)){ echo $edit->asset_code; } ?>">
-                <label>P.O No.</label>
-                <input type="text" name="po_no" class="form-control" placeholder="P.O Number" value="<?php if(!empty($edit)){ echo $edit->po_no; } ?>">
-                <label>Contact</label>
-                <input type="text" name="contact" class="form-control" placeholder="Contact" value="<?php if(!empty($edit)){ echo $edit->contact; } ?>">
-                <label>Usefull Life(Years)</label>
-                <input type="text" name="usefull" class="form-control" placeholder="Usefull Life" value="<?php if(!empty($edit)){ echo $edit->usefull; } ?>">
-              </div>
-              <div class="col-lg-6">
-                <label>Serial Number</label>
-                <input type="text" name="serial_no" class="form-control" placeholder="Serial Number" value="<?php if(!empty($edit)){ echo $edit->serial_number; } ?>">
-                <label>Custodian</label>
-                <input type="text" name="custodian" class="form-control" placeholder="Custodian" value="<?php if(!empty($edit)){ echo $edit->custodian_location; } ?>">
-                <label>Designation</label>
-                <input type="text" name="designation" class="form-control" placeholder="Designation" value="<?php if(!empty($edit)){ echo $edit->designation; } ?>">
-                <label>Department</label>
-                <input type="text" name="department" class="form-control" placeholder="Department" value="<?php if(!empty($edit)){ echo $edit->department; } ?>">
+                <input type="text" name="category" class="form-control" placeholder="category" value="<?php if(!empty($edit)){ echo $edit->category; } ?>">
                 <label>Quantity</label>
-                <input type="text" name="quantity" class="form-control" placeholder="Quantity" value="<?php if(!empty($edit)){ echo $edit->quantity; } ?>">
-                <label>District/Region</label>
-                <input type="text" name="district" class="form-control" placeholder="District" value="<?php if(!empty($edit)){ echo $edit->district_region; } ?>">
-                <label>Status</label>
-                <textarea name="status" class="form-control" placeholder="Status..."><?php if(!empty($edit)){ echo $edit->status; } ?></textarea>
-                <label>Receiving Date</label>
-                <input type="<?php if(!empty($edit)){ echo 'text'; }else{ echo 'date'; } ?>" name="receive_date" class="form-control" placeholder="Receiving Date" value="<?php if(!empty($edit)){ echo $edit->receive_date; } ?>">
-                <label>Purchasing Date</label>
-                <input type="<?php if(!empty($edit)){ echo 'text'; }else{ echo 'date'; } ?>" name="purchase_date" class="form-control" placeholder="Purchasing Date" value="<?php if(!empty($edit)){ echo $edit->purchase_date; } ?>">
+                <input type="text" name="quantity" class="form-control" placeholder="quantity" value="<?php if(!empty($edit)){ echo $edit->quantity; } ?>">
+                <label>Purchase Date</label>
+                <input type="date" name="purchase_date" class="form-control" placeholder="purchase_date" value="<?php if(!empty($edit)){ echo $edit->purchase_date; } ?>">
+                <label>Location</label>
+                <input type="text" name="location" class="form-control" placeholder="Location" value="<?php if(!empty($edit)){ echo $edit->location; } ?>"> 
+                <label>Description</label>
+                <textarea name="Descri[tion" class="form-control" placeholder="Description..."><?php if(!empty($edit)){ echo $edit->description; } ?></textarea>
+              </div>
+              <div class="col-lg-6">  
+                <label>User</label>
+                <input type="text" name="user" class="form-control" placeholder="User" value="<?php if(!empty($edit)){ echo $edit->user; } ?>">
+                <label>Remarks</label>
+                <input type="text" name="remarks" class="form-control" placeholder="remarks" value="<?php if(!empty($edit)){ echo $edit->remarks; } ?>">
+                <label>GiveAway</label>
+                <input type="text" name="giveaway" class="form-control" placeholder="Give Away" value="<?php if(!empty($edit)){ echo $edit->giveaway; } ?>"> 
+                <label>Designation</label>
+                <input type="text" name="designation" class="form-control" placeholder="designation" value="<?php if(!empty($edit)){ echo $edit->designation; } ?>">
               </div>
             </div><br>
             <div class="row">
