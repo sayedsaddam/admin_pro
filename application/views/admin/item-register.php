@@ -64,7 +64,7 @@
             <tbody>
               <?php if(!empty($items)): foreach($items as $item): ?>
                 <tr>
-                  <td><?= 'CTC-0'.$item->id; ?></td>
+                  <td><a href="<?= base_url('admin/item_card/'.$item->id) ?>"><span style="color: blue;"><?= 'CTC-0'.$item->id; ?></span></a></td>
                   <td><?= $item->name; ?></td>
                   <td><?= ucfirst($item->cat_name); ?></td>
                   <td><?= ucfirst($item->names); ?></td>

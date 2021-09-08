@@ -937,7 +937,7 @@ class Admin extends CI_Controller{
     }
  
     //Item register 
-       public function item_register($offset = null){ 
+    public function item_register($offset = null){ 
         $limit = 15;
         if(!empty($offset)){
             $this->uri->segment(3);
@@ -948,6 +948,20 @@ class Admin extends CI_Controller{
         $data['title'] = 'Item Register | Admin & Procurement';
         $data['body'] = 'admin/item-register';
         $data['items'] = $this->admin_model->get_items($limit, $offset); 
+        $this->load->view('admin/commons/template', $data);
+    }
+    //Assign item 
+       public function assign_list($offset = null){ 
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'admin/item_register';
+        $rowscount = $this->admin_model->count_item();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Item Register | Admin & Procurement';
+        $data['body'] = 'admin/assign-list';
+        $data['items'] = $this->admin_model->assign_list($limit, $offset); 
         $this->load->view('admin/commons/template', $data);
     }
     // item register - add new item.
@@ -1193,6 +1207,7 @@ class Admin extends CI_Controller{
      $data['title'] = 'Item Register | Admin & Procurement';
      $data['body'] = 'admin/item-card';
      $data['items'] = $this->admin_model->get_item_card($limit, $offset,$id); 
+     $data['item'] = $this->admin_model->get_item_card_detail($limit, $offset,$id); 
      $this->load->view('admin/commons/template', $data);
  }
 

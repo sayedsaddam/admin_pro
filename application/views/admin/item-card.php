@@ -107,7 +107,105 @@
             </p>
             </div>
             </div>
-            <?php else : echo "<span style='color: red;font-weight: bold'>This item still not assign to any emplye </span>";?>
+            <?php else : ?> 
+
+                <div class="row">
+                    <div class="col-md-6">
+                    <p>Location</p>
+                    </div>
+                    <div class="col-md-6">
+                    <p><?=$item->name;?></p>
+                    </div>
+                    </div>
+
+                    <div class="row">
+                    <div class="col-md-6">
+                    <p>Category</p>
+                    </div>
+                    <div class="col-md-6">
+                    <p><?=$item->cat_name;?></p>
+                    </div>
+                    </div> 
+
+                    <div class="row">
+                    <div class="col-md-6">
+                    <p>Sub Category</p>
+                    </div>
+                    <div class="col-md-6">
+                    <p><?= ucfirst($item->names); ?></p>
+                    </div>
+                    </div>
+
+            <div class="row">
+            <div class="col-md-6">
+            <p>Type</p>
+            </div>
+            <div class="col-md-6">
+            <p>      <?=$item->type_name."(".$item->quantity.")";?>    </p>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+            <p>Imei Number</p>
+            </div>
+            <div class="col-md-6">
+            <p>      <?=ucfirst($item->serial_number);?>    </p>
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-6">
+            <p>Model</p>
+            </div>
+            <div class="col-md-6">
+            <p>     <?=$item->model;?>   </p>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+            <p>Purchase Date</p>
+            </div>
+            <div class="col-md-6">
+            <p>      <?= date('M d, Y', strtotime($item->purchasedate)); ?>     </p>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+            <p>Price</p>
+            </div>
+            <div class="col-md-6">
+            <!-- <p>      <?= number_format($item->price);?>    </p> -->
+            <p>      <?= $item->price;?>    </p>
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-6">
+            <p>Depreciation</p>
+            </div>
+            <div class="col-md-6">
+            <p>       <?php echo $item->depreciation . " (%)"; ?>   </p>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+            <p>Current Value</p>
+            </div>
+            <div class="col-md-6"><p>
+                     <?php  
+                     error_reporting(0);
+                     if($item->depreciation > 0){ 
+                     $depreciation = ($item->price*$item->depreciation / 100) ; 
+                    //  echo number_format(floatval($items[0]->price - $depreciation));
+                     echo $item->price - $depreciation;
+                    
+                    }
+                     ?>
+            </p>
+            </div>
+            </div>
+            <span style='color: red;font-weight: bold'>This item still not assign to any emplye </span> 
+                
 
             <?php endif; ?>
 ____________________________________________________________________________________________________________________________________________________

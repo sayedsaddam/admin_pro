@@ -205,10 +205,16 @@ $(document).ready(function(){
        // Remove options
        $('#item_model').find('option').not(':first').remove();
        // Add options
+       $('#message').html('');
        $.each(response,function(index, data){
         if (data['quantity'] == '0') {
           var res = "OOPS! We are sorry your item "+response[0].type_name+" <span style='color: blue'> ( "+response[0].model+" )</span> quantity  <span style='color: red'> is not available </span>  select the another one";  
-          $('#message').append(res); 
+          $('#message').append(res).show(); 
+             return true
+        }else if(data['quantity'] != '0'){
+           var res = '';  
+          $('#message').hide();
+        $('#item_model').append('<option value="'+data['id']+data['model']+'">'+data['model']+'</option>');
              return true
         }
         $('#item_model').append('<option value="'+data['id']+data['model']+'">'+data['model']+'</option>');

@@ -48,8 +48,8 @@
                 <th class="font-weight-bold">ID</th>
                 <th class="font-weight-bold">Assign By</th>
                 <th class="font-weight-bold">Assign To</th>
-                <th class="font-weight-bold">Item</th>
                 <th class="font-weight-bold">Item Type</th>
+                <!-- <th class="font-weight-bold">Item Type</th> -->
                 <!-- <th class="font-weight-bold">Model</th> -->
                 <th class="font-weight-bold">Description</th>
                 <th class="font-weight-bold">Item Status</th>
@@ -62,11 +62,13 @@
             <tbody id="myTable">
               <?php if(!empty($items)): foreach($items as $item): ?>
                 <tr>
-                  <td><?= 'CTC-0'.$item->item_ids; ?></td>
+                  <td><a href="<?= base_url('admin/item_card/'.$item->item_type_id); ?>"><span style="color: blue;"><?= 'CTC-0'.$item->item_ids; ?></span></a></td>
                   <td><?= $item->assignd_by; ?></td>
                   <td><?= ucfirst($item->supplier); ?></td>
-                  <td><?= ucfirst($item->sub_cat_name); ?></td>
-                  <td><?= ucfirst($item->type_name); ?></td>
+                  <td><a href="<?= base_url('admin/item_card/'.$item->item_type_id); ?>"><span style="color: blue;"><?= ucfirst($item->type_name); ?></span></a></td>  
+
+                  <!-- <td><?= ucfirst($item->sub_cat_name); ?></td> -->
+                  <!-- <td><?= ucfirst($item->type_name); ?></td> -->
                    <td><?= ucfirst($item->description); ?></td>  
                    <td><?= ucfirst($item->item_status); ?></td>  
                   <td><?php if($item->status == 1){ echo "<span class='btn btn-danger btn btn-sm'>Assignd</span>";}else{echo "<span class='btn btn-success btn btn-sm'>Available</span>";} ?></td>
@@ -86,9 +88,10 @@
                   <td><?= 'CTC-0'.$res->id; ?></td>
                   <td><?= $res->assignd_by; ?></td>
                   <td><?= ucfirst($res->supplier); ?></td>
-                  <td><?= ucfirst($res->sub_cat_name); ?></td>
+                  <td><a href="<?= base_url('admin/item_card/'.$item->item_type_id); ?>"><span style="color: blue;"><?= ucfirst($item->type_name); ?></span></a></td>  
+                  <!-- <td><?= ucfirst($res->sub_cat_name); ?></td> -->
                    <td><?= ucfirst($res->description); ?></td>  
-                   <td><?= ucfirst($res->item_status); ?></td>  
+                   <td><?= ucfirst($res->item_status); ?></td> 
                   <td><?php if($res->status == 1){ echo "<span class='btn btn-success btn btn-sm'>Assignd</span>";}else{echo "<span class='btn btn-danger btn btn-sm'>Available</span>";} ?></td>
                   <td><?= ucfirst($res->created_at); ?></td>  
                   <td>

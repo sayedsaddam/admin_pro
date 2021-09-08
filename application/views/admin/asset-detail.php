@@ -62,7 +62,7 @@
             </div><br>
             <div class="row">
               <div class="col-lg-12 text-right">
-                <a href="javascript:history.go(-1);" class="btn btn-default">Back</a>
+                <a href="javascript:history.go(-1);" class="btn btn-danger">Back</a>
                 <?php if(empty($edit)): ?>
                   <button type="submit" class="btn btn-default">Add Item</button>
                 <?php else: ?>

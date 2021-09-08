@@ -65,7 +65,7 @@
                   <td><?= $sup->name; ?></td>
                   <td><?= ucfirst($sup->email); ?></td>
                   <td><?= ucfirst($sup->phone); ?></td>
-                  <td><?= ucfirst($sup->location); ?></td>
+                  <td><?= ucfirst($sup->name); ?></td>
                   <td><?= ucfirst($sup->ntn_number); ?></td>
                   <td><?php if(!empty($sup->rating)){ echo '<span style="color:  orange;font-size: 18px;font-weight: bold">'.ucfirst($sup->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>';}else{echo 'none';} ?></td>
                   <td><?= ucfirst($sup->category); ?></td>
@@ -283,7 +283,7 @@
 $(document).ready(function(){
   $('.supplier_info').click(function(){  
     var supplier_id = $(this).data('id');
-    alert(supplier_id)
+    // alert(supplier_id)
     // AJAX request
     $.ajax({
     url: '<?= base_url('admin/edit_supplier/'); ?>' + supplier_id,

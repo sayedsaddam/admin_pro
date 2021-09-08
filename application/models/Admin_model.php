@@ -172,10 +172,11 @@ class Admin_model extends CI_Model{
     }
     // Get suppliers
     public function get_suppliers($limit, $offset){
-        $this->db->select('id, name, category, email, phone, location, region,ntn_number,rating, address, status, created_at');
+        $this->db->select('suppliers.id, suppliers.name, suppliers.category, suppliers.email, suppliers.phone, suppliers.location, suppliers.region,suppliers.ntn_number,suppliers.rating, suppliers.address, suppliers.status, suppliers.created_at,locations.id,locations.name');
         $this->db->from('suppliers');
+        $this->db->join('locations', 'suppliers.location = locations.id', 'left');
         $this->db->where('status', 1);
-        $this->db->order_by('id', 'DESC');
+        $this->db->order_by('suppliers.id', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -938,6 +939,35 @@ class Admin_model extends CI_Model{
         $this->db->limit($limit, $offset);
         return $this->db->get()->result(); 
     } 
+    // Assign item list.
+    public function assign_list($limit, $offset){ 
+        $this->db->select('items.id, 
+                           items.location,
+                           items.category,
+                           items.stat, 
+                           items.sub_category,
+                           items.type_name, 
+                           items.model, 
+                           items.serial_number, 
+                           items.supplier,
+                           items.price, 
+                           items.depreciation,
+                           items.purchasedate, 
+                           items.created_at,
+                           sub_categories.name as names, 
+                           categories.cat_name, 
+                           locations.name,  
+                           item_assignment.item_type_id');
+        $this->db->from('items');
+        $this->db->join('categories', 'items.category = categories.id', 'left');
+        $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
+        $this->db->join('locations', 'items.location = locations.id', 'left');
+        $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
+        $this->db->where('items.category = item_assignment.item_id');
+        $this->db->order_by('id', 'ASC');
+        $this->db->limit($limit, $offset);
+        return $this->db->get()->result(); 
+    } 
     // Item - Add new item
     public function item_save($data,$model){
        $this->db->insert('items', $data);
@@ -1211,6 +1241,7 @@ $quantity = array(
                            item_assignment.item_type_id,
                            item_assignment.created_at,
                            items.id,
+                           items.serial_number,
                            items.type_name, 
                            suppliers.name as supplier,
                            suppliers.location,
@@ -1224,7 +1255,7 @@ $quantity = array(
         $this->db->join('items', 'item_assignment.item_type = items.sub_category', 'left');
         $this->db->join('inventory', 'item_assignment.item_id = inventory.name', 'left');
         $this->db->join('sub_categories','item_assignment.item_id = sub_categories.id', 'left'); 
-        $this->db->group_by('item_ids'); 
+        $this->db->group_by('item_assignment.item_id'); 
         // $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -1296,6 +1327,38 @@ $quantity = array(
     $this->db->order_by('id', 'ASC');
     $this->db->limit($limit, $offset);
     return $this->db->get()->result(); 
+}
+ // Get available items detail .
+ public function get_item_card_detail($limit, $offset,$id){
+    $this->db->select('items.id, 
+                       items.location, 
+                       items.stat, 
+                       items.quantity, 
+                       items.category, 
+                       items.sub_category,
+                       items.type_name, 
+                       items.model, 
+                       items.serial_number, 
+                       items.supplier,
+                       items.price, 
+                       items.depreciation,
+                       items.purchasedate,
+                       items.created_at, 
+                       locations.id as ids,
+                       locations.name,
+                       categories.id as cat_id, 
+                       categories.cat_name, 
+                       sub_categories.name as names, 
+                       sub_categories.id as sub_ids, 
+                       ');
+    $this->db->from('items'); 
+    $this->db->join('locations', 'items.location = locations.id', 'left');
+    $this->db->join('categories', 'items.category = categories.id', 'left'); 
+    $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
+    $this->db->where('items.id', $id);
+    $this->db->order_by('id', 'ASC');
+    $this->db->limit($limit, $offset);
+    return $this->db->get()->row(); 
 }
     // Item register - Delete an Item
     public function delete_item($id){

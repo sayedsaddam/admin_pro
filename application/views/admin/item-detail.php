@@ -98,10 +98,8 @@
                   <option value="used">used</option>
                   <option value="refurbished">refurbished</option>
                 </select> -->
-
-                 
             <select name="status" id="status" class="browser-default custom-select">
-              <option value="" disabled selected>--select status--</option>
+             <option value="" disabled selected>--select status--</option>
              <option value="new">new</option>
              <option value="used">used</option>
              <option value="refurbished">refurbished</option>
