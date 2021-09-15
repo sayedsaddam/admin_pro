@@ -209,39 +209,66 @@
 
             <?php endif; ?>
 ____________________________________________________________________________________________________________________________________________________
-                     <table>
-                    <?php if(!empty($items)): foreach($items as $item): ?>
+                <table class="table">
+                <tr>
+                <thead> 
+                <th>Serial : </th>
+                <th>Assigned to </th>
+                <th>Assigned Date </th>
+                <th>Return Back On</th>
+                <th>Returning Reason</th>
+                </thead>
+                </tr>
                         <tr>
-                        <!-- below some php code writen for available data which is not assign to someone -->
+                        <?php $id = 1; ?>
+                <?php if(!empty($items)): foreach($items as $item): ?>
+                   
+                <tr>
+                <!-- below some php code writen for available data which is not assign to someone -->
                         <?php if(empty($item->assign_date)){
                         ?><div class="col-sm-12 text-center"> <strong>Availabe Still Not Assignd</strong> </div>
                         <?php 
-                        }
+                }
+                else{
+                ?>     
+                        <?php $returned_date = $item->return_back_date;
+                        $returned_date = ($returned_date) ? date('M d, Y', strtotime($item->return_back_date)) : ' Still In custody';
+                ?> 
+                <span>
+                    <td>
+                        <?php echo $id++; ?>
+                    </td>
+                        <td>
+                        <span style="color: brown;font-weight: bold"> <?= ucfirst($item->employ)?></span> </td>  
+                        <td>
+                <?php  
+                        if(!empty($item->assign_date))
+                        {echo "<strong>".date('M d, Y', strtotime($item->assign_date)).'</strong>';} 
                         else{
-                    ?>        
-           
-            <label> </label>
-                    <td>Assigned to
-                                <?php $returned_date = $item->return_back_date;
-                                $returned_date = ($returned_date) ? date('M d, Y', strtotime($item->return_back_date)) : ' Still In custody';
-                                ?>
-                                <span>
-                               <span style="color: brown;font-weight: bold"> <?= ucfirst($item->employ)?></span> <?php 
-                                if(!empty($item->assign_date))
-                                {echo "  on  : <strong>".date('M d, Y', strtotime($item->assign_date)).'</strong>';} 
-                                else{
-                                echo "<span'> - - - - - </span>";}
-                                ?>
-                                <?php
-                                if(!empty($item->return_back_date))
-                                {echo " Return back on  : <strong>".date('M d, Y', strtotime($item->return_back_date)).'</strong>'. ' --> Reason of Returning '.$item->returning_description;} 
-                                else{
-                                echo "<span style='font-weight:bold'> Still In custody </span>";}
-                    ?>
-                    </span>
-                
-<?php } ?>
-                        </tr>
+                        echo "<span'> - - - - - </span>";}
+                ?>
+                </td>
+                <td>
+                <?php
+                        if(!empty($item->return_back_date))
+                        {echo "<strong>".date('M d, Y', strtotime($item->return_back_date));} 
+                        else{
+                        echo "<span style='font-weight:bold'> Still In custody </span>";}
+                ?>
+                </td>
+
+                <td>
+                <?php
+                        if(!empty($item->return_back_date))
+                        {echo "<strong>". 'Reason of Returning '.$item->returning_description;} 
+                        else{
+                        echo "<span style='font-weight:bold'> Still  Assignd </span>";}
+                ?>
+                </td> 
+                </strong> 
+                </span> 
+                <?php } ?>
+                </tr>
 
 
                     <?php endforeach;  ?>

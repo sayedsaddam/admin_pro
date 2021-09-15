@@ -83,8 +83,9 @@
                   <td>
                       <a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                       <!-- <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
-                      
+                      <?php if($item->quantity >= 1): ?> 
                       <a href="<?= base_url('admin/assign_item/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
+                      <?php endif; ?> 
                       <?php if($item->status == 1): ?>  
                       <a data-id="<?= $item->item_ids.'/'.$item->id; ?>" class="return_item"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                       <?php endif; ?> 
