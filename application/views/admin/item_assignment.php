@@ -36,14 +36,11 @@
             </div>
           <?php endif; ?>
           <form action="<?php if(empty($edit)){ echo base_url('admin/assign_item_save'); }else{ echo base_url('admin/modify_item'); } ?>" method="post">
-            <input type="hidden" name="item_id" value="<?php echo $this->uri->segment(3); ?>">
+            <input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
             <div class="row">
             <div class="col-lg-2"> 
               <label for="">Detail message <span class="fa fa-arrow-down"></span></label> 
 <p id="message" style="font-weight: bold"></p>
-
-<p id="employ_data"> </p>
-
             </div>
               <div class="col-lg-5">  
                 
@@ -56,6 +53,32 @@
                 <option value="<?= $loc->id; ?>" <?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>><?= $loc->name; ?></option>
               <?php endforeach; endif; ?>
             </select>
+
+               <!-- Select Category -->
+               <label>Select Category</label>
+            <select name="category" id="category" class="browser-default custom-select" required>
+              <option value="" disabled selected>--select category--</option>
+              <?php if(!empty($get_category)): foreach($get_category as $cat): ?>
+                <option value="<?= $cat->id; ?>" <?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>><?= $cat->cat_name; ?></option>
+              <?php endforeach; endif; ?>
+            </select>
+            
+
+            
+          <!-- <label>Item status</label> -->                 
+             <label for="">Item Type</label>
+             <select name="item_type" id="item_type" class="browser-default custom-select">
+             <option value="" disabled selected>--select item type--</option>
+             </select>
+
+             <!-- <label>Item status</label> -->                 
+             <label for="">Item Status</label>
+                <select name="item_status" id="item_status" class="browser-default custom-select">
+                  <option value="" disabled selected>--Item Status--</option>  
+                  <option value="new">New</option>
+                  <option value="used">Used</option>
+                  <option value="Reforbished">Reforbished</option> 
+                </select>  
          
               </div>
               <div class="col-lg-5">
@@ -67,15 +90,35 @@
                 <select name="employ" id="employ" class="browser-default custom-select">
               <option value="" disabled selected>--select employee--</option>
             </select> 
+
+
+            
             <!-- <label for="">Select Item</label>
             <select name="item_id" id="item_id" class="browser-default custom-select">
               <option value="" disabled selected>--select Item--</option>
               <?php if(!empty($get_item)): foreach($get_item as $cat): ?>
                 <option value="<?= $cat->id; ?>" <?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->name; ?></option>
               <?php endforeach; endif; ?>
-            </select>  -->   
-             <!-- item description --> 
+            </select>  -->
+            
+
+            <lsbel>Select Item</label>
+                <select name="item_id" id="item_id" class="browser-default custom-select item_ids">
+              <option value="" disabled selected>--select item--</option>
+            </select> 
+
+               <!-- ------ item model get on base of item type ------ -->
+               <label for="">Item Model</label>
+             <select name="item_model" id="item_model" class="browser-default custom-select">
+             <option value="" disabled selected>--select item model--</option>
+             </select>  
+             <!-- item description -->
+             <label>Description</label>
+                <textarea name="description" id="description" cols="64" rows="2" class="form-control"></textarea>
+             
+                 
           </div>
+ 
             </div><br>
             <div class="row">
               <div class="col-lg-12 text-right">
@@ -96,9 +139,11 @@
 
 <script>
 $(document).ready(function(){
+ 
  // City change
  $('#location').on('change', function(){
    var location = $(this).val(); 
+ 
    // AJAX request
    $.ajax({
      url:'<?=base_url('admin/get_location_employ/')?>' + location,
@@ -118,35 +163,6 @@ $(document).ready(function(){
   });
 });
 });
-// get employ which have some items 
-$(document).ready(function(){
- // City change
- $('#employ').on('change', function(){
-   var employ = $(this).val();  
-   // AJAX request
-   $.ajax({
-     url:'<?=base_url('admin/get_employ_data/')?>' + employ,
-     method: 'post',
-     data: {employ: employ},
-     dataType: 'json',
-     success: function(response){
-      console.log("data is "+response);
-       // Remove options
-       $('#employ_data').find('option').not(':first').remove();
-       // Add options
-       $('#employ_data').html('');
-       $.each(response,function(index, data){
-        if (data['assignd_to'] != null) {
-          var res = " <span style='color: blue'> ( "+response[0].name+" ) is already have  </span> Item  <span style='color: red'>"+response[0].sub_cat;  
-          $('#employ_data').append(res).show(); 
-             return true
-        } 
-        $('#employ_data').append('<option value="'+data['id']+data['model']+'">'+data['model']+'</option>');
-       });
-     }
-  });
-});
-}); 
 
 // item type auto load against item
 $(document).ready(function(){

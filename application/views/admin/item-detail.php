@@ -4,7 +4,7 @@
 * Author: Saddam
 */
 ?>
-<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
+<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light" style="height: 190px">
   <div class="container-fluid">
     <div class="row">
      <div class="col-lg-1 col-md-1">
@@ -55,6 +55,9 @@
                 <option value="<?= $cat->id; ?>" <?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->name; ?></option>
               <?php endforeach; endif; ?>
             </select> 
+
+
+            
             </select>
                 <label>Quantity</label>
               <input type="text" name="quantity" class="form-control" required placeholder="Quantity" value="<?php if(!empty($edit)){ echo $edit->quantity; }else{ echo '1'; } ?>" readonly>
@@ -69,8 +72,10 @@
             </select> 
                 <label>Depreciation %</label>
                 <select name="depreciation" id="depreciation" class="browser-default custom-select">
-                 <option value="">--depreciation--</option>
-                 
+                 <option value="">--depreciation--</option> 
+              <?php if(!empty($depreciation)): foreach($depreciation as $dep): ?>
+                <option value="<?= $dep->depreciation; ?>" <?php if(!empty($edit) && $edit->id == $dep->id){ echo 'selected'; } ?>><?= $dep->depreciation; ?> %</option>
+              <?php endforeach; endif; ?>
                  <option value="5">5%</option>
                  <option value="10">10%</option>
                  <option value="15">15%</option>
@@ -80,13 +85,20 @@
               </div>
               <div class="col-lg-6">  
             <select name="category" id="category" class="browser-default custom-select">
-              <option value="" disabled selected>--select category--</option>
+              <option value="" disabled>--select category--</option>
               <?php if(!empty($categories)): foreach($categories as $cat): ?>
                 <option value="<?= $cat->id; ?>" <?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->cat_name; ?></option>
               <?php endforeach; endif; ?>
             </select>
-                <label>Type Name</label>  
+                <!-- <label>Type Name</label>  
                 <input type="text" name="type_name" class="form-control" required placeholder="plz enter type...">
+                 -->                 
+             <label for="">Item Type <small>(optional)</small></label>
+             <select name="item_type" id="item_type" class="browser-default custom-select">
+             <option value="" disabled selected>--select item type--</option>
+             </select>
+                
+                
                 <label>Serial Number</label>
                 <input type="text" name="serial_number" class="form-control" placeholder="serial number" value="<?php if(!empty($edit)){ echo $edit->serial_number; } ?>">
                 <label>Price</label>
@@ -100,6 +112,9 @@
                 </select> -->
             <select name="status" id="status" class="browser-default custom-select">
              <option value="" disabled selected>--select status--</option>
+              <?php if(!empty($status)): foreach($status as $stat): ?>
+                <option value="<?= $stat->id; ?>" <?php if(!empty($edit) && $edit->id == $stat->id){ echo 'selected'; } ?>><?= $stat->status; ?></option>
+              <?php endforeach; endif; ?>  
              <option value="new">new</option>
              <option value="used">used</option>
              <option value="refurbished">refurbished</option>
@@ -150,4 +165,33 @@ $(document).ready(function(){
   });
 });
 });
+
+
+
+// item type auto load against item
+$(document).ready(function(){
+ // City change
+ $('#item_name').on('change', function(){
+   var item_id = $(this).val();   
+   // AJAX request
+   $.ajax({
+     url:'<?=base_url('admin/get_item_type/')?>' + item_id,
+     method: 'post',
+     data: {item_id: item_id},
+     dataType: 'json',
+     success: function(response){
+      console.log(response[0].quantity); 
+       // Remove options 
+       $('#item_type').find('option').not(':first').remove();
+       // Add options
+       $.each(response,function(index, data){ 
+        $('#item_type').append('<option value="'+data['id']+'">'+data['type_name']+' ('+data['quantity']+')'+'</option>'); 
+       });
+     }
+  });
+});
+});
+
+
+
 </script>

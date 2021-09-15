@@ -26,15 +26,18 @@
         </div>
     <?php endif; ?>
     <div class="row mb-4">
-        <div class="col-lg-6 col-md-6">
+        <div class="col-lg-4 col-md-4">
             <form action="<?= base_url('admin/search_item'); ?>" method="get" class="md-form form-inline">
-                <input type="text" name="search" id="" class="form-control md-form col-5">
+                <input type="text" name="search" id="myInput" class="form-control md-form col-5">
                 <label for="">Search Query</label>
                 <input type="submit" value="go &raquo;" class="btn btn-outline-primary rounded-pill">
             </form>
         </div>
-        <div class="col-lg-6 col-md-6 text-right">
-            <a href="<?= base_url('admin/add_item'); ?>" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</a>
+        <div class="col-lg-8 col-md-8 text-right">
+        <a href="<?= base_url('admin/item_register'); ?>" data-target="#item_list" class="btn btn-outline-primary"><i class="fa fa-plus"></i> All Item List</a>
+        <a href="<?= base_url('admin/available_item_list'); ?>" data-target="#available_lists" class="btn btn-outline-success"><i class="fa fa-plus"></i> Available List</a>
+        <a href="<?= base_url('admin/get_assign_item'); ?>" data-target="#assign_list" class="btn btn-outline-danger"><i class="fa fa-sub"></i> Assign List</a>
+        <a href="<?= base_url('admin/add_item'); ?>" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</a>
             <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
           </div>
     </div>
@@ -44,7 +47,7 @@
           <caption><?php if(empty($results)){ echo 'List of Assets'; }else{ echo 'Search Results'; } ?></caption>
           <thead>
             <tr>
-                <th class="font-weight-bold">ID</th>
+                <th class="font-weight-bold">ID </th>
                 <th class="font-weight-bold">Location</th>
                 <th class="font-weight-bold">Category</th>
                 <th class="font-weight-bold">Sub Category</th>
@@ -55,13 +58,13 @@
                 <th class="font-weight-bold">Supplier</th>
                 <th class="font-weight-bold">Price</th>
                 <th class="font-weight-bold">Depreciation %</th>
-                <!-- <th class="font-weight-bold">Assignd</th> -->
+                <th class="font-weight-bold">Status</th>
                 <th class="font-weight-bold">Purchase Date</th> 
                 <th class="font-weight-bold">Action</th>
             </tr>
           </thead>
           <?php if(empty($results)): ?>
-            <tbody>
+            <tbody id="myTable">
               <?php if(!empty($items)): foreach($items as $item): ?>
                 <tr>
                   <td><a href="<?= base_url('admin/item_card/'.$item->id) ?>"><span style="color: blue;"><?= 'CTC-0'.$item->id; ?></span></a></td>
@@ -74,12 +77,20 @@
                   <td><?= ucfirst($item->supplier); ?></td>
                   <td><?= number_format(floatval($item->price)); ?></td>  
                   <td><?= $item->depreciation.' (%)'; ?></td>
-                  <!-- <td><?= ucfirst($item->status); ?></td> -->
+                  
+                  <td><?= $status = $item->quantity > 0 ? '<span class="badge badge-success">Available</span>' : '<span class="badge badge-warning">Assigned</span>'; ?></td>
                   <td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td> 
                   <td>
                       <a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                      <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
-                      <a href="<?=base_url('admin/delete_item/'.$item->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                      <!-- <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
+                      
+                      <a href="<?= base_url('admin/assign_item/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
+                      <?php if($item->status == 1): ?>  
+                      <a data-id="<?= $item->item_ids.'/'.$item->id; ?>" class="return_item"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                      <?php endif; ?> 
+                    <td>
+
+                      
                   </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
@@ -88,7 +99,7 @@
             <tbody>
               <?php if(!empty($results)): foreach($results as $item): ?>
                 <tr>
-                  <td><?= 'CTC-0'.$item->id; ?></td>
+                  <td><a href="<?= base_url('admin/item_card/'.$item->id) ?>"><span style="color: blue;"><?= 'CTC-0'.$item->id; ?></a></td>
                   <td><?= $item->name; ?></td>
                   <td><?= ucfirst($item->cat_name); ?></td>
                   <td><?= ucfirst($item->names); ?></td>
@@ -97,15 +108,19 @@
                   <td><?= ucfirst($item->serial_number); ?></td>
                   <td><?= ucfirst($item->supplier); ?></td>
                   <td><? $item->price; ?></td>
-                  <td><?= $item->depreciation.' (%)'; ?></td>
-                  <!-- <td><?= ucfirst($item->status); ?></td> -->
+                  <td><?= $item->depreciation.' (%)'; ?></td> 
+                  <?php if(!empty($item->quantity)) { ?>
+                  <td><?= $status = $item->quantity > 0 ? '<span class="badge badge-success">Available</span>' : '<span class="badge badge-warning">Assigned</span>'; ?></td>
+                  <?php } ?>
                   <td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
                   <td><?= ucfirst($item->created_at); ?></td> 
                   <td>
                       <a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                       <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
-                      <a href="<?=base_url('admin/delete_item/'.$item->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                  </td>
+                      <a href="<?=base_url('admin/delete_item/'.$item->id);?>" onclick="javascript:return confirm('<input type='text' name='name'>Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                      <a data-id="<?= $item->item_ids; ?>" class="return_item"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                  
+                    </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
             </tbody>
@@ -119,3 +134,68 @@
       </div>
     </div>
 </div>
+
+ <!-- Modal to edit location -->
+<div class="modal fade" id="item_return" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 font-weight-bold">Return Item</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <form action="<?= base_url('admin/return_item'); ?>" method="post">
+            <input type="hidden" name="id" id="item_id" value="">
+            <div class="md-form mb-5">
+              <select name="remarks"  class="form-control validate">
+                <option value="damage">Damage</option>
+                <option value="disabled">Disabled</option>
+              </select>
+                
+                </div>
+                <div class="md-form mb-5">
+                  <textarea name="description" id="description" cols="30" rows="3" class="form-control"></textarea>
+                <!-- <input type="text" name="description" id="description" class="form-control validate"> -->
+                <label data-error="wrong" data-success="right" for="orangeForm-name">Description</label>
+                </div>
+                
+                <div class="md-form">
+                    <button type="submit" class="btn btn-deep-purple">Save Changes</button>
+                    <button type="reset" class="btn btn-orange">Reset</button>
+                </div>
+            </div>
+        </form>
+      <div class="modal-footer d-flex justify-content-left">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+$(document).ready(function(){
+  $('.return_item').click(function(){  
+    var item_id = $(this).data('id');  
+    // AJAX request
+    
+         $('#item_id').val(item_id); 
+        $('#item_return').modal('show'); 
+     
+  });
+});
+
+ 
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+}); 
+</script>

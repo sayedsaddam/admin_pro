@@ -209,8 +209,9 @@
 
             <?php endif; ?>
 ____________________________________________________________________________________________________________________________________________________
-                     
+                     <table>
                     <?php if(!empty($items)): foreach($items as $item): ?>
+                        <tr>
                         <!-- below some php code writen for available data which is not assign to someone -->
                         <?php if(empty($item->assign_date)){
                         ?><div class="col-sm-12 text-center"> <strong>Availabe Still Not Assignd</strong> </div>
@@ -218,47 +219,47 @@ ________________________________________________________________________________
                         }
                         else{
                     ?>        
-            <div class="row">
-            <div class="col-sm-12 text-center">
-            <label>Assigned to </label>
-                    <?php $returned_date = $item->return_back_date;
-                        $returned_date = ($returned_date) ? date('M d, Y', strtotime($item->return_back_date)) : ' Still In custody';
+           
+            <label> </label>
+                    <td>Assigned to
+                                <?php $returned_date = $item->return_back_date;
+                                $returned_date = ($returned_date) ? date('M d, Y', strtotime($item->return_back_date)) : ' Still In custody';
+                                ?>
+                                <span>
+                               <span style="color: brown;font-weight: bold"> <?= ucfirst($item->employ)?></span> <?php 
+                                if(!empty($item->assign_date))
+                                {echo "  on  : <strong>".date('M d, Y', strtotime($item->assign_date)).'</strong>';} 
+                                else{
+                                echo "<span'> - - - - - </span>";}
+                                ?>
+                                <?php
+                                if(!empty($item->return_back_date))
+                                {echo " Return back on  : <strong>".date('M d, Y', strtotime($item->return_back_date)).'</strong>'. ' --> Reason of Returning '.$item->returning_description;} 
+                                else{
+                                echo "<span style='font-weight:bold'> Still In custody </span>";}
                     ?>
-           <span>
-                    <?= ucfirst($item->supplier)?> <?php 
-                        if(!empty($item->assign_date))
-                        {echo "  on  : <strong>".date('M d, Y', strtotime($item->assign_date)).'</strong>';} 
-                        else{
-                        echo "<span'> - - - - - </span>";}
-                    ?>
-                    <?php
-                        if(!empty($item->return_back_date))
-                        {echo " Return back on  : <strong>".date('M d, Y', strtotime($item->return_back_date)).'</strong>';} 
-                        else{
-                        echo "<span style='font-weight:bold'> Still In custody </span>";}
-                    ?>
-                </span>
-                </div>
-                </div>
+                    </span>
+                
 <?php } ?>
+                        </tr>
 
 
                     <?php endforeach;  ?>
-     
+                        </table>     
                     
                     <div class="row mt-3">
-                    <a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>&nbsp
+                    <!-- <a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>&nbsp
                       <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>&nbsp
-                      <a href="<?=base_url('admin/delete_item/'.$item->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                      <a href="<?=base_url('admin/delete_item/'.$item->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> -->
                   </div> 
 
 <?php 
  endif;
 ?>
                     <div class="row mb-1">
-                        <div class="col-md-12 text-right">
+                        <!-- <div class="col-md-12 text-right">
                             <p>Printed by: <?= $this->session->userdata('fullname'); ?><br>************************</p>
-                        </div>
+                        </div> -->
                     </div>
                     <br><br><br><br><br>
                     <!-- Button -->

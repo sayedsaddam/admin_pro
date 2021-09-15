@@ -43,6 +43,9 @@
             <a href="<?= base_url('admin/suppliers'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-truck-moving"></i></a> Suppliers
           </li>
           <li class="list-group-item">
+            <a href="<?= base_url('admin/employ'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-user"></i></a> Employ
+          </li>
+          <li class="list-group-item">
             <a href="<?= base_url('admin/categories'); ?>" class="text-white btn-floating btn-tw btn-sm"><i class="fas fa-sign"></i></a>Categories
           </li>
           <li class="list-group-item">
