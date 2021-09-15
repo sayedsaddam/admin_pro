@@ -930,6 +930,7 @@ class Admin_model extends CI_Model{
                            sub_categories.name as names, 
                            categories.cat_name, 
                            locations.name,
+                           item_assignment.id as item_ids,
                            item_assignment.item_id,
                            item_assignment.status ');
         $this->db->from('items');
@@ -959,6 +960,7 @@ class Admin_model extends CI_Model{
                                items.depreciation,
                                items.purchasedate, 
                                items.created_at,
+                               item_assignment.id as item_ids,
                                item_assignment.item_id,
                                item_assignment.status,
                                sub_categories.name as names, 
@@ -969,12 +971,12 @@ class Admin_model extends CI_Model{
             $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
             $this->db->join('locations', 'items.location = locations.id', 'left');
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
-             $this->db->where('items.quantity >=', 1);
+            $this->db->where('items.quantity >=', 1);
             $this->db->group_by('items.id'); 
             $this->db->order_by('id', 'ASC');
             $this->db->limit($limit, $offset);
-            return $this->db->get()->result(); 
-        } 
+            return $this->db->get()->result();
+        }
 
            // Get Assign items.
            public function assign_item_list($limit, $offset){

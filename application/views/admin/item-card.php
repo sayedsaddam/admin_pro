@@ -209,7 +209,7 @@
 
             <?php endif; ?>
 ____________________________________________________________________________________________________________________________________________________
-                <table class="table">
+                <table class="table table-sm">
                 <tr>
                 <thead> 
                 <th>Serial : </th>
@@ -262,7 +262,7 @@ ________________________________________________________________________________
                         if(!empty($item->return_back_date))
                         {echo "<strong>". 'Reason of Returning '.$item->returning_description;} 
                         else{
-                        echo "<span style='font-weight:bold'> Still  Assignd </span>";}
+                        echo "<span style='font-weight:bold'>   Assignd </span>";}
                 ?>
                 </td> 
                 </strong> 

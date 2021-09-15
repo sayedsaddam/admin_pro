@@ -61,9 +61,7 @@
               <div class="col-lg-5">
                 <!-- <label>Assign By</label> -->
                 <input type="hidden" name="assign_by" class="form-control" placeholder="assign_by " value="<?php echo $this->session->userdata('id');  ?>">
-                
-                 
-              <lsbel>Assign To</label>
+              <lsbel>Assign To</label> 
                 <select name="employ" id="employ" class="browser-default custom-select">
               <option value="" disabled selected>--select employee--</option>
             </select> 
@@ -137,7 +135,7 @@ $(document).ready(function(){
        $('#employ_data').html('');
        $.each(response,function(index, data){
         if (data['assignd_to'] != null) {
-          var res = " <span style='color: blue'> ( "+response[0].name+" ) is already have  </span> Item  <span style='color: red'>"+response[0].sub_cat;  
+          var res = " <span style='color: blue'> ( "+response[0].name+" ) is already have  </span> Product  <span style='color: red'>"+response[0].sub_cat;  
           $('#employ_data').append(res).show(); 
              return true
         } 
