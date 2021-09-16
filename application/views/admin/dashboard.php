@@ -70,6 +70,9 @@
             <a href="<?=base_url('admin/item_register');?>" class="text-white btn-floating btn-slack btn-sm"><i class="fas fa-pen"></i></a>Item Register
           </li>
           <li class="list-group-item">
+            <a href="<?=base_url('admin/purchase_order_list');?>" class="text-white btn-floating btn-slack btn-sm"><i class="fas fa-shopping-cart"></i></a>Purchase
+          </li>
+          <li class="list-group-item">
             <a href="<?=base_url('admin/asset_register');?>" class="text-white btn-floating btn-yt btn-sm"><i class="fas fa-book"></i></a>Asset Register
           </li>
           <li class="list-group-item">

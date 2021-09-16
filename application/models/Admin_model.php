@@ -927,17 +927,23 @@ class Admin_model extends CI_Model{
                            items.depreciation,
                            items.purchasedate, 
                            items.created_at,
+                           employ.name as employ_name,
+                           employ.id as employ_id,
                            sub_categories.name as names, 
                            categories.cat_name, 
                            locations.name,
                            item_assignment.id as item_ids,
+                           item_assignment.assignd_to,
                            item_assignment.item_id,
-                           item_assignment.status ');
+                           item_assignment.status,
+                           item_assignment.return_back_date,
+                           ');
         $this->db->from('items');
         $this->db->join('categories', 'items.category = categories.id', 'left');
         $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
         $this->db->join('locations', 'items.location = locations.id', 'left');
         $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
+        $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
         // $this->db->where('stat', 0);
         $this->db->group_by('items.id'); 
         $this->db->order_by('id', 'ASC');
@@ -960,9 +966,12 @@ class Admin_model extends CI_Model{
                                items.depreciation,
                                items.purchasedate, 
                                items.created_at,
+                               employ.name as employ_name,
+                               employ.id as employ_id,
                                item_assignment.id as item_ids,
-                               item_assignment.item_id,
+                               item_assignment.item_id, 
                                item_assignment.status,
+                               item_assignment.assignd_to,
                                sub_categories.name as names, 
                                categories.cat_name, 
                                locations.name, ');
@@ -971,6 +980,7 @@ class Admin_model extends CI_Model{
             $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
             $this->db->join('locations', 'items.location = locations.id', 'left');
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
+            $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
             $this->db->where('items.quantity >=', 1);
             $this->db->group_by('items.id'); 
             $this->db->order_by('id', 'ASC');
@@ -994,9 +1004,12 @@ class Admin_model extends CI_Model{
                                items.depreciation,
                                items.purchasedate, 
                                items.created_at,
+                               employ.name as employ_name,
+                               employ.id as employ_id,
                                item_assignment.item_id,
                                item_assignment.status,
                                item_assignment.id as item_ids,
+                               item_assignment.assignd_to,
                                sub_categories.name as names, 
                                categories.cat_name, 
                                locations.name, ');
@@ -1005,15 +1018,15 @@ class Admin_model extends CI_Model{
             $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
             $this->db->join('locations', 'items.location = locations.id', 'left');
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
+            $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
             // $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
             // $this->db->group_by('item_assignment.item_id'); 
              $this->db->where('item_assignment.item_id !=', null);
              $this->db->where('item_assignment.status', 1);
-            $this->db->order_by('id', 'ASC');
-            $this->db->limit($limit, $offset);
+             $this->db->order_by('id', 'ASC');
+             $this->db->limit($limit, $offset);
             return $this->db->get()->result(); 
-        } 
-        
+        }  
     // Assign item list.
     public function assign_list($limit, $offset){ 
         $this->db->select('items.id, 
@@ -1121,19 +1134,26 @@ class Admin_model extends CI_Model{
                             items.model, 
                             items.serial_number, 
                             items.supplier,
+                            items.quantity, 
                             items.price, 
                             items.depreciation,
                             items.purchasedate, 
                             items.created_at,
+                            employ.name as employ_name,
+                            employ.id as employ_id,
                             sub_categories.name as names, 
                             categories.cat_name, 
                             locations.name, 
-                            item_assignment.status');
+                            item_assignment.status,
+                            item_assignment.assignd_to,
+                            item_assignment.id as item_ids');
                     $this->db->from('items');
                     $this->db->join('categories', 'items.category = categories.id', 'left');
                     $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
                     $this->db->join('locations', 'items.location = locations.id', 'left');
                     $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
+                    $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
+
 
         $this->db->like('items.location', $search);
         $this->db->or_like('items.category', $search);
@@ -1397,39 +1417,6 @@ $quantity = array(
         // $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
-    
-        //   //  Assign list  -  Assign list 
-        //   public function assign_item_list($limit, $offset){  
-        //     $this->db->select('item_assignment.id as item_ids,
-        //                        item_assignment.assignd_to, 
-        //                        item_assignment.assignd_by,
-        //                        item_assignment.item_status,
-        //                        item_assignment.item_id,
-        //                        item_assignment.description,
-        //                        item_assignment.status,
-        //                        item_assignment.item_type,
-        //                        item_assignment.item_type_id,
-        //                        item_assignment.created_at,
-        //                        items.id,
-        //                        items.serial_number,
-        //                        items.type_name, 
-        //                        suppliers.name as supplier,
-        //                        suppliers.location,
-        //                        suppliers.id,
-        //                        inventory.name,
-        //                        sub_categories.id as sub_id,
-        //                        sub_categories.name as sub_cat_name');
-        //     $this->db->from('item_assignment'); 
-        //     // $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
-        //     $this->db->join('suppliers', 'item_assignment.assignd_to = suppliers.id', 'left');
-        //     $this->db->join('items', 'item_assignment.item_type = items.sub_category', 'left');
-        //     $this->db->join('inventory', 'item_assignment.item_id = inventory.name', 'left');
-        //     $this->db->join('sub_categories','item_assignment.item_id = sub_categories.id', 'left'); 
-        //     $this->db->group_by('item_assignment.item_id'); 
-        //     $this->db->where('item_assignment.status' , 1);
-        //     // $this->db->limit($limit, $offset);
-        //     return $this->db->get()->result();
-        // }
         public function available_item_list($limit, $offset){  
             $this->db->select('item_assignment.id as item_ids,
                                item_assignment.assignd_to, 
@@ -1569,4 +1556,54 @@ $quantity = array(
         $this->db->delete('items_detail');
         return true;
     }
+
+ // purchase order list
+ public function purchase_order_list($limit, $offset){
+    $this->db->select('purchase_orders.id, 
+                       purchase_orders.location,
+                       purchase_orders.category,  
+                       purchase_orders.type_name, 
+                       purchase_orders.quantity, 
+                       purchase_orders.model, 
+                       purchase_orders.serial_number, 
+                       purchase_orders.supplier,
+                       purchase_orders.price, 
+                       purchase_orders.shipping,
+                       purchase_orders.discount,
+                       purchase_orders.total,
+                       purchase_orders.order_date,
+                       purchase_orders.purchasedate,
+                       purchase_orders.status, 
+                       purchase_orders.created_at, 
+                       sub_categories.id as sub_ids,
+                       sub_categories.name as names, 
+                       categories.id,
+                       categories.cat_name, 
+                       locations.id as loc_id, 
+                       locations.name as loc_name, 
+                       ');
+    $this->db->from('purchase_orders');
+    $this->db->join('categories', 'purchase_orders.category = categories.id', 'left');
+    $this->db->join('sub_categories', 'purchase_orders.type_name = sub_categories.id', 'left');
+    $this->db->join('locations', 'purchase_orders.location = locations.id', 'left');  
+    // $this->db->where('stat', 0);
+    $this->db->group_by('purchase_orders.id'); 
+    $this->db->order_by('purchase_orders.id', 'ASC');
+    $this->db->limit($limit, $offset);
+    return $this->db->get()->result(); 
+} 
+
+     // purchase order save 
+     public function purchase_order_save($data){ 
+        //  print_r($data);exit;
+        $this->db->insert('purchase_orders', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+
 }

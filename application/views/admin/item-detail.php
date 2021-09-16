@@ -85,7 +85,7 @@
               </div>
               <div class="col-lg-6">  
             <select name="category" id="category" class="browser-default custom-select">
-              <option value="" disabled>--select category--</option>
+              <option value="" disabled selected>--select category--</option>
               <?php if(!empty($categories)): foreach($categories as $cat): ?>
                 <option value="<?= $cat->id; ?>" <?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->cat_name; ?></option>
               <?php endforeach; endif; ?>
@@ -145,7 +145,7 @@ $(document).ready(function(){
  
  // City change
  $('#category').on('change', function(){
-   var category = $(this).val(); 
+   var category = $(this).val(); x
    // AJAX request
    $.ajax({
      url:'<?=base_url('admin/get_item_sub_categories/')?>' + category,

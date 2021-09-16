@@ -75,22 +75,27 @@
                    <td><a href="<?= base_url('admin/item_card/'.$item->id) ?>"><span style="color: blue;"><?= ucfirst($item->type_name); ?></span></a></td>  
                   <td><?= ucfirst($item->model); ?></td>
                   <td><?= ucfirst($item->serial_number); ?></td>
-                  <td><?= ucfirst($item->supplier); ?></td> 
-                  <td><strong> - - - - -</strong></td> 
+                  <td><?= ucfirst($item->supplier); ?></td>
+                  <?php if($item->status != 0): ?> 
+                  <td><strong><?= ucfirst($item->employ_name); ?></strong></td>
+                  <?php else : ?> 
+                  <td><strong> - - - - -</strong></td>
+                  <?php endif; ?> 
                   <td><?= number_format(floatval($item->price)); ?></td>  
                   <td><?= $item->depreciation.' (%)'; ?></td>
+                  
                   <td><?= $status = $item->quantity > 0 ? '<span class="badge badge-success">Available</span>' : '<span class="badge badge-warning">Assigned</span>'; ?></td>
                   <td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td> 
                   <td>
-                  <a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                  <!-- <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
-                  <?php if($item->quantity >= 1): ?> 
-                  <a href="<?= base_url('admin/assign_item/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
-                  <?php endif; ?> 
-                  <?php if($item->status == 1): ?>  
-                  <a data-id="<?= $item->item_ids.'/'.$item->id; ?>" class="return_item"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                  <?php endif; ?> 
-                  <td> 
+                      <a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+                      <!-- <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
+                      <?php if($item->quantity >= 1): ?> 
+                      <a href="<?= base_url('admin/assign_item/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
+                      <?php endif; ?> 
+                      <?php if($item->status == 1): ?>  
+                      <a data-id="<?= $item->item_ids.'/'.$item->id; ?>" class="return_item"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                      <?php endif; ?> 
+                    <td> 
                   </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>

@@ -215,7 +215,7 @@ ________________________________________________________________________________
                 <th>Serial : </th>
                 <th>Assigned to </th>
                 <th>Assigned Date </th>
-                <th>Return Back On</th>
+                <th>Return Back</th>
                 <th>Returning Reason</th>
                 </thead>
                 </tr>
@@ -260,9 +260,9 @@ ________________________________________________________________________________
                 <td>
                 <?php
                         if(!empty($item->return_back_date))
-                        {echo "<strong>". 'Reason of Returning '.$item->returning_description;} 
+                        {echo "<strong>". ' '.$item->returning_description;} 
                         else{
-                        echo "<span style='font-weight:bold'>   Assignd </span>";}
+                        echo "<span style='font-weight:bold'>   - - - - - - </span>";}
                 ?>
                 </td> 
                 </strong> 

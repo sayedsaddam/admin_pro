@@ -1041,11 +1041,11 @@ class Admin extends CI_Controller{
     if(!empty($offset)){
         $this->uri->segment(3);
     }
-    $url = 'admin/item_register';
+    $url = 'admin/assign-list';
     $rowscount = $this->admin_model->count_item();
     paginate($url, $rowscount, $limit);
     $data['title'] = 'Item Register | Admin & Procurement';
-    $data['body'] = 'admin/item-register';
+    $data['body'] = 'admin/assign-list';
     $data['items'] = $this->admin_model->assign_item_list($limit, $offset); 
     $this->load->view('admin/commons/template', $data);
 }
@@ -1080,7 +1080,6 @@ class Admin extends CI_Controller{
         $model = $this->input->post('model');
         $result = $this->input->post('type_name');
     //     $result_explode = explode('|', $result);
-        
     //    $type_id =  $result_explode[0];
     //    $type_name = $result_explode[1];  
         $data = array(
@@ -1325,6 +1324,61 @@ class Admin extends CI_Controller{
      $data['item'] = $this->admin_model->get_item_card_detail($limit, $offset,$id); 
      $this->load->view('admin/commons/template', $data);
  }
+
+//purchase product - purchase new product 
+    public function purchase_product(){
+        // echo "called purchase ";exit;
+        $data['title'] = 'Purchase Product';
+        $data['body'] = 'admin/purchase-product';  
+        $data['categories'] = $this->admin_model->get_item_categories();
+        $data['supplier'] = $this->admin_model->get_item_supplier();
+        $data['locations'] = $this->admin_model->get_item_location(); 
+        $this->load->view('admin/commons/template', $data);
+    } 
+
+    //Purchase order list 
+    public function purchase_order_list($offset = null){ 
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'admin/purchase_order_list';
+        $rowscount = $this->admin_model->count_item();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Purchase Order List | Admin & Procurement';
+        $data['body'] = 'admin/purchase_order_list';
+        $data['items'] = $this->admin_model->purchase_order_list($limit, $offset); 
+        $this->load->view('admin/commons/template', $data);
+    }
+
+    // Add new Item into the database
+    public function purchase_order_save(){     
+        $data = array(
+            'location' => $this->input->post('location'),
+            'category' => $this->input->post('category'), 
+            'type_name' => $this->input->post('product_name'), 
+            'quantity' => $this->input->post('product_qty'),
+            'model' => $this->input->post('model'),
+            'serial_number' => $this->input->post('serial_number'),
+            'supplier' => $this->input->post('supplier'),
+            'price' => $this->input->post('product_price'),
+            'order_date' => $this->input->post('order_date'),
+            'purchasedate' => $this->input->post('purchasedate'),
+            'shipping' => $this->input->post('shipping'),  
+            'discount' => $this->input->post('discountTotal'),  
+            'total' => $this->input->post('total'),  
+            'created_at' => date('Y-m-d'), 
+            'status' => 0,
+        ); 
+        if($this->admin_model->purchase_order_save($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Order was created successfully.');
+            redirect('admin/item_register');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
+            redirect('admin/item_register');
+        }
+    }
+
 
     // 404 page.
     public function page_not_found(){
