@@ -34,7 +34,7 @@
             </form>
         </div>
          <div class="col-lg-8 col-md-8 text-right">
-        <a href="<?= base_url('admin/get_assign_item'); ?>" data-target="#assign_list" class="btn btn-outline-danger"><i class="fa fa-sub"></i> Assign List</a>
+        <!-- <a href="<?= base_url('admin/get_assign_item'); ?>" data-target="#assign_list" class="btn btn-outline-danger"><i class="fa fa-sub"></i> Assign List</a> -->
         <a href="<?= base_url('admin/purchase_product'); ?>" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Purchase Order</a>
             <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
           </div>
@@ -67,24 +67,23 @@
             <tbody id="myTable">
               <?php if(!empty($items)): foreach($items as $item): ?>
                 <tr>
-                  <td><?= 'CTC-0'.$item->id; ?></td>
-                  <td><?= $item->supplier; ?></td>
+                  <td><?= 'CTC-0'.$item->purchase_id; ?></td>
+                  <td><?= $item->sup_name; ?></td>
                   <td><?= ucfirst($item->loc_name); ?></td>
                   <td><?= ucfirst($item->cat_name); ?></td>
-                   <td><?= ucfirst($item->type_name); ?></td>  
+                   <td><?= ucfirst($item->names); ?></td>  
                   <td><?= ucfirst($item->model); ?></td>
                   <!-- <td><?= ucfirst($item->serial_number); ?></td> -->
-                  <td><?= ucfirst($item->price); ?></td> 
+                  <td><?= ucfirst($item->unit_price); ?></td> 
                   <!-- <td><?= ucfirst($item->shipping); ?></td>  -->
                   <!-- <td><?= number_format(floatval($item->discount)).' '.' (%)'; ?></td>   -->
                   <td><?= $item->order_date; ?></td>
                    <!-- <td><?= $item->purchasedate; ?></td>  -->
                    <td><?= $item->status; ?></td> 
                   <td>
-                  <a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                  <!-- <a href="<?= base_url('admin/view_order/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
-                  <a href="<?= base_url('admin/assign_item/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
-                  <a data-id="<?= $item->id; ?>" class=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                  <a href="<?= base_url('admin/edit_order/'.$item->purchase_id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a> <!-- <a href="<?= base_url('admin/view_order/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
+                  <a href="<?= base_url('admin/order_detail/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+                  <a href="<?= base_url('admin/cancel_order/'.$item->purchase_id); ?>" class=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                   <td> 
                   </td>
                 </tr>
@@ -93,8 +92,8 @@
           <?php else: ?>
             <tbody>
               <?php if(!empty($results)): foreach($results as $item): ?>
-                <td><?= 'CTC-0'.$item->id; ?></td>
-                  <td><?= $item->supplier; ?></td>
+                <td><?= 'CTC-0'.$item->purchase_id; ?></td>
+                  <td><?= $item->sup_name; ?></td>
                   <td><?= ucfirst($item->loc_name); ?></td>
                   <td><?= ucfirst($item->cat_name); ?></td>
                    <td><?= ucfirst($item->type_name); ?></td>  

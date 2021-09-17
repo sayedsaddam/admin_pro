@@ -55,8 +55,6 @@
                 <option value="<?= $cat->id; ?>" <?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->name; ?></option>
               <?php endforeach; endif; ?>
             </select> 
-
-
             
             </select>
                 <label>Quantity</label>
@@ -145,7 +143,8 @@ $(document).ready(function(){
  
  // City change
  $('#category').on('change', function(){
-   var category = $(this).val(); x
+   var category = $(this).val(); 
+   alert(category)
    // AJAX request
    $.ajax({
      url:'<?=base_url('admin/get_item_sub_categories/')?>' + category,

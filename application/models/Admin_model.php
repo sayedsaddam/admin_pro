@@ -1559,51 +1559,151 @@ $quantity = array(
 
  // purchase order list
  public function purchase_order_list($limit, $offset){
-    $this->db->select('purchase_orders.id, 
-                       purchase_orders.location,
-                       purchase_orders.category,  
-                       purchase_orders.type_name, 
-                       purchase_orders.quantity, 
-                       purchase_orders.model, 
-                       purchase_orders.serial_number, 
-                       purchase_orders.supplier,
-                       purchase_orders.price, 
-                       purchase_orders.shipping,
-                       purchase_orders.discount,
-                       purchase_orders.total,
+    $this->db->select('purchase_orders.id as purchase_id, 
+                       purchase_orders.location_id,
+                       purchase_orders.category_id,  
+                       purchase_orders.sub_category_id, 
+                       purchase_orders.order_number,  , 
+                       purchase_orders.supplier_id,
                        purchase_orders.order_date,
                        purchase_orders.purchasedate,
                        purchase_orders.status, 
-                       purchase_orders.created_at, 
+                       purchase_orders.created_at,
+                       purchase_order_tbls.id as mul_id, 
+                       purchase_order_tbls.item_type, 
+                       purchase_order_tbls.model, 
+                       purchase_order_tbls.serial_number, 
+                       purchase_order_tbls.quantity, 
+                       purchase_order_tbls.unit_price,  
+                       purchase_order_tbls.amount,
+                       purchase_order_tbls.shipping,
+                       purchase_order_tbls.discount,
+                       purchase_order_tbls.grand_total,
+                       purchase_order_tbls.order_number,
+                       purchase_order_tbls.order_date,  
+                       purchase_order_tbls.created_at, 
                        sub_categories.id as sub_ids,
                        sub_categories.name as names, 
                        categories.id,
                        categories.cat_name, 
                        locations.id as loc_id, 
                        locations.name as loc_name, 
+                       suppliers.id as sup_id, 
+                       suppliers.name as sup_name, 
                        ');
-    $this->db->from('purchase_orders');
-    $this->db->join('categories', 'purchase_orders.category = categories.id', 'left');
-    $this->db->join('sub_categories', 'purchase_orders.type_name = sub_categories.id', 'left');
-    $this->db->join('locations', 'purchase_orders.location = locations.id', 'left');  
-    // $this->db->where('stat', 0);
-    $this->db->group_by('purchase_orders.id'); 
+    $this->db->from('purchase_order_tbls');
+    $this->db->join('purchase_orders', 'purchase_order_tbls.id = purchase_orders.id', 'left');
+    $this->db->join('categories', 'purchase_orders.category_id = categories.id', 'left');
+    $this->db->join('sub_categories', 'purchase_orders.sub_category_id = sub_categories.id', 'left');
+    $this->db->join('locations', 'purchase_orders.location_id = locations.id', 'left');  
+    $this->db->join('suppliers', 'purchase_orders.supplier_id = suppliers.id', 'left');   
+    $this->db->group_by('purchase_order_tbls.order_number'); 
+    $this->db->where('purchase_orders.status',1); 
     $this->db->order_by('purchase_orders.id', 'ASC');
     $this->db->limit($limit, $offset);
     return $this->db->get()->result(); 
 } 
-
      // purchase order save 
-     public function purchase_order_save($data){ 
-        //  print_r($data);exit;
+     public function purchase_order_save($data,$multi_data){ 
+        //   print_r($multi_data);exit;
         $this->db->insert('purchase_orders', $data);
+       $this->db->insert('purchase_order_tbls', $multi_data);
         if($this->db->affected_rows() > 0){
             return true;
         }else{
             return false;
         }
+    } 
+ // purchase order - view and edit.
+ public function order_edit($id){
+    $this->db->select('
+                       purchase_orders.id as purchase_id, 
+                       purchase_orders.location_id,
+                       purchase_orders.category_id,  
+                       purchase_orders.sub_category_id, 
+                       purchase_orders.order_number,  , 
+                       purchase_orders.supplier_id,
+                       purchase_orders.order_date,
+                       purchase_orders.purchasedate,
+                       purchase_orders.status, 
+                       purchase_orders.created_at,
+                       purchase_order_tbls.id as mul_id, 
+                       purchase_order_tbls.item_type, 
+                       purchase_order_tbls.model, 
+                       purchase_order_tbls.serial_number, 
+                       purchase_order_tbls.quantity, 
+                       purchase_order_tbls.unit_price,  
+                       purchase_order_tbls.amount,
+                       purchase_order_tbls.shipping,
+                       purchase_order_tbls.discount,
+                       purchase_order_tbls.grand_total,
+                       purchase_order_tbls.order_number,
+                       purchase_order_tbls.order_date,  
+                       purchase_order_tbls.created_at,
+                        ');
+    $this->db->from('purchase_order_tbls');
+    $this->db->join('purchase_orders', 'purchase_order_tbls.id = purchase_orders.id', 'left');
+    $this->db->where('purchase_order_tbls.id', $id);
+    return $this->db->get()->row();
+}
+  // update purchase - Update existing purchase record
+  public function modify_purchase_record($id, $data,$multi_data){
+    $this->db->where('id', $id);
+    $this->db->update('purchase_orders', $data);
+    $this->db->update('purchase_order_tbls', $multi_data);
+    return true;
+} 
+// order detail card.
+public function order_detail_card($limit, $offset,$id){
+    $this->db->select(' purchase_order_tbls.id as mul_id, 
+                purchase_order_tbls.item_type, 
+                purchase_order_tbls.model, 
+                purchase_order_tbls.serial_number, 
+                purchase_order_tbls.quantity, 
+                purchase_order_tbls.unit_price,  
+                purchase_order_tbls.amount,
+                purchase_order_tbls.shipping,
+                purchase_order_tbls.discount,
+                purchase_order_tbls.grand_total,
+                purchase_order_tbls.order_number,
+                purchase_order_tbls.order_date,  
+                purchase_order_tbls.created_at,
+                purchase_orders.id as purchase_id, 
+                purchase_orders.location_id,
+                purchase_orders.category_id,  
+                purchase_orders.sub_category_id, 
+                purchase_orders.order_number,  , 
+                purchase_orders.supplier_id,
+                purchase_orders.order_date,
+                purchase_orders.purchasedate,
+                purchase_orders.status, 
+                purchase_orders.created_at,
+                sub_categories.id as sub_ids,
+                sub_categories.name as names, 
+                categories.id,
+                categories.cat_name, 
+                locations.id as loc_id, 
+                locations.name as loc_name, 
+                suppliers.id as sup_id, 
+                suppliers.name as sup_name, 
+    ');
+$this->db->from('purchase_orders'); 
+$this->db->join('categories', 'purchase_orders.category_id = categories.id', 'left');
+$this->db->join('purchase_order_tbls', 'purchase_orders.order_number = purchase_order_tbls.order_number', 'left');
+$this->db->join('sub_categories', 'purchase_orders.sub_category_id = sub_categories.id', 'left');
+$this->db->join('locations', 'purchase_orders.location_id = locations.id', 'left');  
+$this->db->join('suppliers', 'purchase_orders.supplier_id = suppliers.id', 'left');   
+// $this->db->group_by('purchase_orders.order_number'); 
+$this->db->where('purchase_orders.id', $id);
+$this->db->order_by('purchase_orders.id', 'ASC');
+$this->db->limit($limit, $offset);  
+return $this->db->get()->result(); 
+} 
+    //cancel order
+    public function cancel_order($id,$data){ 
+        $this->db->where('id', $id);
+        $this->db->update('purchase_orders', $data);
+        return true; 
     }
-
-
 
 }

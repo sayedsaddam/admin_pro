@@ -1306,10 +1306,8 @@ class Admin extends CI_Controller{
    
         $get_item_serial_umber = $this->admin_model->get_item_serial_umber($id);
         echo json_encode($get_item_serial_umber);
-    }   
-
-    //Item card 
-    // public function item_card($id,$model,$offset = null){  
+    }    
+    //Item card   
     public function item_card($id,$offset = null){   
         $limit = 15;
      if(!empty($offset)){
@@ -1323,8 +1321,7 @@ class Admin extends CI_Controller{
      $data['items'] = $this->admin_model->get_item_card($limit, $offset,$id); 
      $data['item'] = $this->admin_model->get_item_card_detail($limit, $offset,$id); 
      $this->load->view('admin/commons/template', $data);
- }
-
+ } 
 //purchase product - purchase new product 
     public function purchase_product(){
         // echo "called purchase ";exit;
@@ -1351,35 +1348,135 @@ class Admin extends CI_Controller{
         $this->load->view('admin/commons/template', $data);
     }
 
-    // Add new Item into the database
+    // Add multiple Item into the database
     public function purchase_order_save(){     
         $data = array(
-            'location' => $this->input->post('location'),
-            'category' => $this->input->post('category'), 
-            'type_name' => $this->input->post('product_name'), 
+            'location_id' => $this->input->post('location'),
+            'category_id' => $this->input->post('category'),  
+            'sub_category_id' => $this->input->post('category'),  
+            'supplier_id' => $this->input->post('supplier'), 
+            'order_number' => $this->input->post('order_number'),
+            'order_date' => $this->input->post('order_date'),
+            'purchasedate' => $this->input->post('purchasedate'),  
+            'created_at' => date('Y-m-d'), 
+            'status' => 1,
+        );
+// insert multiple datat into db
+        $multi_data = array(   
+            'item_type' => $this->input->post('product_name'), 
             'quantity' => $this->input->post('product_qty'),
             'model' => $this->input->post('model'),
             'serial_number' => $this->input->post('serial_number'),
-            'supplier' => $this->input->post('supplier'),
-            'price' => $this->input->post('product_price'),
-            'order_date' => $this->input->post('order_date'),
-            'purchasedate' => $this->input->post('purchasedate'),
+            'order_number' => $this->input->post('order_number'), 
+            'unit_price' => $this->input->post('product_price'),
+            'order_date' => $this->input->post('order_date'), 
             'shipping' => $this->input->post('shipping'),  
             'discount' => $this->input->post('discountTotal'),  
-            'total' => $this->input->post('total'),  
-            'created_at' => date('Y-m-d'), 
-            'status' => 0,
-        ); 
-        if($this->admin_model->purchase_order_save($data)){
+            'amount' => $this->input->post('total_val'),  
+            'grand_total' => $this->input->post('total'),  
+            'created_at' => date('Y-m-d'),  
+        );
+        if($this->admin_model->purchase_order_save($data,$multi_data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Order was created successfully.');
-            redirect('admin/item_register');
+            redirect('admin/purchase_order_list');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
-            redirect('admin/item_register');
+            redirect('admin/purchase_order_list');
         }
+    } 
+    // edit order   
+    public function edit_order($id){   
+        // echo "edit called".$id;exit;
+        $data['title'] = 'Purchase Product';
+        $data['body'] = 'admin/purchase-product';  
+        $data['edit'] = $this->admin_model->order_edit($id);
+        $data['categories'] = $this->admin_model->get_item_categories();
+        $data['supplier'] = $this->admin_model->get_item_supplier();
+        $data['locations'] = $this->admin_model->get_item_location(); 
+        $this->load->view('admin/commons/template', $data);
     }
 
+    // Update an existing purchase record
+    public function modify_purchase_order(){
+        $id = $this->input->post('id'); 
+     
+    $item_name = $this->input->post('product_name');
+    $quantity = $this->input->post('product_qty');
+    $model = $this->input->post('model');
+    $serial_number = $this->input->post('serial_number');
+    $order_number = $this->input->post('order_number');
+    $product_price = $this->input->post('product_price');
+    $order_date = $this->input->post('order_date');
+    $shipping = $this->input->post('shipping');
+    $discount = $this->input->post('discountTotal');
+    $amount = $this->input->post('total_val');
+    $grand_total = $this->input->post('total');
 
+        $data = array(
+            'location_id' => $this->input->post('location'),
+            'category_id' => $this->input->post('category'),  
+            'sub_category_id' => $this->input->post('category'),  
+            'supplier_id' => $this->input->post('supplier'), 
+            'order_number' => $this->input->post('order_number'),
+            'order_date' => $this->input->post('order_date'),
+            'purchasedate' => $this->input->post('purchasedate'),  
+            'created_at' => date('Y-m-d'), 
+            'status' => 0,
+        );
+// insert multiple datat into db
+for($i=0;$i<count($item_name);$i++){
+    $multi_data = array(   
+        'item_type' => $this->input->post('product_name'), 
+        'quantity' => $this->input->post('product_qty'),
+        'model' => $this->input->post('model'),
+        'serial_number' => $this->input->post('serial_number'),
+        'order_number' => $this->input->post('order_number'), 
+        'unit_price' => $this->input->post('product_price'),
+        'order_date' => $this->input->post('order_date'), 
+        'shipping' => $this->input->post('shipping'),  
+        'discount' => $this->input->post('discountTotal'),  
+        'amount' => $this->input->post('total_val'),  
+        'grand_total' => $this->input->post('total'),  
+        'created_at' => date('Y-m-d'),  
+    );
+}
+        if($this->admin_model->modify_purchase_record($id, $data,$multi_data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Item was updated successfully.');
+            redirect('admin/purchase_order_list');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/purchase_order_list');
+        }
+    }
+     //order detail  
+        public function order_detail($id,$offset = null){   
+            $limit = 15;
+         if(!empty($offset)){
+             $this->uri->segment(3);
+         }
+         $url = 'admin/order-detail';
+         $rowscount = $this->admin_model->count_item();
+         paginate($url, $rowscount, $limit);
+         $data['title'] = 'Order Detail | Admin & Procurement';
+         $data['body'] = 'admin/order-detail';
+         $data['items'] = $this->admin_model->order_detail_card($limit, $offset,$id); 
+         $data['item'] = $this->admin_model->get_item_card_detail($limit, $offset,$id); 
+         $this->load->view('admin/commons/template', $data);
+     }
+       // Cancel - Cancel Order
+    public function cancel_order($id){
+        $data = array(   
+            'status' => 0,
+            'created_at' => date('Y-m-d')  
+        );
+        if($this->admin_model->cancel_order($id,$data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>order cancel successful.');
+            redirect('admin/purchase_order_list');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/purchase_order_list');
+        }
+    }
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";
