@@ -65,7 +65,7 @@
             </tr>
           </thead>
           <?php if(empty($results)): ?>
-            <tbody id="myTable">
+            <tbody id="myTable">s
               <?php if(!empty($items)): foreach($items as $item): ?>
                 <tr>
                   <td><a href="<?= base_url('admin/item_card/'.$item->id) ?>"><span style="color: blue;"><?= 'CTC-0'.$item->id; ?></span></a></td>
@@ -123,7 +123,7 @@
                   <!-- <td><?= ucfirst($item->created_at); ?></td>  -->
                   <td>
                       <a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                      <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
+                      <!-- <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
                       <!-- <a href="<?=base_url('admin/delete_item/'.$item->id);?>" onclick="javascript:return confirm('<input type='text' name='name'>Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> -->
                       <?php if($item->quantity >= 1): ?> 
                       <a href="<?= base_url('admin/assign_item/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
@@ -157,14 +157,17 @@
         </button>
       </div>
       <div class="modal-body mx-3">
-        <form action="<?= base_url('admin/return_item'); ?>" method="post">
+        <form action="<?= base_url('admin/return_item'); ?>" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" id="item_id" value="">
             <div class="md-form mb-5">
               <select name="remarks"  class="form-control validate">
                 <option value="damage">Damage</option>
                 <option value="disabled">Disabled</option>
               </select>
-                
+                </div>
+
+                <div class="md-form mb-5"> 
+                <input type="file" name="file" id="userfile" class="form-control validate"> 
                 </div>
                 <div class="md-form mb-5">
                   <textarea name="description" id="description" cols="30" rows="3" class="form-control"></textarea>

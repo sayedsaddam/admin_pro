@@ -29,7 +29,7 @@
       <div class="row">
         <div class="col-lg-12"> 
           
-          <h3><?php if(empty($edit)){ echo "Assign Item"; }else{ echo "Update Item"; } ?></h3><hr>
+          <h3><?php if(empty($edit)){ echo "Assigning product ------> ".$returning_items->names; }else{ echo "Update Item"; } ?></h3><hr>
           <?php if($success = $this->session->flashdata('success')): ?>
             <div class="alert alert-success text-center">
               <?php echo $success; ?>
@@ -37,34 +37,31 @@
           <?php endif; ?>
           <form action="<?php if(empty($edit)){ echo base_url('admin/assign_item_save'); }else{ echo base_url('admin/modify_item'); } ?>" method="post">
             <input type="hidden" name="item_id" value="<?php echo $this->uri->segment(3); ?>">
+            
             <div class="row">
             <div class="col-lg-2"> 
               <label for="">Detail message <span class="fa fa-arrow-down"></span></label> 
 <p id="message" style="font-weight: bold"></p>
-
 <p id="employ_data"> </p>
-
             </div>
-              <div class="col-lg-5">  
-                
 
+      <div class="col-md-5">  
                <!-- Select Location -->
-               <label>Select Location</label>
+            <label>Select Location</label>
             <select name="location" id="location" class="browser-default custom-select" required>
               <option value="" disabled selected>--select location--</option>
               <?php if(!empty($locations)): foreach($locations as $loc): ?>
                 <option value="<?= $loc->id; ?>" <?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>><?= $loc->name; ?></option>
               <?php endforeach; endif; ?>
             </select>
-         
-              </div>
-              <div class="col-lg-5">
-                <!-- <label>Assign By</label> -->
+      </div>      
+      <div class="col-md-5">
+             <!-- <label>Assign By</label> -->
                 <input type="hidden" name="assign_by" class="form-control" placeholder="assign_by " value="<?php echo $this->session->userdata('id');  ?>">
-              <lsbel>Assign To</label> 
+              <label>Assign To</label> 
                 <select name="employ" id="employ" class="browser-default custom-select">
               <option value="" disabled selected>--select employee--</option>
-            </select> 
+             </select> 
             <!-- <label for="">Select Item</label>
             <select name="item_id" id="item_id" class="browser-default custom-select">
               <option value="" disabled selected>--select Item--</option>
@@ -74,9 +71,33 @@
             </select>  -->   
              <!-- item description --> 
           </div>
-            </div><br>
-            <div class="row">
-              <div class="col-lg-12 text-right">
+          
+         
+          
+     </div>
+            <br>
+<div class="row"> 
+            <div class="col-sm-2">  
+            </div>     
+      <div class="col-sm-10">
+            <table class="table table-sm">
+              <tr>
+                <th>name</th>
+                <th>model</th>
+                <th>price</th>
+              </tr>
+         <tr>
+                <td><?php  echo $returning_items->names ?></td>
+                <td><?php  echo $returning_items->model ?></td>
+                <td><?php  echo $returning_items->price ?></td>
+              </tr>
+            </table>
+          <!-- <?php  echo $returning_items->names.' - - - '.$returning_items->model.' - - -'.$returning_items->price; ?> -->
+      </div>
+
+  
+
+            <div class="col-lg-12 text-right">
                 <a href="javascript:history.go(-1);" class="btn btn-danger">Back</a>
                 <?php if(empty($edit)): ?>
                   <button type="submit" class="btn btn-default">Add Item</button>

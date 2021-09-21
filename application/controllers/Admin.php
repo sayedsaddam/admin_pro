@@ -1188,6 +1188,8 @@ class Admin extends CI_Controller{
     }
       // Assignment Item form- To employ
       public function assign_item(){
+        $id = $this->uri->segment(3);
+
         $data['title'] = 'Assign Item';
         $data['body'] = 'admin/assign-item'; 
         $data['assign_to'] = $this->admin_model->assign_to();
@@ -1196,6 +1198,7 @@ class Admin extends CI_Controller{
         $data['get_model'] = $this->admin_model->get_model(); 
         $data['get_category'] = $this->admin_model->get_category(); 
         $data['locations'] = $this->admin_model->get_item_location(); 
+        $data['returning_items'] = $this->admin_model->returning_assignment_list($id); 
         $this->load->view('admin/commons/template', $data);
     }
         // assign_item_save into the database
@@ -1235,23 +1238,37 @@ class Admin extends CI_Controller{
         }
         }
         // assign_item_save into the database
-        public function return_item(){   
-        $id = $this->input->post('id');
-
-
+        public function return_item(){ 
+        $id = $this->input->post('id'); 
          $model_explode = explode('/', $id); 
         $assign_item_id =  $model_explode[0]; 
-        $item_id =  $model_explode[1];  
-// echo $item_id;exit;
+        $item_id =  $model_explode[1];
         $remarks = $this->input->post('remarks'); 
-        $description = $this->input->post('description');  
+        $description = $this->input->post('description');
+        $file = $this->input->post('userfile'); 
+        $config['upload_path']   = './upload/'; 
+        $config['allowed_types'] = 'gif|jpg|png';  
+        $this->load->library('upload', $config); 
+      
+        if ( ! $this->upload->do_upload('userfile')) { 
+           $error = array('error' => $this->upload->display_errors()); 
+           $this->load->view('upload_form', $error); 
+        }
+        else {   
+          
+           $datas = $this->upload->data(); 
+           $fileUpload = $datas['file_name'];
+           echo '<pre>';
+        //    print_r($datas);exit;
+        //    $this->load->view('upload_success', $data);  
             $data = array(   
                 'remarks' => $remarks,
+                'item_file' => $fileUpload,
                 'returning_description' => $description, 
                 'status' => 0,  
                 'return_back_date' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d'),
-            ); 
+            );  
             $invantory = array( 
                 'status' => 0,   
             );
@@ -1264,7 +1281,8 @@ class Admin extends CI_Controller{
             }else{
                 $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
                 redirect('admin/item_register');
-            }
+            } 
+        }
         } 
     // Search filters - search asset register
     public function search_assign_items(){
@@ -1285,6 +1303,16 @@ class Admin extends CI_Controller{
     public function get_location_employ($loc_id){
         $get_location_employ = $this->admin_model->get_location_employ($loc_id);
         echo json_encode($get_location_employ);
+    }  
+    // Get all suppliers based on city
+    public function get_location_suplier($loc_id){
+        $get_location_suplier = $this->admin_model->get_location_suplier($loc_id);
+        echo json_encode($get_location_suplier);
+    }   
+    // Get all suppliers based on city
+    public function get_suplier_email($loc_id){
+        $get_suplier_email = $this->admin_model->get_suplier_email($loc_id);
+        echo json_encode($get_suplier_email);
     }  
     // Get all item type based on item
     public function get_item_type($item_id){ 
@@ -1349,7 +1377,21 @@ class Admin extends CI_Controller{
     }
 
     // Add multiple Item into the database
-    public function purchase_order_save(){     
+    public function purchas(){   
+        $id = $this->input->post('id'); 
+     
+        $item_name = $this->input->post('product_name[]');
+        $quantity = $this->input->post('product_qty[]');
+        $model = $this->input->post('model[]');
+        $serial_number = $this->input->post('serial_number[]');
+        $order_number = $this->input->post('order_number[]');
+        $product_price = $this->input->post('product_price[]');
+        $order_date = $this->input->post('order_date[]');
+        $shipping = $this->input->post('shipping[]');
+        $discount = $this->input->post('discountTotal[]');
+        $amount = $this->input->post('total_val[]');
+        $grand_total = $this->input->post('total[]');
+
         $data = array(
             'location_id' => $this->input->post('location'),
             'category_id' => $this->input->post('category'),  
@@ -1362,28 +1404,79 @@ class Admin extends CI_Controller{
             'status' => 1,
         );
 // insert multiple datat into db
+// for($i=0;$i < count($item_name);$i++){
+    foreach ($item_name as $key) {
         $multi_data = array(   
-            'item_type' => $this->input->post('product_name'), 
-            'quantity' => $this->input->post('product_qty'),
-            'model' => $this->input->post('model'),
-            'serial_number' => $this->input->post('serial_number'),
-            'order_number' => $this->input->post('order_number'), 
-            'unit_price' => $this->input->post('product_price'),
-            'order_date' => $this->input->post('order_date'), 
-            'shipping' => $this->input->post('shipping'),  
-            'discount' => $this->input->post('discountTotal'),  
-            'amount' => $this->input->post('total_val'),  
-            'grand_total' => $this->input->post('total'),  
+            'item_type' => $key->item_name, 
+            // 'quantity' => $quantity,
+            // 'model' => $model,
+            // 'serial_number' => $serial_number,
+            // 'order_number' => $order_number, 
+            // 'unit_price' => $product_price,
+            // 'order_date' =>  $order_date, 
+            // 'shipping' =>  $shipping,  
+            // 'discount' => $discount,  
+            // 'amount' =>  $amount,  
+            // 'grand_total' => $grand_total,  
             'created_at' => date('Y-m-d'),  
         );
+    }
+            echo "<pre>";
+            print_r($multi_data);
         if($this->admin_model->purchase_order_save($data,$multi_data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Order was created successfully.');
             redirect('admin/purchase_order_list');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
-            redirect('admin/purchase_order_list');
+           redirect('admin/purchase_order_list');
         }
     } 
+
+    public function purchase_order_save(){  
+
+
+        $req_by = $this->session->userdata('id');  
+        $location = $this->input->post('location');
+    //   explode location name and id
+       $location_explode = explode('/', $location);
+       $location_id =  $location_explode[0];
+       $location_name = $location_explode[1]; 
+
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('email', 'Email', 'trim|valid_email|callback_check_email');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+        
+                $supplier_email = $this->input->post('email');      
+                $product_name = $this->input->post('product_name');
+                $order_number = $this->input->post('order_number');
+                $this->load->library('email'); // Loading the email library.
+                $this->email->from('no-reply@alhayyatgroup.com', 'AH Group');
+                $this->email->to($supplier_email);
+                // $this->email->cc('another@another-example.com');
+                // $this->email->bcc('them@their-example.com');
+                $this->email->subject('Product Requisition');
+                $this->email->message("office of " .$location_name." request for".$product_name.'order number is'.$order_number); 
+
+        $data = array(
+            'location_id' => $location_id,  
+            'sub_category_id' => $this->input->post('product_name'),  
+            'supplier_id' => $this->input->post('supplier'), 
+            'order_number' => $this->input->post('order_number'),
+            'requested_by' => $req_by, 
+            'created_at' => date('Y-m-d'), 
+            'status' => 0,
+        );
+        // echo "<pre>";
+        // print_r($data);exit; 
+        if($this->admin_model->purchase_order_save($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Order was created successfully.');
+            redirect('admin/purchase_order_list');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
+        redirect('admin/purchase_order_list');
+        } 
+              } 
+
     // edit order   
     public function edit_order($id){   
         // echo "edit called".$id;exit;
@@ -1398,49 +1491,19 @@ class Admin extends CI_Controller{
 
     // Update an existing purchase record
     public function modify_purchase_order(){
-        $id = $this->input->post('id'); 
-     
-    $item_name = $this->input->post('product_name');
-    $quantity = $this->input->post('product_qty');
-    $model = $this->input->post('model');
-    $serial_number = $this->input->post('serial_number');
-    $order_number = $this->input->post('order_number');
-    $product_price = $this->input->post('product_price');
-    $order_date = $this->input->post('order_date');
-    $shipping = $this->input->post('shipping');
-    $discount = $this->input->post('discountTotal');
-    $amount = $this->input->post('total_val');
-    $grand_total = $this->input->post('total');
-
+        $id = $this->input->post('id');  
+        $req_by = $this->session->userdata('id'); 
         $data = array(
             'location_id' => $this->input->post('location'),
             'category_id' => $this->input->post('category'),  
-            'sub_category_id' => $this->input->post('category'),  
+            'sub_category_id' => $this->input->post('sub_category'),  
             'supplier_id' => $this->input->post('supplier'), 
             'order_number' => $this->input->post('order_number'),
-            'order_date' => $this->input->post('order_date'),
-            'purchasedate' => $this->input->post('purchasedate'),  
+            'requested_by' => $req_by, 
             'created_at' => date('Y-m-d'), 
             'status' => 0,
-        );
-// insert multiple datat into db
-for($i=0;$i<count($item_name);$i++){
-    $multi_data = array(   
-        'item_type' => $this->input->post('product_name'), 
-        'quantity' => $this->input->post('product_qty'),
-        'model' => $this->input->post('model'),
-        'serial_number' => $this->input->post('serial_number'),
-        'order_number' => $this->input->post('order_number'), 
-        'unit_price' => $this->input->post('product_price'),
-        'order_date' => $this->input->post('order_date'), 
-        'shipping' => $this->input->post('shipping'),  
-        'discount' => $this->input->post('discountTotal'),  
-        'amount' => $this->input->post('total_val'),  
-        'grand_total' => $this->input->post('total'),  
-        'created_at' => date('Y-m-d'),  
-    );
-}
-        if($this->admin_model->modify_purchase_record($id, $data,$multi_data)){
+        );   
+         if($this->admin_model->modify_purchase_record($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Item was updated successfully.');
             redirect('admin/purchase_order_list');
         }else{
@@ -1477,6 +1540,35 @@ for($i=0;$i<count($item_name);$i++){
             redirect('admin/purchase_order_list');
         }
     }
+       // Cancel - Cancel Order
+       public function approved_order($id){
+        $data = array(   
+            'status' => 1,
+            'created_at' => date('Y-m-d')  
+        );
+        if($this->admin_model->approved_order($id,$data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>order approved successful.');
+            redirect('admin/purchase_order_list');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/purchase_order_list');
+        }
+    }
+
+    
+    // email to supplier.
+    public function authenticate(){ 
+       
+        }  
+
+
+
+
+
+
+
+
+
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";

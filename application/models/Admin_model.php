@@ -1056,6 +1056,38 @@ class Admin_model extends CI_Model{
         $this->db->limit($limit, $offset);
         return $this->db->get()->result(); 
     } 
+
+
+  
+    // Assign item list.
+    public function returning_assignment_list($id){ 
+        $this->db->select('items.id, 
+                           items.location,
+                           items.category,
+                           items.stat, 
+                           items.sub_category,
+                           items.type_name, 
+                           items.model, 
+                           items.serial_number, 
+                           items.supplier,
+                           items.price, 
+                           items.depreciation,
+                           items.purchasedate, 
+                           items.created_at,
+                           sub_categories.name as names, 
+                           categories.cat_name, 
+                           locations.name,  
+                           item_assignment.item_type_id');
+        $this->db->from('items');
+        $this->db->join('categories', 'items.category = categories.id', 'left');
+        $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
+        $this->db->join('locations', 'items.location = locations.id', 'left');
+        $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
+        $this->db->where('items.id',$id);
+        $this->db->order_by('id', 'ASC'); 
+        return $this->db->get()->row(); 
+    } 
+
     // Item - Add new item
     public function item_save($data,$model){
        $this->db->insert('items', $data);
@@ -1235,6 +1267,20 @@ class Admin_model extends CI_Model{
       $this->db->select('id, name');
       $this->db->from('employ');
       $this->db->where('location', $loc_id);
+      return $this->db->get()->result();
+  }
+  // Get supplier based on city
+  public function get_location_suplier($loc_id){
+      $this->db->select('id, name');
+      $this->db->from('suppliers');
+      $this->db->where('location', $loc_id);
+      return $this->db->get()->result();
+  }
+  // Get supplier email based on supplier
+  public function get_suplier_email($loc_id){
+      $this->db->select('id, name,email');
+      $this->db->from('suppliers');
+      $this->db->where('id', $loc_id);
       return $this->db->get()->result();
   }
     // Get category 
@@ -1500,6 +1546,7 @@ $quantity = array(
                        locations.name,
                        item_assignment.id as asignment_id,
                        item_assignment.item_type,
+                       item_assignment.item_file,
                        item_assignment.returning_description,
                        item_assignment.item_type_id,
                        item_assignment.return_back_date,
@@ -1556,32 +1603,18 @@ $quantity = array(
         $this->db->delete('items_detail');
         return true;
     }
-
  // purchase order list
  public function purchase_order_list($limit, $offset){
     $this->db->select('purchase_orders.id as purchase_id, 
                        purchase_orders.location_id,
                        purchase_orders.category_id,  
-                       purchase_orders.sub_category_id, 
+                       purchase_orders.sub_category_id as sub_name, 
                        purchase_orders.order_number,  , 
                        purchase_orders.supplier_id,
                        purchase_orders.order_date,
                        purchase_orders.purchasedate,
                        purchase_orders.status, 
                        purchase_orders.created_at,
-                       purchase_order_tbls.id as mul_id, 
-                       purchase_order_tbls.item_type, 
-                       purchase_order_tbls.model, 
-                       purchase_order_tbls.serial_number, 
-                       purchase_order_tbls.quantity, 
-                       purchase_order_tbls.unit_price,  
-                       purchase_order_tbls.amount,
-                       purchase_order_tbls.shipping,
-                       purchase_order_tbls.discount,
-                       purchase_order_tbls.grand_total,
-                       purchase_order_tbls.order_number,
-                       purchase_order_tbls.order_date,  
-                       purchase_order_tbls.created_at, 
                        sub_categories.id as sub_ids,
                        sub_categories.name as names, 
                        categories.id,
@@ -1591,23 +1624,19 @@ $quantity = array(
                        suppliers.id as sup_id, 
                        suppliers.name as sup_name, 
                        ');
-    $this->db->from('purchase_order_tbls');
-    $this->db->join('purchase_orders', 'purchase_order_tbls.id = purchase_orders.id', 'left');
+    $this->db->from('purchase_orders');
     $this->db->join('categories', 'purchase_orders.category_id = categories.id', 'left');
     $this->db->join('sub_categories', 'purchase_orders.sub_category_id = sub_categories.id', 'left');
     $this->db->join('locations', 'purchase_orders.location_id = locations.id', 'left');  
-    $this->db->join('suppliers', 'purchase_orders.supplier_id = suppliers.id', 'left');   
-    $this->db->group_by('purchase_order_tbls.order_number'); 
-    $this->db->where('purchase_orders.status',1); 
+    $this->db->join('suppliers', 'purchase_orders.supplier_id = suppliers.id', 'left');    
+    // $this->db->where('purchase_orders.status',1);    
     $this->db->order_by('purchase_orders.id', 'ASC');
     $this->db->limit($limit, $offset);
     return $this->db->get()->result(); 
 } 
      // purchase order save 
-     public function purchase_order_save($data,$multi_data){ 
-        //   print_r($multi_data);exit;
-        $this->db->insert('purchase_orders', $data);
-       $this->db->insert('purchase_order_tbls', $multi_data);
+     public function purchase_order_save($data){  
+           $this->db->insert('purchase_orders', $data); 
         if($this->db->affected_rows() > 0){
             return true;
         }else{
@@ -1626,31 +1655,16 @@ $quantity = array(
                        purchase_orders.order_date,
                        purchase_orders.purchasedate,
                        purchase_orders.status, 
-                       purchase_orders.created_at,
-                       purchase_order_tbls.id as mul_id, 
-                       purchase_order_tbls.item_type, 
-                       purchase_order_tbls.model, 
-                       purchase_order_tbls.serial_number, 
-                       purchase_order_tbls.quantity, 
-                       purchase_order_tbls.unit_price,  
-                       purchase_order_tbls.amount,
-                       purchase_order_tbls.shipping,
-                       purchase_order_tbls.discount,
-                       purchase_order_tbls.grand_total,
-                       purchase_order_tbls.order_number,
-                       purchase_order_tbls.order_date,  
-                       purchase_order_tbls.created_at,
+                       purchase_orders.created_at, 
                         ');
-    $this->db->from('purchase_order_tbls');
-    $this->db->join('purchase_orders', 'purchase_order_tbls.id = purchase_orders.id', 'left');
-    $this->db->where('purchase_order_tbls.id', $id);
+    $this->db->from('purchase_orders'); 
+    $this->db->where('purchase_orders.id', $id);
     return $this->db->get()->row();
 }
   // update purchase - Update existing purchase record
-  public function modify_purchase_record($id, $data,$multi_data){
+  public function modify_purchase_record($id, $data){
     $this->db->where('id', $id);
-    $this->db->update('purchase_orders', $data);
-    $this->db->update('purchase_order_tbls', $multi_data);
+    $this->db->update('purchase_orders', $data); 
     return true;
 } 
 // order detail card.
@@ -1671,8 +1685,8 @@ public function order_detail_card($limit, $offset,$id){
                 purchase_orders.id as purchase_id, 
                 purchase_orders.location_id,
                 purchase_orders.category_id,  
-                purchase_orders.sub_category_id, 
-                purchase_orders.order_number,  , 
+                purchase_orders.sub_category_id as sub_name, 
+                purchase_orders.order_number, 
                 purchase_orders.supplier_id,
                 purchase_orders.order_date,
                 purchase_orders.purchasedate,
@@ -1705,5 +1719,10 @@ return $this->db->get()->result();
         $this->db->update('purchase_orders', $data);
         return true; 
     }
-
+    //approved order
+    public function approved_order($id,$data){ 
+        $this->db->where('id', $id);
+        $this->db->update('purchase_orders', $data);
+        return true; 
+    }
 }

@@ -48,17 +48,9 @@
                 <th class="font-weight-bold">ID </th>
                 <th class="font-weight-bold">Supplier</th> 
                 <th class="font-weight-bold">Location</th>
-                <th class="font-weight-bold">Category</th>
-                <th class="font-weight-bold">Sub Category</th>
-                <!-- <th class="font-weight-bold">Model</th> -->
-                <!-- <th class="font-weight-bold">Type Name</th> -->
-                <th class="font-weight-bold">Model</th>
-                <!-- <th class="font-weight-bold">Serial Number</th> -->
-                <th class="font-weight-bold">Price</th>
-                <!-- <th class="font-weight-bold">Shipping</th> -->
-                <!-- <th class="font-weight-bold">discount</th> -->
-                <th class="font-weight-bold">Order Date</th>
-                <!-- <th class="font-weight-bold">Purchase Date</th> -->
+                <!-- <th class="font-weight-bold">Category</th> -->
+                <th class="font-weight-bold">Sub Category</th>   
+                <th class="font-weight-bold"> Date</th> 
                 <th class="font-weight-bold">Status</th> 
                 <th class="font-weight-bold">Action</th>
             </tr>
@@ -70,20 +62,19 @@
                   <td><?= 'CTC-0'.$item->purchase_id; ?></td>
                   <td><?= $item->sup_name; ?></td>
                   <td><?= ucfirst($item->loc_name); ?></td>
-                  <td><?= ucfirst($item->cat_name); ?></td>
-                   <td><?= ucfirst($item->names); ?></td>  
-                  <td><?= ucfirst($item->model); ?></td>
-                  <!-- <td><?= ucfirst($item->serial_number); ?></td> -->
-                  <td><?= ucfirst($item->unit_price); ?></td> 
-                  <!-- <td><?= ucfirst($item->shipping); ?></td>  -->
-                  <!-- <td><?= number_format(floatval($item->discount)).' '.' (%)'; ?></td>   -->
-                  <td><?= $item->order_date; ?></td>
-                   <!-- <td><?= $item->purchasedate; ?></td>  -->
-                   <td><?= $item->status; ?></td> 
+                  <!-- <td><?= ucfirst($item->cat_name); ?></td> -->
+                   <td><?= ucfirst($item->sub_name); ?></td>     
+                  <td><?= $item->created_at; ?></td> 
+                  <?php if($item->status == 0) { ?>
+                   <td class="badge badge-danger">pending</td> 
+                   <?php } else { ?>
+                   <td class="badge badge-success">approved</td> 
+                  <?php } ?>
                   <td>
-                  <a href="<?= base_url('admin/edit_order/'.$item->purchase_id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a> <!-- <a href="<?= base_url('admin/view_order/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
+                  <!-- <a href="<?= base_url('admin/edit_order/'.$item->purchase_id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a> <a href="<?= base_url('admin/view_order/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
                   <a href="<?= base_url('admin/order_detail/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                   <a href="<?= base_url('admin/cancel_order/'.$item->purchase_id); ?>" class=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                  <!-- <a href="<?= base_url('admin/approved_order/'.$item->purchase_id); ?>" class=""><span class="badge badge-success"><i class="fa fa-check"></i></span></a> -->
                   <td> 
                   </td>
                 </tr>
@@ -92,26 +83,21 @@
           <?php else: ?>
             <tbody>
               <?php if(!empty($results)): foreach($results as $item): ?>
-                <td><?= 'CTC-0'.$item->purchase_id; ?></td>
+                <tr>
+                  <td><?= 'CTC-0'.$item->purchase_id; ?></td>
                   <td><?= $item->sup_name; ?></td>
                   <td><?= ucfirst($item->loc_name); ?></td>
-                  <td><?= ucfirst($item->cat_name); ?></td>
-                   <td><?= ucfirst($item->type_name); ?></td>  
-                  <td><?= ucfirst($item->model); ?></td>
-                  <!-- <td><?= ucfirst($item->serial_number); ?></td> -->
-                  <td><?= ucfirst($item->price); ?></td> 
-                  <!-- <td><?= ucfirst($item->shipping); ?></td>  -->
-                  <!-- <td><?= number_format(floatval($item->discount)).' '.' (%)'; ?></td>   -->
-                  <td><?= $item->order_date; ?></td>
-                   <!-- <td><?= $item->purchasedate; ?></td>  -->
+                  <!-- <td><?= ucfirst($item->cat_name); ?></td> -->
+                   <td><?= ucfirst($item->sub_name); ?></td>     
+                  <td><?= $item->created_at; ?></td> 
                    <td><?= $item->status; ?></td> 
                   <td>
-                  <a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                  <!-- <a href="<?= base_url('admin/view_order/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
-                  <a href="<?= base_url('admin/assign_item/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
-                  <a data-id="<?= $item->id.'/'.$item->id; ?>" class="return_item"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                  <a href="<?= base_url('admin/edit_order/'.$item->purchase_id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a> <!-- <a href="<?= base_url('admin/view_order/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
+                  <a href="<?= base_url('admin/order_detail/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+                  <!-- <a href="<?= base_url('admin/cancel_order/'.$item->purchase_id); ?>" class=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> -->
                   <td> 
                   </td>
+                </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
             </tbody>
         <?php endif; ?>

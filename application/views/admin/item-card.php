@@ -217,6 +217,7 @@ ________________________________________________________________________________
                 <th>Assigned Date </th>
                 <th>Return Back</th>
                 <th>Returning Reason</th>
+                <th>Image</th>
                 </thead>
                 </tr>
                         <tr>
@@ -265,6 +266,16 @@ ________________________________________________________________________________
                         echo "<span style='font-weight:bold'>   - - - - - - </span>";}
                 ?>
                 </td> 
+
+                <td>
+                <?php
+                        if(!empty($item->return_back_date))
+                        {echo "<a href='".base_url('upload/'.$item->item_file)."' target='_blank' > <img width='100'  src='".base_url('upload/'.$item->item_file)."' border='0'></a>";} 
+                        else{
+                        echo "<span style='font-weight:bold'>   - - - - - - </span>";}
+                ?>
+                </td> 
+
                 </strong> 
                 </span> 
                 <?php } ?>
