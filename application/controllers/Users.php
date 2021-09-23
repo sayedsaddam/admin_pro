@@ -35,6 +35,10 @@ class Users extends CI_Controller{
     }
     // Created requisition
     public function create_requisition(){
+		if(empty($this->input->post('category')) || empty($this->input->post('sub_category')) || empty($this->input->post('description')) || empty($this->input->post('quantity'))) {
+			$this->session->set_flashdata('failed', '<strong>Failed! </strong>You did not provide the correct inputs!');
+            redirect('users');
+		}
         $data = array(
             'item_name' => $this->input->post('sub_category'), // Name of sub category > item name
             'item_desc' => $this->input->post('description'),

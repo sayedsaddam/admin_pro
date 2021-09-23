@@ -28,7 +28,15 @@
               </div>
           </div>
       </div>
-    <?php endif; ?>
+    <?php elseif($error = $this->session->flashdata('failed')): ?>
+		<div class="row">
+          <div class="col-lg-12 col-md-12">
+              <div class="alert alert-danger">
+                  <?= $error; unset($_SESSION['failed']); ?>
+              </div>
+          </div>
+      </div>
+	<?php endif ?>
     <!-- Grid row -->
     <div class="row mb-4">
       <div class="col-12 text-right">
