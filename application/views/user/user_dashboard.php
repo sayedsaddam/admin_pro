@@ -24,7 +24,7 @@
       <div class="row">
           <div class="col-lg-12 col-md-12">
               <div class="alert alert-success">
-                  <?= $success; ?>
+                  <?= $success; unset($_SESSION['success']); ?>
               </div>
           </div>
       </div>
@@ -193,6 +193,7 @@
         </div>
     </div>
   </div>
+</div>
 </div>
 <!-- Full Height Modal Left -->
 
