@@ -267,6 +267,9 @@ ________________________________________________________________________________
                 ?>
                 </td> 
 
+                      <!-- <a data-id="<?= $item->item_ids; ?>" class="return_item"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> -->
+
+
                 <td>
                 <?php
                         if(!empty($item->return_back_date))

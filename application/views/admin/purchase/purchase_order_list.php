@@ -27,7 +27,7 @@
     <?php endif; ?>
     <div class="row mb-4">
         <div class="col-lg-4 col-md-4">
-            <form action="<?= base_url('admin/search_item'); ?>" method="get" class="md-form form-inline">
+            <form action="<?= base_url('admin/search_purchase_item'); ?>" method="get" class="md-form form-inline">
                 <input type="text" name="search" id="myInput" class="form-control md-form col-5">
                 <label for="">Search Query</label>
                 <input type="submit" value="go &raquo;" class="btn btn-outline-primary rounded-pill">
@@ -36,7 +36,7 @@
          <div class="col-lg-8 col-md-8 text-right">
         <!-- <a href="<?= base_url('admin/get_assign_item'); ?>" data-target="#assign_list" class="btn btn-outline-danger"><i class="fa fa-sub"></i> Assign List</a> -->
         <a href="<?= base_url('admin/purchase_product'); ?>" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Purchase Order</a>
-            <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
+            <a href="<?= base_url('admin/'); ?>" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
           </div>
     </div>
     <div class="row">
@@ -45,6 +45,7 @@
           <caption><?php if(empty($results)){ echo 'List of Assets'; }else{ echo 'Search Results'; } ?></caption>
           <thead>
             <tr>
+              <!-- <?php echo phpinfo(); ?> -->
                 <th class="font-weight-bold">ID </th>
                 <th class="font-weight-bold">Supplier</th> 
                 <th class="font-weight-bold">Location</th>
@@ -64,12 +65,14 @@
                   <td><?= ucfirst($item->loc_name); ?></td>
                   <!-- <td><?= ucfirst($item->cat_name); ?></td> -->
                    <td><?= ucfirst($item->sub_name); ?></td>     
-                  <td><?= $item->created_at; ?></td> 
+                   <td> <?= date('M d, Y', strtotime($item->created_at)); ?> </td>
                   <?php if($item->status == 0) { ?>
-                   <td class="badge badge-danger">pending</td> 
-                   <?php } else { ?>
-                   <td class="badge badge-success">approved</td> 
-                  <?php } ?>
+                   <td ><span class="badge badge-danger">Pending</span></td> 
+                   <?php } elseif($item->status == 1 ){ ?>
+                   <td><span class="badge badge-warning">Process <span></td> 
+                  <?php } else{ ?>
+                    <td><span class="badge badge-success">Approved <span></td> 
+                    <?php } ?>
                   <td>
                   <!-- <a href="<?= base_url('admin/edit_order/'.$item->purchase_id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a> <a href="<?= base_url('admin/view_order/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
                   <a href="<?= base_url('admin/order_detail/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
@@ -89,12 +92,17 @@
                   <td><?= ucfirst($item->loc_name); ?></td>
                   <!-- <td><?= ucfirst($item->cat_name); ?></td> -->
                    <td><?= ucfirst($item->sub_name); ?></td>     
-                  <td><?= $item->created_at; ?></td> 
-                   <td><?= $item->status; ?></td> 
+                  <td> <?= date('M d, Y', strtotime($item->created_at)); ?> </td>
+                  <?php if($item->status == 0) { ?>
+                   <td class="badge badge-danger">pending</td> 
+                   <?php } else { ?>
+                   <td class="badge badge-success">approved</td> 
+                  <?php } ?>
                   <td>
-                  <a href="<?= base_url('admin/edit_order/'.$item->purchase_id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a> <!-- <a href="<?= base_url('admin/view_order/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
+                  <!-- <a href="<?= base_url('admin/edit_order/'.$item->purchase_id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a> <a href="<?= base_url('admin/view_order/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
                   <a href="<?= base_url('admin/order_detail/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
-                  <!-- <a href="<?= base_url('admin/cancel_order/'.$item->purchase_id); ?>" class=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> -->
+                  <a href="<?= base_url('admin/cancel_order/'.$item->purchase_id); ?>" class=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                  <!-- <a href="<?= base_url('admin/approved_order/'.$item->purchase_id); ?>" class=""><span class="badge badge-success"><i class="fa fa-check"></i></span></a> -->
                   <td> 
                   </td>
                 </tr>

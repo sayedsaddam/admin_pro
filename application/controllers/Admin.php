@@ -11,12 +11,13 @@ class Admin extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('supervisor_model');
         $this->load->helper('paginate');
-        if(!$this->session->userdata('username')){
+        if(!$this->session->userdata('username') || $this->session->userdata('user_role') != 'admin'){
             redirect('');
         }
     }
     // Load the dashboard.
     public function index($offset = null){
+       
         $limit = 10;
         if(!empty($offset)){
             $this->uri->segment(3);
@@ -138,11 +139,11 @@ class Admin extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
-        $url = 'admin/suppliers';
+        $url = 'admin/suppliers/suppliers';
         $rowscount = $this->admin_model->count_suppliers();
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Suppliers | Admin & Procurement';
-        $data['body'] = 'admin/suppliers';
+        $data['body'] = 'admin/suppliers/suppliers';
         $data['suppliers'] = $this->admin_model->get_suppliers($limit, $offset);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
         $this->load->view('admin/commons/template', $data);
@@ -211,11 +212,11 @@ class Admin extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
-        $url = 'admin/employ';
+        $url = 'admin/employ/employ';
         $rowscount = $this->admin_model->count_employ();
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Employ | Admin & Procurement';
-        $data['body'] = 'admin/employ';
+        $data['body'] = 'admin/employ/employ';
         $data['employ'] = $this->admin_model->get_employ($limit, $offset);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
         $this->load->view('admin/commons/template', $data);
@@ -928,11 +929,11 @@ class Admin extends CI_Controller{
     public function search_suppliers(){
         $search = $this->input->get('search');
         $data['title'] = 'Search Results > Suppliers';
-        $data['body'] = 'admin/suppliers';
+        $data['body'] = 'admin/suppliers/suppliers';
         $data['results'] = $this->admin_model->search_suppliers($search);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
         $this->load->view('admin/commons/template', $data);
-    }
+    } 
     // Search filters - search inventory
     public function search_inventory(){
         $search = $this->input->get('search');
@@ -1009,43 +1010,43 @@ class Admin extends CI_Controller{
  
     //Item register 
     public function item_register($offset = null){ 
-        $limit = 15;
-        if(!empty($offset)){
+            $limit = 15;
+            if(!empty($offset)){
             $this->uri->segment(3);
-        }
+            }
         $url = 'admin/item_register';
         $rowscount = $this->admin_model->count_item();
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Item Register | Admin & Procurement';
-        $data['body'] = 'admin/item-register';
+        $data['body'] = 'admin/item_assignment/item-register';
         $data['items'] = $this->admin_model->get_items($limit, $offset); 
         $this->load->view('admin/commons/template', $data);
     }
   //Available Item list
   public function available_item_list($offset = null){ 
-    $limit = 15;
-    if(!empty($offset)){
+        $limit = 15;
+        if(!empty($offset)){
         $this->uri->segment(3);
-    }
+        }
     $url = 'admin/item_register';
     $rowscount = $this->admin_model->count_item();
     paginate($url, $rowscount, $limit);
     $data['title'] = 'Item Register | Admin & Procurement';
-    $data['body'] = 'admin/item-register';
+    $data['body'] = 'admin/item_assignment/item-register';
     $data['items'] = $this->admin_model->get_available_items($limit, $offset); 
     $this->load->view('admin/commons/template', $data);
 }
 //Assign item list
    public function get_assign_item($offset = null){  
-    $limit = 15;
-    if(!empty($offset)){
+        $limit = 15;
+        if(!empty($offset)){
         $this->uri->segment(3);
-    }
+        }
     $url = 'admin/assign-list';
-    $rowscount = $this->admin_model->count_item();
+    $rowscount = $this->admin_model->count_assign_item();
     paginate($url, $rowscount, $limit);
     $data['title'] = 'Item Register | Admin & Procurement';
-    $data['body'] = 'admin/assign-list';
+    $data['body'] = 'admin/item_assignment/assign-list';
     $data['items'] = $this->admin_model->assign_item_list($limit, $offset); 
     $this->load->view('admin/commons/template', $data);
 }
@@ -1053,35 +1054,31 @@ class Admin extends CI_Controller{
 
     //Assign item 
        public function assign_list($offset = null){ 
-        $limit = 15;
-        if(!empty($offset)){
+            $limit = 15;
+            if(!empty($offset)){
             $this->uri->segment(3);
-        }
+            }
         $url = 'admin/item_register';
         $rowscount = $this->admin_model->count_item();
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Item Register | Admin & Procurement';
-        $data['body'] = 'admin/assign-list';
+        $data['body'] = 'admin/item_assignment/assign-list';
         $data['items'] = $this->admin_model->assign_list($limit, $offset); 
         $this->load->view('admin/commons/template', $data);
     }
     // item register - add new item.
     public function add_item(){
         $data['title'] = 'Item Detail';
-        $data['body'] = 'admin/item-detail';  
+        $data['body'] = 'admin/item_assignment/item-detail';  
         $data['categories'] = $this->admin_model->get_item_categories();
         $data['supplier'] = $this->admin_model->get_item_supplier();
         $data['locations'] = $this->admin_model->get_item_location(); 
         $this->load->view('admin/commons/template', $data);
     }
-
     // Add new Item into the database
     public function item_save(){  
         $model = $this->input->post('model');
-        $result = $this->input->post('type_name');
-    //     $result_explode = explode('|', $result);
-    //    $type_id =  $result_explode[0];
-    //    $type_name = $result_explode[1];  
+        $result = $this->input->post('type_name');  
         $data = array(
             'location' => $this->input->post('location'),
             'category' => $this->input->post('category'),
@@ -1097,11 +1094,7 @@ class Admin extends CI_Controller{
             'purchasedate' => $this->input->post('purchasedate'),
             'depreciation' => $this->input->post('depreciation'), 
             'created_at' => date('Y-m-d')
-        );
-        // $data_type = array(
-        //     'item_type' => $type_id,
-        //     'model' => $this->input->post('model')
-        // ); 
+        ); 
         if($this->admin_model->item_save($data,$model)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
             redirect('admin/item_register');
@@ -1110,7 +1103,6 @@ class Admin extends CI_Controller{
             redirect('admin/item_register');
         }
     }
-    
     // Update an existing asset record
     public function modify_item(){
         $id = $this->input->post('id'); 
@@ -1138,7 +1130,7 @@ class Admin extends CI_Controller{
     // Item detail
     public function item_detail($id){   
         $data['title'] = 'Item Detail';
-        $data['body'] = 'admin/item-detail';
+        $data['body'] = 'admin/item_assignment/item-detail';
         $data['edit'] = $this->admin_model->item_detail($id);
         $data['categories'] = $this->admin_model->get_item_categories();
         $data['sub_categories'] = $this->admin_model->get_item_sub_category();    
@@ -1155,10 +1147,9 @@ class Admin extends CI_Controller{
     }
     // Search filters - search asset register
     public function search_item(){
-        $search = $this->input->get('search');
-        // echo $search;exit;
+        $search = $this->input->get('search'); 
         $data['title'] = 'Search Results > Item List';
-        $data['body'] = 'admin/item-register'; 
+        $data['body'] = 'admin/item_assignment/item-register'; 
         $data['results'] = $this->admin_model->search_items($search);
         $this->load->view('admin/commons/template', $data);
     }
@@ -1174,24 +1165,23 @@ class Admin extends CI_Controller{
     }
      // Assignment Item List- 
      public function assign_item_list($offset = null){
-        $limit = 15;
-        if(!empty($offset)){
+            $limit = 15;
+            if(!empty($offset)){
             $this->uri->segment(3);
-        } 
+            } 
         $url = 'admin/assign_item_list';
         $rowscount = $this->admin_model->count_item_assign();
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Assign Item list';
-        $data['body'] = 'admin/assign-item-list'; 
+        $data['body'] = 'admin/item_assignment/assign-item-list'; 
         $data['items'] = $this->admin_model->check_assign_list($limit, $offset); 
         $this->load->view('admin/commons/template', $data);
     }
       // Assignment Item form- To employ
       public function assign_item(){
         $id = $this->uri->segment(3);
-
         $data['title'] = 'Assign Item';
-        $data['body'] = 'admin/assign-item'; 
+        $data['body'] = 'admin/item_assignment/assign-item'; 
         $data['assign_to'] = $this->admin_model->assign_to();
         $data['assign_by'] = $this->admin_model->assign_by(); 
         $data['get_item'] = $this->admin_model->get_item();  
@@ -1203,20 +1193,14 @@ class Admin extends CI_Controller{
     }
         // assign_item_save into the database
         public function assign_item_save(){  
-        $item_id = $this->input->post('item_id'); 
-        // $item_type = $this->input->post('item_type'); 
+        $item_id = $this->input->post('item_id');   
         $assign = $this->input->post('employ');   
         if(!empty($assign)){
         $data = array(
             'assignd_to' => $this->input->post('employ'),
-            'item_id' => $this->input->post('item_id'),
-            // 'assignd_by' => $this->input->post('assign_by'),
-            // 'item_status' => $this->input->post('item_status'), 
-            // 'item_type' => $this->input->post('item_id'), 
-            // 'item_type_id' => $this->input->post('item_type'), 
-            // 'description' => $this->input->post('description'),  
-             'quantity' => 1,  
-             'status' => 1,  
+            'item_id' => $this->input->post('item_id'),   
+            'quantity' => 1,  
+            'status' => 1,  
             'created_at' => date('Y-m-d'),
         );
         $invantory = array( 
@@ -1257,10 +1241,7 @@ class Admin extends CI_Controller{
         else {   
           
            $datas = $this->upload->data(); 
-           $fileUpload = $datas['file_name'];
-           echo '<pre>';
-        //    print_r($datas);exit;
-        //    $this->load->view('upload_success', $data);  
+           $fileUpload = $datas['file_name'];  
             $data = array(   
                 'remarks' => $remarks,
                 'item_file' => $fileUpload,
@@ -1288,17 +1269,15 @@ class Admin extends CI_Controller{
     public function search_assign_items(){
         $search = $this->input->get('search'); 
         $data['title'] = 'Search Results > Assign Item';
-        $data['body'] = 'admin/assign-item-list'; 
+        $data['body'] = 'admin/item_assignment/assign-item-list'; 
         $data['results'] = $this->admin_model->search_assign_item($search);
         $this->load->view('admin/commons/template', $data);
     }   
-
      // Get all suppliers based on city
      public function get_assign_category($loc_id){
         $get_assign_category = $this->admin_model->get_assign_category($loc_id);
         echo json_encode($get_assign_category);
     }  
-
     // Get all suppliers based on city
     public function get_location_employ($loc_id){
         $get_location_employ = $this->admin_model->get_location_employ($loc_id);
@@ -1345,16 +1324,15 @@ class Admin extends CI_Controller{
      $rowscount = $this->admin_model->count_item();
      paginate($url, $rowscount, $limit);
      $data['title'] = 'Item Register | Admin & Procurement';
-     $data['body'] = 'admin/item-card';
+     $data['body'] = 'admin/item_assignment/item-card';
      $data['items'] = $this->admin_model->get_item_card($limit, $offset,$id); 
      $data['item'] = $this->admin_model->get_item_card_detail($limit, $offset,$id); 
      $this->load->view('admin/commons/template', $data);
  } 
 //purchase product - purchase new product 
-    public function purchase_product(){
-        // echo "called purchase ";exit;
+    public function purchase_product(){ 
         $data['title'] = 'Purchase Product';
-        $data['body'] = 'admin/purchase-product';  
+        $data['body'] = 'admin/purchase/purchase-product';  
         $data['categories'] = $this->admin_model->get_item_categories();
         $data['supplier'] = $this->admin_model->get_item_supplier();
         $data['locations'] = $this->admin_model->get_item_location(); 
@@ -1363,15 +1341,15 @@ class Admin extends CI_Controller{
 
     //Purchase order list 
     public function purchase_order_list($offset = null){ 
-        $limit = 15;
-        if(!empty($offset)){
+            $limit = 15;
+            if(!empty($offset)){
             $this->uri->segment(3);
-        }
+            }
         $url = 'admin/purchase_order_list';
-        $rowscount = $this->admin_model->count_item();
+        $rowscount = $this->admin_model->count_purchase();
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Purchase Order List | Admin & Procurement';
-        $data['body'] = 'admin/purchase_order_list';
+        $data['body'] = 'admin/purchase/purchase_order_list';
         $data['items'] = $this->admin_model->purchase_order_list($limit, $offset); 
         $this->load->view('admin/commons/template', $data);
     }
@@ -1379,7 +1357,6 @@ class Admin extends CI_Controller{
     // Add multiple Item into the database
     public function purchas(){   
         $id = $this->input->post('id'); 
-     
         $item_name = $this->input->post('product_name[]');
         $quantity = $this->input->post('product_qty[]');
         $model = $this->input->post('model[]');
@@ -1391,7 +1368,6 @@ class Admin extends CI_Controller{
         $discount = $this->input->post('discountTotal[]');
         $amount = $this->input->post('total_val[]');
         $grand_total = $this->input->post('total[]');
-
         $data = array(
             'location_id' => $this->input->post('location'),
             'category_id' => $this->input->post('category'),  
@@ -1402,27 +1378,13 @@ class Admin extends CI_Controller{
             'purchasedate' => $this->input->post('purchasedate'),  
             'created_at' => date('Y-m-d'), 
             'status' => 1,
-        );
-// insert multiple datat into db
-// for($i=0;$i < count($item_name);$i++){
+        ); 
     foreach ($item_name as $key) {
-        $multi_data = array(   
-            'item_type' => $key->item_name, 
-            // 'quantity' => $quantity,
-            // 'model' => $model,
-            // 'serial_number' => $serial_number,
-            // 'order_number' => $order_number, 
-            // 'unit_price' => $product_price,
-            // 'order_date' =>  $order_date, 
-            // 'shipping' =>  $shipping,  
-            // 'discount' => $discount,  
-            // 'amount' =>  $amount,  
-            // 'grand_total' => $grand_total,  
+            $multi_data = array(   
+            'item_type' => $key->item_name,   
             'created_at' => date('Y-m-d'),  
-        );
-    }
-            echo "<pre>";
-            print_r($multi_data);
+            );
+    } 
         if($this->admin_model->purchase_order_save($data,$multi_data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Order was created successfully.');
             redirect('admin/purchase_order_list');
@@ -1431,32 +1393,27 @@ class Admin extends CI_Controller{
            redirect('admin/purchase_order_list');
         }
     } 
-
     public function purchase_order_save(){  
-
-
         $req_by = $this->session->userdata('id');  
         $location = $this->input->post('location');
     //   explode location name and id
        $location_explode = explode('/', $location);
        $location_id =  $location_explode[0];
        $location_name = $location_explode[1]; 
-
         $this->load->library('form_validation');
         $this->form_validation->set_rules('email', 'Email', 'trim|valid_email|callback_check_email');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required');
-        
-                $supplier_email = $this->input->post('email');      
-                $product_name = $this->input->post('product_name');
-                $order_number = $this->input->post('order_number');
-                $this->load->library('email'); // Loading the email library.
-                $this->email->from('no-reply@alhayyatgroup.com', 'AH Group');
-                $this->email->to($supplier_email);
-                // $this->email->cc('another@another-example.com');
-                // $this->email->bcc('them@their-example.com');
-                $this->email->subject('Product Requisition');
-                $this->email->message("office of " .$location_name." request for".$product_name.'order number is'.$order_number); 
-
+        $this->form_validation->set_rules('password', 'Password', 'trim|required'); 
+            //   below email code check and work
+                $from_email = "no-reply@alhayyatgroup.com";
+                $to_email = "asmfiv998@gmail.com ";//$this->input->post("email"); 
+                $product_name = "laptop";//$this->input->post('product_name');
+                $order_number = "12";//$this->input->post('order_number');
+                $this->load->library("email");
+                $this->email->from($from_email,"AH Group");
+                $this->email->to($to_email);
+                $this->email->subject("Product Requisition");
+                $this->email->message("office of Islamabad request for ".' '.$product_name.' order number is '.$order_number);
+               
         $data = array(
             'location_id' => $location_id,  
             'sub_category_id' => $this->input->post('product_name'),  
@@ -1465,18 +1422,39 @@ class Admin extends CI_Controller{
             'requested_by' => $req_by, 
             'created_at' => date('Y-m-d'), 
             'status' => 0,
-        );
-        // echo "<pre>";
-        // print_r($data);exit; 
+        ); 
         if($this->admin_model->purchase_order_save($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Order was created successfully.');
+            $this->session->set_flashdata("email_send","Mail Send!"); 
             redirect('admin/purchase_order_list');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
-        redirect('admin/purchase_order_list');
+            $this->session->set_flashdata("email_send","Something went wrong!");  
+            redirect('admin/purchase_order_list');
         } 
               } 
 
+        public function add_qutation(){  
+            $po_id = $this->input->post('purchase_id'); 
+            $data = array(
+            'po_id' => $this->input->post('purchase_id'), 
+            'requested_by' => $this->input->post('requested_by'),  
+            'supplier_id' => $this->input->post('supplier_id'),
+            'price' => $this->input->post('price'), 
+            'qutation' => $this->input->post('description'), 
+            'created_at' => date('Y-m-d'),  
+            ); 
+            $pos_status = array(
+                'status' => 1,  
+                );  
+            if($this->admin_model->add_qutation($po_id,$data,$pos_status)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>qutation was added successfully.');
+            redirect($_SERVER['HTTP_REFERER']); 
+            }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
+            redirect($_SERVER['HTTP_REFERER']); 
+            } 
+        }  
     // edit order   
     public function edit_order($id){   
         // echo "edit called".$id;exit;
@@ -1512,26 +1490,29 @@ class Admin extends CI_Controller{
         }
     }
      //order detail  
-        public function order_detail($id,$offset = null){   
-            $limit = 15;
-         if(!empty($offset)){
-             $this->uri->segment(3);
-         }
+        public function order_detail($id,$offset = null){ 
+                $limit = 15;
+                if(!empty($offset)){
+                $this->uri->segment(3);
+                } 
+        //  $id = $this->uri->segment(3);
          $url = 'admin/order-detail';
          $rowscount = $this->admin_model->count_item();
          paginate($url, $rowscount, $limit);
          $data['title'] = 'Order Detail | Admin & Procurement';
-         $data['body'] = 'admin/order-detail';
+         $data['body'] = 'admin/purchase/order-detail';
          $data['items'] = $this->admin_model->order_detail_card($limit, $offset,$id); 
+         $data['count_reult'] = $this->admin_model->count_result($id); 
+         $data['count'] = $this->admin_model->count_qutation($id); 
          $data['item'] = $this->admin_model->get_item_card_detail($limit, $offset,$id); 
          $this->load->view('admin/commons/template', $data);
      }
        // Cancel - Cancel Order
     public function cancel_order($id){
-        $data = array(   
+            $data = array(   
             'status' => 0,
             'created_at' => date('Y-m-d')  
-        );
+            );
         if($this->admin_model->cancel_order($id,$data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>order cancel successful.');
             redirect('admin/purchase_order_list');
@@ -1541,34 +1522,41 @@ class Admin extends CI_Controller{
         }
     }
        // Cancel - Cancel Order
-       public function approved_order($id){
-        $data = array(   
-            'status' => 1,
-            'created_at' => date('Y-m-d')  
-        );
-        if($this->admin_model->approved_order($id,$data)){
+       public function approved_order(){ 
+        $id = $this->input->post('id');   
+        $model_explode = explode('/', $id); 
+        $qut_id =  $model_explode[0]; 
+        $pos_id =  $model_explode[1]; 
+                $data = array( 
+                'remarks' => $this->input->post('remarks'),    
+                'status' => 1,
+                'created_at' => date('Y-m-d')  
+                );  
+                $pos_data = array(  
+                'status' => 2, 
+                'created_at' => date('Y-m-d'),  
+                ); 
+                $update_qut = array(  
+                'status' => 'rejected',   
+                ); 
+        if($this->admin_model->approved_order($id,$pos_id,$data,$pos_data,$update_qut)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>order approved successful.');
-            redirect('admin/purchase_order_list');
+            redirect($_SERVER['HTTP_REFERER']); 
+
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('admin/purchase_order_list');
+            redirect($_SERVER['HTTP_REFERER']); 
         }
     }
-
-    
-    // email to supplier.
-    public function authenticate(){ 
-       
-        }  
-
-
-
-
-
-
-
-
-
+// Search purchase order - search order
+public function search_purchase_item(){
+    $search = $this->input->get('search');
+    $data['title'] = 'Search Results > Suppliers';
+    $data['body'] = 'admin/purchase/purchase_order_list';
+    $data['results'] = $this->admin_model->search_purchase_item($search);
+    $data['locations'] = $this->admin_model->list_locations_suppliers();
+    $this->load->view('admin/commons/template', $data);
+}  
     // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";

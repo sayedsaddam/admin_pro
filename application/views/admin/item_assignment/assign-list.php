@@ -150,7 +150,7 @@
       </div>
   </div>
 
-  <!-- Modal to edit location -->
+  <!-- Modal to edit assign -->
   <div class="modal fade" id="item_return" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -169,9 +169,7 @@
                   <option value="damage">Damage</option>
                   <option value="disabled">Disabled</option>
                 </select>
-                  </div>
-
-                  
+                  </div> 
                   <div class="md-form mb-5"> 
               <input type="file" name="userfile" class="form-control validate"> 
                   </div>

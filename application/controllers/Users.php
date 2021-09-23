@@ -11,7 +11,10 @@ class Users extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('user_model');
-        $this->load->helper('paginate');
+        $this->load->helper('paginate'); 
+        if(!$this->session->userdata('username') || $this->session->userdata('user_role') != 'supervisor' && $this->session->userdata('user_role') != 'user'){
+            redirect('');
+        }
     }
     public function index($offset = null){
         $limit = 10;
