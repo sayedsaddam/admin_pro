@@ -168,7 +168,7 @@
                         <!-- item name -->
                         <div class="form-group">
                             <label for="itemName">Category</label>
-                            <select name="category" id="category" class="browser-default custom-select">
+                            <select name="category" id="category" class="browser-default custom-select" required>
                                 <option value="" disabled selected>-- Main Category --</option>
                                 <?php if(!empty($items)): foreach($items as $item): ?>
                                   <option value="<?=$item->cat_id;?>"><?=$item->cat_name;?></option>
@@ -177,7 +177,7 @@
                         </div>
                         <div class="form-group">
                             <label for="itemName">Item name</label>
-                            <select name="sub_category" id="sub_category" class="browser-default custom-select">
+                            <select name="sub_category" id="sub_category" class="browser-default custom-select" required>
                               <option value="" disabled selected>-- Sub Category --</option>
                             </select>
                         </div>
@@ -186,7 +186,7 @@
                           <textarea name="description" id="description" class="form-control" placeholder="Description..."></textarea>
                         <div class="form-group">
                             <label for="quantity">Quantity</label>
-                            <input type="number" name="quantity" class="form-control" placeholder="Item quantity...">
+                            <input type="number" name="quantity" class="form-control" placeholder="Item quantity..." required>
                         </div>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-primary" value="Save Changes">
