@@ -214,11 +214,11 @@ ________________________________________________________________________________
 
             <div class="md-form mb-5">
                 <input type="text" name="price" id="orangeForm-name" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="orangeForm-name">price</label>
+                <label data-error="wrong" data-success="right" for="orangeForm-name">&nbsp price</label>
                 </div>
                 <div class="md-form mb-5">
                 <textarea name="description" id="description" cols="30" rows="3" class="form-control"></textarea> 
-                  <label data-error="wrong" data-success="right" for="orangeForm-name" class=""> Description . . .</label>
+                  <label data-error="wrong" data-success="right" for="orangeForm-name" class="">&nbsp Qutation . . .</label>
                 </div>
                 
                 <div class="md-form">

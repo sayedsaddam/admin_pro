@@ -38,7 +38,7 @@
         <a href="<?= base_url('admin/available_item_list'); ?>" data-target="#available_lists" class="btn btn-outline-success"><i class="fa fa-plus"></i> Available List</a>
         <a href="<?= base_url('admin/get_assign_item'); ?>" data-target="#assign_list" class="btn btn-outline-danger"><i class="fa fa-sub"></i> Assign List</a>
         <a href="<?= base_url('admin/add_item'); ?>" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</a>
-            <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
+            <a href="<?= base_url('admin/'); ?>" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
           </div>
     </div>
     <div class="row">
