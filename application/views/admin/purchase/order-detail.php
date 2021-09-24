@@ -42,7 +42,7 @@
                     <p>Order Number</p>
                     </div>
                     <div class="col-md-6"> 
-                    <p>      <?= $items[0]->order_number;?>    </p>
+                    <p> <?= $items[0]->order_number;?> </p>
                 </div>
                 </div>
             
@@ -57,42 +57,42 @@
             </div>
             <?php else : ?> 
 
-                <div class="row">
-                    <div class="col-md-6">
-                    <p>Location</p>
-                    </div>
-                    <div class="col-md-6">
-                    <p><?=$item->name;?></p>
-                    </div>
-                    </div>
+          <div class="row">
+              <div class="col-md-6">
+              <p>Location</p>
+              </div>
+              <div class="col-md-6">
+              <p><?=$item->name;?></p>
+              </div>
+              </div>
 
-                    <div class="row">
-                    <div class="col-md-6">
-                    <p>Category</p>
-                    </div>
-                    <div class="col-md-6">
-                    <p><?=$item->cat_name;?></p>
-                    </div>
-                    </div> 
+              <div class="row">
+              <div class="col-md-6">
+              <p>Category</p>
+              </div>
+              <div class="col-md-6">
+              <p><?=$item->cat_name;?></p>
+              </div>
+              </div> 
 
-                    <div class="row">
-                    <div class="col-md-6">
-                    <p>Sub Category</p>
-                    </div>
-                    <div class="col-md-6">
-                    <p><?php if(!empty($item->sub_name)){ echo ucfirst($item->sub_name);} else{echo "- - - -";} ?></p>
-                    </div>
-                    </div>
+              <div class="row">
+              <div class="col-md-6">
+              <p>Sub Category</p>
+              </div>
+              <div class="col-md-6">
+              <p><?php if(!empty($item->sub_name)){ echo ucfirst($item->sub_name);} else{echo "- - - -";} ?></p>
+              </div>
+              </div>
 
-            <div class="row">
-            <div class="col-md-6">
-            <p>Type</p>
-            </div>
-            <div class="col-md-6">
-            <p>      <?=$item->type_name."(".$item->quantity.")";?>    </p>
-            </div>
-            </div>    
-            <?php endif; ?>
+      <div class="row">
+      <div class="col-md-6">
+      <p>Type</p>
+      </div>
+      <div class="col-md-6">
+      <p>      <?=$item->type_name."(".$item->quantity.")";?>    </p>
+      </div>
+      </div>    
+      <?php endif; ?>
 ____________________________________________________________________________________________________________________________________________________
 <?php if(!empty($items[0]->po_id)) : ?>
 <?php  $pos_id = $this->uri->segment(3);  if($items[0]->po_id == $pos_id) : ?>    
@@ -105,7 +105,7 @@ ________________________________________________________________________________
                 <th>Requested By </th>
                 <th>Supplier</th>
                 <th>price</th>
-                <th>Qutation</th>
+                <th>Quotation</th>
                 <th>Remarks</th>
                 <th>Date</th>  
                 <th>Status</th>  
@@ -144,10 +144,9 @@ ________________________________________________________________________________
 
                      <?php } else { ?> 
                       <td> <span class="badge badge-danger">Rejected</span></td> 
-                      <?php } ?> 
-
-
-
+                      <?php } ?>  
+<?php  
+if(!$this->session->userdata('user_role') == 'admin'){ ?>
                      <?php if($item->price >= 1000000) { ?> 
                       <td>  
                       <span class="badge badge-warning waves-effect waves-light ">budget is too high</span>
@@ -158,6 +157,15 @@ ________________________________________________________________________________
                       <td>
                       <a data-id="<?= $item->qut_id.'/'.$item->purchase_id; ?>" class="return_item"><span class="badge badge-success"><i class="fa fa-check"></i></span></a>
                      </td>
+                     <?php } ?> <!--/first if end for user role -->
+               <?php } else { ?> 
+              <?php if($count_reult == 1) { ?> 
+                      <td></td>
+                      <?php } else{ ?>                      
+                      <td>
+                      <a data-id="<?= $item->qut_id.'/'.$item->purchase_id; ?>" class="return_item"><span class="badge badge-success"><i class="fa fa-check"></i></span></a>
+                     </td>
+                     <?php } ?>
                      <?php } ?>
                 </strong> 
                 </span>  
@@ -181,7 +189,7 @@ ________________________________________________________________________________
     <?php if($count < 3) { ?>
     <a data-toggle="modal" data-target="#add_qutation" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</a>
    <?php } else { ?>
-    <h3 class="text-danger">Qutation range is completed</h3>
+    <h3 class="text-danger">Quotation range is completed</h3>
     <a data-toggle="modal" data-target="#add_qutation" class="btn btn-outline-danger disabled"><i class="fa fa-plus"></i> Add New</a>
 
     <?php } ?>
@@ -200,7 +208,7 @@ ________________________________________________________________________________
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title w-100 font-weight-bold">Add Qutation</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Add Quotation</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -218,7 +226,7 @@ ________________________________________________________________________________
                 </div>
                 <div class="md-form mb-5">
                 <textarea name="description" id="description" cols="30" rows="3" class="form-control"></textarea> 
-                  <label data-error="wrong" data-success="right" for="orangeForm-name" class="">&nbsp Qutation . . .</label>
+                  <label data-error="wrong" data-success="right" for="orangeForm-name" class="">&nbsp Quotation . . .</label>
                 </div>
                 
                 <div class="md-form">
@@ -241,7 +249,7 @@ ________________________________________________________________________________
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title w-100 font-weight-bold">Approve Qutation</h4>
+          <h4 class="modal-title w-100 font-weight-bold">Approve Quotation</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

@@ -1601,22 +1601,21 @@ class Admin_model extends CI_Model{
                        purchase_orders.status, 
                        purchase_orders.created_at,
                        sub_categories.id as sub_ids,
-                       sub_categories.name as names, 
-                       locations.id as loc_id, 
+                       sub_categories.name as names,  
+                       locations.id as loc_id,
                        locations.name as loc_name, 
                        suppliers.id as sup_id, 
                        suppliers.name as sup_name, 
                        ');
     $this->db->from('purchase_orders'); 
-    $this->db->join('sub_categories', 'purchase_orders.sub_category_id = sub_categories.id', 'left');
+    $this->db->join('sub_categories', 'purchase_orders.sub_category_id = sub_categories.id', 'left');  
     $this->db->join('locations', 'purchase_orders.location_id = locations.id', 'left');  
-    $this->db->join('suppliers', 'purchase_orders.supplier_id = suppliers.id', 'left');    
-    // $this->db->where('purchase_orders.status',1);    
+    $this->db->join('suppliers', 'purchase_orders.supplier_id = suppliers.id', 'left');  
     $this->db->order_by('purchase_orders.id', 'ASC');
     $this->db->limit($limit, $offset);
     return $this->db->get()->result(); 
-} 
-     // purchase order save 
+}  
+// purchase order save 
      public function purchase_order_save($data){  
            $this->db->insert('purchase_orders', $data); 
            if($this->db->affected_rows() > 0){
@@ -1735,10 +1734,10 @@ public function order_detail_card($limit, $offset,$id){
         }
     } 
     // Count qutation
-    public function count_qutation($id){
+    public function count_qutation($id){ 
         return $this->db->from('qutations')->where(array('po_id' => $id))->count_all_results();
-    }
-    // Count qutation where status = 1
+    } 
+    //  Count qutation where status = 1
     public function count_result($id){ 
         return $this->db->from('qutations')->where(array('po_id' => $id,'status' => 1))->count_all_results();
     }

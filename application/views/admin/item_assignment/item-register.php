@@ -65,7 +65,7 @@
             </tr>
           </thead>
           <?php if(empty($results)): ?>
-            <tbody id="myTable">s
+            <tbody id="myTable">
               <?php if(!empty($items)): foreach($items as $item): ?>
                 <tr>
                   <td><a href="<?= base_url('admin/item_card/'.$item->id) ?>"><span style="color: blue;"><?= 'CTC-0'.$item->id; ?></span></a></td>

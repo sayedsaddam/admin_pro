@@ -73,24 +73,13 @@
                 <option value="<?= $sup->id; ?>" <?php if(!empty($edit) && $edit->supplier_id == $sup->id){ echo 'selected'; } ?>><?= $sup->name; ?></option>
               <?php endforeach; endif; ?> -->
             </select>  
-
-                <!-- <label>Type Name</label>  
-                <input type="text" name="type_name" class="form-control" required placeholder="plz enter type...">
-                 -->     
-            <!-- <label for="">Sub Category <small>(optional)</small></label>
-             <select name="sub_category" id="item_name" class="browser-default custom-select">
-             <option value="" disabled selected>--select sub category--</option>
-             </select>  -->
-              
-
-             <label>Order Number</label>
-                <input type="text" name="order_number" class="form-control" placeholder="order number ..." value="<?php if(!empty($edit)){ echo $edit->order_number; } ?>"> 
- 
-              </div>
+          <label>Order Number</label>
+          <input type="number" name="order_number" class="form-control" placeholder="order number ..." value="<?php if(!empty($edit)){ echo $edit->order_number; } ?>"> 
+          </div>
             </div><br>
              <div class="row">
-<div class="col-sm-12" > 
-    <button type="submit" class="btn btn-default" id="submit-data" data-loading-text="Creating...">Generate Order</button>
+          <div class="col-sm-12" > 
+          <button type="submit" class="btn btn-default" id="submit-data" data-loading-text="Creating...">Generate Order</button>
  
                 </div>
               </div>

@@ -1,4 +1,4 @@
- 
+
 <!-- -----------------------------------item card start----------------------------- -->
 <div class="container mt-5 pt-5">
     <div class="row">
@@ -273,7 +273,7 @@ ________________________________________________________________________________
                 <td>
                 <?php
                         if(!empty($item->return_back_date))
-                        {echo "<a href='".base_url('upload/'.$item->item_file)."' target='_blank' > <img width='100'  src='".base_url('upload/'.$item->item_file)."' border='0'></a>";} 
+                        {echo "<a href='".base_url('upload/'.$item->item_file)."' target='_blank' > <img id='image' width='100'  src='".base_url('upload/'.$item->item_file)."' border='0'></a>";} 
                         else{
                         echo "<span style='font-weight:bold'>   - - - - - - </span>";}
                 ?>

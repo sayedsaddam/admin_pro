@@ -1350,7 +1350,8 @@ class Admin extends CI_Controller{
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Purchase Order List | Admin & Procurement';
         $data['body'] = 'admin/purchase/purchase_order_list';
-        $data['items'] = $this->admin_model->purchase_order_list($limit, $offset); 
+        $data['items'] = $this->admin_model->purchase_order_list($limit, $offset);
+        // print_r($data);exit;
         $this->load->view('admin/commons/template', $data);
     }
 
@@ -1490,7 +1491,7 @@ class Admin extends CI_Controller{
         }
     }
      //order detail  
-        public function order_detail($id,$offset = null){ 
+        public function order_detail($id,$offset = null){  
                 $limit = 15;
                 if(!empty($offset)){
                 $this->uri->segment(3);

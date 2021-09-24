@@ -52,6 +52,7 @@
                 <!-- <th class="font-weight-bold">Category</th> -->
                 <th class="font-weight-bold">Sub Category</th>   
                 <th class="font-weight-bold"> Date</th> 
+                <th class="font-weight-bold"> Quotation</th> 
                 <th class="font-weight-bold">Status</th> 
                 <th class="font-weight-bold">Action</th>
             </tr>
@@ -66,6 +67,8 @@
                   <!-- <td><?= ucfirst($item->cat_name); ?></td> -->
                    <td><?= ucfirst($item->sub_name); ?></td>     
                    <td> <?= date('M d, Y', strtotime($item->created_at)); ?> </td>
+                   <?php $quotations = $this->admin_model->count_qutation($item->purchase_id); ?>
+                   <td><?= $quotations; ?></td>
                   <?php if($item->status == 0) { ?>
                    <td ><span class="badge badge-danger">Pending</span></td> 
                    <?php } elseif($item->status == 1 ){ ?>
@@ -74,10 +77,8 @@
                     <td><span class="badge badge-success">Approved <span></td> 
                     <?php } ?>
                   <td>
-                  <!-- <a href="<?= base_url('admin/edit_order/'.$item->purchase_id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a> <a href="<?= base_url('admin/view_order/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
                   <a href="<?= base_url('admin/order_detail/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                   <a href="<?= base_url('admin/cancel_order/'.$item->purchase_id); ?>" class=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                  <!-- <a href="<?= base_url('admin/approved_order/'.$item->purchase_id); ?>" class=""><span class="badge badge-success"><i class="fa fa-check"></i></span></a> -->
                   <td> 
                   </td>
                 </tr>
@@ -93,11 +94,13 @@
                   <!-- <td><?= ucfirst($item->cat_name); ?></td> -->
                    <td><?= ucfirst($item->sub_name); ?></td>     
                   <td> <?= date('M d, Y', strtotime($item->created_at)); ?> </td>
-                  <?php if($item->status == 0) { ?>
-                   <td class="badge badge-danger">pending</td> 
-                   <?php } else { ?>
-                   <td class="badge badge-success">approved</td> 
-                  <?php } ?>
+                  <td><?php if($item->status == 0) { ?></td>
+                   <td ><span class="badge badge-danger">Pending</span></td> 
+                   <?php } elseif($item->status == 1 ){ ?>
+                   <td><span class="badge badge-warning">Process <span></td> 
+                  <?php } else{ ?>
+                    <td><span class="badge badge-success">Approved <span></td> 
+                    <?php } ?>
                   <td>
                   <!-- <a href="<?= base_url('admin/edit_order/'.$item->purchase_id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a> <a href="<?= base_url('admin/view_order/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
                   <a href="<?= base_url('admin/order_detail/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>

@@ -14,6 +14,8 @@
   <link href="<?= base_url('assets/css/mdb.min.css'); ?>" rel="stylesheet">
   <!-- JQuery -->
   <script src="<?= base_url('assets/js/jquery.min.js'); ?>"></script>
+<!-- custom css -->
+<link href="<?= base_url('assets/custom/custom.css'); ?>" rel="stylesheet">
 	<title><?php echo $title; ?></title>
 	<!-- <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900|Open+Sans:400,700,800|Roboto:400,700,900" rel="stylesheet"> -->
 </head>
