@@ -17,6 +17,45 @@ class Supervisor_model extends CI_Model{
         $this->db->where('users.supervisor', $this->session->userdata('id'));
         return $this->db->count_all_results();
     }
+    // Get inventory items to list in the dropdown for user request submission > get the main categories.
+    public function get_employees($user_id){
+        $this->db->select('users.id,
+                            users.fullname,
+                            users.supervisor');
+        $this->db->from('users');
+        $this->db->where('users.supervisor =' , $user_id);
+        $this->db->order_by('users.fullname', 'asc');
+        return $this->db->get()->result();
+    }
+    // Get inventory items to list in the dropdown for user request submission > get the main categories.
+    public function get_items(){
+        $this->db->select('categories.id as cat_id,
+                            categories.cat_name,
+                            inventory.id,
+                            inventory.category,
+                            inventory.name');
+        $this->db->from('categories');
+        $this->db->join('inventory', 'categories.id = inventory.category', 'left');
+        $this->db->group_by('inventory.category');
+        $this->db->order_by('categories.cat_name', 'asc');
+        return $this->db->get()->result();
+    }
+    // Get sub categories for placing requisition
+    public function get_sub_categories($cat_id){
+        $this->db->select('id, name');
+        $this->db->from('sub_categories');
+        $this->db->where('cat_id', $cat_id);
+        return $this->db->get()->result();
+    }
+    // Create an item requisition
+    public function create_requisition($data){
+        $this->db->insert('item_requisitions', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
     // Count all travel requisitions for logged in supervisor.
     public function total_travel_requisitions(){
         $this->db->select('travel_hotel_stay.id,
@@ -62,6 +101,16 @@ class Supervisor_model extends CI_Model{
         $this->db->where('id', $id);
         $this->db->update('item_requisitions', $data);
         return true;
+    }
+    //== ------------------------------------------ Travel and hotel stay ----------------------------------------------- ==//
+    // Apply travel
+    public function apply_travel($data){
+        $this->db->insert('travel_hotel_stay', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
     // Get leave applications by employees.
     public function get_travel_applications(){

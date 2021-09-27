@@ -74,16 +74,7 @@ class User_model extends CI_Model{
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
-    //== ------------------------------------------ Travel and hotel stay ----------------------------------------------- ==//
-    // Apply travel
-    public function apply_travel($data){
-        $this->db->insert('travel_hotel_stay', $data);
-        if($this->db->affected_rows() > 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
+    
     // Total leaves by currently logged in employee.
     public function total_travel_requests(){
         return $this->db->where('requested_by', $this->session->userdata('id'))->from('travel_hotel_stay')->count_all_results();
