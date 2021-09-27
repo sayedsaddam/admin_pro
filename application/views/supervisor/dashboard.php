@@ -9,7 +9,7 @@
         <h5 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h5>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
-        <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
+        <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?= $this->session->userdata('fullname'); ?></button>
         <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
         <h4 class="font-weight-bold orange-text mt-2">Supervisor Dashboard <i class="fa fa-chart-bar"></i></h4>
       </div>
@@ -101,10 +101,7 @@
         <div class="card card-list">
           <div class="card-header white d-flex justify-content-between align-items-center py-3">
             <p class="h5-responsive font-weight-bold mb-0">Travel History</p>
-            <ul class="list-unstyled d-flex align-items-center mb-0">
-              <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
-              <li><i class="fas fa-times fa-sm pl-3"></i></li>
-            </ul>
+            <small>Hover the mouse cursor over the description to view complete detail.</small>
           </div>
           <div class="card-body">
             <table class="table table-sm">
