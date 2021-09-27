@@ -49,7 +49,7 @@
       <div class="col-12">
           <div class="card card-list">
               <div class="card-header white d-flex justify-content-between align-items-center py-3">
-                  <p class="h5-responsive font-weight-bold mb-0">Item Requests</p>
+                  <p class="h5-responsive font-weight-bold mb-0">Requisition Requests</p>
                   <small>Hover the mouse cursor over the description to view complete detail.</small>
                   </ul>
               </div>
@@ -57,15 +57,15 @@
                   <table class="table table-sm">
                       <thead>
                           <tr>
-                          <th class="font-weight-bold">Order ID</th>
+                          <th class="font-weight-bold"><abbr title="Order ID">ID</abbr></th>
                           <th class="font-weight-bold">Employee</th>
                           <th class="font-weight-bold">Item</th>
                           <th class="font-weight-bold">Category</th>
                           <th class="font-weight-bold">Quantity</th>
                           <th class="font-weight-bold">Description</th>
-                          <th class="font-weight-bold">Requested</th>
+                          <th class="font-weight-bold">Requested On</th>
                           <th class="font-weight-bold">Status</th>
-                          <th class="font-weight-bold">Processed</th>
+                          <th class="font-weight-bold">Action</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -107,7 +107,7 @@
             <table class="table table-sm">
               <thead>
                 <tr>
-                  <th class="font-weight-bold">ID</th>
+                  <th class="font-weight-bold"><abbr title="Order ID">ID</abbr></th>
                   <th class="font-weight-bold">Employee</th>
                   <th class="font-weight-bold">Visit of</th>
                   <th class="font-weight-bold">Assignment</th>
