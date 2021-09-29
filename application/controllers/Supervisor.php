@@ -26,6 +26,11 @@ class Supervisor extends CI_Controller{
     }
     // list all item requisitions > on a separate page with pagination.
     public function view_all_requisitions($offset = null){
+        if($this->input->post('filter')) {
+            $date_from = $this->input->post('date_from');
+            $date_to = $this->input->post('date_to');
+        }
+
         $limit = 15;
         if(!empty($offset)){
             $this->uri->segment(3);
@@ -35,9 +40,17 @@ class Supervisor extends CI_Controller{
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Item Requisitions | Admin & Procurement';
         $data['body'] = 'supervisor/requisitions_list';
-        $data['requisitions'] = $this->supervisor_model->get_requisitions($limit, $offset);
+        $data['requisitions'] = NULL;
+        if($this->input->post('filter')) {
+            $date_from = $this->input->post('date_from');
+            $date_to = $this->input->post('date_to');
+            $data['requisitions'] = $this->supervisor_model->get_requisitions($limit, $offset, $date_from, $date_to);
+        } else {
+            $data['requisitions'] = $this->supervisor_model->get_requisitions($limit, $offset);
+        }
         $this->load->view('admin/commons/template', $data);
     }
+    
     // list all travel history > on a separate page with pagination.
     public function view_travel_history($offset = null){
         $limit = 15;
@@ -49,7 +62,13 @@ class Supervisor extends CI_Controller{
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Item Requisitions | Admin & Procurement';
         $data['body'] = 'supervisor/travels_list';
-        $data['travels'] = $this->supervisor_model->get_travel_applications($limit, $offset);
+        if($this->input->post('filter')) {
+            $date_from = $this->input->post('date_from');
+            $date_to = $this->input->post('date_to');
+            $data['travels'] = $this->supervisor_model->get_travel_applications($date_from, $date_to);
+        } else {
+            $data['travels'] = $this->supervisor_model->get_travel_applications();
+        }
         $this->load->view('admin/commons/template', $data);
     }
     // Get leave info to pass ID to hidden field in form for approving or rejecting leave.
@@ -57,6 +76,31 @@ class Supervisor extends CI_Controller{
         $leave_info = $this->supervisor_model->get_leave_info($id);
         echo json_encode($leave_info);
     }
+
+    // Exports all travel records assigned to supervisor.
+    // Takes date range (from) and date range (to) as input
+    public function export_travels() {
+        if(empty($this->input->post('date_from')) || empty($this->input->post('date_to'))) {
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>You did not provide the correct inputs!');
+            redirect('supervisor');
+        }
+
+        $date_from = $this->input->post('date_from');
+        $date_to = $this->input->post('date_to');
+
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+
+        $url = 'supervisor/export';
+
+        $data['title'] = 'Exporting Data | Admin & Procurement';
+        $data['body'] = 'supervisor/export';
+        $data['travels'] = $this->supervisor_model->export_travels($date_from, $date_to);
+        
+        $this->load->view('admin/commons/template', $data);
+    }
+
     // Created requisition
     public function create_requisition(){
 		if(empty($this->input->post('category')) || empty($this->input->post('sub_category')) || empty($this->input->post('quantity'))) {

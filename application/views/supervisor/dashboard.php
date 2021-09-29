@@ -32,11 +32,11 @@
     <!-- Grid row -->
     <div class="row mb-4">
       <div class="col-12 text-center">
-        <button class="btn btn-outline-unique" data-toggle="modal" data-target="#fullHeightModalLeft"><i class="fa fa-envelope"></i> Place requisisition</button>
-        <a href="<?= base_url('supervisor/view_all_requisitions'); ?>" class="btn btn-outline-dark"><i class="fa fa-envelope"></i> View requisitions <span class="badge badge-info"><?= $total_requisitions; ?></span></a>
-        <button data-toggle="modal" data-target="#apply_travel" class="btn btn-outline-info"><i class="fa fa-plane"></i> Apply Travel</button>
-        <a href="<?= base_url('supervisor/view_travel_history'); ?>" class="btn btn-outline-purple"><i class="fa fa-plane"></i> Travel History <span class="badge badge-info"><?= $total_travels; ?></span></a>
-        <a href="<?= base_url('supervisor/profile'); ?>" class="btn btn-outline-info"><i class="fa fa-user"></i> User Profile</a>
+        <button class="btn btn-outline-unique btn-sm" data-toggle="modal" data-target="#fullHeightModalLeft"><i class="fa fa-envelope"></i> Place requisisition</button>
+        <a href="<?= base_url('supervisor/view_all_requisitions'); ?>" class="btn btn-outline-dark btn-sm"><i class="fa fa-envelope"></i> View requisitions <span class="badge badge-info"><?= $total_requisitions; ?></span></a>
+        <button data-toggle="modal" data-target="#apply_travel" class="btn btn-outline-info btn-sm"><i class="fa fa-plane"></i> Apply Travel</button>
+        <a href="<?= base_url('supervisor/view_travel_history'); ?>" class="btn btn-outline-purple btn-sm"><i class="fa fa-plane"></i> Travel History <span class="badge badge-info"><?= $total_travels; ?></span></a>
+        <a href="<?= base_url('supervisor/profile'); ?>" class="btn btn-outline-info btn-sm"><i class="fa fa-user"></i> User Profile</a>
       </div>
     </div>
     <!--Grid row-->
@@ -91,7 +91,7 @@
                   </table>
               </div>
               <div class="card-footer white py-3 d-flex justify-content-between">
-                  <a href="<?= base_url('supervisor/view_all_requisitions') ?>" class="btn btn-outline-primary">View All</a>
+                <a href="<?= base_url('supervisor/view_all_requisitions') ?>" class="btn btn-outline-primary">View All</a>
               </div>
           </div>
       </div>
@@ -293,6 +293,108 @@
 </div>
 </div>
 <!-- Full Height Modal Left -->
+
+<!-- Full Height Modal Right > Export Travels Data -->
+<div class="modal fade left" id="export-requisitions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+  aria-hidden="true">
+  <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-xl modal-right" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title w-100" id="myModalLabel">Exporting Requisition Records</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <h4 class="font-weight-lighter mb-5 text-center">Please select the date range.</h4>
+              <!-- Form -->
+              <form action="<?= base_url('supervisor/export_requisitions'); ?>" method="post">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="visit_start">From</label>
+                        <input type="date" name="date_from" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="check_out">To</label>
+                        <input type="date" name="date_to" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <input type="submit" class="btn btn-primary" value="Submit Request">
+                      <input type="reset" class="btn btn-danger" value="clear form">
+                    </div>
+                  </div>
+              </form>
+              <!-- Form -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- Full Height Modal Right -->
+
+<!-- Full Height Modal Right > Export Data -->
+<div class="modal fade left" id="export-travels" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+  aria-hidden="true">
+  <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-xl modal-right" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title w-100" id="myModalLabel">Exporting Travel Records</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <h4 class="font-weight-lighter mb-5 text-center">Please select the date range.</h4>
+              <!-- Form -->
+              <form action="<?= base_url('supervisor/export_travel'); ?>" method="post">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="visit_start">From</label>
+                        <input type="date" name="date_from" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="check_out">To</label>
+                        <input type="date" name="date_to" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <input type="submit" class="btn btn-primary" value="Submit Request">
+                      <input type="reset" class="btn btn-danger" value="clear form">
+                    </div>
+                  </div>
+              </form>
+              <!-- Form -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- Full Height Modal Right -->
 
 <!-- Full Height Modal Right > Apply Travel -->
 <div class="modal fade left" id="apply_travel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
