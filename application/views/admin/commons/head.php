@@ -14,6 +14,7 @@
   <link href="<?= base_url('assets/css/mdb.min.css'); ?>" rel="stylesheet">
   <!-- JQuery -->
   <script src="<?= base_url('assets/js/jquery.min.js'); ?>"></script>
+  <script src="<?= base_url('assets/js/select2.full.min.js'); ?>"></script>
 <!-- custom css -->
 <link href="<?= base_url('assets/custom/custom.css'); ?>" rel="stylesheet">
 	<title><?php echo $title; ?></title>

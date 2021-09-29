@@ -176,7 +176,7 @@ class Admin_model extends CI_Model{
         $this->db->from('suppliers');
         $this->db->join('locations', 'suppliers.location = locations.id', 'left');
         $this->db->where('status', 1);
-        $this->db->order_by('suppliers.id', 'DESC');
+        $this->db->order_by('suppliers.rating', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -1117,13 +1117,13 @@ class Admin_model extends CI_Model{
         return false;
         }
     } 
-    // item detail - view and edit.
-    public function item_detail($id){
-        $this->db->select('id, location, category,status, sub_category, type_name, model, serial_number, supplier,price, depreciation,purchasedate,quantity, created_at');
-        $this->db->from('items');
-        $this->db->where('id', $id);
-        return $this->db->get()->row();
-    }
+        // item detail - view and edit.
+        public function item_detail($id){
+            $this->db->select('id, location, category,status, sub_category, type_name, model, serial_number, supplier,price, depreciation,purchasedate,quantity, created_at');
+            $this->db->from('items');
+            $this->db->where('id', $id);
+            return $this->db->get()->row();
+        }
     // get inventory for adding an inventory
     public function get_item_categories(){
         return $this->db->from('categories')->get()->result();
@@ -1265,9 +1265,10 @@ class Admin_model extends CI_Model{
   }
   // Get supplier based on city
   public function get_location_suplier($loc_id){
-      $this->db->select('id, name');
+      $this->db->select('id, name,email');
       $this->db->from('suppliers');
       $this->db->where('location', $loc_id);
+      $this->db->order_by('rating', 'DESC');
       return $this->db->get()->result();
   }
   // Get supplier email based on supplier
@@ -1596,6 +1597,7 @@ class Admin_model extends CI_Model{
  public function purchase_order_list($limit, $offset){
     $this->db->select('purchase_orders.id as purchase_id, 
                        purchase_orders.location_id, 
+                       purchase_orders.quantity, 
                        purchase_orders.sub_category_id as sub_name,  
                        purchase_orders.supplier_id, 
                        purchase_orders.status, 
@@ -1606,6 +1608,7 @@ class Admin_model extends CI_Model{
                        locations.name as loc_name, 
                        suppliers.id as sup_id, 
                        suppliers.name as sup_name, 
+                       suppliers.email, 
                        ');
     $this->db->from('purchase_orders'); 
     $this->db->join('sub_categories', 'purchase_orders.sub_category_id = sub_categories.id', 'left');  
@@ -1615,9 +1618,16 @@ class Admin_model extends CI_Model{
     $this->db->limit($limit, $offset);
     return $this->db->get()->result(); 
 }  
+// getting purchase order number 
+public function purchase_order_number(){
+    $this->db->select('id');
+$this->db->from('purchase_orders');  
+$this->db->order_by('id', 'DESC');
+return $this->db->get()->row();
+}
 // purchase order save 
      public function purchase_order_save($data){  
-           $this->db->insert('purchase_orders', $data); 
+           $this->db->insert_batch('purchase_orders', $data); 
            if($this->db->affected_rows() > 0){
            return true;
            }else{

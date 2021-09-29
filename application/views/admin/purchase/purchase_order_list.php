@@ -27,7 +27,7 @@
     <?php endif; ?>
     <div class="row mb-4">
         <div class="col-lg-4 col-md-4">
-            <form action="<?= base_url('admin/search_purchase_item'); ?>" method="get" class="md-form form-inline">
+            <form action="<?= base_url('Purchase/search_purchase_item'); ?>" method="get" class="md-form form-inline">
                 <input type="text" name="search" id="myInput" class="form-control md-form col-5">
                 <label for="">Search Query</label>
                 <input type="submit" value="go &raquo;" class="btn btn-outline-primary rounded-pill">
@@ -35,7 +35,7 @@
         </div>
          <div class="col-lg-8 col-md-8 text-right">
         <!-- <a href="<?= base_url('admin/get_assign_item'); ?>" data-target="#assign_list" class="btn btn-outline-danger"><i class="fa fa-sub"></i> Assign List</a> -->
-        <a href="<?= base_url('admin/purchase_product'); ?>" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Purchase Order</a>
+        <a href="<?= base_url('Purchase/purchase_product'); ?>" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Purchase Order</a>
             <a href="<?= base_url('admin/'); ?>" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
           </div>
     </div>
@@ -51,6 +51,7 @@
                 <th class="font-weight-bold">Location</th>
                 <!-- <th class="font-weight-bold">Category</th> -->
                 <th class="font-weight-bold">Sub Category</th>   
+                <th class="font-weight-bold">Quantity</th>   
                 <th class="font-weight-bold"> Date</th> 
                 <th class="font-weight-bold"> Quotation</th> 
                 <th class="font-weight-bold">Status</th> 
@@ -62,10 +63,11 @@
               <?php if(!empty($items)): foreach($items as $item): ?>
                 <tr>
                   <td><?= 'CTC-0'.$item->purchase_id; ?></td>
-                  <td><?= $item->sup_name; ?></td>
+                  <td><?= $item->sup_name.', <a href="mailto:'.$item->email.'">'.$item->email.'</a>'; ?></td>
                   <td><?= ucfirst($item->loc_name); ?></td>
                   <!-- <td><?= ucfirst($item->cat_name); ?></td> -->
                    <td><?= ucfirst($item->sub_name); ?></td>     
+                   <td><?= ucfirst($item->quantity); ?></td>     
                    <td> <?= date('M d, Y', strtotime($item->created_at)); ?> </td>
                    <?php $quotations = $this->admin_model->count_qutation($item->purchase_id); ?>
                    <td><?= $quotations; ?></td>
@@ -77,8 +79,8 @@
                     <td><span class="badge badge-success">Approved <span></td> 
                     <?php } ?>
                   <td>
-                  <a href="<?= base_url('admin/order_detail/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
-                  <a href="<?= base_url('admin/cancel_order/'.$item->purchase_id); ?>" class=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                  <a href="<?= base_url('Purchase/order_detail/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+                  <a href="<?= base_url('Purchase/cancel_order/'.$item->purchase_id); ?>" class=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                   <td> 
                   </td>
                 </tr>
@@ -103,8 +105,8 @@
                     <?php } ?>
                   <td>
                   <!-- <a href="<?= base_url('admin/edit_order/'.$item->purchase_id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a> <a href="<?= base_url('admin/view_order/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
-                  <a href="<?= base_url('admin/order_detail/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
-                  <a href="<?= base_url('admin/cancel_order/'.$item->purchase_id); ?>" class=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                  <a href="<?= base_url('Purchase/order_detail/'.$item->purchase_id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+                  <a href="<?= base_url('Purchase/cancel_order/'.$item->purchase_id); ?>" class=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                   <!-- <a href="<?= base_url('admin/approved_order/'.$item->purchase_id); ?>" class=""><span class="badge badge-success"><i class="fa fa-check"></i></span></a> -->
                   <td> 
                   </td>

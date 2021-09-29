@@ -144,7 +144,7 @@ $(document).ready(function(){
  // City change
  $('#category').on('change', function(){
    var category = $(this).val(); 
-   alert(category)
+  //  alert(category)
    // AJAX request
    $.ajax({
      url:'<?=base_url('admin/get_item_sub_categories/')?>' + category,

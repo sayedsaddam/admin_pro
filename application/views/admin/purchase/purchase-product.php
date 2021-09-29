@@ -4,6 +4,11 @@
 * Author: Saddam
 */
 ?>
+<style>
+  #demo{
+    height: 50px;
+  }
+</style>
 <div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light" style="">
   <div class="container-fluid">
     <div class="row">
@@ -40,54 +45,60 @@
               <?php echo $success; ?>
             </div>
           <?php endif; ?>
-          <form action="<?php if(empty($edit)){ echo base_url('admin/purchase_order_save'); }else{ echo base_url('admin/modify_purchase_order'); } ?>" method="post">
+          <form action="<?php if(empty($edit)){ echo base_url('Purchase/purchase_order_save'); }else{ echo base_url('admin/modify_purchase_order'); } ?>" method="post">
             <input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
             <div class="row">
               <div class="col-lg-6">    
-
             <select name="location" id="location" class="browser-default custom-select" required>
             <option value="" disabled selected>--select Location--</option>
               <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                <option value="<?= $loc->id.'/'.$loc->name; ?>" <?php if(!empty($edit) && $edit->location_id == $loc->id){ echo 'selected'; } ?>><?= $loc->name; ?></option>
+                <option value="<?= $loc->id; ?>" <?php if(!empty($edit) && $edit->location_id == $loc->id){ echo 'selected'; } ?>><?= $loc->name; ?></option>
               <?php endforeach; endif; ?>
-            </select>  
-            <br> 
-            <!-- <select name="category" id="category" class="browser-default custom-select">
-              <option value="" disabled selected>--select category--</option>
-              <?php if(!empty($categories)): foreach($categories as $cat): ?>
-                <option value="<?= $cat->id; ?>" <?php if(!empty($edit) && $edit->purchase_id == $cat->id){ echo 'selected'; } ?>><?= $cat->cat_name; ?></option>
-              <?php endforeach; endif; ?>
-            </select>   -->
-
-                <label>Product Name</label>
-                <input type="text" name="product_name" class="form-control" placeholder="product name  ..." value="<?php if(!empty($edit)){ echo $edit->order_number; } ?>"> 
- 
+              </select>  
+              <br>  
+              <label>Payment Mode</label>
+              <select name="payment_mode" class="form-control">
+              <option value="Cash">Cash</option>
+              <option value="cheque">Cheque</option>
+              <option value="online_transaction">Online Transaction</option>
+              </select> 
               </div>
-              <div class="col-lg-6">   
-
-                <input type="hidden" name="email" id="email" value="" >
-
-            <select name="supplier" id="supplier" class="browser-default custom-select">
-              <option value="" disabled selected>--select Suplier--</option>
-              <!-- <?php if(!empty($supplier)): foreach($supplier as $sup): ?>
-                <option value="<?= $sup->id; ?>" <?php if(!empty($edit) && $edit->supplier_id == $sup->id){ echo 'selected'; } ?>><?= $sup->name; ?></option>
-              <?php endforeach; endif; ?> -->
+              <div class="col-lg-6">    
+                <input type="hidden" name="email" id="email" value="" > 
+              <select name="supplier" id="supplier" class="browser-default custom-select"  style="height: 50px"> 
+              <option value="" disabled selected>--select Suplier--</option> 
             </select>  
           <label>Order Number</label>
-          <input type="number" name="order_number" class="form-control" placeholder="order number ..." value="<?php if(!empty($edit)){ echo $edit->order_number; } ?>"> 
+          <input type="number" name="order_number" class="form-control" placeholder="order number ..." value="<?php if(!empty($edit)){ echo $order->order_number; } else{$orders = $order->id; echo $orders+1;} ?>"> 
           </div>
+          </div>
+
+
+<div class="row input_fields_wrap" >
+<div class="col-sm-6">
+          <label>Product</label>
+          <input type="text" name="product_name[]"  class="form-control" placeholder="product ..." value=""> 
+</div>
+        <div class="col-sm-5">
+        <label>Quantity</label>
+              <input type="number" name="quantity[]"  class="form-control" placeholder="quantity ..." value=""> 
+              </div>
+              <div class="col-sm-1">
+              <br>
+              <label class="btn btn-primary btn-sm add_field_button">+</label>  
+        </div>
+        </div>  
             </div><br>
              <div class="row">
           <div class="col-sm-12" > 
           <button type="submit" class="btn btn-default" id="submit-data" data-loading-text="Creating...">Generate Order</button>
- 
                 </div>
               </div>
             </div>
           </form>
         </div>
       </div>  
-    </div>
+    </div> 
   </section>
 </section>
 <script>
@@ -96,10 +107,10 @@
 $(document).ready(function(){
  // City change
  $('#location').on('change', function(){
-   var location = $(this).val();  
+   var location = $(this).val();   
    // AJAX request
    $.ajax({
-     url:'<?=base_url('admin/get_location_suplier/')?>' + location,
+     url:'<?=base_url('Purchase/get_location_suplier/')?>' + location,
      method: 'post',
      data: {location: location},
      dataType: 'json',
@@ -108,39 +119,53 @@ $(document).ready(function(){
        // Remove options 
        $('#supplier').find('option').not(':first').remove();
        $('#email').find('option').not(':first').remove();
-
        // Add options
        $.each(response,function(index, data){
-        $('#supplier').append('<option value="'+data['id']+'">'+data['name']+'</option>'); 
-        $('#email').append('<option value="'+data['id']+'">'+data['email']+'</option>'); 
+        $('#supplier').append("<option value="+data['id']+'/'+data['email']+">"+data['name']+"</option>");  
        });
      }
   });
 });
 }); 
 
-// supplier email load against supplier
-$(document).ready(function(){
- // City change
- $('#supplier').on('change', function(){
-   var supplier = $(this).val();   
-   // AJAX request
-   $.ajax({
-     url:'<?=base_url('admin/get_suplier_email/')?>' + supplier,
-     method: 'post',
-     data: {supplier: supplier},
-     dataType: 'json',
-     success: function(response){
-      console.log(response);
-       // Remove options 
-       $('#email').find('option').not(':first').remove(); 
-       // Add options
-       $.each(response,function(index, data){  
-
-        $('#email').val(data['email']); 
-       });
-     }
-  });
+$(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append(`
+            <div class="col-sm-12 d-flex remove-product">
+      <div class="col-sm-6 mt-3 pl-0">
+        <input type="text" name="product_name[]" class="form-control w-100" placeholder="product . . ." />
+        </div>   
+        <div class="col-sm-6 mt-3  d-flex justify-content-between pr-0">
+          <input type="text" class="form-control w-100 col-sm-10"  placeholder="quantity . . ." name="quantity[]"/>
+          <a href="#" class="remove_field btn btn-sm btn-danger col-sm-1 inline-block ml-auto">-</a>
+        </div>
+        </div>
+     `); 
+        }
+    });   
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent().parent().remove(); x--;
+        console.log();
+    })
 });
-}); 
+
+
+$('input').bind('input', function() {
+  var c = this.selectionStart,
+      r = /[^a-z0-9 .]/gi,
+      v = $(this).val();
+  if(r.test(v)) {
+    $(this).val(v.replace(r, ''));
+    c--;
+  }
+  this.setSelectionRange(c, c);
+});
+
 </script>
