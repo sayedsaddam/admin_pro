@@ -34,11 +34,12 @@
             </form>
         </div>
         <div class="col-lg-8 col-md-8 text-right">
-        <a href="<?= base_url('admin/item_register'); ?>" data-target="#item_list" class="btn btn-outline-primary"><i class="fa fa-plus"></i> All Item List</a>
-        <a href="<?= base_url('admin/available_item_list'); ?>" data-target="#available_lists" class="btn btn-outline-success"><i class="fa fa-plus"></i> Available List</a>
-        <a href="<?= base_url('admin/get_assign_item'); ?>" data-target="#assign_list" class="btn btn-outline-danger"><i class="fa fa-sub"></i> Assign List</a>
-        <a href="<?= base_url('admin/add_item'); ?>" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</a>
-            <a href="<?= base_url('admin/'); ?>" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
+        <button class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#fullWidthtModalLeft"><i class="fa fa-filter"></i> Report</button>
+         <a href="<?= base_url('admin/item_register'); ?>" data-target="#item_list" class="btn btn-outline-primary btn-sm"><i class="fa fa-plus"></i> All Item List</a>
+        <a href="<?= base_url('admin/available_item_list'); ?>" data-target="#available_lists" class="btn btn-outline-success btn-sm"><i class="fa fa-plus"></i> Available List</a>
+        <a href="<?= base_url('admin/get_assign_item'); ?>" data-target="#assign_list" class="btn btn-outline-danger btn-sm"><i class="fa fa-sub"></i> Assign List</a>
+        <a href="<?= base_url('admin/add_item'); ?>" data-target="#add_supplier" class="btn btn-outline-info btn-sm "><i class="fa fa-plus"></i> Add New</a>
+            <a href="<?= base_url('admin/'); ?>" class="btn btn-outline-danger btn-sm"><i class="fa fa-angle-left"></i> Back</a>
           </div>
     </div>
     <div class="row">
@@ -128,8 +129,9 @@
                       <?php if($item->quantity >= 1): ?> 
                       <a href="<?= base_url('admin/assign_item/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a>
                       <?php endif; ?> 
-                      <a data-id="<?= $item->item_ids; ?>" class="return_item"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                  
+                      <?php if($item->status == 1): ?>  
+                  <a data-id="<?= $item->item_ids.'/'.$item->id; ?>" class="return_item"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                  <?php endif; ?> 
                     </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
@@ -188,6 +190,54 @@
   </div>
 </div>
 
+
+<!-- Full Width Modal Left > show report -->
+<div class="modal fade left" id="fullWidthtModalLeft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <!-- Add class .modal-full-width and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-full-width modal-left modal-xl" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title w-100" id="myModalLabel">Assignment Report</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-12 col-md-12"> 
+                    <!-- Form -->
+                    <form action="<?= base_url('admin/product_report'); ?>" method="post">
+                        <!-- item name -->
+                        <div class="row">
+                        <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="from_date">From Date</label>
+                             <input type="date" name="from_date" class="form-control">
+                        </div>
+                        </div>
+                        <div class="col-md-6">
+                        <div class="form-group">
+                        <label for="from_date">To Date</label>
+                        <input type="date" name="to_date" class="form-control">
+                        </div>
+                        </div> 
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="btn btn-primary" value="Save Changes">
+                        </div>
+                    </form>
+                    <!-- Form -->
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- Full Width Modal Left -->
 
 
 <script>

@@ -94,15 +94,19 @@
             </div>
             <div class="row">
             <div class="col-md-6">
-            <p>Current Value</p>
+            <!-- <p>Current Value</p> -->
             </div>
             <div class="col-md-6"><p>
-                     <?php if($items[0]->depreciation > 0){ 
-                     $depreciation = ($items[0]->price*$items[0]->depreciation / 100) ; 
-                    //  echo number_format(floatval($items[0]->price - $depreciation));
-                     echo $items[0]->price - $depreciation;
-                    
-                    }
+            <?php   
+                //      $depreciation = $items[0]->depreciation;
+                //      if(!empty($depreciation)){ 
+                //         $price = $items[0]->price;
+                //         $p= str_replace( ',', '', $price );  
+                //         echo $p;
+                //         $d = $items[0]->depreciation;
+                //         echo $d;
+                //  echo $p * $d /100;
+                //     }
                      ?>
             </p>
             </div>
@@ -209,7 +213,8 @@
 
             <?php endif; ?>
 ____________________________________________________________________________________________________________________________________________________
-                <table class="table table-sm">
+<?php if(!empty($items)): ?>                    
+<table class="table table-sm">
                 <tr>
                 <thead> 
                 <th>Serial : </th>
@@ -220,73 +225,57 @@ ________________________________________________________________________________
                 <th>Image</th>
                 </thead>
                 </tr>
-                        <tr>
-                        <?php $id = 1; ?>
-                <?php if(!empty($items)): foreach($items as $item): ?>
-                   
-                <tr>
-                <!-- below some php code writen for available data which is not assign to someone -->
-                        <?php if(empty($item->assign_date)){
-                        ?><div class="col-sm-12 text-center"> <strong>Availabe Still Not Assignd</strong> </div>
-                        <?php 
-                }
-                else{
-                ?>     
-                        <?php $returned_date = $item->return_back_date;
-                        $returned_date = ($returned_date) ? date('M d, Y', strtotime($item->return_back_date)) : ' Still In custody';
-                ?> 
-                <span>
-                    <td>
-                        <?php echo $id++; ?>
-                    </td>
-                        <td>
-                        <span style="color: brown;font-weight: bold"> <?= ucfirst($item->employ)?></span> </td>  
-                        <td>
-                <?php  
-                        if(!empty($item->assign_date))
-                        {echo "<strong>".date('M d, Y', strtotime($item->assign_date)).'</strong>';} 
-                        else{
-                        echo "<span'> - - - - - </span>";}
-                ?>
-                </td>
-                <td>
-                <?php
-                        if(!empty($item->return_back_date))
-                        {echo "<strong>".date('M d, Y', strtotime($item->return_back_date));} 
-                        else{
-                        echo "<span style='font-weight:bold'> Still In custody </span>";}
-                ?>
-                </td>
-
-                <td>
-                <?php
-                        if(!empty($item->return_back_date))
-                        {echo "<strong>". ' '.$item->returning_description;} 
-                        else{
-                        echo "<span style='font-weight:bold'>   - - - - - - </span>";}
-                ?>
-                </td> 
-
-                      <!-- <a data-id="<?= $item->item_ids; ?>" class="return_item"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> -->
-
-
-                <td>
-                <?php
-                        if(!empty($item->return_back_date))
-                        {echo "<a href='".base_url('upload/'.$item->item_file)."' target='_blank' > <img id='image' width='100'  src='".base_url('upload/'.$item->item_file)."' border='0'></a>";} 
-                        else{
-                        echo "<span style='font-weight:bold'>   - - - - - - </span>";}
-                ?>
-                </td> 
-
-                </strong> 
-                </span> 
-                <?php } ?>
-                </tr>
-
-
+            <tr>
+            <?php $id = 1; ?>
+    <?php if(!empty($items)): foreach($items as $item): ?>   
+    <tr>
+    <!-- below some php code writen for available data which is not assign to someone -->
+            <?php if(empty($item->assign_date)){
+            ?><div class="col-sm-12 text-center"> <strong>Availabe Still Not Assignd</strong> </div>
+            <?php 
+    }
+    else{
+    ?>     
+            <?php $returned_date = $item->return_back_date;
+            $returned_date = ($returned_date) ? date('M d, Y', strtotime($item->return_back_date)) : ' Still In custody';
+    ?> 
+    <span>
+        <td>
+            <?php echo $id++; ?>
+        </td>
+            <td>
+            <span style="color: brown;font-weight: bold"> <?= ucfirst($item->employ)?></span> </td>  
+            <td>
+    <?php if(!empty($item->assign_date))
+            {echo "<strong>".date('M d, Y', strtotime($item->assign_date)).'</strong>';} 
+            else{
+            echo "<span'> - - - - - </span>";} ?>
+    </td>
+    <td>
+    <?php if(!empty($item->return_back_date))
+            {echo "<strong>".date('M d, Y', strtotime($item->return_back_date));} 
+            else{
+            echo "<span style='font-weight:bold'> Still In custody </span>";} ?>
+    </td>
+    <td>
+    <?php if(!empty($item->return_back_date))
+            {echo "<strong>". ' '.$item->returning_description;} 
+            else{
+            echo "<span style='font-weight:bold'>   - - - - - - </span>";} ?>
+    </td>  
+    <td>
+    <?php if(!empty($item->return_back_date))
+            {echo "<a href='".base_url('upload/'.$item->item_file)."' target='_blank' > <img id='image' width='100'  src='".base_url('upload/'.$item->item_file)."' border='0'></a>";} 
+            else{
+            echo "<span style='font-weight:bold'>   - - - - - - </span>";} ?>
+    </td> 
+    </strong> 
+    </span> 
+    <?php } ?>
+    </tr>
                     <?php endforeach;  ?>
                         </table>     
+                        <?php endif;  ?>
                     
                     <div class="row mt-3">
                     <!-- <a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>&nbsp

@@ -924,7 +924,8 @@ class Admin_model extends CI_Model{
         return $num_results;
      }
     // Get items.
-    public function get_items($limit, $offset){
+    public function get_items($limit, $offset,$from = null, $to = null ){
+        // echo $from;exit;
         $this->db->select('items.id, 
                            items.location,
                            items.category,
@@ -957,6 +958,9 @@ class Admin_model extends CI_Model{
         $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
         $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
         // $this->db->where('stat', 0);
+        if (!empty($from) && !empty($to)) {  
+            $this->db->where('items.created_at BETWEEN \'' . $from . '\' AND \'' . $to . '\'');
+        }
         $this->db->group_by('items.id'); 
         $this->db->order_by('id', 'ASC');
         $this->db->limit($limit, $offset);

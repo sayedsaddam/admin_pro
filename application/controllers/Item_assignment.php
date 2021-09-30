@@ -2,7 +2,7 @@
 /**
  * undocumented class
  */
-class Admin extends CI_Controller{
+class Item_assignment extends CI_Controller{
     function __construct()
     {
         parent::__construct();

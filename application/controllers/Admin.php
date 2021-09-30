@@ -1007,7 +1007,6 @@ class Admin extends CI_Controller{
         $data['results'] = $this->admin_model->search_sub_categories($search);
         $this->load->view('admin/commons/template', $data);
     }
- 
     //Item register 
     public function item_register($offset = null){ 
             $limit = 15;
@@ -1050,8 +1049,6 @@ class Admin extends CI_Controller{
     $data['items'] = $this->admin_model->assign_item_list($limit, $offset); 
     $this->load->view('admin/commons/template', $data);
 }
-
-
     //Assign item 
        public function assign_list($offset = null){ 
             $limit = 15;
@@ -1140,6 +1137,26 @@ class Admin extends CI_Controller{
         $data['status'] = $this->admin_model->status_items($id); 
         $this->load->view('admin/commons/template', $data);
     }
+  // Search filters - search product date-wise
+  public function product_report($offset = null){ 
+    $limit = 15;
+    if(!empty($offset)){
+    $this->uri->segment(3);
+    }
+$url = 'admin/product_report';
+$rowscount = $this->admin_model->count_item();
+paginate($url, $rowscount, $limit);
+$data['title'] = 'Search Results > Report';
+$data['body'] = 'admin/item_assignment/product_report';
+if($this->input->post('from_date')) {
+    $date_from = $this->input->post('from_date');
+    $date_to = $this->input->post('to_date');
+    $data['reports'] =  $this->admin_model->get_items($limit, $offset, $date_from, $date_to);
+} else {
+    $data['items'] = $this->admin_model->get_items($limit, $offset); 
+} 
+$this->load->view('admin/commons/template', $data);
+} 
      // Get all sub categories based on cat_id of items
     public function get_item_sub_categories($cat_id){
         $sub_categories = $this->admin_model->get_item_sub_categories($cat_id);
