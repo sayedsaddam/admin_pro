@@ -724,6 +724,7 @@ class Admin_model extends CI_Model{
         $this->db->from('daily_attendance');
         $this->db->join('users', 'daily_attendance.emp_id = users.id', 'left');
         $this->db->where(array('daily_attendance.created_at >=' => $date_from, 'daily_attendance.created_at <=' => $date_to));
+        $this->db->group_by('daily_attendance.emp_id');
         return $this->db->get()->result();
     }
     // Get daily attendance based on employee/user id.

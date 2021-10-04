@@ -53,51 +53,39 @@
         <thead>
           <tr>
             <th class="font-weight-bold">Name/Date</th>
-            <th colspan="31" class="font-weight-bold text-center">Attendance</th>
-            <?php //for($date = 1; $date <= 31; $date++){ echo '<th class="font-weight-bold">'.$date.'</th>'; } ?>
+            <!-- <th colspan="31" class="font-weight-bold text-center">Attendance</th> -->
+            <?php for($date = 1; $date <= 31; $date++){ echo '<th class="font-weight-bold">'.$date.'</th>'; } ?>
           </tr>
         </thead>
         <?php if(empty($results)): ?>
           <tbody>
-            <?php if(!empty($users)): foreach($users as $user): ?>
+            <?php foreach($users as $user): ?>
+              <?php  $emp_attendance = $this->admin_model->get_employee_attendance($user->id); ?>
               <tr>
                 <td><?= $user->fullname; ?></td>
-                <?php $emp_attendance = $this->admin_model->get_employee_attendance($user->id);
-                      $total_hours = 0;
-                      $total_minutes = 0;
-                      foreach($emp_attendance as $att){ // @startforeach
-                        $check_in = date_create($att->time_in);
-                        $check_out = date_create($att->time_out);
-                        if($check_in != '0' &&  $check_out != '0'){
-                          $diff = date_diff($check_out, $check_in);
-                          echo '<td>'.date('d/m ', strtotime($att->attendance_date)).'- '.$att->time_in.'-'.$att->time_out.'</td>'; 
-                          $total_hours += $diff->h*60; $total_minutes += $diff->i; $total_time = ($total_hours+$total_minutes);
-                        }                       
-                      } // @endforeach
-                      if(!empty($emp_attendance)){ echo '<td>Total hrs = '.number_format(@$total_time/60, 2).', Avg '.round((@$total_time/60)/count($emp_attendance), 2).', No. of Days '.count($emp_attendance).'</td>'; } ?>
+                <?php for($i = 1; $i <= 31; $i++): ?>
+                  <?php foreach($emp_attendance as $att): ?>
+                    <?php if($att->attendance_date == date('Y-m-'.sprintf('%02d', $i))){ $flag = true; break; }else{ $flag = false; } ?>
+                  <?php endforeach; ?>
+                  <?= $present = $flag ? '<td>//</td>' : '<td>/</td>'; ?>
+                <?php endfor; ?>
               </tr>
-            <?php endforeach; endif; ?>
+            <?php endforeach; ?>
           </tbody>
         <?php elseif(!empty($results)): ?>
           <tbody>
-            <?php if(!empty($users)): foreach($users as $user): ?>
+            <?php foreach($results as $res): ?>
+              <?php  $res_emp_attendance = $this->admin_model->get_employee_attendance($res->id); ?>
               <tr>
-                <td><?= $user->fullname; ?></td>
-                <?php $emp_attendance = $this->admin_model->search_employee_attendance($_GET['date_from'], $_GET['date_to'], $user->id);
-                      $total_hours = 0;
-                      $total_minutes = 0;
-                      foreach($emp_attendance as $att){ // @startforeach
-                        $check_in = date_create($att->time_in);
-                        $check_out = date_create($att->time_out);
-                        if($check_in != '0' && $check_out != '0'){
-                          $diff = date_diff($check_out, $check_in);
-                          echo '<td>'.date('d/m ', strtotime($att->attendance_date)).'- '.$att->time_in.'-'.$att->time_out.'</td>'; 
-                          $total_hours += $diff->h*60; $total_minutes += $diff->i; $total_time = ($total_hours+$total_minutes);
-                        }
-                      } // @endforeach
-                      if(!empty($emp_attendance)){ echo '<td>Total hrs = '.number_format(@$total_time/60, 2).', Avg '.round((@$total_time/60)/count($emp_attendance), 2).', No. of Days '.count($emp_attendance).'</td>'; } ?>
+                <td><?= $res->fullname; ?></td>
+                <?php for($i = 1; $i <= 31; $i++): ?>
+                  <?php foreach($res_emp_attendance as $att): ?>
+                    <?php if($att->attendance_date == date('Y-m-'.sprintf('%02d', $i))){ $flag = true; break; }else{ $flag = false; } ?>
+                  <?php endforeach; ?>
+                  <?= $present = $flag ? '<td>//</td>' : '<td>/</td>'; ?>
+                <?php endfor; ?>
               </tr>
-            <?php endforeach; endif; ?>
+            <?php endforeach; ?>
           </tbody>
         <?php else: echo 'Record not found!'; endif; ?>
       </table>
