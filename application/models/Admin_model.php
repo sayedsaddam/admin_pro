@@ -176,7 +176,7 @@ class Admin_model extends CI_Model{
         $this->db->from('suppliers');
         $this->db->join('locations', 'suppliers.location = locations.id', 'left');
         $this->db->where('status', 1);
-        $this->db->order_by('suppliers.id', 'DESC');
+        $this->db->order_by('suppliers.rating', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -911,8 +911,21 @@ class Admin_model extends CI_Model{
     public function count_item(){
         return $this->db->from('items')->count_all_results();
     }
+    // Count all purchase items 
+    public function count_purchase(){
+        return $this->db->from('purchase_orders')->count_all_results();
+    }
+    // Count all assign items 
+    public function count_assign_item(){
+        $this->db->select('id');
+        $this->db->from('item_assignment');
+        $this->db->where('return_back_date !=', null);
+        $num_results = $this->db->count_all_results();
+        return $num_results;
+     }
     // Get items.
-    public function get_items($limit, $offset){
+    public function get_items($limit, $offset,$from = null, $to = null ){
+        // echo $from;exit;
         $this->db->select('items.id, 
                            items.location,
                            items.category,
@@ -945,6 +958,9 @@ class Admin_model extends CI_Model{
         $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
         $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
         // $this->db->where('stat', 0);
+        if (!empty($from) && !empty($to)) {  
+            $this->db->where('items.created_at BETWEEN \'' . $from . '\' AND \'' . $to . '\'');
+        }
         $this->db->group_by('items.id'); 
         $this->db->order_by('id', 'ASC');
         $this->db->limit($limit, $offset);
@@ -987,7 +1003,6 @@ class Admin_model extends CI_Model{
             $this->db->limit($limit, $offset);
             return $this->db->get()->result();
         }
-
            // Get Assign items.
            public function assign_item_list($limit, $offset){
             $this->db->select('items.id, 
@@ -1056,9 +1071,6 @@ class Admin_model extends CI_Model{
         $this->db->limit($limit, $offset);
         return $this->db->get()->result(); 
     } 
-
-
-  
     // Assign item list.
     public function returning_assignment_list($id){ 
         $this->db->select('items.id, 
@@ -1087,36 +1099,35 @@ class Admin_model extends CI_Model{
         $this->db->order_by('id', 'ASC'); 
         return $this->db->get()->row(); 
     } 
-
     // Item - Add new item
     public function item_save($data,$model){
-       $this->db->insert('items', $data);
-       $type =  $this->input->post('type_name');
-    //    echo $type;exit;
+        $this->db->insert('items', $data);
+        $type =  $this->input->post('type_name');
+       // echo $type;exit;
         $this->db->select('id');
         $this->db->from('items');
         $this->db->where('type_name', $type);
         $this->db->order_by('id', 'DESC'); 
-       $type_id = $this->db->get()->result(); 
-       $res = $type_id[0]->id; 
-         $item_type = array(
-            'item_type' => $res,
-            'model' => $this->input->post('model')
+        $type_id = $this->db->get()->result(); 
+        $res = $type_id[0]->id; 
+        $item_type = array(
+        'item_type' => $res,
+        'model' => $this->input->post('model')
         );  
         $this->db->insert('item_model', $item_type);
         if($this->db->affected_rows() > 0){
-            return true;
+        return true;
         }else{
-            return false;
+        return false;
         }
     } 
-    // item detail - view and edit.
-    public function item_detail($id){
-        $this->db->select('id, location, category,status, sub_category, type_name, model, serial_number, supplier,price, depreciation,purchasedate,quantity, created_at');
-        $this->db->from('items');
-        $this->db->where('id', $id);
-        return $this->db->get()->row();
-    }
+        // item detail - view and edit.
+        public function item_detail($id){
+            $this->db->select('id, location, category,status, sub_category, type_name, model, serial_number, supplier,price, depreciation,purchasedate,quantity, created_at');
+            $this->db->from('items');
+            $this->db->where('id', $id);
+            return $this->db->get()->row();
+        }
     // get inventory for adding an inventory
     public function get_item_categories(){
         return $this->db->from('categories')->get()->result();
@@ -1134,7 +1145,6 @@ class Admin_model extends CI_Model{
         $this->db->select('id,status');
         return $this->db->from('items')->where('id',$id)->get()->result();
     }
-    
      // get Supplier for adding an item
     public function get_item_supplier(){
         $this->db->select('id, name');
@@ -1150,11 +1160,7 @@ class Admin_model extends CI_Model{
     } 
     // Locations - Get item locations
     public function get_item_location(){
-        return $this->db->from('locations')->get()->result();
-
-        // $this->db->select('id, name, province, created_at');
-        // $this->db->from('locations'); 
-        // return $this->db->get()->result();
+        return $this->db->from('locations')->get()->result(); 
     } 
   //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - search Item
@@ -1185,8 +1191,6 @@ class Admin_model extends CI_Model{
                     $this->db->join('locations', 'items.location = locations.id', 'left');
                     $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
                     $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
-
-
         $this->db->like('items.location', $search);
         $this->db->or_like('items.category', $search);
         $this->db->or_like('items.sub_category', $search);
@@ -1227,8 +1231,6 @@ class Admin_model extends CI_Model{
     // Assign Item Save - 
     public function assign_item_save($data,$item,$invantory,$item_id){ 
            $this->db->insert('item_assignment', $data);
-       // echo $item_id;exit;
- 
 //  select items quantity from items to subtract assign item from it
         $this->db->select('quantity');
         $this->db->from('items');
@@ -1243,24 +1245,20 @@ class Admin_model extends CI_Model{
         $item_assign = $this->db->count_all_results();
         // $item_assign;
         $total = $qty - $item_assign;
-        
          $total = $qty - 1; 
         $quantity = array( 
             'quantity' => $total,   
         );
-
         $this->db->where('id',$item_id);
         $this->db->update('items', $quantity);
-
     //   $this->db->insert('item_assignment', $data);
       $this->db->update('inventory', $invantory);
-      $this->db->update('items', $item);
- 
-      if($this->db->affected_rows() > 0){
-          return true;
-      }else{
-          return false;
-      }
+      $this->db->update('items', $item); 
+        if($this->db->affected_rows() > 0){
+        return true;
+        }else{
+        return false;
+        }
   }
   // Get supplier based on city
   public function get_location_employ($loc_id){
@@ -1271,9 +1269,10 @@ class Admin_model extends CI_Model{
   }
   // Get supplier based on city
   public function get_location_suplier($loc_id){
-      $this->db->select('id, name');
+      $this->db->select('id, name,email');
       $this->db->from('suppliers');
       $this->db->where('location', $loc_id);
+      $this->db->order_by('rating', 'DESC');
       return $this->db->get()->result();
   }
   // Get supplier email based on supplier
@@ -1315,12 +1314,10 @@ class Admin_model extends CI_Model{
         $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left'); 
         $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
         $this->db->where(array('item_assignment.assignd_to' => $employ_id, 'item_assignment.status' => 1));
-            // $query = $this->db->get();
-            // echo $this->db->last_query();
-              return $this->db->get()->result();
-    }
-
-    
+        // $query = $this->db->get();
+        // echo $this->db->last_query();
+        return $this->db->get()->result();
+    } 
     // Count employ
     public function count_employ(){
         return $this->db->from('employ')->where(array('status' => 1))->count_all_results();
@@ -1339,9 +1336,9 @@ class Admin_model extends CI_Model{
     public function add_employ($data){ 
         $this->db->insert('employ', $data);
         if($this->db->affected_rows() > 0){
-            return true;
+        return true;
         }else{
-            return false;
+        return false;
         }
     }
     // Get employ for edit by id
@@ -1350,8 +1347,7 @@ class Admin_model extends CI_Model{
         $this->db->from('employ');
         $this->db->where('id', $id);
         return $this->db->get()->row();
-    }
-
+    } 
     // Update employ by ID.
     public function update_employ($id, $data){
         $this->db->where('id', $id);
@@ -1371,8 +1367,7 @@ class Admin_model extends CI_Model{
               $this->db->from('items');    
               $this->db->where('item_model.id', $serial_number);
               return $this->db->get()->result();
-    }
-
+    } 
  // Get item quantity based on item id
  public function get_item_quantity($item_id){
             $assign_quantity = $this->db->select('item_type')->from('item_assignment')->where(array('item_type' => $item_id))->count_all_results(); 
@@ -1383,27 +1378,27 @@ class Admin_model extends CI_Model{
  }
   // Return Item Save - 
   public function return_item_save($data,$invantory,$item,$item_id,$assign_item_id){    
-    $this->db->where(array('item_assignment.id' => $assign_item_id, 'item_assignment.status' => 1));
-    $this->db->update('item_assignment', $data); 
-    $this->db->update('inventory', $invantory);
-//  select items quantity from items to add assign back 
-$this->db->select('quantity');
-$this->db->from('items');
-$this->db->where('id',$item_id);
-$value = $this->db->get()->result();
-$qty = $value[0]->quantity; 
-$total = $qty + 1;   
-// echo $total;exit;
-$quantity = array( 
-    'quantity' => $total,   
-);
-    $this->db->where('id', $item_id);
-    $this->db->update('items', $quantity);  
-    if($this->db->affected_rows() > 0){
-        return true;
-    }else{
-        return false;
-    }
+        $this->db->where(array('item_assignment.id' => $assign_item_id, 'item_assignment.status' => 1));
+        $this->db->update('item_assignment', $data); 
+        $this->db->update('inventory', $invantory);
+        //  select items quantity from items to add assign back 
+        $this->db->select('quantity');
+        $this->db->from('items');
+        $this->db->where('id',$item_id);
+        $value = $this->db->get()->result();
+        $qty = $value[0]->quantity; 
+        $total = $qty + 1;   
+        // echo $total;exit;
+        $quantity = array( 
+            'quantity' => $total,   
+        );
+        $this->db->where('id', $item_id);
+        $this->db->update('items', $quantity);  
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
 }
     // Check Assign Item  - Check Assign Item show at item register page
     public function check_assign(){ 
@@ -1412,7 +1407,6 @@ $quantity = array(
         $this->db->where('status',1);
         return $this->db->get()->result();
     }
-
     // Get Item to show at assign item page  - Get Item
     public function get_item(){ 
         return $this->db->from('sub_categories')->get()->result(); 
@@ -1555,7 +1549,7 @@ $quantity = array(
                        item_assignment.status');
     $this->db->from('items');
     $this->db->join('categories', 'items.category = categories.id', 'left'); 
-        $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
+    $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
     $this->db->join('locations', 'items.location = locations.id', 'left');
     $this->db->join('item_assignment', 'item_assignment.item_id = items.id', 'left');
     $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left'); 
@@ -1606,42 +1600,43 @@ $quantity = array(
  // purchase order list
  public function purchase_order_list($limit, $offset){
     $this->db->select('purchase_orders.id as purchase_id, 
-                       purchase_orders.location_id,
-                       purchase_orders.category_id,  
-                       purchase_orders.sub_category_id as sub_name, 
-                       purchase_orders.order_number,  , 
-                       purchase_orders.supplier_id,
-                       purchase_orders.order_date,
-                       purchase_orders.purchasedate,
+                       purchase_orders.location_id, 
+                       purchase_orders.quantity, 
+                       purchase_orders.sub_category_id as sub_name,  
+                       purchase_orders.supplier_id, 
                        purchase_orders.status, 
                        purchase_orders.created_at,
                        sub_categories.id as sub_ids,
-                       sub_categories.name as names, 
-                       categories.id,
-                       categories.cat_name, 
-                       locations.id as loc_id, 
+                       sub_categories.name as names,  
+                       locations.id as loc_id,
                        locations.name as loc_name, 
                        suppliers.id as sup_id, 
                        suppliers.name as sup_name, 
+                       suppliers.email, 
                        ');
-    $this->db->from('purchase_orders');
-    $this->db->join('categories', 'purchase_orders.category_id = categories.id', 'left');
-    $this->db->join('sub_categories', 'purchase_orders.sub_category_id = sub_categories.id', 'left');
+    $this->db->from('purchase_orders'); 
+    $this->db->join('sub_categories', 'purchase_orders.sub_category_id = sub_categories.id', 'left');  
     $this->db->join('locations', 'purchase_orders.location_id = locations.id', 'left');  
-    $this->db->join('suppliers', 'purchase_orders.supplier_id = suppliers.id', 'left');    
-    // $this->db->where('purchase_orders.status',1);    
+    $this->db->join('suppliers', 'purchase_orders.supplier_id = suppliers.id', 'left');  
     $this->db->order_by('purchase_orders.id', 'ASC');
     $this->db->limit($limit, $offset);
     return $this->db->get()->result(); 
-} 
-     // purchase order save 
+}  
+// getting purchase order number 
+public function purchase_order_number(){
+    $this->db->select('id');
+$this->db->from('purchase_orders');  
+$this->db->order_by('id', 'DESC');
+return $this->db->get()->row();
+}
+// purchase order save 
      public function purchase_order_save($data){  
-           $this->db->insert('purchase_orders', $data); 
-        if($this->db->affected_rows() > 0){
-            return true;
-        }else{
-            return false;
-        }
+           $this->db->insert_batch('purchase_orders', $data); 
+           if($this->db->affected_rows() > 0){
+           return true;
+           }else{
+           return false;
+           }
     } 
  // purchase order - view and edit.
  public function order_edit($id){
@@ -1669,19 +1664,48 @@ $quantity = array(
 } 
 // order detail card.
 public function order_detail_card($limit, $offset,$id){
-    $this->db->select(' purchase_order_tbls.id as mul_id, 
-                purchase_order_tbls.item_type, 
-                purchase_order_tbls.model, 
-                purchase_order_tbls.serial_number, 
-                purchase_order_tbls.quantity, 
-                purchase_order_tbls.unit_price,  
-                purchase_order_tbls.amount,
-                purchase_order_tbls.shipping,
-                purchase_order_tbls.discount,
-                purchase_order_tbls.grand_total,
-                purchase_order_tbls.order_number,
-                purchase_order_tbls.order_date,  
-                purchase_order_tbls.created_at,
+    $this->db->select(' 
+                qutations.id as qut_id, 
+                qutations.po_id, 
+                qutations.requested_by, 
+                qutations.supplier_id, 
+                qutations.price, 
+                qutations.remarks, 
+                qutations.qutation as description,
+                qutations.created_at,  
+                qutations.status as qut_status,
+                purchase_orders.id as purchase_id, 
+                purchase_orders.location_id,  
+                purchase_orders.sub_category_id as sub_name, 
+                purchase_orders.order_number, 
+                purchase_orders.supplier_id, 
+                purchase_orders.status, 
+                purchase_orders.requested_by,
+                purchase_orders.created_at as po_date,
+                sub_categories.id as sub_ids,
+                sub_categories.name as names,  
+                locations.id as loc_id, 
+                locations.name as loc_name, 
+                suppliers.id as sup_id, 
+                suppliers.name as sup_name, 
+                users.id as users_id, 
+                users.fullname as fname, 
+            ');
+        $this->db->from('purchase_orders');  
+        $this->db->join('qutations', 'purchase_orders.id = qutations.po_id', 'left');
+        $this->db->join('users', 'purchase_orders.requested_by = users.id', 'left');
+        $this->db->join('sub_categories', 'purchase_orders.sub_category_id = sub_categories.id', 'left');
+        $this->db->join('locations', 'purchase_orders.location_id = locations.id', 'left');  
+        $this->db->join('suppliers', 'purchase_orders.supplier_id = suppliers.id', 'left');   
+        // $this->db->group_by('purchase_orders.order_number'); 
+        $this->db->where('purchase_orders.id', $id);
+        $this->db->order_by('purchase_orders.id', 'ASC');
+        $this->db->limit($limit, $offset);  
+        return $this->db->get()->result(); 
+} 
+ // Search purchase order - suppliers order
+ public function search_purchase_item($search){
+    $this->db->select('
                 purchase_orders.id as purchase_id, 
                 purchase_orders.location_id,
                 purchase_orders.category_id,  
@@ -1701,28 +1725,50 @@ public function order_detail_card($limit, $offset,$id){
                 suppliers.id as sup_id, 
                 suppliers.name as sup_name, 
     ');
-$this->db->from('purchase_orders'); 
-$this->db->join('categories', 'purchase_orders.category_id = categories.id', 'left');
-$this->db->join('purchase_order_tbls', 'purchase_orders.order_number = purchase_order_tbls.order_number', 'left');
-$this->db->join('sub_categories', 'purchase_orders.sub_category_id = sub_categories.id', 'left');
-$this->db->join('locations', 'purchase_orders.location_id = locations.id', 'left');  
-$this->db->join('suppliers', 'purchase_orders.supplier_id = suppliers.id', 'left');   
-// $this->db->group_by('purchase_orders.order_number'); 
-$this->db->where('purchase_orders.id', $id);
-$this->db->order_by('purchase_orders.id', 'ASC');
-$this->db->limit($limit, $offset);  
-return $this->db->get()->result(); 
+    $this->db->from('purchase_orders');
+    $this->db->join('categories', 'purchase_orders.category_id = categories.id', 'left');
+    $this->db->join('sub_categories', 'purchase_orders.sub_category_id = sub_categories.id', 'left');
+    $this->db->join('locations', 'purchase_orders.location_id = locations.id', 'left');  
+    $this->db->join('suppliers', 'purchase_orders.supplier_id = suppliers.id', 'left'); 
+    $this->db->like('suppliers.name', $search);
+    $this->db->or_like('locations.name', $search);
+    $this->db->or_like('purchase_orders.order_number', $search); 
+    $this->db->order_by('created_at', 'DESC');
+    return $this->db->get()->result();
 } 
+    // qutation - Add new qutation
+    public function add_qutation($po_id,$data,$pos_status){
+        $this->db->where('id', $po_id);
+        $this->db->update('purchase_orders', $pos_status);
+        $this->db->insert('qutations', $data);
+        if($this->db->affected_rows() > 0){
+        return true;
+        }else{
+        return false;
+        }
+    } 
+    // Count qutation
+    public function count_qutation($id){ 
+        return $this->db->from('qutations')->where(array('po_id' => $id))->count_all_results();
+    } 
+    //  Count qutation where status = 1
+    public function count_result($id){ 
+        return $this->db->from('qutations')->where(array('po_id' => $id,'status' => 1))->count_all_results();
+    }
     //cancel order
     public function cancel_order($id,$data){ 
         $this->db->where('id', $id);
         $this->db->update('purchase_orders', $data);
         return true; 
     }
-    //approved order
-    public function approved_order($id,$data){ 
+    // approved qutation for pos
+    public function approved_order($id,$pos_id,$data,$pos_data,$update_qut){  
         $this->db->where('id', $id);
-        $this->db->update('purchase_orders', $data);
+        $this->db->update('qutations', $data);
+        $this->db->where('id', $pos_id);
+        $this->db->update('purchase_orders', $pos_data); 
+        $this->db->where(array('po_id' => $pos_id, 'status' => 0)); 
+        $this->db->update('qutations', $update_qut);
         return true; 
     }
 }

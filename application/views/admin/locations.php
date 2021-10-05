@@ -34,7 +34,7 @@
             </form>
         </div>
         <div class="col-lg-6 col-md-6 text-right">
-            <a data-toggle="modal" data-target="#add_location" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</a>
+ <a data-toggle="modal" data-target="#add_location" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</a>
             <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
         </div>
     </div>

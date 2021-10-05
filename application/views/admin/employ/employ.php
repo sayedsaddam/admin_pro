@@ -27,8 +27,8 @@
     <?php endif; ?>
     <div class="row mb-4">
         <div class="col-lg-6 col-md-6">
-            <form action="<?=base_url('admin/search_suppliers');?>" method="get" class="md-form form-inline">
-                <input type="text" name="search" id="" class="form-control md-form col-5" required>
+            <form action="#" method="get" class="md-form form-inline"> 
+                <input type="text" name="search" id="myInput" class="form-control md-form col-5" required>
                 <label for="">Search Query</label>
                 <input type="submit" value="go &raquo;" class="btn btn-outline-primary btn-sm rounded-pill">
             </form>
@@ -48,27 +48,25 @@
                 <th class="font-weight-bold">Name</th>
                 <th class="font-weight-bold">Email</th>
                 <th class="font-weight-bold">Phone</th>
-                <th class="font-weight-bold">Location</th>
-                <th class="font-weight-bold">Ntn Number</th>
-                <th class="font-weight-bold">Rating( (*)</th>
-                <th class="font-weight-bold">Category</th>
+                <th class="font-weight-bold">Location</th>  
+                <th class="font-weight-bold">Department</th>  
                 <th class="font-weight-bold">Status</th>
                 <th class="font-weight-bold">Date</th>
                 <th class="font-weight-bold">Action</th>
             </tr>
           </thead>
           <?php if(empty($results)): ?>
-            <tbody>
-              <?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
+            <tbody id="myTable">
+              <?php if(!empty($employ)): foreach($employ as $sup): ?>
                 <tr>
-                  <td><?= 'SUP-0'.$sup->id; ?></td>
-                  <td><?= $sup->name; ?></td>
+                  <td><?= 'SUP-0'.$sup->emp_id; ?></td>
+                  <td><?= $sup->emp_name; ?></td>
                   <td><?= ucfirst($sup->email); ?></td>
                   <td><?= ucfirst($sup->phone); ?></td>
-                  <td><?= ucfirst($sup->name); ?></td>
-                  <td><?= ucfirst($sup->ntn_number); ?></td>
-                  <td><?php if(!empty($sup->rating)){ echo '<span style="color:  orange;font-size: 18px;font-weight: bold">'.ucfirst($sup->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>';}else{echo 'none';} ?></td>
-                  <td><?= ucfirst($sup->category); ?></td>
+                  <td><?= ucfirst($sup->name); ?></td>  
+                  
+                  <td><?= ucfirst($sup->department); ?></td>  
+                  
                   <td>
                       <?php if($sup->status == 1): ?>
                           <span class="badge badge-success">Active</span>
@@ -78,26 +76,24 @@
                   </td>
                   <td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
                   <td>
-                      <a data-id="<?= $sup->id; ?>" class="supplier_info"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                      <a href="<?=base_url('admin/delete_supplier/'.$sup->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                      <a href="<?= base_url('admin/supplier_detail/'.$sup->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
-                  </td>
+                      <a data-id="<?= $sup->emp_id; ?>" class="supplier_info"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+                      <a href="<?=base_url('admin/delete_employ/'.$sup->emp_id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                   </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
             </tbody>
           <?php else: ?>
-            <tbody>
+            <tbody id="myTable">
               <?php if(!empty($results)): foreach($results as $res): ?>
                 <tr>
-                  <td><?= 'SUP-0'.$res->id; ?></td>
-                  <td><?= $res->name; ?></td>
+                  <td><?= 'SUP-0'.$res->emp_id; ?></td>
+                  <td><?= $res->emp_name; ?></td>
                   <td><?= ucfirst($res->email); ?></td>
                   <td><?= ucfirst($res->phone); ?></td>
-                  <td><?= ucfirst($res->location); ?></td>
-                  <td><?= ucfirst($res->ntn_number); ?></td>
+                  <td><?= ucfirst($res->location); ?></td> 
                   <td><?php  echo '<span style="color:  orange;font-size: 18px;font-weight: bold">'.ucfirst($res->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>'; ?></td> 
                   <td><?= ucfirst($res->region); ?></td>
-                  <td><?= ucfirst($res->category); ?></td>
+                  <td><?= ucfirst($res->department); ?></td>
                   <td>
                       <?php if($res->status == 1): ?>
                           <span class="badge badge-success">Active</span>
@@ -107,9 +103,8 @@
                   </td>
                   <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                   <td>
-                      <a data-id="<?= $res->id; ?>" class="supplier_info"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                      <a href="<?=base_url('admin/delete_supplier/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                      <a href="<?= base_url('admin/supplier_detail/'.$res->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+                      <a data-id="<?= $res->emp_id; ?>" class="supplier_info"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+        <a href="<?=base_url('admin/delete_employ/'.$res->emp_id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                   </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
@@ -131,13 +126,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title w-100 font-weight-bold">Add Supplier</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Add Employ</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body mx-3">
-        <form action="<?=base_url('admin/add_supplier');?>" method="post" class="md-form">
+        <form action="<?=base_url('admin/add_employ');?>" method="post" class="md-form">
           <div class="md-form mb-5">
             <select name="location" id="location" class="browser-default custom-select">
               <option value="" disabled selected>--Select location--</option>
@@ -149,46 +144,36 @@
             
           <div class="md-form mb-5">
             <input name="name" type="text" id="form34" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="form34">Supplier name</label>
+            <label data-error="wrong" data-success="right" for="form34">Employ name</label>
           </div>
 
           <div class="md-form mb-5">
             <!-- <select name="category" id="selectListCat" class="browser-default custom-select"> -->
-            <select name="category[]" id="selectListCat" class="form-control" required multiple>
-              <option value="" disabled selected>--Select category--</option>
-              <option value="hotel">Hotel</option>
-              <option value="travel">Travel</option>
-              <option value="stationary">Stationary</option>
-              <option value="computers">Computers</option>
-              <option value="communications">Commnunications</option>
-              <option value="furnitures">Furnitures</option>
+            <select name="department[]" id="selectListCat" class="form-control" required multiple>
+              <option value="" disabled selected>--Select Department--</option>
+              <option value="IT">IT</option>
+              <option value="sale">Sale</option>
+              <option value="marketing">marketing</option>
+              <option value="media">media</option>
+              <option value="finance">Finance</option> 
               <option value="others">Others</option>
             </select>
           </div>
 
           <div class="md-form mb-5">
             <input name="email" type="email" id="form29" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="form29">Supplier email</label>
+            <label data-error="wrong" data-success="right" for="form29">Employ email</label>
           </div>
+          
 
           <div class="md-form mb-5">
             <input name="phone" type="number" id="form32" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
-          </div>
-
-          <div class="md-form mb-5">
-            <input name="ntn_number" type="number" id="ntn_number" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="ntn_number">NTN Number</label>
-          </div>
-
-          <div class="md-form mb-5">
-            <input name="rating" type="text" id="rating" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="form32">Rating </label>
-          </div>
+            <label data-error="wrong" data-success="right" for="form32">Employ phone</label>
+          </div>  
 
           <div class="md-form">
             <textarea name="address" type="text" class="md-textarea form-control" rows="3"></textarea>
-            <label data-error="wrong" data-success="right" for="form8">Supplier Address</label>
+            <label data-error="wrong" data-success="right" for="form8">Employ Address</label>
           </div>
 
           <div class="md-form mb-5">
@@ -204,67 +189,56 @@
 </div>
 
 <!-- Edit supplier -->
-<div class="modal fade" id="edit_supplier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="edit_employ" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title w-100 font-weight-bold">Update Supplier</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Update Employ</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body edit-modal-body mx-3">
-        <form action="<?=base_url('admin/update_supplier');?>" method="post" class="md-form">
-          <input type="hidden" name="sup_id" id="supplierId" value="">
+        <form action="<?=base_url('admin/update_employ');?>" method="post" class="md-form">
+          <input type="hidden" name="sup_id" id="employId" value="">
           <div class="md-form mb-5">
-            <select name="location" id="supplier_location" class="browser-default custom-select">
+            <select name="location" id="employ_location" class="browser-default custom-select">
               <option value="" disabled selected>--Select location--</option>
               <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                <option value="<?= $loc->name ?>"><?= ucfirst($loc->name); ?></option>
+                <option value="<?= $loc->id ?>"><?= ucfirst($loc->name); ?></option>
               <?php endforeach; endif; ?>
             </select>
           </div>
           <div class="md-form mb-5">
-            <input name="name" type="text" id="supplier_name" class="form-control validate" value="">
-            <label data-error="wrong" data-success="right" for="form34">Supplier name</label>
+            <input name="name" type="text" id="employ_name" class="form-control validate" value="">
+            <label data-error="wrong" data-success="right" for="form34">Employ name</label>
           </div> 
           <div class="md-form mb-5">
-            <select name="category[]" id="category" class="browser-default custom-select" required multiple>
-              <option value="" disabled selected>--Select category--</option>
-              <option value="hotel">Hotel</option>
-              <option value="travel">Travel</option>
-              <option value="stationary">Stationary</option>
-              <option value="computers">Computers</option>
-              <option value="communications">Commnunications</option>
-              <option value="furnitures">Furnitures</option>
+            <select name="department[]" id="department" class="browser-default custom-select" required multiple>
+              <option value="" disabled selected>--Select Department--</option>  
+              <option value="IT">IT</option>
+              <option value="sale">Sale</option>
+              <option value="marketing">marketing</option>
+              <option value="media">media</option>
+              <option value="finance">Finance</option> 
               <option value="others">Others</option>
             </select>
           </div>
 
           <div class="md-form mb-5">
-            <input name="email" type="email" id="supplier_email" class="form-control validate" value="">
-            <label data-error="wrong" data-success="right" for="form29">Supplier email</label>
+            <input name="email" type="email" id="employ_email" class="form-control validate" value="">
+            <label data-error="wrong" data-success="right" for="form29">Employ email</label>
           </div>
 
           <div class="md-form mb-5">
-            <input name="phone" type="number" id="supplier_phone" class="form-control validate" value="">
-            <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
-          </div>
-
-          <div class="md-form mb-5">
-            <input name="phone" type="number" id="supplier_ntn" class="form-control validate" value="">
-            <label data-error="wrong" data-success="right" for="form32">Supplier Ntn</label>
-          </div>
-
-          <div class="md-form mb-5">
-            <input name="phone" type="number" id="supplier_rating" class="form-control validate" value="">
-            <label data-error="wrong" data-success="right" for="form32">Supplier Rating</label>
-          </div>
+            <input name="phone" type="number" id="employ_phone" class="form-control validate" value="">
+            <label data-error="wrong" data-success="right" for="form32">Employ phone</label>
+          </div>  
 
           <div class="md-form">
-            <textarea name="address" id="supplier_address" type="text" class="md-textarea form-control" rows="3"></textarea>
-            <label data-error="wrong" data-success="right" for="form8">Supplier Address</label>
+            <textarea name="address" id="employ_address" type="text" class="md-textarea form-control" rows="3"></textarea>
+            <label data-error="wrong" data-success="right" for="form8">Employ Address</label>
           </div>
 
           <div class="md-form mb-5">
@@ -286,26 +260,36 @@ $(document).ready(function(){
     // alert(supplier_id)
     // AJAX request
     $.ajax({
-    url: '<?= base_url('admin/edit_supplier/'); ?>' + supplier_id,
+    url: '<?= base_url('admin/edit_employ/'); ?>' + supplier_id,
     method: 'POST',
     dataType: 'JSON',
     data: {supplier_id: supplier_id},
       success: function(response){ 
         console.log(response);
-        $('#supplierId').val(response.id);
-        $('#supplier_location').val(response.location);
-        $('#supplier_name').val(response.name);
-        $('#category').val(response.category);
-        $('#supplier_email').val(response.email);
-        $('#supplier_phone').val(response.phone);
-        $('#supplier_ntn').val(response.ntn_number);
-        $('#supplier_rating').val(response.rating);
-        $('#supplier_address').val(response.address);
+        $('#employId').val(response.id);
+        $('#employ_location').val(response.location);
+        $('#employ_name').val(response.name);
+        $('#department').val(response.category);
+        $('#employ_email').val(response.email);
+        $('#employ_phone').val(response.phone);
+        $('#employ_ntn').val(response.ntn_number);
+        $('#employ_rating').val(response.rating);
+        $('#employ_address').val(response.address);
         // $('.edit-modal-body').html(response);
         // Display Modal
-        $('#edit_supplier').modal('show'); 
+        $('#edit_employ').modal('show'); 
       }
     });
   });
 });
+ 
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
 </script>

@@ -68,7 +68,6 @@
                             <td>
                                 <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
                                 <a href="<?=base_url('admin/delete_user/'.$user->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                                <a href="<?= base_url('admin/user_detail/'.$user->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                             </td>
                         </tr>
                     <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='8'>No record found.</td></tr>"; endif; ?>
@@ -87,7 +86,7 @@
                             <td>
                                 <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
                                 <a href="<?=base_url('admin/delete_user/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                                <a href="<?= base_url('admin/user_detail/'.$res->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+                                <!-- <a href="<?= base_url('admin/user_detail/'.$res->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a> -->
                             </td>
                         </tr>
                     <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='8'>No record found.</td></tr>"; endif; ?>

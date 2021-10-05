@@ -7,7 +7,10 @@ class Supervisor extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('supervisor_model');
-        $this->load->helper('paginate');
+        $this->load->helper('paginate'); 
+        if(!$this->session->userdata('username') || $this->session->userdata('user_role') != 'supervisor'){
+            redirect('');
+        }
     }
     public function index($offset = null){
         $limit = 10;
