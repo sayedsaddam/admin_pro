@@ -78,8 +78,7 @@
                   <td>
                       <a data-id="<?= $sup->emp_id; ?>" class="supplier_info"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                       <a href="<?=base_url('admin/delete_employ/'.$sup->emp_id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                      <a href="<?= base_url('admin/employ_detail/'.$sup->emp_id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
-                  </td>
+                   </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
             </tbody>
@@ -106,7 +105,6 @@
                   <td>
                       <a data-id="<?= $res->emp_id; ?>" class="supplier_info"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
         <a href="<?=base_url('admin/delete_employ/'.$res->emp_id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                      <a href="<?= base_url('admin/employ_detail/'.$res->emp_id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                   </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
