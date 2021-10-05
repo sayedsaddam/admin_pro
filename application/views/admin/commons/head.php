@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
   <!-- Bootstrap core CSS -->
   <link href="<?= base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
+  <!-- Bulma Core CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   <!-- Material Design Bootstrap -->
   <link href="<?= base_url('assets/css/mdb.min.css'); ?>" rel="stylesheet">
   <!-- JQuery -->
