@@ -1,24 +1,145 @@
-<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-1 col-md-1">
-				<img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid" width="200">
+<section class="hero is-small is-primary" style="background-color:#15BCA1;">
+	<div class="hero-body">
+		<p class="title">
+			Admin & Procurement
+		</p>
+		<p class="subtitle">
+			AH Group of Companies (Pvt.) Ltd.
+		</p>
+	</div>
+</section>
+
+<div class="columns section">
+	<aside class="column is-2 is-narrow-mobile is-fullheight is-hidden-mobile has-background-white">
+		<p class="menu-label">
+			General
+		</p>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Dashboard</b></a></li>
+		</ul>
+		<p class="menu-label">
+			Procurement
+		</p>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Suppliers</b></a></li>
+		</ul>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Employees</b></a></li>
+		</ul>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Categories</b></a></li>
+		</ul>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Travels Info</b></a></li>
+		</ul>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Locations</b></a></li>
+		</ul>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Inventory</b></a></li>
+		</ul>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Users</b></a></li>
+		</ul>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Invoices</b></a></li>
+		</ul>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Projects</b></a></li>
+		</ul>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Item Register</b></a></li>
+		</ul>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Purchase</b></a></li>
+		</ul>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Asset Register</b></a></li>
+		</ul>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Maintenance</b></a></li>
+		</ul>
+		<ul class="menu-list">
+			<li><a><b class="has-text-grey">Contact List</b></a></li>
+		</ul>
+		<!-- <ul class="menu-list">
+			<li><a><b class="has-text-grey">Travel</b> Requests <span class="tag is-info is-light">2</span></a></li>
+		</ul> -->
+		<p class="menu-label">
+			Controls
+		</p>
+		<ul class="menu-list">
+			<li><a>Logout</a></li>
+		</ul>
+	</aside>
+	<div class="column">
+		<div class="columns">
+			<div class="column">
+				<div class="control has-icons-left has-icons-right">
+					<input class="input is-small" type="search" placeholder="Search Query">
+					<span class="icon is-small is-left">
+						<i class="fas fa-search"></i>
+					</span>
+					<span class="icon is-small is-right">
+						<i class="fas fa-arrow-right"></i>
+					</span>
+				</div>
 			</div>
-			<div class="col-lg-7 col-md-7">
-				<h2 class="display-4 font-weight-bold mb-0">Admin & Procurement</h2>
-				<h3 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h3>
-			</div>
-			<div class="col-lg-4 col-md-4 text-right">
-				<button class="btn btn-outline-light font-weight-bold"
-					title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
-				<a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i
-						class="fa fa-sign-out-alt"></i></a>
-				<h4 class="font-weight-bold orange-text mt-2">Admin Dashboard <i class="fa fa-chart-bar"></i><br><span
-						class="font-weight-light orange-text"><?php if(empty($results)){ echo ' Asset List'; }else{ echo 'Search Results'; } ?>
-						| <a href="<?=base_url('admin');?>" class="text-light font-weight-bold">Home</a></span></h4>
+			<div class="column">
+				<div class="field has-addons">
+					<p class="control">
+						<button class="button is-small">
+							<span class="icon is-small">
+								<i class="fas fa-paperclip"></i>
+							</span>
+							<span>Report</span>
+						</button>
+					</p>
+					<p class="control">
+						<button class="button is-small">
+							<span class="icon is-small">
+								<i class="fas fa-list"></i>
+							</span>
+							<span>Items List</span>
+						</button>
+					</p>
+					<p class="control">
+						<button class="button is-small">
+							<span class="icon is-small">
+								<i class="far fa-list-alt"></i>
+							</span>
+							<span>Available List</span>
+						</button>
+					</p>
+					<p class="control">
+						<button class="button is-small">
+							<span class="icon is-small">
+								<i class="fas fa-bars"></i>
+							</span>
+							<span>Assign List</span>
+						</button>
+					</p>
+					<p class="control">
+						<button class="button is-small">
+							<span class="icon is-small">
+								<i class="fas fa-plus"></i>
+							</span>
+							<span>Add New</span>
+						</button>
+					</p>
+					<p class="control">
+						<button class="button is-small">
+							<span class="icon is-small">
+								<i class="fas fa-arrow-left"></i>
+							</span>
+							<span>Back</span>
+						</button>
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>
+
 </div>
 
 <div class="container-fluid">
@@ -46,8 +167,8 @@
 				class="btn btn-outline-success btn-sm"><i class="fa fa-plus"></i> Available List</a>
 			<a href="<?= base_url('admin/get_assign_item'); ?>" data-target="#assign_list"
 				class="btn btn-outline-danger btn-sm"><i class="fa fa-sub"></i> Assign List</a>
-			<a href="<?= base_url('admin/add_item'); ?>" data-target="#add_supplier" class="btn btn-outline-info btn-sm "><i
-					class="fa fa-plus"></i> Add New</a>
+			<a href="<?= base_url('admin/add_item'); ?>" data-target="#add_supplier"
+				class="btn btn-outline-info btn-sm "><i class="fa fa-plus"></i> Add New</a>
 			<a href="<?= base_url('admin/'); ?>" class="btn btn-outline-danger btn-sm"><i class="fa fa-angle-left"></i>
 				Back</a>
 		</div>
@@ -97,16 +218,16 @@
 						</td>
 						<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
 						<td>
-							<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i
-										class="fa fa-edit"></i></span></a>
+							<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span
+									class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
 							<!-- <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
 							<?php if($item->quantity >= 1): ?>
 							<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"><span class="badge badge-info"><i
 										class="fa fa-check"></i></span></a>
 							<?php endif; ?>
 							<?php if($item->status == 1): ?>
-							<a data-id="<?= $item->item_ids.'/'.$item->id; ?>" class="return_item"><span class="badge badge-danger"><i
-										class="fa fa-times"></i></span></a>
+							<a data-id="<?= $item->item_ids.'/'.$item->id; ?>" class="return_item"><span
+									class="badge badge-danger"><i class="fa fa-times"></i></span></a>
 							<?php endif; ?>
 						<td>
 						</td>
@@ -144,8 +265,8 @@
 						<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
 						<!-- <td><?= ucfirst($item->created_at); ?></td>  -->
 						<td>
-							<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i
-										class="fa fa-edit"></i></span></a>
+							<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span
+									class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
 							<!-- <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
 							<!-- <a href="<?=base_url('admin/delete_item/'.$item->id);?>" onclick="javascript:return confirm('<input type='text' name='name'>Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> -->
 							<?php if($item->quantity >= 1): ?>
@@ -153,8 +274,8 @@
 										class="fa fa-check"></i></span></a>
 							<?php endif; ?>
 							<?php if($item->status == 1): ?>
-							<a data-id="<?= $item->item_ids.'/'.$item->id; ?>" class="return_item"><span class="badge badge-danger"><i
-										class="fa fa-times"></i></span></a>
+							<a data-id="<?= $item->item_ids.'/'.$item->id; ?>" class="return_item"><span
+									class="badge badge-danger"><i class="fa fa-times"></i></span></a>
 							<?php endif; ?>
 						</td>
 					</tr>
@@ -195,7 +316,8 @@
 						<input type="file" name="file" id="userfile" class="form-control validate">
 					</div>
 					<div class="md-form mb-5">
-						<textarea name="description" id="description" cols="30" rows="3" class="form-control"></textarea>
+						<textarea name="description" id="description" cols="30" rows="3"
+							class="form-control"></textarea>
 						<!-- <input type="text" name="description" id="description" class="form-control validate"> -->
 						<label data-error="wrong" data-success="right" for="orangeForm-name">Description</label>
 					</div>
