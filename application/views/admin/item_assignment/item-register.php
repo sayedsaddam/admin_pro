@@ -1,410 +1,404 @@
 <section class="hero is-small is-primary" style="background-color:#15BCA1;">
 	<div class="hero-body">
-		<p class="title">
-			Admin & Procurement
-		</p>
-		<p class="subtitle">
-			AH Group of Companies (Pvt.) Ltd.
-		</p>
+		<div class="columns is-vcentered">
+			<div class="column is-narrow">
+				<img src="https://s2smark.com/assets/img/logo/s2s-logo-1.png" style="filter: invert(.5) brightness(2);"
+					width="140">
+			</div>
+			<div class="column">
+				<p class="title">
+					Admin & Procurement
+				</p>
+				<p class="subtitle">
+					AH Group of Companies (Pvt.) Ltd.
+				</p>
+			</div>
+		</div>
 	</div>
 </section>
 
-<div class="columns section">
-	<aside class="column is-2 is-narrow-mobile is-fullheight is-hidden-mobile has-background-white">
-		<p class="menu-label">
-			General
-		</p>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Dashboard</b></a></li>
-		</ul>
-		<p class="menu-label">
-			Procurement
-		</p>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Suppliers</b></a></li>
-		</ul>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Employees</b></a></li>
-		</ul>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Categories</b></a></li>
-		</ul>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Travels Info</b></a></li>
-		</ul>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Locations</b></a></li>
-		</ul>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Inventory</b></a></li>
-		</ul>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Users</b></a></li>
-		</ul>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Invoices</b></a></li>
-		</ul>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Projects</b></a></li>
-		</ul>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Item Register</b></a></li>
-		</ul>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Purchase</b></a></li>
-		</ul>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Asset Register</b></a></li>
-		</ul>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Maintenance</b></a></li>
-		</ul>
-		<ul class="menu-list">
-			<li><a><b class="has-text-grey">Contact List</b></a></li>
-		</ul>
-		<!-- <ul class="menu-list">
+<section class="columns is-gapless mb-0 pb-0">
+	<div class="column is-narrow is-fullheight" style="background-color:#fafafa;">
+		<aside class="section is-narrow-mobile is-hidden-mobile" id="categories">
+			<p class="menu-label">
+				General
+			</p>
+			<ul class="menu-list">
+				<li><a>Dashboard</a></li>
+			</ul>
+			<p class="menu-label">
+				Procurement
+			</p>
+			<ul class="menu-list">
+				<li><a>Suppliers</a></li>
+			</ul>
+			<ul class="menu-list">
+				<li><a>Employees</a></li>
+			</ul>
+			<ul class="menu-list">
+				<li><a>Categories</a></li>
+			</ul>
+			<ul class="menu-list">
+				<li><a>Travels Info</a></li>
+			</ul>
+			<ul class="menu-list">
+				<li><a>Locations</a></li>
+			</ul>
+			<ul class="menu-list">
+				<li><a>Inventory</a></li>
+			</ul>
+			<ul class="menu-list">
+				<li><a>Users</a></li>
+			</ul>
+			<ul class="menu-list">
+				<li><a>Invoices</a></li>
+			</ul>
+			<ul class="menu-list">
+				<li><a>Projects</a></li>
+			</ul>
+			<ul class="menu-list">
+				<li><button class="button is-primary has-text-weight-bold is-inverted" id="category"
+						style="background-color:#ebfffc;">Item Register</button>
+					<ul id="sub-categories">
+						<li><a href="<?= base_url('admin/item_register'); ?>">Item List</a></li>
+						<li><a href="<?= base_url('admin/available_item_list'); ?>">Available List</a></li>
+						<li><a href="<?= base_url('admin/get_assign_item'); ?>">Assign List</a></li>
+						<li><a href="<?= base_url('admin/add_item'); ?>">Add New</a></li>
+					</ul>
+				</li>
+
+			</ul>
+			<ul class="menu-list">
+				<li><a>Purchase</a></li>
+			</ul>
+			<ul class="menu-list">
+				<li><a>Asset Register</a></li>
+			</ul>
+			<ul class="menu-list">
+				<li><a>Maintenance</a></li>
+			</ul>
+			<ul class="menu-list">
+				<li><a>Contact List</a></li>
+			</ul>
+			<!-- <ul class="menu-list">
 			<li><a><b class="has-text-grey">Travel</b> Requests <span class="tag is-info is-light">2</span></a></li>
 		</ul> -->
-		<p class="menu-label">
-			Controls
-		</p>
-		<ul class="menu-list">
-			<li><a>Logout</a></li>
-		</ul>
-	</aside>
+		</aside>
+	</div>
 	<div class="column">
 		<div class="columns">
-			<div class="column">
-				<div class="control has-icons-left has-icons-right">
-					<input class="input is-small" type="search" placeholder="Search Query">
-					<span class="icon is-small is-left">
-						<i class="fas fa-search"></i>
-					</span>
-					<span class="icon is-small is-right">
-						<i class="fas fa-arrow-right"></i>
-					</span>
-				</div>
-			</div>
-			<div class="column">
-				<div class="field has-addons">
-					<p class="control">
-						<button class="button is-small">
-							<span class="icon is-small">
-								<i class="fas fa-paperclip"></i>
-							</span>
-							<span>Report</span>
-						</button>
-					</p>
-					<p class="control">
-						<button class="button is-small">
-							<span class="icon is-small">
-								<i class="fas fa-list"></i>
-							</span>
-							<span>Items List</span>
-						</button>
-					</p>
-					<p class="control">
-						<button class="button is-small">
-							<span class="icon is-small">
-								<i class="far fa-list-alt"></i>
-							</span>
-							<span>Available List</span>
-						</button>
-					</p>
-					<p class="control">
-						<button class="button is-small">
-							<span class="icon is-small">
-								<i class="fas fa-bars"></i>
-							</span>
-							<span>Assign List</span>
-						</button>
-					</p>
-					<p class="control">
-						<button class="button is-small">
-							<span class="icon is-small">
-								<i class="fas fa-plus"></i>
-							</span>
-							<span>Add New</span>
-						</button>
-					</p>
-					<p class="control">
-						<button class="button is-small">
-							<span class="icon is-small">
-								<i class="fas fa-arrow-left"></i>
-							</span>
-							<span>Back</span>
-						</button>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-
-</div>
-
-<div class="container-fluid">
-	<?php if($success = $this->session->flashdata('success')): ?>
-	<div class="row">
-		<div class="col-lg-12 col-md-12">
-			<div class="alert alert-success"><?=$success;?></div>
-		</div>
-	</div>
-	<?php endif; ?>
-	<div class="row mb-4">
-		<div class="col-lg-4 col-md-4">
-			<form action="<?= base_url('admin/search_item'); ?>" method="get" class="md-form form-inline">
-				<input type="text" name="search" id="myInput" class="form-control md-form col-5">
-				<label for="">Search Query</label>
-				<input type="submit" value="go &raquo;" class="btn btn-outline-primary rounded-pill">
-			</form>
-		</div>
-		<div class="col-lg-8 col-md-8 text-right">
-			<button class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#fullWidthtModalLeft"><i
-					class="fa fa-filter"></i> Report</button>
-			<a href="<?= base_url('admin/item_register'); ?>" data-target="#item_list"
-				class="btn btn-outline-primary btn-sm"><i class="fa fa-plus"></i> All Item List</a>
-			<a href="<?= base_url('admin/available_item_list'); ?>" data-target="#available_lists"
-				class="btn btn-outline-success btn-sm"><i class="fa fa-plus"></i> Available List</a>
-			<a href="<?= base_url('admin/get_assign_item'); ?>" data-target="#assign_list"
-				class="btn btn-outline-danger btn-sm"><i class="fa fa-sub"></i> Assign List</a>
-			<a href="<?= base_url('admin/add_item'); ?>" data-target="#add_supplier"
-				class="btn btn-outline-info btn-sm "><i class="fa fa-plus"></i> Add New</a>
-			<a href="<?= base_url('admin/'); ?>" class="btn btn-outline-danger btn-sm"><i class="fa fa-angle-left"></i>
-				Back</a>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-12 col-md-12">
-			<table class="table table-sm">
-				<caption><?php if(empty($results)){ echo 'List of Assets'; }else{ echo 'Search Results'; } ?></caption>
-				<thead>
-					<tr>
-						<th class="font-weight-bold">ID </th>
-						<th class="font-weight-bold">Location</th>
-						<th class="font-weight-bold">Category</th>
-						<th class="font-weight-bold">Sub Category</th>
-						<!-- <th class="font-weight-bold">Model</th> -->
-						<th class="font-weight-bold">Type Name</th>
-						<th class="font-weight-bold">Model</th>
-						<th class="font-weight-bold">Serial Number</th>
-						<th class="font-weight-bold">Supplier</th>
-						<th class="font-weight-bold">Assignd To</th>
-						<th class="font-weight-bold">Price</th>
-						<th class="font-weight-bold">Depreciation %</th>
-						<th class="font-weight-bold">Status</th>
-						<th class="font-weight-bold">Purchase Date</th>
-						<th class="font-weight-bold">Action</th>
-					</tr>
-				</thead>
-				<?php if(empty($results)): ?>
-				<tbody id="myTable">
-					<?php if(!empty($items)): foreach($items as $item): ?>
-					<tr>
-						<td><a href="<?= base_url('admin/item_card/'.$item->id) ?>"><span
-									style="color: blue;"><?= 'CTC-0'.$item->id; ?></span></a></td>
-						<td><?= $item->name; ?></td>
-						<td><?= ucfirst($item->cat_name); ?></td>
-						<td><?= ucfirst($item->names); ?></td>
-						<td><a href="<?= base_url('admin/item_card/'.$item->id) ?>"><span
-									style="color: blue;"><?= ucfirst($item->type_name); ?></span></a></td>
-						<td><?= ucfirst($item->model); ?></td>
-						<td><?= ucfirst($item->serial_number); ?></td>
-						<td><?= ucfirst($item->supplier); ?></td>
-						<td><strong> - - - - -</strong></td>
-						<td><?= number_format(floatval($item->price)); ?></td>
-						<td><?= $item->depreciation.' (%)'; ?></td>
-						<td>
-							<?= $status = $item->quantity > 0 ? '<span class="badge badge-success">Available</span>' : '<span class="badge badge-warning">Assigned</span>'; ?>
-						</td>
-						<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
-						<td>
-							<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span
-									class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-							<!-- <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
-							<?php if($item->quantity >= 1): ?>
-							<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"><span class="badge badge-info"><i
-										class="fa fa-check"></i></span></a>
-							<?php endif; ?>
-							<?php if($item->status == 1): ?>
-							<a data-id="<?= $item->item_ids.'/'.$item->id; ?>" class="return_item"><span
-									class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-							<?php endif; ?>
-						<td>
-						</td>
-					</tr>
-					<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
-				</tbody>
-				<?php else: ?>
-				<tbody>
-					<?php if(!empty($results)): foreach($results as $item): ?>
-					<tr>
-						<td><a href="<?= base_url('admin/item_card/'.$item->id) ?>"><span
-									style="color: blue;"><?= 'CTC-0'.$item->id; ?></a></td>
-						<td><?= $item->name; ?></td>
-						<td><?= ucfirst($item->cat_name); ?></td>
-						<td><?= ucfirst($item->names); ?></td>
-						<td><a href="<?= base_url('admin/item_card/'.$item->id); ?>"><span
-									style="color: blue;"><?= ucfirst($item->type_name); ?></span></a></td>
-						<td><?= ucfirst($item->model); ?></td>
-						<td><?= ucfirst($item->serial_number); ?></td>
-						<td><?= ucfirst($item->supplier); ?></td>
-						<?php if($item->status == 0) : ?>
-						<?php //if(!empty($item->assignd_to)): ?>
-						<td><strong><?= ucfirst($item->employ_name); ?></strong></td>
-						<?php else : ?>
-						<td><strong> - - - - -</strong></td>
-						<?php //endif; ?>
-						<?php endif; ?>
-
-						<td><?= $item->price; ?></td>
-						<td><?= $item->depreciation.' (%)'; ?></td>
-						<td>
-							<?= $status = $item->quantity > 0 ? '<span class="badge badge-success">Available</span>' : '<span class="badge badge-warning">Assigned</span>'; ?>
-						</td>
-
-						<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
-						<!-- <td><?= ucfirst($item->created_at); ?></td>  -->
-						<td>
-							<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span
-									class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-							<!-- <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
-							<!-- <a href="<?=base_url('admin/delete_item/'.$item->id);?>" onclick="javascript:return confirm('<input type='text' name='name'>Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> -->
-							<?php if($item->quantity >= 1): ?>
-							<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"><span class="badge badge-info"><i
-										class="fa fa-check"></i></span></a>
-							<?php endif; ?>
-							<?php if($item->status == 1): ?>
-							<a data-id="<?= $item->item_ids.'/'.$item->id; ?>" class="return_item"><span
-									class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-							<?php endif; ?>
-						</td>
-					</tr>
-					<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
-				</tbody>
-				<?php endif; ?>
-			</table>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-12 col-md-12">
-			<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
-		</div>
-	</div>
-</div>
-
-<!-- Modal to edit location -->
-<div class="modal fade" id="item_return" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title w-100 font-weight-bold">Return Item</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body mx-3">
-				<form action="<?= base_url('admin/return_item'); ?>" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="id" id="item_id" value="">
-					<div class="md-form mb-5">
-						<select name="remarks" class="form-control validate">
-							<option value="damage">Damage</option>
-							<option value="disabled">Disabled</option>
-						</select>
-					</div>
-
-					<div class="md-form mb-5">
-						<input type="file" name="file" id="userfile" class="form-control validate">
-					</div>
-					<div class="md-form mb-5">
-						<textarea name="description" id="description" cols="30" rows="3"
-							class="form-control"></textarea>
-						<!-- <input type="text" name="description" id="description" class="form-control validate"> -->
-						<label data-error="wrong" data-success="right" for="orangeForm-name">Description</label>
-					</div>
-
-					<div class="md-form">
-						<button type="submit" class="btn btn-deep-purple">Save Changes</button>
-						<button type="reset" class="btn btn-orange">Reset</button>
-					</div>
-			</div>
-			</form>
-			<div class="modal-footer d-flex justify-content-left">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<!-- Full Width Modal Left > show report -->
-<div class="modal fade left" id="fullWidthtModalLeft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-	aria-hidden="true">
-	<!-- Add class .modal-full-width and then add class .modal-right (or other classes from list above) to set a position to the modal -->
-	<div class="modal-dialog modal-full-width modal-left modal-xl" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title w-100" id="myModalLabel">Assignment Report</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-lg-12 col-md-12">
-						<!-- Form -->
-						<form action="<?= base_url('admin/product_report'); ?>" method="post">
-							<!-- item name -->
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="from_date">From Date</label>
-										<input type="date" name="from_date" class="form-control">
-									</div>
+			<div class="column section">
+				<div class="columns">
+					<div class="column">
+						<form action="<?= base_url('admin/search_item') ?>" method="GET">
+							<div class="field has-addons">
+								<div class="control has-icons-left is-expanded">
+									<input class="input is-small is-fullwidth" name="search" type="search"
+										placeholder="Search Query">
+									<span class="icon is-small is-left">
+										<i class="fas fa-search"></i>
+									</span>
 								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="from_date">To Date</label>
-										<input type="date" name="to_date" class="form-control">
-									</div>
+								<div class="control">
+									<button class="button is-small" type="submit"><span class="icon is-small">
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button>
 								</div>
-							</div>
-							<div class="form-group">
-								<input type="submit" name="submit" class="btn btn-primary" value="Save Changes">
 							</div>
 						</form>
-						<!-- Form -->
+					</div>
+					<div class="column">
+						<div class="field has-addons">
+							<p class="control">
+								<button class="button is-small" id="report-btn">
+									<span class="icon is-small">
+										<i class="fas fa-paperclip"></i>
+									</span>
+									<span>Report</span>
+								</button>
+							</p>
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/item_register'); ?>'"
+									class="button is-small">
+									<span class="icon is-small">
+										<i class="fas fa-list"></i>
+									</span>
+									<span>Items List</span>
+								</button>
+							</p>
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/available_item_list'); ?>'"
+									class="button is-small">
+									<span class="icon is-small">
+										<i class="far fa-list-alt"></i>
+									</span>
+									<span>Available List</span>
+								</button>
+							</p>
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/get_assign_item'); ?>'"
+									class="button is-small">
+									<span class="icon is-small">
+										<i class="fas fa-bars"></i>
+									</span>
+									<span>Assign List</span>
+								</button>
+							</p>
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/add_item'); ?>'"
+									class="button is-small">
+									<span class="icon is-small">
+										<i class="fas fa-plus"></i>
+									</span>
+									<span>Add New</span>
+								</button>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="columns">
+					<div class="column">
+						<table class="table is-narrow is-hoverable">
+							<thead>
+								<tr>
+									<th><abbr title="Item Identification Number">ID</abbr></th>
+									<th>Location</th>
+									<th>Category</th>
+									<th><abbr title="Sub Category">SC</abbr></th>
+									<th><abbr title="Type Name">TN</abbr></th>
+									<th>Model</th>
+									<th><abbr title="Serial Number">SN</abbr></th>
+									<th>Supplier</th>
+									<th><abbr title="Assigned To">AT</abbr></th>
+									<th>Price</th>
+									<th><abbr title="Depreciation Percentage">D%</abbr></th>
+									<th>Status</th>
+									<th><abbr title="Purchase Date">PD</abbr></th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th><abbr title="Item Identification Number">ID</abbr></th>
+									<th>Location</th>
+									<th>Category</th>
+									<th><abbr title="Sub Category">SC</abbr></th>
+									<th><abbr title="Type Name">TN</abbr></th>
+									<th>Model</th>
+									<th><abbr title="Serial Number">SN</abbr></th>
+									<th>Supplier</th>
+									<th><abbr title="Assigned To">AT</abbr></th>
+									<th>Price</th>
+									<th><abbr title="Depreciation Percentage">D%</abbr></th>
+									<th>Status</th>
+									<th><abbr title="Purchase Date">PD</abbr></th>
+									<th>Action</th>
+								</tr>
+							</tfoot>
+							<?php if(empty($results)): ?>
+							<tbody>
+								<?php if(!empty($items)): foreach($items as $item): ?>
+								<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?>';"
+									style="cursor: pointer;">
+									<td><span><?= 'CTC-0'.$item->id; ?></a></td>
+									<td><?= $item->name; ?></td>
+									<td><?= ucfirst($item->cat_name); ?></td>
+									<td><?= ucfirst($item->names); ?></td>
+									<td><span><?= ucfirst($item->type_name); ?></span></td>
+									<td><?= ucfirst($item->model); ?></td>
+									<td><?= !empty($item->serial_number) ? ucfirst($item->serial_number) : '-'; ?></td>
+									<td><?= ucfirst($item->supplier); ?></td>
+									<td>-</td>
+									<td><?= number_format(floatval($item->price)); ?></td>
+									<td><?= $item->depreciation.' (%)'; ?></td>
+									<td>
+										<?= $status = $item->quantity > 0 ? '<span class="tag is-success is-light">Available</span>' : '<span class="tag is-warning is-light">Assigned</span>'; ?>
+									</td>
+									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
+									<td>
+										<div class="field has-addons">
+											<p class="control">
+												<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"
+													class="button is-small">
+													<span class="icon is-small">
+														<i class="fas fa-edit"></i>
+													</span>
+												</a>
+											</p>
+											<?php if($item->quantity >= 1): ?>
+											<p class="control">
+												<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"
+													class="button is-small">
+													<span class="icon is-small has-text-success">
+														<i class="fas fa-check"></i>
+													</span>
+												</a>
+											</p>
+											<?php endif; ?>
+											<?php if($item->status == 1): ?>
+											<p class="control">
+												<a data-id="<?= $item->item_ids.'/'.$item->id; ?>"
+													class="button is-small has-text-danger">
+													<span class="icon is-small">
+														<i class="fas fa-times"></i>
+													</span>
+												</a>
+											</p>
+											<?php endif; ?>
+										</div>
+								</tr>
+								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
+							</tbody>
+							<?php else: ?>
+							<tbody>
+								<?php if(!empty($results)): foreach($results as $item): ?>
+								<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?>';"
+									style="cursor: pointer;">
+									<td><span><?= 'CTC-0'.$item->id; ?></td>
+									<td><?= $item->name; ?></td>
+									<td><?= ucfirst($item->cat_name); ?></td>
+									<td><?= ucfirst($item->names); ?></td>
+									<td><span><?= ucfirst($item->type_name); ?></span></td>
+									<td><?= ucfirst($item->model); ?></td>
+									<td><?= !empty($item->serial_number) ? ucfirst($item->serial_number) : '-'; ?></td>
+									<td><?= ucfirst($item->supplier); ?></td>
+									<?php if($item->status == 0) : ?>
+									<?php //if(!empty($item->assignd_to)): ?>
+									<td><strong><?= ucfirst($item->employ_name); ?></strong></td>
+									<?php else : ?>
+									<td>-</td>
+									<?php //endif; ?>
+									<?php endif; ?>
+
+									<td><?= $item->price; ?></td>
+									<td><?= $item->depreciation.' (%)'; ?></td>
+									<td>
+										<?= $status = $item->quantity > 0 ? '<span class="badge badge-success">Available</span>' : '<span class="badge badge-warning">Assigned</span>'; ?>
+									</td>
+
+									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
+									<!-- <td><?= ucfirst($item->created_at); ?></td>  -->
+									<td>
+										<div class="field has-addons">
+											<p class="control">
+												<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"
+													class="button is-small">
+													<span class="icon is-small">
+														<i class="fas fa-edit"></i>
+													</span>
+												</a>
+											</p>
+											<?php if($item->quantity >= 1): ?>
+											<p class="control">
+												<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"
+													class="button is-small">
+													<span class="icon is-small has-text-success">
+														<i class="fas fa-check"></i>
+													</span>
+												</a>
+											</p>
+											<?php endif; ?>
+											<?php if($item->status == 1): ?>
+											<p class="control">
+												<a data-id="<?= $item->item_ids.'/'.$item->id; ?>"
+													class="button is-small has-text-danger">
+													<span class="icon is-small">
+														<i class="fas fa-times"></i>
+													</span>
+												</a>
+											</p>
+											<?php endif; ?>
+										</div>
+									</td>
+								</tr>
+								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
+							</tbody>
+							<?php endif; ?>
+						</table>
+					</div>
+				</div>
+				<div class="columns">
+					<div class="column">
+						<nav class="pagination is-small" role="navigation" aria-label="pagination">
+							<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
+						</nav>
 					</div>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
 		</div>
 	</div>
-</div>
-<!-- Full Width Modal Left -->
+	</div>
 
 
-<script>
-	$(document).ready(function () {
-		$('.return_item').click(function () {
-			var item_id = $(this).data('id');
-			// AJAX request
+	<div class="modal" id="modal-ter">
+		<div class="modal-background"></div>
+		<form action="<?= base_url('admin/product_report'); ?>" method="post">
+			<div class="modal-card">
+				<header class="modal-card-head">
+					<p class="modal-card-title">Filter Report</p>
+					<button class="delete" aria-label="close" id="exit-report-modal" type="button"></button>
+				</header>
+				<section class="modal-card-body">
 
-			$('#item_id').val(item_id);
-			$('#item_return').modal('show');
+					<div class="columns">
+						<div class="column">
+							<p class="control">
+								From:
+								<input class="input" type="date" placeholder="From" name="from_date">
+							</p>
+						</div>
+						<div class="column">
+							<p class="control">
+								To:
+								<input class="input" type="date" placeholder="From" name="to_date">
+							</p>
+						</div>
+					</div>
 
-		});
-	});
+				</section>
+				<footer class="modal-card-foot">
+					<button class="button is-success" type="submit">Apply</button>
+					<button class="button" aria-label="close" id="close-report-modal" type="button">Cancel</button>
+				</footer>
+			</div>
+		</form>
+	</div>
 
+	<script>
+		$(document).ready(function () {
+			$('.return_item').click(function () {
+				var item_id = $(this).data('id');
+				// AJAX request
 
-	$(document).ready(function () {
-		$("#myInput").on("keyup", function () {
-			var value = $(this).val().toLowerCase();
-			$("#myTable tr").filter(function () {
-				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+				$('#item_id').val(item_id);
+				$('#item_return').modal('show');
+
 			});
 		});
-	});
 
-</script>
+
+		$(document).ready(function () {
+			$("#myInput").on("keyup", function () {
+				var value = $(this).val().toLowerCase();
+				$("#myTable tr").filter(function () {
+					$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+				});
+			});
+		});
+
+		$(document).ready(function () {
+			$("#exit-report-modal").click(function () {
+				$(".modal").removeClass('is-active');
+			});
+			$("#close-report-modal").click(function () {
+				$(".modal").removeClass('is-active');
+			});
+			$("#report-btn").click(function () {
+				$(".modal").addClass('is-active');
+			});
+			$("#category").click(function () {
+				$(this).siblings().toggle('fast');
+			});
+		})
+	</script>
