@@ -60,9 +60,9 @@
 				<li><button class="button is-primary has-text-weight-bold is-inverted" id="category"
 						style="background-color:#ebfffc;">Item Register</button>
 					<ul id="sub-categories">
-						<li><a href="<?= base_url('admin/item_register'); ?>">Item List</a></li>
+						<li><a href="<?= base_url('admin/item_register'); ?>">Items List</a></li>
 						<li><a href="<?= base_url('admin/available_item_list'); ?>">Available List</a></li>
-						<li><a href="<?= base_url('admin/get_assign_item'); ?>">Assign List</a></li>
+						<li><a href="<?= base_url('admin/get_assign_item'); ?>">Assigned List</a></li>
 						<li><a href="<?= base_url('admin/add_item'); ?>">Add New</a></li>
 					</ul>
 				</li>
@@ -142,7 +142,7 @@
 									<span class="icon is-small">
 										<i class="fas fa-bars"></i>
 									</span>
-									<span>Assign List</span>
+									<span>Assigned List</span>
 								</button>
 							</p>
 							<p class="control">
@@ -159,7 +159,7 @@
 				</div>
 				<div class="columns " style="display: grid">
 					<div class="column table-container">
-						<table class="table is-narrow is-hoverable">
+						<table class="table is-hoverable is-narrow is-fullwidth">
 							<thead>
 								<tr>
 									<th><abbr title="Item Identification Number">ID</abbr></th>
@@ -168,7 +168,7 @@
 									<th>Product</th>
 									<th>Model</th>
 									<th>Supplier</th>
-									<?php if($items[0]->status == 1 && $assign_page) : ?>
+									<?php if(isset($assign_page)) : ?>
 									<th>Assigned To</th>
 									<?php endif ?>
 									<th><abbr title="Depreciation Percentage">D%</abbr></th>
@@ -185,7 +185,7 @@
 									<th>Product</th>
 									<th>Model</th>
 									<th>Supplier</th>
-									<?php if($items[0]->status == 1 && $assign_page) : ?>
+									<?php if(isset($assign_page)) : ?>
 									<th>Assigned To</th>
 									<?php endif ?>
 									<th><abbr title="Depreciation Percentage">D%</abbr></th>
@@ -206,11 +206,11 @@
 												class="tag is-success is-light"><?= ucfirst($item->names); ?></span>
 										</div>
 									</td>
-									<td><span><?= ucfirst($item->type_name); ?></span></td>
+									<td><?= ucfirst($item->type_name); ?></td>
 									<td><?= ucfirst($item->model); ?></td>
 									</td>
 									<td><?= ucfirst($item->supplier); ?></td>
-									<?php if($item->status == 1 && $assign_page) : ?>
+									<?php if(isset($assign_page)) : ?>
 									<td><?= ucfirst($item->employ_name); ?></td>
 									<?php else : ?>
 									<?php endif; ?>
@@ -240,9 +240,9 @@
 											</p>
 											<?php endif; ?>
 											<?php if($item->status == 1): ?>
-											<p class="control">
+											<p class="control return-btn">
 												<button type="button" data-id="<?= $item->item_ids.'/'.$item->id; ?>"
-													class="button is-small has-text-danger return-btn">
+													class="button is-small has-text-danger">
 													<span class="icon is-small">
 														<i class="fas fa-times"></i>
 													</span>
@@ -268,7 +268,7 @@
 									<td><span><?= ucfirst($item->type_name); ?></span></td>
 									<td><?= ucfirst($item->model); ?></td>
 									<td><?= ucfirst($item->supplier); ?></td>
-									<?php if($item->status == 1 && $assign_page) : ?>
+									<?php if(isset($assign_page)) : ?>
 									<td><?= ucfirst($item->employ_name); ?></td>
 									<?php else : ?>
 									<?php endif; ?>
@@ -318,7 +318,7 @@
 						</table>
 					</div>
 					<div class="column">
-						<nav class="pagination is-small" role="navigation" aria-label="pagination">
+						<nav class="pagination is-small" role="navigation" aria-label="pagination" style="justify-content: center;">
 							<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
 						</nav>
 					</div>
@@ -369,13 +369,45 @@
 						<button class="delete" aria-label="close" id="exit-return-modal" type="button"></button>
 					</header>
 					<section class="modal-card-body">
-
 						<div class="columns">
 							<div class="column">
-
+								<div class="control has-icons-left">
+									<div class="select is-small is-fullwidth">
+										<select name="remarks">
+											<option selected disabled>Return Reason</option>
+											<option>Damaged Item</option>
+											<option>Disabled Item</option>
+										</select>
+									</div>
+									<span class="icon is-small is-left">
+										<i class="fas fa-random"></i>
+									</span>
+								</div>
+							</div>
+							<div class="column">
+								<div class="file is-small has-name is-fullwidth">
+									<label class="file-label">
+										<input class="file-input" name="userfile" type="file">
+										<span class="file-cta">
+											<span class="file-icon">
+												<i class="fas fa-upload"></i>
+											</span>
+											<span class="file-label">
+												Choose a file…
+											</span>
+										</span>
+										<span class="file-name">
+											Example.png
+										</span>
+									</label>
+								</div>
 							</div>
 						</div>
-
+						<div class="columns">
+							<div class="column">
+							<textarea name="description" class="textarea" placeholder="Please elaboratly describe your reason for returning the item."></textarea>
+							</div>
+						</div>
 					</section>
 					<footer class="modal-card-foot">
 						<button class="button is-success" type="submit">Apply</button>
@@ -396,43 +428,92 @@
 			$('#item_return').modal('show');
 
 		});
-	});
-
-
-	$(document).ready(function () {
-		$("#myInput").on("keyup", function () {
-			var value = $(this).val().toLowerCase();
-			$("#myTable tr").filter(function () {
-				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-			});
-		});
-	});
-
-	$(document).ready(function () {
-		$("#exit-report-modal").click(function () {
-			$("#modal-ter").toggleClass('is-active');
-		});
-		$("#close-report-modal").click(function () {
-			$("#modal-ter").removeClass('is-active');
-		});
-		$("#report-btn").click(function () {
-			$("#modal-ter").toggleClass('is-active');
-		});
-
-		$("#exit-return-modal").click(function () {
-			$("#modal-rej").toggleClass('is-active');
-		});
-		$("#close-return-modal").click(function () {
-			$("#modal-rej").removeClass('is-active');
-		});
 
 		$("#category").click(function () {
 			$(this).siblings().toggle('fast');
 		});
-	})
+	});
+	
+	class BulmaModal {
+		constructor(selector) {
+			this.elem = document.querySelector(selector)
+			this.close_data()
+		}
 
-	$(".return-btn").click(function(ev) {
-		$("#modal-rej").toggleClass('is-active');
+		show() {
+			this.elem.classList.toggle('is-active')
+			this.on_show()
+		}
+
+		close() {
+			this.elem.classList.toggle('is-active')
+			this.on_close()
+		}
+
+		close_data() {
+			var modalClose = this.elem.querySelectorAll("[data-bulma-modal='close'], .modal-background")
+			var that = this
+			modalClose.forEach(function (e) {
+				e.addEventListener("click", function () {
+
+					that.elem.classList.toggle('is-active')
+
+					var event = new Event('modal:close')
+
+					that.elem.dispatchEvent(event);
+				})
+			})
+		}
+
+		on_show() {
+			var event = new Event('modal:show')
+
+			this.elem.dispatchEvent(event);
+		}
+
+		on_close() {
+			var event = new Event('modal:close')
+
+			this.elem.dispatchEvent(event);
+		}
+
+		addEventListener(event, callback) {
+			this.elem.addEventListener(event, callback)
+		}
+	}
+	
+	var btn1 = $("#report-btn")
+	var btn2 = $(".return-btn")
+	var btn3 = $("#exit-report-modal")
+	var btn4 = $("#close-report-modal")
+	var btn5 = $("#exit-return-modal")
+	var btn6 = $("#close-return-modal")
+
+	var mdl = new BulmaModal("#modal-ter")
+	var md2 = new BulmaModal("#modal-rej")
+
+	btn1.click(function (ev) {
+		mdl.show();
+		ev.stopPropagation();
+	});
+	btn2.click(function (ev) {
+		md2.show();
+		ev.stopPropagation();
+	});
+	btn3.click(function (ev) {
+		mdl.close();
+		ev.stopPropagation();
+	});
+	btn4.click(function (ev) {
+		mdl.close();
+		ev.stopPropagation();
+	});
+	btn5.click(function (ev) {
+		md2.close();
+		ev.stopPropagation();
+	});
+	btn6.click(function (ev) {
+		md2.close();
 		ev.stopPropagation();
 	});
 
