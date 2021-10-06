@@ -157,21 +157,17 @@
 						</div>
 					</div>
 				</div>
-				<div class="columns">
-					<div class="column">
+				<div class="columns " style="display: grid">
+					<div class="column table-container">
 						<table class="table is-narrow is-hoverable">
 							<thead>
 								<tr>
 									<th><abbr title="Item Identification Number">ID</abbr></th>
 									<th>Location</th>
 									<th>Category</th>
-									<th><abbr title="Sub Category">SC</abbr></th>
-									<th><abbr title="Type Name">TN</abbr></th>
+									<th>Product</th>
 									<th>Model</th>
-									<th><abbr title="Serial Number">SN</abbr></th>
 									<th>Supplier</th>
-									<th><abbr title="Assigned To">AT</abbr></th>
-									<th>Price</th>
 									<th><abbr title="Depreciation Percentage">D%</abbr></th>
 									<th>Status</th>
 									<th><abbr title="Purchase Date">PD</abbr></th>
@@ -183,13 +179,9 @@
 									<th><abbr title="Item Identification Number">ID</abbr></th>
 									<th>Location</th>
 									<th>Category</th>
-									<th><abbr title="Sub Category">SC</abbr></th>
-									<th><abbr title="Type Name">TN</abbr></th>
+									<th>Product</th>
 									<th>Model</th>
-									<th><abbr title="Serial Number">SN</abbr></th>
 									<th>Supplier</th>
-									<th><abbr title="Assigned To">AT</abbr></th>
-									<th>Price</th>
 									<th><abbr title="Depreciation Percentage">D%</abbr></th>
 									<th>Status</th>
 									<th><abbr title="Purchase Date">PD</abbr></th>
@@ -203,17 +195,18 @@
 									style="cursor: pointer;">
 									<td><span><?= 'CTC-0'.$item->id; ?></a></td>
 									<td><?= $item->name; ?></td>
-									<td><?= ucfirst($item->cat_name); ?></td>
-									<td><?= ucfirst($item->names); ?></td>
+									<td>
+										<div class="tags"><span class="tag"><?= ucfirst($item->cat_name); ?></span><span
+												class="tag is-success is-light"><?= ucfirst($item->names); ?></span>
+										</div>
+									</td>
 									<td><span><?= ucfirst($item->type_name); ?></span></td>
 									<td><?= ucfirst($item->model); ?></td>
-									<td><?= !empty($item->serial_number) ? ucfirst($item->serial_number) : '-'; ?></td>
+									</td>
 									<td><?= ucfirst($item->supplier); ?></td>
-									<td>-</td>
-									<td><?= number_format(floatval($item->price)); ?></td>
 									<td><?= $item->depreciation.' (%)'; ?></td>
 									<td>
-										<?= $status = $item->quantity > 0 ? '<span class="tag is-success is-light">Available</span>' : '<span class="tag is-warning is-light">Assigned</span>'; ?>
+										<?= $status = $item->quantity > 0 ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
 									</td>
 									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
 									<td>
@@ -248,7 +241,7 @@
 											<?php endif; ?>
 										</div>
 								</tr>
-								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
+								<?php endforeach; else: echo "<tr class='has-background-danger-light text-center'><td colspan='17'>No records found.</td></tr>"; endif; ?>
 							</tbody>
 							<?php else: ?>
 							<tbody>
@@ -257,24 +250,17 @@
 									style="cursor: pointer;">
 									<td><span><?= 'CTC-0'.$item->id; ?></td>
 									<td><?= $item->name; ?></td>
-									<td><?= ucfirst($item->cat_name); ?></td>
-									<td><?= ucfirst($item->names); ?></td>
+									<td>
+										<div class="tags"><span class="tag"><?= ucfirst($item->cat_name); ?></span><span
+												class="tag is-success is-light"><?= ucfirst($item->names); ?></span>
+										</div>
+									</td>
 									<td><span><?= ucfirst($item->type_name); ?></span></td>
 									<td><?= ucfirst($item->model); ?></td>
-									<td><?= !empty($item->serial_number) ? ucfirst($item->serial_number) : '-'; ?></td>
 									<td><?= ucfirst($item->supplier); ?></td>
-									<?php if($item->status == 0) : ?>
-									<?php //if(!empty($item->assignd_to)): ?>
-									<td><strong><?= ucfirst($item->employ_name); ?></strong></td>
-									<?php else : ?>
-									<td>-</td>
-									<?php //endif; ?>
-									<?php endif; ?>
-
-									<td><?= $item->price; ?></td>
 									<td><?= $item->depreciation.' (%)'; ?></td>
 									<td>
-										<?= $status = $item->quantity > 0 ? '<span class="badge badge-success">Available</span>' : '<span class="badge badge-warning">Assigned</span>'; ?>
+										<?= $status = $item->quantity > 0 ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
 									</td>
 
 									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
@@ -317,8 +303,6 @@
 							<?php endif; ?>
 						</table>
 					</div>
-				</div>
-				<div class="columns">
 					<div class="column">
 						<nav class="pagination is-small" role="navigation" aria-label="pagination">
 							<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
@@ -327,78 +311,77 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
 
 
-	<div class="modal" id="modal-ter">
-		<div class="modal-background"></div>
-		<form action="<?= base_url('admin/product_report'); ?>" method="post">
-			<div class="modal-card">
-				<header class="modal-card-head">
-					<p class="modal-card-title">Filter Report</p>
-					<button class="delete" aria-label="close" id="exit-report-modal" type="button"></button>
-				</header>
-				<section class="modal-card-body">
+		<div class="modal" id="modal-ter">
+			<div class="modal-background"></div>
+			<form action="<?= base_url('admin/product_report'); ?>" method="post">
+				<div class="modal-card">
+					<header class="modal-card-head">
+						<p class="modal-card-title">Filter Report</p>
+						<button class="delete" aria-label="close" id="exit-report-modal" type="button"></button>
+					</header>
+					<section class="modal-card-body">
 
-					<div class="columns">
-						<div class="column">
-							<p class="control">
-								From:
-								<input class="input" type="date" placeholder="From" name="from_date">
-							</p>
+						<div class="columns">
+							<div class="column">
+								<p class="control">
+									From:
+									<input class="input" type="date" placeholder="From" name="from_date">
+								</p>
+							</div>
+							<div class="column">
+								<p class="control">
+									To:
+									<input class="input" type="date" placeholder="From" name="to_date">
+								</p>
+							</div>
 						</div>
-						<div class="column">
-							<p class="control">
-								To:
-								<input class="input" type="date" placeholder="From" name="to_date">
-							</p>
-						</div>
-					</div>
 
-				</section>
-				<footer class="modal-card-foot">
-					<button class="button is-success" type="submit">Apply</button>
-					<button class="button" aria-label="close" id="close-report-modal" type="button">Cancel</button>
-				</footer>
-			</div>
-		</form>
-	</div>
+					</section>
+					<footer class="modal-card-foot">
+						<button class="button is-success" type="submit">Apply</button>
+						<button class="button" aria-label="close" id="close-report-modal" type="button">Cancel</button>
+					</footer>
+				</div>
+			</form>
+		</div>
 
-	<script>
-		$(document).ready(function () {
-			$('.return_item').click(function () {
-				var item_id = $(this).data('id');
-				// AJAX request
+		<script>
+			$(document).ready(function () {
+				$('.return_item').click(function () {
+					var item_id = $(this).data('id');
+					// AJAX request
 
-				$('#item_id').val(item_id);
-				$('#item_return').modal('show');
+					$('#item_id').val(item_id);
+					$('#item_return').modal('show');
 
-			});
-		});
-
-
-		$(document).ready(function () {
-			$("#myInput").on("keyup", function () {
-				var value = $(this).val().toLowerCase();
-				$("#myTable tr").filter(function () {
-					$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 				});
 			});
-		});
 
-		$(document).ready(function () {
-			$("#exit-report-modal").click(function () {
-				$(".modal").removeClass('is-active');
+
+			$(document).ready(function () {
+				$("#myInput").on("keyup", function () {
+					var value = $(this).val().toLowerCase();
+					$("#myTable tr").filter(function () {
+						$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+					});
+				});
 			});
-			$("#close-report-modal").click(function () {
-				$(".modal").removeClass('is-active');
-			});
-			$("#report-btn").click(function () {
-				$(".modal").addClass('is-active');
-			});
-			$("#category").click(function () {
-				$(this).siblings().toggle('fast');
-			});
-		})
-	</script>
+
+			$(document).ready(function () {
+				$("#exit-report-modal").click(function () {
+					$(".modal").removeClass('is-active');
+				});
+				$("#close-report-modal").click(function () {
+					$(".modal").removeClass('is-active');
+				});
+				$("#report-btn").click(function () {
+					$(".modal").addClass('is-active');
+				});
+				$("#category").click(function () {
+					$(this).siblings().toggle('fast');
+				});
+			})
+
+		</script>

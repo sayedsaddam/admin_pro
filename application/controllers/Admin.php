@@ -1198,12 +1198,36 @@ $this->load->view('admin/commons/template', $data);
         echo json_encode($sub_categories);
     }
     // Search filters - search asset register
-    public function search_item(){
+    public function search_item($offset = null){
+        $limit = 15;
+
+        if(!empty($offset)){
+            $config['uri_segment'] = 3;
+        }
+
+        $this->load->library('pagination');
+        $url = base_url('admin/item_register');
+        $rowscount = $this->admin_model->count_item();
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $this->pagination->initialize($config);
+    
         $search = $this->input->get('search'); 
         $data['title'] = 'Search Results > Item List';
         $data['body'] = 'admin/item_assignment/item-register'; 
-        $data['results'] = $this->admin_model->search_items($search);
-        $this->load->view('admin/commons/template', $data);
+        $data['results'] = $this->admin_model->search_items($search, $limit, $offset);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Delete item
     public function delete_item($id){

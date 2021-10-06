@@ -1164,7 +1164,7 @@ class Admin_model extends CI_Model{
     } 
   //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - search Item
-    public function search_items($search){  
+    public function search_items($search, $limit, $offset){  
                             $this->db->select('items.id, items.location,
                             items.category, 
                             items.sub_category,
@@ -1206,6 +1206,7 @@ class Admin_model extends CI_Model{
         $this->db->or_like('categories.cat_name', $search);
         $this->db->or_like('locations.name', $search);  
         $this->db->order_by('items.created_at', 'DESC');
+        $this->db->limit($limit, $offset);
         $this->db->order_by('id', 'ASC'); 
         return $this->db->get()->result(); 
     }
