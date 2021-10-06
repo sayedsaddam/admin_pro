@@ -24,37 +24,37 @@
 				General
 			</p>
 			<ul class="menu-list">
-				<li><a>Dashboard</a></li>
+				<li><a href="<?= base_url('admin_pro/admin') ?>">Dashboard</a></li>
 			</ul>
 			<p class="menu-label">
 				Procurement
 			</p>
 			<ul class="menu-list">
-				<li><a>Suppliers</a></li>
+				<li><a href="<?= base_url('admin/suppliers') ?>">Suppliers</a></li>
 			</ul>
 			<ul class="menu-list">
-				<li><a>Employees</a></li>
+				<li><a href="<?= base_url('admin/employ') ?>">Employees</a></li>
 			</ul>
 			<ul class="menu-list">
-				<li><a>Categories</a></li>
+				<li><a href="<?= base_url('admin/categories') ?>">Categories</a></li>
 			</ul>
 			<ul class="menu-list">
-				<li><a>Travels Info</a></li>
+				<li><a href="<?= base_url('admin/travels_info') ?>">Travels Info</a></li>
 			</ul>
 			<ul class="menu-list">
-				<li><a>Locations</a></li>
+				<li><a href="<?= base_url('admin/locations') ?>">Locations</a></li>
 			</ul>
 			<ul class="menu-list">
-				<li><a>Inventory</a></li>
+				<li><a href="<?= base_url('admin/inventory') ?>">Inventory</a></li>
 			</ul>
 			<ul class="menu-list">
-				<li><a>Users</a></li>
+				<li><a href="<?= base_url('admin/users') ?>">Users</a></li>
 			</ul>
 			<ul class="menu-list">
-				<li><a>Invoices</a></li>
+				<li><a href="<?=  base_url('admin/invoices') ?>">Invoices</a></li>
 			</ul>
 			<ul class="menu-list">
-				<li><a>Projects</a></li>
+				<li><a href="<?= base_url('/admin/projects') ?>">Projects</a></li>
 			</ul>
 			<ul class="menu-list">
 				<li><button class="button is-primary has-text-weight-bold is-inverted" id="category"
@@ -69,16 +69,16 @@
 
 			</ul>
 			<ul class="menu-list">
-				<li><a>Purchase</a></li>
+				<li><a href="<?= base_url('admin/item_register') ?>">Purchase</a></li>
 			</ul>
 			<ul class="menu-list">
-				<li><a>Asset Register</a></li>
+				<li><a href="<?= base_url('admin/asset_register') ?>">Asset Register</a></li>
 			</ul>
 			<ul class="menu-list">
-				<li><a>Maintenance</a></li>
+				<li><a href="<?= base_url('admin/maintenance') ?>">Maintenance</a></li>
 			</ul>
 			<ul class="menu-list">
-				<li><a>Contact List</a></li>
+				<li><a href="<?= base_url('admin/contact_list') ?>">Contact List</a></li>
 			</ul>
 			<!-- <ul class="menu-list">
 			<li><a><b class="has-text-grey">Travel</b> Requests <span class="tag is-info is-light">2</span></a></li>
