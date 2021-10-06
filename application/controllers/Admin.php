@@ -1080,9 +1080,9 @@ class Admin extends CI_Controller{
     $rowscount = $this->admin_model->count_assign_item();
     paginate($url, $rowscount, $limit);
     $data['title'] = 'Item Register | Admin & Procurement';
-    $data['body'] = 'admin/item_assignment/assign-list';
+    $data['body'] = 'admin/item_assignment/item-register';
     $data['items'] = $this->admin_model->assign_item_list($limit, $offset); 
-    $this->load->view('admin/commons/template', $data);
+    $this->load->view('admin/commons/new_template', $data);
 }
     //Assign item 
        public function assign_list($offset = null){ 

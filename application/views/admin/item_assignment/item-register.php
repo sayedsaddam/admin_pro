@@ -168,6 +168,9 @@
 									<th>Product</th>
 									<th>Model</th>
 									<th>Supplier</th>
+									<?php if($items[0]->status == 1) : ?>
+									<th>Assigned To</th>
+									<?php endif ?>
 									<th><abbr title="Depreciation Percentage">D%</abbr></th>
 									<th>Status</th>
 									<th><abbr title="Purchase Date">PD</abbr></th>
@@ -182,6 +185,9 @@
 									<th>Product</th>
 									<th>Model</th>
 									<th>Supplier</th>
+									<?php if($items[0]->status == 1) : ?>
+									<th>Assigned To</th>
+									<?php endif ?>
 									<th><abbr title="Depreciation Percentage">D%</abbr></th>
 									<th>Status</th>
 									<th><abbr title="Purchase Date">PD</abbr></th>
@@ -204,6 +210,10 @@
 									<td><?= ucfirst($item->model); ?></td>
 									</td>
 									<td><?= ucfirst($item->supplier); ?></td>
+									<?php if($item->status == 1) : ?>
+									<td><?= ucfirst($item->employ_name); ?></td>
+									<?php else : ?>
+									<?php endif; ?>
 									<td><?= $item->depreciation.' (%)'; ?></td>
 									<td>
 										<?= $status = $item->quantity > 0 ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
@@ -258,6 +268,10 @@
 									<td><span><?= ucfirst($item->type_name); ?></span></td>
 									<td><?= ucfirst($item->model); ?></td>
 									<td><?= ucfirst($item->supplier); ?></td>
+									<?php if($item->status == 1) : ?>
+									<td><?= ucfirst($item->employ_name); ?></td>
+									<?php else : ?>
+									<?php endif; ?>
 									<td><?= $item->depreciation.' (%)'; ?></td>
 									<td>
 										<?= $status = $item->quantity > 0 ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
