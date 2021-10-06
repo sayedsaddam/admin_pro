@@ -24,7 +24,7 @@
 				General
 			</p>
 			<ul class="menu-list">
-				<li><a href="<?= base_url('admin_pro/admin') ?>">Dashboard</a></li>
+				<li><a href="<?= base_url('admin') ?>">Dashboard</a></li>
 			</ul>
 			<p class="menu-label">
 				Procurement
@@ -69,7 +69,7 @@
 
 			</ul>
 			<ul class="menu-list">
-				<li><a href="<?= base_url('admin/item_register') ?>">Purchase</a></li>
+				<li><a href="<?= base_url('Purchase/purchase_order_list') ?>">Purchase</a></li>
 			</ul>
 			<ul class="menu-list">
 				<li><a href="<?= base_url('admin/asset_register') ?>">Asset Register</a></li>
@@ -120,7 +120,7 @@
 							</p>
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/item_register'); ?>'"
-									class="button is-small">
+									class="button is-small <?= (isset($item_register)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -129,7 +129,7 @@
 							</p>
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/available_item_list'); ?>'"
-									class="button is-small">
+									class="button is-small <?= (isset($available_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="far fa-list-alt"></i>
 									</span>
@@ -138,7 +138,7 @@
 							</p>
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/get_assign_item'); ?>'"
-									class="button is-small">
+									class="button is-small <?= (isset($assign_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-bars"></i>
 									</span>
@@ -168,7 +168,7 @@
 									<th>Product</th>
 									<th>Model</th>
 									<th>Supplier</th>
-									<?php if($items[0]->status == 1) : ?>
+									<?php if($items[0]->status == 1 && $assign_page) : ?>
 									<th>Assigned To</th>
 									<?php endif ?>
 									<th><abbr title="Depreciation Percentage">D%</abbr></th>
@@ -185,7 +185,7 @@
 									<th>Product</th>
 									<th>Model</th>
 									<th>Supplier</th>
-									<?php if($items[0]->status == 1) : ?>
+									<?php if($items[0]->status == 1 && $assign_page) : ?>
 									<th>Assigned To</th>
 									<?php endif ?>
 									<th><abbr title="Depreciation Percentage">D%</abbr></th>
@@ -210,7 +210,7 @@
 									<td><?= ucfirst($item->model); ?></td>
 									</td>
 									<td><?= ucfirst($item->supplier); ?></td>
-									<?php if($item->status == 1) : ?>
+									<?php if($item->status == 1 && $assign_page) : ?>
 									<td><?= ucfirst($item->employ_name); ?></td>
 									<?php else : ?>
 									<?php endif; ?>
@@ -241,12 +241,12 @@
 											<?php endif; ?>
 											<?php if($item->status == 1): ?>
 											<p class="control">
-												<a data-id="<?= $item->item_ids.'/'.$item->id; ?>"
-													class="button is-small has-text-danger">
+												<button type="button" data-id="<?= $item->item_ids.'/'.$item->id; ?>"
+													class="button is-small has-text-danger return-btn">
 													<span class="icon is-small">
 														<i class="fas fa-times"></i>
 													</span>
-												</a>
+												</button>
 											</p>
 											<?php endif; ?>
 										</div>
@@ -268,7 +268,7 @@
 									<td><span><?= ucfirst($item->type_name); ?></span></td>
 									<td><?= ucfirst($item->model); ?></td>
 									<td><?= ucfirst($item->supplier); ?></td>
-									<?php if($item->status == 1) : ?>
+									<?php if($item->status == 1 && $assign_page) : ?>
 									<td><?= ucfirst($item->employ_name); ?></td>
 									<?php else : ?>
 									<?php endif; ?>
@@ -301,12 +301,12 @@
 											<?php endif; ?>
 											<?php if($item->status == 1): ?>
 											<p class="control">
-												<a data-id="<?= $item->item_ids.'/'.$item->id; ?>"
+												<button data-id="<?= $item->item_ids.'/'.$item->id; ?>"
 													class="button is-small has-text-danger">
 													<span class="icon is-small">
 														<i class="fas fa-times"></i>
 													</span>
-												</a>
+												</button>
 											</p>
 											<?php endif; ?>
 										</div>
@@ -325,7 +325,6 @@
 				</div>
 			</div>
 		</div>
-
 
 		<div class="modal" id="modal-ter">
 			<div class="modal-background"></div>
@@ -361,41 +360,80 @@
 			</form>
 		</div>
 
-		<script>
-			$(document).ready(function () {
-				$('.return_item').click(function () {
-					var item_id = $(this).data('id');
-					// AJAX request
+		<div class="modal" id="modal-rej">
+			<div class="modal-background"></div>
+			<form action="<?= base_url('admin/product_report'); ?>" method="post">
+				<div class="modal-card">
+					<header class="modal-card-head">
+						<p class="modal-card-title">Return Item</p>
+						<button class="delete" aria-label="close" id="exit-return-modal" type="button"></button>
+					</header>
+					<section class="modal-card-body">
 
-					$('#item_id').val(item_id);
-					$('#item_return').modal('show');
+						<div class="columns">
+							<div class="column">
 
-				});
+							</div>
+						</div>
+
+					</section>
+					<footer class="modal-card-foot">
+						<button class="button is-success" type="submit">Apply</button>
+						<button class="button" aria-label="close" id="close-return-modal" type="button">Cancel</button>
+					</footer>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+<script>
+	$(document).ready(function () {
+		$('.return_item').click(function () {
+			var item_id = $(this).data('id');
+			// AJAX request
+
+			$('#item_id').val(item_id);
+			$('#item_return').modal('show');
+
+		});
+	});
+
+
+	$(document).ready(function () {
+		$("#myInput").on("keyup", function () {
+			var value = $(this).val().toLowerCase();
+			$("#myTable tr").filter(function () {
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 			});
+		});
+	});
 
+	$(document).ready(function () {
+		$("#exit-report-modal").click(function () {
+			$("#modal-ter").toggleClass('is-active');
+		});
+		$("#close-report-modal").click(function () {
+			$("#modal-ter").removeClass('is-active');
+		});
+		$("#report-btn").click(function () {
+			$("#modal-ter").toggleClass('is-active');
+		});
 
-			$(document).ready(function () {
-				$("#myInput").on("keyup", function () {
-					var value = $(this).val().toLowerCase();
-					$("#myTable tr").filter(function () {
-						$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-					});
-				});
-			});
+		$("#exit-return-modal").click(function () {
+			$("#modal-rej").toggleClass('is-active');
+		});
+		$("#close-return-modal").click(function () {
+			$("#modal-rej").removeClass('is-active');
+		});
 
-			$(document).ready(function () {
-				$("#exit-report-modal").click(function () {
-					$(".modal").removeClass('is-active');
-				});
-				$("#close-report-modal").click(function () {
-					$(".modal").removeClass('is-active');
-				});
-				$("#report-btn").click(function () {
-					$(".modal").addClass('is-active');
-				});
-				$("#category").click(function () {
-					$(this).siblings().toggle('fast');
-				});
-			})
+		$("#category").click(function () {
+			$(this).siblings().toggle('fast');
+		});
+	})
 
-		</script>
+	$(".return-btn").click(function(ev) {
+		$("#modal-rej").toggleClass('is-active');
+		ev.stopPropagation();
+	});
+
+</script>

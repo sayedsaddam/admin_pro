@@ -1009,7 +1009,7 @@ class Admin extends CI_Controller{
     }
     //Item register 
     public function item_register($offset = null){ 
-        $limit = 15;
+        $limit = 10;
 
         if(!empty($offset)){
             $config['uri_segment'] = 3;
@@ -1036,12 +1036,13 @@ class Admin extends CI_Controller{
         
         $data['title'] = 'Item Register | Admin & Procurement';
         $data['body'] = 'admin/item_assignment/item-register';
+        $data['item_register'] = true;
         $data['items'] = $this->admin_model->get_items($limit, $offset); 
         $this->load->view('admin/commons/new_template', $data);
     }
   //Available Item list
   public function available_item_list($offset = null){ 
-    $limit = 15;
+    $limit = 10;
 
     if(!empty($offset)){
         $config['uri_segment'] = 3;
@@ -1067,12 +1068,13 @@ class Admin extends CI_Controller{
 
     $data['title'] = 'Item Register | Admin & Procurement';
     $data['body'] = 'admin/item_assignment/item-register';
+    $data['available_page'] = true;
     $data['items'] = $this->admin_model->get_available_items($limit, $offset); 
     $this->load->view('admin/commons/new_template', $data);
 }
 //Assign item list
    public function get_assign_item($offset = null){  
-        $limit = 15;
+        $limit = 10;
         if(!empty($offset)){
         $this->uri->segment(3);
         }
@@ -1081,6 +1083,7 @@ class Admin extends CI_Controller{
     paginate($url, $rowscount, $limit);
     $data['title'] = 'Item Register | Admin & Procurement';
     $data['body'] = 'admin/item_assignment/item-register';
+    $data['assign_page'] = true; 
     $data['items'] = $this->admin_model->assign_item_list($limit, $offset); 
     $this->load->view('admin/commons/new_template', $data);
 }
@@ -1226,7 +1229,8 @@ $this->load->view('admin/commons/template', $data);
         $search = $this->input->get('search'); 
         $data['title'] = 'Search Results > Item List';
         $data['body'] = 'admin/item_assignment/item-register'; 
-        $data['results'] = $this->admin_model->search_items($search, $limit, $offset);
+        $data['assign_flag'] = false; 
+        $data['items'] = $this->admin_model->search_items($search, $limit, $offset);
         $this->load->view('admin/commons/new_template', $data);
     }
     // Delete item
