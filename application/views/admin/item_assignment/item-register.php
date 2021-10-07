@@ -38,7 +38,7 @@
 				<li><a href="<?= base_url('/admin/projects') ?>">Projects</a></li>
 			</ul>
 			<ul class="menu-list">
-				<li><button class="button is-primary has-text-weight-bold is-inverted" id="category"
+				<li><button class="button is-primary has-text-weight-bold is-inverted" id="nav-category"
 						style="background-color:#ebfffc;">Item Register</button>
 					<ul id="sub-categories">
 						<li><a href="<?= base_url('admin/item_register'); ?>">Items List</a></li>
@@ -128,7 +128,7 @@
 							</p>
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/add_item'); ?>'"
-									class="button is-small">
+									class="button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-plus"></i>
 									</span>
@@ -406,7 +406,7 @@
 			$('#item-id').val(item_id);
 		});
 
-		$("#category").click(function () {
+		$("#nav-category").click(function () {
 			$(this).siblings().toggle('fast');
 		});
 

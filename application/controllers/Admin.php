@@ -1104,11 +1104,12 @@ class Admin extends CI_Controller{
     // item register - add new item.
     public function add_item(){
         $data['title'] = 'Item Detail';
+        $data['add_page'] = true;
         $data['body'] = 'admin/item_assignment/item-detail';  
         $data['categories'] = $this->admin_model->get_item_categories();
         $data['supplier'] = $this->admin_model->get_item_supplier();
         $data['locations'] = $this->admin_model->get_item_location(); 
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Add new Item into the database
     public function item_save(){  
