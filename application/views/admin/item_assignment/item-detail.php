@@ -287,10 +287,9 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Serial Number <span class="has-text-danger">*</span></label>
+									<label class="label is-small">Serial Number</label>
 									<div class="control has-icons-left">
-										<input name="serial_number" class="input is-small" type="text" placeholder="e.g X12X34Y5XYXY"
-											required>
+										<input name="serial_number" class="input is-small" type="text" placeholder="e.g X12X34Y5XYXY">
 										<span class="icon is-small is-left">
 											<i class="fas fa-hashtag"></i>
 										</span>
@@ -385,7 +384,7 @@
 							</div>
 						</div>
 					</div>
-                        </form>
+				</form>
 			</div>
 		</div>
 
@@ -565,7 +564,8 @@
 			//  alert(category)
 			// AJAX request
 			$.ajax({
-				url: '<?=base_url('admin/get_item_sub_categories/')?>' + category,
+				url: '<?=base_url('
+				admin / get_item_sub_categories / ')?>' + category,
 				method: 'post',
 				data: {
 					category: category
@@ -594,7 +594,8 @@
 			var item_id = $(this).val();
 			// AJAX request
 			$.ajax({
-				url: '<?=base_url('admin/get_item_type/')?>' + item_id,
+				url: '<?=base_url('
+				admin / get_item_type / ')?>' + item_id,
 				method: 'post',
 				data: {
 					item_id: item_id
