@@ -379,8 +379,8 @@
 					<div class="columns">
 						<div class="column has-text-right">
 							<div class="buttons is-pulled-right">
-								<button class="button is-danger is-small is-outlined">Reset</button>
-								<button class="button is-success is-small">Save and continue</button>
+								<button class="button is-danger is-small is-outlined" type="button">Reset</button>
+								<button class="button is-success is-small" type="submit">Save and continue</button>
 							</div>
 						</div>
 					</div>
@@ -415,64 +415,6 @@
 					<footer class="modal-card-foot">
 						<button class="button is-success" type="submit">Apply</button>
 						<button class="button" aria-label="close" id="close-report-modal" type="button">Cancel</button>
-					</footer>
-				</div>
-			</form>
-		</div>
-
-		<div class="modal" id="modal-rej">
-			<div class="modal-background"></div>
-			<form action="<?= base_url('admin/return_item'); ?>" method="POST" enctype="multipart/form-data">
-				<div class="modal-card">
-					<input type="hidden" name="id" id="item-id" value="">
-					<header class="modal-card-head">
-						<p class="modal-card-title">Return Item</p>
-						<button class="delete" aria-label="close" id="exit-return-modal" type="button"></button>
-					</header>
-					<section class="modal-card-body">
-						<div class="columns">
-							<div class="column">
-								<div class="control has-icons-left">
-									<div class="select is-small is-fullwidth">
-										<select name="remarks" required>
-											<option value="damage">Damaged Item</option>
-											<option value="disabled">Disabled Item</option>
-										</select>
-									</div>
-									<span class="icon is-small is-left">
-										<i class="fas fa-random"></i>
-									</span>
-								</div>
-							</div>
-							<div class="column">
-								<div class="file is-small has-name is-fullwidth">
-									<label class="file-label">
-										<input class="file-input" name="userfile" type="file" required>
-										<span class="file-cta">
-											<span class="file-icon">
-												<i class="fas fa-upload"></i>
-											</span>
-											<span class="file-label">
-												Choose a file…
-											</span>
-										</span>
-										<span class="file-name">
-											Example.png
-										</span>
-									</label>
-								</div>
-							</div>
-						</div>
-						<div class="columns">
-							<div class="column">
-								<textarea name="description" class="textarea"
-									placeholder="Please elaboratly describe your reason for returning the item."></textarea>
-							</div>
-						</div>
-					</section>
-					<footer class="modal-card-foot">
-						<button class="button is-success" type="submit">Apply</button>
-						<button class="button" aria-label="close" id="close-return-modal" type="reset">Cancel</button>
 					</footer>
 				</div>
 			</form>
