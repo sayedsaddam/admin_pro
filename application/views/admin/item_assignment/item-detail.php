@@ -40,7 +40,7 @@
 			<ul class="menu-list">
 				<li><button class="button is-primary has-text-weight-bold is-inverted" id="nav-category"
 						style="background-color:#ebfffc;">Item Register</button>
-					<ul id="sub-categories">
+					<ul id="sub-categories" style="display: none;">
 						<li><a href="<?= base_url('admin/item_register'); ?>">Items List</a></li>
 						<li><a href="<?= base_url('admin/available_item_list'); ?>">Available List</a></li>
 						<li><a href="<?= base_url('admin/get_assign_item'); ?>">Assigned List</a></li>
@@ -139,12 +139,12 @@
 				</div>
 				<div class="columns">
 					<div class="column">
-						<h1 class="subtitle is-5">Add Item</h1>
+						<h1 class="subtitle is-5"><?= (!isset($edit_item)) ? 'Add Item' : 'Editing Item' ?> <?= (isset($edit->id)) ? '<span class="has-text-grey-light">(ID: ' . $edit->id . ')</span>' : '' ?></h1>
 					</div>
 				</div>
 				<form
 					action="<?php if(empty($edit)){ echo base_url('admin/item_save'); }else{ echo base_url('admin/modify_item'); } ?>"
-					method="post">
+					method="POST">
 					<div class="columns">
 						<div class="column">
 							<fieldset>
@@ -506,8 +506,7 @@
 			//  alert(category)
 			// AJAX request
 			$.ajax({
-				url: '<?=base_url('
-				admin / get_item_sub_categories / ')?>' + category,
+				url: '<?=base_url('admin/get_item_sub_categories/')?>' + category,
 				method: 'post',
 				data: {
 					category: category
@@ -536,8 +535,7 @@
 			var item_id = $(this).val();
 			// AJAX request
 			$.ajax({
-				url: '<?=base_url('
-				admin / get_item_type / ')?>' + item_id,
+				url: '<?=base_url('admin/get_item_type/')?>' + item_id,
 				method: 'post',
 				data: {
 					item_id: item_id

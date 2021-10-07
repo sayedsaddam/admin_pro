@@ -40,7 +40,7 @@
 			<ul class="menu-list">
 				<li><button class="button is-primary has-text-weight-bold is-inverted" id="nav-category"
 						style="background-color:#ebfffc;">Item Register</button>
-					<ul id="sub-categories">
+					<ul id="sub-categories" style="display: none;">
 						<li><a href="<?= base_url('admin/item_register'); ?>">Items List</a></li>
 						<li><a href="<?= base_url('admin/available_item_list'); ?>">Available List</a></li>
 						<li><a href="<?= base_url('admin/get_assign_item'); ?>">Assigned List</a></li>
@@ -355,6 +355,7 @@
 								<div class="control has-icons-left">
 									<div class="select is-small is-fullwidth">
 										<select name="remarks" required>
+											<option value="" disabled selected>Reason for Returning</option>
 											<option value="damage">Damaged Item</option>
 											<option value="disabled">Disabled Item</option>
 										</select>

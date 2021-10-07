@@ -1119,7 +1119,7 @@ class Admin extends CI_Controller{
             'location' => $this->input->post('location'),
             'category' => $this->input->post('category'),
             'sub_category' => $this->input->post('sub_category'),
-            'type_name' => $this->input->post('type_name'),
+            'type_name' => $this->input->post('item_type'),
             'status' => $this->input->post('status'),
             'quantity' => $this->input->post('quantity'),
             'model' => $this->input->post('model'),
@@ -1174,7 +1174,8 @@ class Admin extends CI_Controller{
         $data['locations'] = $this->admin_model->get_item_location();
         $data['depreciation'] = $this->admin_model->get_item_depreciation($id);
         $data['status'] = $this->admin_model->status_items($id); 
-        $this->load->view('admin/commons/template', $data);
+        $data['edit_item'] = true;
+        $this->load->view('admin/commons/new_template', $data);
     }
   // Search filters - search product date-wise
   public function product_report($offset = null){ 
