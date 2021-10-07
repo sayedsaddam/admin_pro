@@ -1,22 +1,3 @@
-<section class="hero is-small is-primary" style="background-color:#15BCA1;">
-	<div class="hero-body">
-		<div class="columns is-vcentered">
-			<div class="column is-narrow">
-				<img src="https://s2smark.com/assets/img/logo/s2s-logo-1.png" style="filter: invert(.5) brightness(2);"
-					width="140">
-			</div>
-			<div class="column">
-				<p class="title">
-					Admin & Procurement
-				</p>
-				<p class="subtitle">
-					AH Group of Companies (Pvt.) Ltd.
-				</p>
-			</div>
-		</div>
-	</div>
-</section>
-
 <section class="columns is-gapless mb-0 pb-0">
 	<div class="column is-narrow is-fullheight" style="background-color:#fafafa;">
 		<aside class="section is-narrow-mobile is-hidden-mobile" id="categories">
@@ -242,7 +223,7 @@
 											<?php if($item->status == 1): ?>
 											<p class="control return-btn">
 												<button type="button" data-id="<?= $item->item_ids.'/'.$item->id; ?>"
-													class="button is-small has-text-danger">
+													class="button is-small has-text-danger return-btn">
 													<span class="icon is-small">
 														<i class="fas fa-times"></i>
 													</span>
@@ -318,7 +299,8 @@
 						</table>
 					</div>
 					<div class="column">
-						<nav class="pagination is-small" role="navigation" aria-label="pagination" style="justify-content: center;">
+						<nav class="pagination is-small" role="navigation" aria-label="pagination"
+							style="justify-content: center;">
 							<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
 						</nav>
 					</div>
@@ -328,14 +310,13 @@
 
 		<div class="modal" id="modal-ter">
 			<div class="modal-background"></div>
-			<form action="<?= base_url('admin/product_report'); ?>" method="post">
+			<form action="<?= base_url('admin/product_report'); ?>" method="POST">
 				<div class="modal-card">
 					<header class="modal-card-head">
 						<p class="modal-card-title">Filter Report</p>
 						<button class="delete" aria-label="close" id="exit-report-modal" type="button"></button>
 					</header>
 					<section class="modal-card-body">
-
 						<div class="columns">
 							<div class="column">
 								<p class="control">
@@ -350,7 +331,6 @@
 								</p>
 							</div>
 						</div>
-
 					</section>
 					<footer class="modal-card-foot">
 						<button class="button is-success" type="submit">Apply</button>
@@ -362,8 +342,9 @@
 
 		<div class="modal" id="modal-rej">
 			<div class="modal-background"></div>
-			<form action="<?= base_url('admin/product_report'); ?>" method="post">
+			<form action="<?= base_url('admin/return_item'); ?>" method="POST" enctype="multipart/form-data">
 				<div class="modal-card">
+					<input type="hidden" name="id" id="item-id" value="">
 					<header class="modal-card-head">
 						<p class="modal-card-title">Return Item</p>
 						<button class="delete" aria-label="close" id="exit-return-modal" type="button"></button>
@@ -373,10 +354,9 @@
 							<div class="column">
 								<div class="control has-icons-left">
 									<div class="select is-small is-fullwidth">
-										<select name="remarks">
-											<option selected disabled>Return Reason</option>
-											<option>Damaged Item</option>
-											<option>Disabled Item</option>
+										<select name="remarks" required>
+											<option value="damage">Damaged Item</option>
+											<option value="disabled">Disabled Item</option>
 										</select>
 									</div>
 									<span class="icon is-small is-left">
@@ -387,7 +367,7 @@
 							<div class="column">
 								<div class="file is-small has-name is-fullwidth">
 									<label class="file-label">
-										<input class="file-input" name="userfile" type="file">
+										<input class="file-input" name="userfile" type="file" required>
 										<span class="file-cta">
 											<span class="file-icon">
 												<i class="fas fa-upload"></i>
@@ -405,13 +385,14 @@
 						</div>
 						<div class="columns">
 							<div class="column">
-							<textarea name="description" class="textarea" placeholder="Please elaboratly describe your reason for returning the item."></textarea>
+								<textarea name="description" class="textarea"
+									placeholder="Please elaboratly describe your reason for returning the item."></textarea>
 							</div>
 						</div>
 					</section>
 					<footer class="modal-card-foot">
 						<button class="button is-success" type="submit">Apply</button>
-						<button class="button" aria-label="close" id="close-return-modal" type="button">Cancel</button>
+						<button class="button" aria-label="close" id="close-return-modal" type="reset">Cancel</button>
 					</footer>
 				</div>
 			</form>
@@ -420,20 +401,20 @@
 </section>
 <script>
 	$(document).ready(function () {
-		$('.return_item').click(function () {
+		$('.return-btn').click(function () {
 			var item_id = $(this).data('id');
-			// AJAX request
-
-			$('#item_id').val(item_id);
-			$('#item_return').modal('show');
-
+			$('#item-id').val(item_id);
 		});
 
 		$("#category").click(function () {
 			$(this).siblings().toggle('fast');
 		});
+
+		$(".file-input").change(function () {
+			$(".file-name").text(this.files[0].name);
+		});
 	});
-	
+
 	class BulmaModal {
 		constructor(selector) {
 			this.elem = document.querySelector(selector)
@@ -481,7 +462,7 @@
 			this.elem.addEventListener(event, callback)
 		}
 	}
-	
+
 	var btn1 = $("#report-btn")
 	var btn2 = $(".return-btn")
 	var btn3 = $("#exit-report-modal")

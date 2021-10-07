@@ -1315,8 +1315,9 @@ $this->load->view('admin/commons/template', $data);
         $this->load->library('upload', $config); 
       
         if ( ! $this->upload->do_upload('userfile')) { 
+            echo $this->upload->display_errors(); exit;
            $error = array('error' => $this->upload->display_errors()); 
-           $this->load->view('upload_form', $error); 
+           redirect('admin/item_register');
         }
         else {   
           
