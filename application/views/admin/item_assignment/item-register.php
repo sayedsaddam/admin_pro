@@ -169,7 +169,7 @@
 									<th>Model</th>
 									<th>Supplier</th>
 									<?php if(isset($assign_page)) : ?>
-									<th>Assigned To</th>
+									<th>Assign To</th>
 									<?php endif ?>
 									<th><abbr title="Depreciation Percentage">D%</abbr></th>
 									<th>Status</th>
@@ -199,7 +199,7 @@
 								<?php if(!empty($items)): foreach($items as $item): ?>
 								<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?>';"
 									style="cursor: pointer;">
-									<td><span><?= 'CTC-0'.$item->id; ?></a></td>
+									<td><span><?= 'CTC-'.$item->id; ?></a></td>
 									<td><?= $item->name; ?></td>
 									<td>
 										<div class="tags"><span class="tag"><?= ucfirst($item->cat_name); ?></span><span
