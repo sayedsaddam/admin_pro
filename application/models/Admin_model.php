@@ -911,6 +911,14 @@ class Admin_model extends CI_Model{
     public function count_item(){
         return $this->db->from('items')->count_all_results();
     }
+    // Count all items 
+    public function count_item_date($date_from, $date_to) {
+        $this->db->select('id');
+        $this->db->from('items');
+        $this->db->where('items.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
+        $num_results = $this->db->count_all_results();
+        return $num_results;
+    }
     // Count all purchase items 
     public function count_purchase(){
         return $this->db->from('purchase_orders')->count_all_results();
@@ -924,7 +932,7 @@ class Admin_model extends CI_Model{
         return $num_results;
      }
     // Get items.
-    public function get_items($limit, $offset,$from = null, $to = null ){
+    public function get_items($limit, $offset, $date_from = null, $date_to = null ){
         // echo $from;exit;
         $this->db->select('items.id, 
                            items.location,
@@ -957,9 +965,8 @@ class Admin_model extends CI_Model{
         $this->db->join('locations', 'items.location = locations.id', 'left');
         $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
         $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
-        // $this->db->where('stat', 0);
-        if (!empty($from) && !empty($to)) {  
-            $this->db->where('items.created_at BETWEEN \'' . $from . '\' AND \'' . $to . '\'');
+        if (!empty($date_from) && !empty($date_to)) {  
+            $this->db->where('items.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
         }
         $this->db->group_by('items.id'); 
         $this->db->order_by('id', 'ASC');

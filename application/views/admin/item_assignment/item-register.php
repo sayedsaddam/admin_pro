@@ -28,7 +28,7 @@
 					<div class="column">
 						<div class="field has-addons">
 							<p class="control">
-								<button class="button is-small" id="report-btn">
+								<button class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>" id="report-btn">
 									<span class="icon is-small">
 										<i class="fas fa-paperclip"></i>
 									</span>
@@ -74,9 +74,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="columns " style="display: grid">
+				<div class="columns" style="display: grid">
 					<div class="column table-container">
-						<table class="table is-hoverable is-narrow is-fullwidth">
+						<table class="table is-hoverable is-narrow is-fullwidth" id="myTable">
 							<thead>
 								<tr>
 									<th><abbr title="Item Identification Number">ID</abbr></th>
@@ -114,7 +114,7 @@
 							<?php if(empty($results)): ?>
 							<tbody>
 								<?php if(!empty($items)): foreach($items as $item): ?>
-								<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?>';"
+								<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?><?= isset($item->employ_id) ? '/' . $item->employ_id : '' ?>';"
 									style="cursor: pointer;">
 									<td><span><?= 'CTC-'.$item->id; ?></a></td>
 									<td><?= $item->name; ?></td>
@@ -243,7 +243,26 @@
 							<?php endif; ?>
 						</table>
 					</div>
-					<div class="column">
+					<?php if(isset($product_report)) : ?>
+					<div class="column has-text-right is-hidden-print">
+						<div class="buttons is-pulled-right">
+							<button onClick="window.print();" type="button" class="button is-small ">
+								<span class="icon is-small">
+									<i class="fas fa-print"></i>
+								</span>
+								<span>Print</span>
+							</button>
+							<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+								class="button is-small ">
+								<span class="icon is-small">
+									<i class="fas fa-file-export"></i>
+								</span>
+								<span>Export</span>
+							</a>
+						</div>
+					</div>
+					<?php endif ?>
+					<div class="column is-hidden-print">
 						<nav class="pagination is-small" role="navigation" aria-label="pagination"
 							style="justify-content: center;">
 							<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
@@ -255,7 +274,7 @@
 
 		<div class="modal" id="modal-ter">
 			<div class="modal-background"></div>
-			<form action="<?= base_url('admin/product_report'); ?>" method="POST">
+			<form action="<?= base_url('admin/product_report'); ?>" method="GET">
 				<div class="modal-card">
 					<header class="modal-card-head">
 						<p class="modal-card-title">Filter Report</p>
@@ -443,5 +462,55 @@
 		md2.close();
 		ev.stopPropagation();
 	});
+
+	function exportTableToExcel(tableId, filename) {
+		let dataType = 'application/vnd.ms-excel';
+		let extension = '.xls';
+
+		let base64 = function (s) {
+			return window.btoa(unescape(encodeURIComponent(s)))
+		};
+
+		let template =
+			'<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';
+		let render = function (template, content) {
+			var r1 = template.replace(/{(\w+)}/g, function (m, p) {
+				return content[p];
+			});
+			var r2 = r1.replace(/{(\w+)}/g, function (m, p) {
+				return content[p];
+			});
+			return r2
+		};
+
+		let tableElement = document.getElementById(tableId);
+
+		let tableExcel = render(template, {
+			worksheet: filename,
+			table: tableElement.innerHTML
+		});
+
+		filename = filename + extension;
+
+		if (navigator.msSaveOrOpenBlob) {
+			let blob = new Blob(
+				['\ufeff', tableExcel], {
+					type: dataType
+				}
+			);
+
+			navigator.msSaveOrOpenBlob(blob, filename);
+		} else {
+			let downloadLink = document.createElement("a");
+
+			document.body.appendChild(downloadLink);
+
+			downloadLink.href = 'data:' + dataType + ';base64,' + base64(tableExcel);
+
+			downloadLink.download = filename;
+
+			downloadLink.click();
+		}
+	}
 
 </script>

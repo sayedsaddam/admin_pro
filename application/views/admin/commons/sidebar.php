@@ -1,4 +1,4 @@
-<aside class="section is-narrow-mobile is-hidden-mobile" id="categories">
+<aside class="section is-narrow-mobile is-hidden-mobile is-hidden-print" id="categories">
 	<p class="menu-label">
 		General
 	</p>

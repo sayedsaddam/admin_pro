@@ -1192,26 +1192,46 @@ public function get_assign_item($offset = null){
         $data['edit_item'] = true;
         $this->load->view('admin/commons/new_template', $data);
     }
-  // Search filters - search product date-wise
-  public function product_report($offset = null){ 
-    $limit = 15;
-    if(!empty($offset)){
-    $this->uri->segment(3);
-    }
-$url = 'admin/product_report';
-$rowscount = $this->admin_model->count_item();
-paginate($url, $rowscount, $limit);
-$data['title'] = 'Search Results > Report';
-$data['body'] = 'admin/item_assignment/product_report';
-if($this->input->post('from_date')) {
-    $date_from = $this->input->post('from_date');
-    $date_to = $this->input->post('to_date');
-    $data['reports'] =  $this->admin_model->get_items($limit, $offset, $date_from, $date_to);
-} else {
-    $data['items'] = $this->admin_model->get_items($limit, $offset); 
-} 
-$this->load->view('admin/commons/template', $data);
-} 
+    // Search filters - search product date-wise
+    public function product_report($offset = null){ 
+
+        $limit = 10;
+
+        if(!empty($offset)){
+            $config['uri_segment'] = 3;
+        }
+
+        $date_from = $this->input->get('from_date');
+        $date_to = $this->input->get('to_date');
+    
+        $this->load->library('pagination');
+        $url = base_url('admin/product_report');
+        $rowscount = $this->admin_model->count_item_date($date_from, $date_to);
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
+
+        $this->pagination->initialize($config);
+        
+        $data['title'] = 'Search Results > Report';
+        $data['product_report'] = true;
+        $data['body'] = 'admin/item_assignment/item-register';
+
+        $data['items'] =  $this->admin_model->get_items($limit, $offset, $date_from, $date_to);
+
+        $this->load->view('admin/commons/new_template', $data);
+    } 
      // Get all sub categories based on cat_id of items
     public function get_item_sub_categories($cat_id){
         $sub_categories = $this->admin_model->get_item_sub_categories($cat_id);

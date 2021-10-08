@@ -1,6 +1,6 @@
 <section class="columns is-gapless mb-0 pb-0">
 	<div class="column is-narrow is-fullheight" style="background-color:#fafafa;">
-    <?php $this->view('admin/commons/sidebar'); ?>
+		<?php $this->view('admin/commons/sidebar'); ?>
 	</div>
 	<div class="column">
 		<div class="columns">
@@ -27,7 +27,7 @@
 					<div class="column">
 						<div class="field has-addons">
 							<p class="control">
-								<button class="button is-small" id="report-btn">
+								<button class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>" id="report-btn">
 									<span class="icon is-small">
 										<i class="fas fa-paperclip"></i>
 									</span>
@@ -75,7 +75,8 @@
 				</div>
 				<div class="columns">
 					<div class="column">
-						<h1 class="subtitle is-5"><?= (!isset($edit_item)) ? 'Add Item' : 'Editing Item' ?> <?= (isset($edit->id)) ? '<span class="has-text-grey-light">(ID: ' . $edit->id . ')</span>' : '' ?></h1>
+						<h1 class="subtitle is-5"><?= (!isset($edit_item)) ? 'Add Item' : 'Editing Item' ?>
+							<?= (isset($edit->id)) ? '<span class="has-text-grey-light">(ID: ' . $edit->id . ')</span>' : '' ?></h1>
 					</div>
 				</div>
 				<form
@@ -89,7 +90,9 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="location" id="location" required>
+												<?php if(!isset($edit_item)): ?>
 												<option selected disabled value="">Select a City</option>
+												<?php endif ?>
 												<?php if(!empty($locations)): foreach($locations as $loc): ?>
 												<option value="<?= $loc->id; ?>"
 													<?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>><?= $loc->name; ?>
@@ -111,10 +114,12 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="supplier" class="supplier" required>
+												<?php if(!isset($edit_item)): ?>
 												<option selected disabled value="">Select a Supplier</option>
+												<?php endif ?>
 												<?php if(!empty($supplier)): foreach($supplier as $sup): ?>
 												<option value="<?= $sup->name; ?>"
-													<?php if(!empty($edit) && $edit->id == $sup->id){ echo 'selected'; } ?>><?= $sup->name; ?>
+													<?= !empty($edit) && $edit->id == $sup->id ? 'selected' : '' ?>><?= $sup->name; ?>
 												</option>
 												<?php endforeach; endif; ?>
 											</select>
@@ -135,7 +140,9 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="category" id="category" required>
+												<?php if(!isset($edit_item)): ?>
 												<option selected disabled value="">Select a Category</option>
+												<?php endif ?>
 												<?php if(!empty($categories)): foreach($categories as $cat): ?>
 												<option value="<?= $cat->id; ?>"
 													<?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->cat_name; ?>
@@ -157,7 +164,9 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="sub_category" id="item_name" required>
+												<?php if(!isset($edit_item)): ?>
 												<option selected disabled value="">Select an Item</option>
+												<?php endif ?>
 												<?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
 												<option value="<?= $cat->id; ?>"
 													<?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->name; ?>
@@ -181,7 +190,9 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="item_type" id="item_type">
+												<?php if(!isset($edit_item)): ?>
 												<option selected disabled value="">Select a Type</option>
+												<?php endif ?>
 											</select>
 										</span>
 										<span class="icon is-small is-left">
@@ -256,7 +267,9 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="depreciation" id="depreciation" required>
+												<?php if(!isset($edit_item)): ?>
 												<option selected disabled value="">Select a Value</option>
+												<?php endif ?>
 												<option value="5">5%</option>
 												<option value="10">10%</option>
 												<option value="15">15%</option>
@@ -280,7 +293,9 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="status" id="status" required>
+												<?php if(!isset($edit_item)): ?>
 												<option selected disabled value="">Select Status</option>
+												<?php endif ?>
 												<?php if(!empty($status)): foreach($status as $stat): ?>
 												<option value="<?= $stat->id; ?>"
 													<?php if(!empty($edit) && $edit->id == $stat->id){ echo 'selected'; } ?>><?= $stat->status; ?>
@@ -442,8 +457,8 @@
 			//  alert(category)
 			// AJAX request
 			$.ajax({
-				url: '<?=base_url('admin/get_item_sub_categories/')?>' + category,
-				method: 'post',
+				url: '<?= base_url("admin/get_item_sub_categories/"); ?>' + category,
+				method: 'POST',
 				data: {
 					category: category
 				},
@@ -471,8 +486,8 @@
 			var item_id = $(this).val();
 			// AJAX request
 			$.ajax({
-				url: '<?=base_url('admin/get_item_type/')?>' + item_id,
-				method: 'post',
+				url: '<?= base_url("admin/get_item_type/"); ?>' + item_id,
+				method: 'POST',
 				data: {
 					item_id: item_id
 				},

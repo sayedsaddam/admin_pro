@@ -25,7 +25,7 @@
 </head>
 
 <body>
-	<section class="hero is-small is-primary" style="background-color:#15BCA1;">
+	<section class="hero is-small is-primary is-hidden-print" style="background-color:#15BCA1;">
 		<div class="hero-body">
 			<div class="columns is-vcentered">
 				<div class="column is-narrow">
