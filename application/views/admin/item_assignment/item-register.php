@@ -133,7 +133,7 @@
 									<?php endif; ?>
 									<td><?= $item->depreciation.' (%)'; ?></td>
 									<td>
-										<?= $status = $item->quantity > 0 ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
+										<?= $status = $item->quantity >= 1 && $item->status == 0 ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
 									</td>
 									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
 									<td>
@@ -146,7 +146,7 @@
 													</span>
 												</a>
 											</p>
-											<?php if($item->quantity >= 1): ?>
+											<?php if($item->quantity >= 1 && $item->status == 0): ?>
 											<p class="control">
 												<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"
 													class="button is-small">
@@ -154,6 +154,15 @@
 														<i class="fas fa-check"></i>
 													</span>
 												</a>
+											</p>
+											<?php elseif($item->quantity <= 0 && $item->status == 0): ?>
+												<p class="control return-btn">
+												<button type="button" data-id="<?= $item->item_ids.'/'.$item->id; ?>"
+													class="button is-small has-text-danger return-btn">
+													<span class="icon is-small">
+														<i class="fas fa-times"></i>
+													</span>
+												</button>
 											</p>
 											<?php endif; ?>
 											<?php if($item->status == 1): ?>

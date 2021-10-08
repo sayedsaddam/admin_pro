@@ -1414,19 +1414,14 @@ $this->load->view('admin/commons/template', $data);
         echo json_encode($get_item_serial_umber);
     }    
     //Item card   
-    public function item_card($id,$offset = null){   
-        $limit = 15;
-     if(!empty($offset)){
-         $this->uri->segment(3);
-     }
-     $url = 'admin/item_register';
-     $rowscount = $this->admin_model->count_item();
-     paginate($url, $rowscount, $limit);
-     $data['title'] = 'Item Register | Admin & Procurement';
-     $data['body'] = 'admin/item_assignment/item-card';
-     $data['items'] = $this->admin_model->get_item_card($limit, $offset,$id); 
-     $data['item'] = $this->admin_model->get_item_card_detail($limit, $offset,$id); 
-     $this->load->view('admin/commons/template', $data);
+    public function item_card($id){   
+    $employ_id = $this->uri->segment(4);  
+
+    $data['title'] = 'Item Register | Admin & Procurement';
+    $data['body'] = 'admin/item_assignment/item-card';
+    $data['items'] = $this->admin_model->get_item_card($id, $employ_id); 
+    $data['item'] = $this->admin_model->get_item_card_detail($id); 
+    $this->load->view('admin/commons/template', $data);
  }
      // 404 page.
     public function page_not_found(){

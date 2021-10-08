@@ -1518,7 +1518,7 @@ class Admin_model extends CI_Model{
         return $this->db->get()->result();
     }
    // Get assign items detail.
-   public function get_item_card($limit, $offset,$id){
+   public function get_item_card($id, $employ_id){
     $this->db->select('items.id, 
                        items.location, 
                        items.stat, 
@@ -1556,12 +1556,14 @@ class Admin_model extends CI_Model{
     $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left'); 
     // $this->db->where('item_assignment.item_id', $id);
     $this->db->where('item_assignment.item_id', $id);
+    if(isset($employ_id)){
+        $this->db->where('item_assignment.assignd_to', $employ_id);
+    }
     $this->db->order_by('id', 'ASC');
-    $this->db->limit($limit, $offset);
     return $this->db->get()->result(); 
 }
  // Get available items detail .
- public function get_item_card_detail($limit, $offset,$id){
+ public function get_item_card_detail($id){
     $this->db->select('items.id, 
                        items.location, 
                        items.stat, 
@@ -1589,7 +1591,6 @@ class Admin_model extends CI_Model{
     $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
     $this->db->where('items.id', $id);
     $this->db->order_by('id', 'ASC');
-    $this->db->limit($limit, $offset);
     return $this->db->get()->row(); 
 }
     // Item register - Delete an Item
