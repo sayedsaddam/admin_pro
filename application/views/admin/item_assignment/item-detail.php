@@ -27,7 +27,8 @@
 					<div class="column">
 						<div class="field has-addons">
 							<p class="control">
-								<button class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>" id="report-btn">
+								<button class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>"
+									id="report-btn">
 									<span class="icon is-small">
 										<i class="fas fa-paperclip"></i>
 									</span>
@@ -330,8 +331,15 @@
 					<div class="columns">
 						<div class="column has-text-right">
 							<div class="buttons is-pulled-right">
-								<button class="button is-danger is-small is-outlined" type="button">Reset</button>
-								<button class="button is-success is-small" type="submit">Save and continue</button>
+								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
+                <p class="control">
+								<button class="button is-small is-success"  type="submit">
+									<span>Save and continue</span>
+									<span class="icon is-small">
+										<i class="fas fa-arrow-right"></i>
+									</span>
+								</button>
+							</p>
 							</div>
 						</div>
 					</div>

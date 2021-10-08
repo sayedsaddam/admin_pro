@@ -1,12 +1,12 @@
 <section class="columns is-gapless mb-0 pb-0">
-	<div class="column is-narrow is-fullheight" style="background-color:#fafafa;">
+	<div class="column is-narrow is-fullheight is-hidden-print" style="background-color:#fafafa;">
 		<?php $this->view('admin/commons/sidebar'); ?>
 	</div>
 	<div class="column">
 		<div class="columns">
 			<div class="column section">
 				<div class="columns">
-					<div class="column">
+					<div class="column is-hidden-print">
 						<form action="<?= base_url('admin/search_item') ?>" method="GET">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
@@ -25,7 +25,7 @@
 							</div>
 						</form>
 					</div>
-					<div class="column">
+					<div class="column is-hidden-print">
 						<div class="field has-addons">
 							<p class="control">
 								<button class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>" id="report-btn">
@@ -75,7 +75,7 @@
 					</div>
 				</div>
 				<div class="columns" style="display: grid">
-					<div class="column table-container">
+					<div class="column table-container ">
 						<table class="table is-hoverable is-narrow is-fullwidth" id="myTable">
 							<thead>
 								<tr>
@@ -91,7 +91,7 @@
 									<th><abbr title="Depreciation Percentage">D%</abbr></th>
 									<th>Status</th>
 									<th><abbr title="Purchase Date">PD</abbr></th>
-									<th>Action</th>
+									<th class="is-hidden-print">Action</th>
 								</tr>
 							</thead>
 							<tfoot>
@@ -108,7 +108,7 @@
 									<th><abbr title="Depreciation Percentage">D%</abbr></th>
 									<th>Status</th>
 									<th><abbr title="Purchase Date">PD</abbr></th>
-									<th>Action</th>
+									<th class="is-hidden-print">Action</th>
 								</tr>
 							</tfoot>
 							<?php if(empty($results)): ?>
@@ -136,7 +136,7 @@
 										<?= $status = $item->quantity >= 1 && $item->status == 0 ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
 									</td>
 									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
-									<td>
+									<td class="is-hidden-print">
 										<div class="field has-addons">
 											<p class="control">
 												<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"
@@ -205,7 +205,7 @@
 
 									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
 									<!-- <td><?= ucfirst($item->created_at); ?></td>  -->
-									<td>
+									<td class="is-hidden-print">
 										<div class="field has-addons">
 											<p class="control">
 												<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"
@@ -364,6 +364,13 @@
 		</div>
 	</div>
 </section>
+<style>
+@media print {
+	.is-hidden-print {
+		display: none;
+	}
+}
+</style>
 <script>
 	$(document).ready(function () {
 		$('.return-btn').click(function () {
