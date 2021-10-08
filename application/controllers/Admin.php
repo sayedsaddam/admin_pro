@@ -1246,7 +1246,7 @@ public function get_assign_item($offset = null){
         }
 
         $this->load->library('pagination');
-        $url = base_url('admin/item_register');
+        $url = base_url('admin/search_item');
         $rowscount = $this->admin_model->count_item();
 
         $config['base_url'] = $url;
@@ -1261,6 +1261,7 @@ public function get_assign_item($offset = null){
         $config['next_link'] = 'Next';
         $config['last_link'] = 'Last';
         $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
         $this->pagination->initialize($config);
     
         $search = $this->input->get('search'); 
