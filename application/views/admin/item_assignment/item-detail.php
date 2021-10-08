@@ -331,10 +331,12 @@
 					<div class="columns">
 						<div class="column has-text-right">
 							<div class="buttons is-pulled-right">
+                <?php if(!isset($edit_item)): ?>
 								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
+                <?php endif ?>
                 <p class="control">
 								<button class="button is-small is-success"  type="submit">
-									<span>Save and continue</span>
+									<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
 									<span class="icon is-small">
 										<i class="fas fa-arrow-right"></i>
 									</span>
