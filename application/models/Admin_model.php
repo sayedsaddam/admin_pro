@@ -937,7 +937,6 @@ class Admin_model extends CI_Model{
         $this->db->select('items.id, 
                            items.location,
                            items.category,
-                           items.stat, 
                            items.sub_category,
                            items.type_name, 
                            items.model, 

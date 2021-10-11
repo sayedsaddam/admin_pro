@@ -1283,10 +1283,10 @@ public function get_assign_item($offset = null){
     }
      // Assignment Item List- 
      public function assign_item_list($offset = null){
-            $limit = 15;
-            if(!empty($offset)){
+        $limit = 15;
+        if(!empty($offset)){
             $this->uri->segment(3);
-            } 
+        } 
         $url = 'admin/assign_item_list';
         $rowscount = $this->admin_model->count_item_assign();
         paginate($url, $rowscount, $limit);
@@ -1307,7 +1307,7 @@ public function get_assign_item($offset = null){
         $data['get_category'] = $this->admin_model->get_category(); 
         $data['locations'] = $this->admin_model->get_item_location(); 
         $data['returning_items'] = $this->admin_model->returning_assignment_list($id); 
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
         // assign_item_save into the database
         public function assign_item_save(){  

@@ -114,7 +114,7 @@
 							<?php if(empty($results)): ?>
 							<tbody>
 								<?php if(!empty($items)): foreach($items as $item): ?>
-								<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?><?= isset($item->employ_id) ? '/' . $item->employ_id : '' ?>';"
+									<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?><?= isset($item->employ_id) ? '/' . $item->employ_id : '' ?>';"
 									style="cursor: pointer;">
 									<td><span><?= 'CTC-'.$item->id; ?></a></td>
 									<td><?= $item->name; ?></td>
@@ -133,7 +133,7 @@
 									<?php endif; ?>
 									<td><?= $item->depreciation.' (%)'; ?></td>
 									<td>
-										<?= $status = $item->quantity >= 1 && $item->status == 0 ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
+										<?= $status = $item->quantity > 0 ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
 									</td>
 									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
 									<td class="is-hidden-print">
@@ -146,7 +146,7 @@
 													</span>
 												</a>
 											</p>
-											<?php if($item->quantity >= 1 && $item->status == 0): ?>
+											<?php if($item->quantity > 0): ?>
 											<p class="control">
 												<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"
 													class="button is-small">
@@ -155,18 +155,8 @@
 													</span>
 												</a>
 											</p>
-											<?php elseif($item->quantity <= 0 && $item->status == 0): ?>
+											<?php elseif($item->quantity == 0): ?>
 												<p class="control return-btn">
-												<button type="button" data-id="<?= $item->item_ids.'/'.$item->id; ?>"
-													class="button is-small has-text-danger return-btn">
-													<span class="icon is-small">
-														<i class="fas fa-times"></i>
-													</span>
-												</button>
-											</p>
-											<?php endif; ?>
-											<?php if($item->status == 1): ?>
-											<p class="control return-btn">
 												<button type="button" data-id="<?= $item->item_ids.'/'.$item->id; ?>"
 													class="button is-small has-text-danger return-btn">
 													<span class="icon is-small">
@@ -178,67 +168,6 @@
 										</div>
 								</tr>
 								<?php endforeach; else: echo "<tr class='has-background-danger-light text-center'><td colspan='17'>No records found.</td></tr>"; endif; ?>
-							</tbody>
-							<?php else: ?>
-							<tbody>
-								<?php if(!empty($results)): foreach($results as $item): ?>
-								<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?>';"
-									style="cursor: pointer;">
-									<td><span><?= 'CTC-0'.$item->id; ?></td>
-									<td><?= $item->name; ?></td>
-									<td>
-										<div class="tags"><span class="tag"><?= ucfirst($item->cat_name); ?></span><span
-												class="tag is-success is-light"><?= ucfirst($item->names); ?></span>
-										</div>
-									</td>
-									<td><span><?= ucfirst($item->type_name); ?></span></td>
-									<td><?= ucfirst($item->model); ?></td>
-									<td><?= ucfirst($item->supplier); ?></td>
-									<?php if(isset($assign_page)) : ?>
-									<td><?= ucfirst($item->employ_name); ?></td>
-									<?php else : ?>
-									<?php endif; ?>
-									<td><?= $item->depreciation.' (%)'; ?></td>
-									<td>
-										<?= $status = $item->quantity > 0 ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
-									</td>
-
-									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
-									<!-- <td><?= ucfirst($item->created_at); ?></td>  -->
-									<td class="is-hidden-print">
-										<div class="field has-addons">
-											<p class="control">
-												<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"
-													class="button is-small">
-													<span class="icon is-small">
-														<i class="fas fa-edit"></i>
-													</span>
-												</a>
-											</p>
-											<?php if($item->quantity >= 1): ?>
-											<p class="control">
-												<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"
-													class="button is-small">
-													<span class="icon is-small has-text-success">
-														<i class="fas fa-check"></i>
-													</span>
-												</a>
-											</p>
-											<?php endif; ?>
-											<?php if($item->status == 1): ?>
-											<p class="control">
-												<button data-id="<?= $item->item_ids.'/'.$item->id; ?>"
-													class="button is-small has-text-danger">
-													<span class="icon is-small">
-														<i class="fas fa-times"></i>
-													</span>
-												</button>
-											</p>
-											<?php endif; ?>
-										</div>
-									</td>
-								</tr>
-								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
 							</tbody>
 							<?php endif; ?>
 						</table>
