@@ -155,7 +155,7 @@
 													</span>
 												</a>
 											</p>
-											<?php elseif($item->quantity == 0): ?>
+											<?php elseif($item->quantity < 1): ?>
 												<p class="control return-btn">
 												<button type="button" data-id="<?= $item->item_ids.'/'.$item->id; ?>"
 													class="button is-small has-text-danger return-btn">
