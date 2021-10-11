@@ -5,7 +5,7 @@
 	<div class="column">
 		<div class="columns">
 			<div class="column section">
-				<div class="columns">
+				<div class="columns is-hidden-touch">
 					<div class="column is-hidden-print">
 						<form action="<?= base_url('admin/search_item') ?>" method="GET">
 							<div class="field has-addons">
@@ -111,7 +111,6 @@
 									<th class="is-hidden-print">Action</th>
 								</tr>
 							</tfoot>
-							<?php if(empty($results)): ?>
 							<tbody>
 								<?php if(!empty($items)): foreach($items as $item): ?>
 									<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?><?= isset($item->employ_id) ? '/' . $item->employ_id : '' ?>';"
@@ -133,7 +132,7 @@
 									<?php endif; ?>
 									<td><?= $item->depreciation.' (%)'; ?></td>
 									<td>
-										<?= $status = $item->quantity > 0 ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
+										<?= $status = $item->quantity > 0 && $item->status != 1 || isset($available_page) ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
 									</td>
 									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
 									<td class="is-hidden-print">
@@ -146,7 +145,7 @@
 													</span>
 												</a>
 											</p>
-											<?php if($item->quantity > 0): ?>
+											<?php if($item->quantity > 0 && $item->status != 1 || isset($available_page)): ?>
 											<p class="control">
 												<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"
 													class="button is-small">
@@ -155,7 +154,7 @@
 													</span>
 												</a>
 											</p>
-											<?php elseif($item->quantity < 1): ?>
+											<?php else: ?>
 												<p class="control return-btn">
 												<button type="button" data-id="<?= $item->item_ids.'/'.$item->id; ?>"
 													class="button is-small has-text-danger return-btn">
@@ -169,7 +168,6 @@
 								</tr>
 								<?php endforeach; else: echo "<tr class='has-background-danger-light text-center'><td colspan='17'>No records found.</td></tr>"; endif; ?>
 							</tbody>
-							<?php endif; ?>
 						</table>
 					</div>
 					<?php if(isset($product_report)) : ?>

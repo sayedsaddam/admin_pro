@@ -32,7 +32,7 @@
 					<img src="https://s2smark.com/assets/img/logo/s2s-logo-1.png" style="filter: invert(.5) brightness(2);"
 						width="140">
 				</div>
-				<div class="column">
+				<div class="column is-hidden-touch">
 					<p class="title">
 						Admin & Procurement
 					</p>

@@ -968,6 +968,7 @@ class Admin_model extends CI_Model{
             $this->db->where('items.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
         }
         $this->db->group_by('items.id'); 
+        $this->db->group_by('item_assignment.status'); 
         $this->db->order_by('id', 'ASC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result(); 
@@ -1003,7 +1004,7 @@ class Admin_model extends CI_Model{
             $this->db->join('locations', 'items.location = locations.id', 'left');
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
             $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
-            $this->db->where('items.quantity >=', 1);
+            $this->db->where('items.quantity >', 0);
             $this->db->group_by('items.id'); 
             $this->db->order_by('id', 'ASC');
             $this->db->limit($limit, $offset);

@@ -24,7 +24,7 @@
 							</div>
 						</form>
 					</div>
-					<div class="column">
+					<div class="column is-hidden-touch">
 						<div class="field has-addons">
 							<p class="control">
 								<button class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>"

@@ -5,7 +5,7 @@
 	<div class="column">
 		<div class="columns">
 			<div class="column section">
-				<div class="columns">
+				<div class="columns is-hidden-touch">
 					<div class="column">
 						<form action="<?= base_url('admin/search_item') ?>" method="GET">
 							<div class="field has-addons">
