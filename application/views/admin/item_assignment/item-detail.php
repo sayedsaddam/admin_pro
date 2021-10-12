@@ -208,7 +208,7 @@
 								<div class="field">
 									<label class="label is-small">Quantity <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="quantity" class="input is-small" type="number" min="1" max="9999" placeholder="1-9,999"
+										<input name="quantity" value="<?= !empty($edit) ? $edit->quantity : '1' ?>" class="input is-small" type="number" min="1" max="9999" placeholder="1-9,999"
 											required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-sort-numeric-up"></i>
@@ -224,7 +224,7 @@
 								<div class="field">
 									<label class="label is-small">Model <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="model" class="input is-small" type="text" placeholder="e.g 110 4G" required>
+										<input name="model" value="<?= !empty($edit) ? $edit->model : '1' ?>" class="input is-small" type="text" placeholder="e.g 110 4G" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-bookmark"></i>
 										</span>
@@ -237,7 +237,7 @@
 								<div class="field">
 									<label class="label is-small">Serial Number</label>
 									<div class="control has-icons-left">
-										<input name="serial_number" class="input is-small" type="text" placeholder="e.g X12X34Y5XYXY">
+										<input name="serial_number" value="<?= !empty($edit) ? $edit->serial_number : '' ?>" class="input is-small" type="text" placeholder="e.g X12X34Y5XYXY">
 										<span class="icon is-small is-left">
 											<i class="fas fa-hashtag"></i>
 										</span>
@@ -252,7 +252,7 @@
 								<div class="field">
 									<label class="label is-small">Price <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="price" class="input is-small" type="number" min="1" max="9999999"
+										<input name="price" value="<?= !empty($edit) ? $edit->price : '' ?>" class="input is-small" type="number" min="1" max="9999999"
 											placeholder="1-9,999,999" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-dollar-sign"></i>
