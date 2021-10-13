@@ -1,7 +1,4 @@
 <?php
-
-use function PHPSTORM_META\map;
-
 defined('BASEPATH') OR exit('No direct script access allowed!');
 /**
  * undocumented class
@@ -11,7 +8,10 @@ class Users extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('user_model');
-        $this->load->helper('paginate');
+        $this->load->helper('paginate'); 
+        if(!$this->session->userdata('username') || $this->session->userdata('user_role') != 'supervisor' && $this->session->userdata('user_role') != 'user'){
+            redirect('');
+        }
     }
     public function index($offset = null){
         $limit = 10;
@@ -35,6 +35,10 @@ class Users extends CI_Controller{
     }
     // Created requisition
     public function create_requisition(){
+		if(empty($this->input->post('category')) || empty($this->input->post('sub_category')) || empty($this->input->post('quantity'))) {
+			$this->session->set_flashdata('failed', '<strong>Failed! </strong>You did not provide the correct inputs!');
+            redirect('users');
+		}
         $data = array(
             'item_name' => $this->input->post('sub_category'), // Name of sub category > item name
             'item_desc' => $this->input->post('description'),

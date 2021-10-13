@@ -1,3 +1,4 @@
+<?php $session = $this->session->userdata('user_role'); ?>
 <style>
   .footer-hover {
     background-color: rgba(0, 0, 0, 0.1);
@@ -43,6 +44,9 @@
             <a href="<?= base_url('admin/suppliers'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-truck-moving"></i></a> Suppliers
           </li>
           <li class="list-group-item">
+            <a href="<?= base_url('admin/employ'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-user"></i></a> Employ
+          </li>
+          <li class="list-group-item">
             <a href="<?= base_url('admin/categories'); ?>" class="text-white btn-floating btn-tw btn-sm"><i class="fas fa-sign"></i></a>Categories
           </li>
           <li class="list-group-item">
@@ -65,6 +69,9 @@
           </li>
           <li class="list-group-item">
             <a href="<?=base_url('admin/item_register');?>" class="text-white btn-floating btn-slack btn-sm"><i class="fas fa-pen"></i></a>Item Register
+          </li>
+          <li class="list-group-item">
+            <a href="<?php if($session == 'user'){ echo '#0'; }else{ echo base_url('Purchase/purchase_order_list'); }?>" class="text-white btn-floating btn-slack btn-sm"><i class="fas fa-shopping-cart"></i></a>Purchase
           </li>
           <li class="list-group-item">
             <a href="<?=base_url('admin/asset_register');?>" class="text-white btn-floating btn-yt btn-sm"><i class="fas fa-book"></i></a>Asset Register
