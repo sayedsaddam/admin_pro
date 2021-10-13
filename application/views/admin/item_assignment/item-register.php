@@ -1,288 +1,450 @@
-<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-1 col-md-1">
-				<img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid" width="200">
-			</div>
-			<div class="col-lg-7 col-md-7">
-				<h2 class="display-4 font-weight-bold mb-0">Admin & Procurement</h2>
-				<h3 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h3>
-			</div>
-			<div class="col-lg-4 col-md-4 text-right">
-				<button class="btn btn-outline-light font-weight-bold"
-					title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
-				<a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i
-						class="fa fa-sign-out-alt"></i></a>
-				<h4 class="font-weight-bold orange-text mt-2">Admin Dashboard <i class="fa fa-chart-bar"></i><br><span
-						class="font-weight-light orange-text"><?php if(empty($results)){ echo ' Asset List'; }else{ echo 'Search Results'; } ?>
-						| <a href="<?=base_url('admin');?>" class="text-light font-weight-bold">Home</a></span></h4>
-			</div>
-		</div>
+<section class="columns is-gapless mb-0 pb-0">
+	<div class="column is-narrow is-fullheight is-hidden-print" style="background-color:#fafafa;">
+		<?php $this->view('admin/commons/sidebar'); ?>
 	</div>
-</div>
-
-<div class="container-fluid">
-	<?php if($success = $this->session->flashdata('success')): ?>
-	<div class="row">
-		<div class="col-lg-12 col-md-12">
-			<div class="alert alert-success"><?=$success;?></div>
-		</div>
-	</div>
-	<?php endif; ?>
-	<div class="row mb-4">
-		<div class="col-lg-4 col-md-4">
-			<form action="<?= base_url('admin/search_item'); ?>" method="get" class="md-form form-inline">
-				<input type="text" name="search" id="myInput" class="form-control md-form col-5">
-				<label for="">Search Query</label>
-				<input type="submit" value="go &raquo;" class="btn btn-outline-primary rounded-pill">
-			</form>
-		</div>
-		<div class="col-lg-8 col-md-8 text-right">
-			<button class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#fullWidthtModalLeft"><i
-					class="fa fa-filter"></i> Report</button>
-			<a href="<?= base_url('admin/item_register'); ?>" data-target="#item_list"
-				class="btn btn-outline-primary btn-sm"><i class="fa fa-plus"></i> All Item List</a>
-			<a href="<?= base_url('admin/available_item_list'); ?>" data-target="#available_lists"
-				class="btn btn-outline-success btn-sm"><i class="fa fa-plus"></i> Available List</a>
-			<a href="<?= base_url('admin/get_assign_item'); ?>" data-target="#assign_list"
-				class="btn btn-outline-danger btn-sm"><i class="fa fa-sub"></i> Assign List</a>
-			<a href="<?= base_url('admin/add_item'); ?>" data-target="#add_supplier" class="btn btn-outline-info btn-sm "><i
-					class="fa fa-plus"></i> Add New</a>
-			<a href="<?= base_url('admin/'); ?>" class="btn btn-outline-danger btn-sm"><i class="fa fa-angle-left"></i>
-				Back</a>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-12 col-md-12">
-			<table class="table table-sm">
-				<caption><?php if(empty($results)){ echo 'List of Assets'; }else{ echo 'Search Results'; } ?></caption>
-				<thead>
-					<tr>
-						<th class="font-weight-bold">ID </th>
-						<th class="font-weight-bold">Location</th>
-						<th class="font-weight-bold">Category</th>
-						<th class="font-weight-bold">Sub Category</th>
-						<!-- <th class="font-weight-bold">Model</th> -->
-						<th class="font-weight-bold">Type Name</th>
-						<th class="font-weight-bold">Model</th>
-						<th class="font-weight-bold">Serial Number</th>
-						<th class="font-weight-bold">Supplier</th>
-						<th class="font-weight-bold">Assignd To</th>
-						<th class="font-weight-bold">Price</th>
-						<th class="font-weight-bold">Depreciation %</th>
-						<th class="font-weight-bold">Status</th>
-						<th class="font-weight-bold">Purchase Date</th>
-						<th class="font-weight-bold">Action</th>
-					</tr>
-				</thead>
-				<?php if(empty($results)): ?>
-				<tbody id="myTable">
-					<?php if(!empty($items)): foreach($items as $item): ?>
-					<tr>
-						<td><a href="<?= base_url('admin/item_card/'.$item->id) ?>"><span
-									style="color: blue;"><?= 'CTC-0'.$item->id; ?></span></a></td>
-						<td><?= $item->name; ?></td>
-						<td><?= ucfirst($item->cat_name); ?></td>
-						<td><?= ucfirst($item->names); ?></td>
-						<td><a href="<?= base_url('admin/item_card/'.$item->id) ?>"><span
-									style="color: blue;"><?= ucfirst($item->type_name); ?></span></a></td>
-						<td><?= ucfirst($item->model); ?></td>
-						<td><?= ucfirst($item->serial_number); ?></td>
-						<td><?= ucfirst($item->supplier); ?></td>
-						<td><strong> - - - - -</strong></td>
-						<td><?= number_format(floatval($item->price)); ?></td>
-						<td><?= $item->depreciation.' (%)'; ?></td>
-						<td>
-							<?= $status = $item->quantity > 0 ? '<span class="badge badge-success">Available</span>' : '<span class="badge badge-warning">Assigned</span>'; ?>
-						</td>
-						<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
-						<td>
-							<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i
-										class="fa fa-edit"></i></span></a>
-							<!-- <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
-							<?php if($item->quantity >= 1): ?>
-							<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"><span class="badge badge-info"><i
-										class="fa fa-check"></i></span></a>
-							<?php endif; ?>
-							<?php if($item->status == 1): ?>
-							<a data-id="<?= $item->item_ids.'/'.$item->id; ?>" class="return_item"><span class="badge badge-danger"><i
-										class="fa fa-times"></i></span></a>
-							<?php endif; ?>
-						<td>
-						</td>
-					</tr>
-					<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
-				</tbody>
-				<?php else: ?>
-				<tbody>
-					<?php if(!empty($results)): foreach($results as $item): ?>
-					<tr>
-						<td><a href="<?= base_url('admin/item_card/'.$item->id) ?>"><span
-									style="color: blue;"><?= 'CTC-0'.$item->id; ?></a></td>
-						<td><?= $item->name; ?></td>
-						<td><?= ucfirst($item->cat_name); ?></td>
-						<td><?= ucfirst($item->names); ?></td>
-						<td><a href="<?= base_url('admin/item_card/'.$item->id); ?>"><span
-									style="color: blue;"><?= ucfirst($item->type_name); ?></span></a></td>
-						<td><?= ucfirst($item->model); ?></td>
-						<td><?= ucfirst($item->serial_number); ?></td>
-						<td><?= ucfirst($item->supplier); ?></td>
-						<?php if($item->status == 0) : ?>
-						<?php //if(!empty($item->assignd_to)): ?>
-						<td><strong><?= ucfirst($item->employ_name); ?></strong></td>
-						<?php else : ?>
-						<td><strong> - - - - -</strong></td>
-						<?php //endif; ?>
-						<?php endif; ?>
-
-						<td><?= $item->price; ?></td>
-						<td><?= $item->depreciation.' (%)'; ?></td>
-						<td>
-							<?= $status = $item->quantity > 0 ? '<span class="badge badge-success">Available</span>' : '<span class="badge badge-warning">Assigned</span>'; ?>
-						</td>
-
-						<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
-						<!-- <td><?= ucfirst($item->created_at); ?></td>  -->
-						<td>
-							<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"><span class="badge badge-primary"><i
-										class="fa fa-edit"></i></span></a>
-							<!-- <a href="<?= base_url('admin/assign_item_list/'.$item->id); ?>"><span class="badge badge-info"><i class="fa fa-check"></i></span></a> -->
-							<!-- <a href="<?=base_url('admin/delete_item/'.$item->id);?>" onclick="javascript:return confirm('<input type='text' name='name'>Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a> -->
-							<?php if($item->quantity >= 1): ?>
-							<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"><span class="badge badge-info"><i
-										class="fa fa-check"></i></span></a>
-							<?php endif; ?>
-							<?php if($item->status == 1): ?>
-							<a data-id="<?= $item->item_ids.'/'.$item->id; ?>" class="return_item"><span class="badge badge-danger"><i
-										class="fa fa-times"></i></span></a>
-							<?php endif; ?>
-						</td>
-					</tr>
-					<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
-				</tbody>
-				<?php endif; ?>
-			</table>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-12 col-md-12">
-			<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
-		</div>
-	</div>
-</div>
-
-<!-- Modal to edit location -->
-<div class="modal fade" id="item_return" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title w-100 font-weight-bold">Return Item</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body mx-3">
-				<form action="<?= base_url('admin/return_item'); ?>" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="id" id="item_id" value="">
-					<div class="md-form mb-5">
-						<select name="remarks" class="form-control validate">
-							<option value="damage">Damage</option>
-							<option value="disabled">Disabled</option>
-						</select>
-					</div>
-
-					<div class="md-form mb-5">
-						<input type="file" name="file" id="userfile" class="form-control validate">
-					</div>
-					<div class="md-form mb-5">
-						<textarea name="description" id="description" cols="30" rows="3" class="form-control"></textarea>
-						<!-- <input type="text" name="description" id="description" class="form-control validate"> -->
-						<label data-error="wrong" data-success="right" for="orangeForm-name">Description</label>
-					</div>
-
-					<div class="md-form">
-						<button type="submit" class="btn btn-deep-purple">Save Changes</button>
-						<button type="reset" class="btn btn-orange">Reset</button>
-					</div>
-			</div>
-			</form>
-			<div class="modal-footer d-flex justify-content-left">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<!-- Full Width Modal Left > show report -->
-<div class="modal fade left" id="fullWidthtModalLeft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-	aria-hidden="true">
-	<!-- Add class .modal-full-width and then add class .modal-right (or other classes from list above) to set a position to the modal -->
-	<div class="modal-dialog modal-full-width modal-left modal-xl" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title w-100" id="myModalLabel">Assignment Report</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-lg-12 col-md-12">
-						<!-- Form -->
-						<form action="<?= base_url('admin/product_report'); ?>" method="post">
-							<!-- item name -->
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="from_date">From Date</label>
-										<input type="date" name="from_date" class="form-control">
-									</div>
+	<div class="column">
+		<div class="columns">
+			<div class="column section">
+				<div class="columns is-hidden-touch">
+					<div class="column is-hidden-print">
+						<form action="<?= base_url('admin/search_item') ?>" method="GET">
+							<div class="field has-addons">
+								<div class="control has-icons-left is-expanded">
+									<input class="input is-small is-fullwidth" name="search" type="search"
+										placeholder="Search Query">
+									<span class="icon is-small is-left">
+										<i class="fas fa-search"></i>
+									</span>
 								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="from_date">To Date</label>
-										<input type="date" name="to_date" class="form-control">
-									</div>
+								<div class="control">
+									<button class="button is-small" type="submit"><span class="icon is-small">
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button>
 								</div>
-							</div>
-							<div class="form-group">
-								<input type="submit" name="submit" class="btn btn-primary" value="Save Changes">
 							</div>
 						</form>
-						<!-- Form -->
+					</div>
+					<div class="column is-hidden-print">
+						<div class="field has-addons">
+							<p class="control">
+								<button class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>" id="report-btn">
+									<span class="icon is-small">
+										<i class="fas fa-paperclip"></i>
+									</span>
+									<span>Report</span>
+								</button>
+							</p>
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/item_register'); ?>'"
+									class="button is-small <?= (isset($item_register)) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-list"></i>
+									</span>
+									<span>Items List</span>
+								</button>
+							</p>
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/available_item_list'); ?>'"
+									class="button is-small <?= (isset($available_page)) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="far fa-list-alt"></i>
+									</span>
+									<span>Available List</span>
+								</button>
+							</p>
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/get_assign_item'); ?>'"
+									class="button is-small <?= (isset($assign_page)) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-bars"></i>
+									</span>
+									<span>Assigned List</span>
+								</button>
+							</p>
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/add_item'); ?>'"
+									class="button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-plus"></i>
+									</span>
+									<span>Add New</span>
+								</button>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="columns" style="display: grid">
+					<div class="column table-container ">
+						<table class="table is-hoverable is-narrow is-fullwidth" id="myTable">
+							<thead>
+								<tr>
+									<th><abbr title="Item Identification Number">ID</abbr></th>
+									<th>Location</th>
+									<th>Category</th>
+									<th>Product</th>
+									<th>Model</th>
+									<th>Supplier</th>
+									<?php if(isset($assign_page)) : ?>
+									<th>Assign To</th>
+									<?php endif ?>
+									<th><abbr title="Depreciation Percentage">D%</abbr></th>
+									<th>Status</th>
+									<th><abbr title="Purchase Date">PD</abbr></th>
+									<th class="is-hidden-print">Action</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th><abbr title="Item Identification Number">ID</abbr></th>
+									<th>Location</th>
+									<th>Category</th>
+									<th>Product</th>
+									<th>Model</th>
+									<th>Supplier</th>
+									<?php if(isset($assign_page)) : ?>
+									<th>Assigned To</th>
+									<?php endif ?>
+									<th><abbr title="Depreciation Percentage">D%</abbr></th>
+									<th>Status</th>
+									<th><abbr title="Purchase Date">PD</abbr></th>
+									<th class="is-hidden-print">Action</th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<?php if(!empty($items)): foreach($items as $item): ?>
+									<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?><?= isset($item->employ_id) ? '/' . $item->employ_id : '' ?>';"
+									style="cursor: pointer;">
+									<td><span><?= 'CTC-'.$item->id; ?></a></td>
+									<td><?= $item->name; ?></td>
+									<td>
+										<div class="tags"><span class="tag"><?= ucfirst($item->cat_name); ?></span><span
+												class="tag is-success is-light"><?= ucfirst($item->names); ?></span>
+										</div>
+									</td>
+									<td><?= ucfirst($item->type_name); ?></td>
+									<td><?= ucfirst($item->model); ?></td>
+									</td>
+									<td><?= ucfirst($item->supplier); ?></td>
+									<?php if(isset($assign_page)) : ?>
+									<td><?= ucfirst($item->employ_name); ?></td>
+									<?php else : ?>
+									<?php endif; ?>
+									<td><?= $item->depreciation.' (%)'; ?></td>
+									<td>
+										<?= $status = $item->quantity > 0 && $item->status != 1 || isset($available_page) ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
+									</td>
+									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
+									<td class="is-hidden-print">
+										<div class="field has-addons">
+											<p class="control">
+												<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"
+													class="button is-small">
+													<span class="icon is-small">
+														<i class="fas fa-edit"></i>
+													</span>
+												</a>
+											</p>
+											<?php if($item->quantity > 0 && $item->status != 1 || isset($available_page)): ?>
+											<p class="control">
+												<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"
+													class="button is-small">
+													<span class="icon is-small has-text-success">
+														<i class="fas fa-check"></i>
+													</span>
+												</a>
+											</p>
+											<?php else: ?>
+												<p class="control return-btn">
+												<button type="button" data-id="<?= $item->item_ids.'/'.$item->id; ?>"
+													class="button is-small has-text-danger return-btn">
+													<span class="icon is-small">
+														<i class="fas fa-times"></i>
+													</span>
+												</button>
+											</p>
+											<?php endif; ?>
+										</div>
+								</tr>
+								<?php endforeach; else: echo "<tr class='has-background-danger-light text-center'><td colspan='17'>No records found.</td></tr>"; endif; ?>
+							</tbody>
+						</table>
+					</div>
+					<?php if(isset($product_report)) : ?>
+					<div class="column has-text-right is-hidden-print">
+						<div class="buttons is-pulled-right">
+							<button onClick="window.print();" type="button" class="button is-small ">
+								<span class="icon is-small">
+									<i class="fas fa-print"></i>
+								</span>
+								<span>Print</span>
+							</button>
+							<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+								class="button is-small ">
+								<span class="icon is-small">
+									<i class="fas fa-file-export"></i>
+								</span>
+								<span>Export</span>
+							</a>
+						</div>
+					</div>
+					<?php endif ?>
+					<div class="column is-hidden-print">
+						<nav class="pagination is-small" role="navigation" aria-label="pagination"
+							style="justify-content: center;">
+							<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
+						</nav>
 					</div>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
+		</div>
+
+		<div class="modal" id="modal-ter">
+			<div class="modal-background"></div>
+			<form action="<?= base_url('admin/product_report'); ?>" method="GET">
+				<div class="modal-card">
+					<header class="modal-card-head">
+						<p class="modal-card-title">Filter Report</p>
+						<button class="delete" aria-label="close" id="exit-report-modal" type="button"></button>
+					</header>
+					<section class="modal-card-body">
+						<div class="columns">
+							<div class="column">
+								<p class="control">
+									From:
+									<input class="input" type="date" placeholder="From" name="from_date">
+								</p>
+							</div>
+							<div class="column">
+								<p class="control">
+									To:
+									<input class="input" type="date" placeholder="From" name="to_date">
+								</p>
+							</div>
+						</div>
+					</section>
+					<footer class="modal-card-foot">
+						<button class="button is-success" type="submit">Apply</button>
+						<button class="button" aria-label="close" id="close-report-modal" type="button">Cancel</button>
+					</footer>
+				</div>
+			</form>
+		</div>
+
+		<div class="modal" id="modal-rej">
+			<div class="modal-background"></div>
+			<form action="<?= base_url('admin/return_item'); ?>" method="POST" enctype="multipart/form-data">
+				<div class="modal-card">
+					<input type="hidden" name="id" id="item-id" value="">
+					<header class="modal-card-head">
+						<p class="modal-card-title">Return Item</p>
+						<button class="delete" aria-label="close" id="exit-return-modal" type="button"></button>
+					</header>
+					<section class="modal-card-body">
+						<div class="columns">
+							<div class="column">
+								<div class="control has-icons-left">
+									<div class="select is-small is-fullwidth">
+										<select name="remarks" required>
+											<option value="" disabled selected>Reason for Returning</option>
+											<option value="damage">Damaged Item</option>
+											<option value="disabled">Disabled Item</option>
+										</select>
+									</div>
+									<span class="icon is-small is-left">
+										<i class="fas fa-random"></i>
+									</span>
+								</div>
+							</div>
+							<div class="column">
+								<div class="file is-small has-name is-fullwidth">
+									<label class="file-label">
+										<input class="file-input" name="userfile" type="file" required>
+										<span class="file-cta">
+											<span class="file-icon">
+												<i class="fas fa-upload"></i>
+											</span>
+											<span class="file-label">
+												Choose a file…
+											</span>
+										</span>
+										<span class="file-name">
+											Example.png
+										</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="columns">
+							<div class="column">
+								<textarea name="description" class="textarea"
+									placeholder="Please elaboratly describe your reason for returning the item."></textarea>
+							</div>
+						</div>
+					</section>
+					<footer class="modal-card-foot">
+						<button class="button is-success" type="submit">Apply</button>
+						<button class="button" aria-label="close" id="close-return-modal" type="reset">Cancel</button>
+					</footer>
+				</div>
+			</form>
 		</div>
 	</div>
-</div>
-<!-- Full Width Modal Left -->
-
-
+</section>
+<style>
+@media print {
+	.is-hidden-print {
+		display: none;
+	}
+}
+</style>
 <script>
 	$(document).ready(function () {
-		$('.return_item').click(function () {
+		$('.return-btn').click(function () {
 			var item_id = $(this).data('id');
-			// AJAX request
+			$('#item-id').val(item_id);
+		});
 
-			$('#item_id').val(item_id);
-			$('#item_return').modal('show');
+		$("#nav-category").click(function () {
+			$(this).siblings().toggle('fast');
+		});
 
+		$(".file-input").change(function () {
+			$(".file-name").text(this.files[0].name);
 		});
 	});
 
+	class BulmaModal {
+		constructor(selector) {
+			this.elem = document.querySelector(selector)
+			this.close_data()
+		}
 
-	$(document).ready(function () {
-		$("#myInput").on("keyup", function () {
-			var value = $(this).val().toLowerCase();
-			$("#myTable tr").filter(function () {
-				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		show() {
+			this.elem.classList.toggle('is-active')
+			this.on_show()
+		}
+
+		close() {
+			this.elem.classList.toggle('is-active')
+			this.on_close()
+		}
+
+		close_data() {
+			var modalClose = this.elem.querySelectorAll("[data-bulma-modal='close'], .modal-background")
+			var that = this
+			modalClose.forEach(function (e) {
+				e.addEventListener("click", function () {
+
+					that.elem.classList.toggle('is-active')
+
+					var event = new Event('modal:close')
+
+					that.elem.dispatchEvent(event);
+				})
+			})
+		}
+
+		on_show() {
+			var event = new Event('modal:show')
+
+			this.elem.dispatchEvent(event);
+		}
+
+		on_close() {
+			var event = new Event('modal:close')
+
+			this.elem.dispatchEvent(event);
+		}
+
+		addEventListener(event, callback) {
+			this.elem.addEventListener(event, callback)
+		}
+	}
+
+	var btn1 = $("#report-btn")
+	var btn2 = $(".return-btn")
+	var btn3 = $("#exit-report-modal")
+	var btn4 = $("#close-report-modal")
+	var btn5 = $("#exit-return-modal")
+	var btn6 = $("#close-return-modal")
+
+	var mdl = new BulmaModal("#modal-ter")
+	var md2 = new BulmaModal("#modal-rej")
+
+	btn1.click(function (ev) {
+		mdl.show();
+		ev.stopPropagation();
+	});
+	btn2.click(function (ev) {
+		md2.show();
+		ev.stopPropagation();
+	});
+	btn3.click(function (ev) {
+		mdl.close();
+		ev.stopPropagation();
+	});
+	btn4.click(function (ev) {
+		mdl.close();
+		ev.stopPropagation();
+	});
+	btn5.click(function (ev) {
+		md2.close();
+		ev.stopPropagation();
+	});
+	btn6.click(function (ev) {
+		md2.close();
+		ev.stopPropagation();
+	});
+
+	function exportTableToExcel(tableId, filename) {
+		let dataType = 'application/vnd.ms-excel';
+		let extension = '.xls';
+
+		let base64 = function (s) {
+			return window.btoa(unescape(encodeURIComponent(s)))
+		};
+
+		let template =
+			'<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';
+		let render = function (template, content) {
+			var r1 = template.replace(/{(\w+)}/g, function (m, p) {
+				return content[p];
 			});
+			var r2 = r1.replace(/{(\w+)}/g, function (m, p) {
+				return content[p];
+			});
+			return r2
+		};
+
+		let tableElement = document.getElementById(tableId);
+
+		let tableExcel = render(template, {
+			worksheet: filename,
+			table: tableElement.innerHTML
 		});
-	});
+
+		filename = filename + extension;
+
+		if (navigator.msSaveOrOpenBlob) {
+			let blob = new Blob(
+				['\ufeff', tableExcel], {
+					type: dataType
+				}
+			);
+
+			navigator.msSaveOrOpenBlob(blob, filename);
+		} else {
+			let downloadLink = document.createElement("a");
+
+			document.body.appendChild(downloadLink);
+
+			downloadLink.href = 'data:' + dataType + ';base64,' + base64(tableExcel);
+
+			downloadLink.download = filename;
+
+			downloadLink.click();
+		}
+	}
 
 </script>

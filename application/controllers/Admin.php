@@ -1009,45 +1009,98 @@ class Admin extends CI_Controller{
     }
     //Item register 
     public function item_register($offset = null){ 
-            $limit = 15;
-            if(!empty($offset)){
-            $this->uri->segment(3);
-            }
-        $url = 'admin/item_register';
+        $limit = 10;
+
+        if(!empty($offset)){
+            $config['uri_segment'] = 3;
+        }
+    
+        $this->load->library('pagination');
+        $url = base_url('admin/item_register');
         $rowscount = $this->admin_model->count_item();
-        paginate($url, $rowscount, $limit);
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $this->pagination->initialize($config);
+        
         $data['title'] = 'Item Register | Admin & Procurement';
         $data['body'] = 'admin/item_assignment/item-register';
+        $data['item_register'] = true;
         $data['items'] = $this->admin_model->get_items($limit, $offset); 
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
   //Available Item list
   public function available_item_list($offset = null){ 
-        $limit = 15;
-        if(!empty($offset)){
-        $this->uri->segment(3);
-        }
-    $url = 'admin/item_register';
+    $limit = 10;
+
+    if(!empty($offset)){
+        $config['uri_segment'] = 3;
+    }
+
+    $this->load->library('pagination');
+    $url = base_url('admin/available_item_list');
     $rowscount = $this->admin_model->count_item();
-    paginate($url, $rowscount, $limit);
+
+    $config['base_url'] = $url;
+    $config['total_rows'] = $rowscount;
+    $config['per_page'] = $limit;
+    $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+    $config['cur_tag_close'] = '</a>';
+    $config['num_tag_open'] = '<li>';
+    $config['num_tag_open'] = '</li>';
+    $config['first_link'] = 'First';
+    $config['prev_link'] = 'Previous';
+    $config['next_link'] = 'Next';
+    $config['last_link'] = 'Last';
+    $config['attributes'] = array('class' => 'pagination-link');
+    $this->pagination->initialize($config);
+
     $data['title'] = 'Item Register | Admin & Procurement';
     $data['body'] = 'admin/item_assignment/item-register';
+    $data['available_page'] = true;
     $data['items'] = $this->admin_model->get_available_items($limit, $offset); 
-    $this->load->view('admin/commons/template', $data);
+    $this->load->view('admin/commons/new_template', $data);
 }
 //Assign item list
-   public function get_assign_item($offset = null){  
-        $limit = 15;
-        if(!empty($offset)){
-        $this->uri->segment(3);
-        }
+public function get_assign_item($offset = null){  
+    $limit = 10;
+    if(!empty($offset)){
+        $config['uri_segment'] = 3;
+    }
+
+    $this->load->library('pagination');
     $url = 'admin/assign-list';
     $rowscount = $this->admin_model->count_assign_item();
-    paginate($url, $rowscount, $limit);
+
+    $config['base_url'] = $url;
+    $config['total_rows'] = $rowscount;
+    $config['per_page'] = $limit;
+    $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+    $config['cur_tag_close'] = '</a>';
+    $config['num_tag_open'] = '<li>';
+    $config['num_tag_open'] = '</li>';
+    $config['first_link'] = 'First';
+    $config['prev_link'] = 'Previous';
+    $config['next_link'] = 'Next';
+    $config['last_link'] = 'Last';
+    $config['attributes'] = array('class' => 'pagination-link');
+    $this->pagination->initialize($config);
+
     $data['title'] = 'Item Register | Admin & Procurement';
-    $data['body'] = 'admin/item_assignment/assign-list';
+    $data['body'] = 'admin/item_assignment/item-register';
+    $data['assign_page'] = true; 
     $data['items'] = $this->admin_model->assign_item_list($limit, $offset); 
-    $this->load->view('admin/commons/template', $data);
+    $this->load->view('admin/commons/new_template', $data);
 }
     //Assign item 
        public function assign_list($offset = null){ 
@@ -1066,11 +1119,12 @@ class Admin extends CI_Controller{
     // item register - add new item.
     public function add_item(){
         $data['title'] = 'Item Detail';
+        $data['add_page'] = true;
         $data['body'] = 'admin/item_assignment/item-detail';  
         $data['categories'] = $this->admin_model->get_item_categories();
         $data['supplier'] = $this->admin_model->get_item_supplier();
         $data['locations'] = $this->admin_model->get_item_location(); 
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Add new Item into the database
     public function item_save(){  
@@ -1080,7 +1134,7 @@ class Admin extends CI_Controller{
             'location' => $this->input->post('location'),
             'category' => $this->input->post('category'),
             'sub_category' => $this->input->post('sub_category'),
-            'type_name' => $this->input->post('type_name'),
+            'type_name' => $this->input->post('item_type'),
             'status' => $this->input->post('status'),
             'quantity' => $this->input->post('quantity'),
             'model' => $this->input->post('model'),
@@ -1135,40 +1189,87 @@ class Admin extends CI_Controller{
         $data['locations'] = $this->admin_model->get_item_location();
         $data['depreciation'] = $this->admin_model->get_item_depreciation($id);
         $data['status'] = $this->admin_model->status_items($id); 
-        $this->load->view('admin/commons/template', $data);
+        $data['edit_item'] = true;
+        $this->load->view('admin/commons/new_template', $data);
     }
-  // Search filters - search product date-wise
-  public function product_report($offset = null){ 
-    $limit = 15;
-    if(!empty($offset)){
-    $this->uri->segment(3);
-    }
-$url = 'admin/product_report';
-$rowscount = $this->admin_model->count_item();
-paginate($url, $rowscount, $limit);
-$data['title'] = 'Search Results > Report';
-$data['body'] = 'admin/item_assignment/product_report';
-if($this->input->post('from_date')) {
-    $date_from = $this->input->post('from_date');
-    $date_to = $this->input->post('to_date');
-    $data['reports'] =  $this->admin_model->get_items($limit, $offset, $date_from, $date_to);
-} else {
-    $data['items'] = $this->admin_model->get_items($limit, $offset); 
-} 
-$this->load->view('admin/commons/template', $data);
-} 
+    // Search filters - search product date-wise
+    public function product_report($offset = null){ 
+
+        $limit = 10;
+
+        if(!empty($offset)){
+            $config['uri_segment'] = 3;
+        }
+
+        $date_from = $this->input->get('from_date');
+        $date_to = $this->input->get('to_date');
+    
+        $this->load->library('pagination');
+        $url = base_url('admin/product_report');
+        $rowscount = $this->admin_model->count_item_date($date_from, $date_to);
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
+
+        $this->pagination->initialize($config);
+        
+        $data['title'] = 'Search Results > Report';
+        $data['product_report'] = true;
+        $data['body'] = 'admin/item_assignment/item-register';
+
+        $data['items'] =  $this->admin_model->get_items($limit, $offset, $date_from, $date_to);
+
+        $this->load->view('admin/commons/new_template', $data);
+    } 
      // Get all sub categories based on cat_id of items
     public function get_item_sub_categories($cat_id){
         $sub_categories = $this->admin_model->get_item_sub_categories($cat_id);
         echo json_encode($sub_categories);
     }
     // Search filters - search asset register
-    public function search_item(){
+    public function search_item($offset = null){
+        $limit = 15;
+
+        if(!empty($offset)){
+            $config['uri_segment'] = 3;
+        }
+
+        $this->load->library('pagination');
+        $url = base_url('admin/search_item');
+        $rowscount = $this->admin_model->count_item();
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
+        $this->pagination->initialize($config);
+    
         $search = $this->input->get('search'); 
         $data['title'] = 'Search Results > Item List';
         $data['body'] = 'admin/item_assignment/item-register'; 
-        $data['results'] = $this->admin_model->search_items($search);
-        $this->load->view('admin/commons/template', $data);
+        $data['assign_flag'] = false; 
+        $data['items'] = $this->admin_model->search_items($search, $limit, $offset);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Delete item
     public function delete_item($id){
@@ -1182,10 +1283,10 @@ $this->load->view('admin/commons/template', $data);
     }
      // Assignment Item List- 
      public function assign_item_list($offset = null){
-            $limit = 15;
-            if(!empty($offset)){
+        $limit = 15;
+        if(!empty($offset)){
             $this->uri->segment(3);
-            } 
+        } 
         $url = 'admin/assign_item_list';
         $rowscount = $this->admin_model->count_item_assign();
         paginate($url, $rowscount, $limit);
@@ -1206,7 +1307,7 @@ $this->load->view('admin/commons/template', $data);
         $data['get_category'] = $this->admin_model->get_category(); 
         $data['locations'] = $this->admin_model->get_item_location(); 
         $data['returning_items'] = $this->admin_model->returning_assignment_list($id); 
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
         // assign_item_save into the database
         public function assign_item_save(){  
@@ -1252,8 +1353,9 @@ $this->load->view('admin/commons/template', $data);
         $this->load->library('upload', $config); 
       
         if ( ! $this->upload->do_upload('userfile')) { 
+            echo $this->upload->display_errors(); exit;
            $error = array('error' => $this->upload->display_errors()); 
-           $this->load->view('upload_form', $error); 
+           redirect('admin/item_register');
         }
         else {   
           
@@ -1333,19 +1435,14 @@ $this->load->view('admin/commons/template', $data);
         echo json_encode($get_item_serial_umber);
     }    
     //Item card   
-    public function item_card($id,$offset = null){   
-        $limit = 15;
-     if(!empty($offset)){
-         $this->uri->segment(3);
-     }
-     $url = 'admin/item_register';
-     $rowscount = $this->admin_model->count_item();
-     paginate($url, $rowscount, $limit);
-     $data['title'] = 'Item Register | Admin & Procurement';
-     $data['body'] = 'admin/item_assignment/item-card';
-     $data['items'] = $this->admin_model->get_item_card($limit, $offset,$id); 
-     $data['item'] = $this->admin_model->get_item_card_detail($limit, $offset,$id); 
-     $this->load->view('admin/commons/template', $data);
+    public function item_card($id){   
+    $employ_id = $this->uri->segment(4);  
+
+    $data['title'] = 'Item Register | Admin & Procurement';
+    $data['body'] = 'admin/item_assignment/item-card';
+    $data['items'] = $this->admin_model->get_item_card($id, $employ_id); 
+    $data['item'] = $this->admin_model->get_item_card_detail($id); 
+    $this->load->view('admin/commons/template', $data);
  }
      // 404 page.
     public function page_not_found(){

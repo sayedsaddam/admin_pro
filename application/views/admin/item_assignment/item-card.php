@@ -200,7 +200,7 @@
 
 
 					<?php endif; ?>
-					____________________________________________________________________________________________________________________________________________________
+					__________________________________________________
 					<?php if(!empty($items)): ?>
 					<table class="table table-sm">
 						<tr>
@@ -278,7 +278,7 @@
 ?>
 					<div class="row mb-1">
 						<!-- <div class="col-md-12 text-right">
-                            <p>Printed by: <?= $this->session->userdata('fullname'); ?><br>************************</p>
+                            <p>Printed by: <?= $this->session->userdata('fullname'); ?><br>********</p>
                         </div> -->
 					</div>
 					<br><br><br><br><br>

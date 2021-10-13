@@ -911,6 +911,14 @@ class Admin_model extends CI_Model{
     public function count_item(){
         return $this->db->from('items')->count_all_results();
     }
+    // Count all items 
+    public function count_item_date($date_from, $date_to) {
+        $this->db->select('id');
+        $this->db->from('items');
+        $this->db->where('items.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
+        $num_results = $this->db->count_all_results();
+        return $num_results;
+    }
     // Count all purchase items 
     public function count_purchase(){
         return $this->db->from('purchase_orders')->count_all_results();
@@ -924,12 +932,11 @@ class Admin_model extends CI_Model{
         return $num_results;
      }
     // Get items.
-    public function get_items($limit, $offset,$from = null, $to = null ){
+    public function get_items($limit, $offset, $date_from = null, $date_to = null ){
         // echo $from;exit;
         $this->db->select('items.id, 
                            items.location,
                            items.category,
-                           items.stat, 
                            items.sub_category,
                            items.type_name, 
                            items.model, 
@@ -957,11 +964,11 @@ class Admin_model extends CI_Model{
         $this->db->join('locations', 'items.location = locations.id', 'left');
         $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
         $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
-        // $this->db->where('stat', 0);
-        if (!empty($from) && !empty($to)) {  
-            $this->db->where('items.created_at BETWEEN \'' . $from . '\' AND \'' . $to . '\'');
+        if (!empty($date_from) && !empty($date_to)) {  
+            $this->db->where('items.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
         }
         $this->db->group_by('items.id'); 
+        $this->db->group_by('item_assignment.status'); 
         $this->db->order_by('id', 'ASC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result(); 
@@ -997,7 +1004,7 @@ class Admin_model extends CI_Model{
             $this->db->join('locations', 'items.location = locations.id', 'left');
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
             $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
-            $this->db->where('items.quantity >=', 1);
+            $this->db->where('items.quantity >', 0);
             $this->db->group_by('items.id'); 
             $this->db->order_by('id', 'ASC');
             $this->db->limit($limit, $offset);
@@ -1164,7 +1171,7 @@ class Admin_model extends CI_Model{
     } 
   //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - search Item
-    public function search_items($search){  
+    public function search_items($search, $limit, $offset){  
                             $this->db->select('items.id, items.location,
                             items.category, 
                             items.sub_category,
@@ -1206,6 +1213,7 @@ class Admin_model extends CI_Model{
         $this->db->or_like('categories.cat_name', $search);
         $this->db->or_like('locations.name', $search);  
         $this->db->order_by('items.created_at', 'DESC');
+        $this->db->limit($limit, $offset);
         $this->db->order_by('id', 'ASC'); 
         return $this->db->get()->result(); 
     }
@@ -1517,7 +1525,7 @@ class Admin_model extends CI_Model{
         return $this->db->get()->result();
     }
    // Get assign items detail.
-   public function get_item_card($limit, $offset,$id){
+   public function get_item_card($id, $employ_id){
     $this->db->select('items.id, 
                        items.location, 
                        items.stat, 
@@ -1555,12 +1563,14 @@ class Admin_model extends CI_Model{
     $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left'); 
     // $this->db->where('item_assignment.item_id', $id);
     $this->db->where('item_assignment.item_id', $id);
+    if(isset($employ_id)){
+        $this->db->where('item_assignment.assignd_to', $employ_id);
+    }
     $this->db->order_by('id', 'ASC');
-    $this->db->limit($limit, $offset);
     return $this->db->get()->result(); 
 }
  // Get available items detail .
- public function get_item_card_detail($limit, $offset,$id){
+ public function get_item_card_detail($id){
     $this->db->select('items.id, 
                        items.location, 
                        items.stat, 
@@ -1588,7 +1598,6 @@ class Admin_model extends CI_Model{
     $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
     $this->db->where('items.id', $id);
     $this->db->order_by('id', 'ASC');
-    $this->db->limit($limit, $offset);
     return $this->db->get()->row(); 
 }
     // Item register - Delete an Item
