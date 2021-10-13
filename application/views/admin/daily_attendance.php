@@ -67,7 +67,7 @@
                   <?php foreach($emp_attendance as $att): ?>
                     <?php if($att->attendance_date == date('Y-m-'.sprintf('%02d', $i))){ $flag = true; break; }else{ $flag = false; } ?>
                   <?php endforeach; ?>
-                  <?= $present = $flag ? '<td>//</td>' : '<td>/</td>'; ?>
+                  <?= $present = $flag ? '<td>'.$att->time_in.'-'.$att->time_out.'</td>' : '<td>/</td>'; ?>
                 <?php endfor; ?>
               </tr>
             <?php endforeach; ?>
