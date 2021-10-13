@@ -1244,9 +1244,11 @@ public function get_assign_item($offset = null){
             $config['uri_segment'] = 3;
         }
 
+        $search = $this->input->get('search'); 
+
         $this->load->library('pagination');
         $url = base_url('admin/search_item');
-        $rowscount = $this->admin_model->count_item();
+        $rowscount = $this->admin_model->count_item_search($search);
 
         $config['base_url'] = $url;
         $config['total_rows'] = $rowscount;
@@ -1263,7 +1265,6 @@ public function get_assign_item($offset = null){
         $config['reuse_query_string'] = true;
         $this->pagination->initialize($config);
     
-        $search = $this->input->get('search'); 
         $data['title'] = 'Search Results > Item List';
         $data['body'] = 'admin/item_assignment/item-register'; 
         $data['assign_flag'] = false; 

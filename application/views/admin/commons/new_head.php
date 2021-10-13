@@ -24,22 +24,30 @@
 	<!-- <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900|Open+Sans:400,700,800|Roboto:400,700,900" rel="stylesheet"> -->
 </head>
 
+<?php if(!isset($login_page)) : ?>
+
 <body>
 	<section class="hero is-small is-primary is-hidden-print" style="background-color:#15BCA1;">
 		<div class="hero-body">
-			<div class="columns is-vcentered">
-				<div class="column is-narrow">
-					<img src="https://s2smark.com/assets/img/logo/s2s-logo-1.png" style="filter: invert(.5) brightness(2);"
-						width="140">
-				</div>
-				<div class="column is-hidden-touch">
-					<p class="title">
-						Admin & Procurement
-					</p>
-					<p class="subtitle">
-						AH Group of Companies (Pvt.) Ltd.
-					</p>
+			<div class="columns is-centered">
+				<div class="column has-text-centered">
+					<img src="https://s2smark.com/assets/img/logo/s2s-logo-1.png"
+						style="filter: invert(.5) brightness(2);" width="200">
 				</div>
 			</div>
 		</div>
 	</section>
+	<?php else: ?>
+
+	<body style="background-color:#fbfbfb;">
+		<section class="section" style="height: 100vh;">
+			<section class="hero is-small is-primary is-hidden-print" style="background-color:#fbfbfb;">
+				<div class="hero-body">
+					<div class="columns is-centered">
+						<div class="column has-text-centered">
+							<img src="https://s2smark.com/assets/img/logo/s2s-logo-1.png" width="200">
+						</div>
+					</div>
+				</div>
+			</section>
+			<?php endif ?>

@@ -12,7 +12,8 @@ class Login extends CI_Controller{
     public function index(){
         $data['title'] = 'Login | Admin & Procurement';
         $data['body'] = 'login';
-        $this->load->view('admin/commons/template', $data);
+        $data['login_page'] = true;
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Sign up form
     public function signup(){
@@ -45,7 +46,7 @@ class Login extends CI_Controller{
     // Check for credentials and log the user in.
     public function authenticate(){
         $username = $this->input->post('username');
-        $password = sha1($this->input->post('password'));
+        $password = $this->input->post('password');
         $login = $this->login_model->signin($username, $password);
         if($login > '0'){
             $id = $login->id;
@@ -56,11 +57,11 @@ class Login extends CI_Controller{
             $department = $login->department;
             $this->session->set_userdata(array('id' => $id, 'username' => $username, 'fullname' => $name, 'location' => $location, 'user_role' => $role, 'department' => $department));
             if($this->session->userdata('user_role') == 'admin'){
-                redirect('admin');
+                redirect('admin/item_register');
             }elseif($this->session->userdata('user_role') == 'user'){
-                redirect('users');
+                redirect('users/item_register');
             }elseif($this->session->userdata('user_role') == 'supervisor'){
-                redirect('supervisor');
+                redirect('supervisor/item_register');
             }
         }else{
             $this->session->set_flashdata('login_failed', "<strong>Oops! </strong>Something went wrong but don't fret, let's give it another shot.");

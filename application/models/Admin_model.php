@@ -912,15 +912,46 @@ class Admin_model extends CI_Model{
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     } 
-    // Count all items 
-    public function count_item(){
-        return $this->db->from('items')->count_all_results();
+    // Count all items by search
+    public function count_item_search($search){
+        
+        $this->db->select('items.id, items.location,
+                items.*,
+                sub_categories.name as names, 
+                categories.cat_name');
+        $this->db->from('items');
+        $this->db->join('categories', 'items.category = categories.id', 'left');
+        $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
+        $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
+
+        $this->db->where('items.location', $this->session->userdata('location'));
+        
+        $this->db->group_start(); //start group
+        $this->db->like(array('items.category' => $search));
+        $this->db->or_like(array('items.sub_category' => $search));
+        $this->db->or_like(array('items.type_name' => $search));
+        $this->db->or_like(array('items.model' => $search));
+        $this->db->or_like(array('items.supplier' => $search)); 
+        $this->db->or_like(array('sub_categories.name' => $search));
+        $this->db->or_like(array('categories.cat_name' => $search));
+        $this->db->group_end(); //close group
+
+        $num_results = $this->db->count_all_results();
+        return $num_results;
     }
     // Count all items 
+    public function count_item(){
+        $this->db->from('items');
+        $this->db->where('items.location', $this->session->userdata('location'));
+        $num_results = $this->db->count_all_results();
+        return $num_results;
+    }
+    // Count all items by date
     public function count_item_date($date_from, $date_to) {
         $this->db->select('id');
         $this->db->from('items');
         $this->db->where('items.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
+        $this->db->where('items.location', $this->session->userdata('location'));
         $num_results = $this->db->count_all_results();
         return $num_results;
     }
@@ -973,9 +1004,10 @@ class Admin_model extends CI_Model{
         if (!empty($date_from) && !empty($date_to)) {  
             $this->db->where('items.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
         }
+        $this->db->where('items.location', $this->session->userdata('location'));
         $this->db->group_by('items.id'); 
         $this->db->group_by('item_assignment.status'); 
-        $this->db->order_by('id', 'ASC');
+        $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result(); 
     } 
@@ -1010,8 +1042,9 @@ class Admin_model extends CI_Model{
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
             $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
             $this->db->where('items.quantity >', 0);
+            $this->db->where('items.location', $this->session->userdata('location'));
             $this->db->group_by('items.id'); 
-            $this->db->order_by('id', 'ASC');
+            $this->db->order_by('id', 'DESC');
             $this->db->limit($limit, $offset);
             return $this->db->get()->result();
         }
@@ -1049,7 +1082,8 @@ class Admin_model extends CI_Model{
             // $this->db->group_by('item_assignment.item_id'); 
              $this->db->where('item_assignment.item_id !=', null);
              $this->db->where('item_assignment.status', 1);
-             $this->db->order_by('id', 'ASC');
+             $this->db->where('items.location', $this->session->userdata('location'));
+             $this->db->order_by('id', 'DESC');
              $this->db->limit($limit, $offset);
             return $this->db->get()->result(); 
         }  
@@ -1204,49 +1238,49 @@ class Admin_model extends CI_Model{
   //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - search Item
     public function search_items($search, $limit, $offset){  
-                            $this->db->select('items.id, items.location,
-                            items.category, 
-                            items.sub_category,
-                            items.type_name, 
-                            items.model, 
-                            items.serial_number, 
-                            items.supplier,
-                            items.quantity, 
-                            items.price, 
-                            items.depreciation,
-                            items.purchasedate, 
-                            items.created_at,
-                            employ.name as employ_name,
-                            employ.id as employ_id,
-                            sub_categories.name as names, 
-                            categories.cat_name, 
-                            locations.name, 
-                            item_assignment.status,
-                            item_assignment.assignd_to,
-                            item_assignment.id as item_ids');
-                    $this->db->from('items');
-                    $this->db->join('categories', 'items.category = categories.id', 'left');
-                    $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
-                    $this->db->join('locations', 'items.location = locations.id', 'left');
-                    $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
-                    $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
-        $this->db->like('items.location', $search);
-        $this->db->or_like('items.category', $search);
-        $this->db->or_like('items.sub_category', $search);
-        $this->db->or_like('items.type_name', $search);
-        $this->db->or_like('items.model', $search);
-        $this->db->or_like('items.serial_number', $search); 
-        $this->db->or_like('items.supplier', $search); 
-        $this->db->or_like('items.price', $search); 
-        $this->db->or_like('items.depreciation', $search);
-        $this->db->or_like('items.purchasedate', $search); 
-        $this->db->or_like('items.created_at', $search); 
-        $this->db->or_like('sub_categories.name', $search);
-        $this->db->or_like('categories.cat_name', $search);
-        $this->db->or_like('locations.name', $search);  
+        $this->db->select('items.id, items.location,
+                items.category, 
+                items.sub_category,
+                items.type_name, 
+                items.model, 
+                items.serial_number, 
+                items.supplier,
+                items.quantity, 
+                items.price, 
+                items.depreciation,
+                items.purchasedate, 
+                items.created_at,
+                employ.name as employ_name,
+                employ.id as employ_id,
+                sub_categories.name as names, 
+                categories.cat_name, 
+                locations.name, 
+                item_assignment.status,
+                item_assignment.assignd_to,
+                item_assignment.id as item_ids');
+        $this->db->from('items');
+        $this->db->join('categories', 'items.category = categories.id', 'left');
+        $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
+        $this->db->join('locations', 'items.location = locations.id', 'left');
+        $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
+        $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
+        
+        $this->db->where('items.location', $this->session->userdata('location'));
+        
+        $this->db->group_start(); //start group
+        $this->db->like(array('items.category' => $search));
+        $this->db->or_like(array('items.sub_category' => $search));
+        $this->db->or_like(array('items.type_name' => $search));
+        $this->db->or_like(array('items.model' => $search));
+        $this->db->or_like(array('items.supplier' => $search)); 
+        $this->db->or_like(array('sub_categories.name' => $search));
+        $this->db->or_like(array('categories.cat_name' => $search));
+        $this->db->group_end(); //close group
+        
         $this->db->order_by('items.created_at', 'DESC');
-        $this->db->limit($limit, $offset);
         $this->db->order_by('id', 'ASC'); 
+
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result(); 
     }
      // uupdate Item - Update existing record
