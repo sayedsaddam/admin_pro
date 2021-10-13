@@ -1140,12 +1140,11 @@ public function get_assign_item($offset = null){
             'model' => $this->input->post('model'),
             'serial_number' => $this->input->post('serial_number'),
             'supplier' => $this->input->post('supplier'),
-            'price' => $this->input->post('price'),
-            'stat' => 0,
+            'price' => $this->input->post('price'), 
             'purchasedate' => $this->input->post('purchasedate'),
             'depreciation' => $this->input->post('depreciation'), 
             'created_at' => date('Y-m-d')
-        ); 
+        );  
         if($this->admin_model->item_save($data,$model)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
             redirect('admin/item_register');
@@ -1325,7 +1324,7 @@ public function get_assign_item($offset = null){
             'status' => 1,   
         );
         $item = array( 
-            'stat' => 0,   
+            'status' => 0,   
         );
         $return_back = array( 
             'return_back_date' => null,   
@@ -1373,7 +1372,7 @@ public function get_assign_item($offset = null){
                 'status' => 0,   
             );
              $item = array( 
-                'stat' => 1,   
+                'status' => 1,   
             ); 
             if($this->admin_model->return_item_save($data,$invantory,$item,$item_id,$assign_item_id)){
                 $this->session->set_flashdata('success', '<strong>Success! </strong>Item was return back successfully.');
@@ -1430,19 +1429,17 @@ public function get_assign_item($offset = null){
     } 
     // Get item model against item type
     public function get_item_serial_umber($id){
-   
         $get_item_serial_umber = $this->admin_model->get_item_serial_umber($id);
         echo json_encode($get_item_serial_umber);
     }    
     //Item card   
-    public function item_card($id){   
+    public function item_card($id,$offset = null){
     $employ_id = $this->uri->segment(4);  
-
-    $data['title'] = 'Item Register | Admin & Procurement';
-    $data['body'] = 'admin/item_assignment/item-card';
-    $data['items'] = $this->admin_model->get_item_card($id, $employ_id); 
-    $data['item'] = $this->admin_model->get_item_card_detail($id); 
-    $this->load->view('admin/commons/template', $data);
+     $data['title'] = 'Item Register | Admin & Procurement';
+     $data['body'] = 'admin/item_assignment/item-card';
+     $data['items'] = $this->admin_model->get_item_card($id,$employ_id); 
+     $data['item'] = $this->admin_model->get_item_card_detail($id); 
+     $this->load->view('admin/commons/template', $data);
  }
      // 404 page.
     public function page_not_found(){

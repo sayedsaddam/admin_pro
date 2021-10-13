@@ -82,7 +82,7 @@
   						<td><?= $item->name; ?></td>
   						<td><?= ucfirst($item->cat_name); ?></td>
   						<td><?= ucfirst($item->names); ?></td>
-  						<td><a href="<?= base_url('admin/item_card/'.$item->id) ?>"><span
+  						<td><a href="<?= base_url('admin/item_card/'.$item->id.'/'.$item->employ_id) ?>"><span
   									style="color: blue;"><?= ucfirst($item->type_name); ?></span></a></td>
   						<td><?= ucfirst($item->model); ?></td>
   						<td><?= ucfirst($item->serial_number); ?></td>

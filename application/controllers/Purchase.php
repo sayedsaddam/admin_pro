@@ -8,6 +8,7 @@ class Purchase extends CI_Controller{
         parent::__construct();
         $this->load->model('login_model');
         $this->load->model('admin_model');
+        $this->load->model('purchase_model');
         $this->load->model('user_model');
         $this->load->model('supervisor_model');
         $this->load->helper('paginate');
@@ -19,10 +20,10 @@ class Purchase extends CI_Controller{
     public function purchase_product(){ 
         $data['title'] = 'Purchase Product';
         $data['body'] = 'admin/purchase/purchase-product';  
-        $data['categories'] = $this->admin_model->get_item_categories();
+        $data['categories'] = $this->purchase_model->get_item_categories();
         $data['supplier'] = $this->admin_model->get_item_supplier();
-        $data['locations'] = $this->admin_model->get_item_location();
-        $data['order'] = $this->admin_model->purchase_order_number(); 
+        $data['locations'] = $this->purchase_model->get_item_location();
+        $data['order'] = $this->purchase_model->purchase_order_number(); 
         $this->load->view('admin/commons/template', $data);
     } 
     //Purchase order list 
@@ -36,10 +37,24 @@ class Purchase extends CI_Controller{
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Purchase Order List | Admin & Procurement';
         $data['body'] = 'admin/purchase/purchase_order_list';
-        $data['items'] = $this->admin_model->purchase_order_list($limit, $offset);
+        $data['items'] = $this->purchase_model->purchase_order_list($limit, $offset);
+        $data['locations'] = $this->purchase_model->list_locations_suppliers();
         // print_r($data);exit;
         $this->load->view('admin/commons/template', $data);
     }
+    // get_supplier against location 
+    public function supplier_against_location($loc_id){
+        $location = $this->admin_model->supplier_against_location($loc_id);
+        echo json_encode($location);
+    }
+       //Purchase order forwaded to supplier list
+       public function pos(){  
+    $data['title'] = 'Purchase Order List | Admin & Procurement';
+    $data['body'] = 'admin/purchase/pos';
+    $data['items'] = $this->purchase_model->pos();
+    $data['locations'] = $this->purchase_model->list_locations_suppliers(); 
+    $this->load->view('admin/commons/template', $data);
+}
     // Add multiple Item into the database
     public function purchas(){   
         $id = $this->input->post('id'); 
@@ -71,7 +86,7 @@ class Purchase extends CI_Controller{
             'created_at' => date('Y-m-d'),  
             );
     } 
-        if($this->admin_model->purchase_order_save($data,$multi_data)){
+        if($this->purchase_model->purchase_order_save($data,$multi_data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Order was created successfully.');
             redirect('admin/purchase_order_list');
         }else{
@@ -93,24 +108,23 @@ class Purchase extends CI_Controller{
                     array_push($data3, $value3);// array_push($data3, $value3);
                 }
             } 
-            $supplier = explode('/', $this->input->post('supplier')); 
-            $supplier_email = $supplier[1];
+            // $supplier = explode('/', $this->input->post('supplier')); 
+            // $supplier_email = $supplier[1];
             $data = array();
             // print_r($data4);exit;
             for($i = 0; $i < count($data3); $i++){ 
                 $data[$i] = array(
                     'location_id' => $this->input->post('location'),  
                     'sub_category_id' => $data3[$i],
-                    'order_number' => $this->input->post('order_number'),
-                    'quantity' => $data2[$i],
-                    'payment_mode' => $this->input->post('payment_mode'),
-                    'requested_by' => 3, 
+                    'description' => $this->input->post('description'),
+                    'quantity' => $data2[$i], 
+                    'requested_by' => $this->session->userdata('id'), 
                     'created_at' => date('Y-m-d'), 
                     'status' => 0,
-                    'supplier_id' =>  $supplier[0],
+                    // 'supplier_id' =>  $supplier[0],
                 ); 
             } 
-            if($this->admin_model->purchase_order_save($data)){
+            if($this->purchase_model->purchase_order_save($data)){
                 $this->session->set_flashdata('success', '<strong>Success! </strong>Order was created successfully.');
                 $this->session->set_flashdata("email_send","Mail Send!"); 
                 redirect('Purchase/purchase_order_list');
@@ -120,12 +134,72 @@ class Purchase extends CI_Controller{
                 redirect('admin/purchase_order_list');
             }
     }    
+    // select supplier against location for purchase form
+    public function po_supplier($id){  
+        $po = $this->purchase_model->po_supplier($id);
+        echo json_encode($po);
+    } 
+    // pos
+        // send email to suppier -- also update supplier id in purchase table
+        public function po_supplier_order(){
+            $id = $this->input->post('purchaseid'); 
+            $supplier = $this->input->post('supplier'); 
+            $po = $this->purchase_model->po_data($id); 
+            $product = $po->sub_category_id;
+            $quantity = $po->quantity;
+            $location = $po->location_id;
+            $description = $po->description;
+            // echo $location;exit;
+// get supplier email 
+            $email = $this->purchase_model->supplier_email($supplier); 
+            $sup_email = $email->email;  
+// send email code
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('email', 'Email', 'trim|valid_email|callback_check_email');
+            $this->form_validation->set_rules('password', 'Password', 'trim|required'); 
+                //   below email code check and work
+                    $from_email = "no-reply@alhayyatgroup.com";
+                    $to_email = $sup_email; 
+                    $product = $product;
+                    $quantity = $quantity;; 
+                    $description = $description;  
+                    $this->load->library("email");
+                    $this->email->from($from_email,"AH Group");
+                    $this->email->to($to_email);
+                    $this->email->subject("Product Requisition");
+                    $this->email->message("office of Islamabad request for ".' '.$product.' - '.$quantity.'quantity'.'<br> Remarks :'.$description);
+
+            $data = array(   
+                'purchase_id' => $id,    
+                'supplier_id' => $supplier,    
+                'location' => $location,    
+                'product' => $product,
+                'quantity' => $quantity,   
+                'description' => $description,
+                'requested_by' => $this->session->userdata('id'), 
+                'status' => 0, 
+                'created_at' => date('Y-m-d'),  
+            );   
+             if($this->purchase_model->po_forwarded($data)){
+                $this->session->set_flashdata('success', '<strong>Success! </strong>Product was forwaded successfully.');
+                redirect('Purchase/purchase_order_list');
+
+            }else{
+                $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+                redirect('Purchase/purchase_order_list');
+            }
+        }
         public function add_qutation(){  
             $po_id = $this->input->post('purchase_id'); 
+            $po_id = $this->input->post('purchase_id');
+
+            $id_explode = explode('/', $po_id); 
+            $purchase_id =  $id_explode[0]; 
+            $sup_id =  $id_explode[1];  
             $data = array(
-            'po_id' => $this->input->post('purchase_id'), 
-            'requested_by' => $this->input->post('requested_by'),  
-            'supplier_id' => $this->input->post('supplier_id'),
+            'po_id' => $purchase_id, 
+            'requested_by' => $this->session->userdata('id'),  
+            'supplier_id' => $sup_id,
             'price' => $this->input->post('price'), 
             'qutation' => $this->input->post('description'), 
             'created_at' => date('Y-m-d'),  
@@ -133,7 +207,7 @@ class Purchase extends CI_Controller{
             $pos_status = array(
                 'status' => 1,  
                 );  
-            if($this->admin_model->add_qutation($po_id,$data,$pos_status)){
+            if($this->purchase_model->add_qutation($po_id,$data,$pos_status)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>qutation was added successfully.');
             redirect($_SERVER['HTTP_REFERER']); 
             }else{
@@ -141,15 +215,16 @@ class Purchase extends CI_Controller{
             redirect($_SERVER['HTTP_REFERER']); 
             } 
         }  
+
     // edit order   
     public function edit_order($id){   
         // echo "edit called".$id;exit;
         $data['title'] = 'Purchase Product';
         $data['body'] = 'admin/purchase-product';  
-        $data['edit'] = $this->admin_model->order_edit($id);
-        $data['categories'] = $this->admin_model->get_item_categories();
-        $data['supplier'] = $this->admin_model->get_item_supplier();
-        $data['locations'] = $this->admin_model->get_item_location(); 
+        $data['edit'] = $this->purchase_model->order_edit($id);
+        $data['categories'] = $this->purchase_model->get_item_categories();
+        $data['supplier'] = $this->purchase_model->get_item_supplier();
+        $data['locations'] = $this->purchase_model->get_item_location(); 
         $this->load->view('admin/commons/template', $data);
     }
 
@@ -167,46 +242,59 @@ class Purchase extends CI_Controller{
             'created_at' => date('Y-m-d'), 
             'status' => 0,
         );   
-         if($this->admin_model->modify_purchase_record($id, $data)){
+         if($this->purchase_model->modify_purchase_record($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Item was updated successfully.');
-            redirect('admin/purchase_order_list');
+            redirect('purchase/purchase_order_list');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
-            redirect('admin/purchase_order_list');
+            redirect('purchase/purchase_order_list');
         }
     }
      //order detail  
-        public function order_detail($id,$offset = null){  
-                $limit = 15;
-                if(!empty($offset)){
-                $this->uri->segment(3);
-                } 
+        public function order_detail($id){ 
+        // echo $id;exit; 
         //  $id = $this->uri->segment(3);
          $url = 'admin/order-detail';
-         $rowscount = $this->admin_model->count_item();
-         paginate($url, $rowscount, $limit);
          $data['title'] = 'Order Detail | Admin & Procurement';
          $data['body'] = 'admin/purchase/order-detail';
-         $data['items'] = $this->admin_model->order_detail_card($limit, $offset,$id); 
-         $data['count_reult'] = $this->admin_model->count_result($id); 
-         $data['count'] = $this->admin_model->count_qutation($id); 
-         $data['item'] = $this->admin_model->get_item_card_detail($limit, $offset,$id); 
+         $data['items'] = $this->purchase_model->order_detail_card($id); 
+         $data['ids'] = $this->purchase_model->supplier_id($id); 
+         $data['order'] = $this->purchase_model->order_detail($id); 
+         $data['count_reult'] = $this->purchase_model->count_result($id); 
+         $data['count'] = $this->purchase_model->count_qutation($id); 
+         $data['item'] = $this->purchase_model->get_item_card_detail($id); 
          $this->load->view('admin/commons/template', $data);
+        // redirect($_SERVER['HTTP_REFERER']); 
+
      }
        // Cancel - Cancel Order
     public function cancel_order($id){
             $data = array(   
-            'status' => 0,
+            'review' => 0,
             'created_at' => date('Y-m-d')  
             );
-        if($this->admin_model->cancel_order($id,$data)){
+        if($this->purchase_model->cancel_order($id,$data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>order cancel successful.');
-            redirect('admin/purchase_order_list');
+            redirect('purchase/purchase_order_list');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('admin/purchase_order_list');
+            redirect('purchase/purchase_order_list');
         }
     }
+       // Cancel - Cancel Order
+       public function approved_po($id){
+        $data = array(   
+        'review' => 1,
+        'created_at' => date('Y-m-d')  
+        );
+    if($this->purchase_model->approved_po($id,$data)){
+        $this->session->set_flashdata('success', '<strong>Success! </strong>order cancel successful.');
+        redirect('purchase/purchase_order_list');
+    }else{
+        $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+        redirect('purchase/purchase_order_list');
+    }
+}
        // Cancel - Cancel Order
        public function approved_order(){ 
         $id = $this->input->post('id');   
@@ -225,7 +313,7 @@ class Purchase extends CI_Controller{
                 $update_qut = array(  
                 'status' => 'rejected',   
                 ); 
-        if($this->admin_model->approved_order($id,$pos_id,$data,$pos_data,$update_qut)){
+        if($this->purchase_model->approved_order($id,$pos_id,$data,$pos_data,$update_qut)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>order approved successful.');
             redirect($_SERVER['HTTP_REFERER']); 
 
@@ -239,7 +327,7 @@ public function search_purchase_item(){
     $search = $this->input->get('search');
     $data['title'] = 'Search Results > Suppliers';
     $data['body'] = 'admin/purchase/purchase_order_list';
-    $data['results'] = $this->admin_model->search_purchase_item($search);
+    $data['results'] = $this->purchase_model->search_purchase_item($search);
     $data['locations'] = $this->admin_model->list_locations_suppliers();
     $this->load->view('admin/commons/template', $data);
 } 
