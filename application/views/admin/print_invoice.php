@@ -5,7 +5,7 @@
             <div class="card">
                 <!-- Card content -->
                 <div class="card-body">
-                    <h1 class="font-weight-bold text-center mb-0">CHIP Training & Consulting (Pvt.) Ltd.</h1>
+                    <h1 class="font-weight-bold text-center mb-0">AH Group of Companies (Pvt.) Ltd.</h1>
                     <h2 class="font-weight-light text-center mb-0">Islamabad, 44000</h2>
                     <h3 class="font-weight-lighter text-center mb-5">Invoice</h3>
                     <hr class="mb-5">

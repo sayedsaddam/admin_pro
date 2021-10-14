@@ -1,3 +1,4 @@
+<?php $session = $this->session->userdata('user_role'); ?>
 <style>
   .footer-hover {
     background-color: rgba(0, 0, 0, 0.1);
@@ -16,18 +17,18 @@
     height: 150px;
   }
 </style>
-<div class="jumbotron jumbotron-fluid blue-gradient text-light">
+<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-1 col-md-1">
-        <img src="<?= base_url('assets/img/chip.png'); ?>" alt="admin-and-procurement" class="img-thumbnail" width="200">
+        <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid">
       </div>
       <div class="col-lg-7 col-md-7">
-        <h1 class="font-weight-bold">Admin & Procurement</h1>
-        <h5 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h5>
+        <h1 class="display-4 font-weight-bold mb-0">Admin & Procurement</h1>
+        <h3 class="font-weight-bold light-text">AH Group of Companies (Pvt). Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
-        <a href="<?= base_url('users/profile'); ?>" class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></a>
+        <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
         <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
         <h4 class="font-weight-bold orange-text mt-2">Admin Dashboard <i class="fa fa-chart-bar"></i><br><span class="font-weight-light orange-text"><?='<small>Annual Exp. </small>'.number_format($annual_expense->annual_expenses);?></span></h4>
       </div>
@@ -43,7 +44,10 @@
             <a href="<?= base_url('admin/suppliers'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-truck-moving"></i></a> Suppliers
           </li>
           <li class="list-group-item">
-            <a href="<?= base_url('admin/leaves_info'); ?>" class="text-white btn-floating btn-tw btn-sm"><i class="fas fa-sign"></i></a>Attd. & Leaves
+            <a href="<?= base_url('admin/employ'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-user"></i></a> Employ
+          </li>
+          <li class="list-group-item">
+            <a href="<?= base_url('admin/categories'); ?>" class="text-white btn-floating btn-tw btn-sm"><i class="fas fa-sign"></i></a>Categories
           </li>
           <li class="list-group-item">
             <a href="<?= base_url('admin/travels_info'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-plane"></i></a>Travels Info
@@ -62,6 +66,12 @@
           </li>
           <li class="list-group-item">
             <a href="<?= base_url('admin/projects'); ?>" class="text-white btn-floating btn-tw btn-sm"><i class="fas fa-project-diagram"></i></a>Projects
+          </li>
+          <li class="list-group-item">
+            <a href="<?=base_url('admin/item_register');?>" class="text-white btn-floating btn-slack btn-sm"><i class="fas fa-pen"></i></a>Item Register
+          </li>
+          <li class="list-group-item">
+            <a href="<?php if($session == 'user'){ echo '#0'; }else{ echo base_url('Purchase/purchase_order_list'); }?>" class="text-white btn-floating btn-slack btn-sm"><i class="fas fa-shopping-cart"></i></a>Purchase
           </li>
           <li class="list-group-item">
             <a href="<?=base_url('admin/asset_register');?>" class="text-white btn-floating btn-yt btn-sm"><i class="fas fa-book"></i></a>Asset Register
@@ -101,15 +111,11 @@
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center text-light" style="background-color: #607D8B;">
-                  <h4 class="card-title font-weight-bold text-light">Islamabad</h4>
-                  <div class="row">
-                    <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($ctc_own_isbd->ctc_own_isbd);?></div>
-                  </div>
-                  <div class="row mt-2 mb-4">
-                    <div class="col-md-6">Projects</div>
-                    <div class="col-md-6"><?=number_format($total_isbd->isbd_total);?></div>
+                <div class="card-body text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title font-weight-bold text-center text-light">Islamabad</h4>
+                  <div class="row mt-2">
+                    <div class="col-6">Exp</div>
+                    <div class="col-6">100,000</div>
                   </div>
                   <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
@@ -122,15 +128,11 @@
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center text-light" style="background-color: #607D8B;">
-                  <h4 class="card-title font-weight-bold">Khyber PK</h4>
-                  <div class="row">
-                    <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($ctc_own_kp->ctc_own_kp);?></div>
-                  </div>
-                  <div class="row mt-2 mb-4">
-                    <div class="col-md-6">Projects</div>
-                    <div class="col-md-6"><?=number_format($total_kp->kp_total);?></div>
+                <div class="card-body text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title text-center font-weight-bold">Peshawar</h4>
+                  <div class="row mt-2">
+                    <div class="col-6">Exp</div>
+                    <div class="col-6">200,000</div>
                   </div>
                   <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
@@ -143,15 +145,11 @@
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center text-light" style="background-color: #607D8B;">
-                  <h4 class="card-title font-weight-bold">Balochistan</h4>
-                  <div class="row">
-                    <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($ctc_own_bln->ctc_own_bln);?></div>
-                  </div>
-                  <div class="row mt-2 mb-4">
-                    <div class="col-md-6">Projects</div>
-                    <div class="col-md-6"><?=number_format($total_bln->bln_total);?></div>
+                <div class="card-body text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title text-center font-weight-bold">Hangu</h4>
+                  <div class="row mt-2">
+                    <div class="col-6">Exp</div>
+                    <div class="col-6">250,000</div>
                   </div>
                   <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
@@ -164,15 +162,11 @@
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center text-light" style="background-color: #607D8B;">
-                  <h4 class="card-title font-weight-bold">Punjab</h4>
-                  <div class="row">
-                    <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($ctc_own_punjab->ctc_own_punjab);?></div>
-                  </div>
-                  <div class="row mt-2 mb-4">
-                    <div class="col-md-6">Projects</div>
-                    <div class="col-md-6"><?=number_format($total_punjab->punjab_total);?></div>
+                <div class="card-body text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title text-center font-weight-bold">Kohat</h4>
+                  <div class="row mt-2">
+                    <div class="col-6">Exp</div>
+                    <div class="col-6">150,000</div>
                   </div>
                   <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
@@ -185,15 +179,11 @@
                     <div class="mask rgba-white-slight"></div>
                   </a>
                 </div>
-                <div class="card-body text-center text-light" style="background-color: #607D8B;">
-                  <h4 class="card-title font-weight-bold">Sindh</h4>
-                  <div class="row">
-                    <div class="col-md-6">CTC Own</div>
-                    <div class="col-md-6"><?=number_format($ctc_own_sindh->ctc_own_sindh);?></div>
-                  </div>
-                  <div class="row mt-2 mb-4">
-                    <div class="col-md-6">Projects</div>
-                    <div class="col-md-6"><?=number_format($total_sindh->sindh_total);?></div>
+                <div class="card-body text-light" style="background-color: #607D8B;">
+                  <h4 class="card-title text-center font-weight-bold">Murree</h4>
+                  <div class="row mt-2">
+                    <div class="col-6">Expense</div>
+                    <div class="col-6">130,000</div>
                   </div>
                   <!-- <button type="button" class="btn btn-outline-light btn-md">Read more</button> -->
                 </div>
@@ -238,12 +228,12 @@
                   <tbody>
                     <?php if(!empty($pending_requisitions)): foreach($pending_requisitions as $pen_req): ?>
                       <tr>
-                        <td><?= 'CTC-0'.$pen_req->id; ?></td>
+                        <td><?= 'AHG-0'.$pen_req->id; ?></td>
                         <td><?= $pen_req->fullname; ?></td>
                         <td><?= date('M d, Y', strtotime($pen_req->created_at)); ?></td>
                         <td>
-                          <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
-                          <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                          <a href="<?= base_url('admin/approve_request/'.$pen_req->id); ?>"><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                          <a href="<?= base_url('admin/reject_request/'.$pen_req->id); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                           <a href="<?= base_url('admin/request_detail/'.$pen_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                         </td>
                       </tr>
@@ -288,12 +278,12 @@
                   <tbody>
                     <?php if(!empty($approved_requisitions)): foreach($approved_requisitions as $app_req): ?>
                       <tr>
-                        <td><?= 'CTC-0'.$app_req->id; ?></td>
+                        <td><?= 'AHG-0'.$app_req->id; ?></td>
                         <td><?= $app_req->fullname; ?></td>
                         <td><?= date('M d, Y', strtotime($app_req->created_at)); ?></td>
                         <td>
-                          <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
-                          <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                          <a href="<?= base_url('admin/approve_request/'.$app_req->id); ?>"><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                          <a href="<?= base_url('admin/reject_request/'.$app_req->id); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                           <a href="<?= base_url('admin/request_detail/'.$app_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                         </td>
                       </tr>
@@ -338,12 +328,12 @@
                   <tbody>
                     <?php if(!empty($rejected_requisitions)): foreach($rejected_requisitions as $rej_req): ?>
                       <tr>
-                        <td><?= 'CTC-0'.$rej_req->id; ?></td>
+                        <td><?= 'AHG-0'.$rej_req->id; ?></td>
                         <td><?= $rej_req->fullname; ?></td>
                         <td><?= date('M d, Y', strtotime($rej_req->created_at)); ?></td>
                         <td>
-                          <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
-                          <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                          <a href="<?= base_url('admin/approve_request/'.$rej_req->id); ?>"><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                          <a href="<?= base_url('admin/reject_request/'.$rej_req->id); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                           <a href="<?= base_url('admin/request_detail/'.$rej_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                         </td>
                       </tr>
