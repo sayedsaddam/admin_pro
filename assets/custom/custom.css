@@ -1,0 +1,7 @@
+#image:hover { 
+  transition: 1.6s; /* Animation */
+  transform: scale(1.5);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        width: 200px;
+        height: 125px;
+  }
