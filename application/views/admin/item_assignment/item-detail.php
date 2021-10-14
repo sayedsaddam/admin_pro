@@ -145,9 +145,7 @@
 												<option selected disabled value="">Select a Category</option>
 												<?php endif ?>
 												<?php if(!empty($categories)): foreach($categories as $cat): ?>
-												<option value="<?= $cat->id; ?>"
-													<?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->cat_name; ?>
-												</option>
+												<option value="<?= $cat->id; ?>"<?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= trim($cat->cat_name); ?></option>
 												<?php endforeach; endif; ?>
 											</select>
 										</span>
@@ -208,7 +206,7 @@
 								<div class="field">
 									<label class="label is-small">Quantity <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="quantity" value="<?= !empty($edit) ? $edit->quantity : '1' ?>" class="input is-small" type="number" min="1" max="9999" placeholder="1-9,999"
+										<input name="quantity" value="<?= !empty($edit) ? $edit->quantity : '1' ?>" id="item-quantity" class="input is-small" type="number" min="1" max="99" placeholder="1-99"
 											required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-sort-numeric-up"></i>
@@ -235,9 +233,9 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Serial Number</label>
+									<label class="label is-small">Serial Number <span class="has-text-danger" id="serial-required" style="display: none;">*</span></label>
 									<div class="control has-icons-left">
-										<input name="serial_number" value="<?= !empty($edit) ? $edit->serial_number : '' ?>" class="input is-small" type="text" placeholder="e.g X12X34Y5XYXY">
+										<input name="serial_number" value="<?= !empty($edit) ? $edit->serial_number : '' ?>" class="input is-small" id="serial-number" type="text" placeholder="e.g X12X34Y5XYXY">
 										<span class="icon is-small is-left">
 											<i class="fas fa-hashtag"></i>
 										</span>
@@ -464,6 +462,16 @@
 		// City change
 		$('#category').on('change', function () {
 			var category = $(this).val();
+      var category_text = $("#category option:selected").text();;
+      if(category_text == 'Electronics') {
+        $("#item-quantity").attr('disabled',true);
+        $("#serial-number").attr('required',true);
+        $("#serial-required").show();
+      } else {
+        $("#item-quantity").attr('disabled',false);
+        $("#serial-number").attr('required',false);
+        $("#serial-required").hide();
+      }
 			//  alert(category)
 			// AJAX request
 			$.ajax({
@@ -474,7 +482,6 @@
 				},
 				dataType: 'json',
 				success: function (response) {
-					console.log(response);
 					// Remove options 
 					$('#item_name').find('option').not(':first').remove();
 
@@ -503,7 +510,6 @@
 				},
 				dataType: 'json',
 				success: function (response) {
-					console.log(response[0].quantity);
 					// Remove options 
 					$('#item_type').find('option').not(':first').remove();
 					// Add options
