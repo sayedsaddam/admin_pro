@@ -27,7 +27,7 @@ class Purchase extends CI_Controller{
         $this->load->view('admin/commons/template', $data);
     } 
     //Purchase order list 
-    public function purchase_order_list($offset = null){ 
+    public function purchase_order_list($offset = null){  
             $limit = 15;
             if(!empty($offset)){
             $this->uri->segment(3);
@@ -40,7 +40,7 @@ class Purchase extends CI_Controller{
         $data['items'] = $this->purchase_model->purchase_order_list($limit, $offset);
         $data['locations'] = $this->purchase_model->list_locations_suppliers();
         // print_r($data);exit;
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // get_supplier against location 
     public function supplier_against_location($loc_id){
@@ -322,6 +322,42 @@ class Purchase extends CI_Controller{
             redirect($_SERVER['HTTP_REFERER']); 
         }
     }
+    // Search filters - po reports
+    public function po_report($offset = null){ 
+        $limit = 10;
+        if(!empty($offset)){
+            $config['uri_segment'] = 3;
+        }
+        $date_from = $this->input->get('from_date');
+        $date_to = $this->input->get('to_date'); 
+        $this->load->library('pagination');
+        $url = 'admin/purchase_order_list';
+        $rowscount = $this->purchase_model->count_po_date($date_from, $date_to);
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
+
+        $this->pagination->initialize($config);
+        
+        $data['title'] = 'Po Report Results > Report';
+        $data['product_report'] = true;
+        
+        $data['body'] = 'admin/purchase/purchase_order_list';
+        $data['items'] = $this->purchase_model->purchase_order_list($limit, $offset,$date_from, $date_to); 
+        $this->load->view('admin/commons/new_template', $data);
+    } 
+    // reports code end
 // Search purchase order - search order
 public function search_purchase_item(){
     $search = $this->input->get('search');
