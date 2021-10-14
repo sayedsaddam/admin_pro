@@ -53,7 +53,7 @@ class Purchase extends CI_Controller{
     $data['body'] = 'admin/purchase/pos';
     $data['items'] = $this->purchase_model->pos();
     $data['locations'] = $this->purchase_model->list_locations_suppliers(); 
-    $this->load->view('admin/commons/template', $data);
+    $this->load->view('admin/commons/new_template', $data);
 }
     // Add multiple Item into the database
     public function purchas(){   

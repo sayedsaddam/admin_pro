@@ -13,7 +13,7 @@
  					<?php if(!empty($items)): ?>
  					<div class="row">
  						<div class="col-md-6">
- 							<p>Location</p>
+ 							<p>Location</p> 
  						</div>
  						<div class="col-md-6">
  							<p><?=$order[0]->loc_name;?></p>
