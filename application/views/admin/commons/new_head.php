@@ -38,7 +38,6 @@
 		</div>
 	</section>
 	<?php else: ?>
-
 	<body style="background-color:#fbfbfb;">
 		<section class="section" style="height: 100vh;">
 			<section class="hero is-small is-primary is-hidden-print" style="background-color:#fbfbfb;">

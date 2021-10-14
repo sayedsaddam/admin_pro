@@ -1173,20 +1173,21 @@ class Admin_model extends CI_Model{
         return $this->db->get()->row(); 
     } 
     // Item - Add new item
-    public function item_save($data,$model, $quantity = 1){
-        if($quantity > 99) {
-            return false;
-        }
-        for ($i = 0; $i<$quantity; $i++) {
-            $this->db->insert('items', $data);
-            $id = $this->db->insert_id();
-            $item_type = array(
-                'item_type' => $id,
-                'model' => $this->input->post('model')
-            );  
-            $this->db->insert('item_model', $item_type);
-        }
-        
+    public function item_save($data,$model){
+        $this->db->insert('items', $data);
+        $type =  $this->input->post('type_name');
+       // echo $type;exit;
+        $this->db->select('id');
+        $this->db->from('items');
+        $this->db->where('type_name', $type);
+        $this->db->order_by('id', 'DESC'); 
+        $type_id = $this->db->get()->result(); 
+        $res = $type_id[0]->id; 
+        $item_type = array(
+        'item_type' => $res,
+        'model' => $this->input->post('model')
+        );  
+        $this->db->insert('item_model', $item_type);
         if($this->db->affected_rows() > 0){
         return true;
         }else{
