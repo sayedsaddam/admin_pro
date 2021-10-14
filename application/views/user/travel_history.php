@@ -1,14 +1,17 @@
-<div class="jumbotron jumbotron-fluid blue-gradient text-light">
-  <div class="container">
+<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-8 col-md-8">
-        <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
-        <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
+      <div class="col-lg-1 col-md-1">
+        <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid">
+      </div>
+      <div class="col-lg-7 col-md-7">
+        <h2 class="display-4 font-weight-bold mb-0">Admin & Procurement</h2>
+        <h3 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
-        <a href="<?= base_url('users/profile'); ?>" class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></a>
+        <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
         <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
-        <h4 class="font-weight-bold orange-text mt-2">Employee Dashboard <i class="fa fa-chart-bar"></i><span class="font-weight-light">Travel History</span> | <a href="<?=base_url('users');?>" class="text-light">Home</a></h4>
+        <h4 class="font-weight-bold orange-text mt-2">Employee Dashboard <i class="fa fa-chart-bar"></i><span class="font-weight-light"><br>Travel History</span> | <a href="<?=base_url('users');?>" class="text-light">Home</a></h4>
       </div>
     </div>
   </div>
@@ -64,7 +67,7 @@
                     </td>
                     <td><?= date('M d, Y', strtotime($travel->created_at)); ?></td>
                   </tr>
-                <?php endforeach; else: echo "<tr class='table-danger'><td colspan='12' align='center'>No record found.</td></tr>"; endif; ?>
+                <?php endforeach; else: echo "<tr class='table-danger'><td colspan='7' align='center'>No record found.</td></tr>"; endif; ?>
               </tbody>
             </table>
           </div>
@@ -159,7 +162,6 @@
                           <option value="" selected disabled>Select one</option>
                           <option value="hotel">Hotel</option>
                           <option value="guest house">Guest House</option>
-                          <option value="none">None</option>
                         </select>
                       </div>
                       <div class="form-group">
@@ -174,10 +176,9 @@
                         <label for="payment_mode">Payment Mode</label>
                         <select name="payment_mode" class="browser-default custom-select" required>
                           <option value="" selected disabled>Select one</option>
-                          <option value="bill to CTC">Bill to CTC</option>
+                          <option value="bill to AH Group">Bill to AH Group</option>
                           <option value="cash">Cash</option>
                           <option value="credit card">Credit Card</option>
-                          <option value="none">None</option>
                         </select>
                       </div>
                       <div class="form-group">

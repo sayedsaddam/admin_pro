@@ -1,9 +1,12 @@
-<div class="jumbotron jumbotron-fluid blue-gradient text-light">
-  <div class="container">
+<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-8 col-md-8">
-        <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
-        <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
+      <div class="col-lg-1 col-md-1">
+        <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid" width="200">
+      </div>
+      <div class="col-lg-7 col-md-7">
+        <h2 class="display-4 font-weight-bold mb-0">Admin & Procurement</h2>
+        <h3 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
         <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
@@ -42,17 +45,16 @@
           <thead>
             <tr>
                 <th class="font-weight-bold">ID</th>
-                <th class="font-weight-bold">Year</th>
-                <th class="font-weight-bold">Project</th>
-                <th class="font-weight-bold">Item</th>
+                <th class="font-weight-bold">Category</th>
+                <th class="font-weight-bold">Description</th>
+                <th class="font-weight-bold">Quantity</th>
                 <!-- <th class="font-weight-bold">Model</th> -->
-                <th class="font-weight-bold">Asset Code</th>
-                <th class="font-weight-bold">Serial #</th>
-                <th class="font-weight-bold">Custodian</th>
+                <th class="font-weight-bold">Purchase Date</th>
+                <th class="font-weight-bold">Location #</th> 
                 <th class="font-weight-bold">Designation</th>
-                <th class="font-weight-bold">Department</th>
-                <th class="font-weight-bold">Purchase</th>
-                <th class="font-weight-bold">Age</th>
+                <th class="font-weight-bold">User</th>
+                <th class="font-weight-bold">Remarks</th>
+                <th class="font-weight-bold">Give Away</th>
                 <th class="font-weight-bold">Action</th>
             </tr>
           </thead>
@@ -61,22 +63,22 @@
               <?php if(!empty($assets)): foreach($assets as $asset): ?>
                 <tr>
                   <td><?= 'CTC-0'.$asset->id; ?></td>
-                  <td><?= $asset->year; ?></td>
-                  <td><?= ucfirst($asset->project); ?></td>
-                  <td><?= ucfirst($asset->item); ?></td>
-                  <!-- <td><?= ucfirst($asset->model); ?></td> -->
-                  <td><?= ucfirst($asset->asset_code); ?></td>
-                  <td><?= ucfirst($asset->serial_number); ?></td>
-                  <td><?= ucfirst($asset->custodian_location); ?></td>
+                  <td><?= $asset->category; ?></td>
+                  <td><?= ucfirst($asset->description); ?></td>
+                  <td><?= ucfirst($asset->quantity); ?></td>
+                  <td><?= ucfirst($asset->purchase_date); ?></td>
+                  <td><?= ucfirst($asset->location); ?></td>
                   <td><?= ucfirst($asset->designation); ?></td>
-                  <td><?= ucfirst($asset->department); ?></td>
-                  <td><?= date('M d, Y', strtotime($asset->purchase_date)); ?></td>
-                  <td>
+                  <td><?= ucfirst($asset->user); ?></td>
+                  <td><?= ucfirst($asset->remarks); ?></td>
+                  <td><?= ucfirst($asset->giveaway); ?></td> 
+                  <!-- <td><?= date('M d, Y', strtotime($asset->purchase_date)); ?></td> -->
+                  <!-- <td>
                     <?php $recDate = date('Y-m-d', strtotime($asset->purchase_date));
                           $today = date("Y-m-d"); // Today's date
                           $diff = date_diff(date_create($recDate), date_create($today));
                           echo $diff->format('%yyr %mm %dd'); ?> 
-                  </td>
+                  </td> -->
                   <td>
                       <a href="<?= base_url('admin/asset_detail/'.$asset->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                       <a href="<?=base_url('admin/delete_asset/'.$asset->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
@@ -88,23 +90,24 @@
             <tbody>
               <?php if(!empty($results)): foreach($results as $res): ?>
                 <tr>
-                  <td><?= 'CTC-0'.$res->id; ?></td>
-                  <td><?= $res->year; ?></td>
-                  <td><?= ucfirst($res->project); ?></td>
-                  <td><?= ucfirst($res->item); ?></td>
-                  <!-- <td><?= ucfirst($res->model); ?></td> -->
-                  <td><?= ucfirst($res->asset_code); ?></td>
-                  <td><?= ucfirst($res->serial_number); ?></td>
-                  <td><?= ucfirst($res->custodian_location); ?></td>
+                 
+                <td><?= 'CTC-0'.$res->id; ?></td>
+                  <td><?= $res->category; ?></td>
+                  <td><?= ucfirst($res->description); ?></td>
+                  <td><?= ucfirst($res->quantity); ?></td>
+                   <td><?= ucfirst($res->purchase_date); ?></td>
+                  <td><?= ucfirst($res->location); ?></td>
                   <td><?= ucfirst($res->designation); ?></td>
-                  <td><?= ucfirst($res->department); ?></td>
-                  <td><?= date('M d, Y', strtotime($res->purchase_date)); ?></td>
-                  <td>
+                  <td><?= ucfirst($res->user); ?></td>
+                  <td><?= ucfirst($res->remarks); ?></td>
+                  <td><?= ucfirst($res->giveaway); ?></td> 
+                  <!-- <td><?= date('M d, Y', strtotime($res->purchase_date)); ?></td> -->
+                  <!-- <td>
                     <?php $recDate = date('Y-m-d', strtotime($res->purchase_date));
                           $today = date("Y-m-d"); // Today's date
                           $diff = date_diff(date_create($recDate), date_create($today));
                           echo $diff->format('%yyr %mm %dd'); ?> 
-                  </td>
+                  </td> -->
                   <td>
                       <a href="<?= base_url('admin/asset_detail/'.$res->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                       <a href="<?=base_url('admin/delete_asset/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
