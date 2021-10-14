@@ -3,105 +3,322 @@
 * Filename: add_items.php
 * Author: Saddam
 */
-?>
-<style>
-	#demo {
-		height: 50px;
-	}
-
-</style>
-<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light" style="">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-1 col-md-1">
-				<img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid">
-			</div>
-			<div class="col-lg-7 col-md-7">
-				<h2 class="display-4 font-weight-bold mb-0">Admin & Procurement</h2>
-				<h3 class="font-weight-bold text-dark">AH Group of Companies (Pvt.) Ltd.</h3>
-			</div>
-			<div class="col-lg-4 col-md-4 text-right">
-				<button class="btn btn-outline-light font-weight-bold" title="Currently logged in...">
-					<?php echo $this->session->userdata('fullname'); ?></button>
-				<a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold"
-					title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
-				<h4 class="font-weight-bold orange-text mt-2">Admin Dashboard <i class="fa fa-chart-bar"></i><br><span
-						class="font-weight-light orange-text">Asset Detail | <a href="<?=base_url('admin');?>"
-							class="text-light font-weight-bold">Home</a></span></h4>
+?> 
+<section class="columns is-gapless mb-0 pb-0">
+	<div class="column is-narrow is-fullheight" style="background-color:#fafafa;">
+		<?php $this->view('admin/commons/sidebar'); ?>
+	</div>
+	<div class="column">
+		<div class="columns">
+			<div class="column section">
+				 
+				<div class="columns">
+					<div class="column">
+						<h1 class="subtitle is-5"><?= (!isset($edit_item)) ? 'Add Item' : 'Editing Item' ?>
+							<?= (isset($edit->id)) ? '<span class="has-text-grey-light">(ID: ' . $edit->id . ')</span>' : '' ?></h1>
+					</div>
+				</div> s
+				<form
+					action="<?php if(empty($edit)){ echo base_url('admin/item_save'); }else{ echo base_url('admin/modify_item'); } ?>"
+					method="POST">
+					<div class="columns">
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Location <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<span class="select is-small is-fullwidth">
+											<select name="location" id="location" required>
+												<?php if(!isset($edit_item)): ?>
+												<option selected disabled value="">Select a City</option>
+												<?php endif ?>
+												<?php if(!empty($locations)): foreach($locations as $loc): ?>
+												<option value="<?= $loc->id; ?>"
+													<?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>><?= $loc->name; ?>
+												</option>
+												<?php endforeach; endif; ?>
+											</select>
+										</span>
+										<span class="icon is-small is-left">
+											<i class="fas fa-globe"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Supplier <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<span class="select is-small is-fullwidth">
+											<select name="supplier" class="supplier" required>
+												<?php if(!isset($edit_item)): ?>
+												<option selected disabled value="">Select a Supplier</option>
+												<?php endif ?>
+												<?php if(!empty($supplier)): foreach($supplier as $sup): ?>
+												<option value="<?= $sup->name; ?>"
+													<?= !empty($edit) && $edit->id == $sup->id ? 'selected' : '' ?>><?= $sup->name; ?>
+												</option>
+												<?php endforeach; endif; ?>
+											</select>
+										</span>
+										<span class="icon is-small is-left">
+											<i class="fas fa-user"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					<div class="columns">
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Category <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<span class="select is-small is-fullwidth">
+											<select name="category" id="category" required>
+												<?php if(!isset($edit_item)): ?>
+												<option selected disabled value="">Select a Category</option>
+												<?php endif ?>
+												<?php if(!empty($categories)): foreach($categories as $cat): ?>
+												<option value="<?= $cat->id; ?>"
+													<?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->cat_name; ?>
+												</option>
+												<?php endforeach; endif; ?>
+											</select>
+										</span>
+										<span class="icon is-small is-left">
+											<i class="fas fa-tags"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Item Name <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<span class="select is-small is-fullwidth">
+											<select name="sub_category" id="item_name" required>
+												<?php if(!isset($edit_item)): ?>
+												<option selected disabled value="">Select an Item</option>
+												<?php endif ?>
+												<?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
+												<option value="<?= $cat->id; ?>"
+													<?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->name; ?>
+												</option>
+												<?php endforeach; endif; ?>
+											</select>
+										</span>
+										<span class="icon is-small is-left">
+											<i class="fas fa-luggage-cart"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					<div class="columns">
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Item Type</label>
+									<div class="control has-icons-left">
+										<span class="select is-small is-fullwidth">
+											<select name="item_type" id="item_type">
+												<?php if(!isset($edit_item)): ?>
+												<option selected disabled value="">Select a Type</option>
+												<?php endif ?>
+											</select>
+										</span>
+										<span class="icon is-small is-left">
+											<i class="fas fa-quote-left"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Quantity <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<input name="quantity" value="<?= !empty($edit) ? $edit->quantity : '1' ?>" class="input is-small" type="number" min="1" max="9999" placeholder="1-9,999"
+											required>
+										<span class="icon is-small is-left">
+											<i class="fas fa-sort-numeric-up"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					<div class="columns">
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Model <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<input name="model" value="<?= !empty($edit) ? $edit->model : '1' ?>" class="input is-small" type="text" placeholder="e.g 110 4G" required>
+										<span class="icon is-small is-left">
+											<i class="fas fa-bookmark"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Serial Number</label>
+									<div class="control has-icons-left">
+										<input name="serial_number" value="<?= !empty($edit) ? $edit->serial_number : '' ?>" class="input is-small" type="text" placeholder="e.g X12X34Y5XYXY">
+										<span class="icon is-small is-left">
+											<i class="fas fa-hashtag"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					<div class="columns">
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Price <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<input name="price" value="<?= !empty($edit) ? $edit->price : '' ?>" class="input is-small" type="number" min="1" max="9999999"
+											placeholder="1-9,999,999" required>
+										<span class="icon is-small is-left">
+											<i class="fas fa-dollar-sign"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Depreciation (%) <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<span class="select is-small is-fullwidth">
+											<select name="depreciation" id="depreciation" required>
+												<?php if(!isset($edit_item)): ?>
+												<option selected disabled value="">Select a Value</option>
+												<?php endif ?>
+												<option value="5">5%</option>
+												<option value="10">10%</option>
+												<option value="15">15%</option>
+												<option value="20">20%</option>
+												<option value="30">30%</option>
+											</select>
+										</span>
+										<span class="icon is-small is-left">
+											<i class="fas fa-percentage"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					<div class="columns">
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Status <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<span class="select is-small is-fullwidth">
+											<select name="status" id="status" required>
+												<?php if(!isset($edit_item)): ?>
+												<option selected disabled value="">Select Status</option>
+												<?php endif ?>
+												<?php if(!empty($status)): foreach($status as $stat): ?>
+												<option value="<?= $stat->id; ?>"
+													<?php if(!empty($edit) && $edit->id == $stat->id){ echo 'selected'; } ?>><?= $stat->status; ?>
+												</option>
+												<?php endforeach; endif; ?>
+												<option value="new">New</option>
+												<option value="used">Used</option>
+												<option value="refurbished">Refurbished</option>
+											</select>
+										</span>
+										<span class="icon is-small is-left">
+											<i class="far fa-check-circle"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Purchase Date <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<input name="purchasedate" class="input is-small" type="date" required>
+										<span class="icon is-small is-left">
+											<i class="far fa-calendar-alt"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					<div class="columns">
+						<div class="column has-text-right">
+							<div class="buttons is-pulled-right">
+                <?php if(!isset($edit_item)): ?>
+								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
+                <?php endif ?>
+                <p class="control">
+								<button class="button is-small is-success"  type="submit">
+									<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
+									<span class="icon is-small">
+										<i class="fas fa-arrow-right"></i>
+									</span>
+								</button>
+							</p>
+							</div>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
-	</div>
-</div>
 
-<div class="col-lg-12 col-md-12 text-right">
-	<a href="<?= base_url('admin/suppliers'); ?>" data-target="#add_supplier" class="btn btn-outline-info"><i
-			class="fa fa-plus"></i> Add Supplier </a>
-	<a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
-</div>
-
-<section class="secMainWidth container mt-4 mb-4">
-	<section class="secFormLayout">
-		<div class="mainInputBg">
-			<div class="row">
-				<div class="col-lg-12">
-					<h3><?php if(empty($edit)){ echo "Purchase Product"; }else{ echo "Update purchase"; } ?></h3>
-					<hr>
-					<?php if($success = $this->session->flashdata('success')): ?>
-					<div class="alert alert-success text-center">
-						<?php echo $success; ?>
-					</div>
-					<?php endif; ?>
-					<form action="<?php if(empty($edit)){ echo base_url('Purchase/purchase_order_save'); }else{ echo base_url('admin/modify_purchase_order'); } ?>"
-						method="post">
-						<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
-						<div class="row">
-							<div class="col-lg-6">
-								<label>Location</label>
-								<select name="location" id="location" class="browser-default custom-select" required>
-									<option value="" disabled selected>--select Location--</option>
-									<?php if(!empty($locations)): foreach($locations as $loc): ?>
-									<option value="<?= $loc->id; ?>"
-										<?php if(!empty($edit) && $edit->location_id == $loc->id){ echo 'selected'; } ?>>
-										<?= $loc->name; ?></option>
-									<?php endforeach; endif; ?>
-								</select>
-
-								<label>Quantity</label>
-								<input type="number" name="quantity[]" class="form-control" placeholder="quantity ..."
-									value="">
+		<div class="modal" id="modal-ter">
+			<div class="modal-background"></div>
+			<form action="<?= base_url('admin/product_report'); ?>" method="POST">
+				<div class="modal-card">
+					<header class="modal-card-head">
+						<p class="modal-card-title">Filter Report</p>
+						<button class="delete" aria-label="close" id="exit-report-modal" type="button"></button>
+					</header>
+					<section class="modal-card-body">
+						<div class="columns">
+							<div class="column">
+								<p class="control">
+									From:
+									<input class="input" type="date" placeholder="From" name="from_date">
+								</p>
 							</div>
-							<div class="col-lg-5">
-								<label>Product</label>
-						<input type="text" name="product_name[]" class="form-control" placeholder="product ..." value="">
-						<label>Remarks</label> 
-						<textarea name="description" id="description" cols="20" rows="1" class="form-control">description ...</textarea>
+							<div class="column">
+								<p class="control">
+									To:
+									<input class="input" type="date" placeholder="From" name="to_date">
+								</p>
 							</div>
-						<div class="col-sm-1"> 
-							<br>
-							<label class="btn btn-primary btn-sm add_field_button">+</label>
 						</div>
-						</div>
-
-
-						<div class="row input_fields_wrap">
-							<div class="col-sm-5">
-								
-							</div>
-						
-						</div>
-				</div><br>
-				<div class="row">
-					<div class="col-sm-12">
-						<button type="submit" class="btn btn-default" id="submit-data"
-							data-loading-text="Creating...">Generate Order</button>
-					</div>
+					</section>
+					<footer class="modal-card-foot">
+						<button class="button is-success" type="submit">Apply</button>
+						<button class="button" aria-label="close" id="close-report-modal" type="button">Cancel</button>
+					</footer>
 				</div>
-			</div>
 			</form>
 		</div>
-		</div>
-		</div>
-	</section>
+	</div>
 </section>
 <script>
 	// item type auto load against item
