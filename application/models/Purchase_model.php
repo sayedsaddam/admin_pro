@@ -12,7 +12,7 @@ class Purchase_model extends CI_Model{
     }
     // ---------------------------------- purchase code below -----------------------------------
    // purchase order list
- public function purchase_order_list($limit, $offset){
+ public function purchase_order_list($limit, $offset, $date_from = null, $date_to = null){
     $this->db->select('purchase_orders.id as purchase_id, 
                        purchase_orders.location_id, 
                        purchase_orders.quantity, 
@@ -33,6 +33,9 @@ class Purchase_model extends CI_Model{
     $this->db->join('sub_categories', 'purchase_orders.sub_category_id = sub_categories.id', 'left');  
     $this->db->join('locations', 'purchase_orders.location_id = locations.id', 'left');  
     $this->db->join('suppliers', 'purchase_orders.supplier_id = suppliers.id', 'left');  
+    if (!empty($date_from) && !empty($date_to)) {  
+        $this->db->where('purchase_orders.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
+    }
     $this->db->order_by('purchase_orders.id', 'ASC');
     $this->db->limit($limit, $offset);
     return $this->db->get()->result(); 
@@ -301,6 +304,16 @@ public function order_detail($id){
         $this->db->order_by('qutations.id', 'ASC'); 
         return $this->db->get()->result();  
 }
+
+    // Count all po by date
+    public function count_po_date($date_from, $date_to) {
+        $this->db->select('id');
+        $this->db->from('purchase_orders');
+        $this->db->where('purchase_orders.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
+        $this->db->where('purchase_orders.location_id', $this->session->userdata('location'));
+        $num_results = $this->db->count_all_results();
+        return $num_results;
+    }
     //  Count qutation where status = 1
     public function count_result($id){ 
         return $this->db->from('qutations')->where(array('po_id' => $id,'status' => 1))->count_all_results();
