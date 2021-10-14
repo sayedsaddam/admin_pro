@@ -1365,11 +1365,12 @@ class Admin_model extends CI_Model{
     }
     // Get item type based on item
     public function get_item_type($item_id){
-              $this->db->select('items.id,items.quantity, items.sub_category,items.type_name,items.model,sub_categories.id as sub_id,sub_categories.name');
+              $this->db->select('items.id, items.sub_category, items.type_name, sub_categories.id');
+              $this->db->distinct('items.type_name');
               $this->db->from('items');  
               $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
               $this->db->where('sub_category', $item_id);
-              $this->db->group_by('items.id'); 
+              $this->db->group_by('items.type_name'); 
               return $this->db->get()->result();
     }
     // Get item model based on item type

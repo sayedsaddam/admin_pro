@@ -514,8 +514,7 @@
 					$('#item_type').find('option').not(':first').remove();
 					// Add options
 					$.each(response, function (index, data) {
-						$('#item_type').append('<option value="' + data['id'] + '">' + data['type_name'] + ' (' +
-							data['quantity'] + ')' + '</option>');
+						$('#item_type').append('<option value="' + data['id'] + '">' + data['type_name'] + '</option>');
 					});
 				}
 			});
