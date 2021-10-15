@@ -27,7 +27,7 @@
 					<div class="column is-hidden-touch">
 						<div class="field has-addons">
 							<p class="control">
-								<button class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>"
+								<button class="button is-small <?= isset($product_report) ? 'has-background-primary-light' : '' ?>"
 									id="report-btn">
 									<span class="icon is-small">
 										<i class="fas fa-paperclip"></i>
@@ -37,7 +37,7 @@
 							</p>
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/item_register'); ?>'"
-									class="button is-small <?= (isset($item_register)) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($item_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -46,7 +46,7 @@
 							</p>
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/available_item_list'); ?>'"
-									class="button is-small <?= (isset($available_page)) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($available_page) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="far fa-list-alt"></i>
 									</span>
@@ -55,7 +55,7 @@
 							</p>
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/get_assign_item'); ?>'"
-									class="button is-small <?= (isset($assign_page)) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($assign_page) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-bars"></i>
 									</span>
@@ -64,7 +64,7 @@
 							</p>
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/add_item'); ?>'"
-									class="button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-plus"></i>
 									</span>
@@ -97,7 +97,7 @@
 												<?php endif ?>
 												<?php if(!empty($locations)): foreach($locations as $loc): ?>
 												<option value="<?= $loc->id; ?>"
-													<?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>><?= $loc->name; ?>
+													<?php !empty($edit) && $edit->id == $loc->id ? 'selected' : '' ?>><?= $loc->name; ?>
 												</option>
 												<?php endforeach; endif; ?>
 											</select>
@@ -147,7 +147,7 @@
 												<?php endif ?>
 												<?php if(!empty($categories)): foreach($categories as $cat): ?>
 												<option value="<?= $cat->id; ?>"
-													<?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->cat_name; ?></option>
+													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= $cat->cat_name; ?></option>
 												<?php endforeach; endif; ?>
 											</select>
 										</span>
@@ -170,7 +170,7 @@
 												<?php endif ?>
 												<?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
 												<option value="<?= $cat->id; ?>"
-													<?php if(!empty($edit) && $edit->id == $cat->id){ echo 'selected'; } ?>><?= $cat->name; ?>
+													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= $cat->name; ?>
 												</option>
 												<?php endforeach; endif; ?>
 											</select>
@@ -301,7 +301,7 @@
 												<?php endif ?>
 												<?php if(!empty($status)): foreach($status as $stat): ?>
 												<option value="<?= $stat->id; ?>"
-													<?php if(!empty($edit) && $edit->id == $stat->id){ echo 'selected'; } ?>><?= $stat->status; ?>
+													<?= !empty($edit) && $edit->id == $stat->id ? 'selected' : '' ?>><?= $stat->status; ?>
 												</option>
 												<?php endforeach; endif; ?>
 												<option value="new">New</option>
@@ -321,7 +321,7 @@
 								<div class="field">
 									<label class="label is-small">Purchase Date <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="purchasedate" class="input is-small" type="date" required value="<?php if(!empty($edit)){ echo $edit->purchasedate; } ?>">
+										<input name="purchasedate" class="input is-small" type="date" required value="<?= !empty($edit) ? $edit->purchasedate : '' ?>">
 										<span class="icon is-small is-left">
 											<i class="far fa-calendar-alt"></i>
 										</span>
