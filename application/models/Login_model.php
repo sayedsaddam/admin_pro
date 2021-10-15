@@ -28,10 +28,23 @@ class Login_model extends CI_Model{
         }
     }
     // Signin - Check for user credentials and login to the system. > This table will no hold all employees data.
-    public function signin($username, $password){
-        $this->db->select('id, fullname, username, department, password, location, user_role');
+    public function signin($email, $password){
+        $this->db->select('id, fullname, username, email, department, password, location, user_role');
         $this->db->from('users');
-        $this->db->where(array('username' => $username, 'password' => $password));
+        $this->db->where(array('email' => $email, 'password' => $password));
+        return $this->db->get()->row();
+    }
+    // generate otp and verify login
+    public function verify_credentials($email, $data){
+        $this->db->where('email', $email);
+        $this->db->update('users', $data);
+        return true;
+    }
+    // verify otp and continue to login
+    public function verify_and_login($otp){
+        $this->db->select('id, fullname, username, email, department, password, location, user_role');
+        $this->db->from('users');
+        $this->db->where(array('otp' => $otp));
         return $this->db->get()->row();
     }
 }

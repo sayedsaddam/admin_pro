@@ -3,13 +3,18 @@
 		<div class="columns is-centered">
 
 			<div class="column is-half">
-
+				<?php if($failed = $this->session->flashdata('not_found')): ?>
+					<div class="notification is-danger">
+						<button class="delete"></button>
+						<?= $failed; ?>
+					</div>
+				<?php endif; ?>
 				<form id="login-form" class="box" action="<?= base_url('login/authenticate'); ?>" method="post">
 
 					<div class="field">
-						<label class="label">Username</label>
+						<label class="label">Email</label>
 						<div class="control">
-							<input class="input is-medium" id="user-name" name="username" type="username"
+							<input class="input is-medium" id="user-name" name="email" type="email"
 								placeholder="e.g. abc@example.com">
 						</div>
 					</div>
@@ -83,5 +88,4 @@
 
 		$("#user-password").val(sha1Hash);
 	});
-
 </script>
