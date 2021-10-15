@@ -99,14 +99,14 @@
     <span class="icon is-small has-text-danger"><i class="fa fa-times"></i></span></a>
     <?php } elseif($quotations <= 2 && $review == 1) {?>
         <a data-id="<?= $item->purchase_id.'/'.$item->loc_id; ?>" class="suppliers button is-small"> 
-        <span class="icon is-small has-text-info"> <i class="fas fa-forward"></i></span>  </a>
+        <span class="icon is-small has-text-primary"> <i class="fas fa-forward"></i></span>  </a>
     <?php } else { ?>
         <a data-id="<?= $item->purchase_id; ?>" class="suppliers disabled button is-small">
         <span class="icon is-small has-text-danger"> <i class="fas fa-closed-captioning"></i></span> 
     <?php } ?>
 
                   <a href="<?= base_url('Purchase/order_detail/'.$item->purchase_id); ?>" class="button is-small">
-                  <span class="icon is-small has-text-info"> <i class="fas fa-eye"></i></span></a>
+                  <span class="icon is-small has-text-primary"> <i class="fas fa-eye"></i></span></a>
                   <td> 
                   </td>
                 </tr>
