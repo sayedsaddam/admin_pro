@@ -1173,9 +1173,11 @@ class Admin_model extends CI_Model{
         return $this->db->get()->row(); 
     } 
     // Item - Add new item
-    public function item_save($data, $model, $quantity = 1){
+    public function item_save($data, $model, $quantity){
         if($quantity > 99) {
             return false;
+        } elseif ($quantity == null) {
+            $quantity = 1;
         }
         for ($i = 0; $i<$quantity; $i++) {
             $this->db->insert('items', $data);
