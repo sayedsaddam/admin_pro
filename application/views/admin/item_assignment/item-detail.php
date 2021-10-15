@@ -83,7 +83,7 @@
 				<form
 					action="<?php if(empty($edit)){ echo base_url('admin/item_save'); }else{ echo base_url('admin/modify_item'); } ?>"
 					method="POST">
-          <input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
+					<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">
 						<div class="column">
 							<fieldset>
@@ -147,7 +147,8 @@
 												<?php endif ?>
 												<?php if(!empty($categories)): foreach($categories as $cat): ?>
 												<option value="<?= $cat->id; ?>"
-													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= $cat->cat_name; ?></option>
+													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= $cat->cat_name; ?>
+												</option>
 												<?php endforeach; endif; ?>
 											</select>
 										</span>
@@ -189,7 +190,8 @@
 								<div class="field">
 									<label class="label is-small">Item Name</label>
 									<div class="control has-icons-left">
-										<input name="item_name" value="<?= !empty($edit) ? $edit->type_name : '' ?>" class="input is-small" type="text" placeholder="e.g iPhone 13" required>
+										<input name="item_name" value="<?= !empty($edit) ? $edit->type_name : '' ?>" class="input is-small"
+											type="text" placeholder="e.g iPhone 13" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-quote-left"></i>
 										</span>
@@ -202,8 +204,8 @@
 								<div class="field">
 									<label class="label is-small">Quantity <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="quantity" id="item-quantity" value="<?= !empty($edit) ? $edit->quantity : '1' ?>" class="input is-small" type="number" min="1" max="9999" placeholder="1-9,999"
-											required>
+										<input name="quantity" id="item-quantity" value="<?= !empty($edit) ? $edit->quantity : '1' ?>"
+											class="input is-small" type="number" min="1" max="9999" placeholder="1-9,999" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-sort-numeric-up"></i>
 										</span>
@@ -218,7 +220,8 @@
 								<div class="field">
 									<label class="label is-small">Model <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="model" value="<?= !empty($edit) ? $edit->model : '1' ?>" class="input is-small" type="text" placeholder="e.g 110 4G" required>
+										<input name="model" value="<?= !empty($edit) ? $edit->model : '1' ?>" class="input is-small"
+											type="text" placeholder="e.g 110 4G" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-bookmark"></i>
 										</span>
@@ -229,9 +232,11 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Serial Number <span class="has-text-danger" id="serial-required" style="display:none;">*</span></label>
+									<label class="label is-small">Serial Number <span class="has-text-danger" id="serial-required"
+											style="display:none;">*</span></label>
 									<div class="control has-icons-left">
-										<input name="serial_number" value="<?= !empty($edit) ? $edit->serial_number : '' ?>" class="input is-small" id="serial-number" type="text" placeholder="e.g X12X34Y5XYXY">
+										<input name="serial_number" value="<?= !empty($edit) ? $edit->serial_number : '' ?>"
+											class="input is-small" id="serial-number" type="text" placeholder="e.g X12X34Y5XYXY">
 										<span class="icon is-small is-left">
 											<i class="fas fa-hashtag"></i>
 										</span>
@@ -246,8 +251,8 @@
 								<div class="field">
 									<label class="label is-small">Price <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="price" value="<?= !empty($edit) ? $edit->price : '' ?>" class="input is-small" type="number" min="1" max="9999999"
-											placeholder="1-9,999,999" required>
+										<input name="price" value="<?= !empty($edit) ? $edit->price : '' ?>" class="input is-small"
+											type="number" min="1" max="9999999" placeholder="1-9,999,999" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-dollar-sign"></i>
 										</span>
@@ -262,22 +267,33 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="depreciation" id="depreciation" required>
-                      <?php if(empty($depreciation)): ?>
-                        <option disabled value="" selected>Select a Value</option>
+												<?php if(empty($depreciation)): ?>
+												<option disabled value="" selected>Select a Value</option>
 												<option value="5">5%</option>
 												<option value="10">10%</option>
 												<option value="15">15%</option>
 												<option value="20">20%</option>
 												<option value="30">30%</option>
-											<?php else: foreach($depreciation as $dep): ?>
-                        <?php $option_flag = false ?>
-												<option disabled value="" <?php if(!isset($edit_item)){ echo 'selected'; } ?>>Select a Value</option>
-												<option value="5" <?php if(!empty($edit) && $dep->depreciation == 5 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>5%</option>
-												<option value="10" <?php if(!empty($edit) && $dep->depreciation == 10  && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>10%</option>
-												<option value="15" <?php if(!empty($edit) && $dep->depreciation == 15 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>15%</option>
-												<option value="20" <?php if(!empty($edit) && $dep->depreciation == 20 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>20%</option>
-												<option value="30" <?php if(!empty($edit) && $dep->depreciation == 30 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>30%</option>
-											<?php endforeach; endif; ?>
+												<?php else: foreach($depreciation as $dep): ?>
+												<?php $option_flag = false ?>
+												<option disabled value="" <?php if(!isset($edit_item)){ echo 'selected'; } ?>>Select a Value
+												</option>
+												<option value="5"
+													<?php if(!empty($edit) && $dep->depreciation == 5 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>
+													5%</option>
+												<option value="10"
+													<?php if(!empty($edit) && $dep->depreciation == 10  && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>
+													10%</option>
+												<option value="15"
+													<?php if(!empty($edit) && $dep->depreciation == 15 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>
+													15%</option>
+												<option value="20"
+													<?php if(!empty($edit) && $dep->depreciation == 20 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>
+													20%</option>
+												<option value="30"
+													<?php if(!empty($edit) && $dep->depreciation == 30 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>
+													30%</option>
+												<?php endforeach; endif; ?>
 											</select>
 										</span>
 										<span class="icon is-small is-left">
@@ -321,7 +337,8 @@
 								<div class="field">
 									<label class="label is-small">Purchase Date <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="purchasedate" class="input is-small" type="date" required value="<?= !empty($edit) ? $edit->purchasedate : '' ?>">
+										<input name="purchasedate" class="input is-small" type="date" required
+											value="<?= !empty($edit) ? $edit->purchasedate : '' ?>">
 										<span class="icon is-small is-left">
 											<i class="far fa-calendar-alt"></i>
 										</span>
@@ -333,17 +350,17 @@
 					<div class="columns">
 						<div class="column has-text-right">
 							<div class="buttons is-pulled-right">
-                <?php if(!isset($edit_item)): ?>
+								<?php if(!isset($edit_item)): ?>
 								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
-                <?php endif ?>
-                <p class="control">
-								<button class="button is-small is-success"  type="submit">
-									<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
-									<span class="icon is-small">
-										<i class="fas fa-arrow-right"></i>
-									</span>
-								</button>
-							</p>
+								<?php endif ?>
+								<p class="control">
+									<button class="button is-small is-success" type="submit">
+										<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
+										<span class="icon is-small">
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button>
+								</p>
 							</div>
 						</div>
 					</div>
@@ -466,17 +483,17 @@
 		// City change
 		$('#category').on('change', function () {
 			var category = $(this).val();
-      var category_text = $("#category option:selected").text();;
-      if(category_text == 'Electronics') {
-        $("#item-quantity").val(1);
-        $("#item-quantity").attr('disabled',true);
-        $("#serial-number").attr('required',true);
-        $("#serial-required").show();
-      } else {
-        $("#item-quantity").attr('disabled',false);
-        $("#serial-number").attr('required',false);
-        $("#serial-required").hide();
-      }
+			var category_text = $("#category option:selected").text();;
+			if (category_text == 'Electronics') {
+				$("#item-quantity").val(1);
+				$("#item-quantity").attr('disabled', true);
+				$("#serial-number").attr('required', true);
+				$("#serial-required").show();
+			} else {
+				$("#item-quantity").attr('disabled', false);
+				$("#serial-number").attr('required', false);
+				$("#serial-required").hide();
+			}
 			//  alert(category)
 			// AJAX request
 			$.ajax({
@@ -519,7 +536,8 @@
 					$('#item_type').find('option').not(':first').remove();
 					// Add options
 					$.each(response, function (index, data) {
-						$('#item_type').append('<option value="' + data['id'] + '">' + data['type_name'] + '</option>');
+						$('#item_type').append('<option value="' + data['id'] + '">' + data['type_name'] +
+							'</option>');
 					});
 				}
 			});
