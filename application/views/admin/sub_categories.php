@@ -105,7 +105,7 @@
   <div class="column is-hidden-print">
 						<nav class="pagination is-small" role="navigation" aria-label="pagination"
 							style="justify-content: center;">
-							<?php if(!empty($sub_categories) AND empty($results)){ echo $this->pagination->create_links(); } ?>
+							<!-- <?php if(!empty($sub_categories) AND empty($results)){ echo $this->pagination->create_links(); } ?> -->
 						</nav>
 					</div>
 </div>
