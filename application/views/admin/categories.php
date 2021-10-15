@@ -169,31 +169,6 @@ n <section class="columns is-gapless mb-0 pb-0">
 
 <!-- Script for showing up the modal -->
 <script>
-	// add category modal
-	class BulmaModal {
-		constructor(selector) {
-			this.elem = document.querySelector(selector)
-		}
-		show() {
-			this.elem.classList.toggle('is-active')
-			this.on_show()
-		}
-		close() {
-			this.elem.classList.toggle('is-active')
-			this.on_close()
-		}
-		on_show() {
-			var event = new Event('modal:show')
-			this.elem.dispatchEvent(event);
-		}
-		on_close() {
-			var event = new Event('modal:close')
-			this.elem.dispatchEvent(event);
-		}
-		addEventListener(event, callback) {
-			this.elem.addEventListener(event, callback)
-		}
-	}
 	var qut1 = $("#exit-qut-modal")
 	var qut2 = $("#close-qut-modal")
 	var qutmdl = new BulmaModal("#modal-qutation")
