@@ -35,4 +35,4 @@ confg.php
 /tests/tests/
 /tests/results/
 application/config/config.*
-application\config\*
+application\config\config.php
