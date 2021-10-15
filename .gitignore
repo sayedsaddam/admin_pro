@@ -34,6 +34,4 @@ confg.php
 *.sublime-project
 /tests/tests/
 /tests/results/
-application/config/config.php
-application/config/config.php
-application/config/config.php
+application/config/config.*
