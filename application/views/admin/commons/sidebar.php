@@ -18,7 +18,12 @@
 		<li><a href="">Employees</a></li>
 	</ul>
 	<ul class="menu-list">
-		<li><a href="<?= base_url('admin/categories') ?>">Categories</a></li>
+		<li><a class="<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' ? 'style="background-color:#ebfffc;"' : '' ?>>Item Categories</a>
+			<ul class="sub-categories" style="display: none;">
+				<li><a href="<?= base_url('admin/categories'); ?>">Categories List</a></li>
+			</ul>
+		</li>
 	</ul>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/travels_info') ?>">Travels Info</a></li> -->
@@ -45,9 +50,9 @@
 		<li><a href="">Projects</a></li>
 	</ul>
 	<ul class="menu-list">
-		<li><button class="button is-primary has-text-weight-bold is-inverted" id="nav-category"
-				style="background-color:#ebfffc;">Item Register</button>
-			<ul id="sub-categories" style="display: none;">
+		<li><a class="<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' ? 'style="background-color:#ebfffc;"' : '' ?>>Item Register</a>
+			<ul class="sub-categories" style="display: none;">
 				<li><a href="<?= base_url('admin/item_register'); ?>">Items List</a></li>
 				<li><a href="<?= base_url('admin/available_item_list'); ?>">Available List</a></li>
 				<li><a href="<?= base_url('admin/get_assign_item'); ?>">Assigned List</a></li>
