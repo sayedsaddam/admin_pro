@@ -28,7 +28,9 @@
 					<div class="column is-hidden-print">
 						<div class="field has-addons">
 							<p class="control">
-								<button class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>" id="report-btn">
+								<button
+									class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>"
+									id="report-btn">
 									<span class="icon is-small">
 										<i class="fas fa-paperclip"></i>
 									</span>
@@ -113,7 +115,7 @@
 							</tfoot>
 							<tbody>
 								<?php if(!empty($items)): foreach($items as $item): ?>
-									<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?><?= isset($item->employ_id) ? '/' . $item->employ_id : '' ?>';"
+								<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?><?= isset($item->employ_id) ? '/' . $item->employ_id : '' ?>';"
 									style="cursor: pointer;">
 									<td><span><?= 'CTC-'.$item->id; ?></a></td>
 									<td><?= $item->name; ?></td>
@@ -155,7 +157,7 @@
 												</a>
 											</p>
 											<?php else: ?>
-												<p class="control return-btn">
+											<p class="control return-btn">
 												<button type="button" data-id="<?= $item->item_ids.'/'.$item->id; ?>"
 													class="button is-small has-text-danger return-btn">
 													<span class="icon is-small">
@@ -292,11 +294,12 @@
 	</div>
 </section>
 <style>
-@media print {
-	.is-hidden-print {
-		display: none;
+	@media print {
+		.is-hidden-print {
+			display: none;
+		}
 	}
-}
+
 </style>
 <script>
 	$(document).ready(function () {
