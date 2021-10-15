@@ -235,7 +235,7 @@
 											<div class="control">
 												<label data-error="wrong" data-success="right"
 													for="orangeForm-name">price</label>
-												<input name="price" class="input is-small" type="text"
+												<input name="price" class="input is-small" type="number"
 													placeholder="price ..." required="">
 											</div>
 										</div>
@@ -246,7 +246,7 @@
 										<div class="field">
 											<div class="control">
 												<textarea class="textarea is-small" name="description" id="description"
-													placeholder="Small textarea"></textarea>
+													placeholder="some text"></textarea>
 											</div>
 										</div>
 									</div>

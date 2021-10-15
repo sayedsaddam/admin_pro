@@ -1,4 +1,4 @@
-n <section class="columns is-gapless mb-0 pb-0">
+ <section class="columns is-gapless mb-0 pb-0">
 	<div class="column is-narrow is-fullheight is-hidden-print" style="background-color:#fafafa;">
 		<?php $this->view('admin/commons/sidebar'); ?>
 	</div>
@@ -165,32 +165,17 @@ n <section class="columns is-gapless mb-0 pb-0">
 			</footer>
 		</div>
 	</form>
-</div>
-
+</div> 
 <!-- Script for showing up the modal -->
-<script>
-	var qut1 = $("#exit-qut-modal")
-	var qut2 = $("#close-qut-modal")
+<script> 
 	var cat1 = $("#exit-cat-modal")
-	var cat2 = $("#close-cat-modal")
-    
+	var cat2 = $("#close-cat-modal") 
 	var catmdl = new BulmaModal("#add_inventory")
-	
-	qut1.click(function (ev) {
-		qutmdl.close();
-		ev.stopPropagation();
-	});
-
-	qut2.click(function (ev) {
-		qutmdl.close();
-		ev.stopPropagation();
-	});
 
 	cat1.click(function (ev) {
 		catmdl.close();
 		ev.stopPropagation();
-	});
-	
+	});	
 	cat2.click(function (ev) {
 		catmdl.close();
 		ev.stopPropagation();

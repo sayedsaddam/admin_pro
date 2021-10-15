@@ -869,11 +869,32 @@ class Admin extends CI_Controller{
         }
     }
     // Sub categories > Listing and adding sub categories
-    public function sub_categories($cat_id){ // $id = category ID
+    public function sub_categories($cat_id,$offset = null){ // $id = category ID
+        $limit = 10; 
+        if(!empty($offset)){
+            $config['uri_segment'] = 4;
+        }
+        $this->load->library('pagination');
+        $url = base_url('admin/sub_categories');
+        $rowscount = $this->admin_model->count_subcategory();
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $this->pagination->initialize($config);
+
         $data['title'] = 'Sub Categories | Categories';
         $data['body'] = 'admin/sub_categories';
-        $data['sub_categories'] = $this->admin_model->sub_categories($cat_id);
-        $this->load->view('admin/commons/template', $data);
+        $data['sub_categories'] = $this->admin_model->sub_categories($cat_id,$limit, $offset);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Adding a sub category
     public function add_sub_category(){
@@ -1005,7 +1026,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Search Results > Categories';
         $data['body'] = 'admin/sub_categories';
         $data['results'] = $this->admin_model->search_sub_categories($search);
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
     //Item register 
     public function item_register($offset = null){ 
