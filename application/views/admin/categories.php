@@ -171,34 +171,35 @@ n <section class="columns is-gapless mb-0 pb-0">
 <script>
 	var qut1 = $("#exit-qut-modal")
 	var qut2 = $("#close-qut-modal")
-	var qutmdl = new BulmaModal("#modal-qutation")
+	var cat1 = $("#exit-cat-modal")
+	var cat2 = $("#close-cat-modal")
+    
+	var catmdl = new BulmaModal("#add_inventory")
+	
 	qut1.click(function (ev) {
 		qutmdl.close();
 		ev.stopPropagation();
 	});
+
 	qut2.click(function (ev) {
 		qutmdl.close();
 		ev.stopPropagation();
 	});
 
-	var cat1 = $("#exit-cat-modal")
-	var cat2 = $("#close-cat-modal")
-	var catmdl = new BulmaModal("#add_inventory")
 	cat1.click(function (ev) {
 		catmdl.close();
 		ev.stopPropagation();
 	});
+	
 	cat2.click(function (ev) {
 		catmdl.close();
 		ev.stopPropagation();
 	});
 
-	$(document).ready(function () {
-		$('.add_categories').click(function () {
-			catmdl.show();
-		});
+    $('.add_categories').click(function (ev) {
+		catmdl.show();
+		ev.stopPropagation();
 	});
-
 
 	// code for updat categories
 	var catedt1 = $("#exit-catedt-modal")
@@ -225,7 +226,6 @@ n <section class="columns is-gapless mb-0 pb-0">
 					category_id: category_id
 				},
 				success: function (response) {
-					console.log(response);
 					$('#cat_id').val(response.id);
 					$('#cat_location').val(response.cat_location);
 					$('#cat_name').val(response.cat_name);
