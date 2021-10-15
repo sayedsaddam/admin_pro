@@ -83,6 +83,7 @@
 				<form
 					action="<?php if(empty($edit)){ echo base_url('admin/item_save'); }else{ echo base_url('admin/modify_item'); } ?>"
 					method="POST">
+          <input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">
 						<div class="column">
 							<fieldset>
@@ -160,7 +161,7 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Item Name <span class="has-text-danger">*</span></label>
+									<label class="label is-small">Subcategory <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="sub_category" id="item_name" required>
@@ -186,15 +187,9 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Item Type</label>
+									<label class="label is-small">Item Name</label>
 									<div class="control has-icons-left">
-										<span class="select is-small is-fullwidth">
-											<select name="item_type" id="item_type">
-												<?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select a Type</option>
-												<?php endif ?>
-											</select>
-										</span>
+										<input name="item_name" value="<?= !empty($edit) ? $edit->type_name : '' ?>" class="input is-small" type="text" placeholder="e.g iPhone 13" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-quote-left"></i>
 										</span>
@@ -267,14 +262,22 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="depreciation" id="depreciation" required>
-												<?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select a Value</option>
-												<?php endif ?>
+                      <?php if(empty($depreciation)): ?>
+                        <option disabled value="" selected>Select a Value</option>
 												<option value="5">5%</option>
 												<option value="10">10%</option>
 												<option value="15">15%</option>
 												<option value="20">20%</option>
 												<option value="30">30%</option>
+											<?php else: foreach($depreciation as $dep): ?>
+                        <?php $option_flag = false ?>
+												<option disabled value="" <?php if(!isset($edit_item)){ echo 'selected'; } ?>>Select a Value</option>
+												<option value="5" <?php if(!empty($edit) && $dep->depreciation == 5 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>5%</option>
+												<option value="10" <?php if(!empty($edit) && $dep->depreciation == 10  && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>10%</option>
+												<option value="15" <?php if(!empty($edit) && $dep->depreciation == 15 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>15%</option>
+												<option value="20" <?php if(!empty($edit) && $dep->depreciation == 20 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>20%</option>
+												<option value="30" <?php if(!empty($edit) && $dep->depreciation == 30 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>30%</option>
+											<?php endforeach; endif; ?>
 											</select>
 										</span>
 										<span class="icon is-small is-left">
@@ -318,7 +321,7 @@
 								<div class="field">
 									<label class="label is-small">Purchase Date <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="purchasedate" class="input is-small" type="date" required>
+										<input name="purchasedate" class="input is-small" type="date" required value="<?php if(!empty($edit)){ echo $edit->purchasedate; } ?>">
 										<span class="icon is-small is-left">
 											<i class="far fa-calendar-alt"></i>
 										</span>
