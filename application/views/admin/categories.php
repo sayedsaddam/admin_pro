@@ -64,7 +64,7 @@
 									
 								<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';" style="cursor: pointer;">
 									<td><?= 'S2S-0'.$cat->id; ?></td>
-									<td><a class="tag"><?= $cat->cat_name; ?></a></td>
+									<td><?= $cat->cat_name; ?></td>
 									<td><?= $cat->fullname; ?></td>
 									<td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
 									<td>
