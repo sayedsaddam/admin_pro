@@ -234,9 +234,9 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Serial Number</label>
+									<label class="label is-small">Serial Number <span class="has-text-danger" id="serial-required" style="display:none;">*</span></label>
 									<div class="control has-icons-left">
-										<input name="serial_number" value="<?= !empty($edit) ? $edit->serial_number : '' ?>" class="input is-small" type="text" placeholder="e.g X12X34Y5XYXY">
+										<input name="serial_number" value="<?= !empty($edit) ? $edit->serial_number : '' ?>" class="input is-small" id="serial-number" type="text" placeholder="e.g X12X34Y5XYXY">
 										<span class="icon is-small is-left">
 											<i class="fas fa-hashtag"></i>
 										</span>
