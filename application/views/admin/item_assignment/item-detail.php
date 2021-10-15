@@ -267,14 +267,22 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="depreciation" id="depreciation" required>
-												<?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select a Value</option>
-												<?php endif ?>
+                      <?php if(empty($depreciation)): ?>
+                        <option disabled value="" selected>Select a Value</option>
 												<option value="5">5%</option>
 												<option value="10">10%</option>
 												<option value="15">15%</option>
 												<option value="20">20%</option>
 												<option value="30">30%</option>
+											<?php else: foreach($depreciation as $dep): ?>
+                        <?php $option_flag = false ?>
+												<option disabled value="" <?php if(!isset($edit_item)){ echo 'selected'; } ?>>Select a Value</option>
+												<option value="5" <?php if(!empty($edit) && $dep->depreciation == 5 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>5%</option>
+												<option value="10" <?php if(!empty($edit) && $dep->depreciation == 10  && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>10%</option>
+												<option value="15" <?php if(!empty($edit) && $dep->depreciation == 15 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>15%</option>
+												<option value="20" <?php if(!empty($edit) && $dep->depreciation == 20 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>20%</option>
+												<option value="30" <?php if(!empty($edit) && $dep->depreciation == 30 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>30%</option>
+											<?php endforeach; endif; ?>
 											</select>
 										</span>
 										<span class="icon is-small is-left">
