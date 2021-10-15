@@ -70,7 +70,7 @@
             <tbody id="myTable">
               <?php if(!empty($items)): foreach($items as $item): ?>
                 <tr>
-                  <td><?= 'CTC-0'.$item->purchase_id; ?></td>
+                  <td><?= 'S2S-0'.$item->purchase_id; ?></td>
                   <!-- <td><?= $item->sup_name.', <a href="mailto:'.$item->email.'">'.$item->email.'</a>'; ?></td> -->
                   <td><?= ucfirst('<span id="location">'.$item->loc_name.'</span>'); ?></td>
                   <!-- <td><?= ucfirst($item->cat_name); ?></td> -->

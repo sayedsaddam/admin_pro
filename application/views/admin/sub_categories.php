@@ -72,7 +72,7 @@
             <tbody id="myTable">
                 <?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
                 <tr>
-                    <td><?= 'AHG-0'.$cat->id; ?></td>
+                    <td><?= 'S2S-0'.$cat->id; ?></td>
                     <td><?= ucfirst($cat->name); ?>'s</td>
                     <td><?= $cat->fullname; ?></td>
                     <td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
