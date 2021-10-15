@@ -16,8 +16,6 @@
 	<!-- Bulma Modal Core File -->
 	<script src="<?= base_url('assets/js/bulma-modal.js'); ?>"></script>
 
-	<!-- Material Design Bootstrap -->
-	<link href="<?= base_url('assets/css/mdb.min.css'); ?>" rel="stylesheet">
 	<!-- JQuery -->
 	<script src="<?= base_url('assets/js/jquery.min.js'); ?>"></script>
 	<script src="<?= base_url('assets/js/select2.full.min.js'); ?>"></script>
@@ -32,10 +30,33 @@
 <body>
 	<section class="hero is-small is-primary is-hidden-print" style="background-color:#15BCA1;">
 		<div class="hero-body">
-			<div class="columns is-centered">
-				<div class="column has-text-centered">
+			<div class="columns is-vcentered">
+				<div class="column has-text-left">
 					<img src="https://s2smark.com/assets/img/logo/s2s-logo-1.png"
-						style="filter: invert(.5) brightness(2);" width="200">
+						style="filter: invert(.5) brightness(2);" width="200" title="S2S Marketing Logo">
+				</div>
+				<div class="column is-right is-narrow">
+					<div class="dropdown is-right is-hoverable">
+						<div class="dropdown-trigger">
+							<button class="button is-primary" aria-haspopup="true" aria-controls="dropdown-menu4" style="background-color: #15BCA1;">
+								<span><?= $this->session->userdata('fullname') ?></span>
+								<span class="icon is-small">
+									<i class="fas fa-angle-down" aria-hidden="true"></i>
+								</span>
+							</button>
+						</div>
+						<div class="dropdown-menu" id="dropdown-menu3" role="menu">
+							<div class="dropdown-content">
+								<a href="#" class="dropdown-item">
+									Profile
+								</a>
+								<hr class="dropdown-divider">
+								<a href="<?= base_url('login/logout') ?>" class="dropdown-item">
+									Logout
+								</a>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -48,7 +69,8 @@
 				<div class="hero-body">
 					<div class="columns is-centered">
 						<div class="column has-text-centered">
-							<img src="https://s2smark.com/assets/img/logo/s2s-logo-1.png" width="200">
+							<img src="https://s2smark.com/assets/img/logo/s2s-logo-1.png" width="200"
+								title="S2S Marketing Logo">
 						</div>
 					</div>
 				</div>

@@ -10,7 +10,7 @@
 						<label class="label">Username</label>
 						<div class="control">
 							<input class="input is-medium" id="user-name" name="username" type="username"
-								placeholder="e.g. dawood@example.com">
+								placeholder="e.g. abc@example.com">
 						</div>
 					</div>
 
@@ -60,7 +60,7 @@
 
 				<label class="has-text-grey">
 
-					AH Group of Companies (Pvt.) Ltd. Islamabad, 44000.
+					Department of Admin & Operations - S2S Marketing (Pvt.) Ltd. Islamabad, 44000.
 
 				</label>
 

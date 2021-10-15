@@ -207,12 +207,6 @@
 	</div>
 </section>
 <script>
-	$(document).ready(function () {
-		$("#nav-category").click(function () {
-			$(this).siblings().toggle('fast');
-		});
-	});
-
 	var btn1 = $("#report-btn")
 	var btn3 = $("#exit-report-modal")
 	var btn4 = $("#close-report-modal")
