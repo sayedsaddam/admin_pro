@@ -18,8 +18,7 @@
 		<li><a href="">Employees</a></li>
 	</ul>
 	<ul class="menu-list">
-		<!-- <li><a href="<?= base_url('admin/categories') ?>">Categories</a></li> -->
-		<li><a href="">Categories</a></li>
+		<li><a href="<?= base_url('admin/categories') ?>">Categories</a></li>
 	</ul>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/travels_info') ?>">Travels Info</a></li> -->
