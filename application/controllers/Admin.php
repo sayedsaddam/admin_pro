@@ -870,6 +870,9 @@ class Admin extends CI_Controller{
     }
     // Sub categories > Listing and adding sub categories
     public function sub_categories($cat_id,$offset = null){ // $id = category ID
+       $cat_ids = $this->uri->segment(3);
+        echo $cat_ids;
+        
         $limit = 10; 
         if(!empty($offset)){
             $config['uri_segment'] = 4;
@@ -893,7 +896,7 @@ class Admin extends CI_Controller{
 
         $data['title'] = 'Sub Categories | Categories';
         $data['body'] = 'admin/sub_categories';
-        $data['sub_categories'] = $this->admin_model->sub_categories($cat_id,$limit, $offset);
+        $data['sub_categories'] = $this->admin_model->sub_categories($cat_ids,$limit, $offset);
         $this->load->view('admin/commons/new_template', $data);
     }
     // Adding a sub category
