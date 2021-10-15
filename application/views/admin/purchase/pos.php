@@ -205,25 +205,22 @@
 				</div>
 
 <!-- code to add qutation start -->
-<div class="modal" id="modal-add-qutation">
+<div class="modal" id="modal-qutation">
     <div class="modal-background"></div>
-    <form action="<?=base_url('Purchase/po_supplier_order');?>" method="post" class="md-form">
+    <form action="<?= base_url('Purchase/add_qutation'); ?>" method="post"> 
+    <input type="hidden" name="purchase_id" id="purchase_id" value="">
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Po Order Forward</p>
-                <button class="delete" aria-label="close" id="exit-supplier-modal" type="button"></button>
+                <p class="modal-card-title">Add Qutation</p>
+                <button class="delete" aria-label="close" id="exit-qut-modal" type="button"></button>
             </header>
             <input type="hidden" name="purchaseid" id="purchaseid" value="">
             <section class="modal-card-body">
                 <div class="columns">
                     <div class="column">
                         <div class="control">
-                            <div class="select select is-small is-fullwidth">
-                                <select name="location" id="supplier_location" class="browser-default custom-select ">
-                                    <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                                    <option value="<?= $loc->id ?>"><?= ucfirst($loc->name); ?> </option>
-                                    <?php endforeach; endif; ?>
-                                </select>
+						<input type="text" name="price" id="orangeForm-name" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="orangeForm-name">&nbsp price</label>
                             </div>
                         </div>
                     </div>
@@ -238,7 +235,7 @@
             </section>
             <footer class="modal-card-foot">
                 <button class="button is-success" type="submit">Apply</button>
-                <button class="button" aria-label="close" id="close-supplier-modal" type="button">Cancel</button>
+                <button class="button" aria-label="close" id="close-qut-modal" type="button">Cancel</button>
 
             </footer>
         </div>
@@ -250,13 +247,82 @@
 
 <script>
 	// code to add qutations
+	class BulmaModal {
+		constructor(selector) {
+			this.elem = document.querySelector(selector)
+			this.close_data()
+		}
+		show() {
+			this.elem.classList.toggle('is-active')
+			this.on_show()
+		}
+
+		close() {
+			this.elem.classList.toggle('is-active')
+			this.on_close()
+		}
+
+		close_data() {
+			var modalClose = this.elem.querySelectorAll("[data-bulma-modal='close'], .modal-background")
+			var that = this
+			modalClose.forEach(function (e) {
+				e.addEventListener("click", function () {
+
+					that.elem.classList.toggle('is-active')
+
+					var event = new Event('modal:close')
+
+					that.elem.dispatchEvent(event);
+				})
+			})
+		}
+
+		on_show() {
+			var event = new Event('modal:show')
+
+			this.elem.dispatchEvent(event);
+		}
+
+		on_close() {
+			var event = new Event('modal:close')
+
+			this.elem.dispatchEvent(event);
+		}
+
+		addEventListener(event, callback) {
+			this.elem.addEventListener(event, callback)
+		}
+	}
+	var qut1 = $("#exit-qut-modal")
+  var qut2 = $("#close-qut-modal")
+  var qutmdl = new BulmaModal("#modal-qutation")
+  qut1.click(function (ev) { 
+	qutmdl.close();
+		ev.stopPropagation();
+	});
+	qut2.click(function (ev) { 
+		qutmdl.close();
+		ev.stopPropagation();
+	});
+
 	$(document).ready(function () {
 		$('.add_qutations').click(function () {
 			var po_id = $(this).data('id');
+			alert(po_id)
 			$('#purchase_id').val(po_id);
-			$('#add_qutations').modal('show');
+			qutmdl.show();
+			// $('#modal-add_qutations').modal('show');
 		});
 	});
+
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+}); 
 	// code to show range completion message
 	$(document).ready(function () {
 		var a = $('#qutation').val();
