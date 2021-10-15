@@ -4,7 +4,7 @@
  */
 class Admin_model extends CI_Model{
     // Get pending requisitions.
-    public function pending_requisitions($limit, $offset){
+    public function pending_requisitions(){
         $this->db->select('item_requisitions.id,
                             item_requisitions.item_name,
                             item_requisitions.item_desc,
@@ -30,7 +30,7 @@ class Admin_model extends CI_Model{
         $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->where('item_requisitions.status', 0);
         $this->db->order_by('id', 'DESC');
-        $this->db->limit($limit, $offset);
+        // $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Get approved requisitions.
