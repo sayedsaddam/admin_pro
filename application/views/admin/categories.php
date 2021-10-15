@@ -27,7 +27,7 @@
 							</div>
 						</form>
 					</div>
-					<div class="column is-hidden-print">
+					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
 							<p class="control">
 								<button 
@@ -72,7 +72,7 @@
 											class="category button is-small"><span class="icon is-small"><i
 													class="fa fa-edit"></i></span></button>
 										<a title="Delete" href="<?=base_url('admin/delete_category/'.$cat->id);?>"
-											class="button is-small text-danger"
+											class="button is-small has-text-danger"
 											onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');">
 											<span class="icon is-small"><i class="fa fa-times"></i></span></a>
 									</td>
@@ -94,9 +94,9 @@
 													class="fa fa-edit"></i></span></a>
 										<a title="Delete" href="<?=base_url('admin/delete_category/'.$res->id);?>"
 											class="button is-small"
-											onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span
-												class="icon is-small"><i
-													class="fa fa-times text-primary"></i></span></a>
+											onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class=""><span
+												class="icon is-small "><i
+													class="fa fa-times"></i></span></a>
 									</td>
 								</tr>
 								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
