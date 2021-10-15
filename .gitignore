@@ -35,3 +35,4 @@ confg.php
 /tests/tests/
 /tests/results/
 config.php
+application/config/config.php
