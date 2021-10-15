@@ -10,7 +10,8 @@
 						<form action="<?= base_url('admin/search_item') ?>" method="GET">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
-									<input class="input is-small is-fullwidth" name="search" type="search" placeholder="Search Query">
+									<input class="input is-small is-fullwidth" name="search" type="search"
+										placeholder="Search Query">
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
 									</span>
@@ -27,7 +28,8 @@
 					<div class="column">
 						<div class="field has-addons">
 							<p class="control">
-								<button class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>"
+								<button
+									class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>"
 									id="report-btn">
 									<span class="icon is-small">
 										<i class="fas fa-paperclip"></i>
@@ -77,7 +79,8 @@
 				<div class="columns">
 					<div class="column">
 						<h1 class="subtitle is-5">
-							<?= empty($edit) ? "Product Assignment (" . $returning_items->names . ")" : "Product Assignment" ?></h3>
+							<?= empty($edit) ? "Product Assignment (" . $returning_items->names . ")" : "Product Assignment" ?>
+							</h3>
 						</h1>
 					</div>
 				</div>
@@ -87,14 +90,16 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Location <span class="has-text-danger">*</span></label>
+									<label class="label is-small">Location <span
+											class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="location" id="location" required>
 												<option selected disabled value="">Select a City</option>
 												<?php if(!empty($locations)): foreach($locations as $loc): ?>
 												<option value="<?= $loc->id; ?>"
-													<?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>><?= $loc->name; ?>
+													<?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>>
+													<?= $loc->name; ?>
 												</option>
 												<?php endforeach; endif; ?>
 											</select>
@@ -109,7 +114,8 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Assign To <span class="has-text-danger">*</span></label>
+									<label class="label is-small">Assign To <span
+											class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<input type="hidden" name="assign_by" class="form-control"
@@ -201,60 +207,6 @@
 	</div>
 </section>
 <script>
-	$(document).ready(function () {
-		$("#nav-category").click(function () {
-			$(this).siblings().toggle('fast');
-		});
-	});
-
-	class BulmaModal {
-		constructor(selector) {
-			this.elem = document.querySelector(selector)
-			this.close_data()
-		}
-
-		show() {
-			this.elem.classList.toggle('is-active')
-			this.on_show()
-		}
-
-		close() {
-			this.elem.classList.toggle('is-active')
-			this.on_close()
-		}
-
-		close_data() {
-			var modalClose = this.elem.querySelectorAll("[data-bulma-modal='close'], .modal-background")
-			var that = this
-			modalClose.forEach(function (e) {
-				e.addEventListener("click", function () {
-
-					that.elem.classList.toggle('is-active')
-
-					var event = new Event('modal:close')
-
-					that.elem.dispatchEvent(event);
-				})
-			})
-		}
-
-		on_show() {
-			var event = new Event('modal:show')
-
-			this.elem.dispatchEvent(event);
-		}
-
-		on_close() {
-			var event = new Event('modal:close')
-
-			this.elem.dispatchEvent(event);
-		}
-
-		addEventListener(event, callback) {
-			this.elem.addEventListener(event, callback)
-		}
-	}
-
 	var btn1 = $("#report-btn")
 	var btn3 = $("#exit-report-modal")
 	var btn4 = $("#close-report-modal")
@@ -295,12 +247,14 @@
 
 					// Add options
 					$.each(response, function (index, data) {
-						$('#employ').append('<option value="' + data['id'] + '">' + data['name'] + '</option>');
+						$('#employ').append('<option value="' + data['id'] + '">' +
+							data['name'] + '</option>');
 					});
 				}
 			});
 		});
 	});
+
 	// get employ which have some items 
 	$(document).ready(function () {
 		// City change
@@ -321,12 +275,15 @@
 					$('#employ_data').html('');
 					$.each(response, function (index, data) {
 						if (data['assignd_to'] != null) {
-							var res = " <span style='color: blue'> ( " + response[0].name +
-								" ) is already have  </span> Product  <span style='color: red'>" + response[0].sub_cat;
+							var res = " <span style='color: blue'> ( " + response[0]
+								.name +
+								" ) is already have  </span> Product  <span style='color: red'>" +
+								response[0].sub_cat;
 							$('#employ_data').append(res).show();
 							return true
 						}
-						$('#employ_data').append('<option value="' + data['id'] + data['model'] + '">' + data[
+						$('#employ_data').append('<option value="' + data['id'] + data[
+							'model'] + '">' + data[
 							'model'] + '</option>');
 					});
 				}

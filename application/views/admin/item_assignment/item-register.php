@@ -28,7 +28,9 @@
 					<div class="column is-hidden-print">
 						<div class="field has-addons">
 							<p class="control">
-								<button class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>" id="report-btn">
+								<button
+									class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>"
+									id="report-btn">
 									<span class="icon is-small">
 										<i class="fas fa-paperclip"></i>
 									</span>
@@ -113,7 +115,7 @@
 							</tfoot>
 							<tbody>
 								<?php if(!empty($items)): foreach($items as $item): ?>
-									<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?><?= isset($item->employ_id) ? '/' . $item->employ_id : '' ?>';"
+								<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?><?= isset($item->employ_id) ? '/' . $item->employ_id : '' ?>';"
 									style="cursor: pointer;">
 									<td><span><?= 'CTC-'.$item->id; ?></a></td>
 									<td><?= $item->name; ?></td>
@@ -155,7 +157,7 @@
 												</a>
 											</p>
 											<?php else: ?>
-												<p class="control return-btn">
+											<p class="control return-btn">
 												<button type="button" data-id="<?= $item->item_ids.'/'.$item->id; ?>"
 													class="button is-small has-text-danger return-btn">
 													<span class="icon is-small">
@@ -291,76 +293,15 @@
 		</div>
 	</div>
 </section>
-<style>
-@media print {
-	.is-hidden-print {
-		display: none;
-	}
-}
-</style>
 <script>
-	$(document).ready(function () {
-		$('.return-btn').click(function () {
-			var item_id = $(this).data('id');
-			$('#item-id').val(item_id);
-		});
-
-		$("#nav-category").click(function () {
-			$(this).siblings().toggle('fast');
-		});
-
-		$(".file-input").change(function () {
-			$(".file-name").text(this.files[0].name);
-		});
+	$('.return-btn').click(function () {
+		var item_id = $(this).data('id');
+		$('#item-id').val(item_id);
 	});
 
-	class BulmaModal {
-		constructor(selector) {
-			this.elem = document.querySelector(selector)
-			this.close_data()
-		}
-
-		show() {
-			this.elem.classList.toggle('is-active')
-			this.on_show()
-		}
-
-		close() {
-			this.elem.classList.toggle('is-active')
-			this.on_close()
-		}
-
-		close_data() {
-			var modalClose = this.elem.querySelectorAll("[data-bulma-modal='close'], .modal-background")
-			var that = this
-			modalClose.forEach(function (e) {
-				e.addEventListener("click", function () {
-
-					that.elem.classList.toggle('is-active')
-
-					var event = new Event('modal:close')
-
-					that.elem.dispatchEvent(event);
-				})
-			})
-		}
-
-		on_show() {
-			var event = new Event('modal:show')
-
-			this.elem.dispatchEvent(event);
-		}
-
-		on_close() {
-			var event = new Event('modal:close')
-
-			this.elem.dispatchEvent(event);
-		}
-
-		addEventListener(event, callback) {
-			this.elem.addEventListener(event, callback)
-		}
-	}
+	$(".file-input").change(function () {
+		$(".file-name").text(this.files[0].name);
+	});
 
 	var btn1 = $("#report-btn")
 	var btn2 = $(".return-btn")

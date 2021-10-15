@@ -4,7 +4,7 @@
  */
 class Admin_model extends CI_Model{
     // Get pending requisitions.
-    public function pending_requisitions($limit, $offset){
+    public function pending_requisitions(){
         $this->db->select('item_requisitions.id,
                             item_requisitions.item_name,
                             item_requisitions.item_desc,
@@ -30,7 +30,7 @@ class Admin_model extends CI_Model{
         $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->where('item_requisitions.status', 0);
         $this->db->order_by('id', 'DESC');
-        $this->db->limit($limit, $offset);
+        // $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Get approved requisitions.
@@ -741,12 +741,13 @@ class Admin_model extends CI_Model{
         return true;
     }
     // Sub Categories > List sub categories
-    public function sub_categories($cat_id){
+    public function sub_categories($cat_id,$limit, $offset){
         $this->db->select('sub_categories.id, sub_categories.cat_id, sub_categories.name, sub_categories.added_by, sub_categories.created_at, categories.id as parent_cat, categories.cat_name, users.fullname');
         $this->db->from('sub_categories');
         $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->join('users', 'sub_categories.added_by = users.id', 'left');
         $this->db->where('categories.id', $cat_id);
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Add sub category
@@ -1212,6 +1213,14 @@ class Admin_model extends CI_Model{
     // get sub categories for edit item page 
     public function get_item_sub_category(){
         return $this->db->from('sub_categories')->get()->result();
+    }
+    
+    // Count all items 
+    public function count_subcategory(){
+        $this->db->from('sub_categories');
+        $this->db->where('cat_id',$this->uri->segment(3));
+        $num_results = $this->db->count_all_results();
+        return $num_results;
     }
     // get sub categories for edit item page 
     public function get_item_depreciation($id){

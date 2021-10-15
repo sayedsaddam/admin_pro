@@ -65,21 +65,25 @@
 									<td>
 										<?php "<span id='qutation'>".$quotations = $this->admin_model->count_qutation($item->purchase_id)."</span>"; ?>
 										<?php if($quotations < 3) { ?>
-										<a data-id="<?= $item->purchase_id.'/'.$item->sup_id; ?>" class="modal-add-qutation"><span
-												class="badge badge-primary"><i class="fas fa-check"></i></span></a>
+										<a data-id="<?= $item->purchase_id.'/'.$item->sup_id; ?>"
+											class="modal-add-qutation button is-small"><span class="icon is-small has-text-primary"><i
+													class="fas fa-check"></i></span></a>
 										<?php } else { ?>
 										<?php   $quotations; ?>
 
-										<a data-id="<?= $item->purchase_id.'/'.$item->sup_id; ?>" class="modal-add-qutation disabled"><span
-												class="badge badge-danger"><i class="fas fa-check"></i></span></a>
+										<a data-id="<?= $item->purchase_id.'/'.$item->sup_id; ?>"
+											class="modal-add-qutation disabled button -s-small"><span class="icon is-small has-text-danger"><i
+													class="fas fa-check"></i></span></a>
 										<!-- echo "qutation is completed"; -->
 										<?php } ?>
-										<a href="<?= base_url('Purchase/order_detail/'.$item->purchase_id); ?>"><span
-												class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+										<a href="<?= base_url('Purchase/order_detail/'.$item->purchase_id); ?>" class="button"><span
+												class="icon is-small has-text-info"><i class="fa fa-eye"></i></span></a>
 									</td>
 								</tr>
 								<?php } else{ ?>
-								<tr class="<?php if(min($lowest_price) == $item->price){ echo 'table-success text-dark'; } ?>">
+								<tr
+									class="<?php if(min($lowest_price) == $item->price){ echo 'table-success text-dark'; } ?>">
+									
 									<td><?= 'CTC-0'.$item->purchase_id; ?></td>
 									<td><?= ucfirst($item->sup_name); ?></td>
 									<td><?= $item->name;?></td>
@@ -100,16 +104,18 @@
 									<td>
 										<?php "<span id='qutation'>".$quotations = $this->admin_model->count_qutation($item->purchase_id)."</span>"; ?>
 										<?php if($quotations < 3) { ?>
-										<a data-id="<?= $item->purchase_id.'/'.$item->sup_id; ?>" class="add_qutations"><span
-												class="badge badge-primary"><i class="fas fa-check"></i></span></a>
+										<a data-id="<?= $item->purchase_id.'/'.$item->sup_id; ?>"
+											class="add_qutations button is-small"><span class="icon is-small has-text-primary"><i
+													class="fas fa-check"></i></span></a>
 										<?php } else { ?>
 										<?php   $quotations; ?>
-										<a data-id="<?= $item->purchase_id.'/'.$item->sup_id; ?>" class="add_qutations disabled"><span
-												class="badge badge-danger"><i class="fas fa-check"></i></span></a>
+										<a data-id="<?= $item->purchase_id.'/'.$item->sup_id; ?>"
+											class="add_qutations disabled button is-small"><span class="icon is-small has-text-danger"><i
+													class="fas fa-check"></i></span></a>
 										<!-- echo "qutation is completed"; -->
 										<?php } ?>
-										<a href="<?= base_url('Purchase/order_detail/'.$item->purchase_id); ?>"><span
-												class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+										<a href="<?= base_url('Purchase/order_detail/'.$item->purchase_id); ?>" class="button is-small"><span
+												class="icon is-small has-text-primary"><i class="fa fa-eye"></i></span></a>
 									</td>
 								</tr>
 								<?php } ?>
@@ -133,7 +139,8 @@
 							<div class="modal-card">
 								<header class="modal-card-head">
 									<p class="modal-card-title">Po Order Forward</p>
-									<button class="delete" aria-label="close" id="exit-supplier-modal" type="button"></button>
+									<button class="delete" aria-label="close" id="exit-supplier-modal"
+										type="button"></button>
 								</header>
 								<input type="hidden" name="purchaseid" id="purchaseid" value="">
 								<section class="modal-card-body">
@@ -141,9 +148,11 @@
 										<div class="column">
 											<div class="control">
 												<div class="select select is-small is-fullwidth">
-													<select name="location" id="supplier_location" class="browser-default custom-select ">
+													<select name="location" id="supplier_location"
+														class="browser-default custom-select ">
 														<?php if(!empty($locations)): foreach($locations as $loc): ?>
-														<option value="<?= $loc->id ?>"><?= ucfirst($loc->name); ?> </option>
+														<option value="<?= $loc->id ?>"><?= ucfirst($loc->name); ?>
+														</option>
 														<?php endforeach; endif; ?>
 													</select>
 												</div>
@@ -151,7 +160,8 @@
 										</div>
 										<div class="column ">
 											<div class="select select is-small is-fullwidth">
-												<select name="supplier" id="supplier" class="browser-default custom-select">
+												<select name="supplier" id="supplier"
+													class="browser-default custom-select">
 													<option value="" disabled selected>--Select Supplier--</option>
 												</select>
 											</div>
@@ -160,7 +170,8 @@
 								</section>
 								<footer class="modal-card-foot">
 									<button class="button is-success" type="submit">Apply</button>
-									<button class="button" aria-label="close" id="close-supplier-modal" type="button">Cancel</button>
+									<button class="button" aria-label="close" id="close-supplier-modal"
+										type="button">Cancel</button>
 
 								</footer>
 							</div>
@@ -176,7 +187,8 @@
 							<div class="modal-card">
 								<header class="modal-card-head">
 									<p class="modal-card-title">Filter Report</p>
-									<button class="delete" aria-label="close" id="exit-report-modal" type="button"></button>
+									<button class="delete" aria-label="close" id="exit-report-modal"
+										type="button"></button>
 								</header>
 								<section class="modal-card-body">
 									<div class="columns">
@@ -196,7 +208,8 @@
 								</section>
 								<footer class="modal-card-foot">
 									<button class="button is-success" type="submit">Apply</button>
-									<button class="button" aria-label="close" id="close-report-modal" type="button">Cancel</button>
+									<button class="button" aria-label="close" id="close-report-modal"
+										type="button">Cancel</button>
 								</footer>
 							</div>
 						</form>
@@ -204,57 +217,84 @@
 					<!-- filter report model end -->
 				</div>
 
-<!-- code to add qutation start -->
-<div class="modal" id="modal-add-qutation">
-    <div class="modal-background"></div>
-    <form action="<?=base_url('Purchase/po_supplier_order');?>" method="post" class="md-form">
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <p class="modal-card-title">Po Order Forward</p>
-                <button class="delete" aria-label="close" id="exit-supplier-modal" type="button"></button>
-            </header>
-            <input type="hidden" name="purchaseid" id="purchaseid" value="">
-            <section class="modal-card-body">
-                <div class="columns">
-                    <div class="column">
-                        <div class="control">
-                            <div class="select select is-small is-fullwidth">
-                                <select name="location" id="supplier_location" class="browser-default custom-select ">
-                                    <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                                    <option value="<?= $loc->id ?>"><?= ucfirst($loc->name); ?> </option>
-                                    <?php endforeach; endif; ?>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column ">
-                        <div class="select select is-small is-fullwidth">
-                            <select name="supplier" id="supplier" class="browser-default custom-select">
-                                <option value="" disabled selected>--Select Supplier--</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button is-success" type="submit">Apply</button>
-                <button class="button" aria-label="close" id="close-supplier-modal" type="button">Cancel</button>
+				<!-- code to add qutation start -->
+				<div class="modal" id="modal-qutation">
+					<div class="modal-background"></div>
+					<form action="<?= base_url('Purchase/add_qutation'); ?>" method="post">
+						<input type="hidden" name="purchase_id" id="purchase_id" value="">
+						<div class="modal-card">
+							<header class="modal-card-head">
+								<p class="modal-card-title">Add Qutation</p>
+								<button class="delete" aria-label="close" id="exit-qut-modal" type="button"></button>
+							</header>
+							<input type="hidden" name="purchaseid" id="purchaseid" value="">
+							<section class="modal-card-body">
+								<div class="columns">
+									<div class="column">
+										<div class="field">
+											<div class="control">
+												<label data-error="wrong" data-success="right"
+													for="orangeForm-name">price</label>
+												<input name="price" class="input is-small" type="number"
+													placeholder="price ..." required="">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="columns">
+									<div class="column ">
+										<div class="field">
+											<div class="control">
+												<textarea class="textarea is-small" name="description" id="description"
+													placeholder="some text"></textarea>
+											</div>
+										</div>
+									</div>
+								</div>
 
-            </footer>
-        </div>
-    </form>
-</div>
-    <!-- code add qutation end -->
+							</section>
+							<footer class="modal-card-foot">
+								<button class="button is-success" type="submit">Submit</button>
+								<button class="button" aria-label="close" id="close-qut-modal"
+									type="button">Cancel</button>
+
+							</footer>
+						</div>
+					</form>
+				</div>
+				<!-- code add qutation end -->
 
 </section>
 
 <script>
 	// code to add qutations
+	var qut1 = $("#exit-qut-modal")
+	var qut2 = $("#close-qut-modal")
+	var qutmdl = new BulmaModal("#modal-qutation")
+	qut1.click(function (ev) {
+		qutmdl.close();
+		ev.stopPropagation();
+	});
+	qut2.click(function (ev) {
+		qutmdl.close();
+		ev.stopPropagation();
+	});
+
 	$(document).ready(function () {
 		$('.add_qutations').click(function () {
-			var po_id = $(this).data('id');
+			var po_id = $(this).data('id'); 
 			$('#purchase_id').val(po_id);
-			$('#add_qutations').modal('show');
+			qutmdl.show();
+			// $('#modal-add_qutations').modal('show');
+		});
+	});
+
+	$(document).ready(function () {
+		$("#myInput").on("keyup", function () {
+			var value = $(this).val().toLowerCase();
+			$("#myTable tr").filter(function () {
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			});
 		});
 	});
 	// code to show range completion message

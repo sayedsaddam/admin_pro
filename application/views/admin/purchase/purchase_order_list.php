@@ -93,20 +93,20 @@
 
     <!--manger order review approved or reject  -->
       <?php if($review == null && $quotations == 0){?>
-    <a href="<?= base_url('Purchase/approved_po/'.$item->purchase_id); ?>" class="">
-    <span class="badge badge-success"><i class="fa fa-check"></i></span></a>
-    <a href="<?= base_url('Purchase/cancel_order/'.$item->purchase_id); ?>" class="">
-    <span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+    <a href="<?= base_url('Purchase/approved_po/'.$item->purchase_id); ?>" class="button is-small">
+    <span class="icon is-small has-text-success"><i class="fa fa-check"></i></span></a>
+    <a href="<?= base_url('Purchase/cancel_order/'.$item->purchase_id); ?>" class="button is-small">
+    <span class="icon is-small has-text-danger"><i class="fa fa-times"></i></span></a>
     <?php } elseif($quotations <= 2 && $review == 1) {?>
-        <a data-id="<?= $item->purchase_id.'/'.$item->loc_id; ?>" class="suppliers"> 
-        <span class="icon has-text-info"> <i class="fas fa-forward"></i></span>  </a>
+        <a data-id="<?= $item->purchase_id.'/'.$item->loc_id; ?>" class="suppliers button is-small"> 
+        <span class="icon is-small has-text-primary"> <i class="fas fa-forward"></i></span>  </a>
     <?php } else { ?>
-        <a data-id="<?= $item->purchase_id; ?>" class="suppliers disabled">
-        <span class="icon has-text-danger"> <i class="fas fa-closed-captioning"></i></span> 
+        <a data-id="<?= $item->purchase_id; ?>" class="suppliers disabled button is-small">
+        <span class="icon is-small has-text-danger"> <i class="fas fa-closed-captioning"></i></span> 
     <?php } ?>
 
-                  <a href="<?= base_url('Purchase/order_detail/'.$item->purchase_id); ?>">
-                  <span class="icon has-text-info"> <i class="fas fa-eye"></i></span></a>
+                  <a href="<?= base_url('Purchase/order_detail/'.$item->purchase_id); ?>" class="button is-small">
+                  <span class="icon is-small has-text-primary"> <i class="fas fa-eye"></i></span></a>
                   <td> 
                   </td>
                 </tr>
@@ -262,55 +262,7 @@
 		$(".file-input").change(function () {
 			$(".file-name").text(this.files[0].name);
 		});
-	});
-
-	class BulmaModal {
-		constructor(selector) {
-			this.elem = document.querySelector(selector)
-			this.close_data()
-		}
-
-		show() {
-			this.elem.classList.toggle('is-active')
-			this.on_show()
-		}
-
-		close() {
-			this.elem.classList.toggle('is-active')
-			this.on_close()
-		}
-
-		close_data() {
-			var modalClose = this.elem.querySelectorAll("[data-bulma-modal='close'], .modal-background")
-			var that = this
-			modalClose.forEach(function (e) {
-				e.addEventListener("click", function () {
-
-					that.elem.classList.toggle('is-active')
-
-					var event = new Event('modal:close')
-
-					that.elem.dispatchEvent(event);
-				})
-			})
-		}
-
-		on_show() {
-			var event = new Event('modal:show')
-
-			this.elem.dispatchEvent(event);
-		}
-
-		on_close() {
-			var event = new Event('modal:close')
-
-			this.elem.dispatchEvent(event);
-		}
-
-		addEventListener(event, callback) {
-			this.elem.addEventListener(event, callback)
-		}
-	}
+	}); 
 
 	var btn1 = $("#report-btn")
 	var btn3 = $("#exit-report-modal")
