@@ -276,8 +276,7 @@
 		show() {
 			this.elem.classList.toggle('is-active')
 			this.on_show()
-		}
-
+		} 
 		close() {
 			this.elem.classList.toggle('is-active')
 			this.on_close()
@@ -300,7 +299,6 @@
 
 		on_show() {
 			var event = new Event('modal:show')
-
 			this.elem.dispatchEvent(event);
 		}
 
