@@ -13,6 +13,9 @@
 	<!-- Bulma Core CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 
+	<!-- Bulma Modal Core File -->
+	<script src="<?= base_url('assets/js/bulma-modal.js'); ?>"></script>
+
 	<!-- Material Design Bootstrap -->
 	<link href="<?= base_url('assets/css/mdb.min.css'); ?>" rel="stylesheet">
 	<!-- JQuery -->
@@ -38,6 +41,7 @@
 		</div>
 	</section>
 	<?php else: ?>
+
 	<body style="background-color:#fbfbfb;">
 		<section class="section" style="height: 100vh;">
 			<section class="hero is-small is-primary is-hidden-print" style="background-color:#fbfbfb;">

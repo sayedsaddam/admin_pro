@@ -217,20 +217,15 @@
   	</div>
   </div>
 
-
-
   <script>
   	$(document).ready(function () {
   		$('.return_item').click(function () {
   			var item_id = $(this).data('id');
   			// AJAX request
-
   			$('#item_id').val(item_id);
   			$('#item_return').modal('show');
-
   		});
   	});
-
 
   	$(document).ready(function () {
   		$("#myInput").on("keyup", function () {
