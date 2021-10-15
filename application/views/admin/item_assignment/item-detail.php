@@ -187,15 +187,9 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Item Type</label>
+									<label class="label is-small">Item Name</label>
 									<div class="control has-icons-left">
-										<span class="select is-small is-fullwidth">
-											<select name="item_type" id="item_type">
-												<?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select a Type</option>
-												<?php endif ?>
-											</select>
-										</span>
+										<input name="item_name" value="<?= !empty($edit) ? $edit->type_name : '' ?>" class="input is-small" type="text" placeholder="e.g iPhone 13" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-quote-left"></i>
 										</span>
