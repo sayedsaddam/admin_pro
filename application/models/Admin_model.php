@@ -741,13 +741,12 @@ class Admin_model extends CI_Model{
         return true;
     }
     // Sub Categories > List sub categories
-    public function sub_categories($cat_id,$limit, $offset){
+    public function sub_categories($cat_id){
         $this->db->select('sub_categories.id, sub_categories.cat_id, sub_categories.name, sub_categories.added_by, sub_categories.created_at, categories.id as parent_cat, categories.cat_name, users.fullname');
         $this->db->from('sub_categories');
         $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->join('users', 'sub_categories.added_by = users.id', 'left');
-        $this->db->where('categories.id', $cat_id);
-        $this->db->limit($limit, $offset);
+        $this->db->where('categories.id', $cat_id); 
         return $this->db->get()->result();
     }
     // Add sub category

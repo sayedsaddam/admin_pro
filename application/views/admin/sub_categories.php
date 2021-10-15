@@ -26,7 +26,7 @@
 							</div>
 						</form>
 					</div>
-					<div class="column is-hidden-print">
+					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
 							<p class="control"> 
                 <button	class="add_inventory button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
@@ -72,13 +72,13 @@
             <tbody id="myTable">
                 <?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
                 <tr>
-                    <td><?= 'AHG-0'.$cat->id; ?></td>
+                    <td><?= 'S2S-0'.$cat->id; ?></td>
                     <td><?= ucfirst($cat->name); ?>'s</td>
                     <td><?= $cat->fullname; ?></td>
                     <td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
                     <td>
                         <a title="Edit" data-id="<?= $cat->id; ?>" class="edit_inventory button is-small"><span class="icon is-small"><i class="fa fa-edit"></i></span></a>
-                        <a title="Delete" href="<?=base_url('admin/delete_sub_category/'.$cat->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class="button is-small"><span class="icon is-small text-danger"><i class="fa fa-times"></i></span></a>
+                        <a title="Delete" href="<?=base_url('admin/delete_sub_category/'.$cat->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class="button is-small"><span class="icon is-small has-text-danger"><i class="fa fa-times"></i></span></a>
                     </td>
                 </tr>
                 <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
@@ -93,7 +93,7 @@
                     <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                     <td>
                         <a title="Edit" data-id="<?= $res->id; ?>" class="edit_inventory button is-small"><span class="icon is-small"><i class="fa fa-edit"></i></span></a>
-                        <a title="Delete" href="<?=base_url('admin/delete_sub_category/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class="button is-small"><span class="icon is-small text-danger"><i class="fa fa-times"></i></span></a>
+                        <a title="Delete" href="<?=base_url('admin/delete_sub_category/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class="button is-small"><span class="icon is-small has-text-danger"><i class="fa fa-times"></i></span></a>
                     </td>
                 </tr>
                 <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
