@@ -99,7 +99,7 @@
   </div>
 </div>
 
-<!-- Add inventory -->
+<!-- Add sub categories -->
 <div class="modal fade" id="add_inventory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
