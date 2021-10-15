@@ -1136,7 +1136,7 @@ public function get_assign_item($offset = null){
             'sub_category' => $this->input->post('sub_category'),
             'type_name' => $this->input->post('item_type'),
             'status' => $this->input->post('status'),
-            'quantity' => $this->input->post('quantity'),
+            'quantity' => 1,
             'model' => $this->input->post('model'),
             'serial_number' => $this->input->post('serial_number'),
             'supplier' => $this->input->post('supplier'),
@@ -1145,7 +1145,7 @@ public function get_assign_item($offset = null){
             'depreciation' => $this->input->post('depreciation'), 
             'created_at' => date('Y-m-d')
         );  
-        if($this->admin_model->item_save($data,$model)){
+        if($this->admin_model->item_save($data, $model, $this->input->post('quantity'))){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
             redirect('admin/item_register');
         }else{
