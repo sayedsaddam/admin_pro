@@ -161,7 +161,7 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Item Name <span class="has-text-danger">*</span></label>
+									<label class="label is-small">Subcategory <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="sub_category" id="item_name" required>
