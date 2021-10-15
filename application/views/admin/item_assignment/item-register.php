@@ -293,27 +293,14 @@
 		</div>
 	</div>
 </section>
-<style>
-	@media print {
-		.is-hidden-print {
-			display: none;
-		}
-	}
-</style>
 <script>
-	$(document).ready(function () {
-		$('.return-btn').click(function () {
-			var item_id = $(this).data('id');
-			$('#item-id').val(item_id);
-		});
+	$('.return-btn').click(function () {
+		var item_id = $(this).data('id');
+		$('#item-id').val(item_id);
+	});
 
-		$("#nav-category").click(function () {
-			$(this).siblings().toggle('fast');
-		});
-
-		$(".file-input").change(function () {
-			$(".file-name").text(this.files[0].name);
-		});
+	$(".file-input").change(function () {
+		$(".file-name").text(this.files[0].name);
 	});
 
 	var btn1 = $("#report-btn")
