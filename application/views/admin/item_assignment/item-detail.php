@@ -83,6 +83,7 @@
 				<form
 					action="<?php if(empty($edit)){ echo base_url('admin/item_save'); }else{ echo base_url('admin/modify_item'); } ?>"
 					method="POST">
+          <input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">
 						<div class="column">
 							<fieldset>
@@ -326,7 +327,7 @@
 								<div class="field">
 									<label class="label is-small">Purchase Date <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="purchasedate" class="input is-small" type="date" required>
+										<input name="purchasedate" class="input is-small" type="date" required value="<?php if(!empty($edit)){ echo $edit->purchasedate; } ?>">
 										<span class="icon is-small is-left">
 											<i class="far fa-calendar-alt"></i>
 										</span>
