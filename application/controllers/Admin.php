@@ -822,7 +822,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/categories';
         $data['categories'] = $this->admin_model->categories($limit, $offset);
         $data['locations'] = $this->login_model->get_locations();
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Adding a category
     public function add_category(){
@@ -997,7 +997,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Search Results > Categories';
         $data['body'] = 'admin/categories';
         $data['results'] = $this->admin_model->search_categories($search);
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Search filters - search sub categories
     public function search_sub_categories(){
