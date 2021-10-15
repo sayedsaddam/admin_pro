@@ -235,7 +235,7 @@
 											<div class="control">
 												<label data-error="wrong" data-success="right"
 													for="orangeForm-name">price</label>
-												<input name="price" class="input is-small" type="text"
+												<input name="price" class="input is-small" type="number"
 													placeholder="price ..." required="">
 											</div>
 										</div>
@@ -246,7 +246,7 @@
 										<div class="field">
 											<div class="control">
 												<textarea class="textarea is-small" name="description" id="description"
-													placeholder="Small textarea"></textarea>
+													placeholder="some text"></textarea>
 											</div>
 										</div>
 									</div>
@@ -268,50 +268,6 @@
 
 <script>
 	// code to add qutations
-	class BulmaModal {
-		constructor(selector) {
-			this.elem = document.querySelector(selector)
-			this.close_data()
-		}
-		show() {
-			this.elem.classList.toggle('is-active')
-			this.on_show()
-		} 
-		close() {
-			this.elem.classList.toggle('is-active')
-			this.on_close()
-		}
-
-		close_data() {
-			var modalClose = this.elem.querySelectorAll("[data-bulma-modal='close'], .modal-background")
-			var that = this
-			modalClose.forEach(function (e) {
-				e.addEventListener("click", function () {
-
-					that.elem.classList.toggle('is-active')
-
-					var event = new Event('modal:close')
-
-					that.elem.dispatchEvent(event);
-				})
-			})
-		}
-
-		on_show() {
-			var event = new Event('modal:show')
-			this.elem.dispatchEvent(event);
-		}
-
-		on_close() {
-			var event = new Event('modal:close')
-
-			this.elem.dispatchEvent(event);
-		}
-
-		addEventListener(event, callback) {
-			this.elem.addEventListener(event, callback)
-		}
-	}
 	var qut1 = $("#exit-qut-modal")
 	var qut2 = $("#close-qut-modal")
 	var qutmdl = new BulmaModal("#modal-qutation")
