@@ -6,8 +6,25 @@
 		<div class="columns">
 			<div class="column section">
 				<div class="columns is-hidden-touch">
-
-					<div class="column is-hidden-print">
+				<div class="column">
+						<form action="">
+							<div class="field has-addons">
+								<div class="control has-icons-left is-expanded">
+									<input class="input is-small is-fullwidth" name="search" type="search" id="myInput" placeholder="Search Query">
+									<span class="icon is-small is-left">
+										<i class="fas fa-search"></i>
+									</span>
+								</div>
+								<div class="control">
+									<button class="button is-small" type="submit"><span class="icon is-small">
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
 							<p class="control">
 								<button onclick="location.href='<?= base_url('Purchase/purchase_product'); ?>'"
@@ -23,7 +40,7 @@
 				</div>
 				<div class="columns" style="display: grid">
 					<div class="column table-container ">
-						<table class="table table-sm is-fullwidth">
+						<table class="table table-sm is-fullwidth myTable">
 							<thead>
 								<tr>
 									<!-- <?php echo phpinfo(); ?> -->
@@ -302,5 +319,16 @@
 		var a = $('#qutation').val();
 		// alert(a);
 	});
+
+
+	// botstrap search
+	$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
 
 </script>

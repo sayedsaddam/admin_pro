@@ -24,7 +24,7 @@ class Purchase extends CI_Controller{
         $data['supplier'] = $this->admin_model->get_item_supplier();
         $data['locations'] = $this->purchase_model->get_item_location();
         $data['order'] = $this->purchase_model->purchase_order_number(); 
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     } 
     //Purchase order list 
     public function purchase_order_list($offset = null){  
