@@ -105,7 +105,7 @@
 									<td><div class="tag is-light is-success"><?= ucwords($res->name); ?></div></td>
 									<td><?= ucwords($res->fullname); ?></td>
 									<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
-									<td>
+									<td class="is-narrow">
 										<a title="Edit" data-id="<?= $res->id; ?>"
 											class="edit_inventory button is-small"><span class="icon is-small"><i
 													class="fa fa-edit"></i></span></a>
