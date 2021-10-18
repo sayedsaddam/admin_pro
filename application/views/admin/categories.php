@@ -77,7 +77,7 @@
  									<td><?= $cat->cat_name; ?></td>
  									<td><?= $cat->fullname; ?></td>
  									<td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
- 									<td>
+ 									<td class="is-narrow">
  										<button type="button" title="Edit" data-id="<?= $cat->id; ?>"
  											class="category button is-small"><span class="icon is-small"><i
  													class="fa fa-edit"></i></span></button>

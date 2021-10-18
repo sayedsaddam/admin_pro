@@ -137,7 +137,7 @@
 										<?= $status = $item->quantity > 0 && $item->status != 1 || isset($available_page) ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
 									</td>
 									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
-									<td class="is-hidden-print">
+									<td class="is-hidden-print is-narrow">
 										<div class="field has-addons">
 											<p class="control">
 												<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"

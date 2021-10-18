@@ -85,7 +85,7 @@
                     <td><?= ucfirst($cat->name); ?>'s</td>
                     <td><?= $cat->fullname; ?></td>
                     <td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
-                    <td>
+                    <td class="is-narrow">
                         <a title="Edit" data-id="<?= $cat->id; ?>" class="edit_inventory button is-small"><span class="icon is-small"><i class="fa fa-edit"></i></span></a>
                         <a title="Delete" href="<?=base_url('admin/delete_sub_category/'.$cat->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class="button is-small"><span class="icon is-small has-text-danger"><i class="fa fa-times"></i></span></a>
                     </td>
