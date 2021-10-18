@@ -7,10 +7,10 @@
 			<div class="column section">
 				<div class="columns is-hidden-touch">
 					<div class="column is-hidden-print">
-						<form action="<?= base_url('Purchase/search_purchase_item'); ?>" method="GET">
+						<form action="">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
-									<input class="input is-small is-fullwidth" name="search" type="search"
+									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
 										placeholder="Search Query">
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
@@ -25,7 +25,7 @@
 							</div>
 						</form>
 					</div>
-					<div class="column is-hidden-print">
+					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
 							<p class="control">
 								<button class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>" id="report-btn">
