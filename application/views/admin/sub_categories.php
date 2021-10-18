@@ -203,6 +203,7 @@
 
     $('.add_inventory').click(function (ev) { 
       subcatmdl.show();
+		$(".modal-card-head").show();
 		ev.stopPropagation();
 	});
 

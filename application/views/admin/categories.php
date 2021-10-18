@@ -196,6 +196,7 @@
 
  	$('.add_categories').click(function (ev) {
  		catmdl.show();
+		$(".modal-card-head").show();
  		ev.stopPropagation();
  	});
 

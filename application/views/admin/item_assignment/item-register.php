@@ -315,10 +315,12 @@
 
 	btn1.click(function (ev) {
 		mdl.show();
+		$(".modal-card-head").show();
 		ev.stopPropagation();
 	});
 	btn2.click(function (ev) {
 		md2.show();
+		$(".modal-card-head").show();
 		ev.stopPropagation();
 	});
 	btn3.click(function (ev) {
