@@ -240,7 +240,7 @@
 								<div class="field">
 									<label class="label is-small">Model <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="model" value="<?= !empty($edit) ? $edit->model : '1' ?>" class="input is-small"
+										<input name="model" value="<?= !empty($edit) ? $edit->model : '' ?>" class="input is-small"
 											type="text" placeholder="e.g 110 4G" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-bookmark"></i>
