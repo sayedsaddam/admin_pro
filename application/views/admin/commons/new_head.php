@@ -19,8 +19,11 @@
 	<!-- JQuery -->
 	<script src="<?= base_url('assets/js/jquery.min.js'); ?>"></script>
 	<script src="<?= base_url('assets/js/select2.full.min.js'); ?>"></script>
+
+	<!-- JQuery UI -->
 	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
 	<link href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" rel="stylesheet">
+	
 	<!-- custom css -->
 	<link href="<?= base_url('assets/custom/custom.css'); ?>" rel="stylesheet">
 	<title><?php echo $title; ?></title>
