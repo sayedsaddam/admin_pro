@@ -64,8 +64,7 @@
 
 	</ul>
 	<ul class="menu-list">
-		<!-- <li><a href="<?= base_url('Purchase/purchase_order_list') ?>">Purchase</a></li> -->
-		<li><a href="">Purchase</a></li>
+		<li><a href="<?= base_url('Purchase/purchase_order_list') ?>">Purchase</a></li>
 	</ul>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/asset_register') ?>">Asset Register</a></li> -->
