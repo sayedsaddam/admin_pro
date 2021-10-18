@@ -59,15 +59,24 @@
 				<div class="columns" style="display: grid">
 					<div class="column table-container ">
 						<table class="table table-sm is-fullwidth">
-							<thead>
+						<thead>
 								<tr>
 									<th class="font-weight-bold">ID</th>
-									<th class="font-weight-bold">Name</th>
+									<th class="font-weight-bold">Subcategory</th>
 									<th class="font-weight-bold">Added By</th>
 									<th class="font-weight-bold">Date Added</th>
 									<th class="font-weight-bold">Action</th>
 								</tr>
 							</thead>
+							<tfoot>
+								<tr>
+									<th class="font-weight-bold">ID</th>
+									<th class="font-weight-bold">Subcategory</th>
+									<th class="font-weight-bold">Added By</th>
+									<th class="font-weight-bold">Date Added</th>
+									<th class="font-weight-bold">Action</th>
+								</tr>
+							</tfoot>
 							<?php if(empty($results)): ?>
 							<tbody id="myTable">
 								<?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
@@ -86,7 +95,7 @@
 													class="fa fa-times"></i></span></a>
 									</td>
 								</tr>
-								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
+								<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='17'>No record found.</td></tr>"; endif; ?>
 							</tbody>
 							<?php else: ?>
 							<tbody>
@@ -106,7 +115,7 @@
 													class="fa fa-times"></i></span></a>
 									</td>
 								</tr>
-								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
+								<?php endforeach; else: echo "<tr class='has-background-danger-light text-center'><td colspan='17'>No record found.</td></tr>"; endif; ?>
 							</tbody>
 							<?php endif; ?>
 						</table>

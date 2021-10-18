@@ -168,7 +168,7 @@
 											<?php endif; ?>
 										</div>
 								</tr>
-								<?php endforeach; else: echo "<tr class='has-background-danger-light text-center'><td colspan='17'>No records found.</td></tr>"; endif; ?>
+								<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='17'>No records found.</td></tr>"; endif; ?>
 							</tbody>
 						</table>
 					</div>
