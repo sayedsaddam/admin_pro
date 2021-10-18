@@ -52,7 +52,8 @@
 				<?php if(!empty($sub_categories)): ?>
 				<div class="columns">
 					<div class="column">
-						<?= 'Subcategories for "<span class="has-text-weight-bold">'.$sub_categories[0]->cat_name.'</span>"'; ?>
+					<a href="<?= base_url("admin") ?>" class="has-text-black">Dashboard</a> > <a href="<?= base_url("admin/categories") ?>" class="has-text-black">Categories</a> >
+						<?= '<span class="has-text-weight-bold">'.ucwords($sub_categories[0]->cat_name).'</span>'; ?>
 					</div>
 				</div>
 				<?php endif ?>

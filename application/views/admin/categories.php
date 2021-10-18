@@ -50,7 +50,11 @@
  						</div>
  					</div>
  				</div>
-
+ 				<div class="columns">
+					<div class="column">
+					<a href="<?= base_url("admin") ?>" class="has-text-black">Dashboard</a> > <a href="<?= base_url("admin/categories") ?>" class="has-text-black has-text-weight-bold">Categories</a>
+					</div>
+				</div>
 
  				<div class="columns" style="display: grid">
  					<div class="column table-container ">
