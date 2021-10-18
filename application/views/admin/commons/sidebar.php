@@ -19,7 +19,7 @@
 				<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? 'style="background-color:#ebfffc;"' : '' ?>>Item
 				Categories</a>
 			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? '' : 'display: none;' ?>">
-				<li><a href="<?= base_url('admin/categories'); ?>">Categories List</a></li>
+				<li><a href="<?= base_url('admin/categories'); ?>"><i class="fas fa-hashtag mr-1"></i> Categories List</a></li>
 			</ul>
 		</li>
 	</ul>

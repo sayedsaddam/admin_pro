@@ -33,7 +33,7 @@
  								<a href="<?= base_url("admin/categories") ?>"
  									class="button is-small <?= (isset($categories_page)) ? 'has-background-primary-light' : '' ?>">
  									<span class="icon is-small">
- 										<i class="fas fa-plus"></i>
+ 										<i class="fas fa-tags"></i>
  									</span>
  									<span>Categories List</span>
  								</a>
