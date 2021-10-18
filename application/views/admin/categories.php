@@ -71,8 +71,8 @@
  								<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';"
  									style="cursor: pointer;">
  									<td><?= 'S2S-'.$cat->id; ?></td>
- 									<td><?= $cat->cat_name; ?></td>
- 									<td><?= $cat->fullname; ?></td>
+ 									<td><div class="tag"><?= ucwords($cat->cat_name); ?></tag></td>
+ 									<td><?= ucwords($cat->fullname); ?></td>
  									<td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
  									<td class="is-narrow">
  										<button type="button" title="Edit" data-id="<?= $cat->id; ?>"
@@ -92,8 +92,8 @@
  								<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$res->id) ?>';"
  									style="cursor: pointer;">
  									<td><?= 'S2S-'.$res->id; ?></td>
- 									<td><?= $res->cat_name; ?></td>
- 									<td><?= $res->fullname; ?></td>
+ 									<td><div class="tag"><?= ucwords($res->cat_name); ?></div></td>
+ 									<td><?= ucwords($res->fullname); ?></td>
  									<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
  									<td class="is-narrow">
  										<a title="Edit" data-id="<?= $res->id; ?>"

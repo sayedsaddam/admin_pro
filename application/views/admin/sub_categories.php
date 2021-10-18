@@ -49,16 +49,16 @@
 						</div>
 					</div>
 				</div>
+				<?php if(!empty($sub_categories)): ?>
 				<div class="columns">
 					<div class="column">
-						<?php if(!empty($sub_categories)){ echo 'Sub Categories for "<span class="has-text-weight-bold">'.$sub_categories[0]->cat_name.'</span>"'; } ?>
+						<?= 'Sub Categories for "<span class="has-text-weight-bold">'.$sub_categories[0]->cat_name.'</span>"'; ?>
 					</div>
 				</div>
-
+				<?php endif ?>
 				<div class="columns" style="display: grid">
 					<div class="column table-container ">
 						<table class="table table-sm is-fullwidth">
-							<caption><?php if(empty($results)){ echo ''; }else{ echo 'Search Results'; } ?></caption>
 							<thead>
 								<tr>
 									<th class="font-weight-bold">ID</th>
@@ -72,9 +72,9 @@
 							<tbody id="myTable">
 								<?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
 								<tr>
-									<td><?= 'S2S-0'.$cat->id; ?></td>
-									<td><?= ucfirst($cat->name); ?>'s</td>
-									<td><?= $cat->fullname; ?></td>
+									<td><?= 'S2S-'.$cat->id; ?></td>
+									<td><div class="tag is-light is-success"><?= ucwords($cat->name); ?></div></td>
+									<td><?= ucwords($cat->fullname); ?></td>
 									<td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
 									<td class="is-narrow">
 										<a title="Edit" data-id="<?= $cat->id; ?>"
@@ -92,9 +92,9 @@
 							<tbody>
 								<?php if(!empty($results)): foreach($results as $res): ?>
 								<tr>
-									<td><?= 'AHG-0'.$res->id; ?></td>
-									<td><?= $res->name; ?></td>
-									<td><?= $res->fullname; ?></td>
+									<td><?= 'S2S-'.$res->id; ?></td>
+									<td><div class="tag is-light is-success"><?= ucwords($res->name); ?></div></td>
+									<td><?= ucwords($res->fullname); ?></td>
 									<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
 									<td>
 										<a title="Edit" data-id="<?= $res->id; ?>"
@@ -129,24 +129,28 @@
 		<input type="hidden" name="parent_category" value="<?= $this->uri->segment(3); ?>">
 		<div class="modal-card">
 			<header class="modal-card-head">
-				<p class="modal-card-title">Add Sub Categories</p>
+				<p class="modal-card-title">Add Subcategory</p>
 				<button class="delete" aria-label="close" id="exit-subcat-modal" type="button"></button>
 			</header>
 			<section class="modal-card-body">
 				<div class="columns">
 					<div class="column">
 						<div class="field">
-							<div class="control">
-								<label>Sub Categories</label>
-								<input name="name" type="text" id="form34" class="input is-small" type="text"
-									placeholder="example .. " required="">
+							<label for="Category Name" class="label is-small has-text-weight-semibold">Subcategory Title
+								<span class="has-text-danger">*</span></label>
+							<div class="control has-icons-left">
+								<input name="name" id="form34" type="text" class="input is-small" type="text"
+									placeholder="e.g Electronics" required>
+								<span class="icon is-small is-left">
+									<i class="fas fa-tags"></i>
+								</span>
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
 			<footer class="modal-card-foot">
-				<button class="button is-success" type="submit">Submit</button>
+				<button class="button is-success" type="submit">Add</button>
 				<button class="button" aria-label="close" id="close-cat-modal" type="button">Cancel</button>
 
 			</footer>
@@ -157,25 +161,32 @@
 <div class="modal" id="edit_inventory">
 	<div class="modal-background"></div>
 	<form action="<?=base_url('admin/update_sub_category');?>" method="post" method="post">
+		<input type="hidden" name="sub_cat_id" id="subId" value="">
 		<div class="modal-card">
 			<header class="modal-card-head">
-				<p class="modal-card-title">Update Categories</p>
+				<p class="modal-card-title">Update Subcategory</p>
 				<button class="delete" aria-label="close" id="exit-catedt-modal" type="button"></button>
 			</header>
 			<section class="modal-card-body">
 				<div class="columns">
 					<div class="column">
 						<div class="field">
-							<input type="hidden" name="sub_cat_id" id="subId" value="">
-							<input name="name" type="text" id="name" class="input is-small" type="text"
-								placeholder="sub categories" required="">
+							<label for="Category Name" class="label is-small has-text-weight-semibold">Subcategory Title
+								<span class="has-text-danger">*</span></label>
+							<div class="control has-icons-left">
+								<input name="name" id="name" type="text" class="input is-small" type="text"
+									placeholder="e.g Electronics" required>
+								<span class="icon is-small is-left">
+									<i class="fas fa-tags"></i>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
 
 			</section>
 			<footer class="modal-card-foot">
-				<button class="button is-success" type="submit">Submit</button>
+				<button class="button is-success" type="submit">Update</button>
 				<button class="button" aria-label="close" id="close-catedt-modal" type="button">Cancel</button>
 			</footer>
 		</div>
@@ -237,6 +248,7 @@
 					// $('.edit-modal-body').html(response);
 					// // Display Modal 
 					subedtmdl.show();
+					$(".modal-card-head").show();
 				}
 			});
 		});
