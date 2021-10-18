@@ -77,7 +77,7 @@
  									<td><?= $cat->cat_name; ?></td>
  									<td><?= $cat->fullname; ?></td>
  									<td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
- 									<td>
+ 									<td class="is-narrow">
  										<button type="button" title="Edit" data-id="<?= $cat->id; ?>"
  											class="category button is-small"><span class="icon is-small"><i
  													class="fa fa-edit"></i></span></button>
@@ -124,17 +124,20 @@
  	<form action="<?=base_url('admin/add_category');?>" method="post">
  		<div class="modal-card">
  			<header class="modal-card-head">
- 				<p class="modal-card-title">Add Categories</p>
+ 				<p class="modal-card-title">Add Category</p>
  				<button class="delete" aria-label="close" id="exit-cat-modal" type="button"></button>
  			</header>
  			<section class="modal-card-body">
- 				<div class="columns">
+ 				<div class="columns is-vcentered">
  					<div class="column">
  						<div class="field">
- 							<div class="control">
- 								<label>Categories</label>
+						 <label for="Category Name" class="label is-small has-text-weight-semibold">Category Title <span class="has-text-danger">*</span></label>
+ 							<div class="control has-icons-left">
  								<input name="cat_name" type="text" id="form34" class="input is-small" type="text"
- 									placeholder="example .. " required="">
+ 									placeholder="e.g Electronics" required="">
+								<span class="icon is-small is-left">
+									<i class="fas fa-tags"></i>
+								</span>
  							</div>
  						</div>
  					</div>
@@ -193,6 +196,7 @@
 
  	$('.add_categories').click(function (ev) {
  		catmdl.show();
+		$(".modal-card-head").show();
  		ev.stopPropagation();
  	});
 
