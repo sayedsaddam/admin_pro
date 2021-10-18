@@ -11,11 +11,9 @@
 	</p>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/suppliers') ?>">Suppliers</a></li> -->
-		<li><a href="">Suppliers</a></li>
 	</ul>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/employ') ?>">Employees</a></li> -->
-		<li><a href="">Employees</a></li>
 	</ul>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
@@ -28,27 +26,21 @@
 	</ul>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/travels_info') ?>">Travels Info</a></li> -->
-		<li><a href="">Travels Info</a></li>
 	</ul>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/locations') ?>">Locations</a></li> -->
-		<li><a href="">Locations</a></li>
 	</ul>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/inventory') ?>">Inventory</a></li> -->
-		<li><a href="">Inventory</a></li>
 	</ul>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/users') ?>">Users</a></li> -->
-		<li><a href="">Users</a></li>
 	</ul>
 	<ul class="menu-list">
 		<!-- <li><a href="<?=  base_url('admin/invoices') ?>">Invoices</a></li> -->
-		<li><a href="">Invoices</a></li>
 	</ul>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('/admin/projects') ?>">Projects</a></li> -->
-		<li><a href="">Projects</a></li>
 	</ul>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
@@ -64,19 +56,16 @@
 
 	</ul>
 	<ul class="menu-list">
-		<li><a href="<?= base_url('Purchase/purchase_order_list') ?>">Purchase</a></li>
+		<!-- <li><a href="<?= base_url('Purchase/purchase_order_list') ?>">Purchase</a></li> -->
 	</ul>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/asset_register') ?>">Asset Register</a></li> -->
-		<li><a href="">Asset Register</a></li>
 	</ul>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/maintenance') ?>">Maintenance</a></li> -->
-		<li><a href="">Maintenance</a></li>
 	</ul>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/contact_list') ?>">Contact List</a></li> -->
-		<li><a href="">Contact List</a></li>
 	</ul>
 	<p class="menu-label">
 		Control
