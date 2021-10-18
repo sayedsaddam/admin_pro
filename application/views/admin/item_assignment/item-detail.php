@@ -190,7 +190,7 @@
 								<div class="field">
 									<label class="label is-small">Item Name</label>
 									<div class="control has-icons-left">
-										<input name="item_name" value="<?= !empty($edit) ? $edit->type_name : '' ?>" class="input is-small"
+										<input name="item_name" id="sub_item_name" value="<?= !empty($edit) ? $edit->type_name : '' ?>" class="input is-small"
 											type="text" placeholder="e.g iPhone 13" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-quote-left"></i>
@@ -462,12 +462,13 @@
 		});
 	});
 
-
+  var itemSuggestions = [];
 
 	// item type auto load against item
 	$(document).ready(function () {
 		// City change
 		$('#item_name').on('change', function () {
+      itemSuggestions = [];
 			var item_id = $(this).val();
 			// AJAX request
 			$.ajax({
@@ -478,15 +479,15 @@
 				},
 				dataType: 'json',
 				success: function (response) {
-					// Remove options 
-					$('#item_type').find('option').not(':first').remove();
-					// Add options
 					$.each(response, function (index, data) {
-						$('#item_type').append('<option value="' + data['id'] + '">' + data['type_name'] +
-							'</option>');
+            itemSuggestions.push(data['type_name']);
 					});
 				}
 			});
+      console.log(itemSuggestions)
+      $("#sub_item_name").autocomplete({
+        source: itemSuggestions
+      });
 		});
 	});
 
