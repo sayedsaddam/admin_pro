@@ -208,7 +208,7 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Item Company</label>
+									<label class="label is-small">Item Company <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<input name="item_name" id="sub_item_name" value="<?= !empty($edit) ? $edit->type_name : '' ?>" class="input is-small"
 											type="text" placeholder="e.g Apple" required>
