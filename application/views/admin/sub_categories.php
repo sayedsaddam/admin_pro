@@ -62,10 +62,14 @@
       </div>
     </div>
   <?php endif; ?>
- 
+  <div class="columns">
+	  <div class="column">
+	  <?php if(!empty($sub_categories)){ echo 'Sub Categories for "<span class="has-text-weight-bold">'.$sub_categories[0]->cat_name.'</span>"'; } ?>
+	  </div>
+  </div>
+  
   <div class="columns" style="display: grid">
 					<div class="column table-container ">
-        <?php if(!empty($sub_categories)){ echo '<h5>Sub categories for <span class="purple-text font-italic"> '.$sub_categories[0]->cat_name.'</span></h5>'; } ?>
         <table class="table table-sm is-fullwidth">
             <caption><?php if(empty($results)){ echo ''; }else{ echo 'Search Results'; } ?></caption>
             <thead>
