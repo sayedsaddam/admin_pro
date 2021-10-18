@@ -43,25 +43,23 @@
 				<div class="column is-right is-narrow is-hidden-touch">
 					<div class="dropdown is-right is-hoverable">
 						<div class="dropdown-trigger">
-							<button class="button is-primary" aria-haspopup="true" aria-controls="dropdown-menu4"
+							<button class="button is-primary" aria-haspopup="true" aria-controls="dropdown-menu2"
 								style="background-color: #15BCA1;">
-								<span class="icon is-small">
-									<i class="fas fa-user-tie"></i>
-								</span>
-								<span class="is-size-5 is-capitalized"><?= $this->session->userdata('fullname') ?></span>
-								<span class="icon is-small">
+								<span class="is-capitalized"><?= $this->session->userdata('fullname') ?></span>
+								<span class="icon is-small is-size-7">
 									<i class="fas fa-angle-down" aria-hidden="true"></i>
 								</span>
 							</button>
 						</div>
-						<div class="dropdown-menu" id="dropdown-menu3" role="menu">
+						<div class="dropdown-menu" id="dropdown-menu2" role="menu">
 							<div class="dropdown-content">
 								<a href="#" class="dropdown-item">
-									Profile
+									<span class="label">Profile Information</span>
+									<p style="overflow-wrap: break-word; white-space: pre-wrap;">Need to <code>change</code> your profile information?</p>
 								</a>
 								<hr class="dropdown-divider">
 								<a href="<?= base_url('login/logout') ?>" class="dropdown-item">
-									Logout
+									<i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout
 								</a>
 							</div>
 						</div>
