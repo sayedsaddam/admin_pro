@@ -28,6 +28,15 @@
 					</div>
 					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
+							<p class="control">
+ 								<a href="<?= base_url("admin/categories") ?>"
+ 									class="button is-small <?= (isset($categories_page)) ? 'has-background-primary-light' : '' ?>">
+ 									<span class="icon is-small">
+ 										<i class="fas fa-plus"></i>
+ 									</span>
+ 									<span>Categories List</span>
+ 								</a>
+ 							</p>
 							<p class="control"> 
                 <button	class="add_inventory button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
