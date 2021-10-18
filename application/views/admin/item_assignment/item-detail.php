@@ -480,7 +480,7 @@
 				dataType: 'json',
 				success: function (response) {
 					$.each(response, function (index, data) {
-            itemSuggestions.push(data['type_name']);
+            			itemSuggestions.push(data['type_name']);
 					});
 				}
 			});
