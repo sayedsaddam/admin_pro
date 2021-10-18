@@ -208,10 +208,10 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Item Name</label>
+									<label class="label is-small">Item Company</label>
 									<div class="control has-icons-left">
 										<input name="item_name" id="sub_item_name" value="<?= !empty($edit) ? $edit->type_name : '' ?>" class="input is-small"
-											type="text" placeholder="e.g iPhone 13" required>
+											type="text" placeholder="e.g Apple" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-quote-left"></i>
 										</span>
@@ -451,7 +451,7 @@
 		$('#category').on('change', function () {
 			var category = $(this).val();
 			var category_text = $("#category option:selected").text();;
-			if (category_text == 'Electronics') {
+			if (category_text.includes('Electronics')) {
 				$("#item-quantity").val(1);
 				$("#item-quantity").attr('disabled', true);
 				$("#serial-number").attr('required', true);
@@ -505,7 +505,6 @@
 					});
 				}
 			});
-      console.log(itemSuggestions)
       $("#sub_item_name").autocomplete({
         source: itemSuggestions
       });
