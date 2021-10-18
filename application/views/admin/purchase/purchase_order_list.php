@@ -69,11 +69,12 @@
           <?php if(empty($results)): ?>
             <tbody id="myTable">
               <?php if(!empty($items)): foreach($items as $item): ?>
-                <tr onclick="window.location='<?= base_url('Purchase/pos/'.$item->purchase_id) ?>';"
- 									style="cursor: pointer;">
+                <tr>
                   <td><?= 'S2S-0'.$item->purchase_id; ?></td>
-                   <td><?= ucfirst('<span id="location">'.$item->loc_name.'</span>'); ?></td>
-                   <td><span class="tag"><?= ucfirst($item->sub_name); ?></span></td>     
+                  <!-- <td><?= $item->sup_name.', <a href="mailto:'.$item->email.'">'.$item->email.'</a>'; ?></td> -->
+                  <td><?= ucfirst('<span id="location">'.$item->loc_name.'</span>'); ?></td>
+                  <!-- <td><?= ucfirst($item->cat_name); ?></td> -->
+                   <td><a href="<?= base_url('Purchase/pos/'.$item->purchase_id); ?>"><span class="tag"><?= ucfirst($item->sub_name); ?></span></a></td>     
                    <td><?= ucfirst($item->quantity); ?></td>     
                    <td> <?= date('M d, Y', strtotime($item->created_at)); ?> </td>
                    <?php $quotations = $this->admin_model->count_qutation($item->purchase_id); ?>
@@ -86,7 +87,7 @@
                     <td><span class="tag is-primary">Approved <span>
                     </td> 
                     <?php } ?>
-                  <td class="is-narrow">
+                  <td>
       
       <?php $quotations = $this->purchase_model->count_po($item->purchase_id); $review = $item->review;  ?>  
 
@@ -208,7 +209,7 @@
         </div>
     </form>
 </div>
-    <!-- code select supplier send order end -->
+    <!-- code select supplier to send order end -->
 
 
 <!-- filter report model -->
@@ -328,7 +329,6 @@ $(document).ready(function(){
         supmdl.show();
       }
     });
-	event.stopPropagation();
   });
 });
 
@@ -355,7 +355,6 @@ $(document).ready(function(){
        });
      }
   });
-  event.stopPropagation();
 });
 });
 

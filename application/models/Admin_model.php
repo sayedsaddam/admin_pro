@@ -166,7 +166,7 @@ class Admin_model extends CI_Model{
     }
     // Get suppliers
     public function get_suppliers($limit, $offset){
-        $this->db->select('suppliers.id, suppliers.name sup_name, suppliers.category, suppliers.email, suppliers.phone, suppliers.location, suppliers.region,suppliers.ntn_number,suppliers.rating, suppliers.address, suppliers.status, suppliers.created_at,locations.id,locations.name');
+        $this->db->select('suppliers.id, suppliers.name, suppliers.category, suppliers.email, suppliers.phone, suppliers.location, suppliers.region,suppliers.ntn_number,suppliers.rating, suppliers.address, suppliers.status, suppliers.created_at,locations.id,locations.name');
         $this->db->from('suppliers');
         $this->db->join('locations', 'suppliers.location = locations.id', 'left');
         $this->db->where('status', 1);
@@ -1415,19 +1415,6 @@ class Admin_model extends CI_Model{
         // $this->db->where('status', 1);
         $this->db->order_by('employ.id', 'DESC');
         $this->db->limit($limit, $offset);
-        return $this->db->get()->result();
-    }
-      // Search filters - suppliers search
-      public function search_employ($search){
-        $this->db->select('id, name, email, phone, location, department,region, address, status, created_at');
-        $this->db->from('employ');
-        $this->db->like('name', $search);
-        $this->db->or_like('department', $search);
-        $this->db->or_like('email', $search);
-        $this->db->or_like('phone', $search);
-        $this->db->or_like('location', $search);
-        $this->db->or_like('region', $search);
-        $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
     // Employ - Add new Employ

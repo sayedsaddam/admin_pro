@@ -146,7 +146,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/suppliers/suppliers';
         $data['suppliers'] = $this->admin_model->get_suppliers($limit, $offset);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
-        $this->load->view('admin/commons/new_template', $data);
+        $this->load->view('admin/commons/template', $data);
     }
     // Suppliers - Add new supplier
     public function add_supplier(){ 
@@ -219,7 +219,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/employ/employ';
         $data['employ'] = $this->admin_model->get_employ($limit, $offset);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
-        $this->load->view('admin/commons/new_template', $data);
+        $this->load->view('admin/commons/template', $data);
     } 
 
     // Suppliers - Add new supplier
@@ -267,14 +267,6 @@ class Admin extends CI_Controller{
             redirect('admin/employ');
         }
     }
-     // Search filters - search employ
-     public function search_employ(){
-        $search = $this->input->get('search');
-        $data['title'] = 'Search Results > Employ';
-        $data['body'] = 'admin/employ/employ';
-        $data['results'] = $this->admin_model->search_employ($search); 
-        $this->load->view('admin/commons/new_template', $data);
-    } 
     // Employ - Remove employ
     public function delete_employ($id){
         if($this->admin_model->delete_employ($id)){
@@ -933,7 +925,9 @@ class Admin extends CI_Controller{
     public function update_sub_category(){
         $id = $this->input->post('sub_cat_id');
         $data = array(
-            'name' => $this->input->post('name'), 
+            'name' => $this->input->post('name'),
+            'unit_price' => $this->input->post('unit_price'),
+            'quantity' => $this->input->post('quantity')
         );
         if($this->admin_model->update_sub_category($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Category was updated successfully.');

@@ -9,7 +9,7 @@
 
  				<div class="columns is-hidden-touch">
  					<div class="column is-hidden-print">
- 						<form action="<?= base_url('admin/search_categories'); ?>" method="GET">
+ 						<form action="<?= base_url('admin/search_categories'); ?>" method="GETbadge">
  							<div class="field has-addons">
  								<div class="control has-icons-left is-expanded">
  									<input class="input is-small is-fullwidth" name="search" type="search"
@@ -230,7 +230,8 @@
  					$('#cat_name').val(response.cat_name);
  					// $('.edit-modal-body').html(response);
  					// // Display Modal
- 					edtedtmdl.show();
+ 					catedtmdl.show();
+
  				}
  			});
  			event.stopPropagation();

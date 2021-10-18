@@ -1,51 +1,46 @@
-<section class="columns is-gapless mb-0 pb-0">
- 	<div class="column is-narrow is-fullheight is-hidden-print" style="background-color:#fafafa;">
- 		<?php $this->view('admin/commons/sidebar'); ?>
- 	</div>
- 	<div class="column">
- 		<div class="columns">
- 			<div class="column section">
+<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-1 col-md-1">
+        <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid">
+      </div>
+      <div class="col-lg-7 col-md-7">
+        <h2 class="display-4 font-weight-bold mb-0">Admin & Procurement</h2>
+        <h3 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h3>
+      </div>
+      <div class="col-lg-4 col-md-4 text-right">
+        <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
+        <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
+        <h4 class="font-weight-bold orange-text mt-2">Admin Dashboard <i class="fa fa-chart-bar"></i><br><span class="font-weight-light orange-text"><?php if(empty($results)){ echo 'Suppliers'; }else{ echo 'Search Results'; } ?> | <a href="<?=base_url('admin');?>" class="text-light font-weight-bold">Home</a></span></h4>
+      </div>
+    </div>
+  </div>
+</div>
 
-
- 				<div class="columns is-hidden-touch">
- 					<div class="column is-hidden-print">
- 						<form action="<?= base_url('admin/search_employ') ?>" method="get">
- 							<div class="field has-addons">
- 								<div class="control has-icons-left is-expanded">
- 									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
- 										placeholder="Search Query">
- 									<span class="icon is-small is-left">
- 										<i class="fas fa-search"></i>
- 									</span>
- 								</div>
- 								<div class="control">
- 									<button class="button is-small" type="submit"><span class="icon is-small">
- 											<i class="fas fa-arrow-right"></i>
- 										</span>
- 									</button>
- 								</div>
- 							</div>
- 						</form>
- 					</div>
- 					<div class="column is-hidden-print is-narrow">
- 						<div class="field has-addons"> 
- 							<p class="control">
- 								<button
- 									class="add_employ button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
- 									<span class="icon is-small">
- 										<i class="fas fa-plus"></i>
- 									</span>
- 									<span>Add New</span>
- 								</button>
- 							</p>
- 						</div>
- 					</div>
- 				</div>
-
-
- 				<div class="columns" style="display: grid">
- 					<div class="column table-container ">
-           <table class="table table-sm is-fullwidth">
+<div class="container">
+    <?php if($success = $this->session->flashdata('success')): ?>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="alert alert-success"><?=$success;?></div>
+            </div>
+        </div>
+    <?php endif; ?>
+    <div class="row mb-4">
+        <div class="col-lg-6 col-md-6">
+            <form action="#" method="get" class="md-form form-inline"> 
+                <input type="text" name="search" id="myInput" class="form-control md-form col-5" required>
+                <label for="">Search Query</label>
+                <input type="submit" value="go &raquo;" class="btn btn-outline-primary btn-sm rounded-pill">
+            </form>
+        </div>
+        <div class="col-lg-6 col-md-6 text-right">
+            <button data-toggle="modal" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</button>
+            <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <table class="table table-sm">
           <caption><?php if(empty($results)){ echo 'List of Suppliers'; }else{ echo 'Search Results'; } ?></caption>
           <thead>
             <tr>
@@ -65,7 +60,7 @@
               <?php if(!empty($employ)): foreach($employ as $sup): ?>
                 <tr>
                   <td><?= 'SUP-0'.$sup->emp_id; ?></td>
-                  <td><?= $sup->name; ?></td>
+                  <td><?= $sup->emp_name; ?></td>
                   <td><?= ucfirst($sup->email); ?></td>
                   <td><?= ucfirst($sup->phone); ?></td>
                   <td><?= ucfirst($sup->name); ?></td>  
@@ -80,9 +75,9 @@
                       <?php endif; ?>
                   </td>
                   <td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
-                  <td class="is-narrow">
-                      <a data-id="<?= $sup->emp_id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i class="fa fa-edit"></i></span></a>
-                      <a href="<?=base_url('admin/delete_employ/'.$sup->emp_id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class="button is-small"><span class="icon is-small has-text-danger"><i class="fa fa-times"></i></span></a>
+                  <td>
+                      <a data-id="<?= $sup->emp_id; ?>" class="supplier_info"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+                      <a href="<?=base_url('admin/delete_employ/'.$sup->emp_id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                    </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
@@ -91,13 +86,14 @@
             <tbody id="myTable">
               <?php if(!empty($results)): foreach($results as $res): ?>
                 <tr>
-                  <td><?= 'SUP-0'.$res->id; ?></td>
-                  <td><?= $res->name; ?></td>
+                  <td><?= 'SUP-0'.$res->emp_id; ?></td>
+                  <td><?= $res->emp_name; ?></td>
                   <td><?= ucfirst($res->email); ?></td>
                   <td><?= ucfirst($res->phone); ?></td>
-                  <td><?= ucfirst($res->name); ?></td>   
-                  <td><?= ucfirst($res->department); ?></td>  
-                  
+                  <td><?= ucfirst($res->location); ?></td> 
+                  <td><?php  echo '<span style="color:  orange;font-size: 18px;font-weight: bold">'.ucfirst($res->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>'; ?></td> 
+                  <td><?= ucfirst($res->region); ?></td>
+                  <td><?= ucfirst($res->department); ?></td>
                   <td>
                       <?php if($res->status == 1): ?>
                           <span class="badge badge-success">Active</span>
@@ -106,264 +102,158 @@
                       <?php endif; ?>
                   </td>
                   <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
-                  <td class="is-narrow">
-                      <a data-id="<?= $res->id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i class="fa fa-edit"></i></span></a>
-                      <a href="<?=base_url('admin/delete_employ/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class="button is-small"><span class="icon is-small has-text-danger"><i class="fa fa-times"></i></span></a>
-                   </td>
+                  <td>
+                      <a data-id="<?= $res->emp_id; ?>" class="supplier_info"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
+        <a href="<?=base_url('admin/delete_employ/'.$res->emp_id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                  </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
             </tbody>
             <?php endif; ?>
         </table>
- 					</div>
- 				</div>
- 			</div>
- </section>
-
-  <!-- add employ code start -->
-  <div class="modal" id="add_employ">
-    <div class="modal-background"></div>
-    <form action="<?=base_url('admin/add_employ');?>" method="post" class="md-form">
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <p class="modal-card-title">Add Employ</p>
-                <button class="delete" aria-label="close" id="exit-add-modal" type="button"></button>
-            </header>
-            <input type="hidden" name="purchaseid" id="purchaseid" value="">
-            <section class="modal-card-body">
-                <div class="columns">
-                    <div class="column">
-                        <div class="control">
-                        <label class="label is-small">Location <span class="has-text-danger">*</span></label>
-                            <div class="select select is-small is-fullwidth"> 
-                                <select name="location" id="" class="browser-default custom-select ">
-                                    <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                                    <option value="<?= $loc->id ?>"><?= ucfirst($loc->name); ?> </option>
-                                    <?php endforeach; endif; ?>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-						<fieldset>
-								<div class="field">
-									<label class="label is-small">Name <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-									<input type="text" name="name" id="" class="input is-small" value="" type="text" placeholder="name ..." required="">
-										<span class="icon is-small is-left">
-											<i class="fas fa-user"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-                </div>
-
-                <div class="columns">
-                    <div class="column">
-                        <div class="control">
-
-                        <fieldset>
-								<div class="field">
-									<label class="label is-small">Email <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-									<input type="email" name="email" id="" class="input is-small" value="" type="text" placeholder="example@yahoo.com ..." required="">
-										<span class="icon is-small is-left">
-											<i class="fas fa-envelope-square"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-                        </div>
-                    </div>
-                    <div class="column"> 
-                        <div class="control">
-                        <label class="label is-small">Phone No <span class="has-text-danger">*</span></label>
-                            <div class="select select is-small is-fullwidth select is-multiple"> 
-                            <input type="number" name="phone" id="" class="input is-small" value="" type="text" placeholder="034354556554 ..." required="">
-                            </div>
-                        </div> 
-						</div>
-                </div>  
-                <div class="columns"> 
-                  <div class="column">                
-                    <label class="label is-small">Dapartment <span class="has-text-danger">*</span></label>
-                            <div class="select select is-small is-fullwidth select is-multiple"> 
-                                <select name="department[]" id="department" multiple size="3">
-                                <option value="" disabled selected>--Select Department--</option>
-                                  <option value="IT">IT</option>
-                                  <option value="sale">Sale</option>
-                                  <option value="marketing">marketing</option>
-                                  <option value="media">media</option>
-                                  <option value="finance">Finance</option> 
-                                  <option value="others">Others</option>
-                                </select>
-                            </div>
-                            </div>
-
-                    <div class="column">
-						<fieldset>
-								<div class="field">
-									<label class="label is-small">Address</label>
-									<div class="control has-icons-left">
-									<textarea class="textarea is-small" name="address" role="3" id=""
-													placeholder="some text"></textarea>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-                </div>    
-
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button is-success" type="submit">Apply</button>
-                <button class="button" aria-label="close" id="close-add-modal" type="button">Cancel</button>
-
-            </footer>
-        </div>
-    </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <?php if(empty($results) AND !empty($suppliers)){ echo $this->pagination->create_links(); } ?>
+      </div>
+    </div>
 </div>
-    <!-- code add empoloy end -->
 
- <!-- Update employ code start -->
- <div class="modal" id="edit_employ">
-    <div class="modal-background"></div>
-    <form action="<?=base_url('admin/update_employ');?>" method="post" class="md-form">
-    <input type="hidden" name="sup_id" id="employId" value="">
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <p class="modal-card-title">Update Employ</p>
-                <button class="delete" aria-label="close" id="exit-edit-modal" type="button"></button>
-            </header> 
-            <section class="modal-card-body">
-                <div class="columns">
-                    <div class="column">
-                        <div class="control">
-                        <label class="label is-small">Location <span class="has-text-danger">*</span></label>
-                            <div class="select select is-small is-fullwidth"> 
-                                <select name="location" id="employ_location" class="browser-default custom-select ">
-                                    <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                                    <option value="<?= $loc->id ?>"><?= ucfirst($loc->name); ?> </option>
-                                    <?php endforeach; endif; ?>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-						<fieldset>
-								<div class="field">
-									<label class="label is-small">Name <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-									<input type="text" name="name" id="employ_name" class="input is-small" value="" type="text" placeholder="name ..." required="">
-										<span class="icon is-small is-left">
-											<i class="fas fa-user"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-                </div>
+<!-- Add supplier -->
+<div class="modal fade" id="add_supplier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 font-weight-bold">Add Employ</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <form action="<?=base_url('admin/add_employ');?>" method="post" class="md-form">
+          <div class="md-form mb-5">
+            <select name="location" id="location" class="browser-default custom-select">
+              <option value="" disabled selected>--Select location--</option>
+              <?php if(!empty($locations)): foreach($locations as $loc): ?>
+                <option value="<?php echo $loc->id ?>"><?php echo ucfirst($loc->name); ?></option>
+              <?php endforeach; endif; ?>
+            </select>
+          </div>
+            
+          <div class="md-form mb-5">
+            <input name="name" type="text" id="form34" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="form34">Employ name</label>
+          </div>
 
-                <div class="columns">
-                    <div class="column">
-                        <div class="control">
+          <div class="md-form mb-5">
+            <!-- <select name="category" id="selectListCat" class="browser-default custom-select"> -->
+            <select name="department[]" id="selectListCat" class="form-control" required multiple>
+              <option value="" disabled selected>--Select Department--</option>
+              <option value="IT">IT</option>
+              <option value="sale">Sale</option>
+              <option value="marketing">marketing</option>
+              <option value="media">media</option>
+              <option value="finance">Finance</option> 
+              <option value="others">Others</option>
+            </select>
+          </div>
 
-                        <fieldset>
-								<div class="field">
-									<label class="label is-small">Email <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-									<input type="email" name="email" id="employ_email" class="input is-small" value="" type="text" placeholder="example@yahoo.com ..." required="">
-										<span class="icon is-small is-left">
-											<i class="fas fa-envelope-square"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-                        </div>
-                    </div>
-                    <div class="column"> 
-                        <div class="control">
-                        <label class="label is-small">Phone No <span class="has-text-danger">*</span></label>
-                            <div class="select select is-small is-fullwidth select is-multiple"> 
-                            <input type="number" name="phone" id="employ_phone" class="input is-small" value="" type="text" placeholder="example@yahoo.com ..." required="">
-                            </div>
-                        </div> 
-						</div>
-                </div>  
-                <div class="columns"> 
-                  <div class="column">                <label class="label is-small">Dapartment <span class="has-text-danger">*</span></label>
-                            <div class="select select is-small is-fullwidth select is-multiple"> 
-                                <select name="department[]" id="selectListCat" multiple size="3">
-                                <option value="" disabled selected>--Select Department--</option>
-                                  <option value="IT">IT</option>
-                                  <option value="sale">Sale</option>
-                                  <option value="marketing">marketing</option>
-                                  <option value="media">media</option>
-                                  <option value="finance">Finance</option> 
-                                  <option value="others">Others</option>
-                                </select>
-                            </div>
-                            </div>
+          <div class="md-form mb-5">
+            <input name="email" type="email" id="form29" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="form29">Employ email</label>
+          </div>
+          
 
-                    <div class="column">
-						<fieldset>
-								<div class="field">
-									<label class="label is-small">Address</label>
-									<div class="control has-icons-left">
-									<textarea class="textarea is-small" name="description" role="3" id="employ_address"
-													placeholder="some text"></textarea>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-                </div>    
+          <div class="md-form mb-5">
+            <input name="phone" type="number" id="form32" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="form32">Employ phone</label>
+          </div>  
 
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button is-success" type="submit">Apply</button>
-                <button class="button" aria-label="close" id="close-edit-modal" type="button">Cancel</button>
+          <div class="md-form">
+            <textarea name="address" type="text" class="md-textarea form-control" rows="3"></textarea>
+            <label data-error="wrong" data-success="right" for="form8">Employ Address</label>
+          </div>
 
-            </footer>
-        </div>
-    </form>
+          <div class="md-form mb-5">
+            <input type="submit" class="btn btn-primary" value="Save Changes">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-right">
+        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
 </div>
-<!-- update eploy code end -->
+
+<!-- Edit supplier -->
+<div class="modal fade" id="edit_employ" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100 font-weight-bold">Update Employ</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body edit-modal-body mx-3">
+        <form action="<?=base_url('admin/update_employ');?>" method="post" class="md-form">
+          <input type="hidden" name="sup_id" id="employId" value="">
+          <div class="md-form mb-5">
+            <select name="location" id="employ_location" class="browser-default custom-select">
+              <option value="" disabled selected>--Select location--</option>
+              <?php if(!empty($locations)): foreach($locations as $loc): ?>
+                <option value="<?= $loc->id ?>"><?= ucfirst($loc->name); ?></option>
+              <?php endforeach; endif; ?>
+            </select>
+          </div>
+          <div class="md-form mb-5">
+            <input name="name" type="text" id="employ_name" class="form-control validate" value="">
+            <label data-error="wrong" data-success="right" for="form34">Employ name</label>
+          </div> 
+          <div class="md-form mb-5">
+            <select name="department[]" id="department" class="browser-default custom-select" required multiple>
+              <option value="" disabled selected>--Select Department--</option>  
+              <option value="IT">IT</option>
+              <option value="sale">Sale</option>
+              <option value="marketing">marketing</option>
+              <option value="media">media</option>
+              <option value="finance">Finance</option> 
+              <option value="others">Others</option>
+            </select>
+          </div>
+
+          <div class="md-form mb-5">
+            <input name="email" type="email" id="employ_email" class="form-control validate" value="">
+            <label data-error="wrong" data-success="right" for="form29">Employ email</label>
+          </div>
+
+          <div class="md-form mb-5">
+            <input name="phone" type="number" id="employ_phone" class="form-control validate" value="">
+            <label data-error="wrong" data-success="right" for="form32">Employ phone</label>
+          </div>  
+
+          <div class="md-form">
+            <textarea name="address" id="employ_address" type="text" class="md-textarea form-control" rows="3"></textarea>
+            <label data-error="wrong" data-success="right" for="form8">Employ Address</label>
+          </div>
+
+          <div class="md-form mb-5">
+            <input type="submit" class="btn btn-primary" value="Save Changes">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-right">
+        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
-
-// add employ code start 
-var cat1 = $("#exit-add-modal")
- 	var cat2 = $("#close-add-modal")
- 	var catmdl = new BulmaModal("#add_employ")
-
- 	cat1.click(function (ev) {
- 		catmdl.close();
- 		ev.stopPropagation();
- 	});
- 	cat2.click(function (ev) {
- 		catmdl.close();
- 		ev.stopPropagation();
- 	});
-
- 	$('.add_employ').click(function (ev) {
- 		catmdl.show();
-		$(".modal-card-head").show();
- 		ev.stopPropagation();
- 	});
-
-   // code for updat employ
- 	var empedt1 = $("#exit-edit-modal")
- 	var empedt2 = $("#close-edit-modal")
- 	var empedtmdl = new BulmaModal("#edit_employ")
- 	empedt1.click(function (ev) {
- 		empedtmdl.close();
- 		ev.stopPropagation();
- 	});
- 	empedt2.click(function (ev) {
- 		empedtmdl.close();
- 		ev.stopPropagation();
- 	}); 
-
 $(document).ready(function(){
   $('.supplier_info').click(function(){  
     var supplier_id = $(this).data('id');
@@ -381,15 +271,15 @@ $(document).ready(function(){
         $('#employ_name').val(response.name);
         $('#department').val(response.category);
         $('#employ_email').val(response.email);
-        $('#employ_phone').val(response.phone); 
+        $('#employ_phone').val(response.phone);
+        $('#employ_ntn').val(response.ntn_number);
+        $('#employ_rating').val(response.rating);
         $('#employ_address').val(response.address);
         // $('.edit-modal-body').html(response);
         // Display Modal
-        // $('#edit_employ').modal('show'); 
-        empedtmdl.show();
+        $('#edit_employ').modal('show'); 
       }
     });
-    event.stopPropagation();
   });
 });
  
