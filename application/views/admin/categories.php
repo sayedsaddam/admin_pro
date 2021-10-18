@@ -128,20 +128,21 @@
  				<div class="columns is-vcentered">
  					<div class="column">
  						<div class="field">
-						 <label for="Category Name" class="label is-small has-text-weight-semibold">Category Title <span class="has-text-danger">*</span></label>
+ 							<label for="Category Name" class="label is-small has-text-weight-semibold">Category Title
+ 								<span class="has-text-danger">*</span></label>
  							<div class="control has-icons-left">
  								<input name="cat_name" type="text" id="form34" class="input is-small" type="text"
- 									placeholder="e.g Electronics" required="">
-								<span class="icon is-small is-left">
-									<i class="fas fa-tags"></i>
-								</span>
+ 									placeholder="e.g Electronics" required>
+ 								<span class="icon is-small is-left">
+ 									<i class="fas fa-tags"></i>
+ 								</span>
  							</div>
  						</div>
  					</div>
  				</div>
  			</section>
  			<footer class="modal-card-foot">
- 				<button class="button is-success" type="submit">Submit</button>
+ 				<button class="button is-success" type="submit">Add</button>
  				<button class="button" aria-label="close" id="close-cat-modal" type="button">Cancel</button>
 
  			</footer>
@@ -154,22 +155,29 @@
  	<form action="<?=base_url('admin/update_category');?>" method="post" method="post">
  		<div class="modal-card">
  			<header class="modal-card-head">
- 				<p class="modal-card-title">Update Categories</p>
+ 				<p class="modal-card-title">Update Category</p>
  				<button class="delete" aria-label="close" id="exit-catedt-modal" type="button"></button>
  			</header>
  			<section class="modal-card-body">
  				<div class="columns">
  					<div class="column">
  						<div class="field">
- 							<input name="cat_name" type="text" id="cat_name" class="input is-small" type="text"
- 								placeholder="sub categories" required="">
+ 							<label for="Category Name" class="label is-small has-text-weight-semibold">Category Title
+ 								<span class="has-text-danger">*</span></label>
+ 							<div class="control has-icons-left">
+ 								<input name="cat_name" id="cat_name" type="text" class="input is-small" type="text"
+ 									placeholder="e.g Electronics" required>
+ 								<span class="icon is-small is-left">
+ 									<i class="fas fa-tags"></i>
+ 								</span>
+ 							</div>
  						</div>
  					</div>
  				</div>
 
  			</section>
  			<footer class="modal-card-foot">
- 				<button class="button is-success" type="submit">Submit</button>
+ 				<button class="button is-success" type="submit">Update</button>
  				<button class="button" aria-label="close" id="close-catedt-modal" type="button">Cancel</button>
 
  			</footer>
@@ -193,7 +201,7 @@
 
  	$('.add_categories').click(function (ev) {
  		catmdl.show();
-		$(".modal-card-head").show();
+ 		$(".modal-card-head").show();
  		ev.stopPropagation();
  	});
 
@@ -228,7 +236,7 @@
  					// $('.edit-modal-body').html(response);
  					// // Display Modal
  					catedtmdl.show();
-
+ 					$(".modal-card-head").show();
  				}
  			});
  			event.stopPropagation();
