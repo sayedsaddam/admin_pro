@@ -9,10 +9,10 @@
 		Procurement
 	</p>
 	<ul class="menu-list">
-		<!-- <li><a href="<?= base_url('admin/suppliers') ?>">Suppliers</a></li> -->
+		<li><a href="<?= base_url('admin/suppliers') ?>">Suppliers</a></li>
 	</ul>
 	<ul class="menu-list">
-		<!-- <li><a href="<?= base_url('admin/employ') ?>">Employees</a></li> -->
+		<li><a href="<?= base_url('admin/employ') ?>">Employees</a></li>
 	</ul>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
