@@ -98,7 +98,7 @@
 									</td>
 								</tr>
 								<?php } else{ ?>
-								<tr
+								<tr 
 									class="<?php if(min($lowest_price) == $item->price){ echo 'table-success text-dark'; } ?>">
 									
 									<td><?= 'CTC-0'.$item->purchase_id; ?></td>
@@ -118,7 +118,7 @@
 									<?php } elseif($item->qut_status == 0){ ?>
 									<td><span class="tag is-warning">process <span></td>
 									<?php } ?>
-									<td>
+									<td class="is-narrow">
 										<?php "<span id='qutation'>".$quotations = $this->admin_model->count_qutation($item->purchase_id)."</span>"; ?>
 										<?php if($quotations < 3) { ?>
 										<a data-id="<?= $item->purchase_id.'/'.$item->sup_id; ?>"
