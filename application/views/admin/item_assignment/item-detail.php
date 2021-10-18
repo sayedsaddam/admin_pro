@@ -269,7 +269,7 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Price <span class="has-text-danger">*</span></label>
+									<label class="label is-small">Price (PKR) <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<input name="price" value="<?= !empty($edit) ? $edit->price : '' ?>" class="input is-small"
 											type="number" min="1" max="9999999" placeholder="1-9,999,999" required>
