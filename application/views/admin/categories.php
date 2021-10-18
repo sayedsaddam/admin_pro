@@ -55,9 +55,6 @@
  				<div class="columns" style="display: grid">
  					<div class="column table-container ">
  						<table class="table table-sm is-fullwidth">
- 							<caption>
- 								<?php if(empty($results)){ echo ''; }else{ echo 'Search Results'; } ?>
- 							</caption>
  							<thead>
  								<tr>
  									<th class="font-weight-bold">ID</th>
@@ -73,7 +70,7 @@
 
  								<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';"
  									style="cursor: pointer;">
- 									<td><?= 'S2S-0'.$cat->id; ?></td>
+ 									<td><?= 'S2S-'.$cat->id; ?></td>
  									<td><?= $cat->cat_name; ?></td>
  									<td><?= $cat->fullname; ?></td>
  									<td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
@@ -87,23 +84,23 @@
  											<span class="icon is-small"><i class="fa fa-times"></i></span></a>
  									</td>
  								</tr>
- 								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='6'>No record found.</td></tr>"; endif; ?>
+ 								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='14'>No record found.</td></tr>"; endif; ?>
  							</tbody>
  							<?php else: ?>
  							<tbody>
  								<?php if(!empty($results)): foreach($results as $res): ?>
- 								<tr>
- 									<td><?= 'AHG-0'.$res->id; ?></td>
- 									<td><a href="<?= base_url('admin/sub_categories/'.$res->id); ?>"
- 											class="text-info"><?= $res->cat_name; ?></a></td>
+ 								<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$res->id) ?>';"
+ 									style="cursor: pointer;">
+ 									<td><?= 'S2S-'.$res->id; ?></td>
+ 									<td><?= $res->cat_name; ?></td>
  									<td><?= $res->fullname; ?></td>
  									<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
- 									<td>
+ 									<td class="is-narrow">
  										<a title="Edit" data-id="<?= $res->id; ?>"
  											class="category button is-small"><span class="icon is-small"><i
  													class="fa fa-edit"></i></span></a>
  										<a title="Delete" href="<?=base_url('admin/delete_category/'.$res->id);?>"
- 											class="button is-small"
+ 											class="button is-small has-text-danger"
  											onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
  											class=""><span class="icon is-small "><i
  													class="fa fa-times"></i></span></a>
