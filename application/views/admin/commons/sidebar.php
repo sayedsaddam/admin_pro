@@ -42,10 +42,10 @@
 		<!-- <li><a href="<?= base_url('/admin/projects') ?>">Projects</a></li> -->
 	</ul>
 	<ul class="menu-list">
-		<li><a class="<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
-				<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' ? 'style="background-color:#ebfffc;"' : '' ?>>Item
+		<li><a class="<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' || $this->uri->segment(2) == 'item_detail' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' || $this->uri->segment(2) == 'item_detail' ? 'style="background-color:#ebfffc;"' : '' ?>>Item
 				Register</a>
-			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' ? '' : 'display: none;' ?>">
+			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' || $this->uri->segment(2) == 'item_detail' ? '' : 'display: none;' ?>">
 				<li><a href="<?= base_url('admin/item_register'); ?>"><i class="fas fa-list mr-1"></i> Items List</a></li>
 				<li><a href="<?= base_url('admin/available_item_list'); ?>"><i class="far fa-list-alt mr-1"></i> Available List</a></li>
 				<li><a href="<?= base_url('admin/get_assign_item'); ?>"><i class="fas fa-bars mr-1"></i> Assigned List</a></li>
