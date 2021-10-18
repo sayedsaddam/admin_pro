@@ -52,7 +52,7 @@
 				<?php if(!empty($sub_categories)): ?>
 				<div class="columns">
 					<div class="column">
-						<?= 'Sub Categories for "<span class="has-text-weight-bold">'.$sub_categories[0]->cat_name.'</span>"'; ?>
+						<?= 'Subcategories for "<span class="has-text-weight-bold">'.$sub_categories[0]->cat_name.'</span>"'; ?>
 					</div>
 				</div>
 				<?php endif ?>
@@ -61,20 +61,20 @@
 						<table class="table table-sm is-fullwidth">
 						<thead>
 								<tr>
-									<th class="font-weight-bold">ID</th>
-									<th class="font-weight-bold">Subcategory</th>
-									<th class="font-weight-bold">Added By</th>
-									<th class="font-weight-bold">Date Added</th>
-									<th class="font-weight-bold">Action</th>
+									<th class="has-text-weight-semibold">ID</th>
+									<th class="has-text-weight-semibold">Subcategory</th>
+									<th class="has-text-weight-semibold">Added By</th>
+									<th class="has-text-weight-semibold">Date Added</th>
+									<th class="has-text-weight-semibold">Action</th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-									<th class="font-weight-bold">ID</th>
-									<th class="font-weight-bold">Subcategory</th>
-									<th class="font-weight-bold">Added By</th>
-									<th class="font-weight-bold">Date Added</th>
-									<th class="font-weight-bold">Action</th>
+									<th class="has-text-weight-semibold">ID</th>
+									<th class="has-text-weight-semibold">Subcategory</th>
+									<th class="has-text-weight-semibold">Added By</th>
+									<th class="has-text-weight-semibold">Date Added</th>
+									<th class="has-text-weight-semibold">Action</th>
 								</tr>
 							</tfoot>
 							<?php if(empty($results)): ?>

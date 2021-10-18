@@ -81,36 +81,36 @@
 						<table class="table is-hoverable is-narrow is-fullwidth" id="myTable">
 							<thead>
 								<tr>
-									<th><abbr title="Item Identification Number">ID</abbr></th>
-									<th>Location</th>
-									<th>Category</th>
-									<th>Product</th>
-									<th>Model</th>
-									<th>Supplier</th>
+									<th class="has-text-weight-semibold"><abbr title="Item Identification Number">ID</abbr></th>
+									<th class="has-text-weight-semibold">Location</th>
+									<th class="has-text-weight-semibold">Category</th>
+									<th class="has-text-weight-semibold">Product</th>
+									<th class="has-text-weight-semibold">Model</th>
+									<th class="has-text-weight-semibold">Supplier</th>
 									<?php if(isset($assign_page)) : ?>
-									<th>Assign To</th>
+									<th class="has-text-weight-semibold">Assign To</th>
 									<?php endif ?>
-									<th><abbr title="Depreciation Percentage">D%</abbr></th>
-									<th>Status</th>
-									<th><abbr title="Purchase Date">PD</abbr></th>
-									<th class="is-hidden-print">Action</th>
+									<th class="has-text-weight-semibold"><abbr title="Depreciation Percentage">D%</abbr></th>
+									<th class="has-text-weight-semibold">Status</th>
+									<th class="has-text-weight-semibold"><abbr title="Purchase Date">PD</abbr></th>
+									<th class="has-text-weight-semibold is-hidden-print">Action</th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-									<th><abbr title="Item Identification Number">ID</abbr></th>
-									<th>Location</th>
-									<th>Category</th>
-									<th>Product</th>
-									<th>Model</th>
-									<th>Supplier</th>
+									<th class="has-text-weight-semibold"><abbr title="Item Identification Number">ID</abbr></th>
+									<th class="has-text-weight-semibold">Location</th>
+									<th class="has-text-weight-semibold">Category</th>
+									<th class="has-text-weight-semibold">Product</th>
+									<th class="has-text-weight-semibold">Model</th>
+									<th class="has-text-weight-semibold">Supplier</th>
 									<?php if(isset($assign_page)) : ?>
-									<th>Assigned To</th>
+									<th class="has-text-weight-semibold">Assigned To</th>
 									<?php endif ?>
-									<th><abbr title="Depreciation Percentage">D%</abbr></th>
-									<th>Status</th>
-									<th><abbr title="Purchase Date">PD</abbr></th>
-									<th class="is-hidden-print">Action</th>
+									<th class="has-text-weight-semibold"><abbr title="Depreciation Percentage">D%</abbr></th>
+									<th class="has-text-weight-semibold">Status</th>
+									<th class="has-text-weight-semibold"><abbr title="Purchase Date">PD</abbr></th>
+									<th class="has-text-weight-semibold is-hidden-print">Action</th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -120,17 +120,15 @@
 									<td><span><?= 'S2S-'.$item->id; ?></a></td>
 									<td><?= $item->name; ?></td>
 									<td>
-										<div class="tags"><span class="tag"><?= ucfirst($item->cat_name); ?></span><span
-												class="tag is-success is-light"><?= ucfirst($item->names); ?></span>
+										<div class="tags"><span class="tag"><?= ucwords($item->cat_name); ?></span><span
+												class="tag is-success is-light"><?= ucwords($item->names); ?></span>
 										</div>
 									</td>
-									<td><?= ucfirst($item->type_name); ?></td>
-									<td><?= ucfirst($item->model); ?></td>
-									</td>
-									<td><?= ucfirst($item->supplier); ?></td>
+									<td><?= ucwords($item->type_name); ?></td>
+									<td><?= ucwords($item->model); ?></td>
+									<td><?= ucwords($item->supplier); ?></td>
 									<?php if(isset($assign_page)) : ?>
-									<td><?= ucfirst($item->employ_name); ?></td>
-									<?php else : ?>
+									<td><?= ucwords($item->employ_name); ?></td>
 									<?php endif; ?>
 									<td><?= $item->depreciation.' (%)'; ?></td>
 									<td>
