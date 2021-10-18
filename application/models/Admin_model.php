@@ -709,6 +709,7 @@ class Admin_model extends CI_Model{
         $this->db->from('categories');
         $this->db->join('users', 'categories.added_by = users.id', 'left');
         $this->db->join('locations', 'categories.cat_location = locations.id', 'left');
+        $this->db->order_by('created_at', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -747,6 +748,7 @@ class Admin_model extends CI_Model{
         $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->join('users', 'sub_categories.added_by = users.id', 'left');
         $this->db->where('categories.id', $cat_id); 
+        $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
     // Add sub category

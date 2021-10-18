@@ -23,7 +23,7 @@
 	<!-- JQuery UI -->
 	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
 	<link href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" rel="stylesheet">
-	
+
 	<!-- custom css -->
 	<link href="<?= base_url('assets/custom/custom.css'); ?>" rel="stylesheet">
 	<title><?php echo $title; ?></title>
@@ -40,24 +40,26 @@
 					<img src="https://s2smark.com/assets/img/logo/s2s-logo-1.png"
 						style="filter: invert(.5) brightness(2);" width="200" title="S2S Marketing Logo">
 				</div>
-				<div class="column is-right is-narrow">
+				<div class="column is-right is-narrow is-hidden-touch">
 					<div class="dropdown is-right is-hoverable">
 						<div class="dropdown-trigger">
-							<button class="button is-primary" aria-haspopup="true" aria-controls="dropdown-menu4" style="background-color: #15BCA1;">
-								<span><?= $this->session->userdata('fullname') ?></span>
-								<span class="icon is-small">
+							<button class="button is-primary" aria-haspopup="true" aria-controls="dropdown-menu2"
+								style="background-color: #15BCA1;">
+								<span class="is-capitalized"><?= $this->session->userdata('fullname') ?></span>
+								<span class="icon is-small is-size-7">
 									<i class="fas fa-angle-down" aria-hidden="true"></i>
 								</span>
 							</button>
 						</div>
-						<div class="dropdown-menu" id="dropdown-menu3" role="menu">
+						<div class="dropdown-menu" id="dropdown-menu2" role="menu">
 							<div class="dropdown-content">
 								<a href="#" class="dropdown-item">
-									Profile
+									<span class="label">Profile Information</span>
+									<p style="overflow-wrap: break-word; white-space: pre-wrap;">Need to <code>change</code> your profile information?</p>
 								</a>
 								<hr class="dropdown-divider">
 								<a href="<?= base_url('login/logout') ?>" class="dropdown-item">
-									Logout
+									<i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout
 								</a>
 							</div>
 						</div>
