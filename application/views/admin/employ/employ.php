@@ -72,7 +72,7 @@
                   <td><?= $sup->phone; ?></td>
                   <td><?= ucwords($sup->name); ?></td>  
                   <td><?= ucwords($sup->department); ?></td>  
-                  <td><?= ucwords($sup->doj); ?></td>  
+                  <td><?= $sup->doj; ?></td>  
                   <td>
                       <?php if($sup->status == 1): ?>
                           <span class="badge badge-success">Active</span>
@@ -99,7 +99,7 @@
                   <td><?= $sup->phone; ?></td>
                   <td><?= ucwords($sup->name); ?></td>  
                   <td><?= ucwords($sup->department); ?></td>  
-                  <td><?= ucwords($sup->doj); ?></td>  
+                  <td><?= $sup->doj; ?></td>  
                   <td>
                       <?php if($res->status == 1): ?>
                           <span class="badge badge-success">Active</span>
