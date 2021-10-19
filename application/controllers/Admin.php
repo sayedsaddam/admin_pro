@@ -1218,6 +1218,7 @@ public function get_assign_item($offset = null){
         $data['depreciation'] = $this->admin_model->get_item_depreciation($id);
         $data['status'] = $this->admin_model->status_items($id); 
         $data['edit_item'] = true;
+        $data['item_register'] = true;
         $this->load->view('admin/commons/new_template', $data);
     }
     // Search filters - search product date-wise
