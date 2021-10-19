@@ -1,3 +1,4 @@
+<?php $session = $this->session->userdata('user_role'); ?>
 <section class="columns is-gapless mb-0 pb-0">
  	<div class="column is-narrow is-fullheight is-hidden-print" style="background-color:#fafafa;">
  		<?php $this->view('admin/commons/sidebar'); ?>
@@ -83,11 +84,13 @@
                           <span class="badge badge-danger">Inactive</span>
                       <?php endif; ?>
                   </td>
-                  <td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
-                  <td class="is-narrow">
+                  <td><?= date('M d, Y', strtotime($sup->created_at)); ?></td> 
+                  <td class="is-narrow"> 
                       <a data-id="<?= $sup->emp_id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i class="fa fa-edit"></i></span></a>
+                     <?php if($session == 'admin'){ ?>
                       <a href="<?=base_url('admin/delete_employ/'.$sup->emp_id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class="button is-small"><span class="icon is-small has-text-danger"><i class="fa fa-times"></i></span></a>
-                   </td>
+                     <?php } ?>
+                    </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
             </tbody>
@@ -101,7 +104,7 @@
                   <td><?= ucfirst($res->phone); ?></td>
                   <td><?= ucfirst($res->location); ?></td>   
                   <td><?= ucfirst($res->department); ?></td>  
-                  <td><?= ucfirst($sup->doj); ?></td>  
+                  <td><?= ucfirst($res->doj); ?></td>  
                   <td>
                       <?php if($res->status == 1): ?>
                           <span class="badge badge-success">Active</span>
@@ -112,8 +115,10 @@
                   <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                   <td class="is-narrow">
                       <a data-id="<?= $res->id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i class="fa fa-edit"></i></span></a>
+                      <?php if($session == 'admin'){ ?>
                       <a href="<?=base_url('admin/delete_employ/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class="button is-small"><span class="icon is-small has-text-danger"><i class="fa fa-times"></i></span></a>
-                   </td>
+                      <?php } ?>
+                    </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
             </tbody>

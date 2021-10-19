@@ -1,3 +1,4 @@
+<?php $session = $this->session->userdata('user_role'); ?>
 <section class="columns is-gapless mb-0 pb-0">
 	<div class="column is-narrow is-fullheight is-hidden-print" style="background-color:#fafafa;">
 		<?php $this->view('admin/commons/sidebar'); ?>
@@ -86,9 +87,10 @@
 									<td class="is-narrow">
 										<a data-id="<?= $sup->sup_id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i
 													class="fa fa-edit"></i></span></a>
-										<a href="<?=base_url('admin/delete_supplier/'.$sup->sup_id);?>" 
-											class="button is-small"><span class="icon is-small has-text-danger"><i
+                          <?php if($session == 'admin'){ ?>
+										<a href="<?=base_url('admin/delete_supplier/'.$sup->sup_id);?>"	class="button is-small"><span class="icon is-small has-text-danger"><i
 													class="fa fa-times"></i></span></a>
+                          <?php } ?>
 									</td>
 								</tr>
 								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
@@ -97,7 +99,7 @@
 							<tbody>
 								<?php if(!empty($results)): foreach($results as $sup): ?>
                   <tr>
-									<td><?= 'SUP-0'.$sup->sup_id; ?></td>
+									<td><?= 'SUP-0'.$sup->id; ?></td>
 									<td><span title="<?= $sup->email; ?>"><?= $sup->name; ?></td>
 									<td><?= ucfirst($sup->phone); ?></td>
 									<td><?= ucfirst($sup->name); ?></td>
@@ -105,7 +107,7 @@
 									<td>
 										<?php if(!empty($sup->rating)){ echo '<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">'.ucfirst($sup->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>';}else{echo 'none';} ?>
 									</td>
-									<td><?= ucfirst($sup->cat_name); ?></td>
+									<td><?= ucfirst($sup->category); ?></td>
 									<td>
 										<?php if($sup->status == 1): ?>
 										<span class="badge badge-success">Active</span>
@@ -115,11 +117,13 @@
 									</td>
 									<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
 									<td class="is-narrow">
-										<a data-id="<?= $sup->sup_id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i
+										<a data-id="<?= $sup->id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i
 													class="fa fa-edit"></i></span></a>
-										<a href="<?=base_url('admin/delete_supplier/'.$sup->sup_id);?>" 
+                          <?php if($session == 'admin'){ ?>
+										<a href="<?=base_url('admin/delete_supplier/'.$sup->id);?>" 
 											class="button is-small"><span class="icon is-small has-text-danger"><i
 													class="fa fa-times"></i></span></a>
+                          <?php } ?>
 									</td>
 								</tr>
 								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
