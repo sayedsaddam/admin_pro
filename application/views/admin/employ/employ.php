@@ -67,7 +67,7 @@
             <tbody id="myTable">
               <?php if(!empty($employ)): foreach($employ as $sup): ?>
                 <tr>
-                  <td><?= 'SUP-0'.$sup->emp_id; ?></td>
+                  <td><?= 'S2S-0'.$sup->emp_id; ?></td>
                   <td><?= $sup->emp_name; ?></td>
                   <td><?= ucfirst($sup->email); ?></td>
                   <td><?= ucfirst($sup->phone); ?></td>
@@ -95,7 +95,7 @@
             <tbody id="myTable">
               <?php if(!empty($results)): foreach($results as $res): ?>
                 <tr>
-                  <td><?= 'SUP-0'.$res->id; ?></td>
+                  <td><?= 'S2S-0'.$res->id; ?></td>
                   <td><?= $res->fullname; ?></td>
                   <td><?= ucfirst($res->email); ?></td>
                   <td><?= ucfirst($res->phone); ?></td>
