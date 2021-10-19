@@ -12,7 +12,7 @@
 		<li><a class="<?= $this->uri->segment(2) == 'suppliers' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'suppliers' ? 'style="background-color:#ebfffc;"' : '' ?>>Suppliers</a>
 			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'suppliers' ? '' : 'display: none;' ?>">
-				<li class="is-size-7"><a href="<?= base_url('admin/suppliers'); ?>"><i class="fas fa-list mr-1"></i> Suppliers List</a></li>
+				<li class="is-size-7"><a href="<?= base_url('admin/suppliers'); ?>"><i class="fas fa-user mr-1"></i> Suppliers List</a></li>
 			</ul>
 		</li>
 
