@@ -98,7 +98,7 @@
             <tbody id="myTable">
               <?php if(!empty($results)): foreach($results as $res): ?>
                 <tr>
-                  <td><?= 'S2S-0'.$res->id; ?></td>
+                  <td><?= 'S2S-'.$res->id; ?></td>
                   <td><?= $res->fullname; ?></td>
                   <td><?= ucfirst($res->email); ?></td>
                   <td><?= ucfirst($res->phone); ?></td>
