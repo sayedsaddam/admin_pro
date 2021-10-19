@@ -5,11 +5,7 @@
  	<div class="column">
  		<div class="columns">
  			<div class="column section">
-       <div class="columns">
-					<div class="column">
-						<?php $this->view('admin/commons/breadcrumb'); ?>
-					</div>
-				</div>
+
 
  				<div class="columns is-hidden-touch">
  					<div class="column is-hidden-print">
@@ -44,11 +40,19 @@
  							</p>
  						</div>
  					</div>
- 				</div> 
+ 				</div>
+
+         <div class="columns">
+					<div class="column">
+						<a href="<?= base_url('admin') ?>" class="has-text-black">Dashboard</a> > 
+							<a href="<?= base_url('admin/employ') ?>" class="has-text-black has-text-weight-bold">Employee List</a>
+					</div>
+				</div> 
+        
  				<div class="columns" style="display: grid">
  					<div class="column table-container ">
            <table class="table table-sm is-fullwidth">
-          <caption><?php if(empty($results)){ echo ''; }else{ echo ''; } ?></caption>
+          <caption><?php if(empty($results)){ echo ''; }else{ echo 'Search Results'; } ?></caption>
           <thead>
             <tr>
                 <th class="font-weight-bold">ID</th>
@@ -57,7 +61,6 @@
                 <th class="font-weight-bold">Phone</th>
                 <th class="font-weight-bold">Location</th>  
                 <th class="font-weight-bold">Department</th>  
-                <th class="font-weight-bold">DOJ</th>  
                 <th class="font-weight-bold">Status</th>
                 <th class="font-weight-bold">Date</th>
                 <th class="font-weight-bold">Action</th>
@@ -74,7 +77,6 @@
                   <td><?= ucfirst($sup->name); ?></td>  
                   
                   <td><?= ucfirst($sup->department); ?></td>  
-                  <td><?= ucfirst($sup->doj); ?></td>  
                   
                   <td>
                       <?php if($sup->status == 1): ?>
@@ -96,12 +98,12 @@
               <?php if(!empty($results)): foreach($results as $res): ?>
                 <tr>
                   <td><?= 'SUP-0'.$res->id; ?></td>
-                  <td><?= $res->fullname; ?></td>
+                  <td><?= $res->name; ?></td>
                   <td><?= ucfirst($res->email); ?></td>
                   <td><?= ucfirst($res->phone); ?></td>
-                  <td><?= ucfirst($res->location); ?></td>   
+                  <td><?= ucfirst($res->name); ?></td>   
                   <td><?= ucfirst($res->department); ?></td>  
-                  <td><?= ucfirst($sup->doj); ?></td>  
+                  
                   <td>
                       <?php if($res->status == 1): ?>
                           <span class="badge badge-success">Active</span>
@@ -183,7 +185,7 @@
                     <div class="column"> 
                         <div class="control">
                         <label class="label is-small">Phone No <span class="has-text-danger">*</span></label>
-                            <div class="is-small is-fullwidth"> 
+                            <div class="select select is-small is-fullwidth"> 
                             <input type="number" name="phone" id="" class="input is-small" value="" type="text" placeholder="034354556554 ..." required="">
                             </div>
                         </div> 
@@ -231,27 +233,15 @@
                     <div class="column">
 						<fieldset>
 								<div class="field">
-									<label class="label is-small">Joining Date</label>
-									<div class="control">
-                  <input type="date" name="doj" id="" class="input is-small" value="" placeholder="joining ..." >
+									<label class="label is-small">Address</label>
+									<div class="control has-icons-left">
+									<textarea class="textarea is-small" name="address" rows="1" id=""
+													placeholder="some detail"></textarea>
 									</div>
 								</div>
 							</fieldset>
 						</div>
                 </div>    
-<div class="columns">
-<div class="column">
-<fieldset>
-								<div class="field">
-									<label class="label is-small">Address</label>
-									<div class="control has-icons-left">
-									<textarea class="textarea is-small" name="address" rows="2" id=""
-													placeholder="some detail"></textarea>
-									</div>
-								</div>
-							</fieldset>
-</div>
-</div>
 
             </section>
             <footer class="modal-card-foot">
@@ -374,28 +364,15 @@
                     <div class="column">
 						<fieldset>
 								<div class="field">
-									<label class="label is-small">Joining Date</label>
-									<div class="control">
-                  <input type="date" name="doj" id="doj" class="input is-small" value="" placeholder="joining ..." >
-									</div>
-								</div>
-							</fieldset>
-						</div>
-                </div>  
-                
-                <div class="columns">
-<div class="column">
-<fieldset>
-								<div class="field">
 									<label class="label is-small">Address</label>
 									<div class="control has-icons-left">
-									<textarea class="textarea is-small" name="address" rows="2" id=""
+									<textarea class="textarea is-small" name="employ_address" rows="1" id="address"
 													placeholder="some detail"></textarea>
 									</div>
 								</div>
 							</fieldset>
-</div>
-</div>
+						</div>
+                </div>    
 
             </section>
             <footer class="modal-card-foot">
@@ -464,7 +441,6 @@ $(document).ready(function(){
         $('#address').val(response.address); 
         $('#region').val(response.region);
         $('#dob').val(response.dob); 
-        $('#doj').val(response.doj); 
         
         // $('.edit-modal-body').html(response);
         // Display Modal

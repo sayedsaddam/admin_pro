@@ -166,19 +166,18 @@ class Admin_model extends CI_Model{
     }
     // Get suppliers
     public function get_suppliers($limit, $offset){
-        $this->db->select('suppliers.id as sup_id, suppliers.name sup_name, suppliers.category, suppliers.email, suppliers.phone, suppliers.location, suppliers.region,suppliers.ntn_number,suppliers.rating, suppliers.address, suppliers.status, suppliers.created_at,locations.id,locations.name,categories.id as cat_id,categories.cat_name');
+        $this->db->select('suppliers.id, suppliers.name sup_name, suppliers.category, suppliers.email, suppliers.phone, suppliers.location, suppliers.region,suppliers.ntn_number,suppliers.rating, suppliers.address, suppliers.status, suppliers.created_at,locations.id,locations.name');
         $this->db->from('suppliers');
         $this->db->join('locations', 'suppliers.location = locations.id', 'left');
-        $this->db->join('categories', 'suppliers.category = categories.id', 'left');
         $this->db->where('status', 1);
         $this->db->order_by('suppliers.rating', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Remove supplier
-    public function delete_supplier($id,$data){
+    public function delete_supplier($id){
         $this->db->where('id', $id);
-        $this->db->update('suppliers',$data);
+        $this->db->delete('suppliers');
         return true;
     }
     // Get supplier for edit by id
@@ -987,8 +986,8 @@ class Admin_model extends CI_Model{
                            items.depreciation,
                            items.purchasedate, 
                            items.created_at,
-                           users.fullname as employ_name,
-                           users.id as employ_id,
+                           employ.name as employ_name,
+                           employ.id as employ_id,
                            sub_categories.name as names, 
                            categories.cat_name, 
                            locations.name,
@@ -1003,7 +1002,7 @@ class Admin_model extends CI_Model{
         $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
         $this->db->join('locations', 'items.location = locations.id', 'left');
         $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
-        $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+        $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
         if (!empty($date_from) && !empty($date_to)) {  
             $this->db->where('items.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
         }
@@ -1029,8 +1028,8 @@ class Admin_model extends CI_Model{
                                items.depreciation,
                                items.purchasedate, 
                                items.created_at,
-                               users.fullname as employ_name,
-                               users.id as employ_id,
+                               employ.name as employ_name,
+                               employ.id as employ_id,
                                item_assignment.id as item_ids,
                                item_assignment.item_id, 
                                item_assignment.status,
@@ -1043,7 +1042,7 @@ class Admin_model extends CI_Model{
             $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
             $this->db->join('locations', 'items.location = locations.id', 'left');
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
-            $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+            $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
             $this->db->where('items.quantity >', 0);
             $this->db->where('items.location', $this->session->userdata('location'));
             $this->db->group_by('items.id'); 
@@ -1066,8 +1065,8 @@ class Admin_model extends CI_Model{
                                items.depreciation,
                                items.purchasedate, 
                                items.created_at,
-                               users.fullname as employ_name,
-                               users.id as employ_id,
+                               employ.name as employ_name,
+                               employ.id as employ_id,
                                item_assignment.item_id,
                                item_assignment.status,
                                item_assignment.id as item_ids,
@@ -1080,7 +1079,7 @@ class Admin_model extends CI_Model{
             $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
             $this->db->join('locations', 'items.location = locations.id', 'left');
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
-            $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+            $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
             // $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
             // $this->db->group_by('item_assignment.item_id'); 
              $this->db->where('item_assignment.item_id !=', null);
@@ -1247,12 +1246,6 @@ class Admin_model extends CI_Model{
         $this->db->where('location', $loc_id);
         return $this->db->get()->result();
     }
-    // Get category for supplier form
-    public function suppliers_category(){
-        $this->db->select('id, cat_name');
-        $this->db->from('categories'); 
-        return $this->db->get()->result();
-    }
   //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - search Item
     public function search_items($search, $limit, $offset){  
@@ -1268,8 +1261,8 @@ class Admin_model extends CI_Model{
                 items.depreciation,
                 items.purchasedate, 
                 items.created_at,
-                users.fullname as employ_name,
-                users.id as employ_id,
+                employ.name as employ_name,
+                employ.id as employ_id,
                 sub_categories.name as names, 
                 categories.cat_name, 
                 locations.name, 
@@ -1281,7 +1274,7 @@ class Admin_model extends CI_Model{
         $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
         $this->db->join('locations', 'items.location = locations.id', 'left');
         $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
-        $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+        $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
         
         $this->db->where('items.location', $this->session->userdata('location'));
         
@@ -1309,8 +1302,8 @@ class Admin_model extends CI_Model{
     } 
      // Item Assign - Assignment Item
     public function assign_to(){ 
-        $this->db->select('id, fullname');
-        $this->db->from('users'); 
+        $this->db->select('id, name');
+        $this->db->from('employ'); 
         return $this->db->get()->result();
     }
     // Item Assign By - Assign By Item
@@ -1355,8 +1348,8 @@ class Admin_model extends CI_Model{
   }
   // Get supplier based on city
   public function get_location_employ($loc_id){
-      $this->db->select('id, fullname as name');
-      $this->db->from('users');
+      $this->db->select('id, name');
+      $this->db->from('employ');
       $this->db->where('location', $loc_id);
       return $this->db->get()->result();
   }
@@ -1402,14 +1395,11 @@ class Admin_model extends CI_Model{
     }
     // Get employ assign item record against emply
     public function get_employ_data($employ_id){ 
-        $this->db->select('item_assignment.id,item_assignment.item_id,
-                           item_assignment.assignd_to,users.id, 
-                           users.fulname,items.id,items.sub_category,
-                           sub_categories.id,sub_categories.name as sub_cat');
+        $this->db->select('item_assignment.id,item_assignment.item_id,item_assignment.assignd_to,employ.id,employ.name,items.id,items.sub_category,sub_categories.id,sub_categories.name as sub_cat');
         $this->db->from('item_assignment');   
         $this->db->join('items', 'item_assignment.item_id = items.id', 'left');       
         $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left'); 
-        $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+        $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left');
         $this->db->where(array('item_assignment.assignd_to' => $employ_id, 'item_assignment.status' => 1));
         // $query = $this->db->get();
         // echo $this->db->last_query();
@@ -1417,15 +1407,11 @@ class Admin_model extends CI_Model{
     } 
     // Count employ
     public function count_employ(){
-        return $this->db->from('users')->where(array('status' => 1))->count_all_results();
+        return $this->db->from('employ')->where(array('status' => 1))->count_all_results();
     }
     // Get employ
     public function get_employ($limit, $offset){
-        $this->db->select('users.id as emp_id, users.fullname as emp_name,
-                           users.doj, users.email,users.department, 
-                           users.phone, users.location, users.region,
-                           users.address, users.status, 
-                           users.created_at,locations.id,locations.name');
+        $this->db->select('users.id as emp_id, users.username as emp_name, users.email,users.department, users.phone, users.location, users.region,users.address, users.status, users.created_at,locations.id,locations.name');
         $this->db->from('users');
         $this->db->join('locations', 'users.location = locations.id', 'left');
         // $this->db->where('status', 1);
@@ -1435,14 +1421,9 @@ class Admin_model extends CI_Model{
     }
       // Search filters - suppliers search
       public function search_employ($search){
-        $this->db->select('users.id, users.fullname, users.email,
-                           users.phone, users.location, users.department,
-                           users.region, users.address, users.status,users.dob,
-                           users.created_at,locations.id as loc_id,
-                           locations.name');
+        $this->db->select('id, username, email, phone, location, department,region, address, status,dob, created_at');
         $this->db->from('users');
-        $this->db->join('locations', 'users.location = locations.id', 'left');
-        $this->db->like('fullname', $search);
+        $this->db->like('name', $search);
         $this->db->or_like('department', $search);
         $this->db->or_like('email', $search);
         $this->db->or_like('phone', $search);
@@ -1462,7 +1443,7 @@ class Admin_model extends CI_Model{
     }
     // Get employ for edit by id
     public function edit_employ($id){
-        $this->db->select('id, username, email, phone, location,doj, department,region, address, status,dob, created_at');
+        $this->db->select('id, username, email, phone, location, department,region, address, status,dob, created_at');
         $this->db->from('users');
         $this->db->where('id', $id);
         return $this->db->get()->row();
@@ -1651,9 +1632,9 @@ class Admin_model extends CI_Model{
                        items.depreciation,
                        items.purchasedate,
                        items.created_at, 
-                       users.fullname as employ,
-                       users.location,
-                       users.id as employ_id,
+                       employ.name as employ,
+                       employ.location,
+                       employ.id as employ_id,
                        sub_categories.name as names, 
                        categories.cat_name, 
                        locations.name,
@@ -1671,7 +1652,7 @@ class Admin_model extends CI_Model{
     $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
     $this->db->join('locations', 'items.location = locations.id', 'left');
     $this->db->join('item_assignment', 'item_assignment.item_id = items.id', 'left');
-    $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left'); 
+    $this->db->join('employ', 'item_assignment.assignd_to = employ.id', 'left'); 
     $this->db->where('item_assignment.item_id', $id);
     if(isset($employ_id)){
         $this->db->where('item_assignment.assignd_to', $employ_id);

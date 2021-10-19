@@ -5,11 +5,8 @@
 	<div class="column">
 		<div class="columns">
 			<div class="column section">
-      <div class="columns">
-					<div class="column">
-						<?php $this->view('admin/commons/breadcrumb'); ?>
-					</div>
-				</div>
+
+
 				<div class="columns is-hidden-touch">
 					<div class="column is-hidden-print">
 						<form action="<?= base_url('admin/search_suppliers') ?>" method="get">
@@ -43,7 +40,15 @@
 							</p>
 						</div>
 					</div>
-				</div> 
+				</div>
+
+				<div class="columns">
+					<div class="column">
+						<a href="<?= base_url('admin') ?>" class="has-text-black">Dashboard</a> >
+						<a href="<?= base_url('admin/suppliers') ?>" class="has-text-black has-text-weight-bold">Supplier List</a>
+					</div>
+				</div>
+
 				<div class="columns" style="display: grid">
 					<div class="column table-container ">
 						<table class="table table-sm is-fullwidth">
@@ -66,7 +71,7 @@
 							<tbody>
 								<?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
 								<tr>
-									<td><?= 'S2S-0'.$sup->sup_id; ?></td>
+									<td><?= 'SUP-0'.$sup->id; ?></td>
 									<td><span title="<?= $sup->email; ?>"><?= $sup->sup_name; ?></td>
 									<td><?= ucfirst($sup->phone); ?></td>
 									<td><?= ucfirst($sup->name); ?></td>
@@ -74,7 +79,7 @@
 									<td>
 										<?php if(!empty($sup->rating)){ echo '<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">'.ucfirst($sup->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>';}else{echo 'none';} ?>
 									</td>
-									<td><?= ucfirst($sup->cat_name); ?></td>
+									<td><?= ucfirst($sup->category); ?></td>
 									<td>
 										<?php if($sup->status == 1): ?>
 										<span class="badge badge-success">Active</span>
@@ -84,9 +89,10 @@
 									</td>
 									<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
 									<td class="is-narrow">
-										<a data-id="<?= $sup->sup_id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i
+										<a data-id="<?= $sup->id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i
 													class="fa fa-edit"></i></span></a>
-										<a href="<?=base_url('admin/delete_supplier/'.$sup->sup_id);?>" 
+										<a href="<?=base_url('admin/delete_supplier/'.$sup->id);?>"
+											onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
 											class="button is-small"><span class="icon is-small has-text-danger"><i
 													class="fa fa-times"></i></span></a>
 									</td>
@@ -97,7 +103,7 @@
 							<tbody>
 								<?php if(!empty($results)): foreach($results as $sup): ?>
                   <tr>
-									<td><?= 'SUP-0'.$sup->sup_id; ?></td>
+									<td><?= 'SUP-0'.$sup->id; ?></td>
 									<td><span title="<?= $sup->email; ?>"><?= $sup->name; ?></td>
 									<td><?= ucfirst($sup->phone); ?></td>
 									<td><?= ucfirst($sup->name); ?></td>
@@ -105,7 +111,7 @@
 									<td>
 										<?php if(!empty($sup->rating)){ echo '<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">'.ucfirst($sup->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>';}else{echo 'none';} ?>
 									</td>
-									<td><?= ucfirst($sup->cat_name); ?></td>
+									<td><?= ucfirst($sup->category); ?></td>
 									<td>
 										<?php if($sup->status == 1): ?>
 										<span class="badge badge-success">Active</span>
@@ -115,9 +121,10 @@
 									</td>
 									<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
 									<td class="is-narrow">
-										<a data-id="<?= $sup->sup_id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i
+										<a data-id="<?= $sup->id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i
 													class="fa fa-edit"></i></span></a>
-										<a href="<?=base_url('admin/delete_supplier/'.$sup->sup_id);?>" 
+										<a href="<?=base_url('admin/delete_supplier/'.$sup->id);?>"
+											onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
 											class="button is-small"><span class="icon is-small has-text-danger"><i
 													class="fa fa-times"></i></span></a>
 									</td>
@@ -204,14 +211,11 @@
 						<label class="label is-small">Catergory <span class="has-text-danger">*</span></label>
 						<div class="select select is-small is-fullwidth select is-multiple">
 							<select name="category[]" id="" multiple size="2">
-              <?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select Category</option>
-												<?php endif ?>
-												<?php if(!empty($categories)): foreach($categories as $cat): ?>
-												<option value="<?= $cat->id; ?>"
-													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= $cat->cat_name; ?>
-												</option>
-												<?php endforeach; endif; ?> 
+								<option value="" disabled selected>--Select Category--</option>
+								<option value="Electronic">Electronic</option>
+								<option value="stationary">Stationary</option>
+								<option value="furniture">Furniture</option>
+								<option value="crocery">Crocery</option> 
 							</select>
 						</div>
 					</div>
@@ -266,8 +270,8 @@
 <!-- Update employ code start -->
 <div class="modal" id="edit_suppliers">
 	<div class="modal-background"></div>
-	<form action="<?=base_url('admin/update_supplier');?>" method="post" class="md-form">
-	<input type="hidden" name="sup_id" id="supplierId" value="">
+	<form action="<?=base_url('admin/update_employ');?>" method="post" class="md-form">
+		<input type="hidden" name="sup_id" id="employId" value="">
 		<div class="modal-card">
 			<header class="modal-card-head">
 				<p class="modal-card-title">Update Suppliers</p>
@@ -336,15 +340,12 @@
 					<div class="column">
 						<label class="label is-small">Catergory <span class="has-text-danger">*</span></label>
 						<div class="select select is-small is-fullwidth select is-multiple">
-							<select name="category[]" id="category" multiple size="2" required>
-                <?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select Category</option>
-												<?php endif ?>
-												<?php if(!empty($categories)): foreach($categories as $cat): ?>
-												<option value="<?= $cat->id; ?>"
-													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= $cat->cat_name; ?>
-												</option>
-												<?php endforeach; endif; ?>
+							<select name="category[]" id="category" multiple size="2">
+								<option value="" disabled selected>--Select Category--</option>
+								<option value="Electronic">Electronic</option>
+								<option value="stationary">Stationary</option>
+								<option value="furniture">Furniture</option>
+								<option value="crocery">Crocery</option> 
 							</select>
 						</div>
 					</div>
