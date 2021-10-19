@@ -166,18 +166,19 @@ class Admin_model extends CI_Model{
     }
     // Get suppliers
     public function get_suppliers($limit, $offset){
-        $this->db->select('suppliers.id, suppliers.name sup_name, suppliers.category, suppliers.email, suppliers.phone, suppliers.location, suppliers.region,suppliers.ntn_number,suppliers.rating, suppliers.address, suppliers.status, suppliers.created_at,locations.id,locations.name');
+        $this->db->select('suppliers.id as sup_id, suppliers.name sup_name, suppliers.category, suppliers.email, suppliers.phone, suppliers.location, suppliers.region,suppliers.ntn_number,suppliers.rating, suppliers.address, suppliers.status, suppliers.created_at,locations.id,locations.name,categories.id as cat_id,categories.cat_name');
         $this->db->from('suppliers');
         $this->db->join('locations', 'suppliers.location = locations.id', 'left');
+        $this->db->join('categories', 'suppliers.category = categories.id', 'left');
         $this->db->where('status', 1);
         $this->db->order_by('suppliers.rating', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Remove supplier
-    public function delete_supplier($id){
+    public function delete_supplier($id,$data){
         $this->db->where('id', $id);
-        $this->db->delete('suppliers');
+        $this->db->update('suppliers',$data);
         return true;
     }
     // Get supplier for edit by id
@@ -1246,6 +1247,12 @@ class Admin_model extends CI_Model{
         $this->db->where('location', $loc_id);
         return $this->db->get()->result();
     }
+    // Get category for supplier form
+    public function suppliers_category(){
+        $this->db->select('id, cat_name');
+        $this->db->from('categories'); 
+        return $this->db->get()->result();
+    }
   //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - search Item
     public function search_items($search, $limit, $offset){  
@@ -1407,11 +1414,11 @@ class Admin_model extends CI_Model{
     } 
     // Count employ
     public function count_employ(){
-        return $this->db->from('employ')->where(array('status' => 1))->count_all_results();
+        return $this->db->from('users')->where(array('status' => 1))->count_all_results();
     }
     // Get employ
     public function get_employ($limit, $offset){
-        $this->db->select('users.id as emp_id, users.username as emp_name, users.email,users.department, users.phone, users.location, users.region,users.address, users.status, users.created_at,locations.id,locations.name');
+        $this->db->select('users.id as emp_id, users.fullname as emp_name, users.doj, users.email,users.department, users.phone, users.location, users.region,users.address, users.status, users.created_at,locations.id,locations.name');
         $this->db->from('users');
         $this->db->join('locations', 'users.location = locations.id', 'left');
         // $this->db->where('status', 1);
@@ -1421,9 +1428,10 @@ class Admin_model extends CI_Model{
     }
       // Search filters - suppliers search
       public function search_employ($search){
-        $this->db->select('id, username, email, phone, location, department,region, address, status,dob, created_at');
+        $this->db->select('users.id, users.fullname, users.email, users.phone, users.location, users.department,users.region, users.address, users.status,users.dob, users.created_at,locations.id as loc_id,locations.name');
         $this->db->from('users');
-        $this->db->like('name', $search);
+        $this->db->join('locations', 'users.location = locations.id', 'left');
+        $this->db->like('fullname', $search);
         $this->db->or_like('department', $search);
         $this->db->or_like('email', $search);
         $this->db->or_like('phone', $search);
@@ -1443,7 +1451,7 @@ class Admin_model extends CI_Model{
     }
     // Get employ for edit by id
     public function edit_employ($id){
-        $this->db->select('id, username, email, phone, location, department,region, address, status,dob, created_at');
+        $this->db->select('id, username, email, phone, location,doj, department,region, address, status,dob, created_at');
         $this->db->from('users');
         $this->db->where('id', $id);
         return $this->db->get()->row();
