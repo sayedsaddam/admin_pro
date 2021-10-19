@@ -921,6 +921,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Sub Categories | Categories';
         $data['body'] = 'admin/sub_categories';
         $data['sub_categories'] = $this->admin_model->sub_categories($cat_id);
+        $data['parent_category'] = $this->admin_model->parent_category_name($cat_id);
         $data['categories_page'] = true;
         $this->load->view('admin/commons/new_template', $data);
     }
