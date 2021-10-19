@@ -155,12 +155,12 @@ class Admin extends CI_Controller{
             'category' => implode(", ", $this->input->post('category')),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
-            'location' => $this->input->post('location'),
-            'region' => $this->input->post('region'),
+            'location' => $this->input->post('location'), 
             'ntn_number' => $this->input->post('ntn_number'),
             'rating' => $this->input->post('rating'),
-            'address' => ucfirst($this->input->post('address'))
-        ); 
+            'address' => ucfirst($this->input->post('address')),
+            'created_at' => date('Y-m-d')
+        );  
         if($this->admin_model->add_supplier($data)){
             $this->session->set_flashdata('success', '<strong>Success! /strong>Supplier added successfully.');
             redirect('admin/suppliers');
@@ -225,15 +225,20 @@ class Admin extends CI_Controller{
     // Suppliers - Add new supplier
     public function add_employ(){ 
         $data = array(
-            'name' => $this->input->post('name'), 
-            'department' => implode(", ", $this->input->post('department')),
+            'fullname' => $this->input->post('name'),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
+            'username' => $this->input->post('name'),
+            'department' => $this->input->post('department'),
             'location' => $this->input->post('location'),
-            'region' => $this->input->post('region'), 
-            'status' => 1, 
-            'address' => ucfirst($this->input->post('address'))
-        ); 
+            'password' => $this->input->post('phone'),
+            'region' => $this->input->post('region'),
+            'address' => $this->input->post('address'),
+            'status' => 1,
+            'dob' => $this->input->post('dob'),
+            'user_role' => 'employ',
+            'created_at' => date('Y-m-d')
+        );
         if($this->admin_model->add_employ($data)){
             $this->session->set_flashdata('success', '<strong>Success! /strong>Employ added successfully.');
             redirect('admin/employ');
@@ -251,13 +256,19 @@ class Admin extends CI_Controller{
     public function update_employ(){
         $id = $this->input->post('sup_id');
         $data = array(
-            'name' => $this->input->post('name'),
-            'department' => implode(", ", $this->input->post('department')),    
+            'fullname' => $this->input->post('name'),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
-            'location' => $this->input->post('location'), 
+            'username' => $this->input->post('name'),
+            'department' => $this->input->post('department'),
+            'location' => $this->input->post('location'),
+            'password' => $this->input->post('phone'),
             'region' => $this->input->post('region'),
-            'address' => $this->input->post('address')
+            'address' => $this->input->post('employ_address'),
+            'status' => 1,
+            'dob' => $this->input->post('dob'),
+            'user_role' => 'employ',
+            'created_at' => date('Y-m-d')
         );
         if($this->admin_model->update_employ($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Employ update was successful.');
@@ -961,7 +972,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/suppliers/suppliers';
         $data['results'] = $this->admin_model->search_suppliers($search);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     } 
     // Search filters - search inventory
     public function search_inventory(){
@@ -1163,7 +1174,7 @@ public function get_assign_item($offset = null){
             'location' => $this->input->post('location'),
             'category' => $this->input->post('category'),
             'sub_category' => $this->input->post('sub_category'),
-            'type_name' => $this->input->post('item_type'),
+            'type_name' => $this->input->post('item_name'),
             'status' => $this->input->post('status'),
             'quantity' => 1,
             'model' => $this->input->post('model'),

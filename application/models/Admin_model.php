@@ -782,7 +782,7 @@ class Admin_model extends CI_Model{
     //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - suppliers search
     public function search_suppliers($search){
-        $this->db->select('id, name, category, email, phone, location, region, address, status, created_at');
+        $this->db->select('id, name, category, email, phone, location,ntn_number,category,rating, region, address, status, created_at');
         $this->db->from('suppliers');
         $this->db->like('name', $search);
         $this->db->or_like('category', $search);
@@ -1411,18 +1411,18 @@ class Admin_model extends CI_Model{
     }
     // Get employ
     public function get_employ($limit, $offset){
-        $this->db->select('employ.id as emp_id, employ.name as emp_name, employ.email,employ.department, employ.phone, employ.location, employ.region,employ.address, employ.status, employ.created_at,locations.id,locations.name');
-        $this->db->from('employ');
-        $this->db->join('locations', 'employ.location = locations.id', 'left');
+        $this->db->select('users.id as emp_id, users.username as emp_name, users.email,users.department, users.phone, users.location, users.region,users.address, users.status, users.created_at,locations.id,locations.name');
+        $this->db->from('users');
+        $this->db->join('locations', 'users.location = locations.id', 'left');
         // $this->db->where('status', 1);
-        $this->db->order_by('employ.id', 'DESC');
+        $this->db->order_by('users.id', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
       // Search filters - suppliers search
       public function search_employ($search){
-        $this->db->select('id, name, email, phone, location, department,region, address, status, created_at');
-        $this->db->from('employ');
+        $this->db->select('id, username, email, phone, location, department,region, address, status,dob, created_at');
+        $this->db->from('users');
         $this->db->like('name', $search);
         $this->db->or_like('department', $search);
         $this->db->or_like('email', $search);
@@ -1434,7 +1434,7 @@ class Admin_model extends CI_Model{
     }
     // Employ - Add new Employ
     public function add_employ($data){ 
-        $this->db->insert('employ', $data);
+        $this->db->insert('users', $data);
         if($this->db->affected_rows() > 0){
         return true;
         }else{
@@ -1443,15 +1443,15 @@ class Admin_model extends CI_Model{
     }
     // Get employ for edit by id
     public function edit_employ($id){
-        $this->db->select('id, name, department, email, phone, location, region ,address, status, created_at');
-        $this->db->from('employ');
+        $this->db->select('id, username, email, phone, location, department,region, address, status,dob, created_at');
+        $this->db->from('users');
         $this->db->where('id', $id);
         return $this->db->get()->row();
     } 
     // Update employ by ID.
     public function update_employ($id, $data){
         $this->db->where('id', $id);
-        $this->db->update('employ', $data);
+        $this->db->update('users', $data);
         return true;
     }
     // Remove employ

@@ -208,7 +208,7 @@
         </div>
     </form>
 </div>
-    <!-- code select supplier send order end -->
+    <!-- code supplier send order end -->
 
 
 <!-- filter report model -->

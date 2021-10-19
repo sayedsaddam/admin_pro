@@ -1,310 +1,472 @@
-<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-1 col-md-1">
-        <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid">
-      </div>
-      <div class="col-lg-7 col-md-7">
-        <h2 class="display-4 font-weight-bold mb-0">Admin & Procurement</h2>
-        <h3 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h3>
-      </div>
-      <div class="col-lg-4 col-md-4 text-right">
-        <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
-        <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
-        <h4 class="font-weight-bold orange-text mt-2">Admin Dashboard <i class="fa fa-chart-bar"></i><br><span class="font-weight-light orange-text"><?php if(empty($results)){ echo 'Suppliers'; }else{ echo 'Search Results'; } ?> | <a href="<?=base_url('admin');?>" class="text-light font-weight-bold">Home</a></span></h4>
-      </div>
-    </div>
-  </div>
+<section class="columns is-gapless mb-0 pb-0">
+	<div class="column is-narrow is-fullheight is-hidden-print" style="background-color:#fafafa;">
+		<?php $this->view('admin/commons/sidebar'); ?>
+	</div>
+	<div class="column">
+		<div class="columns">
+			<div class="column section">
+
+
+				<div class="columns is-hidden-touch">
+					<div class="column is-hidden-print">
+						<form action="<?= base_url('admin/search_suppliers') ?>" method="get">
+							<div class="field has-addons">
+								<div class="control has-icons-left is-expanded">
+									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
+										placeholder="Search Query">
+									<span class="icon is-small is-left">
+										<i class="fas fa-search"></i>
+									</span>
+								</div>
+								<div class="control">
+									<button class="button is-small" type="submit"><span class="icon is-small">
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="column is-hidden-print is-narrow">
+						<div class="field has-addons">
+							<p class="control">
+								<button
+									class="add_suppliers button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-plus"></i>
+									</span>
+									<span>Add New</span>
+								</button>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="columns">
+					<div class="column">
+						<a href="<?= base_url('admin') ?>" class="has-text-black">Dashboard</a> >
+						<a href="<?= base_url('admin/suppliers') ?>" class="has-text-black has-text-weight-bold">Supplier List</a>
+					</div>
+				</div>
+
+				<div class="columns" style="display: grid">
+					<div class="column table-container ">
+						<table class="table table-sm is-fullwidth">
+							<caption><?php if(empty($results)){ echo ''; }else{ echo ''; } ?></caption>
+							<thead>
+								<tr>
+									<th class="has-text-weight-semibold">ID</th>
+									<th class="has-text-weight-semibold">Name</th>
+									<th class="has-text-weight-semibold">Phone</th>
+									<th class="has-text-weight-semibold">Location</th>
+									<th class="has-text-weight-semibold">NTN</th>
+									<th class="has-text-weight-semibold">Rating(*)</th>
+									<th class="has-text-weight-semibold">Category</th>
+									<th class="has-text-weight-semibold">Status</th>
+									<th class="has-text-weight-semibold">Date</th>
+									<th class="has-text-weight-semibold">Action</th>
+								</tr>
+							</thead>
+							<?php if(empty($results)): ?>
+							<tbody>
+								<?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
+								<tr>
+									<td><?= 'SUP-0'.$sup->id; ?></td>
+									<td><span title="<?= $sup->email; ?>"><?= $sup->sup_name; ?></td>
+									<td><?= ucfirst($sup->phone); ?></td>
+									<td><?= ucfirst($sup->name); ?></td>
+									<td><?= ucfirst($sup->ntn_number); ?></td>
+									<td>
+										<?php if(!empty($sup->rating)){ echo '<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">'.ucfirst($sup->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>';}else{echo 'none';} ?>
+									</td>
+									<td><?= ucfirst($sup->category); ?></td>
+									<td>
+										<?php if($sup->status == 1): ?>
+										<span class="badge badge-success">Active</span>
+										<?php else: ?>
+										<span class="badge badge-danger">Inactive</span>
+										<?php endif; ?>
+									</td>
+									<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
+									<td class="is-narrow">
+										<a data-id="<?= $sup->id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i
+													class="fa fa-edit"></i></span></a>
+										<a href="<?=base_url('admin/delete_supplier/'.$sup->id);?>"
+											onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
+											class="button is-small"><span class="icon is-small has-text-danger"><i
+													class="fa fa-times"></i></span></a>
+									</td>
+								</tr>
+								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
+							</tbody>
+							<?php else: ?>
+							<tbody>
+								<?php if(!empty($results)): foreach($results as $sup): ?>
+                  <tr>
+									<td><?= 'SUP-0'.$sup->id; ?></td>
+									<td><span title="<?= $sup->email; ?>"><?= $sup->name; ?></td>
+									<td><?= ucfirst($sup->phone); ?></td>
+									<td><?= ucfirst($sup->name); ?></td>
+									<td><?= ucfirst($sup->ntn_number); ?></td>
+									<td>
+										<?php if(!empty($sup->rating)){ echo '<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">'.ucfirst($sup->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>';}else{echo 'none';} ?>
+									</td>
+									<td><?= ucfirst($sup->category); ?></td>
+									<td>
+										<?php if($sup->status == 1): ?>
+										<span class="badge badge-success">Active</span>
+										<?php else: ?>
+										<span class="badge badge-danger">Inactive</span>
+										<?php endif; ?>
+									</td>
+									<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
+									<td class="is-narrow">
+										<a data-id="<?= $sup->id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i
+													class="fa fa-edit"></i></span></a>
+										<a href="<?=base_url('admin/delete_supplier/'.$sup->id);?>"
+											onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
+											class="button is-small"><span class="icon is-small has-text-danger"><i
+													class="fa fa-times"></i></span></a>
+									</td>
+								</tr>
+								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
+							</tbody>
+							<?php endif; ?>
+						</table>
+					</div>
+				</div>
+			</div>
+</section>
+
+<!-- add suppliers code start -->
+<div class="modal" id="add_suppliers">
+	<div class="modal-background"></div>
+	<form action="<?=base_url('admin/add_supplier');?>" method="post" class="md-form">
+		<div class="modal-card">
+			<header class="modal-card-head">
+				<p class="modal-card-title">Add Suppliers</p>
+				<button class="delete" aria-label="close" id="exit-add-modal" type="button"></button>
+			</header>
+			<input type="hidden" name="purchaseid" id="purchaseid" value="">
+			<section class="modal-card-body">
+				<div class="columns">
+					<div class="column">
+						<div class="control">
+							<label class="label is-small">Location <span class="has-text-danger">*</span></label>
+							<div class="select select is-small is-fullwidth">
+								<select name="location" id="" class="browser-default custom-select ">
+									<?php if(!empty($locations)): foreach($locations as $loc): ?>
+									<option value="<?= $loc->id ?>"><?= ucfirst($loc->name); ?> </option>
+									<?php endforeach; endif; ?>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<fieldset>
+							<div class="field">
+								<label class="label is-small">Name <span class="has-text-danger">*</span></label>
+								<div class="control has-icons-left">
+									<input type="text" name="name" id="" class="input is-small" value="" type="text"
+										placeholder="name ..." required="">
+									<span class="icon is-small is-left">
+										<i class="fas fa-user"></i>
+									</span>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+
+				<div class="columns">
+					<div class="column">
+						<div class="control">
+
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Email <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<input type="email" name="email" id="" class="input is-small" value="" type="text"
+											placeholder="example@yahoo.com ..." required="">
+										<span class="icon is-small is-left">
+											<i class="fas fa-envelope-square"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					<div class="column">
+						<div class="control">
+							<label class="label is-small">Phone No <span class="has-text-danger">*</span></label>
+							<div class="select select is-small is-fullwidth">
+								<input type="number" name="phone" id="" class="input is-small" value="" type="text"
+									placeholder="034354556554 ..." required="">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="columns">
+					<div class="column">
+						<label class="label is-small">Catergory <span class="has-text-danger">*</span></label>
+						<div class="select select is-small is-fullwidth select is-multiple">
+							<select name="category[]" id="" multiple size="2">
+								<option value="" disabled selected>--Select Category--</option>
+								<option value="Electronic">Electronic</option>
+								<option value="stationary">Stationary</option>
+								<option value="furniture">Furniture</option>
+								<option value="crocery">Crocery</option> 
+							</select>
+						</div>
+					</div>
+
+					<div class="column">
+						<fieldset>
+							<div class="field">
+								<label class="label is-small">NTN </label>
+								<div class="control has-icons-left">
+									<input type="text" name="ntn_number" id="" class="input is-small" value="" placeholder="ntn_number ...">
+									<span class="icon is-small is-left">
+										<i class="fas fa fa-globe"></i>
+									</span>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+
+				<div class="columns">
+					<div class="column">
+						<label class="label is-small"> Rating <span class="has-text-danger">*</span></label>
+						<div class="is-small is-fullwidth">
+							<input type="number" name="rating" id="" class="input is-small" value="" placeholder="rating ...">
+						</div>
+					</div>
+
+					<div class="column">
+						<fieldset>
+							<div class="field">
+								<label class="label is-small">Address</label>
+								<div class="control has-icons-left">
+									<textarea class="textarea is-small" name="address" rows="1" id=""
+										placeholder="some detail"></textarea>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+
+			</section>
+			<footer class="modal-card-foot">
+				<button class="button is-success" type="submit">Apply</button>
+				<button class="button" aria-label="close" id="close-add-modal" type="button">Cancel</button>
+
+			</footer>
+		</div>
+	</form>
 </div>
+<!-- code add empoloy end -->
 
-<div class="container">
-    <?php if($success = $this->session->flashdata('success')): ?>
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="alert alert-success"><?=$success;?></div>
-            </div>
-        </div>
-    <?php endif; ?>
-    <div class="row mb-4">
-        <div class="col-lg-6 col-md-6">
-            <form action="<?=base_url('admin/search_suppliers');?>" method="get" class="md-form form-inline">
-                <input type="text" name="search" id="" class="form-control md-form col-5" required>
-                <label for="">Search Query</label>
-                <input type="submit" value="go &raquo;" class="btn btn-outline-primary btn-sm rounded-pill">
-            </form>
-        </div>
-        <div class="col-lg-6 col-md-6 text-right">
-            <button data-toggle="modal" data-target="#add_supplier" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</button>
-            <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
-        </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12 col-md-12">
-        <table class="table table-sm">
-          <caption><?php if(empty($results)){ echo 'List of Suppliers'; }else{ echo 'Search Results'; } ?></caption>
-          <thead>
-            <tr>
-                <th class="font-weight-bold">ID</th>
-                <th class="font-weight-bold">Name</th>
-                <th class="font-weight-bold">Email</th>
-                <th class="font-weight-bold">Phone</th>
-                <th class="font-weight-bold">Location</th>
-                <th class="font-weight-bold">Ntn Number</th>
-                <th class="font-weight-bold">Rating( (*)</th>
-                <th class="font-weight-bold">Category</th>
-                <th class="font-weight-bold">Status</th>
-                <th class="font-weight-bold">Date</th>
-                <th class="font-weight-bold">Action</th>
-            </tr>
-          </thead>
-          <?php if(empty($results)): ?>
-            <tbody>
-              <?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
-                <tr>
-                  <td><?= 'SUP-0'.$sup->id; ?></td>
-                  <td><?= $sup->name; ?></td>
-                  <td><?= ucfirst($sup->email); ?></td>
-                  <td><?= ucfirst($sup->phone); ?></td>
-                  <td><?= ucfirst($sup->name); ?></td>
-                  <td><?= ucfirst($sup->ntn_number); ?></td>
-                  <td><?php if(!empty($sup->rating)){ echo '<span style="color:  orange;font-size: 18px;font-weight: bold">'.ucfirst($sup->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>';}else{echo 'none';} ?></td>
-                  <td><?= ucfirst($sup->category); ?></td>
-                  <td>
-                      <?php if($sup->status == 1): ?>
-                          <span class="badge badge-success">Active</span>
-                      <?php else: ?>
-                          <span class="badge badge-danger">Inactive</span>
-                      <?php endif; ?>
-                  </td>
-                  <td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
-                  <td>
-                      <a data-id="<?= $sup->id; ?>" class="supplier_info"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                      <a href="<?=base_url('admin/delete_supplier/'.$sup->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                      <!-- <a href="<?= base_url('admin/supplier_detail/'.$sup->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a> -->
-                  </td>
-                </tr>
-              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
-            </tbody>
-          <?php else: ?>
-            <tbody>
-              <?php if(!empty($results)): foreach($results as $res): ?>
-                <tr>
-                  <td><?= 'SUP-0'.$res->id; ?></td>
-                  <td><?= $res->name; ?></td>
-                  <td><?= ucfirst($res->email); ?></td>
-                  <td><?= ucfirst($res->phone); ?></td>
-                  <td><?= ucfirst($res->location); ?></td>
-                  <td><?= ucfirst($res->ntn_number); ?></td>
-                  <td><?php  echo '<span style="color:  orange;font-size: 18px;font-weight: bold">'.ucfirst($res->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>'; ?></td> 
-                  <td><?= ucfirst($res->region); ?></td>
-                  <td><?= ucfirst($res->category); ?></td>
-                  <td>
-                      <?php if($res->status == 1): ?>
-                          <span class="badge badge-success">Active</span>
-                      <?php else: ?>
-                          <span class="badge badge-danger">Inactive</span>
-                      <?php endif; ?>
-                  </td>
-                  <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
-                  <td>
-                      <a data-id="<?= $res->id; ?>" class="supplier_info"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                      <a href="<?=base_url('admin/delete_supplier/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                   </td>
-                </tr>
-              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
-            </tbody>
-            <?php endif; ?>
-        </table>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12 col-md-12">
-        <?php if(empty($results) AND !empty($suppliers)){ echo $this->pagination->create_links(); } ?>
-      </div>
-    </div>
+<!-- Update employ code start -->
+<div class="modal" id="edit_suppliers">
+	<div class="modal-background"></div>
+	<form action="<?=base_url('admin/update_employ');?>" method="post" class="md-form">
+		<input type="hidden" name="sup_id" id="employId" value="">
+		<div class="modal-card">
+			<header class="modal-card-head">
+				<p class="modal-card-title">Update Suppliers</p>
+				<button class="delete" aria-label="close" id="exit-edit-modal" type="button"></button>
+			</header>
+			<section class="modal-card-body">
+				<div class="columns">
+					<div class="column">
+						<div class="control">
+							<label class="label is-small">Location <span class="has-text-danger">*</span></label>
+							<div class="select select is-small is-fullwidth">
+								<select name="location" id="supplier_location" class="browser-default custom-select ">
+									<?php if(!empty($locations)): foreach($locations as $loc): ?>
+									<option value="<?= $loc->id ?>"><?= ucfirst($loc->name); ?> </option>
+									<?php endforeach; endif; ?>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<fieldset>
+							<div class="field">
+								<label class="label is-small">Name <span class="has-text-danger">*</span></label>
+								<div class="control has-icons-left">
+									<input type="text" name="name" id="supplier_name" class="input is-small" value="" type="text"
+										placeholder="name ..." required="">
+									<span class="icon is-small is-left">
+										<i class="fas fa-user"></i>
+									</span>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+
+				<div class="columns">
+					<div class="column">
+						<div class="control">
+
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Email <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<input type="email" name="email" id="supplier_email" class="input is-small" value="" type="text"
+											placeholder="example@yahoo.com ..." required="">
+										<span class="icon is-small is-left">
+											<i class="fas fa-envelope-square"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					<div class="column">
+						<div class="control">
+							<label class="label is-small">Phone No <span class="has-text-danger">*</span></label>
+							<div class="select select is-small is-fullwidth select is-multiple">
+								<input type="number" name="phone" id="supplier_phone" class="input is-small" value="" type="text"
+									placeholder="example@yahoo.com ..." required="">
+							</div>
+						</div>
+					</div>
+				</div>
+
+        <div class="columns">
+					<div class="column">
+						<label class="label is-small">Catergory <span class="has-text-danger">*</span></label>
+						<div class="select select is-small is-fullwidth select is-multiple">
+							<select name="category[]" id="category" multiple size="2">
+								<option value="" disabled selected>--Select Category--</option>
+								<option value="Electronic">Electronic</option>
+								<option value="stationary">Stationary</option>
+								<option value="furniture">Furniture</option>
+								<option value="crocery">Crocery</option> 
+							</select>
+						</div>
+					</div>
+
+					<div class="column">
+						<fieldset>
+							<div class="field">
+								<label class="label is-small">NTN </label>
+								<div class="control has-icons-left">
+									<input type="text" name="ntn_number" id="supplier_ntn" class="input is-small" value="" placeholder="ntn_number ...">
+									<span class="icon is-small is-left">
+										<i class="fas fa fa-globe"></i>
+									</span>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+
+				<div class="columns">
+					<div class="column">
+						<label class="label is-small"> Rating <span class="has-text-danger">*</span></label>
+						<div class="is-small is-fullwidth">
+							<input type="number" name="rating" id="supplier_rating"  class="input is-small" value="" placeholder="rating ...">
+						</div>
+					</div>
+
+					<div class="column">
+						<fieldset>
+							<div class="field">
+								<label class="label is-small">Address</label>
+								<div class="control has-icons-left">
+									<textarea class="textarea is-small" name="address" rows="1" id="supplier_address"
+										placeholder="some detail"></textarea>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+ 
+
+			</section>
+			<footer class="modal-card-foot">
+				<button class="button is-success" type="submit">Apply</button>
+				<button class="button" aria-label="close" id="close-edit-modal" type="button">Cancel</button>
+
+			</footer>
+		</div>
+	</form>
 </div>
-
-<!-- Add supplier -->
-<div class="modal fade" id="add_supplier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title w-100 font-weight-bold">Add Supplier</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <form action="<?=base_url('admin/add_supplier');?>" method="post" class="md-form">
-          <div class="md-form mb-5">
-            <select name="location" id="location" class="browser-default custom-select">
-              <option value="" disabled selected>--Select location--</option>
-              <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                <option value="<?php echo $loc->id ?>"><?php echo ucfirst($loc->name); ?></option>
-              <?php endforeach; endif; ?>
-            </select>
-          </div>
-            
-          <div class="md-form mb-5">
-            <input name="name" type="text" id="form34" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="form34">Supplier name</label>
-          </div>
-
-          <div class="md-form mb-5">
-            <!-- <select name="category" id="selectListCat" class="browser-default custom-select"> -->
-            <select name="category[]" id="selectListCat" class="form-control" required multiple>
-              <option value="" disabled selected>--Select category--</option>
-              <option value="hotel">Hotel</option>
-              <option value="travel">Travel</option>
-              <option value="stationary">Stationary</option>
-              <option value="computers">Computers</option>
-              <option value="communications">Commnunications</option>
-              <option value="furnitures">Furnitures</option>
-              <option value="others">Others</option>
-            </select>
-          </div>
-
-          <div class="md-form mb-5">
-            <input name="email" type="email" id="form29" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="form29">Supplier email</label>
-          </div>
-
-          <div class="md-form mb-5">
-            <input name="phone" type="number" id="form32" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
-          </div>
-
-          <div class="md-form mb-5">
-            <input name="ntn_number" type="number" id="ntn_number" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="ntn_number">NTN Number</label>
-          </div>
-
-          <div class="md-form mb-5">
-            <input name="rating" type="text" id="rating" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="form32">Rating </label>
-          </div>
-
-          <div class="md-form">
-            <textarea name="address" type="text" class="md-textarea form-control" rows="3"></textarea>
-            <label data-error="wrong" data-success="right" for="form8">Supplier Address</label>
-          </div>
-
-          <div class="md-form mb-5">
-            <input type="submit" class="btn btn-primary" value="Save Changes">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer d-flex justify-content-right">
-        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Edit supplier -->
-<div class="modal fade" id="edit_supplier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title w-100 font-weight-bold">Update Supplier</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body edit-modal-body mx-3">
-        <form action="<?=base_url('admin/update_supplier');?>" method="post" class="md-form">
-          <input type="hidden" name="sup_id" id="supplierId" value="">
-          <div class="md-form mb-5">
-            <select name="location" id="supplier_location" class="browser-default custom-select">
-              <option value="" disabled selected>--Select location--</option>
-              <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                <option value="<?= $loc->name ?>"><?= ucfirst($loc->name); ?></option>
-              <?php endforeach; endif; ?>
-            </select>
-          </div>
-          <div class="md-form mb-5">
-            <input name="name" type="text" id="supplier_name" class="form-control validate" value="">
-            <label data-error="wrong" data-success="right" for="form34">Supplier name</label>
-          </div> 
-          <div class="md-form mb-5">
-            <select name="category[]" id="category" class="browser-default custom-select" required multiple>
-              <option value="" disabled selected>--Select category--</option>
-              <option value="hotel">Hotel</option>
-              <option value="travel">Travel</option>
-              <option value="stationary">Stationary</option>
-              <option value="computers">Computers</option>
-              <option value="communications">Commnunications</option>
-              <option value="furnitures">Furnitures</option>
-              <option value="others">Others</option>
-            </select>
-          </div>
-
-          <div class="md-form mb-5">
-            <input name="email" type="email" id="supplier_email" class="form-control validate" value="">
-            <label data-error="wrong" data-success="right" for="form29">Supplier email</label>
-          </div>
-
-          <div class="md-form mb-5">
-            <input name="phone" type="number" id="supplier_phone" class="form-control validate" value="">
-            <label data-error="wrong" data-success="right" for="form32">Supplier phone</label>
-          </div>
-
-          <div class="md-form mb-5">
-            <input name="phone" type="number" id="supplier_ntn" class="form-control validate" value="">
-            <label data-error="wrong" data-success="right" for="form32">Supplier Ntn</label>
-          </div>
-
-          <div class="md-form mb-5">
-            <input name="phone" type="number" id="supplier_rating" class="form-control validate" value="">
-            <label data-error="wrong" data-success="right" for="form32">Supplier Rating</label>
-          </div>
-
-          <div class="md-form">
-            <textarea name="address" id="supplier_address" type="text" class="md-textarea form-control" rows="3"></textarea>
-            <label data-error="wrong" data-success="right" for="form8">Supplier Address</label>
-          </div>
-
-          <div class="md-form mb-5">
-            <input type="submit" class="btn btn-primary" value="Save Changes">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer d-flex justify-content-right">
-        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- update eploy code end -->
 
 <script>
-$(document).ready(function(){
-  $('.supplier_info').click(function(){  
-    var supplier_id = $(this).data('id');
-    // alert(supplier_id)
-    // AJAX request
-    $.ajax({
-    url: '<?= base_url('admin/edit_supplier/'); ?>' + supplier_id,
-    method: 'POST',
-    dataType: 'JSON',
-    data: {supplier_id: supplier_id},
-      success: function(response){ 
-        console.log(response);
-        $('#supplierId').val(response.id);
-        $('#supplier_location').val(response.location);
-        $('#supplier_name').val(response.name);
-        $('#category').val(response.category);
-        $('#supplier_email').val(response.email);
-        $('#supplier_phone').val(response.phone);
-        $('#supplier_ntn').val(response.ntn_number);
-        $('#supplier_rating').val(response.rating);
-        $('#supplier_address').val(response.address);
-        // $('.edit-modal-body').html(response);
-        // Display Modal
-        $('#edit_supplier').modal('show'); 
-      }
-    });
-  });
-});
+
+// add suppliers code start 
+var cat1 = $("#exit-add-modal")
+ 	var cat2 = $("#close-add-modal")
+ 	var catmdl = new BulmaModal("#add_suppliers")
+
+ 	cat1.click(function (ev) {
+ 		catmdl.close();
+ 		ev.stopPropagation();
+ 	});
+ 	cat2.click(function (ev) {
+ 		catmdl.close();
+ 		ev.stopPropagation();
+ 	});
+
+ 	$('.add_suppliers').click(function (ev) {
+ 		catmdl.show();
+		$(".modal-card-head").show();
+ 		ev.stopPropagation();
+ 	});
+  // code to updat suppliers
+  var empedt1 = $("#exit-edit-modal")
+ 	var empedt2 = $("#close-edit-modal")
+ 	var empedtmdl = new BulmaModal("#edit_suppliers")
+ 	empedt1.click(function (ev) {
+ 		empedtmdl.close();
+ 		ev.stopPropagation();
+ 	});
+ 	empedt2.click(function (ev) {
+ 		empedtmdl.close();
+ 		ev.stopPropagation();
+ 	}); 
+
+
+
+
+
+	$(document).ready(function () {
+		$('.supplier_info').click(function () {
+			var supplier_id = $(this).data('id');
+			// alert(supplier_id)
+			// AJAX request
+			$.ajax({
+				url: '<?= base_url('admin/edit_supplier/'); ?>' + supplier_id,
+				method: 'POST',
+				dataType: 'JSON',
+				data: {
+					supplier_id: supplier_id
+				},
+				success: function (response) {
+					console.log(response);
+					$('#supplierId').val(response.id);
+					$('#supplier_location').val(response.location);
+					$('#supplier_name').val(response.name);
+					$('#category').val(response.category);
+					$('#supplier_email').val(response.email);
+					$('#supplier_phone').val(response.phone);
+					$('#supplier_ntn').val(response.ntn_number);
+					$('#supplier_rating').val(response.rating);
+					$('#supplier_address').val(response.address);
+					// $('.edit-modal-body').html(response);
+					// Display Modal
+					// $('#edit_supplier').modal('show');
+          empedtmdl.show(); 
+				}
+			});
+      event.stopPropagation();
+		});
+	});
+
 </script>

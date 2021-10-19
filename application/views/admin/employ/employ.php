@@ -42,11 +42,17 @@
  					</div>
  				</div>
 
-
+         <div class="columns">
+					<div class="column">
+						<a href="<?= base_url('admin') ?>" class="has-text-black">Dashboard</a> > 
+							<a href="<?= base_url('admin/employ') ?>" class="has-text-black has-text-weight-bold">Employ List</a>
+					</div>
+				</div> 
+        
  				<div class="columns" style="display: grid">
  					<div class="column table-container ">
            <table class="table table-sm is-fullwidth">
-          <caption><?php if(empty($results)){ echo 'List of Suppliers'; }else{ echo 'Search Results'; } ?></caption>
+          <caption><?php if(empty($results)){ echo ''; }else{ echo 'Search Results'; } ?></caption>
           <thead>
             <tr>
                 <th class="font-weight-bold">ID</th>
@@ -65,7 +71,7 @@
               <?php if(!empty($employ)): foreach($employ as $sup): ?>
                 <tr>
                   <td><?= 'SUP-0'.$sup->emp_id; ?></td>
-                  <td><?= $sup->name; ?></td>
+                  <td><?= $sup->emp_name; ?></td>
                   <td><?= ucfirst($sup->email); ?></td>
                   <td><?= ucfirst($sup->phone); ?></td>
                   <td><?= ucfirst($sup->name); ?></td>  
@@ -126,7 +132,7 @@
     <form action="<?=base_url('admin/add_employ');?>" method="post" class="md-form">
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Add Employ</p>
+                <p class="modal-card-title">Add Employee</p>
                 <button class="delete" aria-label="close" id="exit-add-modal" type="button"></button>
             </header>
             <input type="hidden" name="purchaseid" id="purchaseid" value="">
@@ -179,7 +185,7 @@
                     <div class="column"> 
                         <div class="control">
                         <label class="label is-small">Phone No <span class="has-text-danger">*</span></label>
-                            <div class="select select is-small is-fullwidth select is-multiple"> 
+                            <div class="select select is-small is-fullwidth"> 
                             <input type="number" name="phone" id="" class="input is-small" value="" type="text" placeholder="034354556554 ..." required="">
                             </div>
                         </div> 
@@ -188,8 +194,8 @@
                 <div class="columns"> 
                   <div class="column">                
                     <label class="label is-small">Dapartment <span class="has-text-danger">*</span></label>
-                            <div class="select select is-small is-fullwidth select is-multiple"> 
-                                <select name="department[]" id="department" multiple size="3">
+                            <div class="select select is-small is-fullwidth"> 
+                                <select name="department" id="">
                                 <option value="" disabled selected>--Select Department--</option>
                                   <option value="IT">IT</option>
                                   <option value="sale">Sale</option>
@@ -204,10 +210,33 @@
                     <div class="column">
 						<fieldset>
 								<div class="field">
+									<label class="label is-small">Region </label>
+									<div class="control has-icons-left">
+                  <input type="text" name="region" id="" class="input is-small" value="" placeholder="region ..." >
+                  <span class="icon is-small is-left">
+											<i class="fas fa fa-globe"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+                </div>  
+                 
+                <div class="columns"> 
+                  <div class="column">                
+                    <label class="label is-small"> DOB <span class="has-text-danger">*</span></label>
+                            <div class="is-small is-fullwidth"> 
+                            <input type="date" name="dob" id="" class="input is-small" value="" placeholder="region ..." >
+                            </div>
+                            </div>
+
+                    <div class="column">
+						<fieldset>
+								<div class="field">
 									<label class="label is-small">Address</label>
 									<div class="control has-icons-left">
-									<textarea class="textarea is-small" name="address" role="3" id=""
-													placeholder="some text"></textarea>
+									<textarea class="textarea is-small" name="address" rows="1" id=""
+													placeholder="some detail"></textarea>
 									</div>
 								</div>
 							</fieldset>
@@ -232,7 +261,7 @@
     <input type="hidden" name="sup_id" id="employId" value="">
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Update Employ</p>
+                <p class="modal-card-title">Update Employee</p>
                 <button class="delete" aria-label="close" id="exit-edit-modal" type="button"></button>
             </header> 
             <section class="modal-card-body">
@@ -290,10 +319,13 @@
                         </div> 
 						</div>
                 </div>  
+
+                  
                 <div class="columns"> 
-                  <div class="column">                <label class="label is-small">Dapartment <span class="has-text-danger">*</span></label>
-                            <div class="select select is-small is-fullwidth select is-multiple"> 
-                                <select name="department[]" id="selectListCat" multiple size="3">
+                  <div class="column">                
+                    <label class="label is-small">Dapartment <span class="has-text-danger">*</span></label>
+                            <div class="select select is-small is-fullwidth"> 
+                                <select name="department" id="department">
                                 <option value="" disabled selected>--Select Department--</option>
                                   <option value="IT">IT</option>
                                   <option value="sale">Sale</option>
@@ -301,7 +333,31 @@
                                   <option value="media">media</option>
                                   <option value="finance">Finance</option> 
                                   <option value="others">Others</option>
-                                </select>
+                                </select> 
+
+                            </div>
+                            </div>
+
+                    <div class="column">
+						<fieldset>
+								<div class="field">
+									<label class="label is-small">Region </label>
+									<div class="control has-icons-left">
+                  <input type="text" name="region" id="region" class="input is-small" value="" placeholder="region ..." >
+                  <span class="icon is-small is-left">
+											<i class="fas fa fa-globe"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+                </div>  
+
+                <div class="columns"> 
+                  <div class="column">             
+                       <label class="label is-small">DOB <span class="has-text-danger">*</span></label>
+                            <div class="select select is-small is-fullwidth select is-multiple"> 
+                            <input type="date" name="dob" id="dob" class="input is-small" value="" placeholder="region ..." >
                             </div>
                             </div>
 
@@ -310,8 +366,8 @@
 								<div class="field">
 									<label class="label is-small">Address</label>
 									<div class="control has-icons-left">
-									<textarea class="textarea is-small" name="description" role="3" id="employ_address"
-													placeholder="some text"></textarea>
+									<textarea class="textarea is-small" name="employ_address" rows="1" id="address"
+													placeholder="some detail"></textarea>
 									</div>
 								</div>
 							</fieldset>
@@ -378,11 +434,14 @@ $(document).ready(function(){
         console.log(response);
         $('#employId').val(response.id);
         $('#employ_location').val(response.location);
-        $('#employ_name').val(response.name);
-        $('#department').val(response.category);
+        $('#employ_name').val(response.username);
+        $('#department').val(response.department);
         $('#employ_email').val(response.email);
         $('#employ_phone').val(response.phone); 
-        $('#employ_address').val(response.address);
+        $('#address').val(response.address); 
+        $('#region').val(response.region);
+        $('#dob').val(response.dob); 
+        
         // $('.edit-modal-body').html(response);
         // Display Modal
         // $('#edit_employ').modal('show'); 
