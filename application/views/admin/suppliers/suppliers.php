@@ -1,12 +1,12 @@
 <?php $session = $this->session->userdata('user_role'); ?>
 <section class="columns is-gapless mb-0 pb-0">
-	<div class="column is-narrow is-fullheight is-hidden-print" style="background-color:#fafafa;">
+	<div class="column is-narrow is-fullheight is-hidden-print" id="custom-sidebar">
 		<?php $this->view('admin/commons/sidebar'); ?>
 	</div>
 	<div class="column">
 		<div class="columns">
 			<div class="column section">
-      <div class="columns">
+      			<div class="columns">
 					<div class="column">
 						<?php $this->view('admin/commons/breadcrumb'); ?>
 					</div>
@@ -63,12 +63,26 @@
 									<th class="has-text-weight-semibold">Action</th>
 								</tr>
 							</thead>
+							<tfoot>
+								<tr>
+									<th class="has-text-weight-semibold">ID</th>
+									<th class="has-text-weight-semibold">Name</th>
+									<th class="has-text-weight-semibold">Phone</th>
+									<th class="has-text-weight-semibold">Location</th>
+									<th class="has-text-weight-semibold">NTN</th>
+									<th class="has-text-weight-semibold">Rating(*)</th>
+									<th class="has-text-weight-semibold">Category</th>
+									<th class="has-text-weight-semibold">Status</th>
+									<th class="has-text-weight-semibold">Date</th>
+									<th class="has-text-weight-semibold">Action</th>
+								</tr>
+							</tfoot>
 							<?php if(empty($results)): ?>
 							<tbody>
 								<?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
 								<tr>
-									<td><?= 'S2S-0'.$sup->sup_id; ?></td>
-									<td><span title="<?= $sup->email; ?>"><?= $sup->sup_name; ?></td>
+									<td><?= 'S2S-'.$sup->sup_id; ?></td>
+									<td><abbr title="<?= $sup->email; ?>"><?= $sup->sup_name; ?></abbr></td>
 									<td><?= ucfirst($sup->phone); ?></td>
 									<td><?= ucfirst($sup->name); ?></td>
 									<td><?= ucfirst($sup->ntn_number); ?></td>

@@ -1,5 +1,5 @@
  <section class="columns is-gapless mb-0 pb-0">
- 	<div class="column is-narrow is-fullheight is-hidden-print" style="background-color:#fafafa;">
+ 	<div class="column is-narrow is-fullheight is-hidden-print" id="custom-sidebar">
  		<?php $this->view('admin/commons/sidebar'); ?>
  	</div>
  	<div class="column">
@@ -77,7 +77,6 @@
  							<?php if(empty($results)): ?>
  							<tbody>
  								<?php if(!empty($categories)): foreach($categories as $cat): ?>
-
  								<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';"
  									style="cursor: pointer;">
  									<td><?= 'S2S-'.$cat->id; ?></td>

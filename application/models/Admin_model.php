@@ -742,6 +742,13 @@ class Admin_model extends CI_Model{
         $this->db->delete('categories');
         return true;
     }
+    // Get Parent Category Name
+    public function parent_category_name($cat_id){
+        $this->db->select('categories.cat_name');
+        $this->db->from('categories');
+        $this->db->where('categories.id', $cat_id); 
+        return $this->db->get()->result();
+    }
     // Sub Categories > List sub categories
     public function sub_categories($cat_id){
         $this->db->select('sub_categories.id, sub_categories.cat_id, sub_categories.name, sub_categories.added_by, sub_categories.created_at, categories.id as parent_cat, categories.cat_name, users.fullname');

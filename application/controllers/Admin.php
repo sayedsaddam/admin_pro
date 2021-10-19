@@ -899,9 +899,11 @@ class Admin extends CI_Controller{
         if(!empty($offset)){
             $config['uri_segment'] = 4;
         }
+
         $this->load->library('pagination');
         $url = base_url('admin/sub_categories');
         $rowscount = $this->admin_model->count_subcategory();
+        
         $config['base_url'] = $url;
         $config['total_rows'] = $rowscount;
         $config['per_page'] = $limit;
@@ -919,6 +921,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Sub Categories | Categories';
         $data['body'] = 'admin/sub_categories';
         $data['sub_categories'] = $this->admin_model->sub_categories($cat_id);
+        $data['parent_category'] = $this->admin_model->parent_category_name($cat_id);
         $data['categories_page'] = true;
         $this->load->view('admin/commons/new_template', $data);
     }
@@ -1084,40 +1087,40 @@ class Admin extends CI_Controller{
         $data['items'] = $this->admin_model->get_items($limit, $offset); 
         $this->load->view('admin/commons/new_template', $data);
     }
-  //Available Item list
-  public function available_item_list($offset = null){ 
-    $limit = 10;
+    //Available Item list
+    public function available_item_list($offset = null){ 
+        $limit = 10;
 
-    if(!empty($offset)){
-        $config['uri_segment'] = 3;
+        if(!empty($offset)){
+            $config['uri_segment'] = 3;
+        }
+
+        $this->load->library('pagination');
+        $url = base_url('admin/available_item_list');
+        $rowscount = $this->admin_model->count_item();
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $this->pagination->initialize($config);
+
+        $data['title'] = 'Item Register | Admin & Procurement';
+        $data['body'] = 'admin/item_assignment/item-register';
+        $data['available_page'] = true;
+        $data['items'] = $this->admin_model->get_available_items($limit, $offset); 
+        $this->load->view('admin/commons/new_template', $data);
     }
-
-    $this->load->library('pagination');
-    $url = base_url('admin/available_item_list');
-    $rowscount = $this->admin_model->count_item();
-
-    $config['base_url'] = $url;
-    $config['total_rows'] = $rowscount;
-    $config['per_page'] = $limit;
-    $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
-    $config['cur_tag_close'] = '</a>';
-    $config['num_tag_open'] = '<li>';
-    $config['num_tag_open'] = '</li>';
-    $config['first_link'] = 'First';
-    $config['prev_link'] = 'Previous';
-    $config['next_link'] = 'Next';
-    $config['last_link'] = 'Last';
-    $config['attributes'] = array('class' => 'pagination-link');
-    $this->pagination->initialize($config);
-
-    $data['title'] = 'Item Register | Admin & Procurement';
-    $data['body'] = 'admin/item_assignment/item-register';
-    $data['available_page'] = true;
-    $data['items'] = $this->admin_model->get_available_items($limit, $offset); 
-    $this->load->view('admin/commons/new_template', $data);
-}
-//Assign item list
-public function get_assign_item($offset = null){  
+    //Assign item list
+    public function get_assign_item($offset = null){  
     $limit = 10;
     if(!empty($offset)){
         $config['uri_segment'] = 3;
