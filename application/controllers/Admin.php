@@ -45,7 +45,7 @@ class Admin extends CI_Controller{
         $data['khyber_stats'] = $this->admin_model->overall_stats_khyber();
         $data['sindh_stats'] = $this->admin_model->overall_stats_sindh();
         $data['annual_expense'] = $this->admin_model->annual_expenses();
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Pending requests - listing
     public function pending_requests($offset = null){
@@ -1218,6 +1218,7 @@ public function get_assign_item($offset = null){
         $data['depreciation'] = $this->admin_model->get_item_depreciation($id);
         $data['status'] = $this->admin_model->status_items($id); 
         $data['edit_item'] = true;
+        $data['item_register'] = true;
         $this->load->view('admin/commons/new_template', $data);
     }
     // Search filters - search product date-wise

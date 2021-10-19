@@ -5,6 +5,28 @@
 	<div class="column">
 		<div class="columns">
 			<div class="column section">
+				<div class="columns">
+					<div class="column">
+						<a href="<?= base_url('admin') ?>" class="has-text-black">Dashboard</a> > 
+						<?php if ($this->uri->segment(2) == 'item_register') : ?>
+							<a href="<?= base_url('admin/item_register') ?>" class="has-text-black has-text-weight-bold">Items List</a>
+						<?php elseif ($this->uri->segment(2) == 'available_item_list') : ?>
+							<a href="<?= base_url('admin/available_item_list') ?>" class="has-text-black has-text-weight-bold">Available List</a>
+						<?php elseif ($this->uri->segment(2) == 'get_assign_item') : ?>
+							<a href="<?= base_url('admin/get_assign_item') ?>" class="has-text-black has-text-weight-bold">Assigned List</a>
+						<?php elseif ($this->uri->segment(2) == 'add_item') : ?>
+							<a href="<?= base_url('admin/item_register') ?>" class="has-text-black">Items List</a> > <a href="<?= base_url('admin/add_item') ?>" class="has-text-black has-text-weight-bold">Add New</a>
+						<?php elseif ($this->uri->segment(2) == 'item_detail') : ?>
+							<a href="<?= base_url('admin/item_register') ?>" class="has-text-black">Items List</a> > <a href="<?= base_url('admin/item_detail/' . $edit->id) ?>" class="has-text-black has-text-weight-bold">Edit Item</a>
+						<?php elseif ($this->uri->segment(2) == 'product_report') : ?>
+							<a href="<?= base_url('admin/product_report') ?>" class="has-text-black has-text-weight-bold">Report</a>
+							<?php elseif ($this->uri->segment(2) == 'search_item') : ?>
+							<a href="<?= base_url('admin/search_item') ?>" class="has-text-black has-text-weight-bold">Search</a>
+						<?php elseif ($this->uri->segment(2) == 'assign_item') : ?>
+							<a href="<?= base_url('admin/item_register') ?>" class="has-text-black">Items List</a> > <span class="has-text-black has-text-weight-bold">Assign Item (<?= ucwords($returning_items->names) ?>)</span>
+						<?php endif ?>
+					</div>
+				</div>
 				<div class="columns is-hidden-touch">
 					<div class="column">
 						<form action="<?= base_url('admin/search_item') ?>" method="GET">
@@ -76,16 +98,37 @@
 						</div>
 					</div>
 				</div>
-				<div class="columns">
-					<div class="column">
-						<h1 class="subtitle is-5">
-							<?= empty($edit) ? "Product Assignment (" . $returning_items->names . ")" : "Product Assignment" ?>
-							</h3>
-						</h1>
-					</div>
-				</div>
+				
 				<form action="<?= base_url("admin/assign_item_save") ?>" method="POST">
 					<input type="hidden" name="item_id" value="<?php echo $this->uri->segment(3); ?>">
+					<div class="columns">
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Model</label>
+									<div class="control has-icons-left">
+										<input class="input is-small" type="text" value="<?= ucwords($returning_items->model) ?>" disabled>
+										<span class="icon is-small is-left">
+											<i class="fas fa-bookmark"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Price</label>
+									<div class="control has-icons-left">
+										<input class="input is-small" type="text" value="<?= $returning_items->price ?>" disabled>
+										<span class="icon is-small is-left">
+											<i class="fas fa-dollar-sign"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
 					<div class="columns">
 						<div class="column">
 							<fieldset>
@@ -130,26 +173,6 @@
 									</div>
 								</div>
 							</fieldset>
-						</div>
-					</div>
-					<div class="columns" style="display: grid">
-						<div class="column table-container ">
-							<table class="table is-hoverable is-narrow is-fullwidth" id="myTable">
-								<thead>
-									<tr>
-										<th>Product</th>
-										<th>Model</th>
-										<th>Price</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td><?= $returning_items->names ?></td>
-										<td><?= $returning_items->model ?></td>
-										<td><?= $returning_items->price ?></td>
-									</tr>
-								</tbody>
-							</table>
 						</div>
 					</div>
 					<div class="columns">
