@@ -1,7 +1,7 @@
 <a href="<?= base_url('admin') ?>" class="has-text-black">Admin</a> >
 <?php if ($this->uri->segment(2) == 'categories') : ?>
 <span class="has-text-black has-text-weight-bold">Categories List</span>
-<?php elseif ($this->uri->segment(2) == 'sub_categories') : ?>
+<?php elseif ($this->uri->segment(2) == 'sub_categories' && !empty($sub_categories)) : ?>
     <a href="<?= base_url("admin/categories") ?>" class="has-text-black">Categories List</a> > <span class="has-text-weight-bold"><?= ucwords($sub_categories[0]->cat_name) ?></span>
 <?php elseif ($this->uri->segment(2) == 'item_register') : ?>
 <span class="has-text-black has-text-weight-bold">Items List</span>
