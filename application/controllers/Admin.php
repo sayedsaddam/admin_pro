@@ -1238,14 +1238,11 @@ public function get_assign_item($offset = null){
         $this->load->view('admin/commons/new_template', $data);
     }
     // Search filters - search product date-wise
-    public function product_report($offset = null){ 
-
-        $limit = 10;
-
+    public function product_report($offset = null){  
+        $limit = 10; 
         if(!empty($offset)){
             $config['uri_segment'] = 3;
         }
-
         $date_from = $this->input->get('from_date');
         $date_to = $this->input->get('to_date');
     
