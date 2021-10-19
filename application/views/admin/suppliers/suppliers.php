@@ -433,16 +433,11 @@ var cat1 = $("#exit-add-modal")
  	empedt2.click(function (ev) {
  		empedtmdl.close();
  		ev.stopPropagation();
- 	}); 
-
-
-
-
+ 	});  
 
 	$(document).ready(function () {
 		$('.supplier_info').click(function () {
 			var supplier_id = $(this).data('id');
-			// alert(supplier_id)
 			// AJAX request
 			$.ajax({
 				url: '<?= base_url('admin/edit_supplier/'); ?>' + supplier_id,

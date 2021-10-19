@@ -1689,11 +1689,17 @@ class Admin_model extends CI_Model{
        // $po_id = $p_id->purchase_id;  
         // return $this->db->from('qutations')->where(array('po_id' => $po_id))->count_all_results();
         return $this->db->from('qutations')->where(array('po_id' => $id))->count_all_results();
-    }
-
-    // Locations - Get item locations
-    public function get_item_location(){
-        return $this->db->from('locations')->get()->result(); 
+    } 
+      // Locations - Get item locations
+      public function get_item_location(){
+        if($this->session->userdata('user_role' , 'admin')){
+        return $this->db->from('locations')->get()->result();
+        }else{
+            $this->db->select('id,name');
+            $this->db->from('locations');
+            $this->db->where('id',$this->session->userdata('location')); 
+            return $this->db->get()->result();
+        } 
     } 
 
     // Item register - Delete an Item
