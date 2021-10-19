@@ -5,8 +5,11 @@
  	<div class="column">
  		<div class="columns">
  			<div class="column section">
-
-
+			 	<div class="columns">
+					<div class="column">
+						<?php $this->view('admin/commons/breadcrumb'); ?>
+					</div>
+				</div>
  				<div class="columns is-hidden-touch">
  					<div class="column is-hidden-print">
  						<form action="<?= base_url('admin/search_categories'); ?>" method="GET">
@@ -50,12 +53,6 @@
  						</div>
  					</div>
  				</div>
- 				<div class="columns">
-					<div class="column">
-					<a href="<?= base_url("admin") ?>" class="has-text-black">Dashboard</a> > <a href="<?= base_url("admin/categories") ?>" class="has-text-black has-text-weight-bold">Categories</a>
-					</div>
-				</div>
-
  				<div class="columns" style="display: grid">
  					<div class="column table-container ">
  						<table class="table table-sm is-fullwidth">

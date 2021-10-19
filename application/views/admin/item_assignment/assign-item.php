@@ -7,24 +7,7 @@
 			<div class="column section">
 				<div class="columns">
 					<div class="column">
-						<a href="<?= base_url('admin') ?>" class="has-text-black">Dashboard</a> > 
-						<?php if ($this->uri->segment(2) == 'item_register') : ?>
-							<a href="<?= base_url('admin/item_register') ?>" class="has-text-black has-text-weight-bold">Items List</a>
-						<?php elseif ($this->uri->segment(2) == 'available_item_list') : ?>
-							<a href="<?= base_url('admin/available_item_list') ?>" class="has-text-black has-text-weight-bold">Available List</a>
-						<?php elseif ($this->uri->segment(2) == 'get_assign_item') : ?>
-							<a href="<?= base_url('admin/get_assign_item') ?>" class="has-text-black has-text-weight-bold">Assigned List</a>
-						<?php elseif ($this->uri->segment(2) == 'add_item') : ?>
-							<a href="<?= base_url('admin/item_register') ?>" class="has-text-black">Items List</a> > <a href="<?= base_url('admin/add_item') ?>" class="has-text-black has-text-weight-bold">Add New</a>
-						<?php elseif ($this->uri->segment(2) == 'item_detail') : ?>
-							<a href="<?= base_url('admin/item_register') ?>" class="has-text-black">Items List</a> > <a href="<?= base_url('admin/item_detail/' . $edit->id) ?>" class="has-text-black has-text-weight-bold">Edit Item</a>
-						<?php elseif ($this->uri->segment(2) == 'product_report') : ?>
-							<a href="<?= base_url('admin/product_report') ?>" class="has-text-black has-text-weight-bold">Report</a>
-							<?php elseif ($this->uri->segment(2) == 'search_item') : ?>
-							<a href="<?= base_url('admin/search_item') ?>" class="has-text-black has-text-weight-bold">Search</a>
-						<?php elseif ($this->uri->segment(2) == 'assign_item') : ?>
-							<a href="<?= base_url('admin/item_register') ?>" class="has-text-black">Items List</a> > <span class="has-text-black has-text-weight-bold">Assign Item (<?= ucwords($returning_items->names) ?>)</span>
-						<?php endif ?>
+						<?php $this->view('admin/commons/breadcrumb'); ?>
 					</div>
 				</div>
 				<div class="columns is-hidden-touch">
