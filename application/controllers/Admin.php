@@ -228,21 +228,21 @@ class Admin extends CI_Controller{
     // Suppliers - Add new supplier
     public function add_employ(){ 
         $data = array(
-            'fullname' => $this->input->post('name'),
+            'fullname' => ucfirst($this->input->post('name')),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
-            'username' => $this->input->post('name'),
-            'department' => $this->input->post('department'),
+            'username' => ucfirst($this->input->post('name')),
+            'department' =>ucfirst($this->input->post('department')),
             'location' => $this->input->post('location'),
             'password' => $this->input->post('phone'),
-            'region' => $this->input->post('region'),
-            'address' => $this->input->post('address'),
+            'region' => ucfirst($this->input->post('region')),
+            'address' => ucfirst($this->input->post('address')),
             'status' => 1,
             'dob' => $this->input->post('dob'),
             'doj' => $this->input->post('doj'),
             'user_role' => 'employ',
             'created_at' => date('Y-m-d')
-        );
+        ); 
         if($this->admin_model->add_employ($data)){
             $this->session->set_flashdata('success', '<strong>Success! /strong>Employ added successfully.');
             redirect('admin/employ');

@@ -1436,7 +1436,7 @@ class Admin_model extends CI_Model{
       // Search filters - suppliers search
       public function search_employ($search){
         $this->db->select('users.id, users.fullname, users.email,
-                           users.phone, users.location, users.department,
+                           users.phone, users.doj, users.location, users.department,
                            users.region, users.address, users.status,users.dob,
                            users.created_at,locations.id as loc_id,
                            locations.name');
