@@ -12,14 +12,19 @@
 		<li><a href="<?= base_url('admin/suppliers') ?>">Suppliers</a></li>
 	</ul>
 	<ul class="menu-list">
-		<li><a href="<?= base_url('admin/employ') ?>">Employees</a></li>
+	<li><a class="<?= $this->uri->segment(2) == 'employ' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'employ' ? 'style="background-color:#ebfffc;"' : '' ?>>Employees</a>
+			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'employ' ? '' : 'display: none;' ?>">
+				<li class="is-size-7"><a href="<?= base_url('admin/employ'); ?>"><i class="fas fa-user-tie mr-1"></i> Employees List</a></li>
+			</ul>
+		</li>
 	</ul>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? 'style="background-color:#ebfffc;"' : '' ?>>Item
 				Categories</a>
 			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? '' : 'display: none;' ?>">
-				<li><a href="<?= base_url('admin/categories'); ?>"><i class="fas fa-hashtag mr-1"></i> Categories List</a></li>
+				<li class="is-size-7"><a href="<?= base_url('admin/categories'); ?>"><i class="fas fa-hashtag mr-1"></i> Categories List</a></li>
 			</ul>
 		</li>
 	</ul>
@@ -46,10 +51,10 @@
 				<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' || $this->uri->segment(2) == 'item_detail' ? 'style="background-color:#ebfffc;"' : '' ?>>Item
 				Register</a>
 			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' || $this->uri->segment(2) == 'item_detail' ? '' : 'display: none;' ?>">
-				<li><a href="<?= base_url('admin/item_register'); ?>"><i class="fas fa-list mr-1"></i> Items List</a></li>
-				<li><a href="<?= base_url('admin/available_item_list'); ?>"><i class="far fa-list-alt mr-1"></i> Available List</a></li>
-				<li><a href="<?= base_url('admin/get_assign_item'); ?>"><i class="fas fa-bars mr-1"></i> Assigned List</a></li>
-				<li><a href="<?= base_url('admin/add_item'); ?>"><i class="fas fa-plus mr-1"></i> Add New</a></li>
+				<li class="is-size-7"><a href="<?= base_url('admin/item_register'); ?>"><i class="fas fa-list mr-1"></i> Items List</a></li>
+				<li class="is-size-7"><a href="<?= base_url('admin/available_item_list'); ?>"><i class="far fa-list-alt mr-1"></i> Available List</a></li>
+				<li class="is-size-7"><a href="<?= base_url('admin/get_assign_item'); ?>"><i class="fas fa-bars mr-1"></i> Assigned List</a></li>
+				<li class="is-size-7"><a href="<?= base_url('admin/add_item'); ?>"><i class="fas fa-plus mr-1"></i> Add New</a></li>
 			</ul>
 		</li>
 
