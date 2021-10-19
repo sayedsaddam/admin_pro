@@ -45,7 +45,7 @@
          <div class="columns">
 					<div class="column">
 						<a href="<?= base_url('admin') ?>" class="has-text-black">Dashboard</a> > 
-							<a href="<?= base_url('admin/employ') ?>" class="has-text-black has-text-weight-bold">Employ List</a>
+							<a href="<?= base_url('admin/employ') ?>" class="has-text-black has-text-weight-bold">Employee List</a>
 					</div>
 				</div> 
         
