@@ -146,6 +146,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/suppliers/suppliers';
         $data['suppliers'] = $this->admin_model->get_suppliers($limit, $offset);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
+        $data['categories'] = $this->admin_model->suppliers_category();
         $this->load->view('admin/commons/new_template', $data);
     }
     // Suppliers - Add new supplier
@@ -171,7 +172,10 @@ class Admin extends CI_Controller{
     }
     // Suppliers - Remove supplier
     public function delete_supplier($id){
-        if($this->admin_model->delete_supplier($id)){
+        $data = array(
+            'status' => 0
+        );
+        if($this->admin_model->delete_supplier($id,$data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Supplier removal was successful.');
             redirect('admin/suppliers');
         }else{
@@ -186,7 +190,7 @@ class Admin extends CI_Controller{
     }
     // Update supplier
     public function update_supplier(){
-        $id = $this->input->post('sup_id');
+        $id = $this->input->post('sup_id'); 
         $data = array(
             'name' => $this->input->post('name'),
             'category' => implode(", ", $this->input->post('category')),    
@@ -194,10 +198,9 @@ class Admin extends CI_Controller{
             'phone' => $this->input->post('phone'),
             'location' => $this->input->post('location'),
             'ntn_number' => $this->input->post('ntn_number'),
-            'rating' => $this->input->post('rating'),
-            'region' => $this->input->post('region'),
+            'rating' => $this->input->post('rating'), 
             'address' => $this->input->post('address')
-        );
+        );  
         if($this->admin_model->update_supplier($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Supplier update was successful.');
             redirect('admin/suppliers');
@@ -236,6 +239,7 @@ class Admin extends CI_Controller{
             'address' => $this->input->post('address'),
             'status' => 1,
             'dob' => $this->input->post('dob'),
+            'doj' => $this->input->post('doj'),
             'user_role' => 'employ',
             'created_at' => date('Y-m-d')
         );
@@ -267,6 +271,7 @@ class Admin extends CI_Controller{
             'address' => $this->input->post('employ_address'),
             'status' => 1,
             'dob' => $this->input->post('dob'),
+            'doj' => $this->input->post('doj'),
             'user_role' => 'employ',
             'created_at' => date('Y-m-d')
         );
