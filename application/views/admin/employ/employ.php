@@ -63,6 +63,19 @@
                 <th class="font-weight-bold">Action</th>
             </tr>
           </thead>
+          <tfoot>
+            <tr>
+                <th class="font-weight-bold">ID</th>
+                <th class="font-weight-bold">Name</th>
+                <th class="font-weight-bold">Phone</th>
+                <th class="font-weight-bold">Location</th>  
+                <th class="font-weight-bold">Department</th>  
+                <th class="font-weight-bold">DOJ</th>  
+                <th class="font-weight-bold">Status</th>
+                <th class="font-weight-bold">Date</th>
+                <th class="font-weight-bold">Action</th>
+            </tr>
+          </tfoot>
           <?php if(empty($results)): ?>
             <tbody id="myTable">
               <?php if(!empty($employ)): foreach($employ as $sup): ?>
