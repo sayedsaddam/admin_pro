@@ -1421,7 +1421,11 @@ class Admin_model extends CI_Model{
     }
     // Get employ
     public function get_employ($limit, $offset){
-        $this->db->select('users.id as emp_id, users.fullname as emp_name, users.doj, users.email,users.department, users.phone, users.location, users.region,users.address, users.status, users.created_at,locations.id,locations.name');
+        $this->db->select('users.id as emp_id, users.fullname as emp_name,
+                           users.doj, users.email,users.department, 
+                           users.phone, users.location, users.region,
+                           users.address, users.status, 
+                           users.created_at,locations.id,locations.name');
         $this->db->from('users');
         $this->db->join('locations', 'users.location = locations.id', 'left');
         // $this->db->where('status', 1);
@@ -1431,7 +1435,11 @@ class Admin_model extends CI_Model{
     }
       // Search filters - suppliers search
       public function search_employ($search){
-        $this->db->select('users.id, users.fullname, users.email, users.phone, users.location, users.department,users.region, users.address, users.status,users.dob, users.created_at,locations.id as loc_id,locations.name');
+        $this->db->select('users.id, users.fullname, users.email,
+                           users.phone, users.location, users.department,
+                           users.region, users.address, users.status,users.dob,
+                           users.created_at,locations.id as loc_id,
+                           locations.name');
         $this->db->from('users');
         $this->db->join('locations', 'users.location = locations.id', 'left');
         $this->db->like('fullname', $search);

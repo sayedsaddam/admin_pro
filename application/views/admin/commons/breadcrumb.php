@@ -22,4 +22,8 @@
 <span class="has-text-black has-text-weight-bold">Search</span>
 <?php elseif ($this->uri->segment(2) == 'assign_item') : ?>
     <a href="<?= base_url('admin/item_register') ?>" class="has-text-black">Items List</a> &raquo; <span class="has-text-black has-text-weight-bold">Assign Item (<?= ucwords($returning_items->names) ?>)</span>
+<?php elseif ($this->uri->segment(2) == 'employ') : ?>
+<a href="<?= base_url('admin/employ') ?>" class="has-text-black">Empoloy List</a>
+<?php elseif ($this->uri->segment(2) == 'suppliers') : ?>
+<a href="<?= base_url('admin/suppliers') ?>" class="has-text-black">Suppliers List</a>
 <?php endif ?>
