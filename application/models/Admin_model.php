@@ -1414,7 +1414,7 @@ class Admin_model extends CI_Model{
     } 
     // Count employ
     public function count_employ(){
-        return $this->db->from('employ')->where(array('status' => 1))->count_all_results();
+        return $this->db->from('users')->where(array('status' => 1))->count_all_results();
     }
     // Get employ
     public function get_employ($limit, $offset){
