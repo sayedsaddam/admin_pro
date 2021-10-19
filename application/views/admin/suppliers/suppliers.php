@@ -67,7 +67,7 @@
 							<tbody>
 								<?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
 								<tr>
-									<td><?= 'S2S-0'.$sup->sup_id; ?></td>
+									<td><?= 'S2S-'.$sup->sup_id; ?></td>
 									<td><span title="<?= $sup->email; ?>"><?= $sup->sup_name; ?></td>
 									<td><?= ucfirst($sup->phone); ?></td>
 									<td><?= ucfirst($sup->name); ?></td>
