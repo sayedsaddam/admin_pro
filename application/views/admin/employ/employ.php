@@ -94,12 +94,12 @@
             <tbody id="myTable">
               <?php if(!empty($results)): foreach($results as $res): ?>
                 <tr>
-                <td><?= 'S2S-'.$sup->emp_id; ?></td>
-                  <td><abbr title="<?= $sup->email; ?>"><?= ucwords($sup->emp_name); ?></abbr></td>
-                  <td><?= $sup->phone; ?></td>
-                  <td><?= ucwords($sup->name); ?></td>  
-                  <td><?= ucwords($sup->department); ?></td>  
-                  <td><?= date('M d, Y', strtotime($sup->doj)); ?></td>  
+                <td><?= 'S2S-'.$res->id; ?></td>
+                  <td><abbr title="<?= $res->email; ?>"><?= ucwords($res->fullname); ?></abbr></td>
+                  <td><?= $res->phone; ?></td>
+                  <td><?= ucwords($res->name); ?></td>  
+                  <td><?= ucwords($res->department); ?></td>  
+                  <td><?= date('M d, Y', strtotime($res->doj)); ?></td>  
                   <td>
                       <?php if($res->status == 1): ?>
                           <span class="badge badge-success">Active</span>
