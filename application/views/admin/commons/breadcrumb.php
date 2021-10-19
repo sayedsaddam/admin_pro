@@ -25,5 +25,5 @@
 <?php elseif ($this->uri->segment(2) == 'employ') : ?>
 <a href="<?= base_url('admin/employ') ?>" class="has-text-black has-text-weight-bold">Employees List</a>
 <?php elseif ($this->uri->segment(2) == 'suppliers') : ?>
-<a href="<?= base_url('admin/suppliers') ?>" class="has-text-black">Suppliers List</a>
+<a href="<?= base_url('admin/suppliers') ?>" class="has-text-black has-text-weight-bold">Suppliers List</a>
 <?php endif ?>
