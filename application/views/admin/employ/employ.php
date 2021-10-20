@@ -34,6 +34,15 @@
  					</div>
  					<div class="column is-hidden-print is-narrow">
  						<div class="field has-addons"> 
+             <p class="control">
+ 								<a href="<?= base_url("admin/employ") ?>"
+ 									class="button is-small <?= (isset($employees_page)) ? 'has-background-primary-light' : '' ?>">
+ 									<span class="icon is-small">
+ 										<i class="fas fa-plus"></i>
+ 									</span>
+ 									<span>Employees List</span>
+ 								</a>
+ 							</p>
  							<p class="control">
  								<button
  									class="add_employ button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
@@ -54,7 +63,6 @@
             <tr>
                 <th class="font-weight-bold">ID</th>
                 <th class="font-weight-bold">Name</th>
-                <th class="font-weight-bold">Email</th>
                 <th class="font-weight-bold">Phone</th>
                 <th class="font-weight-bold">Location</th>  
                 <th class="font-weight-bold">Department</th>  
@@ -64,19 +72,29 @@
                 <th class="font-weight-bold">Action</th>
             </tr>
           </thead>
+          <tfoot>
+            <tr>
+                <th class="font-weight-bold">ID</th>
+                <th class="font-weight-bold">Name</th>
+                <th class="font-weight-bold">Phone</th>
+                <th class="font-weight-bold">Location</th>  
+                <th class="font-weight-bold">Department</th>  
+                <th class="font-weight-bold">DOJ</th>  
+                <th class="font-weight-bold">Status</th>
+                <th class="font-weight-bold">Date</th>
+                <th class="font-weight-bold">Action</th>
+            </tr>
+          </tfoot>
           <?php if(empty($results)): ?>
             <tbody id="myTable">
               <?php if(!empty($employ)): foreach($employ as $sup): ?>
                 <tr>
-                  <td><?= 'SUP-0'.$sup->emp_id; ?></td>
-                  <td><?= $sup->emp_name; ?></td>
-                  <td><?= ucfirst($sup->email); ?></td>
-                  <td><?= ucfirst($sup->phone); ?></td>
-                  <td><?= ucfirst($sup->name); ?></td>  
-                  
-                  <td><?= ucfirst($sup->department); ?></td>  
-                  <td><?= ucfirst($sup->doj); ?></td>  
-                  
+                  <td><?= 'S2S-'.$sup->emp_id; ?></td>
+                  <td><abbr title="<?= $sup->email; ?>"><?= ucwords($sup->emp_name); ?></abbr></td>
+                  <td><?= $sup->phone; ?></td>
+                  <td><?= ucwords($sup->name); ?></td>  
+                  <td><?= ucwords($sup->department); ?></td>  
+                  <td><?= date('M d, Y', strtotime($sup->doj)); ?></td>  
                   <td>
                       <?php if($sup->status == 1): ?>
                           <span class="badge badge-success">Active</span>
@@ -98,13 +116,12 @@
             <tbody id="myTable">
               <?php if(!empty($results)): foreach($results as $res): ?>
                 <tr>
-                  <td><?= 'SUP-0'.$res->id; ?></td>
-                  <td><?= $res->fullname; ?></td>
-                  <td><?= ucfirst($res->email); ?></td>
-                  <td><?= ucfirst($res->phone); ?></td>
-                  <td><?= ucfirst($res->location); ?></td>   
-                  <td><?= ucfirst($res->department); ?></td>  
-                  <td><?= ucfirst($res->doj); ?></td>  
+                <td><?= 'S2S-'.$res->id; ?></td>
+                  <td><abbr title="<?= $res->email; ?>"><?= ucwords($res->fullname); ?></abbr></td>
+                  <td><?= $res->phone; ?></td>
+                  <td><?= ucwords($res->name); ?></td>  
+                  <td><?= ucwords($res->department); ?></td>  
+                  <td><?= date('M d, Y', strtotime($res->doj)); ?></td>  
                   <td>
                       <?php if($res->status == 1): ?>
                           <span class="badge badge-success">Active</span>
