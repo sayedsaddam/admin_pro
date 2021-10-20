@@ -12,10 +12,12 @@
 				</div>
 				<div class="columns">
 					<div class="column">
-						<form action="<?= base_url('admin/search_item') ?>" method="GET">
+						<form action="<?= base_url('admin/search_supplier') ?>" method="GET">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
-									<input class="input is-small is-fullwidth" name="search" type="search" placeholder="Search Items" value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
+									<input class="input is-small is-fullwidth" name="search" type="search"
+										placeholder="Search Suppliers"
+										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
 									</span>
@@ -29,324 +31,161 @@
 							</div>
 						</form>
 					</div>
-					<div class="column is-hidden-touch">
+					<div class="column is-narrow is-hidden-touch">
 						<div class="field has-addons">
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/item_register'); ?>'"
-									class="button is-small <?= isset($item_register) ? 'has-background-primary-light' : '' ?>">
+								<a href="<?= base_url("admin/suppliers") ?>"
+									class="button is-small <?= (isset($suppliers_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-list"></i>
+										<i class="fas fa-plus"></i>
 									</span>
-									<span>Items List</span>
-								</button>
+									<span>Suppliers List</span>
+								</a>
 							</p>
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/available_item_list'); ?>'"
-									class="button is-small <?= isset($available_page) ? 'has-background-primary-light' : '' ?>">
-									<span class="icon is-small">
-										<i class="far fa-list-alt"></i>
-									</span>
-									<span>Available List</span>
-								</button>
-							</p>
-							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/get_assign_item'); ?>'"
-									class="button is-small <?= isset($assign_page) ? 'has-background-primary-light' : '' ?>">
-									<span class="icon is-small">
-										<i class="fas fa-bars"></i>
-									</span>
-									<span>Assigned List</span>
-								</button>
-							</p>
-							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/add_item'); ?>'"
-									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
+								<button onclick="location.href='<?= base_url('admin/add_supplier'); ?>'"
+									class="button is-small <?= isset($add_supplier_page) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-plus"></i>
 									</span>
 									<span>Add New</span>
 								</button>
 							</p>
-							<p class="control">
-								<button
-									class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>"
-									id="report-btn">
-									<span class="icon is-small">
-										<i class="fas fa-paperclip"></i>
-									</span>
-									<span>Report</span>
-								</button>
-							</p>
 						</div>
 					</div>
 				</div>
-				<div class="columns">
-					<div class="column">
-						<h1 class="subtitle is-5"><?= (!isset($edit_item)) ? 'Add Item' : 'Editing Item' ?>
-							<?= (isset($edit->id)) ? '<span class="has-text-grey-light">(ID: ' . $edit->id . ')</span>' : '' ?></h1>
-					</div>
-				</div>
 				<form
-					action="<?php if(empty($edit)){ echo base_url('admin/item_save'); }else{ echo base_url('admin/modify_item'); } ?>"
+					action="<?= empty($edit_supplier) ? base_url('admin/add_supplier_request') : base_url('admin/edit_supplier_request') ?>"
 					method="POST">
 					<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">
 						<div class="column">
-							<fieldset>
+							<div class="control">
+								<label class="label is-small">Location <span class="has-text-danger">*</span></label>
+								<div class="control has-icons-left">
+									<span class="select is-small is-fullwidth">
+										<select name="location" id="" class="browser-default custom-select ">
+											<?php if(!isset($edit_item)): ?>
+                                            <option disabled value="">Select Location</option>
+                                            <?php endif ?>
+                                            <?php if(!empty($locations)): foreach($locations as $loc): ?>
+                                            <option value="<?= $loc->id; ?>"
+                                                <?= !empty($edit) && $edit->id == $loc->id ? 'selected' : '' ?>>
+                                                <?= $loc->name; ?>
+                                            </option>
+                                            <?php endforeach; endif; ?>
+										</select>
+									</span>
+									<span class="icon is-small is-left">
+										<i class="fas fa-globe"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="field">
+								<label class="label is-small">Name <span class="has-text-danger">*</span></label>
+								<div class="control has-icons-left">
+									<input type="text" name="name" id="" class="input is-small" value="" type="text"
+										placeholder="e.g John Doe" required="">
+									<span class="icon is-small is-left">
+										<i class="fas fa-user"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="columns">
+						<div class="column">
+							<div class="control">
 								<div class="field">
-									<label class="label is-small">Location <span class="has-text-danger">*</span></label>
+									<label class="label is-small">Email <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<span class="select is-small is-fullwidth">
-											<select name="location" id="location" required>
-												<?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select a City</option>
-												<?php endif ?>
-												<?php if(!empty($locations)): foreach($locations as $loc): ?>
-												<option value="<?= $loc->id; ?>"
-													<?php !empty($edit) && $edit->id == $loc->id ? 'selected' : '' ?>><?= $loc->name; ?>
-												</option>
-												<?php endforeach; endif; ?>
-											</select>
-										</span>
+										<input type="email" name="email" id="" class="input is-small" value=""
+											type="text" placeholder="e.g example@domain.com" required="">
 										<span class="icon is-small is-left">
-											<i class="fas fa-globe"></i>
+											<i class="far fa-envelope"></i>
 										</span>
 									</div>
 								</div>
-							</fieldset>
+							</div>
+						</div>
+						<div class="column">
+							<div class="control">
+								<label class="label is-small">Phone No <span class="has-text-danger">*</span></label>
+								<div class="control has-icons-left">
+									<input type="text" name="phone" id="" class="input is-small" value="" type="text"
+										placeholder="e.g +92-333-1234567" required="">
+									<span class="icon is-small is-left">
+										<i class="fas fa-phone"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="columns">
+                        <div class="column">
+							<div class="control">
+								<label class="label is-small">Catergory <span class="has-text-danger">*</span></label>
+								<div class="control has-icons-left">
+									<span class="select is-small is-fullwidth">
+										<select name="category" class="browser-default custom-select" required>
+                                        <?php if(!isset($edit_item)): ?>
+                                        <option disabled value="">Select Category</option>
+                                        <?php endif ?>
+                                        <?php if(!empty($categories)): foreach($categories as $cat): ?>
+                                        <option value="<?= $cat->id; ?>"
+                                            <?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>>
+                                            <?= $cat->cat_name; ?>
+                                        </option>
+                                        <?php endforeach; endif; ?>
+										</select>
+									</span>
+									<span class="icon is-small is-left">
+										<i class="fas fa-tag"></i>
+									</span>
+								</div>
+							</div>
 						</div>
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Supplier <span class="has-text-danger">*</span></label>
+									<label class="label is-small">NTN</label>
 									<div class="control has-icons-left">
-										<span class="select is-small is-fullwidth">
-											<select name="supplier" class="supplier" required>
-												<?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select a Supplier</option>
-												<?php endif ?>
-												<?php if(!empty($supplier)): foreach($supplier as $sup): ?>
-												<option value="<?= $sup->name; ?>"
-													<?= !empty($edit) && $edit->id == $sup->id ? 'selected' : '' ?>><?= $sup->name; ?>
-												</option>
-												<?php endforeach; endif; ?>
-											</select>
-										</span>
+										<input type="text" name="ntn_number" id="" class="input is-small" value=""
+											placeholder="e.g 0622438-9">
 										<span class="icon is-small is-left">
-											<i class="fas fa-user"></i>
+											<i class="fas fa fa-list-ol"></i>
 										</span>
 									</div>
 								</div>
 							</fieldset>
 						</div>
 					</div>
+
 					<div class="columns">
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Category <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-										<span class="select is-small is-fullwidth">
-											<select name="category" id="category" required>
-												<?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select a Category</option>
-												<?php endif ?>
-												<?php if(!empty($categories)): foreach($categories as $cat): ?>
-												<option value="<?= $cat->id; ?>"
-													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= $cat->cat_name; ?>
-												</option>
-												<?php endforeach; endif; ?>
-											</select>
-										</span>
-										<span class="icon is-small is-left">
-											<i class="fas fa-tags"></i>
-										</span>
-									</div>
+                        <div class="column">
+							<div class="control">
+								<label class="label is-small">Rating <span class="has-text-danger">*</span></label>
+								<div class="control has-icons-left">
+									<input type="number" name="rating" class="input is-small" min="1" max="5" type="text"
+										placeholder="1-5" required>
+									<span class="icon is-small is-left">
+										<i class="fas fa-sort-numeric-up"></i>
+									</span>
 								</div>
-							</fieldset>
+							</div>
 						</div>
-						<div class="column">
+                        <div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Subcategory <span class="has-text-danger">*</span></label>
+									<label class="label is-small">Address <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<span class="select is-small is-fullwidth">
-											<select name="sub_category" id="item_name" required>
-												<?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select an Item</option>
-												<?php endif ?>
-												<?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
-												<option value="<?= $cat->id; ?>"
-													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= $cat->name; ?>
-												</option>
-												<?php endforeach; endif; ?>
-											</select>
-										</span>
+										<input type="text" name="address" class="input is-small"
+											placeholder="e.g House No. 5, ST No. 1, Main Boulevard" required>
 										<span class="icon is-small is-left">
-											<i class="fas fa-luggage-cart"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-					</div>
-					<div class="columns">
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Item Company <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-										<input name="item_name" id="sub_item_name" value="<?= !empty($edit) ? $edit->type_name : '' ?>" class="input is-small"
-											type="text" placeholder="e.g Apple" required>
-										<span class="icon is-small is-left">
-											<i class="fas fa-quote-left"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Quantity <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-										<input name="quantity" id="item-quantity" value="<?= !empty($edit) ? $edit->quantity : '1' ?>"
-											class="input is-small" type="number" min="1" max="9999" placeholder="1-9,999" required>
-										<span class="icon is-small is-left">
-											<i class="fas fa-sort-numeric-up"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-					</div>
-					<div class="columns">
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Model <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-										<input name="model" value="<?= !empty($edit) ? $edit->model : '' ?>" class="input is-small"
-											type="text" placeholder="e.g 110 4G" required>
-										<span class="icon is-small is-left">
-											<i class="fas fa-bookmark"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Serial Number <span class="has-text-danger" id="serial-required"
-											style="display:none;">*</span></label>
-									<div class="control has-icons-left">
-										<input name="serial_number" value="<?= !empty($edit) ? $edit->serial_number : '' ?>"
-											class="input is-small" id="serial-number" type="text" placeholder="e.g X12X34Y5XYXY">
-										<span class="icon is-small is-left">
-											<i class="fas fa-hashtag"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-					</div>
-					<div class="columns">
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Price (PKR) <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-										<input name="price" value="<?= !empty($edit) ? $edit->price : '' ?>" class="input is-small"
-											type="number" min="1" max="9999999" placeholder="1-9,999,999" required>
-										<span class="icon is-small is-left">
-											<i class="fas fa-dollar-sign"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Depreciation (%) <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-										<span class="select is-small is-fullwidth">
-											<select name="depreciation" id="depreciation" required>
-												<?php if(empty($depreciation)): ?>
-												<option disabled value="" selected>Select a Value</option>
-												<option value="5">5%</option>
-												<option value="10">10%</option>
-												<option value="15">15%</option>
-												<option value="20">20%</option>
-												<option value="30">30%</option>
-												<?php else: foreach($depreciation as $dep): ?>
-												<?php $option_flag = false ?>
-												<option disabled value="" <?php if(!isset($edit_item)){ echo 'selected'; } ?>>Select a Value
-												</option>
-												<option value="5"
-													<?php if(!empty($edit) && $dep->depreciation == 5 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>
-													5%</option>
-												<option value="10"
-													<?php if(!empty($edit) && $dep->depreciation == 10  && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>
-													10%</option>
-												<option value="15"
-													<?php if(!empty($edit) && $dep->depreciation == 15 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>
-													15%</option>
-												<option value="20"
-													<?php if(!empty($edit) && $dep->depreciation == 20 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>
-													20%</option>
-												<option value="30"
-													<?php if(!empty($edit) && $dep->depreciation == 30 && $option_flag == false){ echo 'selected'; $option_flag = true; } ?>>
-													30%</option>
-												<?php endforeach; endif; ?>
-											</select>
-										</span>
-										<span class="icon is-small is-left">
-											<i class="fas fa-percentage"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-					</div>
-					<div class="columns">
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Status <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-										<span class="select is-small is-fullwidth">
-											<select name="status" id="status" required>
-												<?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select Status</option>
-												<?php endif ?>
-												<?php if(!empty($status)): foreach($status as $stat): ?>
-												<option value="<?= $stat->id; ?>"
-													<?= !empty($edit) && $edit->id == $stat->id ? 'selected' : '' ?>><?= $stat->status; ?>
-												</option>
-												<?php endforeach; endif; ?>
-												<option value="new">New</option>
-												<option value="used">Used</option>
-												<option value="refurbished">Refurbished</option>
-											</select>
-										</span>
-										<span class="icon is-small is-left">
-											<i class="far fa-check-circle"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Purchase Date <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-										<input name="purchasedate" class="input is-small" type="date" required
-											value="<?= !empty($edit) ? $edit->purchasedate : '' ?>">
-										<span class="icon is-small is-left">
-											<i class="far fa-calendar-alt"></i>
+											<i class="fas fa fa-home"></i>
 										</span>
 									</div>
 								</div>
@@ -462,20 +301,21 @@
 
 					// Add options
 					$.each(response, function (index, data) {
-						$('#item_name').append('<option value="' + data['id'] + '">' + data['name'] + '</option>');
+						$('#item_name').append('<option value="' + data['id'] + '">' +
+							data['name'] + '</option>');
 					});
 				}
 			});
 		});
 	});
 
-  var itemSuggestions = [];
+	var itemSuggestions = [];
 
 	// item type auto load against item
 	$(document).ready(function () {
 		// City change
 		$('#item_name').on('change', function () {
-      itemSuggestions = [];
+			itemSuggestions = [];
 			var item_id = $(this).val();
 			// AJAX request
 			$.ajax({
@@ -487,13 +327,13 @@
 				dataType: 'json',
 				success: function (response) {
 					$.each(response, function (index, data) {
-            			itemSuggestions.push(data['type_name']);
+						itemSuggestions.push(data['type_name']);
 					});
 				}
 			});
-      $("#sub_item_name").autocomplete({
-        source: itemSuggestions
-      });
+			$("#sub_item_name").autocomplete({
+				source: itemSuggestions
+			});
 		});
 	});
 

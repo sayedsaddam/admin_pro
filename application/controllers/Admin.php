@@ -154,11 +154,23 @@ class Admin extends CI_Controller{
         
         $this->load->view('admin/commons/new_template', $data);
     }
+    // Add Suppliers - Go to add suppliers page.
+    public function add_supplier(){
+        $url = 'admin/suppliers/add_supplier';
+        $data['title'] = 'Suppliers | Admin & Procurement';
+        $data['body'] = 'admin/suppliers/add_supplier';
+        $data['locations'] = $this->admin_model->list_locations_suppliers();
+        $data['categories'] = $this->admin_model->suppliers_category();
+        $data['add_supplier_page'] = true;
+        $data['breadcrumb'] = array("admin/suppliers" => "Suppliers", "Add Supplier");
+        
+        $this->load->view('admin/commons/new_template', $data);
+    }
     // Suppliers - Add new supplier
-    public function add_supplier_item(){ 
+    public function add_supplier_request(){ 
         $data = array(
             'name' => $this->input->post('name'), 
-            'category' => implode(", ", $this->input->post('category')),
+            'category' => $this->input->post('category'),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
             'location' => $this->input->post('location'), 

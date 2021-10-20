@@ -43,13 +43,13 @@
 								</a>
 							</p>
 							<p class="control">
-								<button
-									class="add_suppliers button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
+								<a href="<?= base_url("admin/add_supplier") ?>"
+									class="button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-plus"></i>
 									</span>
 									<span>Add New</span>
-								</button>
+								</a>
 							</p>
 						</div>
 					</div>
@@ -157,138 +157,6 @@
 				</div>
 			</div>
 </section>
-
-<!-- add suppliers code start -->
-<div class="modal" id="add_suppliers">
-	<div class="modal-background"></div>
-	<form action="<?=base_url('admin/add_supplier');?>" method="post" class="md-form">
-		<div class="modal-card">
-			<header class="modal-card-head">
-				<p class="modal-card-title">Add Suppliers</p>
-				<button class="delete" aria-label="close" id="exit-add-modal" type="button"></button>
-			</header>
-			<input type="hidden" name="purchaseid" id="purchaseid" value="">
-			<section class="modal-card-body">
-				<div class="columns">
-					<div class="column">
-						<div class="control">
-							<label class="label is-small">Location <span class="has-text-danger">*</span></label>
-							<div class="select select is-small is-fullwidth">
-								<select name="location" id="" class="browser-default custom-select ">
-									<?php if(!empty($locations)): foreach($locations as $loc): ?>
-									<option value="<?= $loc->id ?>"><?= ucfirst($loc->name); ?> </option>
-									<?php endforeach; endif; ?>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="column">
-						<fieldset>
-							<div class="field">
-								<label class="label is-small">Name <span class="has-text-danger">*</span></label>
-								<div class="control has-icons-left">
-									<input type="text" name="name" id="" class="input is-small" value="" type="text"
-										placeholder="name ..." required="">
-									<span class="icon is-small is-left">
-										<i class="fas fa-user"></i>
-									</span>
-								</div>
-							</div>
-						</fieldset>
-					</div>
-				</div>
-
-				<div class="columns">
-					<div class="column">
-						<div class="control">
-
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Email <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-										<input type="email" name="email" id="" class="input is-small" value="" type="text"
-											placeholder="example@yahoo.com ..." required="">
-										<span class="icon is-small is-left">
-											<i class="fas fa-envelope-square"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-					</div>
-					<div class="column">
-						<div class="control">
-							<label class="label is-small">Phone No <span class="has-text-danger">*</span></label>
-							<div class="select select is-small is-fullwidth">
-								<input type="number" name="phone" id="" class="input is-small" value="" type="text"
-									placeholder="034354556554 ..." required="">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="columns">
-					<div class="column">
-						<label class="label is-small">Catergory <span class="has-text-danger">*</span></label>
-						<div class="select is-multiple is-small is-fullwidth">
-							<select multiple size="2" name="category" id="" required>
-                   <?php if(!isset($edit_item)): ?>
-							<option disabled value="">Select Category</option>
-							<?php endif ?>
-							<?php if(!empty($categories)): foreach($categories as $cat): ?>
-							<option value="<?= $cat->id; ?>"
-								<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= $cat->cat_name; ?>
-							</option>
-							<?php endforeach; endif; ?> 
-							</select>
-						</div>
-					</div>
-
-					<div class="column">
-						<fieldset>
-							<div class="field">
-								<label class="label is-small">NTN </label>
-								<div class="control has-icons-left">
-									<input type="text" name="ntn_number" id="" class="input is-small" value="" placeholder="ntn_number ...">
-									<span class="icon is-small is-left">
-										<i class="fas fa fa-globe"></i>
-									</span>
-								</div>
-							</div>
-						</fieldset>
-					</div>
-				</div>
-
-				<div class="columns">
-					<div class="column">
-						<label class="label is-small"> Rating <span class="has-text-danger">*</span></label>
-						<div class="is-small is-fullwidth">
-							<input type="number" name="rating" id="" class="input is-small" value="" placeholder="rating ...">
-						</div>
-					</div>
-
-					<div class="column">
-						<fieldset>
-							<div class="field">
-								<label class="label is-small">Address</label>
-								<div class="control has-icons-left">
-									<textarea class="textarea is-small" name="address" rows="1" id=""
-										placeholder="some detail"></textarea>
-								</div>
-							</div>
-						</fieldset>
-					</div>
-				</div>
-
-			</section>
-			<footer class="modal-card-foot">
-				<button class="button is-success" type="submit">Apply</button>
-				<button class="button" aria-label="close" id="close-add-modal" type="button">Cancel</button>
-
-			</footer>
-		</div>
-	</form>
-</div>
-<!-- code add empoloy end -->
 
 <!-- Update employ code start -->
 <div class="modal" id="edit_suppliers">
@@ -425,26 +293,6 @@
 <!-- update eploy code end -->
 
 <script>
-
-// add suppliers code start 
-var cat1 = $("#exit-add-modal")
- 	var cat2 = $("#close-add-modal")
- 	var catmdl = new BulmaModal("#add_suppliers")
-
- 	cat1.click(function (ev) {
- 		catmdl.close();
- 		ev.stopPropagation();
- 	});
- 	cat2.click(function (ev) {
- 		catmdl.close();
- 		ev.stopPropagation();
- 	});
-
- 	$('.add_suppliers').click(function (ev) {
- 		catmdl.show();
-		$(".modal-card-head").show();
- 		ev.stopPropagation();
- 	});
   // code to updat suppliers
   var empedt1 = $("#exit-edit-modal")
  	var empedt2 = $("#close-edit-modal")

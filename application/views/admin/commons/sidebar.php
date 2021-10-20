@@ -9,13 +9,13 @@
 		Procurement
 	</p>
 	<ul class="menu-list">
-		<li><a class="<?= $this->uri->segment(2) == 'suppliers' || $this->uri->segment(2) == 'search_suppliers' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
-				<?= $this->uri->segment(2) == 'suppliers' || $this->uri->segment(2) == 'search_suppliers' ? 'style="background-color:#ebfffc;"' : '' ?>>Suppliers</a>
-			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'suppliers' || $this->uri->segment(2) == 'search_suppliers' ? '' : 'display: none;' ?>">
-				<li class="is-size-7"><a href="<?= base_url('admin/suppliers'); ?>"><i class="fas fa-user mr-1"></i> Suppliers List</a></li>
+		<li><a class="<?= $this->uri->segment(2) == 'suppliers' || $this->uri->segment(2) == 'search_suppliers' || $this->uri->segment(2) == 'add_supplier' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'suppliers' || $this->uri->segment(2) == 'search_suppliers' || $this->uri->segment(2) == 'add_supplier' ? 'style="background-color:#ebfffc;"' : '' ?>>Suppliers</a>
+			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'suppliers' || $this->uri->segment(2) == 'search_suppliers' || $this->uri->segment(2) == 'add_supplier' ? '' : 'display: none;' ?>">
+			<li class="is-size-7"><a href="<?= base_url('admin/suppliers'); ?>"><i class="fas fa-user mr-1"></i> Suppliers List</a></li>
+			<li class="is-size-7"><a href="<?= base_url('admin/add_supplier'); ?>"><i class="fas fa-plus mr-1"></i> Add New</a></li>
 			</ul>
 		</li>
-
 	</ul>
 	<?php if($this->session->userdata('user_role') == 'admin') : ?>
 	<ul class="menu-list">
