@@ -148,6 +148,7 @@ class Admin extends CI_Controller{
         $data['locations'] = $this->admin_model->list_locations_suppliers();
         $data['categories'] = $this->admin_model->suppliers_category();
         $data['suppliers_page'] = true;
+        $data['breadcrumb'] = array("Suppliers");
         
         $this->load->view('admin/commons/new_template', $data);
     }
@@ -228,6 +229,7 @@ class Admin extends CI_Controller{
         $data['employ'] = $this->admin_model->get_employ($limit, $offset);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
         $data['employees_page'] = true;
+        $data['breadcrumb'] = array("Employees");
         
         $this->load->view('admin/commons/new_template', $data);
     } 
@@ -296,6 +298,9 @@ class Admin extends CI_Controller{
         $data['title'] = 'Search Results > Employ';
         $data['body'] = 'admin/employ/employ';
         $data['results'] = $this->admin_model->search_employ($search); 
+        $data['breadcrumb'] = array("admin/employ" => "Employees", "Search: " . $search); 
+        $data['search_employ_page'] = true;
+
         $this->load->view('admin/commons/new_template', $data);
     } 
     // Employ - Remove employ
@@ -857,6 +862,8 @@ class Admin extends CI_Controller{
         $data['categories'] = $this->admin_model->categories($limit, $offset);
         $data['locations'] = $this->login_model->get_locations();
         $data['categories_page'] = true;
+        $data['breadcrumb'] = array("Item Categories");
+
         $this->load->view('admin/commons/new_template', $data);
     }
     // Adding a category
@@ -929,10 +936,12 @@ class Admin extends CI_Controller{
         $this->pagination->initialize($config);
 
         $data['title'] = 'Sub Categories | Categories';
-        $data['body'] = 'admin/sub_categories';
+        $data['body'] = 'admin/sub_categories'; 
         $data['sub_categories'] = $this->admin_model->sub_categories($cat_id);
         $data['parent_category'] = $this->admin_model->parent_category_name($cat_id);
         $data['categories_page'] = true;
+        $data['breadcrumb'] = array("admin/categories" => "Item Categories", $this->admin_model->parent_category_name($cat_id)[0]->cat_name);
+
         $this->load->view('admin/commons/new_template', $data);
     }
     // Adding a sub category
@@ -990,6 +999,8 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/suppliers/suppliers';
         $data['results'] = $this->admin_model->search_suppliers($search);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
+        $data['breadcrumb'] = array("admin/suppliers" => "Suppliers", "Search: " . $search);
+        
         $this->load->view('admin/commons/new_template', $data);
     } 
     // Search filters - search inventory
@@ -1055,6 +1066,8 @@ class Admin extends CI_Controller{
         $data['title'] = 'Search Results > Categories';
         $data['body'] = 'admin/categories';
         $data['results'] = $this->admin_model->search_categories($search);
+        $data['breadcrumb'] = array("admin/categories" => "Item Categories", "Search: " . $search);
+        
         $this->load->view('admin/commons/new_template', $data);
     }
     // Search filters - search sub categories
@@ -1094,7 +1107,9 @@ class Admin extends CI_Controller{
         $data['title'] = 'Item Register | Admin & Procurement';
         $data['body'] = 'admin/item_assignment/item-register';
         $data['item_register'] = true;
-        $data['items'] = $this->admin_model->get_items($limit, $offset); 
+        $data['items'] = $this->admin_model->get_items($limit, $offset);
+        $data['breadcrumb'] = array("Items Register");
+
         $this->load->view('admin/commons/new_template', $data);
     }
     //Available Item list
@@ -1127,6 +1142,8 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/item_assignment/item-register';
         $data['available_page'] = true;
         $data['items'] = $this->admin_model->get_available_items($limit, $offset); 
+        $data['breadcrumb'] = array("admin/item_register" => "Items Register", "Available List");
+
         $this->load->view('admin/commons/new_template', $data);
     }
     //Assign item list
@@ -1158,6 +1175,7 @@ class Admin extends CI_Controller{
     $data['body'] = 'admin/item_assignment/item-register';
     $data['assign_page'] = true; 
     $data['items'] = $this->admin_model->assign_item_list($limit, $offset); 
+    $data['breadcrumb'] = array("admin/item_register" => "Items Register", "Assigned List");
     $this->load->view('admin/commons/new_template', $data);
 }
     //Assign item 
@@ -1182,6 +1200,7 @@ class Admin extends CI_Controller{
         $data['categories'] = $this->admin_model->get_item_categories();
         $data['supplier'] = $this->admin_model->get_item_supplier();
         $data['locations'] = $this->admin_model->get_item_location(); 
+        $data['breadcrumb'] = array("admin/item_register" => "Items Register", "Add Item");
         $this->load->view('admin/commons/new_template', $data);
     }
     // Add new Item into the database
@@ -1248,6 +1267,8 @@ class Admin extends CI_Controller{
         $data['status'] = $this->admin_model->status_items($id); 
         $data['edit_item'] = true;
         $data['item_register'] = true;
+        $data['breadcrumb'] = array("admin/item_register" => "Items Register", "Edit Item");
+        
         $this->load->view('admin/commons/new_template', $data);
     }
     // Search filters - search product date-wise
@@ -1284,6 +1305,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/item_assignment/item-register';
 
         $data['items'] =  $this->admin_model->get_items($limit, $offset, $date_from, $date_to);
+        $data['breadcrumb'] = array("admin/item_register" => "Items Register", "Report List");
 
         $this->load->view('admin/commons/new_template', $data);
     } 
@@ -1325,6 +1347,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/item_assignment/item-register'; 
         $data['assign_flag'] = false; 
         $data['items'] = $this->admin_model->search_items($search, $limit, $offset);
+        $data['breadcrumb'] = array("admin/item_register" => "Items Register", "Search: " . $search);
         $this->load->view('admin/commons/new_template', $data);
     }
     // Delete item

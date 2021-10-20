@@ -16,7 +16,7 @@
  							<div class="field has-addons">
  								<div class="control has-icons-left is-expanded">
  									<input class="input is-small is-fullwidth" name="search" type="search"
- 										placeholder="Search Query">
+ 										placeholder="Search Categories" required>
  									<span class="icon is-small is-left">
  										<i class="fas fa-search"></i>
  									</span>
