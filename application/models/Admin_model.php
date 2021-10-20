@@ -921,6 +921,7 @@ class Admin_model extends CI_Model{
         $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->join('users', 'sub_categories.added_by = users.id', 'left');
         $this->db->like('sub_categories.name', $search);
+        $this->db->or_like('categories.cat_name', $search);
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     } 
@@ -1496,7 +1497,7 @@ class Admin_model extends CI_Model{
     }
     // Get employ for edit by id
     public function edit_employ($id){
-        $this->db->select('id, username,fullname, email, phone, location,doj, department,region, address, status,dob, created_at');
+        $this->db->select('id, username, email, phone, location,doj, department,region, address, status,dob, created_at');
         $this->db->from('users');
         $this->db->where('id', $id);
         return $this->db->get()->row();
@@ -1504,7 +1505,7 @@ class Admin_model extends CI_Model{
     // Update employ by ID.
     public function update_employ($id, $data){
         $this->db->where('id', $id);
-       $address = $this->db->update('users', $data); 
+        $this->db->update('users', $data);
         return true;
     }
     // Remove employ

@@ -45,8 +45,6 @@ class Admin extends CI_Controller{
         $data['khyber_stats'] = $this->admin_model->overall_stats_khyber();
         $data['sindh_stats'] = $this->admin_model->overall_stats_sindh();
         $data['annual_expense'] = $this->admin_model->annual_expenses();
-        $data['breadcrumb'] = array("Dashboard");
-        
         $this->load->view('admin/commons/new_template', $data);
     }
     // Pending requests - listing
@@ -239,13 +237,13 @@ class Admin extends CI_Controller{
     // Suppliers - Add new supplier
     public function add_employ(){ 
         $data = array(
-            'fullname' => ucfirst($this->input->post('full_name')),
+            'fullname' => ucfirst($this->input->post('name')),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
-            'username' => ucfirst($this->input->post('user_name')),
+            'username' => ucfirst($this->input->post('name')),
             'department' =>ucfirst($this->input->post('department')),
             'location' => $this->input->post('location'),
-            'password' => sha1($this->input->post('phone')),
+            'password' => $this->input->post('phone'),
             'region' => ucfirst($this->input->post('region')),
             'address' => ucfirst($this->input->post('address')),
             'status' => 1,
@@ -269,18 +267,23 @@ class Admin extends CI_Controller{
     }
     // Update employ
     public function update_employ(){
-        $id = $this->input->post('sup_id'); 
+        $id = $this->input->post('sup_id');
         $data = array(
-            'fullname' => ucfirst($this->input->post('full_name')), 
-            'phone' => $this->input->post('phone'), 
-            'department' =>ucfirst($this->input->post('department')),
-            'location' => $this->input->post('location'), 
-            'region' => ucfirst($this->input->post('region')),
-            'address' => ucfirst($this->input->post('employ_address')),
+            'fullname' => $this->input->post('name'),
+            'email' => $this->input->post('email'),
+            'phone' => $this->input->post('phone'),
+            'username' => $this->input->post('name'),
+            'department' => $this->input->post('department'),
+            'location' => $this->input->post('location'),
+            'password' => $this->input->post('phone'),
+            'region' => $this->input->post('region'),
+            'address' => $this->input->post('employ_address'),
             'status' => 1,
             'dob' => $this->input->post('dob'),
-            'doj' => $this->input->post('doj'), 
-        ); 
+            'doj' => $this->input->post('doj'),
+            'user_role' => 'employ',
+            'created_at' => date('Y-m-d')
+        );
         if($this->admin_model->update_employ($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Employ update was successful.');
             redirect('admin/employ');
@@ -934,7 +937,6 @@ class Admin extends CI_Controller{
 
         $data['title'] = 'Sub Categories | Categories';
         $data['body'] = 'admin/sub_categories'; 
-        $data['cat_id'] = $cat_id;
         $data['sub_categories'] = $this->admin_model->sub_categories($cat_id);
         $data['parent_category'] = $this->admin_model->parent_category_name($cat_id);
         $data['categories_page'] = true;
@@ -1065,21 +1067,15 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/categories';
         $data['results'] = $this->admin_model->search_categories($search);
         $data['breadcrumb'] = array("admin/categories" => "Item Categories", "Search: " . $search);
-        $data['search_categories_page'] = true;
         
         $this->load->view('admin/commons/new_template', $data);
     }
     // Search filters - search sub categories
     public function search_sub_categories(){
         $search = $this->input->get('search');
-        $cat_id = $this->input->get('cat_id');
-        $parent_cat = $this->admin_model->parent_category_name($cat_id);
         $data['title'] = 'Search Results > Categories';
         $data['body'] = 'admin/sub_categories';
         $data['results'] = $this->admin_model->search_sub_categories($search);
-        $data['breadcrumb'] = array("admin/categories" => "Item Categories", "admin/sub_categories/" . $cat_id => $parent_cat[0]->cat_name, "Search: " . $search);
-        $data['search_sub_categories_page'] = true;
-
         $this->load->view('admin/commons/new_template', $data);
     }
     //Item register 
@@ -1109,7 +1105,6 @@ class Admin extends CI_Controller{
         $this->pagination->initialize($config);
         
         $data['title'] = 'Item Register | Admin & Procurement';
-        $data['breadcrumb'] = 'Item listt';
         $data['body'] = 'admin/item_assignment/item-register';
         $data['item_register'] = true;
         $data['items'] = $this->admin_model->get_items($limit, $offset);

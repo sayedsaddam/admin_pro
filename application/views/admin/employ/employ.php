@@ -1,6 +1,6 @@
 <?php $session = $this->session->userdata('user_role'); ?>
 <section class="columns is-gapless mb-0 pb-0">
- 	<div class="column is-narrow is-fullheight is-hidden-print" style="background-color:#fafafa;">
+ 	<div class="column is-narrow is-fullheight is-hidden-print" id="custom-sidebar">
  		<?php $this->view('admin/commons/sidebar'); ?>
  	</div>
  	<div class="column">
@@ -18,7 +18,7 @@
  							<div class="field has-addons">
  								<div class="control has-icons-left is-expanded">
  									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
- 										placeholder="Search Query">
+ 										placeholder="Search Employees" required>
  									<span class="icon is-small is-left">
  										<i class="fas fa-search"></i>
  									</span>

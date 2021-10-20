@@ -17,7 +17,7 @@
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
-										placeholder="Search Suppliers" value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
+										placeholder="Search Suppliers" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
 									</span>
@@ -65,7 +65,7 @@
 									<th class="has-text-weight-semibold">Phone</th>
 									<th class="has-text-weight-semibold">Location</th>
 									<th class="has-text-weight-semibold">NTN</th>
-									<th class="has-text-weight-semibold">Rating <small>(*)</th>
+									<th class="has-text-weight-semibold">Rating(*)</th>
 									<th class="has-text-weight-semibold">Category</th>
 									<th class="has-text-weight-semibold">Status</th>
 									<th class="has-text-weight-semibold">Date</th>

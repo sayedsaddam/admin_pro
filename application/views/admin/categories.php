@@ -16,7 +16,7 @@
  							<div class="field has-addons">
  								<div class="control has-icons-left is-expanded">
  									<input class="input is-small is-fullwidth" name="search" type="search"
- 										placeholder="Search Categories" value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
+ 										placeholder="Search Categories" required>
  									<span class="icon is-small is-left">
  										<i class="fas fa-search"></i>
  									</span>
@@ -34,7 +34,7 @@
  						<div class="field has-addons">
  							<p class="control">
  								<a href="<?= base_url("admin/categories") ?>"
- 									class="button is-small <?= isset($categories_page) || isset($search_categories_page) ? 'has-background-primary-light' : '' ?>">
+ 									class="button is-small <?= (isset($categories_page)) ? 'has-background-primary-light' : '' ?>">
  									<span class="icon is-small">
  										<i class="fas fa-tags"></i>
  									</span>
