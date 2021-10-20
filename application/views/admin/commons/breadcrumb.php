@@ -33,4 +33,6 @@
 <?= isset($_GET["search"]) ? filter_var($_GET["search"], FILTER_SANITIZE_STRING) : '' ?>
 <?php elseif ($this->uri->segment(2) == 'suppliers') : ?>
 <span class="has-text-black has-text-weight-bold">Suppliers List</span>
+<?php elseif ($this->uri->segment(2) == 'search_suppliers') : ?>
+<a href="<?= base_url('admin/suppliers') ?>" class="has-text-black">Suppliers List</a> &raquo; <span class="has-text-black has-text-weight-bold">Search</span>: <?= isset($_GET["search"]) ? filter_var($_GET["search"], FILTER_SANITIZE_STRING) : '' ?>
 <?php endif ?>
