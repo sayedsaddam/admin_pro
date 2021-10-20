@@ -1496,7 +1496,7 @@ class Admin_model extends CI_Model{
     }
     // Get employ for edit by id
     public function edit_employ($id){
-        $this->db->select('id, username, email, phone, location,doj, department,region, address, status,dob, created_at');
+        $this->db->select('id, username, fullname, email, phone, location,doj, department,region, address, status,dob, created_at');
         $this->db->from('users');
         $this->db->where('id', $id);
         return $this->db->get()->row();
