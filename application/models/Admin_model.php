@@ -171,6 +171,9 @@ class Admin_model extends CI_Model{
         $this->db->join('locations', 'suppliers.location = locations.id', 'left');
         $this->db->join('categories', 'suppliers.category = categories.id', 'left');
         $this->db->where('status', 1);
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('suppliers.location', $this->session->userdata('location'));
+        }
         $this->db->order_by('suppliers.rating', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
