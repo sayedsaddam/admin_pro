@@ -154,11 +154,23 @@ class Admin extends CI_Controller{
         
         $this->load->view('admin/commons/new_template', $data);
     }
+    // Add Suppliers - Go to add suppliers page.
+    public function add_supplier(){
+        $url = 'admin/suppliers/add_supplier';
+        $data['title'] = 'Suppliers | Admin & Procurement';
+        $data['body'] = 'admin/suppliers/add_supplier';
+        $data['locations'] = $this->admin_model->list_locations_suppliers();
+        $data['categories'] = $this->admin_model->suppliers_category();
+        $data['add_supplier_page'] = true;
+        $data['breadcrumb'] = array("admin/suppliers" => "Suppliers", "Add Supplier");
+        
+        $this->load->view('admin/commons/new_template', $data);
+    }
     // Suppliers - Add new supplier
-    public function add_supplier(){ 
+    public function add_supplier_request(){ 
         $data = array(
             'name' => $this->input->post('name'), 
-            'category' => implode(", ", $this->input->post('category')),
+            'category' => $this->input->post('category'),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
             'location' => $this->input->post('location'), 
@@ -215,7 +227,7 @@ class Admin extends CI_Controller{
         }
     }
     // Employ - Go to employ page.
-    public function employ($offset = null){
+    public function employee($offset = null){
         if($this->session->userdata('user_role') != 'admin') {
             redirect(base_url('admin'));
         }
@@ -235,9 +247,17 @@ class Admin extends CI_Controller{
         
         $this->load->view('admin/commons/new_template', $data);
     } 
-
+  // item register - add new item.
+  public function add_employee(){
+    $data['title'] = 'Add Employee';
+    $data['add_page'] = true;
+    $data['body'] = 'admin/employ/add_employee';   
+    $data['locations'] = $this->admin_model->get_item_location(); 
+    $data['breadcrumb'] = array("admin/employee" => "Employee List", "Add Employee");
+    $this->load->view('admin/commons/new_template', $data);
+}
     // Suppliers - Add new supplier
-    public function add_employ(){ 
+    public function employee_save(){ 
         $data = array(
             'fullname' => ucfirst($this->input->post('full_name')),
             'email' => $this->input->post('email'),
@@ -251,19 +271,30 @@ class Admin extends CI_Controller{
             'status' => 1,
             'dob' => $this->input->post('dob'),
             'doj' => $this->input->post('doj'),
-            'user_role' => 'employ',
+            'user_role' => 'employee',
             'created_at' => date('Y-m-d')
         ); 
         if($this->admin_model->add_employ($data)){
             $this->session->set_flashdata('success', '<strong>Success! /strong>Employ added successfully.');
-            redirect('admin/employ');
+            redirect('admin/employee');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('admin/employ');
+            redirect('admin/employee');
         }
     }
-    // Get single employ by id
-    public function edit_employ($id){ 
+    
+
+    // Item detail
+    public function edit_employ($id){   
+        $data['title'] = 'Edit Employee';
+        $data['body'] = 'admin/employ/add_employee';
+        $data['edit'] = $this->admin_model->edit_employ($id);  
+        $data['breadcrumb'] = array("admin/employee" => "Employee List", "Edit Employee");
+        $this->load->view('admin/commons/new_template', $data);
+    }
+
+    // Get single employee by id
+    public function edit_employ_changed($id){ 
         $employ = $this->admin_model->edit_employ($id);
         echo json_encode($employ);
     }
@@ -283,10 +314,10 @@ class Admin extends CI_Controller{
         );
         if($this->admin_model->update_employ($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Employ update was successful.');
-            redirect('admin/employ');
+            redirect('admin/employee');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('admin/employ');
+            redirect('admin/employee');
         }
     }
      // Search filters - search employ
