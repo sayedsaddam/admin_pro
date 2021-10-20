@@ -17,8 +17,8 @@
 						<form action="<?= base_url('admin/search_employ') ?>" method="get">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
-									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
-										placeholder="Search Query">
+                <input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
+ 										placeholder="Search Employees" value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
 									</span>
@@ -34,6 +34,15 @@
 					</div>
 					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
+              <p class="control">
+ 								<a href="<?= base_url("admin/employ") ?>"
+ 									class="button is-small <?= (isset($employees_page)) ? 'has-background-primary-light' : '' ?>">
+ 									<span class="icon is-small">
+ 										<i class="fas fa-plus"></i>
+ 									</span>
+ 									<span>Employees List</span>
+ 								</a>
+ 							</p>
 							<p class="control">
 								<button
 									class="add_employ button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
