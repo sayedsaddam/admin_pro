@@ -11,7 +11,7 @@ class Admin extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('supervisor_model');
         $this->load->helper('paginate');
-        if(!$this->session->userdata('username') || $this->session->userdata('user_role') != 'admin'){
+        if(!$this->session->userdata('username')){
             redirect('');
         }
     }
@@ -147,6 +147,8 @@ class Admin extends CI_Controller{
         $data['suppliers'] = $this->admin_model->get_suppliers($limit, $offset);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
         $data['categories'] = $this->admin_model->suppliers_category();
+        $data['suppliers_page'] = true;
+        
         $this->load->view('admin/commons/new_template', $data);
     }
     // Suppliers - Add new supplier
@@ -211,6 +213,9 @@ class Admin extends CI_Controller{
     }
     // Employ - Go to employ page.
     public function employ($offset = null){
+        if($this->session->userdata('user_role') != 'admin') {
+            redirect(base_url('admin'));
+        }
         $limit = 10;
         if(!empty($offset)){
             $this->uri->segment(3);
@@ -222,6 +227,8 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/employ/employ';
         $data['employ'] = $this->admin_model->get_employ($limit, $offset);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
+        $data['employees_page'] = true;
+        
         $this->load->view('admin/commons/new_template', $data);
     } 
 
@@ -835,6 +842,9 @@ class Admin extends CI_Controller{
     }
     // Categories and sub-categories
     public function categories($offset = null){
+        if($this->session->userdata('user_role') != 'admin') {
+            redirect(base_url('admin'));
+        }
         $limit = 15;
         if(!empty($offset)){
             $this->uri->segment(3);

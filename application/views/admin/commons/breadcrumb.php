@@ -4,6 +4,8 @@
 <?php elseif ($this->uri->segment(2) == 'sub_categories' && !empty($parent_category)) : ?>
 <a href="<?= base_url("admin/categories") ?>" class="has-text-black">Categories List</a> &raquo; <span
 	class="has-text-weight-bold"><?= ucwords($parent_category[0]->cat_name) ?></span>
+<?php elseif ($this->uri->segment(2) == 'search_categories') : ?>
+<a href="<?= base_url('admin/categories') ?>" class="has-text-black">Categories List</a> &raquo; <span class="has-text-black has-text-weight-bold">Search</span>: <?= isset($_GET["search"]) ? filter_var($_GET["search"], FILTER_SANITIZE_STRING) : '' ?>
 <?php elseif ($this->uri->segment(2) == 'item_register') : ?>
 <span class="has-text-black has-text-weight-bold">Items List</span>
 <?php elseif ($this->uri->segment(2) == 'available_item_list') : ?>
@@ -29,8 +31,10 @@
 <span class="has-text-black has-text-weight-bold">Employees List</span>
 <?php elseif ($this->uri->segment(2) == 'search_employ') : ?>
 <a href="<?= base_url('admin/employ') ?>" class="has-text-black">Employees List</a> &raquo; <span
-	class="has-text-black has-text-weight-bold">Employees Search</span>:
+	class="has-text-black has-text-weight-bold">Search</span>:
 <?= isset($_GET["search"]) ? filter_var($_GET["search"], FILTER_SANITIZE_STRING) : '' ?>
 <?php elseif ($this->uri->segment(2) == 'suppliers') : ?>
 <span class="has-text-black has-text-weight-bold">Suppliers List</span>
+<?php elseif ($this->uri->segment(2) == 'search_suppliers') : ?>
+<a href="<?= base_url('admin/suppliers') ?>" class="has-text-black">Suppliers List</a> &raquo; <span class="has-text-black has-text-weight-bold">Search</span>: <?= isset($_GET["search"]) ? filter_var($_GET["search"], FILTER_SANITIZE_STRING) : '' ?>
 <?php endif ?>

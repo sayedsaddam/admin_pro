@@ -934,7 +934,9 @@ class Admin_model extends CI_Model{
         $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
         $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
 
-        $this->db->where('items.location', $this->session->userdata('location'));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
         
         $this->db->group_start(); //start group
         $this->db->like(array('items.category' => $search));
@@ -952,7 +954,9 @@ class Admin_model extends CI_Model{
     // Count all items 
     public function count_item(){
         $this->db->from('items');
-        $this->db->where('items.location', $this->session->userdata('location'));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
         $num_results = $this->db->count_all_results();
         return $num_results;
     }
@@ -961,7 +965,9 @@ class Admin_model extends CI_Model{
         $this->db->select('id');
         $this->db->from('items');
         $this->db->where('items.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
-        $this->db->where('items.location', $this->session->userdata('location'));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
         $num_results = $this->db->count_all_results();
         return $num_results;
     }
@@ -1014,7 +1020,9 @@ class Admin_model extends CI_Model{
         if (!empty($date_from) && !empty($date_to)) {  
             $this->db->where('items.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
         }
-        $this->db->where('items.location', $this->session->userdata('location'));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
         $this->db->group_by('items.id'); 
         $this->db->group_by('item_assignment.status'); 
         $this->db->order_by('id', 'DESC');
@@ -1052,7 +1060,9 @@ class Admin_model extends CI_Model{
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
             $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
             $this->db->where('items.quantity >', 0);
-            $this->db->where('items.location', $this->session->userdata('location'));
+            if ($this->session->userdata('user_role') != 'admin') {
+                $this->db->where('items.location', $this->session->userdata('location'));
+            }
             $this->db->group_by('items.id'); 
             $this->db->order_by('id', 'DESC');
             $this->db->limit($limit, $offset);
@@ -1090,11 +1100,13 @@ class Admin_model extends CI_Model{
             $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
             // $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
             // $this->db->group_by('item_assignment.item_id'); 
-             $this->db->where('item_assignment.item_id !=', null);
-             $this->db->where('item_assignment.status', 1);
-             $this->db->where('items.location', $this->session->userdata('location'));
-             $this->db->order_by('id', 'DESC');
-             $this->db->limit($limit, $offset);
+            $this->db->where('item_assignment.item_id !=', null);
+            $this->db->where('item_assignment.status', 1);
+            if ($this->session->userdata('user_role') != 'admin') {
+                $this->db->where('items.location', $this->session->userdata('location'));
+            }
+            $this->db->order_by('id', 'DESC');
+            $this->db->limit($limit, $offset);
             return $this->db->get()->result(); 
         }  
          // Get available items detail .
@@ -1290,7 +1302,9 @@ class Admin_model extends CI_Model{
         $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
         $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
         
-        $this->db->where('items.location', $this->session->userdata('location'));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
         
         $this->db->group_start(); //start group
         $this->db->like(array('items.category' => $search));

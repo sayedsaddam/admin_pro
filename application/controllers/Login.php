@@ -69,6 +69,7 @@ class Login extends CI_Controller{
                 $this->email->message("Your verification code is " .$otp.". Share with none in order to stay secure. S2S Marketing Pvt. Ltd.");
                 $this->email->send();
                 $this->session->set_flashdata('otp_sent', '<strong>Information! </strong>A 6 digit code has been sent to your email. Please check your email and return to login.');
+                $this->session->set_userdata(array('email' => $email->email));
                 redirect('login/verify_credentials');
             }else{
                 $this->session->set_flashdata('not_found', '<strong>Uh oh! </strong>The email or username you entered does not exist on our database. Trying another one might help.');
