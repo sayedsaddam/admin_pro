@@ -65,7 +65,7 @@
 									<th class="has-text-weight-semibold">Phone</th>
 									<th class="has-text-weight-semibold">Location</th>
 									<th class="has-text-weight-semibold">NTN</th>
-									<th class="has-text-weight-semibold">Rating <small>(*)</th>
+									<th class="has-text-weight-semibold">Rating(*)</th>
 									<th class="has-text-weight-semibold">Category</th>
 									<th class="has-text-weight-semibold">Status</th>
 									<th class="has-text-weight-semibold">Date</th>
