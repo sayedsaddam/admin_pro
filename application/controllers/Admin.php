@@ -11,7 +11,7 @@ class Admin extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('supervisor_model');
         $this->load->helper('paginate');
-        if(!$this->session->userdata('username') || $this->session->userdata('user_role') != 'admin'){
+        if(!$this->session->userdata('username')){
             redirect('');
         }
     }
