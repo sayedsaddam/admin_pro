@@ -32,15 +32,6 @@
 					<div class="column is-hidden-touch">
 						<div class="field has-addons">
 							<p class="control">
-								<button class="button is-small <?= isset($product_report) ? 'has-background-primary-light' : '' ?>"
-									id="report-btn">
-									<span class="icon is-small">
-										<i class="fas fa-paperclip"></i>
-									</span>
-									<span>Report</span>
-								</button>
-							</p>
-							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/item_register'); ?>'"
 									class="button is-small <?= isset($item_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
@@ -74,6 +65,16 @@
 										<i class="fas fa-plus"></i>
 									</span>
 									<span>Add New</span>
+								</button>
+							</p>
+							<p class="control">
+								<button
+									class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>"
+									id="report-btn">
+									<span class="icon is-small">
+										<i class="fas fa-paperclip"></i>
+									</span>
+									<span>Report</span>
 								</button>
 							</p>
 						</div>
