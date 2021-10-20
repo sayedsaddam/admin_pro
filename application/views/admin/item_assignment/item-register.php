@@ -1,5 +1,5 @@
 <section class="columns is-gapless mb-0 pb-0">
-	<div class="column is-narrow is-fullheight is-hidden-print" style="background-color:#fafafa;">
+	<div class="column is-narrow is-fullheight is-hidden-print" id="custom-sidebar">
 		<?php $this->view('admin/commons/sidebar'); ?>
 	</div>
 	<div class="column">
@@ -32,16 +32,6 @@
 					</div>
 					<div class="column is-hidden-print">
 						<div class="field has-addons">
-							<p class="control">
-								<button
-									class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>"
-									id="report-btn">
-									<span class="icon is-small">
-										<i class="fas fa-paperclip"></i>
-									</span>
-									<span>Report</span>
-								</button>
-							</p>
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/item_register'); ?>'"
 									class="button is-small <?= (isset($item_register)) ? 'has-background-primary-light' : '' ?>">
@@ -76,6 +66,16 @@
 										<i class="fas fa-plus"></i>
 									</span>
 									<span>Add New</span>
+								</button>
+							</p>
+							<p class="control">
+								<button
+									class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>"
+									id="report-btn">
+									<span class="icon is-small">
+										<i class="fas fa-paperclip"></i>
+									</span>
+									<span>Report</span>
 								</button>
 							</p>
 						</div>

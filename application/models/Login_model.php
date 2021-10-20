@@ -44,7 +44,7 @@ class Login_model extends CI_Model{
     public function verify_and_login($otp){
         $this->db->select('id, fullname, username, email, department, password, location, user_role');
         $this->db->from('users');
-        $this->db->where(array('otp' => $otp));
+        $this->db->where(array('otp' => $otp, 'email' => $this->session->userdata('email')));
         return $this->db->get()->row();
     }
 }

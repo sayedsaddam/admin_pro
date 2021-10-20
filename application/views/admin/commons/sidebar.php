@@ -9,22 +9,25 @@
 		Procurement
 	</p>
 	<ul class="menu-list">
-		<li><a class="<?= $this->uri->segment(2) == 'suppliers' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
-				<?= $this->uri->segment(2) == 'suppliers' ? 'style="background-color:#ebfffc;"' : '' ?>>Suppliers</a>
-			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'suppliers' ? '' : 'display: none;' ?>">
+		<li><a class="<?= $this->uri->segment(2) == 'suppliers' || $this->uri->segment(2) == 'search_suppliers' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'suppliers' || $this->uri->segment(2) == 'search_suppliers' ? 'style="background-color:#ebfffc;"' : '' ?>>Suppliers</a>
+			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'suppliers' || $this->uri->segment(2) == 'search_suppliers' ? '' : 'display: none;' ?>">
 				<li class="is-size-7"><a href="<?= base_url('admin/suppliers'); ?>"><i class="fas fa-user mr-1"></i> Suppliers List</a></li>
 			</ul>
 		</li>
 
 	</ul>
+	<?php if($this->session->userdata('user_role') == 'admin') : ?>
 	<ul class="menu-list">
-	<li><a class="<?= $this->uri->segment(2) == 'employ' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
-				<?= $this->uri->segment(2) == 'employ' ? 'style="background-color:#ebfffc;"' : '' ?>>Employees</a>
-			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'employ' ? '' : 'display: none;' ?>">
+	<li><a class="<?= $this->uri->segment(2) == 'employ' || $this->uri->segment(2) == 'search_employ' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'employ' || $this->uri->segment(2) == 'search_employ' ? 'style="background-color:#ebfffc;"' : '' ?>>Employees</a>
+			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'employ' || $this->uri->segment(2) == 'search_employ' ? '' : 'display: none;' ?>">
 				<li class="is-size-7"><a href="<?= base_url('admin/employ'); ?>"><i class="fas fa-user-tie mr-1"></i> Employees List</a></li>
 			</ul>
 		</li>
 	</ul>
+	<?php endif ?>
+	<?php if($this->session->userdata('user_role') == 'admin') : ?>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? 'style="background-color:#ebfffc;"' : '' ?>>Item
@@ -34,6 +37,7 @@
 			</ul>
 		</li>
 	</ul>
+	<?php endif ?>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/travels_info') ?>">Travels Info</a></li> -->
 	</ul>
