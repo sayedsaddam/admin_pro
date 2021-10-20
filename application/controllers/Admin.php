@@ -147,6 +147,8 @@ class Admin extends CI_Controller{
         $data['suppliers'] = $this->admin_model->get_suppliers($limit, $offset);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
         $data['categories'] = $this->admin_model->suppliers_category();
+        $data['suppliers_page'] = true;
+        
         $this->load->view('admin/commons/new_template', $data);
     }
     // Suppliers - Add new supplier
