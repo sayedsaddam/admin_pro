@@ -1496,9 +1496,10 @@ class Admin_model extends CI_Model{
     }
     // Get employ for edit by id
     public function edit_employ($id){
-        $this->db->select('id, username, fullname, email, phone, location,doj, department,region, address, status,dob, created_at');
+        $this->db->select('users.id, users.username, users.fullname, users.email, users.phone, users.location,users.doj, users.department,users.region, users.address, users.status,users.dob, users.created_at,locations.id as loc_id,locations.name');
         $this->db->from('users');
-        $this->db->where('id', $id);
+        $this->db->join('locations', 'users.location = locations.id', 'left');
+        $this->db->where('users.id', $id);
         return $this->db->get()->row();
     } 
     // Update employ by ID.

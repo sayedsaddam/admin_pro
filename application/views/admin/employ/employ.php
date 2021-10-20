@@ -35,7 +35,7 @@
  					<div class="column is-hidden-print is-narrow">
  						<div class="field has-addons"> 
              <p class="control">
- 								<a href="<?= base_url("admin/employ") ?>"
+ 								<a href="<?= base_url("admin/employee") ?>"
  									class="button is-small <?= (isset($employees_page)) ? 'has-background-primary-light' : '' ?>">
  									<span class="icon is-small">
  										<i class="fas fa-plus"></i>
@@ -44,7 +44,7 @@
  								</a>
  							</p>
  							<p class="control">
- 								<button
+ 								<button onclick="location.href='<?= base_url('admin/add_employee'); ?>'"
  									class="add_employ button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
  									<span class="icon is-small">
  										<i class="fas fa-plus"></i>
@@ -104,10 +104,21 @@
                   </td>
                   <td><?= date('M d, Y', strtotime($sup->created_at)); ?></td> 
                   <td class="is-narrow"> 
-                      <a data-id="<?= $sup->emp_id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i class="fa fa-edit"></i></span></a>
+                    <div class="field has-addons">
+											<p class="control">
+												<a href="<?= base_url('admin/edit_employ/'.$sup->emp_id); ?>"
+													class="button is-small">
+													<span class="icon is-small">
+														<i class="fas fa-edit"></i>
+													</span>
+												</a>
+											</p>
+
+                      <!-- <a data-id="<?= $sup->emp_id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i class="fa fa-edit"></i></span></a> -->
                      <?php if($session == 'admin'){ ?>
                       <a href="<?=base_url('admin/delete_employ/'.$sup->emp_id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class="button is-small"><span class="icon is-small has-text-danger"><i class="fa fa-times"></i></span></a>
                      <?php } ?>
+                    </div>
                     </td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
