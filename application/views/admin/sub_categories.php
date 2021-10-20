@@ -15,9 +15,8 @@
 						<form action="<?= base_url('admin/search_sub_categories'); ?>" method="get">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
-									<input type="hidden" name="cat_id" value="<?= isset($cat_id) ? $cat_id : $this->input->get('cat_id') ?>">
 									<input class="input is-small is-fullwidth" name="search" type="search"
-										placeholder="Search Subcategories" value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>">
+										placeholder="Search Query">
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
 									</span>
@@ -35,7 +34,7 @@
 						<div class="field has-addons">
 							<p class="control">
 								<a href="<?= base_url("admin/categories") ?>"
-									class="button is-small <?= isset($categories_page) || isset($search_sub_categories_page) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= (isset($categories_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-tags"></i>
 									</span>
