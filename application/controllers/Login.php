@@ -80,6 +80,10 @@ class Login extends CI_Controller{
     }
     // load verification page for OTP.
     public function verify_credentials(){
+        if ($this->session->userdata('email') == NULL)  {
+            $this->session->sess_destroy();
+            $this->index();
+        }
         $data['title'] = 'Login | Operations Dept';
         $data['body'] = 'verify-otp';
         $data['login_page'] = true;
