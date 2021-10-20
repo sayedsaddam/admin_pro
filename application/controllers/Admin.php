@@ -213,6 +213,9 @@ class Admin extends CI_Controller{
     }
     // Employ - Go to employ page.
     public function employ($offset = null){
+        if($this->session->userdata('user_role') != 'admin') {
+            redirect(base_url('admin'));
+        }
         $limit = 10;
         if(!empty($offset)){
             $this->uri->segment(3);
