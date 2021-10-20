@@ -25,6 +25,7 @@
 			</ul>
 		</li>
 	</ul>
+	<?php if($this->session->userdata('user_role') == 'admin') : ?>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? 'style="background-color:#ebfffc;"' : '' ?>>Item
@@ -34,6 +35,7 @@
 			</ul>
 		</li>
 	</ul>
+	<?php endif ?>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/travels_info') ?>">Travels Info</a></li> -->
 	</ul>
