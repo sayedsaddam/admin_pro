@@ -33,6 +33,15 @@
 					</div>
 					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
+						<p class="control">
+								<a href="<?= base_url("admin/suppliers") ?>"
+									class="button is-small <?= (isset($suppliers_page)) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-plus"></i>
+									</span>
+									<span>Suppliers List</span>
+								</a>
+							</p>
 							<p class="control">
 								<button
 									class="add_suppliers button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
