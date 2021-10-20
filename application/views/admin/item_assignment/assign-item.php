@@ -16,7 +16,7 @@
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" type="search"
-										placeholder="Search Item" value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>">
+										placeholder="Search Query">
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
 									</span>

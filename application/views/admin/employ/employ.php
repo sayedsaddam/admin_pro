@@ -1,31 +1,183 @@
 <?php $session = $this->session->userdata('user_role'); ?>
 <section class="columns is-gapless mb-0 pb-0">
-	<div class="column is-narrow is-fullheight is-hidden-print" style="background-color:#fafafa;">
-		<?php $this->view('admin/commons/sidebar'); ?>
-	</div>
-	<div class="column">
-		<div class="columns">
-			<div class="column section">
-				<div class="columns">
+ 	<div class="column is-narrow is-fullheight is-hidden-print" id="custom-sidebar">
+ 		<?php $this->view('admin/commons/sidebar'); ?>
+ 	</div>
+ 	<div class="column">
+ 		<div class="columns">
+ 			<div class="column section">
+       <div class="columns">
 					<div class="column">
 						<?php $this->view('admin/commons/breadcrumb'); ?>
 					</div>
 				</div>
 
-				<div class="columns is-hidden-touch">
-					<div class="column is-hidden-print">
-						<form action="<?= base_url('admin/search_employ') ?>" method="get">
-							<div class="field has-addons">
-								<div class="control has-icons-left is-expanded">
-									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
-										placeholder="Search Query">
-									<span class="icon is-small is-left">
-										<i class="fas fa-search"></i>
-									</span>
-								</div>
-								<div class="control">
-									<button class="button is-small" type="submit"><span class="icon is-small">
-											<i class="fas fa-arrow-right"></i>
+ 				<div class="columns is-hidden-touch">
+ 					<div class="column is-hidden-print">
+ 						<form action="<?= base_url('admin/search_employ') ?>" method="get">
+ 							<div class="field has-addons">
+ 								<div class="control has-icons-left is-expanded">
+ 									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
+ 										placeholder="Search Employees" required>
+ 									<span class="icon is-small is-left">
+ 										<i class="fas fa-search"></i>
+ 									</span>
+ 								</div>
+ 								<div class="control">
+ 									<button class="button is-small" type="submit"><span class="icon is-small">
+ 											<i class="fas fa-arrow-right"></i>
+ 										</span>
+ 									</button>
+ 								</div>
+ 							</div>
+ 						</form>
+ 					</div>
+ 					<div class="column is-hidden-print is-narrow">
+ 						<div class="field has-addons"> 
+             <p class="control">
+ 								<a href="<?= base_url("admin/employ") ?>"
+ 									class="button is-small <?= (isset($employees_page)) ? 'has-background-primary-light' : '' ?>">
+ 									<span class="icon is-small">
+ 										<i class="fas fa-plus"></i>
+ 									</span>
+ 									<span>Employees List</span>
+ 								</a>
+ 							</p>
+ 							<p class="control">
+ 								<button
+ 									class="add_employ button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
+ 									<span class="icon is-small">
+ 										<i class="fas fa-plus"></i>
+ 									</span>
+ 									<span>Add New</span>
+ 								</button>
+ 							</p>
+ 						</div>
+ 					</div>
+ 				</div> 
+ 				<div class="columns" style="display: grid">
+ 					<div class="column table-container ">
+           <table class="table table-sm is-fullwidth">
+          <caption><?php if(empty($results)){ echo ''; }else{ echo ''; } ?></caption>
+          <thead>
+            <tr>
+                <th class="font-weight-bold">ID</th>
+                <th class="font-weight-bold">Name</th>
+                <th class="font-weight-bold">Phone</th>
+                <th class="font-weight-bold">Location</th>  
+                <th class="font-weight-bold">Department</th>  
+                <th class="font-weight-bold">DOJ</th>  
+                <th class="font-weight-bold">Status</th>
+                <th class="font-weight-bold">Date</th>
+                <th class="font-weight-bold">Action</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+                <th class="font-weight-bold">ID</th>
+                <th class="font-weight-bold">Name</th>
+                <th class="font-weight-bold">Phone</th>
+                <th class="font-weight-bold">Location</th>  
+                <th class="font-weight-bold">Department</th>  
+                <th class="font-weight-bold">DOJ</th>  
+                <th class="font-weight-bold">Status</th>
+                <th class="font-weight-bold">Date</th>
+                <th class="font-weight-bold">Action</th>
+            </tr>
+          </tfoot>
+          <?php if(empty($results)): ?>
+            <tbody id="myTable">
+              <?php if(!empty($employ)): foreach($employ as $sup): ?>
+                <tr>
+                  <td><?= 'S2S-'.$sup->emp_id; ?></td>
+                  <td><abbr title="<?= $sup->email; ?>"><?= ucwords($sup->emp_name); ?></abbr></td>
+                  <td><?= $sup->phone; ?></td>
+                  <td><?= ucwords($sup->name); ?></td>  
+                  <td><?= ucwords($sup->department); ?></td>  
+                  <td><?= date('M d, Y', strtotime($sup->doj)); ?></td>  
+                  <td>
+                      <?php if($sup->status == 1): ?>
+                          <span class="badge badge-success">Active</span>
+                      <?php else: ?>
+                          <span class="badge badge-danger">Inactive</span>
+                      <?php endif; ?>
+                  </td>
+                  <td><?= date('M d, Y', strtotime($sup->created_at)); ?></td> 
+                  <td class="is-narrow"> 
+                      <a data-id="<?= $sup->emp_id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i class="fa fa-edit"></i></span></a>
+                     <?php if($session == 'admin'){ ?>
+                      <a href="<?=base_url('admin/delete_employ/'.$sup->emp_id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class="button is-small"><span class="icon is-small has-text-danger"><i class="fa fa-times"></i></span></a>
+                     <?php } ?>
+                    </td>
+                </tr>
+              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
+            </tbody>
+          <?php else: ?>
+            <tbody id="myTable">
+              <?php if(!empty($results)): foreach($results as $res): ?>
+                <tr>
+                <td><?= 'S2S-'.$res->id; ?></td>
+                  <td><abbr title="<?= $res->email; ?>"><?= ucwords($res->fullname); ?></abbr></td>
+                  <td><?= $res->phone; ?></td>
+                  <td><?= ucwords($res->name); ?></td>  
+                  <td><?= ucwords($res->department); ?></td>  
+                  <td><?= date('M d, Y', strtotime($res->doj)); ?></td>  
+                  <td>
+                      <?php if($res->status == 1): ?>
+                          <span class="badge badge-success">Active</span>
+                      <?php else: ?>
+                          <span class="badge badge-danger">Inactive</span>
+                      <?php endif; ?>
+                  </td>
+                  <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
+                  <td class="is-narrow">
+                      <a data-id="<?= $res->id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i class="fa fa-edit"></i></span></a>
+                      <?php if($session == 'admin'){ ?>
+                      <a href="<?=base_url('admin/delete_employ/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class="button is-small"><span class="icon is-small has-text-danger"><i class="fa fa-times"></i></span></a>
+                      <?php } ?>
+                    </td>
+                </tr>
+              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
+            </tbody>
+            <?php endif; ?>
+        </table>
+ 					</div>
+ 				</div>
+ 			</div>
+ </section>
+
+  <!-- add employ code start -->
+  <div class="modal" id="add_employ">
+    <div class="modal-background"></div>
+    <form action="<?=base_url('admin/add_employ');?>" method="post" class="md-form">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Add Employee</p>
+                <button class="delete" aria-label="close" id="exit-add-modal" type="button"></button>
+            </header>
+            <input type="hidden" name="purchaseid" id="purchaseid" value="">
+            <section class="modal-card-body">
+                <div class="columns">
+                    <div class="column">
+                        <div class="control">
+                        <label class="label is-small">Location <span class="has-text-danger">*</span></label>
+                            <div class="select select is-small is-fullwidth"> 
+                                <select name="location" id="" class="browser-default custom-select ">
+                                    <?php if(!empty($locations)): foreach($locations as $loc): ?>
+                                    <option value="<?= $loc->id ?>"><?= ucfirst($loc->name); ?> </option>
+                                    <?php endforeach; endif; ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+						<fieldset>
+								<div class="field">
+									<label class="label is-small">Name <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+									<input type="text" name="name" id="" class="input is-small" value="" type="text" placeholder="name ..." required="">
+										<span class="icon is-small is-left">
+											<i class="fas fa-user"></i>
 										</span>
 									</div>
 								</div>

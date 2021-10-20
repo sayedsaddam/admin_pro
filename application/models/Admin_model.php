@@ -921,6 +921,7 @@ class Admin_model extends CI_Model{
         $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->join('users', 'sub_categories.added_by = users.id', 'left');
         $this->db->like('sub_categories.name', $search);
+        $this->db->or_like('categories.cat_name', $search);
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     } 
