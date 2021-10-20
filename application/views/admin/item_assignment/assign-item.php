@@ -120,6 +120,8 @@
 											class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
+										<?php  $role = ($this->session->userdata('user_role')); 
+											if($role == 'admin') {?>
 											<select name="location" id="location" required>
 												<option selected disabled value="">Select a City</option>
 												<?php if(!empty($locations)): foreach($locations as $loc): ?>
@@ -128,6 +130,15 @@
 													<?= $loc->name; ?>
 												</option>
 												<?php endforeach; endif; ?>
+												<?php } else { ?>
+										<select name="location" id="" required> 
+									<?php if(!empty($locations)): foreach($locations as $loc): ?>
+									<option value="<?= $loc->id; ?>"
+										<?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>>
+										<?= $loc->name; ?>
+									</option>
+									<?php endforeach; endif; ?>
+									<?php } ?>
 											</select>
 										</span>
 										<span class="icon is-small is-left">
@@ -145,10 +156,23 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<input type="hidden" name="assign_by" class="form-control"
-												value="<?= $this->session->userdata('id');  ?>">
-											<select name="employ" class="employ" id="employ" required>
+												value="<?= $this->session->userdata('id');  ?>"> 
+												<?php  $role = ($this->session->userdata('user_role')); 
+											if($role == 'admin') {?>
+                                          <select name="employ" class="employ" id="employ" required>
 												<option selected disabled value="">Select an Employee</option>
 											</select>
+											<?php } else {?>
+											<select name="employ" id="" required> 
+												<?php echo $role; $employee = $this->admin_model->get_location_employ($role);
+												if(!empty($employee)): foreach($employee as $loc): ?>
+												<option value="<?= $loc->id; ?>">
+													<?= $loc->name; ?>
+												</option>
+												<?php endforeach; endif; ?>
+											</select>
+											<?php } ?> 
+
 										</span>
 										<span class="icon is-small is-left">
 											<i class="fas fa-user"></i>

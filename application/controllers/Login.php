@@ -86,7 +86,7 @@ class Login extends CI_Controller{
         $this->load->view('admin/commons/new_template', $data);
     }
     // Logout - Terminate session and log the user out.
-    public function verify_and_login(){
+    public function verify_and_login(){ 
         $otp = $this->input->post('otp');
         $login = $this->login_model->verify_and_login($otp);
         if($login > '0'){
