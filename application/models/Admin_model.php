@@ -1375,11 +1375,22 @@ class Admin_model extends CI_Model{
         }
   }
   // Get supplier based on city
-  public function get_location_employ($loc_id){
-      $this->db->select('id, fullname as name');
-      $this->db->from('users');
-      $this->db->where('location', $loc_id);
-      return $this->db->get()->result();
+  public function get_location_employ($loc_id){  
+      $role = ($this->session->userdata('user_role')); 
+      if($role == 'admin'){
+        $this->db->select('id, fullname as name');
+        $this->db->from('users');
+        $this->db->where('location', $loc_id);
+        return $this->db->get()->result();
+      }else{
+        $this->db->select('id, fullname as name');
+        $this->db->from('users');
+        $this->db->where('location',$this->session->userdata('location'));
+        return $this->db->get()->result(); 
+      } 
+
+
+
   }
   // Get supplier based on city
   public function get_location_suplier($loc_id){
@@ -1713,7 +1724,8 @@ class Admin_model extends CI_Model{
     } 
       // Locations - Get item locations
       public function get_item_location(){
-        if($this->session->userdata('user_role' , 'admin')){
+        $role = ($this->session->userdata('user_role')); 
+        if($role == 'admin'){
         return $this->db->from('locations')->get()->result();
         }else{
             $this->db->select('id,name');
