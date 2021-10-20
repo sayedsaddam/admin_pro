@@ -155,7 +155,7 @@ class Admin extends CI_Controller{
         $this->load->view('admin/commons/new_template', $data);
     }
     // Suppliers - Add new supplier
-    public function add_supplier(){ 
+    public function add_supplier_item(){ 
         $data = array(
             'name' => $this->input->post('name'), 
             'category' => implode(", ", $this->input->post('category')),
