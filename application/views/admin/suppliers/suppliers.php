@@ -65,7 +65,7 @@
 									<th class="has-text-weight-semibold">Phone</th>
 									<th class="has-text-weight-semibold">Location</th>
 									<th class="has-text-weight-semibold">NTN</th>
-									<th class="has-text-weight-semibold">Rating(*)</th>
+									<th class="has-text-weight-semibold">Rating <small>(*)</th>
 									<th class="has-text-weight-semibold">Category</th>
 									<th class="has-text-weight-semibold">Status</th>
 									<th class="has-text-weight-semibold">Date</th>
@@ -229,16 +229,16 @@
 				<div class="columns">
 					<div class="column">
 						<label class="label is-small">Catergory <span class="has-text-danger">*</span></label>
-						<div class="select select is-small is-fullwidth select is-multiple">
-							<select name="category[]" id="" multiple size="2">
-              <?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select Category</option>
-												<?php endif ?>
-												<?php if(!empty($categories)): foreach($categories as $cat): ?>
-												<option value="<?= $cat->id; ?>"
-													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= $cat->cat_name; ?>
-												</option>
-												<?php endforeach; endif; ?> 
+						<div class="select is-multiple is-small is-fullwidth">
+							<select multiple size="2" name="category" id="" required>
+                   <?php if(!isset($edit_item)): ?>
+							<option disabled value="">Select Category</option>
+							<?php endif ?>
+							<?php if(!empty($categories)): foreach($categories as $cat): ?>
+							<option value="<?= $cat->id; ?>"
+								<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= $cat->cat_name; ?>
+							</option>
+							<?php endforeach; endif; ?> 
 							</select>
 						</div>
 					</div>
@@ -362,10 +362,10 @@
         <div class="columns">
 					<div class="column">
 						<label class="label is-small">Catergory <span class="has-text-danger">*</span></label>
-						<div class="select select is-small is-fullwidth select is-multiple">
-							<select name="category[]" id="category" multiple size="2" required>
+						<div class="select is-small is-fullwidth select is-multiple">
+							<select name="category" id="category" multiple size="2" required>
                 <?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select Category</option>
+												<option selected disabled>Select Category</option>
 												<?php endif ?>
 												<?php if(!empty($categories)): foreach($categories as $cat): ?>
 												<option value="<?= $cat->id; ?>"
