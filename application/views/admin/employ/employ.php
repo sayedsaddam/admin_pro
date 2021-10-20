@@ -18,7 +18,7 @@
  							<div class="field has-addons">
  								<div class="control has-icons-left is-expanded">
  									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
- 										placeholder="Search Query">
+ 										placeholder="Search Employees" required>
  									<span class="icon is-small is-left">
  										<i class="fas fa-search"></i>
  									</span>
