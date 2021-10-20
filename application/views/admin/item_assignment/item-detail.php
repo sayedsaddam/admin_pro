@@ -15,7 +15,7 @@
 						<form action="<?= base_url('admin/search_item') ?>" method="GET">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
-									<input class="input is-small is-fullwidth" name="search" type="search" placeholder="Search Query" required>
+									<input class="input is-small is-fullwidth" name="search" type="search" placeholder="Search Items" value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
 									</span>
