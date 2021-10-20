@@ -45,7 +45,7 @@
  							</p>
  							<p class="control">
  								<button onclick="location.href='<?= base_url('admin/add_employee'); ?>'"
- 									class="add_employ button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
+ 									class="button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
  									<span class="icon is-small">
  										<i class="fas fa-plus"></i>
  									</span>
