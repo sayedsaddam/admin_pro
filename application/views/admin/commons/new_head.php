@@ -24,9 +24,6 @@
 	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
 	<link href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" rel="stylesheet">
 	
-	<!-- Instant Page Library -->
-	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
-	
 	<!-- custom css -->
 	<link href="<?= base_url('assets/custom/custom.css'); ?>" rel="stylesheet">
 	<title><?php echo $title; ?></title>
