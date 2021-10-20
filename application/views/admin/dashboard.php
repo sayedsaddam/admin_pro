@@ -6,6 +6,11 @@
 	<div class="column">
 		<div class="columns">
 			<div class="column section">
+				<div class="columns">
+					<div class="column">
+						<?php $this->view('admin/commons/breadcrumb'); ?>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
