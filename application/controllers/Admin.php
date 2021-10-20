@@ -45,8 +45,6 @@ class Admin extends CI_Controller{
         $data['khyber_stats'] = $this->admin_model->overall_stats_khyber();
         $data['sindh_stats'] = $this->admin_model->overall_stats_sindh();
         $data['annual_expense'] = $this->admin_model->annual_expenses();
-        $data['breadcrumb'] = array("Dashboard");
-        
         $this->load->view('admin/commons/new_template', $data);
     }
     // Pending requests - listing
@@ -939,7 +937,6 @@ class Admin extends CI_Controller{
 
         $data['title'] = 'Sub Categories | Categories';
         $data['body'] = 'admin/sub_categories'; 
-        $data['cat_id'] = $cat_id;
         $data['sub_categories'] = $this->admin_model->sub_categories($cat_id);
         $data['parent_category'] = $this->admin_model->parent_category_name($cat_id);
         $data['categories_page'] = true;
@@ -1070,21 +1067,15 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/categories';
         $data['results'] = $this->admin_model->search_categories($search);
         $data['breadcrumb'] = array("admin/categories" => "Item Categories", "Search: " . $search);
-        $data['search_categories_page'] = true;
         
         $this->load->view('admin/commons/new_template', $data);
     }
     // Search filters - search sub categories
     public function search_sub_categories(){
         $search = $this->input->get('search');
-        $cat_id = $this->input->get('cat_id');
-        $parent_cat = $this->admin_model->parent_category_name($cat_id);
         $data['title'] = 'Search Results > Categories';
         $data['body'] = 'admin/sub_categories';
         $data['results'] = $this->admin_model->search_sub_categories($search);
-        $data['breadcrumb'] = array("admin/categories" => "Item Categories", "admin/sub_categories/" . $cat_id => $parent_cat[0]->cat_name, "Search: " . $search);
-        $data['search_sub_categories_page'] = true;
-
         $this->load->view('admin/commons/new_template', $data);
     }
     //Item register 
