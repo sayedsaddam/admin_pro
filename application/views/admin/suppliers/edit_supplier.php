@@ -54,9 +54,26 @@
 						</div>
 					</div>
 				</div>
-				<form
-					action="<?= empty($edit_supplier) ? base_url('admin/add_supplier_request') : base_url('admin/edit_supplier_request') ?>"
-					method="POST">
+				<?php if($this->session->flashdata('success')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-success is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('success'); ?>
+						</div>
+					</div>
+				</div>
+				<?php elseif($this->session->flashdata('failed')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-danger is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('failed'); ?>
+						</div>
+					</div>
+				</div>
+				<?php endif ?>
+				<form action="<?= base_url('admin/update_supplier/' . $edit->id) ?>" method="POST">
 					<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">
 						<div class="column">
@@ -65,15 +82,13 @@
 								<div class="control has-icons-left">
 									<span class="select is-small is-fullwidth">
 										<select name="location" id="" class="browser-default custom-select ">
-											<?php if(!isset($edit_item)): ?>
-                                            <option disabled value="">Select Location</option>
-                                            <?php endif ?>
-                                            <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                                            <option value="<?= $loc->id; ?>"
-                                                <?= !empty($edit) && $edit->id == $loc->id ? 'selected' : '' ?>>
-                                                <?= $loc->name; ?>
-                                            </option>
-                                            <?php endforeach; endif; ?>
+											<option disabled value="">Select Category</option>
+											<?php if(!empty($locations)): foreach($locations as $loc): ?>
+											<option value="<?= $loc->id; ?>"
+												<?= $edit->location == $loc->id ? 'selected' : '' ?>>
+												<?= ucwords($loc->name); ?>
+											</option>
+											<?php endforeach; endif; ?>
 										</select>
 									</span>
 									<span class="icon is-small is-left">
@@ -86,8 +101,9 @@
 							<div class="field">
 								<label class="label is-small">Name <span class="has-text-danger">*</span></label>
 								<div class="control has-icons-left">
-									<input type="text" name="name" id="" class="input is-small" value="" type="text"
-										placeholder="e.g John Doe" required="">
+									<input type="text" name="name" id="" class="input is-small"
+										value="<?= ucwords($edit->name) ?>" type="text" placeholder="e.g John Doe"
+										required="">
 									<span class="icon is-small is-left">
 										<i class="fas fa-user"></i>
 									</span>
@@ -102,8 +118,9 @@
 								<div class="field">
 									<label class="label is-small">Email <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input type="email" name="email" id="" class="input is-small" value=""
-											type="text" placeholder="e.g example@domain.com" required="">
+										<input type="email" name="email" id="" class="input is-small"
+											value="<?= $edit->email ?>" type="text" placeholder="e.g example@domain.com"
+											required="">
 										<span class="icon is-small is-left">
 											<i class="far fa-envelope"></i>
 										</span>
@@ -115,8 +132,9 @@
 							<div class="control">
 								<label class="label is-small">Phone No <span class="has-text-danger">*</span></label>
 								<div class="control has-icons-left">
-									<input type="text" name="phone" id="" class="input is-small" value="" type="text"
-										placeholder="e.g +92-333-1234567" required="">
+									<input type="text" name="phone" id="" class="input is-small"
+										value="<?= $edit->phone ?>" type="text" placeholder="e.g +92-333-1234567"
+										required="">
 									<span class="icon is-small is-left">
 										<i class="fas fa-phone"></i>
 									</span>
@@ -125,21 +143,19 @@
 						</div>
 					</div>
 					<div class="columns">
-                        <div class="column">
+						<div class="column">
 							<div class="control">
 								<label class="label is-small">Catergory <span class="has-text-danger">*</span></label>
 								<div class="control has-icons-left">
 									<span class="select is-small is-fullwidth">
 										<select name="category" class="browser-default custom-select" required>
-                                        <?php if(!isset($edit_item)): ?>
-                                        <option disabled value="">Select Category</option>
-                                        <?php endif ?>
-                                        <?php if(!empty($categories)): foreach($categories as $cat): ?>
-                                        <option value="<?= $cat->id; ?>"
-                                            <?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>>
-                                            <?= $cat->cat_name; ?>
-                                        </option>
-                                        <?php endforeach; endif; ?>
+											<option disabled value="">Select Category</option>
+											<?php if(!empty($categories)): foreach($categories as $cat): ?>
+											<option value="<?= $cat->id; ?>"
+												<?= $edit->category == $cat->id ? 'selected' : '' ?>>
+												<?= ucwords($cat->cat_name); ?>
+											</option>
+											<?php endforeach; endif; ?>
 										</select>
 									</span>
 									<span class="icon is-small is-left">
@@ -153,8 +169,8 @@
 								<div class="field">
 									<label class="label is-small">NTN</label>
 									<div class="control has-icons-left">
-										<input type="text" name="ntn_number" id="" class="input is-small" value=""
-											placeholder="e.g 0622438-9">
+										<input type="text" name="ntn_number" id="" class="input is-small"
+											value="<?= $edit->ntn_number ?>" placeholder="e.g 0622438-9">
 										<span class="icon is-small is-left">
 											<i class="fas fa fa-list-ol"></i>
 										</span>
@@ -165,25 +181,26 @@
 					</div>
 
 					<div class="columns">
-                        <div class="column">
+						<div class="column">
 							<div class="control">
 								<label class="label is-small">Rating <span class="has-text-danger">*</span></label>
 								<div class="control has-icons-left">
-									<input type="number" name="rating" class="input is-small" min="1" max="5" type="text"
-										placeholder="1-5" required>
+									<input type="number" name="rating" class="input is-small" min="1" max="5"
+										type="text" placeholder="1-5" value="<?= $edit->rating ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-sort-numeric-up"></i>
 									</span>
 								</div>
 							</div>
 						</div>
-                        <div class="column">
+						<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Address <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<input type="text" name="address" class="input is-small"
-											placeholder="e.g House No. 5, ST No. 1, Main Boulevard" required>
+											placeholder="e.g House No. 5, ST No. 1, Main Boulevard"
+											value="<?= $edit->address ?>" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa fa-home"></i>
 										</span>
@@ -246,95 +263,3 @@
 		</div>
 	</div>
 </section>
-<script>
-	var btn1 = $("#report-btn")
-	var btn3 = $("#exit-report-modal")
-	var btn4 = $("#close-report-modal")
-
-	var mdl = new BulmaModal("#modal-ter")
-
-	btn1.click(function (ev) {
-		mdl.show();
-		$(".modal-card-head").show();
-		ev.stopPropagation();
-	});
-	btn3.click(function (ev) {
-		mdl.close();
-		ev.stopPropagation();
-	});
-	btn4.click(function (ev) {
-		mdl.close();
-		ev.stopPropagation();
-	});
-
-</script>
-
-<script>
-	$(document).ready(function () {
-
-		// City change
-		$('#category').on('change', function () {
-			var category = $(this).val();
-			var category_text = $("#category option:selected").text();;
-			if (category_text.includes('Electronics')) {
-				$("#item-quantity").val(1);
-				$("#item-quantity").attr('disabled', true);
-				$("#serial-number").attr('required', true);
-				$("#serial-required").show();
-			} else {
-				$("#item-quantity").attr('disabled', false);
-				$("#serial-number").attr('required', false);
-				$("#serial-required").hide();
-			}
-			//  alert(category)
-			// AJAX request
-			$.ajax({
-				url: '<?= base_url("admin/get_item_sub_categories/"); ?>' + category,
-				method: 'POST',
-				data: {
-					category: category
-				},
-				dataType: 'json',
-				success: function (response) {
-					// Remove options 
-					$('#item_name').find('option').not(':first').remove();
-
-					// Add options
-					$.each(response, function (index, data) {
-						$('#item_name').append('<option value="' + data['id'] + '">' +
-							data['name'] + '</option>');
-					});
-				}
-			});
-		});
-	});
-
-	var itemSuggestions = [];
-
-	// item type auto load against item
-	$(document).ready(function () {
-		// City change
-		$('#item_name').on('change', function () {
-			itemSuggestions = [];
-			var item_id = $(this).val();
-			// AJAX request
-			$.ajax({
-				url: '<?= base_url("admin/get_item_type/"); ?>' + item_id,
-				method: 'POST',
-				data: {
-					item_id: item_id
-				},
-				dataType: 'json',
-				success: function (response) {
-					$.each(response, function (index, data) {
-						itemSuggestions.push(data['type_name']);
-					});
-				}
-			});
-			$("#sub_item_name").autocomplete({
-				source: itemSuggestions
-			});
-		});
-	});
-
-</script>

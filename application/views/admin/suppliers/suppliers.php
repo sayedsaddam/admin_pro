@@ -91,14 +91,22 @@
 								<?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
 								<tr>
 									<td><?= 'S2S-'.$sup->sup_id; ?></td>
-									<td><abbr title="<?= $sup->email; ?>"><?= $sup->sup_name; ?></abbr></td>
-									<td><?= ucfirst($sup->phone); ?></td>
-									<td><?= ucfirst($sup->name); ?></td>
-									<td><?= ucfirst($sup->ntn_number); ?></td>
+									<td><abbr title="<?= $sup->email; ?>"><?= ucwords($sup->sup_name); ?></abbr></td>
+									<td><?= $sup->phone; ?></td>
+									<td><?= ucwords($sup->name); ?></td>
+									<td><?= $sup->ntn_number; ?></td>
 									<td>
-										<?php if(!empty($sup->rating)){ echo '<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">'.ucfirst($sup->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>';}else{echo 'none';} ?>
+										<?php if(!empty($sup->rating)) : ?>
+											<?php if ($sup->rating >= 5) : ?>
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">5</span> <span class="fa fa-star checked" style="color: orange"></span> 
+											<?php elseif ($sup->rating <= 1) : ?>
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">1</span> <span class="fa fa-star checked" style="color: orange"></span>
+											<?php else : ?>
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small"><?= $sup->rating ?></span> <span class="fa fa-star checked" style="color: orange"></span>
+											<?php endif ?>
+										<?php endif ?>
 									</td>
-									<td><?= ucfirst($sup->cat_name); ?></td>
+									<td><?= ucwords($sup->cat_name); ?></td>
 									<td>
 										<?php if($sup->status == 1): ?>
 										<span class="badge badge-success">Active</span>
@@ -108,7 +116,7 @@
 									</td>
 									<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
 									<td class="is-narrow">
-										<a data-id="<?= $sup->sup_id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i
+										<a href="<?= base_url('admin/edit_supplier/' . $sup->sup_id) ?>" class="supplier_info button is-small"><span class="icon is-small"><i
 													class="fa fa-edit"></i></span></a>
                           <?php if($session == 'admin'){ ?>
 										<a href="<?=base_url('admin/delete_supplier/'.$sup->sup_id);?>"	class="button is-small"><span class="icon is-small has-text-danger"><i
@@ -122,15 +130,23 @@
 							<tbody>
 								<?php if(!empty($results)): foreach($results as $sup): ?>
                   <tr>
-									<td><?= 'SUP-0'.$sup->id; ?></td>
-									<td><span title="<?= $sup->email; ?>"><?= $sup->name; ?></td>
-									<td><?= ucfirst($sup->phone); ?></td>
-									<td><?= ucfirst($sup->name); ?></td>
-									<td><?= ucfirst($sup->ntn_number); ?></td>
+									<td><?= 'S2S-'.$sup->id; ?></td>
+									<td><span title="<?= $sup->email; ?>"><?= ucwords($sup->name); ?></td>
+									<td><?= $sup->phone; ?></td>
+									<td><?= ucwords($sup->name); ?></td>
+									<td><?= $sup->ntn_number; ?></td>
 									<td>
-										<?php if(!empty($sup->rating)){ echo '<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">'.ucfirst($sup->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>';}else{echo 'none';} ?>
+										<?php if(!empty($sup->rating)) : ?>
+											<?php if ($sup->rating >= 5) : ?>
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">5</span> <span class="fa fa-star checked" style="color: orange"></span> 
+											<?php elseif ($sup->rating <= 1) : ?>
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">1</span> <span class="fa fa-star checked" style="color: orange"></span>
+											<?php else : ?>
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small"><?= $sup->rating ?></span> <span class="fa fa-star checked" style="color: orange"></span>
+											<?php endif ?>
+										<?php endif ?>
 									</td>
-									<td><?= ucfirst($sup->category); ?></td>
+									<td><?= ucwords($sup->category); ?></td>
 									<td>
 										<?php if($sup->status == 1): ?>
 										<span class="badge badge-success">Active</span>
@@ -140,7 +156,7 @@
 									</td>
 									<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
 									<td class="is-narrow">
-										<a data-id="<?= $sup->id; ?>" class="supplier_info button is-small"><span class="icon is-small"><i
+										<a href="<?= base_url('admin/edit_supplier/' . $sup->id) ?>" class="supplier_info button is-small"><span class="icon is-small"><i
 													class="fa fa-edit"></i></span></a>
                           <?php if($session == 'admin'){ ?>
 										<a href="<?=base_url('admin/delete_supplier/'.$sup->id);?>" 
