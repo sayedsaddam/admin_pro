@@ -16,39 +16,42 @@ class Admin extends CI_Controller{
         }
     }
     // Load the dashboard.
-    public function index($offset = null){
-       
+    public function index(){
+       redirect('admin/dashboard');
+    }
+    public function dashboard($offset = null) {
+
         $limit = 10;
         if(!empty($offset)){
             $this->uri->segment(3);
         }
         $data['title'] = 'Home | Admin & Procurement';
         $data['body'] = 'admin/dashboard';
-        $data['total_isbd'] = $this->admin_model->expenses_isbd();
-        $data['ctc_own_isbd'] = $this->admin_model->ctc_own_isbd();
-        $data['total_bln'] = $this->admin_model->expenses_bln();
-        $data['ctc_own_bln'] = $this->admin_model->ctc_own_bln();
-        $data['total_kp'] = $this->admin_model->expenses_kp();
-        $data['ctc_own_kp'] = $this->admin_model->ctc_own_kp();
-        $data['total_sindh'] = $this->admin_model->expenses_sindh();
-        $data['ctc_own_sindh'] = $this->admin_model->ctc_own_sindh();
-        $data['total_punjab'] = $this->admin_model->expenses_punjab();
-        $data['ctc_own_punjab'] = $this->admin_model->ctc_own_punjab();
-        $data['pending'] = $this->admin_model->total_pending();
-        $data['approved'] = $this->admin_model->total_approved();
-        $data['rejected'] = $this->admin_model->total_rejected();
-        $data['pending_requisitions'] = $this->admin_model->pending_requisitions($limit, $offset);
-        $data['approved_requisitions'] = $this->admin_model->approved_requisitions($limit, $offset);
-        $data['rejected_requisitions'] = $this->admin_model->rejected_requisitions($limit, $offset);
-        $data['isbd_stats'] = $this->admin_model->overall_stats_isbd();
-        $data['bln_stats'] = $this->admin_model->overall_stats_bln();
-        $data['khyber_stats'] = $this->admin_model->overall_stats_khyber();
-        $data['sindh_stats'] = $this->admin_model->overall_stats_sindh();
-        $data['annual_expense'] = $this->admin_model->annual_expenses();
+        // $data['total_isbd'] = $this->admin_model->expenses_isbd();
+        // $data['ctc_own_isbd'] = $this->admin_model->ctc_own_isbd();
+        // $data['total_bln'] = $this->admin_model->expenses_bln();
+        // $data['ctc_own_bln'] = $this->admin_model->ctc_own_bln();
+        // $data['total_kp'] = $this->admin_model->expenses_kp();
+        // $data['ctc_own_kp'] = $this->admin_model->ctc_own_kp();
+        // $data['total_sindh'] = $this->admin_model->expenses_sindh();
+        // $data['ctc_own_sindh'] = $this->admin_model->ctc_own_sindh();
+        // $data['total_punjab'] = $this->admin_model->expenses_punjab();
+        // $data['ctc_own_punjab'] = $this->admin_model->ctc_own_punjab();
+        // $data['pending'] = $this->admin_model->total_pending();
+        // $data['approved'] = $this->admin_model->total_approved();
+        // $data['rejected'] = $this->admin_model->total_rejected();
+        // $data['pending_requisitions'] = $this->admin_model->pending_requisitions($limit, $offset);
+        // $data['approved_requisitions'] = $this->admin_model->approved_requisitions($limit, $offset);
+        // $data['rejected_requisitions'] = $this->admin_model->rejected_requisitions($limit, $offset);
+        // $data['isbd_stats'] = $this->admin_model->overall_stats_isbd();
+        // $data['bln_stats'] = $this->admin_model->overall_stats_bln();
+        // $data['khyber_stats'] = $this->admin_model->overall_stats_khyber();
+        // $data['sindh_stats'] = $this->admin_model->overall_stats_sindh();
+        // $data['annual_expense'] = $this->admin_model->annual_expenses();
         $data['breadcrumb'] = array("Dashboard");
         
         $this->load->view('admin/commons/new_template', $data);
-    }
+    }    
     // Pending requests - listing
     public function pending_requests($offset = null){
         $limit = 10;
@@ -197,10 +200,10 @@ class Admin extends CI_Controller{
             'created_at' => date('Y-m-d')
         );
         if ($id = $this->admin_model->add_supplier($data)) {
-            $this->session->set_flashdata('success', '<strong>Success!</strong> Supplier (' . $this->input->post('name') . ') was added successfully.');
+            $this->session->set_flashdata('success', '<strong>Success:</strong> Supplier (' . $this->input->post('name') . ') was added successfully.');
             redirect('admin/edit_supplier/' . $id);
         }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            $this->session->set_flashdata('failed', '<strong>Failed:</strong> Something went wrong, please try again!');
             redirect('admin/suppliers');
         }
     }
@@ -215,10 +218,10 @@ class Admin extends CI_Controller{
             'status' => 0
         );
         if($this->admin_model->delete_supplier($id,$data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Supplier removal was successful.');
+            $this->session->set_flashdata('success', '<strong>Success:</strong> Supplier removal was successful.');
             redirect('admin/suppliers');
         }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            $this->session->set_flashdata('failed', '<strong>Failed:</strong> Something went wrong, please try again!');
             redirect('admin/suppliers');
         }
     }
@@ -239,10 +242,10 @@ class Admin extends CI_Controller{
             'address' => $this->input->post('address')
         );  
         if($this->admin_model->update_supplier($id, $data)){
-            $this->session->set_flashdata('success', '<strong>Success!</strong> Supplier (' . $this->input->post('name') . ') was updated successfully.');
+            $this->session->set_flashdata('success', '<strong>Success:</strong> Supplier (' . $this->input->post('name') . ') was updated successfully.');
             redirect('admin/edit_supplier/' . $id);
         }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            $this->session->set_flashdata('failed', '<strong>Failed:</strong> Something went wrong, please try again!');
             redirect('admin/edit_supplier/' . $id);
         }
     }
