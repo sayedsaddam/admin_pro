@@ -193,8 +193,12 @@
 						<div class="column">
 							<label class="label is-small"> DOB <span class="has-text-danger">*</span></label>
 							<div class="is-small is-fullwidth">
+							<?php if(!empty($edit)){
+										$dateob = strtotime($edit->dob);
+										$date_of_birth= date('Y-m-d', $dateob);  
+							}?>
 								<input type="date" name="dob" id="" class="input is-small"
-									value="<?= !empty($edit) ? $edit->dob : '' ?>" placeholder="region ...">
+									value="<?= !empty($edit) ? $date_of_birth : '' ?>" placeholder="region ...">
 							</div>
 						</div>
 					</div>
@@ -205,9 +209,14 @@
 								<div class="field">
 									<label class="label is-small">Joining Date</label>
 									<div class="control">
-										<input type="date" name="doj" id="" class="input is-small"
-											value="<?= !empty($edit) ? $edit->doj : '' ?>" placeholder="joining ...">
-									</div>
+										<?php if(!empty($edit)){
+										$dateoj = strtotime($edit->doj);
+										$date_of_joining = date('Y-m-d', $dateoj); 
+										}?>
+									<input name="doj" class="input is-small" type="date" required
+											value="<?= !empty($edit) ? $date_of_joining : '' ?>">
+
+										 </div>
 								</div>
 							</fieldset>
 						</div>
