@@ -16,7 +16,7 @@
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" type="search"
-										placeholder="Search Items"
+										placeholder="Search Employees"
 										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
@@ -100,7 +100,7 @@
 								<label class="label is-small">Location <span class="has-text-danger">*</span></label>
 								<div class="select is-small is-fullwidth"> 
 
-                                    <select name="location" id="location" required>
+                                    <!-- <select name="location" id="location" required>
 												<?php if(!isset($edit)): ?>
 												<option selected disabled value="">Select a City</option>
 												<?php endif ?>
@@ -109,7 +109,19 @@
 													<?php !empty($edit) ? 'selected' : '' ?>><?= $edit->name; ?>
 												</option>
 												<?php endif; ?>
+											</select> -->
+
+											<select name="location" id="location" required>
+												<?php if(!isset($edit)): ?>
+												<option selected disabled value="">Select a City</option>
+												<?php endif ?>
+												<?php if(!empty($locations)): foreach($locations as $loc): ?>
+												<option value="<?= $loc->id; ?>"
+													<?php !empty($edit) && $edit->location == $loc->id ? 'selected' : '' ?>><?= $loc->name; ?>
+												</option>
+												<?php endforeach; endif; ?>
 											</select>
+
 								</div>
 							</div>
 						</div>
