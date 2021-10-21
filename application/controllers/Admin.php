@@ -202,6 +202,11 @@ class Admin extends CI_Controller{
             redirect('admin/suppliers');
         }
     }
+     // get_supplier against location 
+     public function supplier_against_location($loc_id){
+        $location = $this->admin_model->supplier_against_location($loc_id);
+        echo json_encode($location);
+    }
     // Suppliers - Remove supplier
     public function delete_supplier($id){
         $data = array(

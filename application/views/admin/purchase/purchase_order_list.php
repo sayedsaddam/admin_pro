@@ -182,7 +182,7 @@
                 <div class="columns">
                     <div class="column">
                         <div class="control">
-                            <div class="select select is-small is-fullwidth">
+                            <div class="select is-small is-fullwidth">
                                 <select name="location" id="supplier_location" class="browser-default custom-select ">
                                     <?php if(!empty($locations)): foreach($locations as $loc): ?>
                                     <option value="<?= $loc->id ?>"><?= ucfirst($loc->name); ?> </option>
@@ -192,7 +192,7 @@
                         </div>
                     </div>
                     <div class="column ">
-                        <div class="select select is-small is-fullwidth">
+                        <div class="select is-small is-fullwidth">
                             <select name="supplier" id="supplier" class="browser-default custom-select">
                                 <option value="" disabled selected>--Select Supplier--</option>
                             </select>
@@ -350,8 +350,7 @@ $(document).ready(function(){
        $('#supplier_email').find('option').not(':first').remove();
        // Add options
        $.each(response,function(index, data){
-        $('#supplier').append('<option value="'+data['id']+'">'+data['name']+'</option>'); 
-        $('#supplier_email').append('<option value="'+data['id']+'">'+data['email']+'</option>'); 
+        $('#supplier').append('<option value="'+data['id']+'">'+data['name']+'</option>');  
        });
      }
   });
