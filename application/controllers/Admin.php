@@ -300,18 +300,20 @@ class Admin extends CI_Controller{
     }
     // Update employ
     public function update_employ(){
-        $id = $this->input->post('sup_id'); 
+        $id = $this->input->post('id'); 
         $data = array(
             'fullname' => ucfirst($this->input->post('full_name')), 
             'phone' => $this->input->post('phone'), 
             'department' =>ucfirst($this->input->post('department')),
             'location' => $this->input->post('location'), 
             'region' => ucfirst($this->input->post('region')),
-            'address' => ucfirst($this->input->post('employ_address')),
+            'address' => ucfirst($this->input->post('address')),
             'status' => 1,
             'dob' => $this->input->post('dob'),
             'doj' => $this->input->post('doj')
         );
+        // echo "<pre>";
+        // print_r($data);exit;
         if($this->admin_model->update_employ($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Employ update was successful.');
             redirect('admin/employee');

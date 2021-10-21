@@ -105,7 +105,7 @@
 												<option selected disabled value="">Select a City</option>
 												<?php endif ?>
 												<?php if(!empty($edit)): ?>
-												<option value="<?= $edit->id; ?>"
+												<option value="<?= $edit->location; ?>"
 													<?php !empty($edit) ? 'selected' : '' ?>><?= $edit->name; ?>
 												</option>
 												<?php endif; ?>
@@ -155,7 +155,7 @@
 									<option selected disabled value="">Select Department</option>
 									<?php endif ?>
 									<?php if(!empty($edit)): ?>
-									<option value="<?= $edit->id; ?>" <?php !empty($edit)? 'selected' : '' ?>>
+									<option value="<?= $edit->department; ?>" <?php !empty($edit)? 'selected' : '' ?>>
 										<?= $edit->department; ?>
 									</option>
 									<?php endif; ?>
