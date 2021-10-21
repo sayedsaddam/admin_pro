@@ -166,10 +166,17 @@ class Admin extends CI_Controller{
         $this->load->view('admin/commons/new_template', $data);
     }
     // Edit Supplier - Navigates to `Edit Supplier` page
-    public function edit_supplier($id){   
+    public function edit_supplier($id = null){  
+        $data['edit'] = $this->admin_model->edit_supplier($id); 
+        
+        if ($data['edit'] == NULL) {
+            redirect('admin/suppliers');
+        } 
+
         $data['title'] = 'Edit Supplier | Admin & Procurement';
         $data['body'] = 'admin/suppliers/edit_supplier';
-        $data['edit'] = $this->admin_model->edit_supplier($id);  
+        $data['locations'] = $this->admin_model->list_locations_suppliers(); 
+        $data['categories'] = $this->admin_model->suppliers_category();
         $data['suppliers_page'] = true;
         $data['breadcrumb'] = array("admin/suppliers" => "Suppliers", "Edit Supplier");
         $this->load->view('admin/commons/new_template', $data);
@@ -186,10 +193,10 @@ class Admin extends CI_Controller{
             'rating' => $this->input->post('rating'),
             'address' => ucfirst($this->input->post('address')),
             'created_at' => date('Y-m-d')
-        );  
-        if($this->admin_model->add_supplier($data)){
-            $this->session->set_flashdata('success', '<strong>Success! /strong>Supplier added successfully.');
-            redirect('admin/suppliers');
+        );
+        if ($id = $this->admin_model->add_supplier($data)) {
+            $this->session->set_flashdata('success', '<strong>Success!</strong> Supplier (' . $this->input->post('name') . ') was added successfully.');
+            redirect('admin/edit_supplier/' . $id);
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
             redirect('admin/suppliers');
@@ -209,24 +216,27 @@ class Admin extends CI_Controller{
         }
     }
     // Update supplier
-    public function update_supplier(){
-        $id = $this->input->post('sup_id'); 
+    public function update_supplier($id = NULL){
+        if ($id == NULL) {
+            redirect('admin/edit_supplier');
+        }
+
         $data = array(
+            'location' => $this->input->post('location'),
             'name' => $this->input->post('name'),
-            'category' => implode(", ", $this->input->post('category')),    
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
-            'location' => $this->input->post('location'),
+            'category' => $this->input->post('category'),    
             'ntn_number' => $this->input->post('ntn_number'),
             'rating' => $this->input->post('rating'), 
             'address' => $this->input->post('address')
         );  
         if($this->admin_model->update_supplier($id, $data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Supplier update was successful.');
-            redirect('admin/suppliers');
+            $this->session->set_flashdata('success', '<strong>Success!</strong> Supplier (' . $this->input->post('name') . ') was updated successfully.');
+            redirect('admin/edit_supplier/' . $id);
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('admin/suppliers');
+            redirect('admin/edit_supplier/' . $id);
         }
     }
     // Employ - Go to employ page.

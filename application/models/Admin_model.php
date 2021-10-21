@@ -154,11 +154,8 @@ class Admin_model extends CI_Model{
     // Suppliers - Add new supplier
     public function add_supplier($data){
         $this->db->insert('suppliers', $data);
-        if($this->db->affected_rows() > 0){
-            return true;
-        }else{
-            return false;
-        }
+        $id = $this->db->insert_id();
+        return $id;
     }
     // Count suppliers
     public function count_suppliers(){
