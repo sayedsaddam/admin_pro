@@ -66,14 +66,16 @@
 									<span class="select is-small is-fullwidth">
 										<select name="location" id="" class="browser-default custom-select ">
 											<?php if(!isset($edit_item)): ?>
-                                            <option disabled value="">Select Location</option>
-                                            <?php endif ?>
-                                            <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                                            <option value="<?= $loc->id; ?>"
-                                                <?= !empty($edit) && $edit->id == $loc->id ? 'selected' : '' ?>>
-                                                <?= $loc->name; ?>
-                                            </option>
-                                            <?php endforeach; endif; ?>
+											<option disabled value="">Select Location</option>
+											<?php endif ?>
+											<?php if(!empty($locations)): foreach($locations as $loc): ?>
+											<?php if ($loc->id == $this->session->userdata('location') || $this->session->userdata('user_role') == 'admin') : ?>
+											<option value="<?= $loc->id; ?>"
+												<?= !empty($edit) && $edit->id == $loc->id ? 'selected' : '' ?>>
+												<?= ucwords($loc->name); ?>
+											</option>
+											<?php endif ?>
+											<?php endforeach; endif; ?>
 										</select>
 									</span>
 									<span class="icon is-small is-left">
@@ -125,21 +127,21 @@
 						</div>
 					</div>
 					<div class="columns">
-                        <div class="column">
+						<div class="column">
 							<div class="control">
 								<label class="label is-small">Catergory <span class="has-text-danger">*</span></label>
 								<div class="control has-icons-left">
 									<span class="select is-small is-fullwidth">
 										<select name="category" class="browser-default custom-select" required>
-                                        <?php if(!isset($edit_item)): ?>
-                                        <option disabled value="">Select Category</option>
-                                        <?php endif ?>
-                                        <?php if(!empty($categories)): foreach($categories as $cat): ?>
-                                        <option value="<?= $cat->id; ?>"
-                                            <?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>>
-                                            <?= $cat->cat_name; ?>
-                                        </option>
-                                        <?php endforeach; endif; ?>
+											<?php if(!isset($edit_item)): ?>
+											<option disabled value="">Select Category</option>
+											<?php endif ?>
+											<?php if(!empty($categories)): foreach($categories as $cat): ?>
+											<option value="<?= $cat->id; ?>"
+												<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>>
+												<?= ucwords($cat->cat_name); ?>
+											</option>
+											<?php endforeach; endif; ?>
 										</select>
 									</span>
 									<span class="icon is-small is-left">
@@ -165,19 +167,19 @@
 					</div>
 
 					<div class="columns">
-                        <div class="column">
+						<div class="column">
 							<div class="control">
 								<label class="label is-small">Rating <span class="has-text-danger">*</span></label>
 								<div class="control has-icons-left">
-									<input type="number" name="rating" class="input is-small" min="1" max="5" type="text"
-										placeholder="1-5" required>
+									<input type="number" name="rating" class="input is-small" min="1" max="5"
+										type="text" placeholder="1-5" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-sort-numeric-up"></i>
 									</span>
 								</div>
 							</div>
 						</div>
-                        <div class="column">
+						<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Address <span class="has-text-danger">*</span></label>
@@ -246,95 +248,3 @@
 		</div>
 	</div>
 </section>
-<script>
-	var btn1 = $("#report-btn")
-	var btn3 = $("#exit-report-modal")
-	var btn4 = $("#close-report-modal")
-
-	var mdl = new BulmaModal("#modal-ter")
-
-	btn1.click(function (ev) {
-		mdl.show();
-		$(".modal-card-head").show();
-		ev.stopPropagation();
-	});
-	btn3.click(function (ev) {
-		mdl.close();
-		ev.stopPropagation();
-	});
-	btn4.click(function (ev) {
-		mdl.close();
-		ev.stopPropagation();
-	});
-
-</script>
-
-<script>
-	$(document).ready(function () {
-
-		// City change
-		$('#category').on('change', function () {
-			var category = $(this).val();
-			var category_text = $("#category option:selected").text();;
-			if (category_text.includes('Electronics')) {
-				$("#item-quantity").val(1);
-				$("#item-quantity").attr('disabled', true);
-				$("#serial-number").attr('required', true);
-				$("#serial-required").show();
-			} else {
-				$("#item-quantity").attr('disabled', false);
-				$("#serial-number").attr('required', false);
-				$("#serial-required").hide();
-			}
-			//  alert(category)
-			// AJAX request
-			$.ajax({
-				url: '<?= base_url("admin/get_item_sub_categories/"); ?>' + category,
-				method: 'POST',
-				data: {
-					category: category
-				},
-				dataType: 'json',
-				success: function (response) {
-					// Remove options 
-					$('#item_name').find('option').not(':first').remove();
-
-					// Add options
-					$.each(response, function (index, data) {
-						$('#item_name').append('<option value="' + data['id'] + '">' +
-							data['name'] + '</option>');
-					});
-				}
-			});
-		});
-	});
-
-	var itemSuggestions = [];
-
-	// item type auto load against item
-	$(document).ready(function () {
-		// City change
-		$('#item_name').on('change', function () {
-			itemSuggestions = [];
-			var item_id = $(this).val();
-			// AJAX request
-			$.ajax({
-				url: '<?= base_url("admin/get_item_type/"); ?>' + item_id,
-				method: 'POST',
-				data: {
-					item_id: item_id
-				},
-				dataType: 'json',
-				success: function (response) {
-					$.each(response, function (index, data) {
-						itemSuggestions.push(data['type_name']);
-					});
-				}
-			});
-			$("#sub_item_name").autocomplete({
-				source: itemSuggestions
-			});
-		});
-	});
-
-</script>
