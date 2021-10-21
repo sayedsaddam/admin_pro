@@ -307,7 +307,7 @@ class Admin extends CI_Controller{
             'doj' => $this->input->post('doj'),
             'user_role' => 'employee',
             'created_at' => date('Y-m-d')
-        ); 
+        );  
         if($this->admin_model->add_employ($data)){
             $this->session->set_flashdata('success', '<strong>Success! /strong>Employ added successfully.');
             redirect('admin/employee');
@@ -346,13 +346,13 @@ class Admin extends CI_Controller{
             'doj' => $this->input->post('doj')
         );
         // echo "<pre>";
-        // print_r($data);exit;
+        // print_r($data);exit;  
         if($this->admin_model->update_employ($id, $data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Employ update was successful.');
-            redirect('admin/employee');
+            $this->session->set_flashdata('success', '<strong>Success!</strong> Employee (' . $this->input->post('full_name') . ') was updated successfully.'); 
+            redirect('admin/edit_employ/' . $id);
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('admin/employee');
+            redirect('admin/edit_employ/' . $id);
         }
     }
      // Search filters - search employ
