@@ -19,10 +19,11 @@
 	</ul>
 	<?php if($this->session->userdata('user_role') == 'admin') : ?>
 	<ul class="menu-list">
-	<li><a class="<?= $this->uri->segment(2) == 'employ' || $this->uri->segment(2) == 'search_employ' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
-				<?= $this->uri->segment(2) == 'employ' || $this->uri->segment(2) == 'search_employ' ? 'style="background-color:#ebfffc;"' : '' ?>>Employees</a>
-			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'employ' || $this->uri->segment(2) == 'search_employ' ? '' : 'display: none;' ?>">
+	<li><a class="<?= $this->uri->segment(2) == 'employee' || $this->uri->segment(2) == 'search_employee' || $this->uri->segment(2) == 'add_employee' || $this->uri->segment(2) == 'edit_employ' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'employee' || $this->uri->segment(2) == 'search_employee' || $this->uri->segment(2) == 'add_employee' || $this->uri->segment(2) == 'edit_employ' ? 'style="background-color:#ebfffc;"' : '' ?>>Employees</a>
+			<ul class="sub-categories" style="<?= $this->uri->segment(2) == 'employee' || $this->uri->segment(2) == 'search_employee' || $this->uri->segment(2) == 'add_employee' || $this->uri->segment(2) == 'edit_employ' ? '' : 'display: none;' ?>">
 				<li class="is-size-7"><a href="<?= base_url('admin/employee'); ?>"><i class="fas fa-user-tie mr-1"></i> Employees List</a></li>
+				<li class="is-size-7"><a href="<?= base_url('admin/add_employee'); ?>"><i class="fas fa-plus mr-1"></i> Add New</a></li>
 			</ul>
 		</li>
 	</ul>
