@@ -9,7 +9,7 @@
 				style="<?= $this->uri->segment(2) == 'dashboard' ? '' : 'display: none;' ?>">
 			</ul>
 		</li> -->
-		<li><a href="<?= base_url('admin') ?>">Dashboard</a></li>
+		<li><a href="<?= base_url('admin/dashboard') ?>">Dashboard</a></li>
 	</ul>
 	<p class="menu-label">
 		Procurement

@@ -101,7 +101,7 @@ class Login extends CI_Controller{
             $location = $login->location;
             $user_role = $login->user_role;
             $this->session->set_userdata(array('id' => $id, 'username' => $username, 'fullname' => $name, 'department' => $department, 'location' => $location, 'user_role' => $user_role));
-            redirect('admin/item_register');
+            redirect('admin/dashboard');
         }else{
             $this->session->set_flashdata('login_failed', "<strong>Oops! </strong>Looks like that's not the code we sent you. Try again!");
             $this->verify_credentials();

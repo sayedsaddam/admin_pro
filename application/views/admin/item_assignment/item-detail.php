@@ -103,7 +103,7 @@
 												<?php endif ?>
 												<?php if(!empty($locations)): foreach($locations as $loc): ?>
 												<option value="<?= $loc->id; ?>"
-													<?php !empty($edit) && $edit->id == $loc->id ? 'selected' : '' ?>><?= $loc->name; ?>
+													<?php !empty($edit) && $edit->id == $loc->id ? 'selected' : '' ?>><?= ucwords($loc->name); ?>
 												</option>
 												<?php endforeach; endif; ?>
 											</select>
@@ -132,7 +132,7 @@
 												<?php $suppliers = $this->admin_model->get_location_suplier($role);
 												if(!empty($suppliers)): foreach($suppliers as $sup): ?>
 												<option value="<?= $sup->id; ?>">
-													<?= $sup->name; ?>
+													<?= ucwords($sup->name); ?>
 												</option>
 												<?php endforeach; endif; ?>
 											</select>
@@ -159,7 +159,7 @@
 												<?php endif ?>
 												<?php if(!empty($categories)): foreach($categories as $cat): ?>
 												<option value="<?= $cat->id; ?>"
-													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= $cat->cat_name; ?>
+													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= ucwords($cat->cat_name); ?>
 												</option>
 												<?php endforeach; endif; ?>
 											</select>
@@ -183,7 +183,7 @@
 												<?php endif ?>
 												<?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
 												<option value="<?= $cat->id; ?>"
-													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= $cat->name; ?>
+													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= ucwords($cat->name); ?>
 												</option>
 												<?php endforeach; endif; ?>
 											</select>
@@ -202,7 +202,7 @@
 								<div class="field">
 									<label class="label is-small">Item Company <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="item_name" id="sub_item_name" value="<?= !empty($edit) ? $edit->type_name : '' ?>" class="input is-small"
+										<input name="item_name" id="sub_item_name" value="<?= !empty($edit) ? ucwords($edit->type_name) : '' ?>" class="input is-small"
 											type="text" placeholder="e.g Apple" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-quote-left"></i>
@@ -232,7 +232,7 @@
 								<div class="field">
 									<label class="label is-small">Model <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="model" value="<?= !empty($edit) ? $edit->model : '' ?>" class="input is-small"
+										<input name="model" value="<?= !empty($edit) ? ucwords($edit->model) : '' ?>" class="input is-small"
 											type="text" placeholder="e.g 110 4G" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-bookmark"></i>
