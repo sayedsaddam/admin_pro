@@ -66,14 +66,16 @@
 									<span class="select is-small is-fullwidth">
 										<select name="location" id="" class="browser-default custom-select ">
 											<?php if(!isset($edit_item)): ?>
-                                            <option disabled value="">Select Location</option>
-                                            <?php endif ?>
-                                            <?php if(!empty($locations)): foreach($locations as $loc): ?>
-                                            <option value="<?= $loc->id; ?>"
-                                                <?= !empty($edit) && $edit->id == $loc->id ? 'selected' : '' ?>>
-                                                <?= ucwords($loc->name); ?>
-                                            </option>
-                                            <?php endforeach; endif; ?>
+											<option disabled value="">Select Location</option>
+											<?php endif ?>
+											<?php if(!empty($locations)): foreach($locations as $loc): ?>
+											<?php if ($loc->id == $this->session->userdata('location') || $this->session->userdata('user_role') == 'admin') : ?>
+											<option value="<?= $loc->id; ?>"
+												<?= !empty($edit) && $edit->id == $loc->id ? 'selected' : '' ?>>
+												<?= ucwords($loc->name); ?>
+											</option>
+											<?php endif ?>
+											<?php endforeach; endif; ?>
 										</select>
 									</span>
 									<span class="icon is-small is-left">
@@ -125,21 +127,21 @@
 						</div>
 					</div>
 					<div class="columns">
-                        <div class="column">
+						<div class="column">
 							<div class="control">
 								<label class="label is-small">Catergory <span class="has-text-danger">*</span></label>
 								<div class="control has-icons-left">
 									<span class="select is-small is-fullwidth">
 										<select name="category" class="browser-default custom-select" required>
-                                        <?php if(!isset($edit_item)): ?>
-                                        <option disabled value="">Select Category</option>
-                                        <?php endif ?>
-                                        <?php if(!empty($categories)): foreach($categories as $cat): ?>
-                                        <option value="<?= $cat->id; ?>"
-                                            <?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>>
-                                            <?= ucwords($cat->cat_name); ?>
-                                        </option>
-                                        <?php endforeach; endif; ?>
+											<?php if(!isset($edit_item)): ?>
+											<option disabled value="">Select Category</option>
+											<?php endif ?>
+											<?php if(!empty($categories)): foreach($categories as $cat): ?>
+											<option value="<?= $cat->id; ?>"
+												<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>>
+												<?= ucwords($cat->cat_name); ?>
+											</option>
+											<?php endforeach; endif; ?>
 										</select>
 									</span>
 									<span class="icon is-small is-left">
@@ -165,19 +167,19 @@
 					</div>
 
 					<div class="columns">
-                        <div class="column">
+						<div class="column">
 							<div class="control">
 								<label class="label is-small">Rating <span class="has-text-danger">*</span></label>
 								<div class="control has-icons-left">
-									<input type="number" name="rating" class="input is-small" min="1" max="5" type="text"
-										placeholder="1-5" required>
+									<input type="number" name="rating" class="input is-small" min="1" max="5"
+										type="text" placeholder="1-5" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-sort-numeric-up"></i>
 									</span>
 								</div>
 							</div>
 						</div>
-                        <div class="column">
+						<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Address <span class="has-text-danger">*</span></label>
