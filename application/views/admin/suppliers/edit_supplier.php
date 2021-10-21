@@ -84,12 +84,12 @@
 										<select name="location" id="" class="browser-default custom-select ">
 											<option disabled value="">Select Category</option>
 											<?php if(!empty($locations)): foreach($locations as $loc): ?>
-												<?php if ($loc->id == $this->session->userdata('location') || $this->session->userdata('user_role') == 'admin') : ?>
-												<option value="<?= $loc->id; ?>"
-													<?= $edit->location == $loc->id ? 'selected' : '' ?>>
-													<?= ucwords($loc->name); ?>
-												</option>
-												<?php endif ?>
+											<?php if ($loc->id == $this->session->userdata('location') || $this->session->userdata('user_role') == 'admin') : ?>
+											<option value="<?= $loc->id; ?>"
+												<?= $edit->location == $loc->id ? 'selected' : '' ?>>
+												<?= ucwords($loc->name); ?>
+											</option>
+											<?php endif ?>
 											<?php endforeach; endif; ?>
 										</select>
 									</span>
