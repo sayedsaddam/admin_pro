@@ -315,7 +315,7 @@ class Admin extends CI_Controller{
     public function edit_employ($id){   
         $data['title'] = 'Edit Employee';
         $data['body'] = 'admin/employ/add_employee';
-        $data['locations'] = $this->admin_model->get_item_location(); 
+        $data['locations'] = $this->admin_model->get_employ_location($id); 
         $data['edit'] = $this->admin_model->edit_employ($id);  
         $data['breadcrumb'] = array("admin/employee" => "Employee List", "Edit Employee");
         $this->load->view('admin/commons/new_template', $data);
