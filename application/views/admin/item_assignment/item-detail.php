@@ -98,7 +98,7 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="location" id="supplier_location" required>
-												<?php if(isset($edit)): ?>
+												<?php if(!isset($edit)): ?>
 												<option selected disabled value="">Select a City</option>
 												<?php endif ?>
 												<?php if(!empty($locations)): foreach($locations as $loc): ?>

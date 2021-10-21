@@ -141,7 +141,6 @@
 									<?php endforeach; endif; ?>
 									<?php } ?>
 											</select>
-									
 										</span>
 										<span class="icon is-small is-left">
 											<i class="fas fa-globe"></i>
@@ -161,17 +160,14 @@
 												value="<?= $this->session->userdata('id');  ?>"> 
 												<?php  $role = ($this->session->userdata('user_role')); 
 											if($role == 'admin') {?>
-                                          <!-- <select name="employ" class="employ" id="employ" required>
+                                          <select name="employ" class="employ" id="employ" required>
 												<option selected disabled value="">Select an Employee</option>
 												<?php foreach($assign_to as $loc){ ?>
 												<option value="<?= $loc->id; ?>">
 													<?= $loc->fullname; ?>
 												</option>
 												<?php } ?>
-											</select> -->
-							<select name="employ" id="employ" class="browser-default custom-select">
-                                <option value="" disabled selected>--Select Employee--</option>
-                            </select>
+											</select>
 											<?php } else {?>
 											<select name="employ" id="" required> 
 												<?php echo $role; $employee = $this->admin_model->get_location_employ($role);
@@ -284,7 +280,8 @@
 				dataType: 'json',
 				success: function (response) {
 					// Remove options 
-					$('#employ').find('option').not(':first').remove(); 
+					$('#employ').find('option').not(':first').remove();
+
 					// Add options
 					$.each(response, function (index, data) {
 						$('#employ').append('<option value="' + data['id'] + '">' +

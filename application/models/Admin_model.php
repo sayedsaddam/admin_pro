@@ -1378,7 +1378,7 @@ class Admin_model extends CI_Model{
     // Get location where from where employee belongs to
     public function get_employ_location($id){   
         { 
-          $this->db->select('locations.id,locations.name,users.id,users.location');
+          $this->db->select('locations.id,locations.name,users.id as emp_id,users.location');
           $this->db->from('locations');
           $this->db->join('users', 'locations.id = users.location', 'left');
           $this->db->where('users.id',$id);
@@ -1750,7 +1750,7 @@ class Admin_model extends CI_Model{
         }else{
             $this->db->select('id,name');
             $this->db->from('locations');
-            $this->db->where('id',$this->session->userdata('location')); 
+            $this->db->where('id',$location); 
             return $this->db->get()->result();
         } 
     } 
