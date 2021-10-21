@@ -120,17 +120,28 @@
 								<div class="field">
 									<label class="label is-small">Supplier <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<span class="select is-small is-fullwidth">
-											<select name="supplier" class="supplier" required>
-												<?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select a Supplier</option>
-												<?php endif ?>
-												<?php if(!empty($supplier)): foreach($supplier as $sup): ?>
-												<option value="<?= $sup->name; ?>"
-													<?= !empty($edit) && $edit->id == $sup->id ? 'selected' : '' ?>><?= $sup->name; ?>
+										<span class="select is-small is-fullwidth"> 
+
+											<?php  $role = ($this->session->userdata('user_role')); 
+											if($role == 'admin') {?>
+                                          <select name="supplier" class="supplier" required>
+												<option selected disabled value="">Select an Supliers</option>
+												<?php foreach($supplier as $sup){ ?>
+												<option value="<?= $sup->id; ?>">
+													<?= $sup->name; ?>
+												</option>
+												<?php } ?>
+											</select>
+											<?php } else {?>
+											<select name="supplier" id="" required> 
+												<?php $suppliers = $this->admin_model->get_location_suplier($role);
+												if(!empty($suppliers)): foreach($suppliers as $sup): ?>
+												<option value="<?= $sup->id; ?>">
+													<?= $sup->name; ?>
 												</option>
 												<?php endforeach; endif; ?>
 											</select>
+											<?php } ?>  
 										</span>
 										<span class="icon is-small is-left">
 											<i class="fas fa-user"></i>

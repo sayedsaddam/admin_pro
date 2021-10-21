@@ -161,6 +161,11 @@
 											if($role == 'admin') {?>
                                           <select name="employ" class="employ" id="employ" required>
 												<option selected disabled value="">Select an Employee</option>
+												<?php foreach($assign_to as $loc){ ?>
+												<option value="<?= $loc->id; ?>">
+													<?= $loc->fullname; ?>
+												</option>
+												<?php } ?>
 											</select>
 											<?php } else {?>
 											<select name="employ" id="" required> 
