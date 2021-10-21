@@ -96,7 +96,15 @@
 									<td><?= ucfirst($sup->name); ?></td>
 									<td><?= ucfirst($sup->ntn_number); ?></td>
 									<td>
-										<?php if(!empty($sup->rating)){ echo '<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">'.ucfirst($sup->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>';}else{echo 'none';} ?>
+										<?php if(!empty($sup->rating)) : ?>
+											<?php if ($sup->rating >= 5) : ?>
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">5</span> <span class="fa fa-star checked" style="color: orange"></span> 
+											<?php elseif ($sup->rating <= 1) : ?>
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">1</span> <span class="fa fa-star checked" style="color: orange"></span>
+											<?php else : ?>
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small"><?= $sup->rating ?></span> <span class="fa fa-star checked" style="color: orange"></span>
+											<?php endif ?>
+										<?php endif ?>
 									</td>
 									<td><?= ucfirst($sup->cat_name); ?></td>
 									<td>
@@ -128,7 +136,15 @@
 									<td><?= ucfirst($sup->name); ?></td>
 									<td><?= ucfirst($sup->ntn_number); ?></td>
 									<td>
-										<?php if(!empty($sup->rating)){ echo '<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">'.ucfirst($sup->rating).'</span>'.'<span class="fa fa-star checked" style="color: orange"></span>';}else{echo 'none';} ?>
+										<?php if(!empty($sup->rating)) : ?>
+											<?php if ($sup->rating >= 5) : ?>
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">5</span> <span class="fa fa-star checked" style="color: orange"></span> 
+											<?php elseif ($sup->rating <= 1) : ?>
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">1</span> <span class="fa fa-star checked" style="color: orange"></span>
+											<?php else : ?>
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small"><?= $sup->rating ?></span> <span class="fa fa-star checked" style="color: orange"></span>
+											<?php endif ?>
+										<?php endif ?>
 									</td>
 									<td><?= ucfirst($sup->category); ?></td>
 									<td>
