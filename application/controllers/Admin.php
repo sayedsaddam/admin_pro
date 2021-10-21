@@ -234,10 +234,24 @@ class Admin extends CI_Controller{
         $limit = 10;
         if(!empty($offset)){
             $this->uri->segment(3);
-        }
-        $url = 'admin/employ/employ';
+        } 
+        $this->load->library('pagination'); 
+        $url = base_url('admin/employee');
         $rowscount = $this->admin_model->count_employ();
-        paginate($url, $rowscount, $limit);
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $this->pagination->initialize($config); 
+        
         $data['title'] = 'Employ | Admin & Procurement';
         $data['body'] = 'admin/employ/employ';
         $data['employ'] = $this->admin_model->get_employ($limit, $offset);
@@ -281,13 +295,12 @@ class Admin extends CI_Controller{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
             redirect('admin/employee');
         }
-    }
-    
-
+    } 
     // Item detail
     public function edit_employ($id){   
         $data['title'] = 'Edit Employee';
         $data['body'] = 'admin/employ/add_employee';
+        $data['locations'] = $this->admin_model->get_employ_location($id); 
         $data['edit'] = $this->admin_model->edit_employ($id);  
         $data['breadcrumb'] = array("admin/employee" => "Employee List", "Edit Employee");
         $this->load->view('admin/commons/new_template', $data);
