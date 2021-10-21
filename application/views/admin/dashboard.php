@@ -17,14 +17,15 @@
 							<div class="tile is-parent">
 								<div class="card tile is-child">
 									<div class="card-content">
-										<div class="level is-mobile">
+										<div class="level is-mobile has-text-centered">
 											<div class="level-item">
 												<div class="is-widget-label">
 													<h3 class="subtitle is-spaced">
-														Staff
+														Employees
 													</h3>
+													<small>(Total)</small>
 													<h1 class="title">
-														512
+														<?= $employee_count ?>
 													</h1>
 												</div>
 											</div>
@@ -41,14 +42,15 @@
 							<div class="tile is-parent">
 								<div class="card tile is-child">
 									<div class="card-content">
-										<div class="level is-mobile">
+										<div class="level is-mobile has-text-centered">
 											<div class="level-item">
 												<div class="is-widget-label">
 													<h3 class="subtitle is-spaced">
 														Items
 													</h3>
+													<small>(Total)</small>
 													<h1 class="title">
-														700
+														<?= $total_items ?>
 													</h1>
 												</div>
 											</div>
