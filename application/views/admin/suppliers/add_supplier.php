@@ -71,7 +71,7 @@
                                             <?php if(!empty($locations)): foreach($locations as $loc): ?>
                                             <option value="<?= $loc->id; ?>"
                                                 <?= !empty($edit) && $edit->id == $loc->id ? 'selected' : '' ?>>
-                                                <?= $loc->name; ?>
+                                                <?= ucwords($loc->name); ?>
                                             </option>
                                             <?php endforeach; endif; ?>
 										</select>
@@ -137,7 +137,7 @@
                                         <?php if(!empty($categories)): foreach($categories as $cat): ?>
                                         <option value="<?= $cat->id; ?>"
                                             <?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>>
-                                            <?= $cat->cat_name; ?>
+                                            <?= ucwords($cat->cat_name); ?>
                                         </option>
                                         <?php endforeach; endif; ?>
 										</select>
