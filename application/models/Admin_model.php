@@ -915,12 +915,13 @@ class Admin_model extends CI_Model{
         return $this->db->get()->result();
     }
     // Search filters - locations list search
-    public function search_sub_categories($search){
+    public function search_sub_categories($cat_id, $search){
         $this->db->select('sub_categories.id, sub_categories.cat_id, sub_categories.name, sub_categories.added_by, sub_categories.created_at, categories.id as parent_cat, categories.cat_name, users.fullname');
         $this->db->from('sub_categories');
         $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->join('users', 'sub_categories.added_by = users.id', 'left');
         $this->db->like('sub_categories.name', $search);
+        $this->db->where('sub_categories.cat_id = ' . $cat_id);
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     } 
