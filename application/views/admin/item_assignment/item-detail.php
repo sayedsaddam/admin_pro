@@ -97,8 +97,8 @@
 									<label class="label is-small">Location <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
-											<select name="location" id="location" required>
-												<?php if(!isset($edit_item)): ?>
+											<select name="location" id="supplier_location" required>
+												<?php if(isset($edit)): ?>
 												<option selected disabled value="">Select a City</option>
 												<?php endif ?>
 												<?php if(!empty($locations)): foreach($locations as $loc): ?>
@@ -120,17 +120,23 @@
 								<div class="field">
 									<label class="label is-small">Supplier <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<span class="select is-small is-fullwidth">
-											<select name="supplier" class="supplier" required>
-												<?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select a Supplier</option>
-												<?php endif ?>
-												<?php if(!empty($supplier)): foreach($supplier as $sup): ?>
-												<option value="<?= $sup->name; ?>"
-													<?= !empty($edit) && $edit->id == $sup->id ? 'selected' : '' ?>><?= $sup->name; ?>
+										<span class="select is-small is-fullwidth"> 
+
+											<?php  $role = ($this->session->userdata('user_role')); 
+											if($role == 'admin') {?> 
+											<select name="supplier" id="supplier" class="browser-default custom-select">
+												<option value="" disabled selected>--Select Supplier--</option>
+											</select>
+											<?php } else {?>
+											<select name="supplier" id="" required> 
+												<?php $suppliers = $this->admin_model->get_location_suplier($role);
+												if(!empty($suppliers)): foreach($suppliers as $sup): ?>
+												<option value="<?= $sup->id; ?>">
+													<?= $sup->name; ?>
 												</option>
 												<?php endforeach; endif; ?>
 											</select>
+											<?php } ?>  
 										</span>
 										<span class="icon is-small is-left">
 											<i class="fas fa-user"></i>
@@ -496,5 +502,32 @@
       });
 		});
 	});
+
+// load supplier against location
+$(document).ready(function(){
+ // City change
+ $('#supplier_location').on('change', function(){
+   var location = $(this).val();  
+   // AJAX request
+   $.ajax({
+     url:'<?=base_url('admin/supplier_against_location/')?>' + location,
+     method: 'post',
+     data: {location: location},
+     dataType: 'json',
+     success: function(response){
+      console.log(response);
+       // Remove options 
+       $('#supplier').find('option').not(':first').remove();
+       $('#supplier_email').find('option').not(':first').remove();
+       // Add options
+       $.each(response,function(index, data){
+        $('#supplier').append('<option value="'+data['id']+'">'+data['name']+'</option>'); 
+        $('#supplier_email').append('<option value="'+data['id']+'">'+data['email']+'</option>'); 
+       });
+     }
+  });
+  event.stopPropagation();
+});
+});
 
 </script>

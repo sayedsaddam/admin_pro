@@ -1398,18 +1398,25 @@ class Admin_model extends CI_Model{
         $this->db->from('users');
         $this->db->where('location',$this->session->userdata('location'));
         return $this->db->get()->result(); 
+      }  
+  }
+  // Get supplier based on city
+  public function get_location_suplier($loc_id){  
+ $role = ($this->session->userdata('user_role')); 
+      if($role == 'admin'){
+        $this->db->select('id, name,email');
+        $this->db->from('suppliers');
+        $this->db->where('location', $loc_id);
+        return $this->db->get()->result();
+      }else{
+        $this->db->select('id, name,email');
+        $this->db->from('suppliers');
+        $this->db->where('location',$this->session->userdata('location'));
+        return $this->db->get()->result(); 
       } 
 
 
 
-  }
-  // Get supplier based on city
-  public function get_location_suplier($loc_id){
-      $this->db->select('id, name,email');
-      $this->db->from('suppliers');
-      $this->db->where('location', $loc_id);
-      $this->db->order_by('rating', 'DESC');
-      return $this->db->get()->result();
   }
   // Get supplier email based on supplier
   public function get_suplier_email($loc_id){

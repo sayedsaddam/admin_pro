@@ -116,7 +116,7 @@
 												<option selected disabled value="">Select a City</option>
 												<?php endif ?>
 												<?php if(!empty($locations)): foreach($locations as $loc): ?>
-												<option value="<?= $loc->id; ?>"
+												<option value="<?= $loc->location; ?>"
 													<?php !empty($edit) && $edit->location == $loc->id ? 'selected' : '' ?>><?= $loc->name; ?>
 												</option>
 												<?php endforeach; endif; ?>
