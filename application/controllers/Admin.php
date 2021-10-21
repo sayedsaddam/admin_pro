@@ -171,7 +171,9 @@ class Admin extends CI_Controller{
         
         if ($data['edit'] == NULL) {
             redirect('admin/suppliers');
-        } 
+        } elseif ($data['edit']->location != $this->session->userdata('location') && $this->session->userdata('user_role') != 'admin') {
+            redirect('admin/suppliers');
+        }
 
         $data['title'] = 'Edit Supplier | Admin & Procurement';
         $data['body'] = 'admin/suppliers/edit_supplier';
