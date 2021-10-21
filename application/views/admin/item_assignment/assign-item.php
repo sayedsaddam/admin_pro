@@ -273,7 +273,7 @@
 		// City change
 		$('#location').on('change', function () {
 			var location = $(this).val();
-			alert(location)
+			// alert(location)
 			// AJAX request
 			$.ajax({
 				url: "<?=base_url("admin/get_location_employ/")?>" + location,
