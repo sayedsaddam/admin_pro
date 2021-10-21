@@ -98,30 +98,17 @@
 						<div class="column">
 							<div class="control">
 								<label class="label is-small">Location <span class="has-text-danger">*</span></label>
-								<div class="select is-small is-fullwidth"> 
-
-                                    <!-- <select name="location" id="location" required>
-												<?php if(!isset($edit)): ?>
-												<option selected disabled value="">Select a City</option>
-												<?php endif ?>
-												<?php if(!empty($edit)): ?>
-												<option value="<?= $edit->location; ?>"
-													<?php !empty($edit) ? 'selected' : '' ?>><?= $edit->name; ?>
-												</option>
-												<?php endif; ?>
-											</select> -->
-
+								<div class="select is-small is-fullwidth">  
 											<select name="location" id="location" required>
 												<?php if(!isset($edit)): ?>
 												<option selected disabled value="">Select a City</option>
-												<?php endif ?>
+												<?php endif ?> 
 												<?php if(!empty($locations)): foreach($locations as $loc): ?>
-												<option value="<?= $loc->location; ?>"
+												<option value="<?= $loc->name; ?>"
 													<?php !empty($edit) && $edit->location == $loc->id ? 'selected' : '' ?>><?= $loc->name; ?>
 												</option>
-												<?php endforeach; endif; ?>
-											</select>
-
+												<?php endforeach; endif; ?> 
+											</select> 
 								</div>
 							</div>
 						</div>

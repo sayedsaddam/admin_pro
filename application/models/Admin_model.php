@@ -1750,7 +1750,7 @@ class Admin_model extends CI_Model{
         }else{
             $this->db->select('id,name');
             $this->db->from('locations');
-            $this->db->where('id',$this->session->userdata('location')); 
+            $this->db->where('id',$location); 
             return $this->db->get()->result();
         } 
     } 
