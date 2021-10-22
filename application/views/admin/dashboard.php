@@ -47,7 +47,7 @@
 								<a href="<?= base_url('admin/suppliers') ?>" class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Total Suppliers</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_suppliers ?></div>
-									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
+									<div class="has-text-weight-light has-text-success is-size-7">+<?= $total_suppliers_week_change ?> (+<?= intval(($total_suppliers_week_change / $total_suppliers_last_week_change) * 100) ?>%)</div>
 								</a>
 							</div>
 							<div class="tile is-parent">
