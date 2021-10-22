@@ -166,6 +166,26 @@ class Admin_model extends CI_Model{
         }
         return $this->db->count_all_results();
     }
+    // Count suppliers
+    public function count_suppliers_week_change(){
+        $this->db->from('suppliers');
+        $this->db->where(array('status' => 1));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('suppliers.location', $this->session->userdata('location'));
+        }
+        $this->db->where('suppliers.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now();');
+        return $this->db->count_all_results();
+    }
+    // Count suppliers
+    public function count_suppliers_last_week_change(){
+        $this->db->from('suppliers');
+        $this->db->where(array('status' => 1));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('suppliers.location', $this->session->userdata('location'));
+        }
+        $this->db->where('suppliers.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK);');
+        return $this->db->count_all_results();
+    }
     // Get suppliers
     public function get_suppliers($limit, $offset){
         $this->db->select('suppliers.id as sup_id, suppliers.name sup_name, suppliers.category, suppliers.email, suppliers.phone, suppliers.location, suppliers.region,suppliers.ntn_number,suppliers.rating, suppliers.address, suppliers.status, suppliers.created_at,locations.id,locations.name,categories.id as cat_id,categories.cat_name');
