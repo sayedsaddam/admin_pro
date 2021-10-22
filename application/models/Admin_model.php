@@ -1835,4 +1835,16 @@ class Admin_model extends CI_Model{
         }
         return $this->db->count_all_results();
     }
+
+    public function fetch_assigned_item_sum_by_last_($int) {
+        $this->db->select('id');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
+        $this->db->where('return_back_date !=', null);
+        $this->db->where("item_assignment.created_at <= DATE_SUB(NOW(), INTERVAL $int day)");
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.id', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
+    }
 }
