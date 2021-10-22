@@ -18,6 +18,9 @@
 	<script src="<?= base_url('assets/js/jquery.min.js'); ?>"></script>
 	<script src="<?= base_url('assets/js/select2.full.min.js'); ?>"></script>
 
+	<!-- Chart Library -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+
 	<!-- JQuery UI -->
 	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
 	<link href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" rel="stylesheet">
