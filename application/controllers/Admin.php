@@ -1154,6 +1154,15 @@ class Admin extends CI_Controller{
 
         $this->load->view('admin/commons/new_template', $data);
     }
+
+    //Item register 
+    public function product_card(){ 
+        $data['title'] = 'Item Register | Admin & Procurement';
+        $data['body'] = 'admin/item_assignment/card';  
+        $this->load->view('admin/commons/new_template', $data);
+    }
+    
+
     //Item register 
     public function item_register($offset = null){ 
         $limit = 10;
