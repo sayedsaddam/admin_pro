@@ -1055,13 +1055,16 @@ class Admin_model extends CI_Model{
                                item_assignment.assignd_to,
                                sub_categories.name as names, 
                                categories.cat_name, 
-                               locations.name, ');
+                               locations.name,
+                               suppliers.id sup_id,
+                               suppliers.name as sup_name');
             $this->db->from('items');
             $this->db->join('categories', 'items.category = categories.id', 'left');
             $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
             $this->db->join('locations', 'items.location = locations.id', 'left');
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
             $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+            $this->db->join('suppliers', 'items.supplier = suppliers.id', 'left');
             $this->db->where('items.quantity >', 0);
             if ($this->session->userdata('user_role') != 'admin') {
                 $this->db->where('items.location', $this->session->userdata('location'));
@@ -1094,13 +1097,16 @@ class Admin_model extends CI_Model{
                                item_assignment.assignd_to,
                                sub_categories.name as names, 
                                categories.cat_name, 
-                               locations.name, ');
+                               locations.name,
+                               suppliers.id as sup_id,
+                               suppliers.name as sup_name ');
             $this->db->from('items');
             $this->db->join('categories', 'items.category = categories.id', 'left');
             $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
             $this->db->join('locations', 'items.location = locations.id', 'left');
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
             $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+            $this->db->join('suppliers', 'items.sub_category = suppliers.id', 'left');
             // $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
             // $this->db->group_by('item_assignment.item_id'); 
             $this->db->where('item_assignment.item_id !=', null);
