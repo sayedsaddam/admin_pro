@@ -29,7 +29,11 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/dashboard';
         
         $data['total_employees'] = $this->admin_model->count_employ();
+        $data['count_employ_week_change'] = $this->admin_model->count_employ_week_change();
+        
         $data['total_items'] = $this->admin_model->count_item();
+        $data['total_items_week_change'] = $this->admin_model->count_item_week_change();
+
         $data['total_suppliers'] = $this->admin_model->count_suppliers();
         $data['total_categories'] = $this->admin_model->count_categories();
         $data['total_offices'] = $this->admin_model->count_locations();
