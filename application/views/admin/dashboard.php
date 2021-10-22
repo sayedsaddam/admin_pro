@@ -146,6 +146,7 @@
 				<?= $fetch_damaged_item_sum_by_last_5 ?>, <?= $fetch_damaged_item_sum_by_last_4 ?>,
 				<?= $fetch_damaged_item_sum_by_last_3 ?>, <?= $fetch_damaged_item_sum_by_last_2 ?>,
 				<?= $fetch_damaged_item_sum_by_last_1 ?>],
+				spanGaps: true,
 				tension: 0.4,
 				fill: true
 			}, {
@@ -158,6 +159,7 @@
 				<?= $fetch_assigned_item_sum_by_last_5 ?>, <?= $fetch_assigned_item_sum_by_last_4 ?>,
 				<?= $fetch_assigned_item_sum_by_last_3 ?>, <?= $fetch_assigned_item_sum_by_last_2 ?>,
 				<?= $fetch_assigned_item_sum_by_last_1 ?>],
+				spanGaps: true,
 				tension: 0.4,
 				fill: true
 			}, {
@@ -169,6 +171,7 @@
 				<?= $fetch_item_sum_by_last_5 ?>, <?= $fetch_item_sum_by_last_4 ?>,
 				<?= $fetch_item_sum_by_last_3 ?>, <?= $fetch_item_sum_by_last_2 ?>,
 				<?= $fetch_item_sum_by_last_1 ?>],
+				spanGaps: true,
 				tension: 0.4,
 				fill: true
 			}, ]
