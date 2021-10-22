@@ -1010,6 +1010,8 @@ class Admin_model extends CI_Model{
                            item_assignment.item_id,
                            item_assignment.status,
                            item_assignment.return_back_date,
+                           suppliers.id sup_id,
+                           suppliers.name as sup_name
                            ');
         $this->db->from('items');
         $this->db->join('categories', 'items.category = categories.id', 'left');
@@ -1017,6 +1019,7 @@ class Admin_model extends CI_Model{
         $this->db->join('locations', 'items.location = locations.id', 'left');
         $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
         $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+        $this->db->join('suppliers', 'items.supplier = suppliers.id', 'left');
         if (!empty($date_from) && !empty($date_to)) {  
             $this->db->where('items.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
         }
@@ -1294,13 +1297,16 @@ class Admin_model extends CI_Model{
                 locations.name, 
                 item_assignment.status,
                 item_assignment.assignd_to,
-                item_assignment.id as item_ids');
+                item_assignment.id as item_ids,
+                suppliers.id as sup_id,
+                suppliers.name as sup_name');
         $this->db->from('items');
         $this->db->join('categories', 'items.category = categories.id', 'left');
         $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
         $this->db->join('locations', 'items.location = locations.id', 'left');
         $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
         $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+        $this->db->join('suppliers', 'items.supplier = suppliers.id', 'left');
         
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('items.location', $this->session->userdata('location'));

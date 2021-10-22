@@ -439,7 +439,7 @@
 <script>
 	$(document).ready(function () {
 
-		// City change
+		// category change
 		$('#category').on('change', function () {
 			var category = $(this).val();
 			var category_text = $("#category option:selected").text();;
