@@ -131,7 +131,7 @@
 									</td>
 									<td><?= ucwords($item->type_name); ?></td>
 									<td><?= ucwords($item->model); ?></td>
-									<td><?= ucwords($item->supplier); ?></td>
+									<td><?= ucwords($item->sup_name); ?></td>
 									<?php if(isset($assign_page)) : ?>
 									<td><?= ucwords($item->employ_name); ?></td>
 									<?php endif; ?>
