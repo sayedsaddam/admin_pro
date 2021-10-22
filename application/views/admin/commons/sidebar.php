@@ -9,7 +9,7 @@
 				style="<?= $this->uri->segment(2) == 'dashboard' ? '' : 'display: none;' ?>">
 			</ul>
 		</li> -->
-		<li><a href="<?= base_url('admin/dashboard') ?>">Dashboard</a></li>
+		<li><a class="<?= $this->uri->segment(2) == 'dashboard' ? 'is-primary has-text-weight-bold is-inverted' : '' ?>" href="<?= base_url('admin/dashboard') ?>" <?= $this->uri->segment(2) == 'dashboard' ? 'style="background-color:#ebfffc;"' : '' ?>>Dashboard</a></li>
 	</ul>
 	<p class="menu-label">
 		Procurement
