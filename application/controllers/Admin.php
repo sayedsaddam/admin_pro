@@ -27,8 +27,27 @@ class Admin extends CI_Controller{
         }
         $data['title'] = 'Home | Admin & Procurement';
         $data['body'] = 'admin/dashboard';
-        $data['employee_count'] = $this->admin_model->count_employ();
-        $data['total_items'] = $this->admin_model->count_item();
+
+        if($this->session->userdata('user_role') == 'admin') {
+            $data['total_employees'] = $this->admin_model->count_employ();
+            $data['total_items'] = $this->admin_model->count_item();
+            $data['total_suppliers'] = $this->admin_model->count_suppliers();
+            $data['total_categories'] = $this->admin_model->count_categories();
+            $data['total_offices'] = $this->admin_model->count_locations();
+            $data['total_available_items'] = $this->admin_model->count_available_items();
+            $data['total_assigned_items'] = $this->admin_model->count_assign_item();
+            $data['total_damaged_items'] = $this->admin_model->count_damaged_items();
+        } else {
+            $data['total_employees'] = $this->admin_model->count_employ();
+            $data['total_items'] = $this->admin_model->count_item();
+            $data['total_suppliers'] = $this->admin_model->count_suppliers();
+            $data['total_categories'] = $this->admin_model->count_categories();
+            $data['total_offices'] = $this->admin_model->count_locations();
+            $data['total_available_items'] = $this->admin_model->count_available_items();
+            $data['total_assigned_items'] = $this->admin_model->count_assign_item();
+            $data['total_damaged_items'] = $this->admin_model->count_damaged_items();
+        }
+        
         // $data['total_isbd'] = $this->admin_model->expenses_isbd();
         // $data['ctc_own_isbd'] = $this->admin_model->ctc_own_isbd();
         // $data['total_bln'] = $this->admin_model->expenses_bln();
