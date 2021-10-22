@@ -46,6 +46,13 @@ class Admin extends CI_Controller{
         }
 
         $data['total_suppliers'] = $this->admin_model->count_suppliers();
+        $data['total_suppliers_week_change'] = $this->admin_model->count_suppliers_week_change();
+        if ($this->admin_model->count_suppliers_last_week_change() != 0) {
+            $data['total_suppliers_last_week_change'] = $this->admin_model->count_suppliers_last_week_change();
+        } else {
+            $data['total_suppliers_last_week_change'] = 0;
+        }
+
         $data['total_categories'] = $this->admin_model->count_categories();
         $data['total_offices'] = $this->admin_model->count_locations();
         $data['total_available_items'] = $this->admin_model->count_available_items();
