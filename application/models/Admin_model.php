@@ -159,7 +159,12 @@ class Admin_model extends CI_Model{
     }
     // Count suppliers
     public function count_suppliers(){
-        return $this->db->from('suppliers')->where(array('status' => 1))->count_all_results();
+        $this->db->from('suppliers');
+        $this->db->where(array('status' => 1));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('suppliers.location', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
     }
     // Get suppliers
     public function get_suppliers($limit, $offset){
@@ -623,7 +628,8 @@ class Admin_model extends CI_Model{
     }
     // count location to add pagination.
     public function count_locations(){
-        return $this->db->from('locations')->count_all_results();
+        $this->db->from('locations');
+        return $this->db->count_all_results();
     }
     // Locations - Get locations
     public function get_locations($limit, $offset){
@@ -696,7 +702,8 @@ class Admin_model extends CI_Model{
     }
     // Count categories
     public function count_categories(){
-        return $this->db->from('categories')->count_all_results();
+        $this->db->from('categories');
+        return $this->db->count_all_results();
     }
     // Categories > List categories and sub categories
     public function categories($limit, $offset){
@@ -979,9 +986,12 @@ class Admin_model extends CI_Model{
     public function count_assign_item(){
         $this->db->select('id');
         $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
         $this->db->where('return_back_date !=', null);
-        $num_results = $this->db->count_all_results();
-        return $num_results;
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.id', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
      }
     // Get items.
     public function get_items($limit, $offset, $date_from = null, $date_to = null ){
@@ -1252,6 +1262,32 @@ class Admin_model extends CI_Model{
         $num_results = $this->db->count_all_results();
         return $num_results;
     }
+
+    // Count Available Items
+    public function count_available_items() {
+        $this->db->select('items.id');
+        $this->db->from('items');
+        $this->db->where('items.quantity >', 0);
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
+    }
+
+    // Count Damage Items
+    public function count_damaged_items() {
+        $this->db->select('item_assignment.id, item_assignment.item_id, item_assignment.remarks');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.id', 'left');
+        $this->db->group_by('item_assignment.item_id');
+        $this->db->where('item_assignment.remarks !=', NULL);
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
+    }
+
+    
     // get sub categories for edit item page 
     public function get_item_depreciation($id){
         return $this->db->from('items')->where('id',$id)->get()->result();
@@ -1479,7 +1515,17 @@ class Admin_model extends CI_Model{
     } 
     // Count employ
     public function count_employ(){
-        return $this->db->from('users')->where(array('status' => 1))->count_all_results();
+        $this->db->from('users');
+        $this->db->where(array('status' => 1));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('users.location', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
+    }
+
+    // Count employ by location
+    public function count_employ_by_location($location){
+        return $this->db->from('users')->where(array('status' => 1, 'location' => $location))->count_all_results();
     }
     // Get employ
     public function get_employ($limit, $offset){
@@ -1608,6 +1654,10 @@ class Admin_model extends CI_Model{
      // Count all items 
      public function count_item_assign(){
         return $this->db->from('item_assignment')->count_all_results();
+    }
+    // Count all items by location
+    public function count_item_assign_by_location($location){
+        return $this->db->from('item_assignment')->where(array('location' => $location))->count_all_results();
     }
       // Check Assign list  - Check Assign list 
       public function check_assign_list($limit, $offset){  
@@ -1772,5 +1822,11 @@ class Admin_model extends CI_Model{
         $this->db->where('id', $id);
         $this->db->delete('items_detail');
         return true;
+    }
+
+    public function fetch_item_sum_by_week() {
+        $sql ="SELECT DISTINCT (DATE(`created_at`)) AS unique_date, COUNT(*) AS amount FROM items GROUP BY `created_at` ORDER BY `created_at` ASC";
+        $rs = $this->db->query($sql)->result();
+		return $rs;
     }
 }
