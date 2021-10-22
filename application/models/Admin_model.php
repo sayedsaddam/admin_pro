@@ -1811,4 +1811,10 @@ class Admin_model extends CI_Model{
         $this->db->delete('items_detail');
         return true;
     }
+
+    public function fetch_item_sum_by_week() {
+        $sql ="SELECT DISTINCT (DATE(`created_at`)) AS unique_date, COUNT(*) AS amount FROM items GROUP BY `created_at` ORDER BY `created_at` ASC";
+        $rs = $this->db->query($sql)->result();
+		return $rs;
+    }
 }
