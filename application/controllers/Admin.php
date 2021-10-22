@@ -30,9 +30,20 @@ class Admin extends CI_Controller{
         
         $data['total_employees'] = $this->admin_model->count_employ();
         $data['count_employ_week_change'] = $this->admin_model->count_employ_week_change();
+        if ($this->admin_model->count_employ_last_week_change() != 0) {
+            $data['count_employ_last_week_change'] = $this->admin_model->count_employ_last_week_change();
+        } else {
+            $data['count_employ_last_week_change'] = 1;
+        }
+        
         
         $data['total_items'] = $this->admin_model->count_item();
         $data['total_items_week_change'] = $this->admin_model->count_item_week_change();
+        if ($this->admin_model->count_item_last_week_change() != 0) {
+            $data['total_items_last_week_change'] = $this->admin_model->count_item_last_week_change();
+        } else {
+            $data['total_items_last_week_change'] = 0;
+        }
 
         $data['total_suppliers'] = $this->admin_model->count_suppliers();
         $data['total_categories'] = $this->admin_model->count_categories();
