@@ -120,7 +120,7 @@
 							</tfoot>
 							<tbody>
 								<?php if(!empty($items)): foreach($items as $item): ?>
-								<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?><?= isset($item->employ_id) ? '/' . $item->employ_id : '' ?>';"
+								<tr onclick="window.location='<?= base_url('admin/product_card/'.$item->id) ?><?= isset($item->employ_id) ? '/' . $item->employ_id : '' ?>';"
 									style="cursor: pointer;">
 									<td><span><?= 'S2S-'.$item->id; ?></a></td>
 									<td><?= $item->name; ?></td>
@@ -131,7 +131,7 @@
 									</td>
 									<td><?= ucwords($item->type_name); ?></td>
 									<td><?= ucwords($item->model); ?></td>
-									<td><?= ucwords($item->sup_name); ?></td>
+									<td><?= ucwords($item->supplier); ?></td>
 									<?php if(isset($assign_page)) : ?>
 									<td><?= ucwords($item->employ_name); ?></td>
 									<?php endif; ?>
