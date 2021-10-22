@@ -144,7 +144,7 @@
 				borderDash: [5, 5],
 				data: [<?= $fetch_damaged_item_sum_by_last_7 ?>, <?= $fetch_damaged_item_sum_by_last_6 ?>, 
 				<?= $fetch_damaged_item_sum_by_last_5 ?>, <?= $fetch_damaged_item_sum_by_last_4 ?>,
-				<?= $fetch_damaged_item_sum_by_last_3?>, <?= $fetch_damaged_item_sum_by_last_2 ?>,
+				<?= $fetch_damaged_item_sum_by_last_3 ?>, <?= $fetch_damaged_item_sum_by_last_2 ?>,
 				<?= $fetch_damaged_item_sum_by_last_1 ?>],
 				tension: 0.4,
 				fill: true
@@ -154,7 +154,10 @@
 				borderColor: "#82E0AA",
 				backgroundColor: "#f6fffb",
 				borderDash: [5, 5],
-				data: [234, 290, 353, 432, 467, 499, 523],
+				data: [<?= $fetch_assigned_item_sum_by_last_7 ?>, <?= $fetch_assigned_item_sum_by_last_6 ?>, 
+				<?= $fetch_assigned_item_sum_by_last_5 ?>, <?= $fetch_assigned_item_sum_by_last_4 ?>,
+				<?= $fetch_assigned_item_sum_by_last_3 ?>, <?= $fetch_assigned_item_sum_by_last_2 ?>,
+				<?= $fetch_assigned_item_sum_by_last_1 ?>],
 				tension: 0.4,
 				fill: true
 			}, {
