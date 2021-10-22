@@ -1824,9 +1824,27 @@ class Admin_model extends CI_Model{
         return true;
     }
 
-    public function fetch_item_sum_by_week() {
-        $sql ="SELECT DISTINCT (DATE(`created_at`)) AS unique_date, COUNT(*) AS amount FROM items GROUP BY `created_at` ORDER BY `created_at` ASC";
-        $rs = $this->db->query($sql)->result();
-		return $rs;
+    public function fetch_item_sum_by_last_($int) {
+        $this->db->select('*');
+        $this->db->from('items');
+        $this->db->where("items.quantity > 0");
+        $this->db->where("items.created_at <= DATE_SUB(NOW(), INTERVAL $int day)");
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
+    }
+
+    public function fetch_damaged_item_sum_by_last_($int) {
+        $this->db->select('item_assignment.id, item_assignment.item_id, item_assignment.remarks');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.id', 'left');
+        $this->db->group_by('item_assignment.item_id');
+        $this->db->where('item_assignment.remarks !=', NULL);
+        $this->db->where("item_assignment.created_at <= DATE_SUB(NOW(), INTERVAL $int day)");
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
     }
 }

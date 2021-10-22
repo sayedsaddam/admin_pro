@@ -20,7 +20,7 @@
 									<div class="columns is-vcentered">
 										<div class="column">
 											<div class="is-size-5">General</div>
-											<div class="is-size-6 has-text-grey">Last 7 days vs previous 7 days</div>
+											<div class="is-size-6 has-text-grey">Last 7 days</div>
 										</div>
 										<div class="column is-narrow">
 											<button class="card-header-icon" aria-label="more options">
@@ -76,7 +76,7 @@
 									<div class="columns is-vcentered">
 										<div class="column">
 											<div class="is-size-5">Items</div>
-											<div class="is-size-6 has-text-grey">Last 7 days vs previous 7 days</div>
+											<div class="is-size-6 has-text-grey">Last 7 days</div>
 										</div>
 										<div class="column is-narrow">
 											<button class="card-header-icon" aria-label="more options">
@@ -142,7 +142,10 @@
 				borderColor: "#E74C3C",
 				backgroundColor: "#ffedf1",
 				borderDash: [5, 5],
-				data: [3, 7, 8, 2, 2, 6, 2],
+				data: [<?= $fetch_damaged_item_sum_by_last_7 ?>, <?= $fetch_damaged_item_sum_by_last_6 ?>, 
+				<?= $fetch_damaged_item_sum_by_last_5 ?>, <?= $fetch_damaged_item_sum_by_last_4 ?>,
+				<?= $fetch_damaged_item_sum_by_last_3?>, <?= $fetch_damaged_item_sum_by_last_2 ?>,
+				<?= $fetch_damaged_item_sum_by_last_1 ?>],
 				tension: 0.4,
 				fill: true
 			}, {
@@ -159,7 +162,10 @@
 				type: "line",
 				borderColor: "#5DADE2",
 				backgroundColor: "#fcfcfc",
-				data: [623, 625, 655, 670, 677, 688, 692],
+				data: [<?= $fetch_item_sum_by_last_7 ?>, <?= $fetch_item_sum_by_last_6 ?>, 
+				<?= $fetch_item_sum_by_last_5 ?>, <?= $fetch_item_sum_by_last_4 ?>,
+				<?= $fetch_item_sum_by_last_3 ?>, <?= $fetch_item_sum_by_last_2 ?>,
+				<?= $fetch_item_sum_by_last_1 ?>],
 				tension: 0.4,
 				fill: true
 			}, ]
