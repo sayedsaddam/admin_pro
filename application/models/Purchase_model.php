@@ -27,15 +27,20 @@ class Purchase_model extends CI_Model{
                        locations.name as loc_name, 
                        suppliers.id as sup_id, 
                        suppliers.name as sup_name, 
-                       suppliers.email, 
+                       suppliers.email,
+                       items.id,
+                       items.category,
+                       items.sub_category
                        ');
     $this->db->from('purchase_orders'); 
     $this->db->join('sub_categories', 'purchase_orders.sub_category_id = sub_categories.id', 'left');  
     $this->db->join('locations', 'purchase_orders.location_id = locations.id', 'left');  
     $this->db->join('suppliers', 'purchase_orders.supplier_id = suppliers.id', 'left');  
+    $this->db->join('items', 'items.sub_category = purchase_orders.sub_category_id', 'left');  
     if (!empty($date_from) && !empty($date_to)) {  
         $this->db->where('purchase_orders.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
     }
+    $this->db->group_by('purchase_orders.id', 'ASC');
     $this->db->order_by('purchase_orders.id', 'ASC');
     $this->db->limit($limit, $offset);
     return $this->db->get()->result(); 
@@ -347,7 +352,7 @@ public function order_detail($id){
     return $this->db->get()->row();
 }
      // Get available items detail .
- public function get_item_card_detail($id){ 
+ public function get_item_card_detail($id){
     $this->db->select('items.id, 
                        items.location, 
                        items.quantity, 

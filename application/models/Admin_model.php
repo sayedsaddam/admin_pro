@@ -1040,6 +1040,8 @@ class Admin_model extends CI_Model{
                            item_assignment.item_id,
                            item_assignment.status,
                            item_assignment.return_back_date,
+                           suppliers.id sup_id,
+                           suppliers.name as sup_name
                            ');
         $this->db->from('items');
         $this->db->join('categories', 'items.category = categories.id', 'left');
@@ -1047,6 +1049,7 @@ class Admin_model extends CI_Model{
         $this->db->join('locations', 'items.location = locations.id', 'left');
         $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
         $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+        $this->db->join('suppliers', 'items.supplier = suppliers.id', 'left');
         if (!empty($date_from) && !empty($date_to)) {  
             $this->db->where('items.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
         }
@@ -1082,13 +1085,16 @@ class Admin_model extends CI_Model{
                                item_assignment.assignd_to,
                                sub_categories.name as names, 
                                categories.cat_name, 
-                               locations.name, ');
+                               locations.name,
+                               suppliers.id sup_id,
+                               suppliers.name as sup_name');
             $this->db->from('items');
             $this->db->join('categories', 'items.category = categories.id', 'left');
             $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
             $this->db->join('locations', 'items.location = locations.id', 'left');
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
             $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+            $this->db->join('suppliers', 'items.supplier = suppliers.id', 'left');
             $this->db->where('items.quantity >', 0);
             if ($this->session->userdata('user_role') != 'admin') {
                 $this->db->where('items.location', $this->session->userdata('location'));
@@ -1121,13 +1127,16 @@ class Admin_model extends CI_Model{
                                item_assignment.assignd_to,
                                sub_categories.name as names, 
                                categories.cat_name, 
-                               locations.name, ');
+                               locations.name,
+                               suppliers.id as sup_id,
+                               suppliers.name as sup_name ');
             $this->db->from('items');
             $this->db->join('categories', 'items.category = categories.id', 'left');
             $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
             $this->db->join('locations', 'items.location = locations.id', 'left');
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
             $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+            $this->db->join('suppliers', 'items.sub_category = suppliers.id', 'left');
             // $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
             // $this->db->group_by('item_assignment.item_id'); 
             $this->db->where('item_assignment.item_id !=', null);
@@ -1350,13 +1359,16 @@ class Admin_model extends CI_Model{
                 locations.name, 
                 item_assignment.status,
                 item_assignment.assignd_to,
-                item_assignment.id as item_ids');
+                item_assignment.id as item_ids,
+                suppliers.id as sup_id,
+                suppliers.name as sup_name');
         $this->db->from('items');
         $this->db->join('categories', 'items.category = categories.id', 'left');
         $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
         $this->db->join('locations', 'items.location = locations.id', 'left');
         $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
         $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+        $this->db->join('suppliers', 'items.supplier = suppliers.id', 'left');
         
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('items.location', $this->session->userdata('location'));
@@ -1434,7 +1446,7 @@ class Admin_model extends CI_Model{
     // Get location where from where employee belongs to
     public function get_employ_location($id){   
         { 
-          $this->db->select('locations.id,locations.name,users.id,users.location');
+          $this->db->select('locations.id,locations.name,users.id as emp_id,users.location');
           $this->db->from('locations');
           $this->db->join('users', 'locations.id = users.location', 'left');
           $this->db->where('users.id',$id);
@@ -1842,7 +1854,7 @@ class Admin_model extends CI_Model{
         }else{
             $this->db->select('id,name');
             $this->db->from('locations');
-            $this->db->where('id',$this->session->userdata('location')); 
+            $this->db->where('id',$location); 
             return $this->db->get()->result();
         } 
     } 

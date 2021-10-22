@@ -55,6 +55,26 @@
 					</div>
 				</div>
 
+				<?php if($this->session->flashdata('success')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-success is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('success'); ?>
+						</div>
+					</div>
+				</div>
+				<?php elseif($this->session->flashdata('failed')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-danger is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('failed'); ?>
+						</div>
+					</div>
+				</div>
+				<?php endif ?>
+
 				<form
 					action="<?php if(empty($edit)){ echo base_url('admin/employee_save'); }else{ echo base_url('admin/update_employ'); } ?>"
 					method="POST">
@@ -98,30 +118,17 @@
 						<div class="column">
 							<div class="control">
 								<label class="label is-small">Location <span class="has-text-danger">*</span></label>
-								<div class="select is-small is-fullwidth"> 
-
-                                    <!-- <select name="location" id="location" required>
-												<?php if(!isset($edit)): ?>
-												<option selected disabled value="">Select a City</option>
-												<?php endif ?>
-												<?php if(!empty($edit)): ?>
-												<option value="<?= $edit->location; ?>"
-													<?php !empty($edit) ? 'selected' : '' ?>><?= $edit->name; ?>
-												</option>
-												<?php endif; ?>
-											</select> -->
-
+								<div class="select is-small is-fullwidth">  
 											<select name="location" id="location" required>
 												<?php if(!isset($edit)): ?>
 												<option selected disabled value="">Select a City</option>
-												<?php endif ?>
+												<?php endif ?> 
 												<?php if(!empty($locations)): foreach($locations as $loc): ?>
-												<option value="<?= $loc->location; ?>"
+												<option value="<?= $loc->id; ?>"
 													<?php !empty($edit) && $edit->location == $loc->id ? 'selected' : '' ?>><?= $loc->name; ?>
 												</option>
-												<?php endforeach; endif; ?>
-											</select>
-
+												<?php endforeach; endif; ?> 
+											</select> 
 								</div>
 							</div>
 						</div>

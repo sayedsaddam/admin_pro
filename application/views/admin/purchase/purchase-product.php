@@ -82,21 +82,53 @@
 								</div>
 							</fieldset>
 						</div>
+
+
 						<div class="column">
-						<fieldset>
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Category <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<span class="select is-small is-fullwidth">
+											<select name="category" id="category" required>
+												<?php if(!isset($edit_item)): ?>
+												<option selected disabled value="">Select a Category</option>
+												<?php endif ?>
+												<?php if(!empty($categories)): foreach($categories as $cat): ?>
+												<option value="<?= $cat->id; ?>"
+													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= ucwords($cat->cat_name); ?>
+												</option>
+												<?php endforeach; endif; ?>
+											</select>
+										</span>
+										<span class="icon is-small is-left">
+											<i class="fas fa-tags"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div> 
+					</div>
+					<div class="columns">
+
+					<div class="column">
+							<fieldset>
 								<div class="field">
 									<label class="label is-small">Product <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-									<input type="text" name="product_name[]" class="input is-small" value="" type="text" placeholder=" product ..." required="">
+										<span class="select is-small is-fullwidth">
+											<select name="product_name[]" class="item_name" required> 
+												<option selected disabled value="">Select an Product</option> 
+											</select>
+										</span>
 										<span class="icon is-small is-left">
-										<i class="fab fa-product-hunt"></i>	
+											<i class="fas fa-luggage-cart"></i>
 										</span>
 									</div>
 								</div>
 							</fieldset>
 						</div>
-					</div>
-					<div class="columns">
+
 						<div class="column">
 						<fieldset>
 								<div class="field">
@@ -110,16 +142,6 @@
 								</div>
 							</fieldset>
 						</div>
-						<div class="column">  
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Description</label>
-									<div class="control has-icons-left">
-									<input type="text" name="description" id="description" class="input is-small" value="" type="text" placeholder="some detail . . ." required="">
-									</div>
-								</div>
-							</fieldset> 
-						</div>
 
 						<div class="column is-narrow">  
 							<fieldset>
@@ -130,7 +152,20 @@
 							</fieldset> 
 						</div>
 					</div>  
-					
+<!-- description row below
+					<div class="columns">
+					<div class="column">  
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Description</label>
+									<div class="control has-icons-left">
+									<input type="text" name="description" id="description" class="input is-small" value="" type="text" placeholder="some detail . . ." required="">
+									</div>
+								</div>
+							</fieldset> 
+						</div>
+					</div>
+description above					 -->
 					<div class="input_fields_wrap"> 
 					</div>
 
@@ -160,6 +195,7 @@
 
 
 <script>
+
 	// item type auto load against item
 	$(document).ready(function(){
  // City change
@@ -185,6 +221,35 @@
 });
 }); 
 
+
+$(document).ready(function () {
+
+// category change
+$('#category').on('change', function () {
+	var category = $(this).val();  
+	// AJAX request
+	$.ajax({
+		url: '<?= base_url("admin/get_item_sub_categories/"); ?>' + category,
+		method: 'POST',
+		data: {
+			category: category
+		},
+		dataType: 'json',
+		success: function (response) {
+			// Remove options 
+			$('.item_name').find('option').not(':first').remove();
+
+			// Add options
+			$.each(response, function (index, data) {
+				$('.item_name').append('<option value="' + data['id'] + '">' + data['name'] + '</option>');
+			});
+		}
+	});
+});
+});
+
+
+
 	$(document).ready(function () {
 		var max_fields = 10; //maximum input boxes allowed
 		var wrapper = $(".input_fields_wrap"); //Fields wrapper
@@ -197,13 +262,17 @@
 				$(wrapper).append(` 
 				<div class="columns">
 						<div class="column">
-							<fieldset>
+						<fieldset>
 								<div class="field">
 									<label class="label is-small">Product <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-									<input type="text" name="product_name[]" class="input is-small" value="" type="text" placeholder=" product ..." required="">
+										<span class="select is-small is-fullwidth">
+											<select name="product_name[]" class="item_name" required> 
+												<option selected disabled value="">Select an Product</option> 
+											</select>
+										</span>
 										<span class="icon is-small is-left">
-											<i class="fas fa-quote-left"></i>
+											<i class="fas fa-luggage-cart"></i>
 										</span>
 									</div>
 								</div>
