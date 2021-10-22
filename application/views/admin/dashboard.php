@@ -34,34 +34,34 @@
 								</div>
 							</div>
 							<div class="tile is-parent">
-								<div class="tile is-child clickable">
+								<div class="tile is-child clickable hoverable">
 									<div class="has-text-weight-light has-text-grey">Total Employees</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_employees ?></div>
 									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
 								</div>
-								<div class="tile is-child clickable">
+								<div class="tile is-child clickable hoverable">
 									<div class="has-text-weight-light has-text-grey">Total Items</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_items ?></div>
 									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
 								</div>
-								<div class="tile is-child clickable">
+								<div class="tile is-child clickable hoverable">
 									<div class="has-text-weight-light has-text-grey">Total Suppliers</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_suppliers ?></div>
 									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
 								</div>
 							</div>
 							<div class="tile is-parent">
-								<div class="tile is-child clickable">
+								<div class="tile is-child clickable hoverable">
 									<div class="has-text-weight-light has-text-grey">Total Categories</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_categories ?></div>
 									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
 								</div>
-								<div class="tile is-child clickable">
+								<div class="tile is-child clickable hoverable">
 									<div class="has-text-weight-light has-text-grey">Total Offices</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_offices ?></div>
 									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
 								</div>
-								<div class="tile is-child clickable">
+								<div class="tile is-child clickable hoverable">
 									<div class="has-text-weight-light has-text-grey">Total Locations</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_offices ?></div>
 									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
@@ -90,17 +90,17 @@
 								</div>
 							</div>
 							<div class="tile is-parent">
-								<div class="tile is-child clickable">
+								<div class="tile is-child clickable hoverable">
 									<div class="has-text-weight-light has-text-grey">Total Available</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_available_items ?></div>
 									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
 								</div>
-								<div class="tile is-child clickable">
+								<div class="tile is-child clickable hoverable">
 									<div class="has-text-weight-light has-text-grey">Total Assigned</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_assigned_items ?></div>
 									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
 								</div>
-								<div class="tile is-child clickable">
+								<div class="tile is-child clickable hoverable">
 									<div class="has-text-weight-light has-text-grey">Total Damaged</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_damaged_items ?></div>
 									<div class="has-text-weight-light has-text-danger is-size-7">+3 (+165%)</div>
