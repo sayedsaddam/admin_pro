@@ -11,166 +11,174 @@
 						<?php $this->view('admin/commons/breadcrumb'); ?>
 					</div>
 				</div>
-				<div class="columns">
-					<div class="column">
-						<div class="tile is-ancestor">
+
+				<div class="tile is-ancestor">
+					<div class="tile is-parent">
+						<div class="tile is-child box">
 							<div class="tile is-parent">
-								<div class="card tile is-child">
-									<div class="card-content">
-										<div class="level is-mobile has-text-centered">
-											<div class="level-item">
-												<div class="is-widget-label">
-													<h3 class="subtitle is-spaced">
-														Employees
-													</h3>
-													<small>(Total)</small>
-													<h1 class="title">
-														<?= $employee_count ?>
-													</h1>
-												</div>
-											</div>
-											<div class="level-item has-widget-icon">
-												<div class="is-widget-icon"><span
-														class="icon has-text-primary is-large"><i
-															class="fas fa-user-tie" style="font-size: 48px;"></i></span>
-												</div>
-											</div>
+								<div class="tile is-child">
+									<div class="columns is-vcentered">
+										<div class="column">
+											<div class="is-size-5">General</div>
+											<div class="is-size-6 has-text-grey">Last 7 days vs previous 7 days</div>
+										</div>
+										<div class="column is-narrow">
+											<button class="card-header-icon" aria-label="more options">
+												<span class="icon">
+													<i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+												</span>
+											</button>
 										</div>
 									</div>
+
 								</div>
 							</div>
 							<div class="tile is-parent">
-								<div class="card tile is-child">
-									<div class="card-content">
-										<div class="level is-mobile has-text-centered">
-											<div class="level-item">
-												<div class="is-widget-label">
-													<h3 class="subtitle is-spaced">
-														Items
-													</h3>
-													<small>(Total)</small>
-													<h1 class="title">
-														<?= $total_items ?>
-													</h1>
-												</div>
-											</div>
-											<div class="level-item has-widget-icon">
-												<div class="is-widget-icon"><span class="icon has-text-info is-large"><i
-															class="fas fa-sitemap" style="font-size: 48px;"></i></span>
-												</div>
-											</div>
+								<a href="<?= base_url('admin/employee') ?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Total Employees</div>
+									<div class="has-text-weight-semibold is-size-4"><?= $total_employees ?></div>
+									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
+								</a>
+								<a href="<?= base_url('admin/item_register') ?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Total Items</div>
+									<div class="has-text-weight-semibold is-size-4"><?= $total_items ?></div>
+									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
+								</a>
+								<a href="<?= base_url('admin/suppliers') ?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Total Suppliers</div>
+									<div class="has-text-weight-semibold is-size-4"><?= $total_suppliers ?></div>
+									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
+								</a>
+							</div>
+							<div class="tile is-parent">
+								<a href="<?= base_url('admin/categories') ?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Total Categories</div>
+									<div class="has-text-weight-semibold is-size-4"><?= $total_categories ?></div>
+									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
+								</a>
+								<a href="<?= base_url('admin/dashboard') ?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Total Offices</div>
+									<div class="has-text-weight-semibold is-size-4"><?= $total_offices ?></div>
+									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
+								</a>
+								<a href="<?= base_url('admin/dashboard') ?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Total Locations</div>
+									<div class="has-text-weight-semibold is-size-4"><?= $total_offices ?></div>
+									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="tile is-parent">
+						<div class="tile is-child box">
+							<div class="tile is-parent">
+								<div class="tile is-child">
+									<div class="columns is-vcentered">
+										<div class="column">
+											<div class="is-size-5">Items</div>
+											<div class="is-size-6 has-text-grey">Last 7 days vs previous 7 days</div>
+										</div>
+										<div class="column is-narrow">
+											<button class="card-header-icon" aria-label="more options">
+												<span class="icon">
+													<i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+												</span>
+											</button>
 										</div>
 									</div>
+
 								</div>
 							</div>
 							<div class="tile is-parent">
-								<div class="card tile is-child">
-									<div class="card-content">
-										<div class="level is-mobile">
-											<div class="level-item">
-												<div class="is-widget-label">
-													<h3 class="subtitle is-spaced">
-														Suppliers
-													</h3>
-													<h1 class="title">
-														256
-													</h1>
-												</div>
-											</div>
-											<div class="level-item has-widget-icon">
-												<div class="is-widget-icon"><span
-														class="icon has-text-success is-large"><i class="fas fa-users"
-															style="font-size: 48px;"></i></span>
-												</div>
-											</div>
-										</div>
-									</div>
+								<a href="<?= base_url('admin/available_item_list') ?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Total Available</div>
+									<div class="has-text-weight-semibold is-size-4"><?= $total_available_items ?></div>
+									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
+								</a>
+								<a href="<?= base_url('admin/get_assign_item') ?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Total Assigned</div>
+									<div class="has-text-weight-semibold is-size-4"><?= $total_assigned_items ?></div>
+									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
+								</a>
+								<a href="<?= base_url('admin/dashboard') ?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Total Damaged</div>
+									<div class="has-text-weight-semibold is-size-4"><?= $total_damaged_items ?></div>
+									<div class="has-text-weight-light has-text-danger is-size-7">+3 (+165%)</div>
+								</a>
+							</div>
+							<div class="tile is-parent">
+								<div class="tile is-child">
+									<canvas id="myChart" height="70"></canvas>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="columns">
-					<div class="column">
-						<div class="tile is-ancestor">
-							<div class="tile is-parent">
-								<div class="card tile is-child">
-									<div class="card-content">
-										<div class="level is-mobile has-text-centered">
-											<div class="level-item">
-												<div class="is-widget-label">
-													<h3 class="subtitle is-spaced">
-														Items 
-													</h3>
-													<small>(Available)</small>
-													<h1 class="title">
-														321
-													</h1>
-												</div>
-											</div>
-											<div class="level-item has-widget-icon">
-												<div class="is-widget-icon"><span
-														class="icon has-text-info is-large"><i
-															class="fas fa-check-circle" style="font-size: 48px;"></i></span>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="tile is-parent">
-								<div class="card tile is-child">
-									<div class="card-content">
-										<div class="level is-mobile has-text-centered">
-											<div class="level-item">
-												<div class="is-widget-label">
-													<h3 class="subtitle is-spaced">
-														Items
-													</h3>
-													<small>(Assigned)</small>
-													<h1 class="title">
-														235
-													</h1>
-												</div>
-											</div>
-											<div class="level-item has-widget-icon">
-												<div class="is-widget-icon"><span class="icon has-text-primary is-large"><i
-															class="fas fa-thumbs-up" style="font-size: 48px;"></i></span>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="tile is-parent">
-								<div class="card tile is-child">
-									<div class="card-content">
-										<div class="level is-mobile has-text-centered">
-											<div class="level-item">
-												<div class="is-widget-label">
-													<h3 class="subtitle is-spaced">
-														Items
-													</h3>
-													<small>(Damaged)</small>
-													<h1 class="title">
-														754
-													</h1>
-												</div>
-											</div>
-											<div class="level-item has-widget-icon">
-												<div class="is-widget-icon"><span
-														class="icon has-text-danger is-large"><i class="fas fa-cookie-bite"
-															style="font-size: 48px;"></i></span>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+
+				<!-- <div class="column">
+					<div class="is-size-5">General</div>
+					<div class="is-size-6 has-text-grey">Last 7 days vs previous 7 days</div>
 				</div>
+				<div class="column is-narrow">
+					<button class="card-header-icon" aria-label="more options">
+						<span class="icon">
+							<i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+				 -->
 			</div>
 		</div>
 	</div>
 </section>
+<script>
+	new Chart(document.getElementById("myChart"), {
+		type: 'line',
+		data: {
+			labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+			datasets: [{
+				label: "Damaged",
+				type: "line",
+				borderColor: "#E74C3C",
+				backgroundColor: "#ffedf1",
+				borderDash: [5, 5],
+				data: [3, 7, 8, 2, 2, 6, 2],
+				tension: 0.4,
+				fill: true
+			}, {
+				label: "Assigned",
+				type: "line",
+				borderColor: "#82E0AA",
+				backgroundColor: "#f6fffb",
+				borderDash: [5, 5],
+				data: [234, 290, 353, 432, 467, 499, 523],
+				tension: 0.4,
+				fill: true
+			}, {
+				label: "Available",
+				type: "line",
+				borderColor: "#5DADE2",
+				backgroundColor: "#fcfcfc",
+				data: [623, 625, 655, 670, 677, 688, 692],
+				tension: 0.4,
+				fill: true
+			}, ]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+        plugins: {
+            legend: false // Hide legend
+        },
+        scales: {
+            y: {
+                display: false // Hide Y axis labels
+            },
+            x: {
+                display: false // Hide X axis labels
+            }
+        }  
+		},
+	});
+
+</script>
