@@ -37,12 +37,12 @@
 								<a href="<?= base_url('admin/employee') ?>" class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Total Employees</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_employees ?></div>
-									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
+									<div class="has-text-weight-light has-text-success is-size-7">+<?= $count_employ_week_change ?> (+165%)</div>
 								</a>
 								<a href="<?= base_url('admin/item_register') ?>" class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Total Items</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_items ?></div>
-									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
+									<div class="has-text-weight-light has-text-success is-size-7">+<?= $total_items_week_change ?> (+165%)</div>
 								</a>
 								<a href="<?= base_url('admin/suppliers') ?>" class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Total Suppliers</div>
