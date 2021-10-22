@@ -35,19 +35,37 @@
 							</div>
 							<div class="tile is-parent">
 								<a href="<?= base_url('admin/employee') ?>" class="tile is-child clickable hoverable has-text-dark">
-									<div class="has-text-weight-light has-text-grey">Total Employees</div>
+									<div class="has-text-weight-light has-text-grey">Total Staff</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_employees ?></div>
-									<div class="has-text-weight-light has-text-success is-size-7">+<?= $count_employ_week_change ?> (+<?= intval(($count_employ_week_change / $count_employ_last_week_change) * 100) ?>%)</div>
+									<?php if($count_employ_week_change > $count_employ_last_week_change) : ?>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $count_employ_week_change ?></span> <span class="has-text-success">(+<?= intval(($count_employ_week_change / $count_employ_last_week_change) * 100) ?>%)</span></div>
+									<?php elseif($count_employ_week_change == $count_employ_last_week_change) : ?>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $count_employ_week_change ?></span> <span class="has-text-grey">(+0%)</span></div>
+									<?php else : ?>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $count_employ_week_change ?></span> <span class="has-text-danger">(-<?= intval(($count_employ_week_change / $count_employ_last_week_change) * 100) ?>%)</span></div>
+									<?php endif ?>
 								</a>
 								<a href="<?= base_url('admin/item_register') ?>" class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Total Items</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_items ?></div>
-									<div class="has-text-weight-light has-text-success is-size-7">+<?= $total_items_week_change ?> (+<?= intval(($total_items_week_change / $total_items_last_week_change) * 100) ?>%)</div>
+									<?php if($total_items_week_change > $total_items_last_week_change) : ?>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_items_week_change ?></span> <span class="has-text-success">(+<?= intval(($total_items_week_change / $total_items_last_week_change) * 100) ?>%)</span></div>
+									<?php elseif($total_items_week_change == $total_items_last_week_change) : ?>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_items_week_change ?></span> <span class="has-text-grey">(+0%)</span></div>
+									<?php else : ?>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_items_week_change ?></span> <span class="has-text-danger">(-<?= intval(($total_items_week_change / $total_items_last_week_change) * 100) ?>%)</span></div>
+									<?php endif ?>
 								</a>
 								<a href="<?= base_url('admin/suppliers') ?>" class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Total Suppliers</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_suppliers ?></div>
-									<div class="has-text-weight-light has-text-success is-size-7">+<?= $total_suppliers_week_change ?> (+<?= intval(($total_suppliers_week_change / $total_suppliers_last_week_change) * 100) ?>%)</div>
+									<?php if($total_suppliers_week_change > $total_suppliers_last_week_change) : ?>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_suppliers_week_change ?></span> <span class="has-text-success">(+<?= intval(($total_suppliers_week_change / $total_suppliers_last_week_change) * 100) ?>%)</span></div>
+									<?php elseif($total_suppliers_week_change == $total_suppliers_last_week_change) : ?>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_suppliers_week_change ?></span> <span class="has-text-grey">(+0%)</span></div>
+									<?php else : ?>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_suppliers_week_change ?></span> <span class="has-text-danger">(-<?= intval(($total_suppliers_week_change / $total_suppliers_last_week_change) * 100) ?>%)</span></div>
+									<?php endif ?>
 								</a>
 							</div>
 							<div class="tile is-parent">
