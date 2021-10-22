@@ -47,7 +47,7 @@
  									<span class="icon is-small">
  										<i class="fas fa-plus"></i>
  									</span>
- 									<span>Add New Category</span>
+ 									<span>Add Category</span>
  								</button>
  							</p>
  						</div>
