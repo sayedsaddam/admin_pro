@@ -1243,6 +1243,27 @@ class Admin_model extends CI_Model{
         $num_results = $this->db->count_all_results();
         return $num_results;
     }
+
+    // Count Available Items
+    public function count_available_items() {
+        $this->db->select('items.id');
+        $this->db->from('items');
+        $this->db->where('items.quantity >', 0);
+        $num_results = $this->db->count_all_results();
+        return $num_results;
+    }
+
+    // Count Damage Items
+    public function count_damaged_items() {
+        $this->db->select('item_assignment.id, item_assignment.item_id, item_assignment.remarks');
+        $this->db->from('item_assignment');
+        $this->db->group_by('item_assignment.item_id');
+        $this->db->where('item_assignment.remarks !=', NULL);
+        $num_results = $this->db->count_all_results();
+        return $num_results;
+    }
+
+    
     // get sub categories for edit item page 
     public function get_item_depreciation($id){
         return $this->db->from('items')->where('id',$id)->get()->result();
