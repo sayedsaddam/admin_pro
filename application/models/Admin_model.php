@@ -967,6 +967,16 @@ class Admin_model extends CI_Model{
         $num_results = $this->db->count_all_results();
         return $num_results;
     }
+    // Count all items 
+    public function count_item_week_change(){
+        $this->db->from('items');
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        $this->db->where('items.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now();');
+        $num_results = $this->db->count_all_results();
+        return $num_results;
+    }
     // Count all items by date
     public function count_item_date($date_from, $date_to) {
         $this->db->select('id');
@@ -1508,6 +1518,17 @@ class Admin_model extends CI_Model{
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('users.location', $this->session->userdata('location'));
         }
+        return $this->db->count_all_results();
+    }
+
+    // Count employee comparing between two weeks
+    public function count_employ_week_change(){
+        $this->db->from('users');
+        $this->db->where(array('status' => 1));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('users.location', $this->session->userdata('location'));
+        }
+        $this->db->where('users.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now();');
         return $this->db->count_all_results();
     }
 
