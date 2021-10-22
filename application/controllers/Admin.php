@@ -42,7 +42,7 @@ class Admin extends CI_Controller{
         if ($this->admin_model->count_item_last_week_change() != 0) {
             $data['total_items_last_week_change'] = $this->admin_model->count_item_last_week_change();
         } else {
-            $data['total_items_last_week_change'] = 0;
+            $data['total_items_last_week_change'] = 1;
         }
 
         $data['total_suppliers'] = $this->admin_model->count_suppliers();
@@ -50,7 +50,7 @@ class Admin extends CI_Controller{
         if ($this->admin_model->count_suppliers_last_week_change() != 0) {
             $data['total_suppliers_last_week_change'] = $this->admin_model->count_suppliers_last_week_change();
         } else {
-            $data['total_suppliers_last_week_change'] = 0;
+            $data['total_suppliers_last_week_change'] = 1;
         }
 
         $data['total_categories'] = $this->admin_model->count_categories();
