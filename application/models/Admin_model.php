@@ -166,6 +166,26 @@ class Admin_model extends CI_Model{
         }
         return $this->db->count_all_results();
     }
+    // Count suppliers
+    public function count_suppliers_week_change(){
+        $this->db->from('suppliers');
+        $this->db->where(array('status' => 1));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('suppliers.location', $this->session->userdata('location'));
+        }
+        $this->db->where('suppliers.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now();');
+        return $this->db->count_all_results();
+    }
+    // Count suppliers
+    public function count_suppliers_last_week_change(){
+        $this->db->from('suppliers');
+        $this->db->where(array('status' => 1));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('suppliers.location', $this->session->userdata('location'));
+        }
+        $this->db->where('suppliers.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK);');
+        return $this->db->count_all_results();
+    }
     // Get suppliers
     public function get_suppliers($limit, $offset){
         $this->db->select('suppliers.id as sup_id, suppliers.name sup_name, suppliers.category, suppliers.email, suppliers.phone, suppliers.location, suppliers.region,suppliers.ntn_number,suppliers.rating, suppliers.address, suppliers.status, suppliers.created_at,locations.id,locations.name,categories.id as cat_id,categories.cat_name');
@@ -967,6 +987,26 @@ class Admin_model extends CI_Model{
         $num_results = $this->db->count_all_results();
         return $num_results;
     }
+    // Count all items between two weeks
+    public function count_item_week_change(){
+        $this->db->from('items');
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        $this->db->where('items.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now();');
+        $num_results = $this->db->count_all_results();
+        return $num_results;
+    }
+    // Count all items by last two week
+    public function count_item_last_week_change(){
+        $this->db->from('items');
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        $this->db->where('items.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK);');
+        $num_results = $this->db->count_all_results();
+        return $num_results;
+    }
     // Count all items by date
     public function count_item_date($date_from, $date_to) {
         $this->db->select('id');
@@ -1523,6 +1563,28 @@ class Admin_model extends CI_Model{
         return $this->db->count_all_results();
     }
 
+    // Count employee comparing between two weeks
+    public function count_employ_week_change(){
+        $this->db->from('users');
+        $this->db->where(array('status' => 1));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('users.location', $this->session->userdata('location'));
+        }
+        $this->db->where('users.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now();');
+        return $this->db->count_all_results();
+    }
+
+    // Count employee from two weeks before
+    public function count_employ_last_week_change(){
+        $this->db->from('users');
+        $this->db->where(array('status' => 1));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('users.location', $this->session->userdata('location'));
+        }
+        $this->db->where('users.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK);');
+        return $this->db->count_all_results();
+    }
+
     // Count employ by location
     public function count_employ_by_location($location){
         return $this->db->from('users')->where(array('status' => 1, 'location' => $location))->count_all_results();
@@ -1824,9 +1886,39 @@ class Admin_model extends CI_Model{
         return true;
     }
 
-    public function fetch_item_sum_by_week() {
-        $sql ="SELECT DISTINCT (DATE(`created_at`)) AS unique_date, COUNT(*) AS amount FROM items GROUP BY `created_at` ORDER BY `created_at` ASC";
-        $rs = $this->db->query($sql)->result();
-		return $rs;
+    public function fetch_item_sum_by_last_($int) {
+        $this->db->select('*');
+        $this->db->from('items');
+        $this->db->where("items.quantity > 0");
+        $this->db->where("items.created_at <= DATE_SUB(NOW(), INTERVAL $int day)");
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
+    }
+
+    public function fetch_damaged_item_sum_by_last_($int) {
+        $this->db->select('item_assignment.id, item_assignment.item_id, item_assignment.remarks');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.id', 'left');
+        $this->db->group_by('item_assignment.item_id');
+        $this->db->where('item_assignment.remarks !=', NULL);
+        $this->db->where("item_assignment.created_at <= DATE_SUB(NOW(), INTERVAL $int day)");
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
+    }
+
+    public function fetch_assigned_item_sum_by_last_($int) {
+        $this->db->select('id');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
+        $this->db->where('return_back_date !=', null);
+        $this->db->where("item_assignment.created_at <= DATE_SUB(NOW(), INTERVAL $int day)");
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.id', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
     }
 }
