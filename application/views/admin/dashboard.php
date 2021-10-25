@@ -72,7 +72,13 @@
 								<a href="<?= base_url('admin/categories') ?>" class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Total Categories</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_categories ?></div>
-									<div class="has-text-weight-light has-text-success is-size-7">+3 (+165%)</div>
+									<?php if($total_categories_week_change > $total_categories_last_week_change) : ?>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_categories_week_change ?></span> <span class="has-text-success">(+<?= intval(($total_categories_week_change / $total_categories_last_week_change) * 100) ?>%)</span></div>
+									<?php elseif($total_categories_week_change == $total_categories_last_week_change) : ?>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_categories_week_change ?></span> <span class="has-text-grey">(+0%)</span></div>
+									<?php else : ?>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_categories_week_change ?></span> <span class="has-text-danger">(-<?= intval(($total_categories_week_change / $total_categories_last_week_change) * 100) ?>%)</span></div>
+									<?php endif ?>
 								</a>
 								<a href="<?= base_url('admin/dashboard') ?>" class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Total Offices</div>

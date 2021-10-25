@@ -725,6 +725,21 @@ class Admin_model extends CI_Model{
         $this->db->from('categories');
         return $this->db->count_all_results();
     }
+
+    // Count categories (week change)
+    public function count_categories_week_change(){
+        $this->db->from('categories');
+        $this->db->where('categories.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now();');
+        return $this->db->count_all_results();
+    }
+
+    // Count categories (2 weeks change)
+    public function count_categories_last_week_change(){
+        $this->db->from('categories');
+        $this->db->where('categories.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK);');
+        return $this->db->count_all_results();
+    }
+
     // Categories > List categories and sub categories
     public function categories($limit, $offset){
         $this->db->select('categories.id,
