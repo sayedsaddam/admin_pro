@@ -98,8 +98,8 @@
 							<p id="current"> </p>
 						</div>
 					</div>
-					<?php else : ?> 
-						
+					<?php else : ?>
+
 					<div class="row">
 						<div class="col-md-6">
 							<p>Location</p>
@@ -307,9 +307,9 @@
 		});
 	});
 
-// code to show current value of product	
+	// code to show current value of product	
 	$(document).ready(function () {
-		var price = document.getElementById("price").innerHTML; 
+		var price = document.getElementById("price").innerHTML;
 		var price = price.replace(/&nbsp;/, '');
 		var dep = document.getElementById("dep").innerHTML;
 		currentval = price * dep / 100;
