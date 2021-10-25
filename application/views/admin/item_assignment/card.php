@@ -88,7 +88,7 @@
 
 								<?php if(!empty($items)): ?>
 
-
+							<p class="title has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd. Islamabad, 44000</p> 
 								<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
 									<?= $items[0]->cat_name ?>
 									<strong>Subcategory</strong> &raquo; <?= ucfirst($items[0]->names); ?>
@@ -127,6 +127,7 @@
 										</div>
 
 										<?php else : ?>
+					<p class="title has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd. Islamabad, 44000</p> 
 										<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
 										<?= $item->cat_name; ?>
 											<strong>Subcategory</strong> &raquo; <?= $item->names; ?> <strong>Product</strong> <?= $item->type_name; ?>
@@ -142,7 +143,7 @@
 
 												<div class="column has-text-left ml-6">
 													<p><strong>Product</strong></p>
-													<p><strong>Serial No</strong> &raquo; <?= $item->cat_name; ?></p>
+													<p><strong>Serial No</strong> &raquo; <?= $item->serial_number; ?></p>
 													<p><strong>Purchase Date</strong> &raquo;
 														<?= date('M d, Y', strtotime($item->purchasedate)); ?></p>
 													<p><strong>Price</strong> &raquo; <?= $item->price;?> </p>
@@ -180,8 +181,7 @@
 														<thead>
 
 															<tr>
-																<th>NO</th>
-																<th>Assign To</th>
+																<th>NO</th> 
 																<th>Assign Date</th>
 																<th>Reason</th>
 																<th>Date</th>
@@ -201,8 +201,7 @@
     ?>
 						<?php $returned_date = $item->return_back_date;
             $returned_date = ($returned_date) ? date('M d, Y', strtotime($item->return_back_date)) : ' Still In custody';?>
-					<td><?php echo $id++; ?></td>
-					<td><?= ucfirst($item->employ)?></td>
+					<td><?php echo $id++; ?></td> 
 					  <td><?php if(!empty($item->assign_date))
             {echo date('M d, Y', strtotime($item->assign_date)).'</date>';} 
             else{
