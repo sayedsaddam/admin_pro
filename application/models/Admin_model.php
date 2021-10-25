@@ -1177,7 +1177,7 @@ class Admin_model extends CI_Model{
     $this->db->join('locations', 'items.location = locations.id', 'left');
     $this->db->join('categories', 'items.category = categories.id', 'left'); 
     $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
-    $this->db->join('users', 'items.location = users.location', 'left');
+    $this->db->join('users', 'items.employee_id = users.id', 'left');
     $this->db->where('items.id', $id);
     $this->db->order_by('id', 'ASC');
     return $this->db->get()->row(); 
@@ -1844,6 +1844,8 @@ class Admin_model extends CI_Model{
                        users.fullname as employ,
                        users.location,
                        users.id as employ_id,
+                       users.phone,
+                       users.department,
                        sub_categories.name as names, 
                        categories.cat_name, 
                        locations.name,
@@ -1855,13 +1857,15 @@ class Admin_model extends CI_Model{
                        item_assignment.return_back_date,
                        item_assignment.created_at as assign_date,
                        item_assignment.assignd_to, 
-                       item_assignment.status');
+                       item_assignment.status, 
+                       ');
     $this->db->from('items');
     $this->db->join('categories', 'items.category = categories.id', 'left'); 
     $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
     $this->db->join('locations', 'items.location = locations.id', 'left');
     $this->db->join('item_assignment', 'item_assignment.item_id = items.id', 'left');
-    $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left'); 
+    // $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left'); 
+    $this->db->join('users', 'items.employee_id = users.id', 'left'); 
     $this->db->where('item_assignment.item_id', $id);
     if(isset($employ_id)){
         $this->db->where('item_assignment.assignd_to', $employ_id);

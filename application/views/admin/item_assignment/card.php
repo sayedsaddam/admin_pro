@@ -13,7 +13,8 @@
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" type="search"
-										placeholder="Search Items" value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
+										placeholder="Search Items"
+										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
 									</span>
@@ -85,56 +86,69 @@
 							<div class="card">
 
 
-							<?php if(!empty($items)): ?>
+								<?php if(!empty($items)): ?>
 
 
-								<p class="subtitle has-text-centered"><strong>Category</strong> &raquo; <?= $items[0]->cat_name ?>
-									<strong>Subcategory</strong> &raquo; <?= ucfirst($items[0]->names); ?> <strong>Product</strong> <?=$items[0]->type_name."(".$items[0]->quantity.")";?></p>
+								<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
+									<?= $items[0]->cat_name ?>
+									<strong>Subcategory</strong> &raquo; <?= ucfirst($items[0]->names); ?>
+									<strong>Product</strong> <?=$items[0]->type_name."(".$items[0]->quantity.")";?></p>
 								<p class="card-title is-size-4">
 
-								<div class="card-content">
+									<div class="card-content">
 
 
-<div class="columns">
+										<div class="columns">
 
-	<div class="column has-text-left ml-6">
-		<p><strong>Product</strong></p>
-		<p><strong>Serial No</strong> &raquo; <?=ucfirst($items[0]->serial_number);?></p>
-		<p><strong>Purchase Date</strong> &raquo; <?= date('M d, Y', strtotime($items[0]->purchasedate)); ?></p>
-		<p><strong>Price</strong> &raquo; <<?php echo "<p id='price'>". $items[0]->price.'</p>';?> </p>
-		<p><strong>Depreciation</strong> &raquo; <?php echo "<span id='dep'>".$items[0]->depreciation .'</span>'. "(%)"; ?> </p>
-		<p><strong>Current Value</strong> &raquo; <p id="current"> </p> </p>
-	</div>
+											<div class="column has-text-left ml-6">
+												<p><strong>Product</strong></p>
+												<p><strong>Serial No</strong> &raquo;
+													<?=ucfirst($items[0]->serial_number);?></p>
+												<p><strong>Purchase Date</strong> &raquo;
+													<?= date('M d, Y', strtotime($items[0]->purchasedate)); ?></p>
+												<p><strong>Price</strong> &raquo;
+												<?php echo $items[0]->price.'</p>';?> <p>
+														<strong>Depreciation</strong> &raquo;
+														<?php echo "<span id='dep'>".$items[0]->depreciation .'</span>'. "(%)"; ?>
+												</p>
+												<p><strong>Current Value</strong> &raquo; <p id="current"> </p>
+												</p>
+											</div>
 
-	<div class="column has-text-left">
-		<p><strong>Employee</strong></p>
-		<p> <strong> Employee </strong> &raquo; <?= ucfirst($items[0]->names); ?></p>
-		<p> <strong> Designation</strong> &raquo; <?= ucfirst($items[0]->names); ?></p>
-		<p> <strong> Department</strong> &raquo; <?= ucfirst($items[0]->names); ?></p>
-		<p> <strong> Date Of Joining </strong>&raquo; oct-1st-2021</p>
-		<p> <strong> Contact </strong>&raquo; <?= ucfirst($items[0]->names); ?> 0345-587684969</p>
-	</div>
-</div>
+											<div class="column has-text-left">
+												<p><strong>Employee</strong></p>
+												<p> <strong> Name </strong> &raquo;
+													<?= ucfirst($items[0]->employ); ?></p> 
+												<p> <strong> Department</strong> &raquo;
+													<?= ucfirst($items[0]->department); ?></p>
+												<p> <strong> Date Of Joining </strong>&raquo; oct-1st-2021</p>
+												<p> <strong> Contact </strong>&raquo; <?= ucfirst($items[0]->phone); ?></p>
+											</div>
+										</div>
 
-<?php else : ?>
-	<p class="subtitle has-text-centered"><strong>Category</strong> &raquo; Electronic
-									<strong>Subcategory</strong> &raquo; Laptop <strong>Product</strong> Dell</p>
-								<p class="card-title is-size-4">
+										<?php else : ?>
+										<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
+											Electronic
+											<strong>Subcategory</strong> &raquo; Laptop <strong>Product</strong> Dell
+										</p>
+										<p class="card-title is-size-4">
 
-								</p>
+										</p>
 
-								<div class="card-content">
+										<div class="card-content">
 
 
-									<div class="columns">
+											<div class="columns">
 
-										<div class="column has-text-left ml-6">
-											<p><strong>Product</strong></p>
-											<p><strong>Serial No</strong> &raquo; <?= $item->cat_name; ?></p>
-											<p><strong>Purchase Date</strong> &raquo; <?= date('M d, Y', strtotime($item->purchasedate)); ?></p>
-											<p><strong>Price</strong> &raquo; <?= $item->price;?> </p>
-											<p><strong>Depreciation</strong> &raquo; <?php echo $item->depreciation . " (%)"; ?> </p>
-											<p><strong>Current Value</strong> &raquo; 	<?php  
+												<div class="column has-text-left ml-6">
+													<p><strong>Product</strong></p>
+													<p><strong>Serial No</strong> &raquo; <?= $item->cat_name; ?></p>
+													<p><strong>Purchase Date</strong> &raquo;
+														<?= date('M d, Y', strtotime($item->purchasedate)); ?></p>
+													<p><strong>Price</strong> &raquo; <?= $item->price;?> </p>
+													<p><strong>Depreciation</strong> &raquo;
+														<?php echo $item->depreciation . " (%)"; ?> </p>
+													<p><strong>Current Value</strong> &raquo; <?php  
 											error_reporting(0);
 											if($item->depreciation > 0){ 
 											$depreciation = ($item->price*$item->depreciation / 100) ;  
@@ -142,63 +156,112 @@
 											
 											}
 											?> </p>
-										</div>
+												</div>
 
-										<div class="column has-text-left">
-											<p><strong>Employee</strong></p>
-											<p> <strong> Employee </strong> &raquo;  <?= $item->fullname;?></p>
-											<p> <strong> Designation</strong> &raquo; Developer</p>
-											<p> <strong> Department</strong> &raquo;  <?= $item->department;?></p>
-											<p> <strong> Date Of Joining </strong>&raquo;  <?= $item->doj;?></p>
-											<p> <strong> Contact </strong>&raquo;  <?= $item->phone;?></p>
+												<div class="column has-text-left">
+													<p><strong>Employee</strong></p>
+													<p> <strong> Name </strong> &raquo; <?= $item->fullname;?></p>
+													<p> <strong> Department</strong> &raquo; <?= $item->department;?>
+													</p>
+													<p> <strong> Date Of Joining </strong>&raquo;
+														<?= date('M d, Y', strtotime($item->doj)); ?></p>
+													<p> <strong> Contact </strong>&raquo; <?= $item->phone;?></p>
+												</div>
+											</div>
+											<span style='color: red;font-weight: bold'>This item still not assign to any emplye </span>
+											<?php endif; ?>
+
+
+											<div class="columns">
+												<div class="column">
+													<?php if(!empty($items)): ?>
+
+													<table class="table is-fullwidth">
+														<thead>
+
+															<tr>
+																<th>NO</th>
+																<th>Assign To</th>
+																<th>Assign Date</th>
+																<th>Reason</th>
+																<th>Date</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<?php $id = 1; ?>
+																<?php if(!empty($items)): foreach($items as $item): ?>
+															<tr>
+																<!-- below some php code writen for available data which is not assign to someone -->
+																<?php if(empty($item->assign_date)){
+            ?><div class="col-sm-12 text-center"> <strong>Availabe Still Not Assignd</strong> </div>
+																<?php 
+    }
+    else{
+    ?>
+						<?php $returned_date = $item->return_back_date;
+            $returned_date = ($returned_date) ? date('M d, Y', strtotime($item->return_back_date)) : ' Still In custody';?>
+					<td><?php echo $id++; ?></td>
+					<td><?= ucfirst($item->employ)?></td>
+					  <td><?php if(!empty($item->assign_date))
+            {echo date('M d, Y', strtotime($item->assign_date)).'</date>';} 
+            else{
+            echo "<span'> - - - - - </span>";} ?>
+			</td>
+			<td>
+			<?php if(!empty($item->return_back_date))
+            {echo ' '.$item->returning_description;} 
+            else{
+            echo "<span style='font-weight:bold'>   - - - - - - </span>";} ?>
+				</td>
+			<td> <?php if(!empty($item->return_back_date))
+            {echo date('M d, Y', strtotime($item->return_back_date));} 
+            else{
+            echo "<span style='font-weight:bold'> Still In custody </span>";} ?>
+			</td>
+																<?php } ?>
+
+															</tr>
+															<?php endforeach;  ?>
+														</tbody>
+													</table>
+													<?php endif;  ?>
+
+													<?php 
+ endif;
+?>
+												</div>
+											</div>
+
+											<div class="buttons is-pulled-right">
+												<button onclick="window.print();" type="button"
+													class="button is-normal is-hidden-print">
+													<span class="icon is-small">
+														<i class="fas fa-print"></i>
+													</span>
+													<span>Print</span>
+												</button>
+											</div>
+											<br>
+
 										</div>
 									</div>
-
-	<?php endif; ?> 
-
-
-									<div class="columns">
-										<div class="column">
-											
-											<table class="table is-fullwidth">
-												<thead>
-													
-													<tr>
-														<th>NO</th>
-														<th>Name</th>
-														<th>assign to</th>
-														<th>date</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>1</td>
-														<td>samad</td>
-														<td>aug-12-2021</td>
-														<td>aug-12-2021</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div> 
-
-                                    <div class="buttons is-pulled-right">
-							<button onclick="window.print();" type="button" class="button is-normal is-hidden-print">
-								<span class="icon is-small">
-									<i class="fas fa-print"></i>
-								</span>
-								<span>Print</span>
-							</button> 
-						</div>
-                        <br>
-
-								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
+				</div>
 			</div>
 		</div>
-	</div>
 </section>
+<script>
+		// code to show current value of product	
+		$(document).ready(function () {
+		var price = document.getElementById("price").innerHTML;
+		var price = price.replace(/&nbsp;/, '');
+		var dep = document.getElementById("dep").innerHTML;
+		currentval = price * dep / 100;
+		alert(currentval = price * dep / 100)
+		var output = document.getElementById("current").innerHTML = currentval;
+	});
+</script>

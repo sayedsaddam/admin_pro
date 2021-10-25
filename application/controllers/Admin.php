@@ -1396,6 +1396,7 @@ class Admin extends CI_Controller{
             'price' => $this->input->post('price'), 
             'purchasedate' => $this->input->post('purchasedate'),
             'depreciation' => $this->input->post('depreciation'), 
+            'employee_id' => $this->session->userdata('id'),
             'created_at' => date('Y-m-d')
         );  
         if($this->admin_model->item_save($data, $model, $this->input->post('quantity'))){
