@@ -39,7 +39,7 @@
 									<div class="has-text-weight-semibold is-size-4"><?= $total_employees ?></div>
 									<?php if($count_employ_week_change > $count_employ_last_week_change) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $count_employ_week_change ?></span> <span class="has-text-success">(+<?= intval(($count_employ_week_change / $count_employ_last_week_change) * 100) ?>%)</span></div>
-									<?php elseif($count_employ_week_change == $count_employ_last_week_change) : ?>
+									<?php elseif($count_employ_week_change == $count_employ_last_week_change || $count_employ_week_change == 0) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $count_employ_week_change ?></span> <span class="has-text-grey">(+0%)</span></div>
 									<?php else : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $count_employ_week_change ?></span> <span class="has-text-danger">(-<?= intval(($count_employ_week_change / $count_employ_last_week_change) * 100) ?>%)</span></div>
@@ -50,7 +50,7 @@
 									<div class="has-text-weight-semibold is-size-4"><?= $total_items ?></div>
 									<?php if($total_items_week_change > $total_items_last_week_change) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_items_week_change ?></span> <span class="has-text-success">(+<?= intval(($total_items_week_change / $total_items_last_week_change) * 100) ?>%)</span></div>
-									<?php elseif($total_items_week_change == $total_items_last_week_change) : ?>
+									<?php elseif($total_items_week_change == $total_items_last_week_change || $total_items_week_change == 0) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_items_week_change ?></span> <span class="has-text-grey">(+0%)</span></div>
 									<?php else : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_items_week_change ?></span> <span class="has-text-danger">(-<?= intval(($total_items_week_change / $total_items_last_week_change) * 100) ?>%)</span></div>
@@ -61,7 +61,7 @@
 									<div class="has-text-weight-semibold is-size-4"><?= $total_suppliers ?></div>
 									<?php if($total_suppliers_week_change > $total_suppliers_last_week_change) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_suppliers_week_change ?></span> <span class="has-text-success">(+<?= intval(($total_suppliers_week_change / $total_suppliers_last_week_change) * 100) ?>%)</span></div>
-									<?php elseif($total_suppliers_week_change == $total_suppliers_last_week_change) : ?>
+									<?php elseif($total_suppliers_week_change == $total_suppliers_last_week_change || $total_suppliers_week_change == 0) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_suppliers_week_change ?></span> <span class="has-text-grey">(+0%)</span></div>
 									<?php else : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_suppliers_week_change ?></span> <span class="has-text-danger">(-<?= intval(($total_suppliers_week_change / $total_suppliers_last_week_change) * 100) ?>%)</span></div>
@@ -74,7 +74,7 @@
 									<div class="has-text-weight-semibold is-size-4"><?= $total_categories ?></div>
 									<?php if($total_categories_week_change > $total_categories_last_week_change) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_categories_week_change ?></span> <span class="has-text-success">(+<?= intval(($total_categories_week_change / $total_categories_last_week_change) * 100) ?>%)</span></div>
-									<?php elseif($total_categories_week_change == $total_categories_last_week_change) : ?>
+									<?php elseif($total_categories_week_change == $total_categories_last_week_change || $total_categories_week_change == 0) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_categories_week_change ?></span> <span class="has-text-grey">(+0%)</span></div>
 									<?php else : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_categories_week_change ?></span> <span class="has-text-danger">(-<?= intval(($total_categories_week_change / $total_categories_last_week_change) * 100) ?>%)</span></div>
@@ -85,7 +85,7 @@
 									<div class="has-text-weight-semibold is-size-4"><?= $total_offices ?></div>
 									<?php if($total_offices_week_change > $total_offices_last_week_change) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_offices_week_change ?></span> <span class="has-text-success">(+<?= intval(($total_offices_week_change / $total_offices_last_week_change) * 100) ?>%)</span></div>
-									<?php elseif($total_offices_week_change == $total_offices_last_week_change) : ?>
+									<?php elseif($total_offices_week_change == $total_offices_last_week_change || $total_offices_week_change == 0) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_offices_week_change ?></span> <span class="has-text-grey">(+0%)</span></div>
 									<?php else : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_offices_week_change ?></span> <span class="has-text-danger">(-<?= intval(($total_offices_week_change / $total_offices_last_week_change) * 100) ?>%)</span></div>
@@ -96,7 +96,7 @@
 									<div class="has-text-weight-semibold is-size-4"><?= $total_offices ?></div>
 									<?php if($total_offices_week_change > $total_offices_last_week_change) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_offices_week_change ?></span> <span class="has-text-success">(+<?= intval(($total_offices_week_change / $total_offices_last_week_change) * 100) ?>%)</span></div>
-									<?php elseif($total_offices_week_change == $total_offices_last_week_change) : ?>
+									<?php elseif($total_offices_week_change == $total_offices_last_week_change || $total_offices_week_change == 0) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_offices_week_change ?></span> <span class="has-text-grey">(+0%)</span></div>
 									<?php else : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_offices_week_change ?></span> <span class="has-text-danger">(-<?= intval(($total_offices_week_change / $total_offices_last_week_change) * 100) ?>%)</span></div>
@@ -131,7 +131,7 @@
 									<div class="has-text-weight-semibold is-size-4"><?= $total_available_items ?></div>
 									<?php if($total_available_items_week_change > $total_available_items_last_week_change) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_available_items_week_change ?></span> <span class="has-text-success">(+<?= intval(($total_available_items_week_change / $total_available_items_last_week_change) * 100) ?>%)</span></div>
-									<?php elseif($total_available_items_week_change == $total_available_items_last_week_change) : ?>
+									<?php elseif($total_available_items_week_change == $total_available_items_last_week_change || $total_available_items_week_change == 0) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_available_items_week_change ?></span> <span class="has-text-grey">(+0%)</span></div>
 									<?php else : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_available_items_week_change ?></span> <span class="has-text-danger">(-<?= intval(($total_available_items_week_change / $total_available_items_last_week_change) * 100) ?>%)</span></div>
@@ -142,7 +142,7 @@
 									<div class="has-text-weight-semibold is-size-4"><?= $total_assigned_items ?></div>
 									<?php if($total_assigned_items_week_change > $total_offices_last_week_change) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_assigned_items_week_change ?></span> <span class="has-text-success">(+<?= intval(($total_assigned_items_week_change / $total_offices_last_week_change) * 100) ?>%)</span></div>
-									<?php elseif($total_assigned_items_week_change == $total_offices_last_week_change) : ?>
+									<?php elseif($total_assigned_items_week_change == $total_offices_last_week_change || $total_assigned_items_week_change == 0) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_assigned_items_week_change ?></span> <span class="has-text-grey">(+0%)</span></div>
 									<?php else : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_assigned_items_week_change ?></span> <span class="has-text-danger">(-<?= intval(($total_assigned_items_week_change / $total_offices_last_week_change) * 100) ?>%)</span></div>
@@ -153,7 +153,7 @@
 									<div class="has-text-weight-semibold is-size-4"><?= $total_damaged_items ?></div>
 									<?php if($total_damaged_items_week_change > $total_offices_last_week_change) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_damaged_items_week_change ?></span> <span class="has-text-success">(+<?= intval(($total_damaged_items_week_change / $total_offices_last_week_change) * 100) ?>%)</span></div>
-									<?php elseif($total_damaged_items_week_change == $total_offices_last_week_change) : ?>
+									<?php elseif($total_damaged_items_week_change == $total_offices_last_week_change || $total_damaged_items_week_change == 0) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_damaged_items_week_change ?></span> <span class="has-text-grey">(+0%)</span></div>
 									<?php else : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_damaged_items_week_change ?></span> <span class="has-text-danger">(-<?= intval(($total_damaged_items_week_change / $total_offices_last_week_change) * 100) ?>%)</span></div>
