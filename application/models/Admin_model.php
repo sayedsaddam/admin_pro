@@ -1408,6 +1408,34 @@ class Admin_model extends CI_Model{
         return $this->db->count_all_results();
     }
 
+    // Count Damage Items (week change)
+    public function count_damaged_items_week_change() {
+        $this->db->select('item_assignment.id, item_assignment.item_id, item_assignment.remarks, item_assignment.created_at');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.id', 'left');
+        $this->db->group_by('item_assignment.item_id');
+        $this->db->where('item_assignment.remarks !=', NULL);
+        $this->db->where('item_assignment.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now()');
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
+    }
+
+    // Count Damage Items (2 weeks change)
+    public function count_damaged_items_last_week_change() {
+        $this->db->select('item_assignment.id, item_assignment.item_id, item_assignment.remarks, item_assignment.created_at');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.id', 'left');
+        $this->db->group_by('item_assignment.item_id');
+        $this->db->where('item_assignment.remarks !=', NULL);
+        $this->db->where('item_assignment.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK)');
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
+    }
+
     
     // get sub categories for edit item page 
     public function get_item_depreciation($id){
