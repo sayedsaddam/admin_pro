@@ -29,13 +29,69 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/dashboard';
         
         $data['total_employees'] = $this->admin_model->count_employ();
+        $data['count_employ_week_change'] = $this->admin_model->count_employ_week_change();
+        if ($this->admin_model->count_employ_last_week_change() != 0) {
+            $data['count_employ_last_week_change'] = $this->admin_model->count_employ_last_week_change();
+        } else {
+            $data['count_employ_last_week_change'] = 1;
+        }
+        
+        
         $data['total_items'] = $this->admin_model->count_item();
+        $data['total_items_week_change'] = $this->admin_model->count_item_week_change();
+        if ($this->admin_model->count_item_last_week_change() != 0) {
+            $data['total_items_last_week_change'] = $this->admin_model->count_item_last_week_change();
+        } else {
+            $data['total_items_last_week_change'] = 1;
+        }
+
         $data['total_suppliers'] = $this->admin_model->count_suppliers();
+        $data['total_suppliers_week_change'] = $this->admin_model->count_suppliers_week_change();
+        if ($this->admin_model->count_suppliers_last_week_change() != 0) {
+            $data['total_suppliers_last_week_change'] = $this->admin_model->count_suppliers_last_week_change();
+        } else {
+            $data['total_suppliers_last_week_change'] = 1;
+        }
+
         $data['total_categories'] = $this->admin_model->count_categories();
+        $data['total_categories_week_change'] = $this->admin_model->count_categories_week_change();
+        if ($this->admin_model->count_categories_last_week_change() != 0) {
+            $data['total_categories_last_week_change'] = $this->admin_model->count_categories_last_week_change();
+        } else {
+            $data['total_categories_last_week_change'] = 1;
+        }
+
         $data['total_offices'] = $this->admin_model->count_locations();
+        $data['total_offices_week_change'] = $this->admin_model->count_locations_week_change();
+        if ($this->admin_model->count_locations_last_week_change() != 0) {
+            $data['total_offices_last_week_change'] = $this->admin_model->count_locations_last_week_change();
+        } else {
+            $data['total_offices_last_week_change'] = 1;
+        }
+
         $data['total_available_items'] = $this->admin_model->count_available_items();
+        $data['total_available_items_week_change'] = $this->admin_model->count_available_items_week_change();
+        if ($this->admin_model->count_available_items_last_week_change() != 0) {
+            $data['total_available_items_last_week_change'] = $this->admin_model->count_available_items_last_week_change();
+        } else {
+            $data['total_available_items_last_week_change'] = 1;
+        }
+
         $data['total_assigned_items'] = $this->admin_model->count_assign_item();
+        $data['total_assigned_items_week_change'] = $this->admin_model->count_assign_item_week_change();
+        if ($this->admin_model->count_assign_item_last_week_change() != 0) {
+            $data['total_assigned_items_last_week_change'] = $this->admin_model->count_assign_item_last_week_change();
+        } else {
+            $data['total_assigned_items_last_week_change'] = 1;
+        }
+
         $data['total_damaged_items'] = $this->admin_model->count_damaged_items();
+        $data['total_damaged_items_week_change'] = $this->admin_model->count_damaged_items_week_change();
+        if ($this->admin_model->count_damaged_items_last_week_change() != 0) {
+            $data['total_damaged_items_last_week_change'] = $this->admin_model->count_damaged_items_last_week_change();
+        } else {
+            $data['total_damaged_items_last_week_change'] = 1;
+        }
 
         $data['fetch_item_sum_by_last_7'] = $this->admin_model->fetch_item_sum_by_last_(6);
         $data['fetch_item_sum_by_last_6'] = $this->admin_model->fetch_item_sum_by_last_(5);
@@ -44,6 +100,14 @@ class Admin extends CI_Controller{
         $data['fetch_item_sum_by_last_3'] = $this->admin_model->fetch_item_sum_by_last_(2);
         $data['fetch_item_sum_by_last_2'] = $this->admin_model->fetch_item_sum_by_last_(1);
         $data['fetch_item_sum_by_last_1'] = $this->admin_model->fetch_item_sum_by_last_(0);
+
+        $data['fetch_assigned_item_sum_by_last_7'] = $this->admin_model->fetch_assigned_item_sum_by_last_(6);
+        $data['fetch_assigned_item_sum_by_last_6'] = $this->admin_model->fetch_assigned_item_sum_by_last_(5);
+        $data['fetch_assigned_item_sum_by_last_5'] = $this->admin_model->fetch_assigned_item_sum_by_last_(4);
+        $data['fetch_assigned_item_sum_by_last_4'] = $this->admin_model->fetch_assigned_item_sum_by_last_(3);
+        $data['fetch_assigned_item_sum_by_last_3'] = $this->admin_model->fetch_assigned_item_sum_by_last_(2);
+        $data['fetch_assigned_item_sum_by_last_2'] = $this->admin_model->fetch_assigned_item_sum_by_last_(1);
+        $data['fetch_assigned_item_sum_by_last_1'] = $this->admin_model->fetch_assigned_item_sum_by_last_(0);
 
         $data['fetch_damaged_item_sum_by_last_7'] = $this->admin_model->fetch_damaged_item_sum_by_last_(6);
         $data['fetch_damaged_item_sum_by_last_6'] = $this->admin_model->fetch_damaged_item_sum_by_last_(5);

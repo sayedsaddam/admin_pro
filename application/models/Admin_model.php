@@ -166,6 +166,26 @@ class Admin_model extends CI_Model{
         }
         return $this->db->count_all_results();
     }
+    // Count suppliers
+    public function count_suppliers_week_change(){
+        $this->db->from('suppliers');
+        $this->db->where(array('status' => 1));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('suppliers.location', $this->session->userdata('location'));
+        }
+        $this->db->where('suppliers.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now()');
+        return $this->db->count_all_results();
+    }
+    // Count suppliers
+    public function count_suppliers_last_week_change(){
+        $this->db->from('suppliers');
+        $this->db->where(array('status' => 1));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('suppliers.location', $this->session->userdata('location'));
+        }
+        $this->db->where('(suppliers.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK))');
+        return $this->db->count_all_results();
+    }
     // Get suppliers
     public function get_suppliers($limit, $offset){
         $this->db->select('suppliers.id as sup_id, suppliers.name sup_name, suppliers.category, suppliers.email, suppliers.phone, suppliers.location, suppliers.region,suppliers.ntn_number,suppliers.rating, suppliers.address, suppliers.status, suppliers.created_at,locations.id,locations.name,categories.id as cat_id,categories.cat_name');
@@ -631,6 +651,21 @@ class Admin_model extends CI_Model{
         $this->db->from('locations');
         return $this->db->count_all_results();
     }
+
+    // count location to add pagination.
+    public function count_locations_week_change(){
+        $this->db->from('locations');
+        $this->db->where('locations.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now()');
+        return $this->db->count_all_results();
+    }
+
+    // count location to add pagination.
+    public function count_locations_last_week_change(){
+        $this->db->from('locations');
+        $this->db->where('locations.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK)');
+        return $this->db->count_all_results();
+    }
+
     // Locations - Get locations
     public function get_locations($limit, $offset){
         $this->db->select('id, name, province, created_at');
@@ -705,6 +740,21 @@ class Admin_model extends CI_Model{
         $this->db->from('categories');
         return $this->db->count_all_results();
     }
+
+    // Count categories (week change)
+    public function count_categories_week_change(){
+        $this->db->from('categories');
+        $this->db->where('categories.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now()');
+        return $this->db->count_all_results();
+    }
+
+    // Count categories (2 weeks change)
+    public function count_categories_last_week_change(){
+        $this->db->from('categories');
+        $this->db->where('categories.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK)');
+        return $this->db->count_all_results();
+    }
+
     // Categories > List categories and sub categories
     public function categories($limit, $offset){
         $this->db->select('categories.id,
@@ -931,11 +981,7 @@ class Admin_model extends CI_Model{
     } 
     // Count all items by search
     public function count_item_search($search){
-        
-        $this->db->select('items.id, items.location,
-                items.*,
-                sub_categories.name as names, 
-                categories.cat_name');
+        $this->db->select('items.id, items.location, items.*, sub_categories.name as names, categories.cat_name');
         $this->db->from('items');
         $this->db->join('categories', 'items.category = categories.id', 'left');
         $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
@@ -967,14 +1013,32 @@ class Admin_model extends CI_Model{
         $num_results = $this->db->count_all_results();
         return $num_results;
     }
+    // Count all items between two weeks
+    public function count_item_week_change(){
+        $this->db->from('items');
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        $this->db->where('items.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now()');
+        $num_results = $this->db->count_all_results();
+        return $num_results;
+    }
+    // Count all items by last two week
+    public function count_item_last_week_change(){
+        $this->db->from('items');
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        $this->db->where('items.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK)');
+        $num_results = $this->db->count_all_results();
+        return $num_results;
+    }
     // Count all items by date
     public function count_item_date($date_from, $date_to) {
         $this->db->select('id');
         $this->db->from('items');
         $this->db->where('items.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
-        if ($this->session->userdata('user_role') != 'admin') {
-            $this->db->where('items.location', $this->session->userdata('location'));
-        }
+        
         $num_results = $this->db->count_all_results();
         return $num_results;
     }
@@ -984,45 +1048,45 @@ class Admin_model extends CI_Model{
     }
     // Count all assign items 
     public function count_assign_item(){
-        $this->db->select('id');
+        $this->db->select('item_assignment.id');
         $this->db->from('item_assignment');
         $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
         $this->db->where('return_back_date !=', null);
         if ($this->session->userdata('user_role') != 'admin') {
-            $this->db->where('items.id', $this->session->userdata('location'));
+            $this->db->where('items.location', $this->session->userdata('location'));
         }
         return $this->db->count_all_results();
-     }
+    }
+
+    // Count all assign items 
+    public function count_assign_item_week_change(){
+        $this->db->select('item_assignment.id');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
+        $this->db->where('return_back_date !=', null);
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        $this->db->where('items.location BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now()');
+        return $this->db->count_all_results();
+    }
+
+    // Count all assign items 
+    public function count_assign_item_last_week_change(){
+        $this->db->select('item_assignment.id');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
+        $this->db->where('return_back_date !=', null);
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        $this->db->where('items.location BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK)');
+        return $this->db->count_all_results();
+    }
+
     // Get items.
     public function get_items($limit, $offset, $date_from = null, $date_to = null ){
-        // echo $from;exit;
-        $this->db->select('items.id, 
-                           items.location,
-                           items.category, 
-                           items.sub_category,
-                           items.type_name, 
-                           items.model, 
-                           items.status as item_status, 
-                           items.serial_number, 
-                           items.supplier,
-                           items.price, 
-                           items.quantity, 
-                           items.depreciation,
-                           items.purchasedate, 
-                           items.created_at,
-                           users.fullname as employ_name,
-                           users.id as employ_id,
-                           sub_categories.name as names, 
-                           categories.cat_name, 
-                           locations.name,
-                           item_assignment.id as item_ids,
-                           item_assignment.assignd_to,
-                           item_assignment.item_id,
-                           item_assignment.status,
-                           item_assignment.return_back_date,
-                           suppliers.id sup_id,
-                           suppliers.name as sup_name
-                           ');
+        $this->db->select('items.id, items.location, items.category, items.sub_category, items.type_name, items.model, items.status as item_status, items.serial_number, items.supplier, items.price, items.quantity, items.depreciation, items.purchasedate, items.created_at, users.fullname as employ_name, users.id as employ_id, sub_categories.name as names, categories.cat_name, locations.name, item_assignment.id as item_ids, item_assignment.assignd_to, item_assignment.item_id, item_assignment.status, item_assignment.return_back_date, suppliers.id sup_id, suppliers.name as sup_name ');
         $this->db->from('items');
         $this->db->join('categories', 'items.category = categories.id', 'left');
         $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
@@ -1044,30 +1108,7 @@ class Admin_model extends CI_Model{
     } 
         // Get Available items.
         public function get_available_items($limit, $offset){
-            $this->db->select('items.id, 
-                               items.location,
-                               items.category, 
-                               items.sub_category,
-                               items.type_name, 
-                               items.model, 
-                               items.serial_number, 
-                               items.supplier,
-                               items.price, 
-                               items.quantity, 
-                               items.depreciation,
-                               items.purchasedate, 
-                               items.created_at,
-                               users.fullname as employ_name,
-                               users.id as employ_id,
-                               item_assignment.id as item_ids,
-                               item_assignment.item_id, 
-                               item_assignment.status,
-                               item_assignment.assignd_to,
-                               sub_categories.name as names, 
-                               categories.cat_name, 
-                               locations.name,
-                               suppliers.id sup_id,
-                               suppliers.name as sup_name');
+            $this->db->select('items.id, items.location, items.category, items.sub_category, items.type_name, items.model, items.serial_number, items.supplier, items.price, items.quantity, items.depreciation, items.purchasedate, items.created_at, users.fullname as employ_name, users.id as employ_id, item_assignment.id as item_ids, item_assignment.item_id, item_assignment.status, item_assignment.assignd_to, sub_categories.name as names, categories.cat_name, locations.name, suppliers.id sup_id, suppliers.name as sup_name');
             $this->db->from('items');
             $this->db->join('categories', 'items.category = categories.id', 'left');
             $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
@@ -1086,30 +1127,7 @@ class Admin_model extends CI_Model{
         }
            // Get Assign items.
            public function assign_item_list($limit, $offset){
-            $this->db->select('items.id, 
-                               items.location,
-                               items.category, 
-                               items.sub_category,
-                               items.type_name, 
-                               items.model, 
-                               items.serial_number, 
-                               items.supplier,
-                               items.price, 
-                               items.quantity, 
-                               items.depreciation,
-                               items.purchasedate, 
-                               items.created_at,
-                               users.fullname as employ_name,
-                               users.id as employ_id,
-                               item_assignment.item_id,
-                               item_assignment.status,
-                               item_assignment.id as item_ids,
-                               item_assignment.assignd_to,
-                               sub_categories.name as names, 
-                               categories.cat_name, 
-                               locations.name,
-                               suppliers.id as sup_id,
-                               suppliers.name as sup_name ');
+            $this->db->select('items.id, items.location, items.category, items.sub_category, items.type_name, items.model, items.serial_number, items.supplier, items.price, items.quantity, items.depreciation, items.purchasedate, items.created_at, users.fullname as employ_name, users.id as employ_id, item_assignment.item_id, item_assignment.status, item_assignment.id as item_ids, item_assignment.assignd_to, sub_categories.name as names, categories.cat_name, locations.name, suppliers.id as sup_id, suppliers.name as sup_name ');
             $this->db->from('items');
             $this->db->join('categories', 'items.category = categories.id', 'left');
             $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
@@ -1280,6 +1298,30 @@ class Admin_model extends CI_Model{
         return $this->db->count_all_results();
     }
 
+    // Count Available Items (last week)
+    public function count_available_items_week_change() {
+        $this->db->select('items.id');
+        $this->db->from('items');
+        $this->db->where('items.quantity >', 0);
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        $this->db->where('items.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now()');
+        return $this->db->count_all_results();
+    }
+
+    // Count Available Items (last 2 weeks)
+    public function count_available_items_last_week_change() {
+        $this->db->select('items.id');
+        $this->db->from('items');
+        $this->db->where('items.quantity >', 0);
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        $this->db->where('items.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK)');
+        return $this->db->count_all_results();
+    }
+
     // Count Damage Items
     public function count_damaged_items() {
         $this->db->select('item_assignment.id, item_assignment.item_id, item_assignment.remarks');
@@ -1290,6 +1332,34 @@ class Admin_model extends CI_Model{
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('items.location', $this->session->userdata('location'));
         }
+        return $this->db->count_all_results();
+    }
+
+    // Count Damage Items (week change)
+    public function count_damaged_items_week_change() {
+        $this->db->select('item_assignment.id, item_assignment.item_id, item_assignment.remarks, item_assignment.created_at');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.id', 'left');
+        $this->db->group_by('item_assignment.item_id');
+        $this->db->where('item_assignment.remarks !=', NULL);
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        $this->db->where('items.location BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now()');
+        return $this->db->count_all_results();
+    }
+
+    // Count Damage Items (2 weeks change)
+    public function count_damaged_items_last_week_change() {
+        $this->db->select('item_assignment.id, item_assignment.item_id, item_assignment.remarks, item_assignment.created_at');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.id', 'left');
+        $this->db->group_by('item_assignment.item_id');
+        $this->db->where('item_assignment.remarks !=', NULL);
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        $this->db->where('items.location BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK)');
         return $this->db->count_all_results();
     }
 
@@ -1325,29 +1395,8 @@ class Admin_model extends CI_Model{
     }
   //== ----------------------------------------- Search filters --------------------------------------- ==\\
     // Search filters - search Item
-    public function search_items($search, $limit, $offset){  
-        $this->db->select('items.id, items.location,
-                items.category, 
-                items.sub_category,
-                items.type_name, 
-                items.model, 
-                items.serial_number, 
-                items.supplier,
-                items.quantity, 
-                items.price, 
-                items.depreciation,
-                items.purchasedate, 
-                items.created_at,
-                users.fullname as employ_name,
-                users.id as employ_id,
-                sub_categories.name as names, 
-                categories.cat_name, 
-                locations.name, 
-                item_assignment.status,
-                item_assignment.assignd_to,
-                item_assignment.id as item_ids,
-                suppliers.id as sup_id,
-                suppliers.name as sup_name');
+    public function search_items($search, $limit, $offset){
+        $this->db->select('items.id, items.location, items.category, items.sub_category, items.type_name, items.model, items.serial_number, items.supplier, items.quantity, items.price, items.depreciation, items.purchasedate, items.created_at, users.fullname as employ_name, users.id as employ_id, sub_categories.name as names, categories.cat_name, locations.name, item_assignment.status, item_assignment.assignd_to, item_assignment.id as item_ids, suppliers.id as sup_id, suppliers.name as sup_name');
         $this->db->from('items');
         $this->db->join('categories', 'items.category = categories.id', 'left');
         $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
@@ -1526,6 +1575,28 @@ class Admin_model extends CI_Model{
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('users.location', $this->session->userdata('location'));
         }
+        return $this->db->count_all_results();
+    }
+
+    // Count employee comparing between two weeks
+    public function count_employ_week_change(){
+        $this->db->from('users');
+        $this->db->where(array('status' => 1));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('users.location', $this->session->userdata('location'));
+        }
+        $this->db->where('users.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now()');
+        return $this->db->count_all_results();
+    }
+
+    // Count employee from two weeks before
+    public function count_employ_last_week_change(){
+        $this->db->from('users');
+        $this->db->where(array('status' => 1));
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('users.location', $this->session->userdata('location'));
+        }
+        $this->db->where('(users.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK))');
         return $this->db->count_all_results();
     }
 
@@ -1831,7 +1902,7 @@ class Admin_model extends CI_Model{
     }
 
     public function fetch_item_sum_by_last_($int) {
-        $this->db->select('*');
+        $this->db->select('items.id');
         $this->db->from('items');
         $this->db->where("items.quantity > 0");
         $this->db->where("items.created_at <= DATE_SUB(NOW(), INTERVAL $int day)");
@@ -1847,6 +1918,18 @@ class Admin_model extends CI_Model{
         $this->db->join('items', 'items.id = item_assignment.id', 'left');
         $this->db->group_by('item_assignment.item_id');
         $this->db->where('item_assignment.remarks !=', NULL);
+        $this->db->where("item_assignment.created_at <= DATE_SUB(NOW(), INTERVAL $int day)");
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
+    }
+
+    public function fetch_assigned_item_sum_by_last_($int) {
+        $this->db->select('item_assignment.id');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
+        $this->db->where('return_back_date !=', null);
         $this->db->where("item_assignment.created_at <= DATE_SUB(NOW(), INTERVAL $int day)");
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('items.location', $this->session->userdata('location'));
