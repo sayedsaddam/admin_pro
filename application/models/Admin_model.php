@@ -651,6 +651,21 @@ class Admin_model extends CI_Model{
         $this->db->from('locations');
         return $this->db->count_all_results();
     }
+
+    // count location to add pagination.
+    public function count_locations_week_change(){
+        $this->db->from('locations');
+        $this->db->where('locations.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now();');
+        return $this->db->count_all_results();
+    }
+
+    // count location to add pagination.
+    public function count_locations_last_week_change(){
+        $this->db->from('locations');
+        $this->db->where('locations.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK);');
+        return $this->db->count_all_results();
+    }
+
     // Locations - Get locations
     public function get_locations($limit, $offset){
         $this->db->select('id, name, province, created_at');
@@ -1323,6 +1338,30 @@ class Admin_model extends CI_Model{
         $this->db->select('items.id');
         $this->db->from('items');
         $this->db->where('items.quantity >', 0);
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
+    }
+
+    // Count Available Items (last week)
+    public function count_available_items_week_change() {
+        $this->db->select('items.id');
+        $this->db->from('items');
+        $this->db->where('items.quantity >', 0);
+        $this->db->where('items.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now();');
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
+    }
+
+    // Count Available Items (last 2 weeks)
+    public function count_available_items_last_week_change() {
+        $this->db->select('items.id');
+        $this->db->from('items');
+        $this->db->where('items.quantity >', 0);
+        $this->db->where('items.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK);');
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('items.location', $this->session->userdata('location'));
         }
