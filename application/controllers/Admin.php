@@ -759,7 +759,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Asset Register | Admin & Procurement';
         $data['body'] = 'admin/asset-register';
         $data['assets'] = $this->admin_model->get_assets($limit, $offset);
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Asset register - add new item.
     public function add_asset(){
@@ -1397,7 +1397,7 @@ class Admin extends CI_Controller{
             'price' => $this->input->post('price'), 
             'purchasedate' => $this->input->post('purchasedate'),
             'depreciation' => $this->input->post('depreciation'), 
-            'employee_id' => $this->session->userdata('id'),
+            'added_by' => $this->session->userdata('id'),
             'created_at' => date('Y-m-d')
         );  
         if($this->admin_model->item_save($data, $model, $this->input->post('quantity'))){
