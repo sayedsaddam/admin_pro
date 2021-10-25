@@ -82,14 +82,14 @@
 					</div>
 				</div>
 				<div class="columns" style="display: grid">
-					<div class="column table-container ">
+					<div class="column table-container">
 						<table class="table is-hoverable is-narrow is-fullwidth" id="myTable">
 							<thead>
 								<tr>
 									<th class="has-text-weight-semibold"><abbr title="Item Identification Number">ID</abbr></th>
 									<th class="has-text-weight-semibold">Location</th>
 									<th class="has-text-weight-semibold">Category</th>
-									<th class="has-text-weight-semibold">Product</th>
+									<th class="has-text-weight-semibold">Company</th>
 									<th class="has-text-weight-semibold">Model</th>
 									<th class="has-text-weight-semibold">Supplier</th>
 									<?php if(isset($assign_page)) : ?>
@@ -106,7 +106,7 @@
 									<th class="has-text-weight-semibold"><abbr title="Item Identification Number">ID</abbr></th>
 									<th class="has-text-weight-semibold">Location</th>
 									<th class="has-text-weight-semibold">Category</th>
-									<th class="has-text-weight-semibold">Product</th>
+									<th class="has-text-weight-semibold">Company</th>
 									<th class="has-text-weight-semibold">Model</th>
 									<th class="has-text-weight-semibold">Supplier</th>
 									<?php if(isset($assign_page)) : ?>
@@ -120,7 +120,7 @@
 							</tfoot>
 							<tbody>
 								<?php if(!empty($items)): foreach($items as $item): ?>
-								<tr onclick="window.location='<?= base_url('admin/item_card/'.$item->id) ?><?= isset($item->employ_id) ? '/' . $item->employ_id : '' ?>';"
+								<tr onclick="window.location='<?= base_url('admin/product_card/'.$item->id) ?><?= isset($item->employ_id) ? '/' . $item->employ_id : '' ?>';"
 									style="cursor: pointer;">
 									<td><span><?= 'S2S-'.$item->id; ?></a></td>
 									<td><?= $item->name; ?></td>
@@ -131,9 +131,9 @@
 									</td>
 									<td><?= ucwords($item->type_name); ?></td>
 									<td><?= ucwords($item->model); ?></td>
-									<td><?= ucwords($item->sup_name); ?></td>
+									<td><?= ucwords(explode(' ',trim($item->sup_name))[0]); ?></td>
 									<?php if(isset($assign_page)) : ?>
-									<td><?= ucwords($item->employ_name); ?></td>
+									<td><?= ucwords(explode(' ',trim($item->employ_name))[0]); ?></td>
 									<?php endif; ?>
 									<td><?= $item->depreciation.' (%)'; ?></td>
 									<td>
