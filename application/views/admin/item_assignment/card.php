@@ -107,11 +107,11 @@
 												<p><strong>Purchase Date</strong> &raquo;
 													<?= date('M d, Y', strtotime($items[0]->purchasedate)); ?></p>
 												<p><strong>Price</strong> &raquo;
-												<?php echo $items[0]->price.'</p>';?> <p>
+												<?php echo "<spanp id='price'>". $items[0]->price.'</span>';?> <p>
 														<strong>Depreciation</strong> &raquo;
 														<?php echo "<span id='dep'>".$items[0]->depreciation .'</span>'. "(%)"; ?>
 												</p>
-												<p><strong>Current Value</strong> &raquo; <p id="current"> </p>
+												<p><strong>Current Value</strong> &raquo; <span id="current"> </span>
 												</p>
 											</div>
 
@@ -128,8 +128,8 @@
 
 										<?php else : ?>
 										<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
-											Electronic
-											<strong>Subcategory</strong> &raquo; Laptop <strong>Product</strong> Dell
+										<?= $item->cat_name; ?>
+											<strong>Subcategory</strong> &raquo; <?= $item->names; ?> <strong>Product</strong> <?= $item->type_name; ?>
 										</p>
 										<p class="card-title is-size-4">
 
@@ -261,7 +261,6 @@
 		var price = price.replace(/&nbsp;/, '');
 		var dep = document.getElementById("dep").innerHTML;
 		currentval = price * dep / 100;
-		alert(currentval = price * dep / 100)
 		var output = document.getElementById("current").innerHTML = currentval;
 	});
 </script>
