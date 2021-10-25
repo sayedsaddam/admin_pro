@@ -760,20 +760,20 @@ class Admin extends CI_Controller{
         $data['title'] = 'Asset Register | Admin & Procurement';
         $data['body'] = 'admin/asset-register';
         $data['assets'] = $this->admin_model->get_assets($limit, $offset);
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Asset register - add new item.
     public function add_asset(){
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Asset detail
     public function asset_detail($id){  
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
         $data['edit'] = $this->admin_model->asset_detail($id);
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
         // Add new asset into the database
         public function save_item(){
@@ -1193,7 +1193,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Search Results > Asset Register';
         $data['body'] = 'admin/asset-register';
         $data['results'] = $this->admin_model->search_asset_register($search);
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Search filter - search equipment maintenance
     public function search_equip_maintenance(){
@@ -1249,7 +1249,8 @@ class Admin extends CI_Controller{
     $employ_id = $this->uri->segment(4);   
         $data['title'] = 'Item Register | Admin & Procurement';
         $data['body'] = 'admin/item_assignment/card';  
-        $data['items'] = $this->admin_model->get_item_card($id,$employ_id); 
+        $data['items'] = $this->admin_model->get_item_card($id); 
+        $data['current_item'] = $this->admin_model->current_item_assign($id); 
         $data['item'] = $this->admin_model->get_item_card_detail($id); 
         $this->load->view('admin/commons/new_template', $data);
     }
@@ -1398,7 +1399,7 @@ class Admin extends CI_Controller{
             'price' => $this->input->post('price'), 
             'purchasedate' => $this->input->post('purchasedate'),
             'depreciation' => $this->input->post('depreciation'), 
-            'employee_id' => $this->session->userdata('id'),
+            'added_by' => $this->session->userdata('id'),
             'created_at' => date('Y-m-d')
         );  
         if($this->admin_model->item_save($data, $model, $this->input->post('quantity'))){
