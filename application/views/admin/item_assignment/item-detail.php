@@ -324,17 +324,12 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="status" id="status" required>
-												<?php if(!isset($edit_item)): ?>
 												<option selected disabled value="">Select Status</option>
-												<?php endif ?>
-												<?php if(!empty($status)): foreach($status as $stat): ?>
-												<option value="<?= $stat->id; ?>"
-													<?= !empty($edit) && $edit->id == $stat->id ? 'selected' : '' ?>><?= $stat->status; ?>
-												</option>
+												<?php if(!empty($status_list)): foreach($status_list as $stat): ?>
+													<option value="<?= $stat->id; ?>"
+														<?= !empty($edit) && $edit->status == $stat->id ? 'selected' : '' ?>><?= $stat->type; ?>
+													</option>
 												<?php endforeach; endif; ?>
-												<option value="new">New</option>
-												<option value="used">Used</option>
-												<option value="refurbished">Refurbished</option>
 											</select>
 										</span>
 										<span class="icon is-small is-left">
