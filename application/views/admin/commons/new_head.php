@@ -54,13 +54,12 @@
 						</div>
 						<div class="dropdown-menu" id="dropdown-menu2" role="menu">
 							<div class="dropdown-content">
-								<a href="#" class="dropdown-item">
-									<span class="label">Profile Information</span>
-									<p style="overflow-wrap: break-word; white-space: pre-wrap;">Need to <code>change</code> your profile information?</p>
+							<a href="<?= base_url('/admin/dashboard/') ?>" class="dropdown-item">
+									<i class="fas fa-user-tie mr-2" aria-hidden="true"></i> Profile Information
 								</a>
 								<hr class="dropdown-divider">
 								<a href="<?= base_url('login/logout') ?>" class="dropdown-item">
-									<i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout
+									<i class="fas fa-sign-out-alt mr-2" aria-hidden="true"></i> Logout
 								</a>
 							</div>
 						</div>
