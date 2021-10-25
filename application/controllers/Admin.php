@@ -1376,6 +1376,7 @@ class Admin extends CI_Controller{
         $data['categories'] = $this->admin_model->get_item_categories();
         $data['supplier'] = $this->admin_model->get_item_supplier();
         $data['locations'] = $this->admin_model->get_item_location(); 
+        $data['status_list'] = $this->admin_model->status_list(); 
         $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Add Item");
         $this->load->view('admin/commons/new_template', $data);
     }
@@ -1415,6 +1416,7 @@ class Admin extends CI_Controller{
             'category' => $this->input->post('category'),
             'sub_category' => $this->input->post('sub_category'),
             'type_name' => $this->input->post('item_name'),
+            'status' => $this->input->post('status'),
             'model' => $this->input->post('model'),
             'serial_number' => $this->input->post('serial_number'),
             'supplier' => $this->input->post('supplier'),
@@ -1441,7 +1443,7 @@ class Admin extends CI_Controller{
         $data['supplier'] = $this->admin_model->get_item_supplier();
         $data['locations'] = $this->admin_model->get_item_location();
         $data['depreciation'] = $this->admin_model->get_item_depreciation($id);
-        $data['status'] = $this->admin_model->status_items($id); 
+        $data['status_list'] = $this->admin_model->status_list(); 
         $data['edit_item'] = true;
         $data['item_register'] = true;
         $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Edit Item");

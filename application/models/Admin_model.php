@@ -1368,11 +1368,14 @@ class Admin_model extends CI_Model{
     public function get_item_depreciation($id){
         return $this->db->from('items')->where('id',$id)->get()->result();
     }
-    // get items status for edit item
-    public function status_items($id){
-        $this->db->select('id,status');
-        return $this->db->from('items')->where('id',$id)->get()->result();
+
+    // get status list
+    public function status_list(){
+        $this->db->select('item_status.id, item_status.type');
+        $this->db->from('item_status');
+        return $this->db->get()->result();
     }
+    
     // Get sub categories based on cat_id
     public function get_item_sub_categories($cat_id){
         $this->db->select('id, name');
