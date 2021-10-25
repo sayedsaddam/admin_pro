@@ -77,8 +77,7 @@
  							<?php if(empty($results)): ?>
  							<tbody>
  								<?php if(!empty($categories)): foreach($categories as $cat): ?>
- 								<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';"
- 									style="cursor: pointer;">
+ 								<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';">
  									<td><?= 'S2S-'.$cat->id; ?></td>
  									<td><div class="tag"><?= ucwords($cat->cat_name); ?></tag></td>
  									<td><?= ucwords($cat->fullname); ?></td>
