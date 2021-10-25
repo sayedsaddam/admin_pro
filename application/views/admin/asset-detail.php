@@ -1,78 +1,222 @@
-<?php 
-/*
-* Filename: add_items.php
-* Author: Saddam
-*/
-?>
-<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
-  <div class="container-fluid">
-    <div class="row">
-     <div class="col-lg-1 col-md-1">
-        <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid">
-      </div>
-      <div class="col-lg-7 col-md-7">
-        <h2 class="display-4 font-weight-bold mb-0">Admin & Procurement</h2>
-        <h3 class="font-weight-bold text-dark">AH Group of Companies (Pvt.) Ltd.</h3>
-      </div>
-      <div class="col-lg-4 col-md-4 text-right">
-        <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
-        <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
-        <h4 class="font-weight-bold orange-text mt-2">Admin Dashboard <i class="fa fa-chart-bar"></i><br><span class="font-weight-light orange-text">Asset Detail | <a href="<?=base_url('admin');?>" class="text-light font-weight-bold">Home</a></span></h4>
-      </div>
-    </div>
-  </div>
-</div>
+<section class="columns is-gapless mb-0 pb-0">
+	<div class="column is-narrow is-fullheight" id="custom-sidebar">
+		<?php $this->view('admin/commons/sidebar'); ?>
+	</div>
+	<div class="column">
+		<div class="columns">
+			<div class="column section">
+				<div class="columns">
+					<div class="column">
+						<?php $this->view('admin/commons/breadcrumb'); ?>
+					</div>
+				</div>
+				<div class="columns">
+					<div class="column">
+          <form action="<?= base_url('admin/search_asset_register'); ?>" method="get">
+							<div class="field has-addons">
+								<div class="control has-icons-left is-expanded">
+									<input class="input is-small is-fullwidth" name="search" type="search"
+										placeholder="Search Assets"
+										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
+									<span class="icon is-small is-left">
+										<i class="fas fa-search"></i>
+									</span>
+								</div>
+								<div class="control">
+									<button class="button is-small" type="submit"><span class="icon is-small">
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="column is-hidden-touch is-narrow">
+						<div class="field has-addons"> 
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/add_asset'); ?>'"
+									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-plus"></i>
+									</span>
+									<span>Add New</span>
+								</button>
+							</p>
+						</div>
+					</div>
+				</div>
 
-<section class="secMainWidth container mt-4 mb-4">
-  <section class="secFormLayout">
-    <div class="mainInputBg">
-      <div class="row">
-        <div class="col-lg-12">
-          <h3><?php if(empty($edit)){ echo "Add Item"; }else{ echo "Update Item"; } ?></h3><hr>
-          <?php if($success = $this->session->flashdata('success')): ?>
-            <div class="alert alert-success text-center">
-              <?php echo $success; ?>
-            </div>
-          <?php endif; ?>
-          <form action="<?php if(empty($edit)){ echo base_url('admin/save_item'); }else{ echo base_url('admin/update_item'); } ?>" method="post">
-            <input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
-            <div class="row">
-              <div class="col-lg-6">
-                <label>Category</label>
-                <input type="text" name="category" class="form-control" placeholder="category" value="<?php if(!empty($edit)){ echo $edit->category; } ?>">
-                <label>Quantity</label>
-                <input type="text" name="quantity" class="form-control" placeholder="quantity" value="<?php if(!empty($edit)){ echo $edit->quantity; } ?>">
-                <label>Purchase Date</label>
-                <input type="date" name="purchase_date" class="form-control" placeholder="purchase_date" value="<?php if(!empty($edit)){ echo $edit->purchase_date; } ?>">
-                <label>Location</label>
-                <input type="text" name="location" class="form-control" placeholder="Location" value="<?php if(!empty($edit)){ echo $edit->location; } ?>"> 
-                <label>Description</label>
-                <textarea name="Descri[tion" class="form-control" placeholder="Description..."><?php if(!empty($edit)){ echo $edit->description; } ?></textarea>
-              </div>
-              <div class="col-lg-6">  
-                <label>User</label>
-                <input type="text" name="user" class="form-control" placeholder="User" value="<?php if(!empty($edit)){ echo $edit->user; } ?>">
-                <label>Remarks</label>
-                <input type="text" name="remarks" class="form-control" placeholder="remarks" value="<?php if(!empty($edit)){ echo $edit->remarks; } ?>">
-                <label>GiveAway</label>
-                <input type="text" name="giveaway" class="form-control" placeholder="Give Away" value="<?php if(!empty($edit)){ echo $edit->giveaway; } ?>"> 
-                <label>Designation</label>
-                <input type="text" name="designation" class="form-control" placeholder="designation" value="<?php if(!empty($edit)){ echo $edit->designation; } ?>">
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-lg-12 text-right">
-                <a href="javascript:history.go(-1);" class="btn btn-danger">Back</a>
-                <?php if(empty($edit)): ?>
-                  <button type="submit" class="btn btn-default">Add Item</button>
-                <?php else: ?>
-                  <button type="submit" class="btn btn-default">Save Changes</button>
-                <?php endif; ?>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>  
-    </div>
-  </section>
+				<?php if($this->session->flashdata('success')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-success is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('success'); ?>
+						</div>
+					</div>
+				</div>
+				<?php elseif($this->session->flashdata('failed')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-danger is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('failed'); ?>
+						</div>
+					</div>
+				</div>
+				<?php endif ?>
+
+  <form action="<?php if(empty($edit)){ echo base_url('admin/save_item'); }else{ echo base_url('admin/update_item'); } ?>" method="post">
+					<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
+					<div class="columns">
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">User <span
+											class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<input type="text" name="user" id="" class="input is-small"
+										value="<?php if(!empty($edit)){ echo $edit->user; } ?>" type="text"
+											placeholder="user name ..." required="">
+										<span class="icon is-small is-left">
+											<i class="fas fa-user"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Category <span
+											class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<input type="text" name="category" id="" class="input is-small"
+                    value="<?php if(!empty($edit)){ echo $edit->category; } ?>" type="text"
+											placeholder="category ..." required="">
+										<span class="icon is-small is-left">
+											<i class="fas fa-user"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+
+					<div class="columns">
+						<div class="column">
+							<div class="control">
+								<label class="label is-small">Quantity <span class="has-text-danger">*</span></label>
+								<div class="select is-small is-fullwidth">  
+                <div class="control has-icons-left">
+                <input type="number" name="quantity" id="" class="input is-small"
+                value="<?php if(!empty($edit)){ echo $edit->quantity; } ?>" type="text"
+												placeholder="quantity ..." required="">
+										<span class="icon is-small is-left">
+											<i class="fas fa-sort-numeric-up"></i>
+										</span>
+									</div> 
+                      </div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="control">
+
+								<fieldset>
+									<div class="field">
+										<label class="label is-small">Remarks <span
+												class="has-text-danger">*</span></label>
+										<div class="control has-icons-left">
+											<input type="text" name="remarks" id="" class="input is-small"
+											value="<?php if(!empty($edit)){ echo $edit->remarks; } ?>" type="text"
+												placeholder="remarks ..." required="">
+											<span class="icon is-small is-left">
+												<i class="fas fa-envelope-square"></i>
+											</span>
+										</div>
+									</div>
+								</fieldset>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="columns">
+						<div class="column">
+							<div class="control">
+								<label class="label is-small">Purchase Date <span class="has-text-danger">*</span></label>
+								<div class="is-small is-fullwidth"> 
+										<div class="control has-icons-left">
+            <?php if(!empty($edit)){
+            $date = strtotime($edit->purchase_date);
+            $purchase_date = date('Y-m-d', $date); 
+            }?> 
+									<input name="purchase_date" class="input is-small" type="date" required
+                  value="<?php if(!empty($edit)){ echo $edit->purchase_date; } ?>">
+											<span class="icon is-small is-left">
+												<i class="far fa-calendar-alt"></i>
+											</span>
+										</div> 
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<fieldset>
+								<div class="field">
+                <div class="control has-icons-left">
+									<label class="label is-small">Location </label>
+									<div class="control has-icons-left">
+										<input type="text" name="location" id="" class="input is-small"
+                    value="<?php if(!empty($edit)){ echo $edit->location; } ?>" placeholder="location ..."> 
+											<span class="icon is-small is-left">
+												<i class="fas fa-globe"></i>
+											</span>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					<div class="columns"> 
+
+					
+						<div class="column column is-6">
+							<fieldset>
+								<div class="field">
+                <label class="label is-small">Description</label>
+									<div class="control has-icons-left">
+										<textarea class="textarea is-small" name="description" rows="2" id=""
+											placeholder="some detail"><?php if(!empty($edit)){ echo $edit->description; } ?></textarea>
+
+										 </div>
+								</div>
+							</fieldset>
+						</div> 
+					</div> 
+
+					<div class="columns">
+						<div class="column has-text-right">
+							<div class="buttons is-pulled-right">
+								<?php if(!isset($edit_item)): ?>
+								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
+								<?php endif ?>
+								<p class="control">
+									<button class="button is-small is-success" type="submit">
+										<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
+										<span class="icon is-small">
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button>
+								</p>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div> 
+	</div>
 </section>
+<script>
+ 
+
+</script>

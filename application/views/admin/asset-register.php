@@ -14,7 +14,7 @@
 
  				<div class="columns is-hidden-touch">
  					<div class="column is-hidden-print">
- 						<form action="<?= base_url('admin/search_employ') ?>" method="get">
+ 						<form action="<?= base_url('admin/search_asset_register'); ?>" method="get">
  							<div class="field has-addons">
  								<div class="control has-icons-left is-expanded">
  									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
@@ -101,9 +101,7 @@
                       <a href="<?=base_url('admin/delete_asset/'.$asset->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class="button is-small"><span class="icon is-small has-text-danger"><i class="fa fa-times"></i></span></a>
                      <?php } ?>
                     </div>
-                    </td>
-
-
+                    </td> 
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
             </tbody> 
@@ -129,10 +127,21 @@
                           $diff = date_diff(date_create($recDate), date_create($today));
                           echo $diff->format('%yyr %mm %dd'); ?> 
                   </td> -->
-                  <td>
-                      <a href="<?= base_url('admin/asset_detail/'.$res->id); ?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
-                      <a href="<?=base_url('admin/delete_asset/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                  </td>
+                  <td class="is-narrow"> 
+                    <div class="field has-addons">
+						<p class="control">
+							<a  href="<?= base_url('admin/asset_detail/'.$res->id); ?>"
+								class="button is-small">
+								<span class="icon is-small">
+									<i class="fas fa-edit"></i>
+								</span>
+							</a>
+						</p> 
+                      <?php if($session == 'admin'){ ?>
+                      <a href="<?=base_url('admin/delete_asset/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" class="button is-small"><span class="icon is-small has-text-danger"><i class="fa fa-times"></i></span></a>
+                     <?php } ?>
+                    </div>
+                    </td> 
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
             </tbody>
