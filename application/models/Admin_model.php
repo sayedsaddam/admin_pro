@@ -1368,14 +1368,11 @@ class Admin_model extends CI_Model{
     public function get_item_depreciation($id){
         return $this->db->from('items')->where('id',$id)->get()->result();
     }
-
-    // get status list
-    public function status_list(){
-        $this->db->select('item_status.id, item_status.type');
-        $this->db->from('item_status');
-        return $this->db->get()->result();
+    // get items status for edit item
+    public function status_items($id){
+        $this->db->select('id,status');
+        return $this->db->from('items')->where('id',$id)->get()->result();
     }
-    
     // Get sub categories based on cat_id
     public function get_item_sub_categories($cat_id){
         $this->db->select('id, name');
@@ -1830,7 +1827,7 @@ class Admin_model extends CI_Model{
         return $this->db->get()->result();
     }
    // Get assign items detail.
-   public function get_item_card($id,$employ_id){
+   public function get_item_card($id){
     $this->db->select('items.id, 
                        items.location,  
                        items.quantity, 
@@ -1844,7 +1841,7 @@ class Admin_model extends CI_Model{
                        items.depreciation,
                        items.purchasedate,
                        items.created_at, 
-                       users.fullname as employ,
+                       users.fullname as emp_name,
                        users.location,
                        users.id as employ_id,
                        users.phone,
@@ -1867,13 +1864,35 @@ class Admin_model extends CI_Model{
     $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
     $this->db->join('locations', 'items.location = locations.id', 'left');
     $this->db->join('item_assignment', 'item_assignment.item_id = items.id', 'left');
-    $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left'); 
-    // $this->db->join('users', 'items.added_by = users.id', 'left'); 
+    $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');  
     $this->db->where('item_assignment.item_id', $id);
-    if(isset($employ_id)){
-        $this->db->where('item_assignment.assignd_to', $employ_id);
-    }
+    // if(isset($employ_id)){
+    //     $this->db->where('item_assignment.assignd_to', $employ_id);
+    // }
     $this->db->order_by('id', 'ASC');
+    return $this->db->get()->result(); 
+}
+  // current_item_assign assign detail.
+  public function current_item_assign($id){
+    $this->db->select('users.id as employ_id,
+                       users.fullname as emp_name,
+                       users.location,
+                       users.department,
+                       users.doj,
+                       users.phone,
+                       users.department,  
+                       item_assignment.id as asignment_id,
+                       item_assignment.item_type, 
+                       item_assignment.item_id, 
+                       item_assignment.return_back_date,
+                       item_assignment.created_at as assign_date,
+                       item_assignment.assignd_to, 
+                       item_assignment.status, 
+                       ');
+    $this->db->from('users');
+    $this->db->join('item_assignment', 'users.id = item_assignment.assignd_to', 'left');   
+    $this->db->where(array('item_assignment.return_back_date' => null, 'item_assignment.item_id' => $id)); 
+    $this->db->order_by('users.id', 'ASC');
     return $this->db->get()->result(); 
 }
 

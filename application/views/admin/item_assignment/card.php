@@ -118,11 +118,11 @@
 											<div class="column has-text-left">
 												<p><strong>Employee</strong></p>
 												<p> <strong> Name </strong> &raquo;
-													<?= ucfirst($items[0]->employ); ?></p> 
+													<?= ucfirst($current_item[0]->emp_name); ?></p> 
 												<p> <strong> Department</strong> &raquo;
-													<?= ucfirst($items[0]->department); ?></p>
-												<p> <strong> Date Of Joining </strong>&raquo; oct-1st-2021</p>
-												<p> <strong> Contact </strong>&raquo; <?= ucfirst($items[0]->phone); ?></p>
+													<?= ucfirst($current_item[0]->department); ?></p>
+												<p> <strong> Date Of Joining </strong>&raquo; <?= date('M d, Y', strtotime($current_item[0]->doj)); ?></p>
+												<p> <strong> Contact </strong>&raquo; <?= ucfirst($current_item[0]->phone); ?></p>
 											</div>
 										</div>
 
@@ -181,10 +181,10 @@
 														<thead>
 
 															<tr>
-																<th>NO</th> 
+																<th>Name</th> 
 																<th>Assign Date</th>
 																<th>Reason</th>
-																<th>Date</th>
+																<th>Return Date</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -201,7 +201,7 @@
     ?>
 						<?php $returned_date = $item->return_back_date;
             $returned_date = ($returned_date) ? date('M d, Y', strtotime($item->return_back_date)) : ' Still In custody';?>
-					<td><?php echo $id++; ?></td> 
+					<td><?php echo ucfirst($item->emp_name)?></td> 
 					  <td><?php if(!empty($item->assign_date))
             {echo date('M d, Y', strtotime($item->assign_date)).'</date>';} 
             else{
