@@ -120,8 +120,7 @@
 							</tfoot>
 							<tbody>
 								<?php if(!empty($items)): foreach($items as $item): ?>
-								<tr onclick="window.location='<?= base_url('admin/product_card/'.$item->id) ?>';"
-									style="cursor: pointer;">
+								<tr onclick="window.location='<?= base_url('admin/product_card/'.$item->id) ?>';">
 									<td><span><?= 'S2S-'.$item->id; ?></a></td>
 									<td><?= $item->name; ?></td>
 									<td>

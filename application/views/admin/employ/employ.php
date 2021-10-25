@@ -89,7 +89,7 @@
 							<?php if(empty($results)): ?>
 							<tbody id="myTable">
 								<?php if(!empty($employ)): foreach($employ as $sup): ?>
-								<tr>
+								<tr onclick="window.location='<?= base_url('admin/edit_employ/'.$sup->emp_id); ?>';">
 									<td><?= 'S2S-'.$sup->emp_id; ?></td>
 									<td><abbr title="<?= $sup->email; ?>"><?= ucwords($sup->emp_name); ?></abbr></td>
 									<td><?= $sup->phone; ?></td>

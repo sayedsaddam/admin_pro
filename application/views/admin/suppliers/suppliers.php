@@ -89,7 +89,7 @@
 							<?php if(empty($results)): ?>
 							<tbody>
 								<?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
-								<tr>
+								<tr onclick="window.location='<?= base_url('admin/edit_supplier/' . $sup->sup_id); ?>';">
 									<td><?= 'S2S-'.$sup->sup_id; ?></td>
 									<td><abbr title="<?= $sup->email; ?>"><?= ucwords($sup->sup_name); ?></abbr></td>
 									<td><?= $sup->phone; ?></td>
