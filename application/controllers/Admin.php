@@ -78,6 +78,13 @@ class Admin extends CI_Controller{
         }
 
         $data['total_assigned_items'] = $this->admin_model->count_assign_item();
+        $data['total_assigned_items_week_change'] = $this->admin_model->count_assign_item_week_change();
+        if ($this->admin_model->count_assign_item_last_week_change() != 0) {
+            $data['total_assigned_items_last_week_change'] = $this->admin_model->count_assign_item_last_week_change();
+        } else {
+            $data['total_assigned_items_last_week_change'] = 1;
+        }
+
         $data['total_damaged_items'] = $this->admin_model->count_damaged_items();
 
         $data['fetch_item_sum_by_last_7'] = $this->admin_model->fetch_item_sum_by_last_(6);

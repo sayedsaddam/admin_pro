@@ -1062,7 +1062,34 @@ class Admin_model extends CI_Model{
             $this->db->where('items.id', $this->session->userdata('location'));
         }
         return $this->db->count_all_results();
-     }
+    }
+
+    // Count all assign items 
+    public function count_assign_item_week_change(){
+        $this->db->select('id');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
+        $this->db->where('return_back_date !=', null);
+        $this->db->where('item_assignment.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now();');
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.id', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
+    }
+
+    // Count all assign items 
+    public function count_assign_item_last_week_change(){
+        $this->db->select('id');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
+        $this->db->where('return_back_date !=', null);
+        $this->db->where('item_assignment.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK);');
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('items.id', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
+    }
+
     // Get items.
     public function get_items($limit, $offset, $date_from = null, $date_to = null ){
         // echo $from;exit;
