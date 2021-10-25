@@ -21,7 +21,7 @@
 					<div class="field">
 						<label class="label">Verification Code</label>
 						<div class="control">
-							<input class="input is-medium" id="user-password" name="otp" type="password" placeholder="********">
+							<input class="input is-medium" id="user-password" name="otp" type="password" placeholder="******">
 							<small>Please enter the 6-digit code sent to your email.</small>
 						</div>
 					</div>
