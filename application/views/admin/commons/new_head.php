@@ -26,8 +26,7 @@
 	
 	<!-- custom css -->
 	<link href="<?= base_url('assets/custom/custom.css'); ?>" rel="stylesheet">
-	<title><?php echo $title; ?></title>
-	<!-- <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900|Open+Sans:400,700,800|Roboto:400,700,900" rel="stylesheet"> -->
+	<title><?= $title; ?></title>
 </head>
 
 <?php if(!isset($login_page)) : ?>
