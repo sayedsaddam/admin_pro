@@ -52,24 +52,24 @@
           <caption><?php if(empty($results)){ echo ''; }else{ echo 'Search Results'; } ?></caption>
           <thead>
             <tr>
-                <th class="font-weight-bold">ID</th>
-                <th class="font-weight-bold">Category</th>
-                <th class="font-weight-bold">Description</th>
-                <th class="font-weight-bold">Quantity</th> 
-                <th class="font-weight-bold">Purchase Date</th>
-                <th class="font-weight-bold">Location</th> 
-                <th class="font-weight-bold">Designation</th>
-                <th class="font-weight-bold">User</th>
-                <th class="font-weight-bold">Remarks</th>
-                <th class="font-weight-bold">Give Away</th>
-                <th class="font-weight-bold">Action</th>
+                <th class="has-text-weight-semibold">ID</th>
+                <th class="has-text-weight-semibold">Category</th>
+                <th class="has-text-weight-semibold">Description</th>
+                <th class="has-text-weight-semibold">Quantity</th> 
+                <th class="has-text-weight-semibold">Purchase Date</th>
+                <th class="has-text-weight-semibold">Location</th> 
+                <th class="has-text-weight-semibold">Designation</th>
+                <th class="has-text-weight-semibold">User</th>
+                <th class="has-text-weight-semibold">Remarks</th>
+                <th class="has-text-weight-semibold">Give Away</th>
+                <th class="has-text-weight-semibold">Action</th>
             </tr>
           </thead>
           <?php if(empty($results)): ?>
             <tbody>
               <?php if(!empty($assets)): foreach($assets as $asset): ?>
                 <tr>
-                  <td><?= 'CTC-0'.$asset->id; ?></td>
+                  <td><?= 'S2S-0'.$asset->id; ?></td>
                   <td><?= $asset->category; ?></td>
                   <td><?= ucfirst($asset->description); ?></td>
                   <td><?= ucfirst($asset->quantity); ?></td>

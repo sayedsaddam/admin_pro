@@ -448,6 +448,12 @@ class Admin_model extends CI_Model{
     public function get_item_categories(){
         return $this->db->from('categories')->get()->result();
     }
+    // get status list
+    public function status_list(){
+        $this->db->select('item_status.id, item_status.type');
+        $this->db->from('item_status');
+        return $this->db->get()->result();
+    }
     // Expenses - ctc own Bln
     public function ctc_own_bln(){
         $this->db->select('SUM(IF(project="CTC OWN", amount, 0)) as ctc_own_bln');
