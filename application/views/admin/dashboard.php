@@ -42,7 +42,7 @@
 									<?php elseif($count_employ_week_change == $count_employ_last_week_change || ($count_employ_week_change == 0 AND $count_employ_last_week_change == 0)) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $count_employ_week_change ?></span> <span class="has-text-grey">(0.00%)</span></div>
 									<?php else : ?>
-										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $count_employ_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($count_employ_week_change - $count_employ_last_week_change) / $count_employ_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-grey">+<?= $count_employ_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($count_employ_week_change - $count_employ_last_week_change) / $count_employ_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
 									<?php endif ?>
 								</a>
 								<a href="<?= base_url('admin/item_register') ?>" class="tile is-child clickable hoverable has-text-dark">
@@ -53,7 +53,7 @@
 									<?php elseif($total_items_week_change == $total_items_last_week_change || ($total_items_week_change == 0 AND $total_items_last_week_change == 0)) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_items_week_change ?></span> <span class="has-text-grey">(0.00%)</span></div>
 									<?php else : ?>
-										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_items_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_items_week_change - $total_items_last_week_change) / $total_items_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-grey">+<?= $total_items_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_items_week_change - $total_items_last_week_change) / $total_items_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
 									<?php endif ?>
 								</a>
 								<a href="<?= base_url('admin/suppliers') ?>" class="tile is-child clickable hoverable has-text-dark">
@@ -64,7 +64,7 @@
 									<?php elseif($total_suppliers_week_change == $total_suppliers_last_week_change || ($total_suppliers_week_change == 0 AND $total_suppliers_last_week_change == 0)) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_suppliers_week_change ?></span> <span class="has-text-grey">(0.00%)</span></div>
 									<?php else : ?>
-										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_suppliers_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_suppliers_week_change - $total_suppliers_last_week_change) / $total_suppliers_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-grey">+<?= $total_suppliers_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_suppliers_week_change - $total_suppliers_last_week_change) / $total_suppliers_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
 									<?php endif ?>
 								</a>
 							</div>
@@ -77,7 +77,7 @@
 									<?php elseif($total_categories_week_change == $total_categories_last_week_change || ($total_categories_week_change == 0 AND $total_categories_last_week_change == 0)) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_categories_week_change ?></span> <span class="has-text-grey">(0.00%)</span></div>
 									<?php else : ?>
-										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_categories_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_categories_week_change - $total_categories_last_week_change) / $total_categories_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-grey">+<?= $total_categories_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_categories_week_change - $total_categories_last_week_change) / $total_categories_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
 									<?php endif ?>
 								</a>
 								<a href="<?= base_url('admin/dashboard') ?>" class="tile is-child clickable hoverable has-text-dark">
@@ -88,7 +88,7 @@
 									<?php elseif($total_offices_week_change == $total_offices_last_week_change || ($total_offices_week_change <= 0 && $total_offices_last_week_change <= 0)) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_offices_week_change ?></span> <span class="has-text-grey">(0.00%)</span></div> 
 									<?php else : ?>
-										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_offices_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_offices_week_change - $total_offices_last_week_change) / $total_offices_last_week_change) * 100, 2, '.', '') ?>%) </span></div>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-grey">+<?= $total_offices_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_offices_week_change - $total_offices_last_week_change) / $total_offices_last_week_change) * 100, 2, '.', '') ?>%) </span></div>
 									<?php endif ?>
 								</a>
 								<a href="<?= base_url('admin/dashboard') ?>" class="tile is-child clickable hoverable has-text-dark">
@@ -99,7 +99,7 @@
 									<?php elseif($total_offices_week_change == $total_offices_last_week_change || ($total_offices_week_change == 0 AND $total_offices_last_week_change == 0)) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_offices_week_change ?></span> <span class="has-text-grey">(0.00%)</span></div>
 									<?php else : ?>
-										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_offices_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_offices_week_change - $total_offices_last_week_change) / $total_offices_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-grey">+<?= $total_offices_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_offices_week_change - $total_offices_last_week_change) / $total_offices_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
 									<?php endif ?>
 								</a>
 							</div>
@@ -134,7 +134,7 @@
 									<?php elseif($total_available_items_week_change == $total_available_items_last_week_change || ($total_available_items_week_change == 0 AND $total_available_items_last_week_change == 0)) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_available_items_week_change ?></span> <span class="has-text-grey">(0.00%)</span></div>
 									<?php else : ?>
-										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_available_items_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_available_items_week_change - $total_available_items_last_week_change) / $total_available_items_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-grey">+<?= $total_available_items_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_available_items_week_change - $total_available_items_last_week_change) / $total_available_items_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
 									<?php endif ?>
 								</a>
 								<a href="<?= base_url('admin/get_assign_item') ?>" class="tile is-child clickable hoverable has-text-dark">
@@ -145,7 +145,7 @@
 									<?php elseif($total_assigned_items_week_change == $total_assigned_items_last_week_change || ($total_assigned_items_week_change == 0 AND $total_assigned_items_last_week_change == 0)) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_assigned_items_week_change ?></span> <span class="has-text-grey">(0.00%)</span></div>
 									<?php else : ?>
-										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_assigned_items_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_assigned_items_week_change - $total_assigned_items_last_week_change) / $total_assigned_items_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-grey">+<?= $total_assigned_items_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_assigned_items_week_change - $total_assigned_items_last_week_change) / $total_assigned_items_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
 									<?php endif ?>
 								</a>
 								<a href="<?= base_url('admin/dashboard') ?>" class="tile is-child clickable hoverable has-text-dark">
@@ -156,7 +156,7 @@
 									<?php elseif($total_damaged_items_week_change == $total_damaged_items_last_week_change || ($total_damaged_items_week_change == 0 AND $total_damaged_items_last_week_change == 0)) : ?>
 										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_damaged_items_week_change ?></span> <span class="has-text-grey">(0.00%)</span></div>
 									<?php else : ?>
-										<div class="has-text-weight-light is-size-7"><span class="has-text-success">+<?= $total_damaged_items_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_damaged_items_week_change - $total_damaged_items_last_week_change) / $total_damaged_items_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
+										<div class="has-text-weight-light is-size-7"><span class="has-text-grey">+<?= $total_damaged_items_week_change ?></span> <span class="has-text-danger">(<?= number_format(( ($total_damaged_items_week_change - $total_damaged_items_last_week_change) / $total_damaged_items_last_week_change) * 100, 2, '.', '') ?>%)</span></div>
 									<?php endif ?>
 								</a>
 							</div>
