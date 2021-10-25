@@ -109,9 +109,9 @@
 									<td><?= ucwords($sup->cat_name); ?></td>
 									<td>
 										<?php if($sup->status == 1): ?>
-										<span class="badge badge-success">Active</span>
+										<span class="tag is-success is-light">Active</span>
 										<?php else: ?>
-										<span class="badge badge-danger">Inactive</span>
+										<span class="tag is-warning is-light">Inactive</span>
 										<?php endif; ?>
 									</td>
 									<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
