@@ -290,10 +290,10 @@ class Admin extends CI_Controller{
             'created_at' => date('Y-m-d')
         );
         if ($id = $this->admin_model->add_supplier($data)) {
-            $this->session->set_flashdata('success', '<strong>Success:</strong> Supplier (' . $this->input->post('name') . ') was added successfully.');
+            $this->session->set_flashdata('success', 'Supplier (<strong>' . $this->input->post('name') . '</strong>) was added successfully.');
             redirect('admin/edit_supplier/' . $id);
         }else{
-            $this->session->set_flashdata('failed', '<strong>Failed:</strong> Something went wrong, please try again!');
+            $this->session->set_flashdata('failed', 'Something went wrong, please try again!');
             redirect('admin/suppliers');
         }
     }
@@ -332,10 +332,10 @@ class Admin extends CI_Controller{
             'address' => $this->input->post('address')
         );  
         if($this->admin_model->update_supplier($id, $data)){
-            $this->session->set_flashdata('success', '<strong>Success:</strong> Supplier (' . $this->input->post('name') . ') was updated successfully.');
+            $this->session->set_flashdata('success', 'Supplier (<strong>' . $this->input->post('name') . '</strong>) was updated successfully.');
             redirect('admin/edit_supplier/' . $id);
         }else{
-            $this->session->set_flashdata('failed', '<strong>Failed:</strong> Something went wrong, please try again!');
+            $this->session->set_flashdata('failed', 'Something went wrong, please try again!');
             redirect('admin/edit_supplier/' . $id);
         }
     }
@@ -416,6 +416,7 @@ class Admin extends CI_Controller{
         $data['locations'] = $this->admin_model->get_employ_location($id); 
         $data['edit'] = $this->admin_model->edit_employ($id);  
         $data['breadcrumb'] = array("admin/employee" => "Employee List", "Edit Employee");
+        $data['employees_page'] = true;
         $this->load->view('admin/commons/new_template', $data);
     }
 
@@ -441,10 +442,10 @@ class Admin extends CI_Controller{
         // echo "<pre>";
         // print_r($data);exit;  
         if($this->admin_model->update_employ($id, $data)){
-            $this->session->set_flashdata('success', '<strong>Success!</strong> Employee (' . $this->input->post('full_name') . ') was updated successfully.'); 
+            $this->session->set_flashdata('success', 'Employee (<strong>' . $this->input->post('full_name') . '</strong>) was updated successfully.'); 
             redirect('admin/edit_employ/' . $id);
         }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            $this->session->set_flashdata('failed', 'Something went wrong, please try again!');
             redirect('admin/edit_employ/' . $id);
         }
     }
