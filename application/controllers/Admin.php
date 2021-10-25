@@ -710,28 +710,28 @@ class Admin extends CI_Controller{
         $data['edit'] = $this->admin_model->asset_detail($id);
         $this->load->view('admin/commons/template', $data);
     }
-    // Add new asset into the database
-    public function save_item(){
-        $data = array(
-            'purchase_date' => $this->input->post('purchase_date'), 
-            'category' => $this->input->post('category'), 
-            'description' => $this->input->post('description'),
-            'quantity' => $this->input->post('quantity'),
-            'location' => $this->input->post('location'),
-            'designation' => $this->input->post('designation'),
-            'user' => $this->input->post('user'),
-            'remarks' => $this->input->post('remarks'),
-            'giveaway' => $this->input->post('giveaway'), 
-            'created_at' => date('Y-m-d')
-        );
-        if($this->admin_model->add_item($data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
-            redirect('admin/asset_register');
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
-            redirect('admin/asset_register');
+        // Add new asset into the database
+        public function save_item(){
+            $data = array(
+                'purchase_date' => $this->input->post('purchase_date'), 
+                'category' => $this->input->post('category'), 
+                'description' => $this->input->post('description'),
+                'quantity' => $this->input->post('quantity'),
+                'location' => $this->input->post('location'),
+                'designation' => $this->input->post('designation'),
+                'user' => $this->input->post('user'),
+                'remarks' => $this->input->post('remarks'),
+                'giveaway' => $this->input->post('giveaway'), 
+                'created_at' => date('Y-m-d')
+            );
+            if($this->admin_model->add_item($data)){
+                $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
+                redirect('admin/asset_register');
+            }else{
+                $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
+                redirect('admin/asset_register');
+            }
         }
-    }
     // Update an existing asset record
     public function update_item(){
         $id = $this->input->post('id');
@@ -1180,9 +1180,12 @@ class Admin extends CI_Controller{
     }
 
     //Item register 
-    public function product_card(){ 
+    public function product_card($id,$offset = null){
+    $employ_id = $this->uri->segment(4);   
         $data['title'] = 'Item Register | Admin & Procurement';
         $data['body'] = 'admin/item_assignment/card';  
+        $data['items'] = $this->admin_model->get_item_card($id,$employ_id); 
+        $data['item'] = $this->admin_model->get_item_card_detail($id); 
         $this->load->view('admin/commons/new_template', $data);
     }
     
@@ -1623,11 +1626,11 @@ class Admin extends CI_Controller{
     }    
     //Item card   
     public function item_card($id,$offset = null){
-    $employ_id = $this->uri->segment(4);  
+    $employ_id = $this->uri->segment(4);   
      $data['title'] = 'Item Register | Admin & Procurement';
      $data['body'] = 'admin/item_assignment/item-card';
      $data['items'] = $this->admin_model->get_item_card($id,$employ_id); 
-     $data['item'] = $this->admin_model->get_item_card_detail($id); 
+     $data['item'] = $this->admin_model->get_item_card_detail($id);
      $this->load->view('admin/commons/template', $data);
  }
      // 404 page.

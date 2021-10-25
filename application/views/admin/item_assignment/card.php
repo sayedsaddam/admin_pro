@@ -85,10 +85,39 @@
 							<div class="card">
 
 
-								<p class="card-title is-size-4 is-bold is-hidden">
-									AH Group of Companies (Pvt.) Ltd. Islamabad, 44000
-								</p>
-								<p class="subtitle has-text-centered"><strong>Category</strong> &raquo; Electronic
+							<?php if(!empty($items)): ?>
+
+
+								<p class="subtitle has-text-centered"><strong>Category</strong> &raquo; <?= $items[0]->cat_name ?>
+									<strong>Subcategory</strong> &raquo; <?= ucfirst($items[0]->names); ?> <strong>Product</strong> <?=$items[0]->type_name."(".$items[0]->quantity.")";?></p>
+								<p class="card-title is-size-4">
+
+								<div class="card-content">
+
+
+<div class="columns">
+
+	<div class="column has-text-left ml-6">
+		<p><strong>Product</strong></p>
+		<p><strong>Serial No</strong> &raquo; <?=ucfirst($items[0]->serial_number);?></p>
+		<p><strong>Purchase Date</strong> &raquo; <?= date('M d, Y', strtotime($items[0]->purchasedate)); ?></p>
+		<p><strong>Price</strong> &raquo; <<?php echo "<p id='price'>". $items[0]->price.'</p>';?> </p>
+		<p><strong>Depreciation</strong> &raquo; <?php echo "<span id='dep'>".$items[0]->depreciation .'</span>'. "(%)"; ?> </p>
+		<p><strong>Current Value</strong> &raquo; <p id="current"> </p> </p>
+	</div>
+
+	<div class="column has-text-left">
+		<p><strong>Employee</strong></p>
+		<p> <strong> Employee </strong> &raquo; <?= ucfirst($items[0]->names); ?></p>
+		<p> <strong> Designation</strong> &raquo; <?= ucfirst($items[0]->names); ?></p>
+		<p> <strong> Department</strong> &raquo; <?= ucfirst($items[0]->names); ?></p>
+		<p> <strong> Date Of Joining </strong>&raquo; oct-1st-2021</p>
+		<p> <strong> Contact </strong>&raquo; <?= ucfirst($items[0]->names); ?> 0345-587684969</p>
+	</div>
+</div>
+
+<?php else : ?>
+	<p class="subtitle has-text-centered"><strong>Category</strong> &raquo; Electronic
 									<strong>Subcategory</strong> &raquo; Laptop <strong>Product</strong> Dell</p>
 								<p class="card-title is-size-4">
 
@@ -101,28 +130,39 @@
 
 										<div class="column has-text-left ml-6">
 											<p><strong>Product</strong></p>
-											<p><strong>Serial No</strong> &raquo; A1-2343</p>
-											<p><strong>Purchase Date</strong> &raquo; aug-12-2021</p>
-											<p><strong>Price</strong> &raquo; 50000 </p>
-											<p><strong>Depreciation</strong> &raquo; 10% </p>
-											<p><strong>Current Value</strong> &raquo; 45000 </p>
+											<p><strong>Serial No</strong> &raquo; <?= $item->cat_name; ?></p>
+											<p><strong>Purchase Date</strong> &raquo; <?= date('M d, Y', strtotime($item->purchasedate)); ?></p>
+											<p><strong>Price</strong> &raquo; <?= $item->price;?> </p>
+											<p><strong>Depreciation</strong> &raquo; <?php echo $item->depreciation . " (%)"; ?> </p>
+											<p><strong>Current Value</strong> &raquo; 	<?php  
+											error_reporting(0);
+											if($item->depreciation > 0){ 
+											$depreciation = ($item->price*$item->depreciation / 100) ;  
+											echo $item->price - $depreciation;
+											
+											}
+											?> </p>
 										</div>
 
 										<div class="column has-text-left">
 											<p><strong>Employee</strong></p>
-											<p> <strong> Employee </strong> &raquo; Dawod</p>
+											<p> <strong> Employee </strong> &raquo;  <?= $item->fullname;?></p>
 											<p> <strong> Designation</strong> &raquo; Developer</p>
-											<p> <strong> Department</strong> &raquo; IT</p>
-											<p> <strong> Date Of Joining </strong>&raquo; oct-1st-2021</p>
-											<p> <strong> Contact </strong>&raquo; 0345-587684969</p>
+											<p> <strong> Department</strong> &raquo;  <?= $item->department;?></p>
+											<p> <strong> Date Of Joining </strong>&raquo;  <?= $item->doj;?></p>
+											<p> <strong> Contact </strong>&raquo;  <?= $item->phone;?></p>
 										</div>
 									</div>
+
+	<?php endif; ?> 
 
 
 									<div class="columns">
 										<div class="column">
+											
 											<table class="table is-fullwidth">
 												<thead>
+													
 													<tr>
 														<th>NO</th>
 														<th>Name</th>

@@ -98,8 +98,8 @@
 							<p id="current"> </p>
 						</div>
 					</div>
-					<?php else : ?>
-
+					<?php else : ?> 
+						
 					<div class="row">
 						<div class="col-md-6">
 							<p>Location</p>

@@ -1149,11 +1149,17 @@ class Admin_model extends CI_Model{
                        categories.cat_name, 
                        sub_categories.name as names, 
                        sub_categories.id as sub_ids, 
+                       users.id as user_id,
+                       users.fullname, 
+                       users.department,
+                       users.doj,
+                       users.phone,
                        ');
     $this->db->from('items'); 
     $this->db->join('locations', 'items.location = locations.id', 'left');
     $this->db->join('categories', 'items.category = categories.id', 'left'); 
     $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
+    $this->db->join('users', 'items.location = users.location', 'left');
     $this->db->where('items.id', $id);
     $this->db->order_by('id', 'ASC');
     return $this->db->get()->row(); 
