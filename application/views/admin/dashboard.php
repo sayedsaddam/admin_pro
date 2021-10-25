@@ -20,7 +20,7 @@
 									<div class="columns is-vcentered">
 										<div class="column">
 											<div class="is-size-5">General</div>
-											<div class="is-size-6 has-text-grey">Last 7 days vs previous 7 days</div>
+											<div class="is-size-6 has-text-grey">Last 7 days vs Previous 7 days</div>
 										</div>
 										<div class="column is-narrow">
 											<button class="card-header-icon" aria-label="more options">
@@ -112,7 +112,7 @@
 									<div class="columns is-vcentered">
 										<div class="column">
 											<div class="is-size-5">Items</div>
-											<div class="is-size-6 has-text-grey">Last 7 days vs previous 7 days</div>
+											<div class="is-size-6 has-text-grey">Last 7 days vs Previous 7 days</div>
 										</div>
 										<div class="column is-narrow">
 											<button class="card-header-icon" aria-label="more options">
