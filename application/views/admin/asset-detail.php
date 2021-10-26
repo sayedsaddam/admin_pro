@@ -34,6 +34,15 @@
 					<div class="column is-hidden-touch is-narrow">
 						<div class="field has-addons"> 
 							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/asset_register'); ?>'"
+									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-list"></i>
+									</span>
+									<span>Asset List</span>
+								</button>
+							</p>
+							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/add_asset'); ?>'"
 									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
@@ -41,7 +50,7 @@
 									</span>
 									<span>Add New</span>
 								</button>
-							</p>
+							</p> 
 						</div>
 					</div>
 				</div>
@@ -149,10 +158,11 @@
 										<div class="control has-icons-left">
             <?php if(!empty($edit)){
             $date = strtotime($edit->purchase_date);
+			echo $date;
             $purchase_date = date('Y-m-d', $date); 
             }?> 
 									<input name="purchase_date" class="input is-small" type="date" required
-                  value="<?php if(!empty($edit)){ echo $edit->purchase_date; } ?>">
+                  value="<?php if(!empty($edit)){ echo $purchase_date; } ?>">
 											<span class="icon is-small is-left">
 												<i class="far fa-calendar-alt"></i>
 											</span>

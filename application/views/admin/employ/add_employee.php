@@ -37,7 +37,7 @@
 								<a href="<?= base_url("admin/employee") ?>"
 									class="button is-small <?= (isset($employees_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-plus"></i>
+										<i class="fas fa-list"></i>
 									</span>
 									<span>Employees List</span>
 								</a>

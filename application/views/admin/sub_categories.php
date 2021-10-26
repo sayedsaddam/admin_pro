@@ -80,7 +80,7 @@
 								<?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
 								<tr>
 									<td><?= 'S2S-'.$cat->id; ?></td>
-									<td><div class="tag is-light is-success"><?= ucwords($cat->name); ?></div></td>
+									<td><div class="tag is-info is-light"><?= ucwords($cat->name); ?></div></td>
 									<td><?= ucwords($cat->fullname); ?></td>
 									<td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
 									<td class="is-narrow">

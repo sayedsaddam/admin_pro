@@ -37,7 +37,7 @@
 								<a href="<?= base_url("admin/suppliers") ?>"
 									class="button is-small <?= (isset($suppliers_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-plus"></i>
+										<i class="fas fa-list"></i>
 									</span>
 									<span>Suppliers List</span>
 								</a>
