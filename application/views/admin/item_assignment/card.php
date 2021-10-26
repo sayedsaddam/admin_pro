@@ -83,104 +83,132 @@
 				<div class='container has-text-centered'>
 					<div class='columns is-mobile is-centered'>
 						<div class='column is-12'>
-							<div class="card">
-
-
-								<?php if(!empty($items)): ?>
-
-								<p class="title has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd.
+							<div class="card"> 
+ 
+								<?php if(!empty($items)): ?> 
+								<p class="subtitle has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd.
 									Islamabad, 44000</p>
 								<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
-									<?= $items[0]->cat_name ?>
-									<strong>Subcategory</strong> &raquo; <?= ucfirst($items[0]->names); ?>
-									<strong>Product</strong> <?=$items[0]->type_name."(".$items[0]->quantity.")";?></p>
-								<p class="card-title is-size-4">
-
-									<div class="card-content">
-
-
+									<?= $items[0]->cat_name ?></p> 
+									<div class="card-content"> 
 										<div class="columns">
+											<div class="column">
+												<div class="columns">
 
-											<div class="column has-text-left ml-6">
-												<p><strong>Product</strong></p>
-												<p><strong>Serial No</strong> &raquo;
-													<?=ucfirst($items[0]->serial_number);?></p>
-												<p><strong>Purchase Date</strong> &raquo;
-													<?= date('M d, Y', strtotime($items[0]->purchasedate)); ?></p>
-												<p><strong>Price</strong> &raquo;
-													<?php echo "<spanp id='price'>". $items[0]->price.'</span>';?> <p>
-														<strong>Depreciation</strong> &raquo;
-														<?php echo "<span id='dep'>".$items[0]->depreciation .'</span>'. "(%)"; ?>
-													</p>
-													<p><strong>Current Value</strong> &raquo; <span id="current">
-														</span>
-													</p>
+													<div class="column is-narrow has-text-left"
+														style="margin-left: 14%;">
+
+														<p><strong>Product</strong></p>
+														<p>Serial No </p>
+														<p>Model</p>
+														<p>Purchase Date</p>
+														<p>Price<p>
+														<p>Depreciation</p>
+														<p>Current Value</p>
+
+													</div>
+													<div class="column has-text-left">
+														<p>
+															<?=ucfirst($items[0]->names);?>
+														</p>
+														<p><?php if(!empty($items[0]->serial_number)){ ?>
+															<?=ucfirst($items[0]->serial_number);?>
+															<?php } else{ ?>NA <?php } ?></p>
+															<p><?= $items[0]->type_name; ?></p>
+														<p><?= date('M d, Y', strtotime($items[0]->purchasedate)); ?>
+														</p>
+														<p><?php echo "<spanp id='price'>". $items[0]->price.'</span>';?>
+														</p>
+														<p><?php echo "<span id='dep'>".$items[0]->depreciation .'</span>'. "(%)"; ?>
+														</p>
+														<p><span id="current"> </span></p>
+													</div>
+												</div> 
 											</div>
-
-											<div class="column has-text-left">
-												<p><strong>Employee</strong></p>
-												<p> <strong> Name </strong> &raquo;
-													<?= ucfirst($current_item[0]->emp_name); ?></p>
-												<p> <strong> Department</strong> &raquo;
-													<?= ucfirst($current_item[0]->department); ?></p>
-												<p> <strong> Date Of Joining </strong>&raquo;
-													<?= date('M d, Y', strtotime($current_item[0]->doj)); ?></p>
-												<p> <strong> Contact </strong>&raquo;
-													<?= ucfirst($current_item[0]->phone); ?></p>
+											<div class="column">
+												<div class="columns">
+													<div class="column is-narrow has-text-left">
+														<p><strong>Employee</strong></p>
+														<p> Department &raquo; </p>
+														<p> Date Of Joining &raquo;</p>
+														<p> Contact &raquo;</p>
+													</div>
+													<div class="column has-text-left">
+														<p><?= ucfirst($current_item[0]->emp_name); ?></p>
+														<p><?= ucfirst($current_item[0]->department); ?></p>
+														<p><?= date('M d, Y', strtotime($current_item[0]->doj)); ?></p>
+														<p><?= ucfirst($current_item[0]->phone); ?></p>
+													</div>
+												</div>
 											</div>
-										</div>
-
-										<?php else : ?>
-										<p class="title has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd.
-											Islamabad, 44000</p>
-										<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
-											<?= $item->cat_name; ?>
-											<strong>Subcategory</strong> &raquo; <?= $item->names; ?>
-											<strong>Product</strong> <?= $item->type_name; ?>
-										</p>
-										<p class="card-title is-size-4">
-
-										</p>
-
+										</div> 
+										<?php else : ?>  
+										<p class="subtitle has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd.
+									Islamabad, 44000</p>
+								<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
+								<?= $item->cat_name; ?></p> 
 										<div class="card-content">
-
-
 											<div class="columns">
 
-												<div class="column has-text-left ml-6">
-													<p><strong>Product</strong></p>
-													<p><strong>Serial No</strong> &raquo; <?= $item->serial_number; ?>
-													</p>
-													<p><strong>Purchase Date</strong> &raquo;
-														<?= date('M d, Y', strtotime($item->purchasedate)); ?></p>
-													<p><strong>Price</strong> &raquo; <?= $item->price;?> </p>
-													<p><strong>Depreciation</strong> &raquo;
-														<?php echo $item->depreciation . " (%)"; ?> </p>
-													<p><strong>Current Value</strong> &raquo; <?php  
+
+
+											<div class="column">
+												<div class="columns">
+
+													<div class="column is-narrow has-text-left"
+														style="margin-left: 14%;">
+
+														<p><strong>Product</strong></p>
+														<p>Serial No </p>
+														<p>Model</p>
+														<p>Purchase Date</p>
+														<p>Price<p>
+														<p>Depreciation</p>
+														<p>Current Value</p>
+
+													</div>
+													<div class="column has-text-left">
+														<p>
+															<?=ucfirst($item->names);?>
+														</p>
+														<p><?= $item->serial_number; ?></p>
+															<p><?= date('M d, Y', strtotime($item->purchasedate)); ?></p>
+														<p> <?= $item->price;?></p>
+														<p><?php echo "<spanp id='price'>". $item->price.'</span>';?>
+														</p>
+														<p><?php echo "<span id='dep'>".$item->depreciation .'</span>'. "(%)"; ?>
+														</p>
+														<p><?php  
 											error_reporting(0);
 											if($item->depreciation > 0){ 
 											$depreciation = ($item->price*$item->depreciation / 100) ;  
 											echo $item->price - $depreciation;
-											
 											}
-											?> </p>
-												</div>
-
-												<div class="column has-text-left">
+											?></p>
+													</div>
+												</div> 
+											</div>
+											<div class="column">
+												<div class="columns">
+													<div class="column is-narrow has-text-left">
 													<p><strong>Employee</strong></p>
-													<p> <strong> Name </strong> &raquo; <?= $item->fullname;?></p>
-													<p> <strong> Department</strong> &raquo; <?= $item->department;?>
-													</p>
-													<p> <strong> Date Of Joining </strong>&raquo;
-														<?= date('M d, Y', strtotime($item->doj)); ?></p>
-													<p> <strong> Contact </strong>&raquo; <?= $item->phone;?></p>
+														<p> Department &raquo; </p>
+														<p> Date Of Joining &raquo;</p>
+														<p> Contact &raquo;</p>
+													</div>
+													<div class="column has-text-left">
+														<p> <?= $item->fullname;?></p>
+														<p><?= $item->department;?></p>
+														<p><?= date('M d, Y', strtotime($item->doj)); ?></p>
+														<p><?= $item->phone;?></p>
+													</div>
 												</div>
+											</div>
+ 
 											</div>
 											<span style='color: red;font-weight: bold'>This item still not assign to any
 												emplye </span>
-											<?php endif; ?>
-
-
+											<?php endif; ?> 
 											<div class="columns">
 												<div class="column">
 													<?php if(!empty($items)): ?>
@@ -200,12 +228,11 @@
 																<?php if(!empty($items)): foreach($items as $item): ?>
 															<tr>
 																<!-- below some php code writen for available data which is not assign to someone -->
-																<?php if(empty($item->assign_date)){
-?><div class="col-sm-12 text-center"> <strong>Availabe Still Not Assignd</strong> </div>
+																<?php if(empty($item->assign_date)){?><div class="col-sm-12 text-center"> <strong>Availabe Still Not Assignd</strong> </div>
 																<?php 
-    }
-    else{
-    ?>
+															}
+															else{
+															?>
 																<?php $returned_date = $item->return_back_date;
             $returned_date = ($returned_date) ? date('M d, Y', strtotime($item->return_back_date)) : ' Still In custody';?>
 																<td> <a data-id="<?= $item->asignment_id; ?>"
@@ -229,13 +256,11 @@
             echo "<span style='font-weight:bold'> Still In custody </span>";} ?>
 																</td>
 																<?php } ?>
-
 															</tr>
 															<?php endforeach;  ?>
 														</tbody>
 													</table>
 													<?php endif;  ?>
-
 													<?php 
  endif;
 ?>
@@ -279,18 +304,19 @@
 					<div class="column">
 						<p>Name :</p>
 						<p>Department :</p>
+						<p>Product</p>
+						<p>Assigned Date :</p>
 						<p>Remarks :</p>
 						<p>Description :</p>
-						<p>Assigned Date :</p>
 						<p>Return Date :</p>
-					</div>
-
+					</div> 
 					<div class="column">
 						<p id="emp_name"></p>
 						<p id="department"></p>
+						<p id="product"></p>
+						<p id="assigned_date"></p>
 						<p id="remarks"></p>
 						<p id="returning_description"></p>
-						<p id="assigned_date"></p>
 						<p id="return_date"></p>
 					</div>
 					<div class="column ">
@@ -332,9 +358,8 @@
 	$(document).ready(function () {
 		$('.emp_detail').click(function () {
 			var emp_id = $(this).data('id');
-			// AJAX request
-			
-			document.getElementById( 'emp_name' ).value = '';
+			// AJAX request 
+			document.getElementById('emp_name').value = '';
 			$.ajax({
 				url: '<?= base_url('admin/assigned_item_emp/'); ?>' + emp_id,
 				method: 'POST',
@@ -344,29 +369,18 @@
 				},
 				success: function (response) {
 					console.log(response); 
-
-// Remove options
-// $('#emp_name').find('option').not(':first').remove();
-					// Add options  
-
-					document.getElementById("emp_name").innerHTML = "";
-					document.getElementById("department").innerHTML = "";
-					document.getElementById("remarks").innerHTML = "";
-					document.getElementById("returning_description").innerHTML = "";
-					document.getElementById("assigned_date").innerHTML = "";
-					document.getElementById("return_date").innerHTML = "";
-					document.getElementById("item_image").innerHTML = ""; 
-
-					document.getElementById("emp_name").append(response.fullname);
-					document.getElementById("department").append(response.department);
-					document.getElementById("remarks").append(response.remarks);
-					document.getElementById("returning_description").append(response
-						.returning_description);
-					document.getElementById("assigned_date").append(response.assigned_date);
-					document.getElementById("return_date").append(response.return_date);
+					// Add options   
+					document.getElementById("emp_name").innerHTML = response.fullname;
+					document.getElementById("department").innerHTML = response.department;
+					document.getElementById("product").innerHTML =response.sub_name;
+					document.getElementById("assigned_date").innerHTML = response.assigned_date;
+					document.getElementById("remarks").innerHTML = response.remarks;
+					document.getElementById("returning_description").innerHTML = response.returning_description;
+					document.getElementById("remarks").innerHTML = response.return_date; 
+					document.getElementById("item_image").innerHTML = "";  
 					$("#item_image").attr({
 						src: "<?= base_url('upload/')?>" + response.item_file
-					}); 
+					});
 					// Display Modal
 					supmdl.show();
 				}
@@ -374,5 +388,5 @@
 			event.stopPropagation();
 		});
 	});
-
+ 
 </script>

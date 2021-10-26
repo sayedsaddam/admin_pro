@@ -1847,7 +1847,7 @@ class Admin_model extends CI_Model{
                        users.id as employ_id,
                        users.phone,
                        users.department,
-                       sub_categories.name as names, 
+                       sub_categories.name as names,
                        categories.cat_name, 
                        locations.name,
                        item_assignment.id as asignment_id,
@@ -1886,9 +1886,16 @@ class Admin_model extends CI_Model{
         item_assignment.return_back_date as return_date,
         users.id,
         users.fullname,
-        users.department');
+        users.department,
+        sub_categories.id as sub_id,
+        sub_categories.name as sub_name,
+        items.id,
+        items.sub_category
+        ');
         $this->db->from('item_assignment'); 
         $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+        $this->db->join('items', 'item_assignment.item_id = items.id', 'left');
+        $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
         $this->db->where('item_assignment.id', $id);
         $this->db->order_by('item_assignment.id', 'DESC'); 
         return $this->db->get()->row();
