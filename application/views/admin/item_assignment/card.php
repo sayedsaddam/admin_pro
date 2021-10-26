@@ -88,7 +88,8 @@
 
 								<?php if(!empty($items)): ?>
 
-							<p class="title has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd. Islamabad, 44000</p> 
+								<p class="title has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd.
+									Islamabad, 44000</p>
 								<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
 									<?= $items[0]->cat_name ?>
 									<strong>Subcategory</strong> &raquo; <?= ucfirst($items[0]->names); ?>
@@ -107,30 +108,35 @@
 												<p><strong>Purchase Date</strong> &raquo;
 													<?= date('M d, Y', strtotime($items[0]->purchasedate)); ?></p>
 												<p><strong>Price</strong> &raquo;
-												<?php echo "<spanp id='price'>". $items[0]->price.'</span>';?> <p>
+													<?php echo "<spanp id='price'>". $items[0]->price.'</span>';?> <p>
 														<strong>Depreciation</strong> &raquo;
 														<?php echo "<span id='dep'>".$items[0]->depreciation .'</span>'. "(%)"; ?>
-												</p>
-												<p><strong>Current Value</strong> &raquo; <span id="current"> </span>
-												</p>
+													</p>
+													<p><strong>Current Value</strong> &raquo; <span id="current">
+														</span>
+													</p>
 											</div>
 
 											<div class="column has-text-left">
 												<p><strong>Employee</strong></p>
 												<p> <strong> Name </strong> &raquo;
-													<?= ucfirst($current_item[0]->emp_name); ?></p> 
+													<?= ucfirst($current_item[0]->emp_name); ?></p>
 												<p> <strong> Department</strong> &raquo;
 													<?= ucfirst($current_item[0]->department); ?></p>
-												<p> <strong> Date Of Joining </strong>&raquo; <?= date('M d, Y', strtotime($current_item[0]->doj)); ?></p>
-												<p> <strong> Contact </strong>&raquo; <?= ucfirst($current_item[0]->phone); ?></p>
+												<p> <strong> Date Of Joining </strong>&raquo;
+													<?= date('M d, Y', strtotime($current_item[0]->doj)); ?></p>
+												<p> <strong> Contact </strong>&raquo;
+													<?= ucfirst($current_item[0]->phone); ?></p>
 											</div>
 										</div>
 
 										<?php else : ?>
-					<p class="title has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd. Islamabad, 44000</p> 
+										<p class="title has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd.
+											Islamabad, 44000</p>
 										<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
-										<?= $item->cat_name; ?>
-											<strong>Subcategory</strong> &raquo; <?= $item->names; ?> <strong>Product</strong> <?= $item->type_name; ?>
+											<?= $item->cat_name; ?>
+											<strong>Subcategory</strong> &raquo; <?= $item->names; ?>
+											<strong>Product</strong> <?= $item->type_name; ?>
 										</p>
 										<p class="card-title is-size-4">
 
@@ -143,7 +149,8 @@
 
 												<div class="column has-text-left ml-6">
 													<p><strong>Product</strong></p>
-													<p><strong>Serial No</strong> &raquo; <?= $item->serial_number; ?></p>
+													<p><strong>Serial No</strong> &raquo; <?= $item->serial_number; ?>
+													</p>
 													<p><strong>Purchase Date</strong> &raquo;
 														<?= date('M d, Y', strtotime($item->purchasedate)); ?></p>
 													<p><strong>Price</strong> &raquo; <?= $item->price;?> </p>
@@ -169,7 +176,8 @@
 													<p> <strong> Contact </strong>&raquo; <?= $item->phone;?></p>
 												</div>
 											</div>
-											<span style='color: red;font-weight: bold'>This item still not assign to any emplye </span>
+											<span style='color: red;font-weight: bold'>This item still not assign to any
+												emplye </span>
 											<?php endif; ?>
 
 
@@ -179,9 +187,8 @@
 
 													<table class="table is-fullwidth">
 														<thead>
-
 															<tr>
-																<th>Name</th> 
+																<th>Name</th>
 																<th>Assign Date</th>
 																<th>Reason</th>
 																<th>Return Date</th>
@@ -194,30 +201,33 @@
 															<tr>
 																<!-- below some php code writen for available data which is not assign to someone -->
 																<?php if(empty($item->assign_date)){
-            ?><div class="col-sm-12 text-center"> <strong>Availabe Still Not Assignd</strong> </div>
+?><div class="col-sm-12 text-center"> <strong>Availabe Still Not Assignd</strong> </div>
 																<?php 
     }
     else{
     ?>
-						<?php $returned_date = $item->return_back_date;
+																<?php $returned_date = $item->return_back_date;
             $returned_date = ($returned_date) ? date('M d, Y', strtotime($item->return_back_date)) : ' Still In custody';?>
-					<td><?php echo ucfirst($item->emp_name)?></td> 
-					  <td><?php if(!empty($item->assign_date))
+																<td> <a data-id="<?= $item->asignment_id; ?>"
+																		class="emp_detail">
+																		<?php echo '<span >'.ucfirst($item->emp_name.'</span>')?></a>
+																</td>
+																<td><?php if(!empty($item->assign_date))
             {echo date('M d, Y', strtotime($item->assign_date)).'</date>';} 
             else{
             echo "<span'> - - - - - </span>";} ?>
-			</td>
-			<td>
-			<?php if(!empty($item->return_back_date))
+																</td>
+																<td>
+																	<?php if(!empty($item->return_back_date))
             {echo ' '.$item->returning_description;} 
             else{
             echo "<span style='font-weight:bold'>   - - - - - - </span>";} ?>
-				</td>
-			<td> <?php if(!empty($item->return_back_date))
+																</td>
+																<td> <?php if(!empty($item->return_back_date))
             {echo date('M d, Y', strtotime($item->return_back_date));} 
             else{
             echo "<span style='font-weight:bold'> Still In custody </span>";} ?>
-			</td>
+																</td>
 																<?php } ?>
 
 															</tr>
@@ -253,13 +263,116 @@
 			</div>
 		</div>
 </section>
+
+<!-- Modal to show employe detail -->
+<div class="modal" id="emp_detail">
+	<div class="modal-background"></div>
+	<form action="<?=base_url('Purchase/po_supplier_order');?>" method="post" class="md-form">
+		<div class="modal-card">
+			<header class="modal-card-head">
+				<p class="modal-card-title">Employee Detail</p>
+				<button class="delete" aria-label="close" id="exit-supplier-modal" type="button"></button>
+			</header>
+			<input type="hidden" name="assignment_id" id="assignment_id" value="">
+			<section class="modal-card-body">
+				<div class="columns">
+					<div class="column">
+						<p>Name :</p>
+						<p>Department :</p>
+						<p>Remarks :</p>
+						<p>Description :</p>
+						<p>Assigned Date :</p>
+						<p>Return Date :</p>
+					</div>
+
+					<div class="column">
+						<p id="emp_name"></p>
+						<p id="department"></p>
+						<p id="remarks"></p>
+						<p id="returning_description"></p>
+						<p id="assigned_date"></p>
+						<p id="return_date"></p>
+					</div>
+					<div class="column ">
+						<img src="" alt="" id="item_image">
+					</div>
+				</div>
+			</section>
+			<footer class="modal-card-foot">
+				<button class="button" aria-label="close" id="close-supplier-modal" type="button">Cancel</button>
+			</footer>
+		</div>
+	</form>
+</div>
+
 <script>
-		// code to show current value of product	
-		$(document).ready(function () {
+	// code to show current value of product	
+	$(document).ready(function () {
 		var price = document.getElementById("price").innerHTML;
 		var price = price.replace(/&nbsp;/, '');
 		var dep = document.getElementById("dep").innerHTML;
 		currentval = price * dep / 100;
 		var output = document.getElementById("current").innerHTML = currentval;
 	});
+
+
+	// show assignment item employee detail 
+	var sup1 = $("#exit-supplier-modal")
+	var sup2 = $("#close-supplier-modal")
+	var supmdl = new BulmaModal("#emp_detail")
+	sup1.click(function (ev) {
+		supmdl.close();
+		ev.stopPropagation();
+	});
+	sup2.click(function (ev) {
+		supmdl.close();
+		ev.stopPropagation();
+	});
+
+	$(document).ready(function () {
+		$('.emp_detail').click(function () {
+			var emp_id = $(this).data('id');
+			// AJAX request
+			
+			document.getElementById( 'emp_name' ).value = '';
+			$.ajax({
+				url: '<?= base_url('admin/assigned_item_emp/'); ?>' + emp_id,
+				method: 'POST',
+				dataType: 'JSON',
+				data: {
+					emp_id: emp_id
+				},
+				success: function (response) {
+					console.log(response); 
+
+// Remove options
+// $('#emp_name').find('option').not(':first').remove();
+					// Add options  
+
+					document.getElementById("emp_name").innerHTML = "";
+					document.getElementById("department").innerHTML = "";
+					document.getElementById("remarks").innerHTML = "";
+					document.getElementById("returning_description").innerHTML = "";
+					document.getElementById("assigned_date").innerHTML = "";
+					document.getElementById("return_date").innerHTML = "";
+					document.getElementById("item_image").innerHTML = ""; 
+
+					document.getElementById("emp_name").append(response.fullname);
+					document.getElementById("department").append(response.department);
+					document.getElementById("remarks").append(response.remarks);
+					document.getElementById("returning_description").append(response
+						.returning_description);
+					document.getElementById("assigned_date").append(response.assigned_date);
+					document.getElementById("return_date").append(response.return_date);
+					$("#item_image").attr({
+						src: "<?= base_url('upload/')?>" + response.item_file
+					}); 
+					// Display Modal
+					supmdl.show();
+				}
+			});
+			event.stopPropagation();
+		});
+	});
+
 </script>

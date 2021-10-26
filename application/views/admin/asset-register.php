@@ -33,7 +33,16 @@
  						</form>
  					</div>
  					<div class="column is-hidden-print is-narrow">
- 						<div class="field has-addons">  
+ 						<div class="field has-addons"> 
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/asset_register'); ?>'"
+									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-list"></i>
+									</span>
+									<span>Asset List</span>
+								</button>
+							</p> 
  							<p class="control">
   								<button onclick="location.href='<?= base_url('admin/add_asset'); ?>'" data-target="#add_supplier"
  									class="button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
@@ -150,7 +159,7 @@
 		<div class="column is-hidden-print">
 						<nav class="pagination is-small" role="navigation" aria-label="pagination"
 							style="justify-content: center;">
-							<?php if(empty($results) AND !empty($employ)){ echo $this->pagination->create_links(); } ?>
+							<?php if(empty($results) AND !empty($assets)){ echo $this->pagination->create_links(); } ?>
 						</nav>
 					</div>
  					</div>

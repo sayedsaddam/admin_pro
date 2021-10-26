@@ -282,7 +282,7 @@
 		ev.stopPropagation();
 	});
 
-	var sup1 = $("#exit-supplier-modal")
+  var sup1 = $("#exit-supplier-modal")
   var sup2 = $("#close-supplier-modal")
   var supmdl = new BulmaModal("#modal-po-supplier")
   sup1.click(function (ev) { 
@@ -305,7 +305,7 @@ $(document).ready(function(){
 // code to open vendor send to apply
 $(document).ready(function(){
   $('.suppliers').click(function(){  
-    var val = $(this).data('id').split('/');
+    var val = $(this).data('id').split('/'); 
     var po_id = val[0];
     var loc_id = val[1];
     $("#supplier_location").val(loc_id); 

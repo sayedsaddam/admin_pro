@@ -1875,9 +1875,29 @@ class Admin_model extends CI_Model{
     // if(isset($employ_id)){
     //     $this->db->where('item_assignment.assignd_to', $employ_id);
     // }
-    $this->db->order_by('id', 'ASC');
+    $this->db->order_by('item_assignment.id', 'DESC'); 
+
     return $this->db->get()->result(); 
 }
+    // assifned item employee detail
+    public function assigned_item_emp($id){
+        $this->db->select('item_assignment.id as assignment_id,
+        item_assignment.assignd_to,
+        item_assignment.item_id,
+        item_assignment.remarks,
+        item_assignment.item_file,
+        item_assignment.returning_description,
+        item_assignment.created_at as assigned_date,
+        item_assignment.return_back_date as return_date,
+        users.id,
+        users.fullname,
+        users.department');
+        $this->db->from('item_assignment'); 
+        $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+        $this->db->where('item_assignment.id', $id);
+        $this->db->order_by('item_assignment.id', 'DESC'); 
+        return $this->db->get()->row();
+    }
   // current_item_assign assign detail.
   public function current_item_assign($id){
     $this->db->select('users.id as employ_id,
