@@ -56,7 +56,7 @@
 				</div>
 				<div class="columns" style="display: grid">
 					<div class="column table-container ">
-						<table class="table table-sm is-fullwidth">
+						<table class="table is-hoverable is-fullwidth">
 						<thead>
 								<tr>
 									<th class="has-text-weight-semibold">ID</th>

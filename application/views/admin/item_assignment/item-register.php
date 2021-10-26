@@ -83,7 +83,7 @@
 				</div>
 				<div class="columns" style="display: grid">
 					<div class="column table-container">
-						<table class="table is-hoverable is-narrow is-fullwidth" id="myTable">
+						<table class="table is-hoverable is-fullwidth" id="myTable">
 							<thead>
 								<tr>
 									<th class="has-text-weight-semibold"><abbr title="Item Identification Number">ID</abbr></th>
@@ -120,24 +120,23 @@
 							</tfoot>
 							<tbody>
 								<?php if(!empty($items)): foreach($items as $item): ?>
-								<tr onclick="window.location='<?= base_url('admin/product_card/'.$item->id) ?>';"
-									style="cursor: pointer;">
+								<tr onclick="window.location='<?= base_url('admin/product_card/'.$item->id) ?>';">
 									<td><span><?= 'S2S-'.$item->id; ?></a></td>
 									<td><?= $item->name; ?></td>
 									<td>
 										<div class="tags"><span class="tag"><?= ucwords($item->cat_name); ?></span><span
-												class="tag is-success is-light"><?= ucwords($item->names); ?></span>
+												class="tag is-info is-light"><?= ucwords($item->names); ?></span>
 										</div>
 									</td>
 									<td><?= ucwords($item->type_name); ?></td>
 									<td><?= ucwords($item->model); ?></td>
-									<td><?= ucwords(explode(' ',trim($item->sup_name))[0]); ?></td>
+									<td><?= ucwords($item->sup_name); ?></td>
 									<?php if(isset($assign_page)) : ?>
-									<td><?= ucwords(explode(' ',trim($item->employ_name))[0]); ?></td>
+									<td><?= ucwords($item->employ_name); ?></td>
 									<?php endif; ?>
 									<td><?= $item->depreciation.' (%)'; ?></td>
 									<td>
-										<?= $status = $item->quantity > 0 && $item->status != 1 || isset($available_page) ? '<span class="tag is-primary">Available</span>' : '<span class="tag is-warning">Assigned</span>'; ?>
+										<?= $status = $item->quantity > 0 && $item->status != 1 || isset($available_page) ? '<span class="tag is-success is-light">Available</span>' : '<span class="tag is-warning is-light">Assigned</span>'; ?>
 									</td>
 									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
 									<td class="is-hidden-print is-narrow">

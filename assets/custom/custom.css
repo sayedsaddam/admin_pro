@@ -7,6 +7,25 @@ body {
       font-family: Product Sans, sans-serif;
 }
 
+table {
+      border-collapse: separate;
+}
+
+tr {
+      margin-bottom: 20px;
+      height: 40px;
+}
+
+tbody tr:hover {
+      transform: scale(1.01);
+      transition: 0.1s ease-in-out;
+      cursor: pointer;
+}
+
+th, td {
+      border: none !important;
+}
+
 .clickable {
       cursor: pointer;
 }

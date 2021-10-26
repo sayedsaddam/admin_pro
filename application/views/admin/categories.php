@@ -55,7 +55,7 @@
  				</div>
  				<div class="columns" style="display: grid">
  					<div class="column table-container ">
- 						<table class="table table-sm is-fullwidth">
+ 						<table class="table is-hoverable is-fullwidth">
 						 <thead>
  								<tr>
  									<th class="has-text-weight-semibold">ID</th>
@@ -77,8 +77,7 @@
  							<?php if(empty($results)): ?>
  							<tbody>
  								<?php if(!empty($categories)): foreach($categories as $cat): ?>
- 								<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';"
- 									style="cursor: pointer;">
+ 								<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';">
  									<td><?= 'S2S-'.$cat->id; ?></td>
  									<td><div class="tag"><?= ucwords($cat->cat_name); ?></tag></td>
  									<td><?= ucwords($cat->fullname); ?></td>
