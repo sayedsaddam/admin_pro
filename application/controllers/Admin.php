@@ -782,12 +782,14 @@ class Admin extends CI_Controller{
     public function add_asset(){
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
+        $data['locations'] = $this->admin_model->get_item_location();
         $this->load->view('admin/commons/new_template', $data);
     }
     // Asset detail
-    public function asset_detail($id){  
+    public function asset_detail($id){
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
+        $data['locations'] = $this->admin_model->get_item_location();
         $data['edit'] = $this->admin_model->asset_detail($id);
         $this->load->view('admin/commons/new_template', $data);
     }
@@ -798,11 +800,9 @@ class Admin extends CI_Controller{
                 'category' => $this->input->post('category'), 
                 'description' => $this->input->post('description'),
                 'quantity' => $this->input->post('quantity'),
-                'location' => $this->input->post('location'),
-                'designation' => $this->input->post('designation'),
+                'location' => $this->input->post('location'), 
                 'user' => $this->input->post('user'),
-                'remarks' => $this->input->post('remarks'),
-                'giveaway' => $this->input->post('giveaway'), 
+                'remarks' => $this->input->post('remarks'), 
                 'created_at' => date('Y-m-d')
             );
             if($this->admin_model->add_item($data)){
@@ -821,11 +821,9 @@ class Admin extends CI_Controller{
             'category' => $this->input->post('category'), 
             'description' => $this->input->post('description'),
             'quantity' => $this->input->post('quantity'),
-            'location' => $this->input->post('location'),
-            'designation' => $this->input->post('designation'),
+            'location' => $this->input->post('location'), 
             'user' => $this->input->post('user'),
-            'remarks' => $this->input->post('remarks'),
-            'giveaway' => $this->input->post('giveaway'), 
+            'remarks' => $this->input->post('remarks'), 
             'created_at' => date('Y-m-d')
         );
         if($this->admin_model->update_item($id, $data)){
@@ -1438,14 +1436,11 @@ class Admin extends CI_Controller{
     public function modify_item(){
         $id = $this->input->post('id'); 
         $data = array(
-            'location' => $this->input->post('location'),
-            'category' => $this->input->post('category'),
-            'sub_category' => $this->input->post('sub_category'),
             'type_name' => $this->input->post('item_name'),
+            'quantity' => $this->input->post('quantity'),
             'status' => $this->input->post('status'),
             'model' => $this->input->post('model'),
             'serial_number' => $this->input->post('serial_number'),
-            'supplier' => $this->input->post('supplier'),
             'price' => $this->input->post('price'),
             'purchasedate' => $this->input->post('purchasedate'),
             'depreciation' => $this->input->post('depreciation'), 
@@ -1687,9 +1682,9 @@ class Admin extends CI_Controller{
         echo json_encode($get_location_employ);
     }  
     // Get all suppliers based on city
-    public function get_location_suplier($loc_id){
+    public function get_location_suplier(){
        
-        $get_location_suplier = $this->admin_model->get_location_suplier($loc_id);
+        $get_location_suplier = $this->admin_model->get_location_suplier();
         echo json_encode($get_location_suplier);
     }   
     // Get all suppliers based on city

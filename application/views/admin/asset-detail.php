@@ -12,7 +12,7 @@
 				</div>
 				<div class="columns">
 					<div class="column">
-          <form action="<?= base_url('admin/search_asset_register'); ?>" method="get">
+						<form action="<?= base_url('admin/search_asset_register'); ?>" method="get">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" type="search"
@@ -32,10 +32,10 @@
 						</form>
 					</div>
 					<div class="column is-hidden-touch is-narrow">
-						<div class="field has-addons"> 
+						<div class="field has-addons">
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/asset_register'); ?>'"
-									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -44,13 +44,13 @@
 							</p>
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/add_asset'); ?>'"
-									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-plus"></i>
 									</span>
 									<span>Add New</span>
 								</button>
-							</p> 
+							</p>
 						</div>
 					</div>
 				</div>
@@ -75,17 +75,18 @@
 				</div>
 				<?php endif ?>
 
-  <form action="<?php if(empty($edit)){ echo base_url('admin/save_item'); }else{ echo base_url('admin/update_item'); } ?>" method="post">
+				<form
+					action="<?php if(empty($edit)){ echo base_url('admin/save_item'); }else{ echo base_url('admin/update_item'); } ?>"
+					method="post">
 					<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">User <span
-											class="has-text-danger">*</span></label>
+									<label class="label is-small">User <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<input type="text" name="user" id="" class="input is-small"
-										value="<?php if(!empty($edit)){ echo $edit->user; } ?>" type="text"
+											value="<?php if(!empty($edit)){ echo $edit->user; } ?>" type="text"
 											placeholder="user name ..." required="">
 										<span class="icon is-small is-left">
 											<i class="fas fa-user"></i>
@@ -101,7 +102,7 @@
 											class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<input type="text" name="category" id="" class="input is-small"
-                    value="<?php if(!empty($edit)){ echo $edit->category; } ?>" type="text"
+											value="<?php if(!empty($edit)){ echo $edit->category; } ?>" type="text"
 											placeholder="category ..." required="">
 										<span class="icon is-small is-left">
 											<i class="fas fa-user"></i>
@@ -116,16 +117,16 @@
 						<div class="column">
 							<div class="control">
 								<label class="label is-small">Quantity <span class="has-text-danger">*</span></label>
-								<div class="select is-small is-fullwidth">  
-                <div class="control has-icons-left">
-                <input type="number" name="quantity" id="" class="input is-small"
-                value="<?php if(!empty($edit)){ echo $edit->quantity; } ?>" type="text"
-												placeholder="quantity ..." required="">
+								<div class="select is-small is-fullwidth">
+									<div class="control has-icons-left">
+										<input type="number" name="quantity" id="" class="input is-small"
+											value="<?php if(!empty($edit)){ echo $edit->quantity; } ?>" type="text"
+											placeholder="quantity ..." required="">
 										<span class="icon is-small is-left">
 											<i class="fas fa-sort-numeric-up"></i>
 										</span>
-									</div> 
-                      </div>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="column">
@@ -137,7 +138,7 @@
 												class="has-text-danger">*</span></label>
 										<div class="control has-icons-left">
 											<input type="text" name="remarks" id="" class="input is-small"
-											value="<?php if(!empty($edit)){ echo $edit->remarks; } ?>" type="text"
+												value="<?php if(!empty($edit)){ echo $edit->remarks; } ?>" type="text"
 												placeholder="remarks ..." required="">
 											<span class="icon is-small is-left">
 												<i class="fas fa-envelope-square"></i>
@@ -153,56 +154,63 @@
 					<div class="columns">
 						<div class="column">
 							<div class="control">
-								<label class="label is-small">Purchase Date <span class="has-text-danger">*</span></label>
-								<div class="is-small is-fullwidth"> 
-										<div class="control has-icons-left">
-            <?php if(!empty($edit)){
-            $date = strtotime($edit->purchase_date);
-			echo $date;
+								<label class="label is-small">Purchase Date <span
+										class="has-text-danger">*</span></label>
+								<div class="is-small is-fullwidth">
+									<div class="control has-icons-left">
+										<?php if(!empty($edit)){
+            $date = strtotime($edit->purchase_date); 
             $purchase_date = date('Y-m-d', $date); 
-            }?> 
-									<input name="purchase_date" class="input is-small" type="date" required
-                  value="<?php if(!empty($edit)){ echo $purchase_date; } ?>">
-											<span class="icon is-small is-left">
-												<i class="far fa-calendar-alt"></i>
-											</span>
-										</div> 
+            }?>
+										<input name="purchase_date" class="input is-small" type="date" required
+											value="<?php if(!empty($edit)){ echo $purchase_date; } ?>">
+										<span class="icon is-small is-left">
+											<i class="far fa-calendar-alt"></i>
+										</span>
+									</div>
 								</div>
 							</div>
 						</div>
 						<div class="column">
+							<div class="control">
+								<label class="label is-small">Location <span class="has-text-danger">*</span></label>
+								<div class="control has-icons-left">
+									<span class="select is-small is-fullwidth">
+										<select name="location" id="" class="browser-default custom-select ">
+											<option disabled value="">Select Category</option>
+											<?php if(!empty($locations)): foreach($locations as $loc): ?>
+											<?php if ($loc->id == $this->session->userdata('location') || $this->session->userdata('user_role') == 'admin') : ?>
+											<option value="<?= $loc->id; ?>"
+												<?= !empty($edit) && $edit->location == $loc->id ? 'selected' : '' ?>>												
+												<?= ucwords($loc->name); ?>
+											</option>
+											<?php endif ?>
+											<?php endforeach; endif; ?>
+										</select>
+									</span>
+									<span class="icon is-small is-left">
+										<i class="fas fa-globe"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="columns">
+
+
+						<div class="column column is-6">
 							<fieldset>
 								<div class="field">
-                <div class="control has-icons-left">
-									<label class="label is-small">Location </label>
+									<label class="label is-small">Description</label>
 									<div class="control has-icons-left">
-										<input type="text" name="location" id="" class="input is-small"
-                    value="<?php if(!empty($edit)){ echo $edit->location; } ?>" placeholder="location ..."> 
-											<span class="icon is-small is-left">
-												<i class="fas fa-globe"></i>
-											</span>
-										</div>
+										<textarea class="textarea is-small" name="description" rows="2" id=""
+											placeholder="some detail"><?php if(!empty($edit)){ echo $edit->description; } ?></textarea>
+
 									</div>
 								</div>
 							</fieldset>
 						</div>
 					</div>
-					<div class="columns"> 
-
-					
-						<div class="column column is-6">
-							<fieldset>
-								<div class="field">
-                <label class="label is-small">Description</label>
-									<div class="control has-icons-left">
-										<textarea class="textarea is-small" name="description" rows="2" id=""
-											placeholder="some detail"><?php if(!empty($edit)){ echo $edit->description; } ?></textarea>
-
-										 </div>
-								</div>
-							</fieldset>
-						</div> 
-					</div> 
 
 					<div class="columns">
 						<div class="column has-text-right">
@@ -223,10 +231,10 @@
 					</div>
 				</form>
 			</div>
-		</div> 
+		</div>
 	</div>
 </section>
 <script>
- 
+
 
 </script>

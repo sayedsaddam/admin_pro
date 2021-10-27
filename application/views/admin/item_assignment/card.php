@@ -133,11 +133,13 @@
 														<p> Date Of Joining &raquo;</p>
 														<p> Contact &raquo;</p>
 													</div>
-													<div class="column has-text-left">
+													<div class="column has-text-left"> 
+													<?php if(!empty($current_item)) { ?>
 														<p><?= ucfirst($current_item[0]->emp_name); ?></p>
 														<p><?= ucfirst($current_item[0]->department); ?></p>
 														<p><?= date('M d, Y', strtotime($current_item[0]->doj)); ?></p>
 														<p><?= ucfirst($current_item[0]->phone); ?></p>
+														<?php } ?>
 													</div>
 												</div>
 											</div>

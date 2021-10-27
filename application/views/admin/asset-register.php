@@ -36,7 +36,7 @@
  						<div class="field has-addons"> 
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/asset_register'); ?>'"
-									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -45,7 +45,7 @@
 							</p> 
  							<p class="control">
   								<button onclick="location.href='<?= base_url('admin/add_asset'); ?>'" data-target="#add_supplier"
- 									class="button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
+ 									class="button is-small <?= (isset($add_asset)) ? 'has-background-primary-light' : '' ?>">
  									<span class="icon is-small">
  										<i class="fas fa-plus"></i>
  									</span>
@@ -64,13 +64,11 @@
                 <th class="has-text-weight-semibold">ID</th>
                 <th class="has-text-weight-semibold">Category</th>
                 <th class="has-text-weight-semibold">Description</th>
-                <th class="has-text-weight-semibold">Quantity</th> 
-                <th class="has-text-weight-semibold">Purchase Date</th>
-                <th class="has-text-weight-semibold">Location</th> 
-                <th class="has-text-weight-semibold">Designation</th>
+                <th class="has-text-weight-semibold"><abbr title="Quantity">Quantity</abbr></th> 
+                <th class="has-text-weight-semibold"><abbr title="Purchase Date">PD</abbr></th>
+                <th class="has-text-weight-semibold">Location</th>  
                 <th class="has-text-weight-semibold">User</th>
-                <th class="has-text-weight-semibold">Remarks</th>
-                <th class="has-text-weight-semibold">Give Away</th>
+                <th class="has-text-weight-semibold">Remarks</th> 
                 <th class="has-text-weight-semibold">Action</th>
             </tr>
           </thead>
@@ -79,15 +77,13 @@
               <?php if(!empty($assets)): foreach($assets as $asset): ?>
                 <tr>
                   <td><?= 'S2S-0'.$asset->id; ?></td>
-                  <td><?= $asset->category; ?></td>
+                  <td><div class="tag"><?= $asset->category; ?></div></td>
                   <td><?= ucfirst($asset->description); ?></td>
                   <td><?= ucfirst($asset->quantity); ?></td>
                   <td><?= ucfirst($asset->purchase_date); ?></td>
-                  <td><?= ucfirst($asset->location); ?></td>
-                  <td><?= ucfirst($asset->designation); ?></td>
+                  <td><?= ucfirst($asset->name); ?></td> 
                   <td><?= ucfirst($asset->user); ?></td>
-                  <td><?= ucfirst($asset->remarks); ?></td>
-                  <td><?= ucfirst($asset->giveaway); ?></td> 
+                  <td><?= ucfirst($asset->remarks); ?></td> 
                   <!-- <td><?= date('M d, Y', strtotime($asset->purchase_date)); ?></td> -->
                   <!-- <td>
                     <?php $recDate = date('Y-m-d', strtotime($asset->purchase_date));
