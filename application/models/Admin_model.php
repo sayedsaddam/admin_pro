@@ -1274,7 +1274,7 @@ class Admin_model extends CI_Model{
         return $this->db->get()->result();
     }
         // item detail - view and edit.
-        public function item_detail($id){
+        public function item_detail($id){ 
             $this->db->select('id, location, category,status, sub_category, type_name, model, serial_number, supplier,price, depreciation,purchasedate,quantity, created_at');
             $this->db->from('items');
             $this->db->where('id', $id);

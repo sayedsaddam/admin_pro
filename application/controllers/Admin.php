@@ -1425,7 +1425,7 @@ class Admin extends CI_Controller{
             'depreciation' => $this->input->post('depreciation'), 
             'added_by' => $this->session->userdata('id'),
             'created_at' => date('Y-m-d')
-        );  
+        ); 
         if($this->admin_model->item_save($data, $model, $this->input->post('quantity'))){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
             redirect('admin/item_register');
@@ -1442,6 +1442,7 @@ class Admin extends CI_Controller{
             'category' => $this->input->post('category'),
             'sub_category' => $this->input->post('sub_category'),
             'type_name' => $this->input->post('item_name'),
+            'quantity' => $this->input->post('quantity'),
             'status' => $this->input->post('status'),
             'model' => $this->input->post('model'),
             'serial_number' => $this->input->post('serial_number'),
@@ -1451,6 +1452,8 @@ class Admin extends CI_Controller{
             'depreciation' => $this->input->post('depreciation'), 
             'created_at' => date('Y-m-d')
         );
+        // echo "<pre>";
+        // print_r($data);exit;
         if($this->admin_model->modify_item($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Item was updated successfully.');
             redirect('admin/item_register');
