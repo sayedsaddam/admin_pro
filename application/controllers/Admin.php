@@ -1018,7 +1018,7 @@ class Admin extends CI_Controller{
     }
     // Categories and sub-categories
     public function categories($offset = null){
-        if($this->session->userdata('user_role') != 'admin') {
+        if($this->session->userdata('user_role') != 'admin' || $this->session->userdata('user_role') != 'user') {
             redirect(base_url('admin'));
         }
         $limit = 15;
