@@ -97,7 +97,7 @@
 									<label class="label is-small">Location <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
-											<select name="location" id="supplier_location" required>
+											<select name="location" id="supplier_location" required <?= isset($edit) ? 'disabled' : '' ?>>
 												<?php if(!isset($edit)): ?>
 												<option selected disabled value="">Select a City</option>
 												<?php endif ?>
@@ -121,17 +121,17 @@
 									<label class="label is-small">Supplier <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth"> 
-
 											<?php  $role = ($this->session->userdata('user_role')); 
 											if($role == 'admin') {?> 
-											<select name="supplier" id="supplier" class="browser-default custom-select">
-												<option value="" disabled selected>--Select Supplier--</option>
+											<select name="supplier" id="supplier" class="browser-default custom-select" <?= isset($edit) ? 'disabled' : '' ?>>
+												<option value="" disabled selected>Select a Supplier</option>
 											</select>
 											<?php } else {?>
-											<select name="supplier" id="" required> 
+											<select name="supplier" id="" required <?= isset($edit) ? 'disabled' : '' ?>> 
+												<option selected disabled value="">Select a Supplier</option>
 												<?php $suppliers = $this->admin_model->get_location_suplier($role);
 												if(!empty($suppliers)): foreach($suppliers as $sup): ?>
-												<option value="<?= $sup->id; ?>">
+												<option value="<?= $sup->id; ?>" <?= isset($edit) && $edit->supplier == $sup->id ? 'selected' : '' ?>>
 													<?= ucwords($sup->name); ?>
 												</option>
 												<?php endforeach; endif; ?>
@@ -153,13 +153,12 @@
 									<label class="label is-small">Category <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
-											<select name="category" id="category" required>
-												<?php if(!isset($edit_item)): ?>
+											<select name="category" id="category" required <?= isset($edit) ? 'disabled' : '' ?>>
 												<option selected disabled value="">Select a Category</option>
-												<?php endif ?>
 												<?php if(!empty($categories)): foreach($categories as $cat): ?>
 												<option value="<?= $cat->id; ?>"
-													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= ucwords($cat->cat_name); ?>
+													<?= isset($edit) && $edit->category == $cat->id ? 'selected' : '' ?>>
+													<?= ucwords($cat->cat_name); ?>
 												</option>
 												<?php endforeach; endif; ?>
 											</select>
@@ -177,13 +176,12 @@
 									<label class="label is-small">Subcategory <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
-											<select name="sub_category" id="item_name" required>
-												<?php if(!isset($edit_item)): ?>
-												<option selected disabled value="">Select an Item</option>
-												<?php endif ?>
+											<select name="sub_category" id="item_name" required <?= isset($edit) ? 'disabled' : '' ?>>
+												<option selected disabled value="">Select a Subcategory</option>
 												<?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
 												<option value="<?= $cat->id; ?>"
-													<?= !empty($edit) && $edit->id == $cat->id ? 'selected' : '' ?>><?= ucwords($cat->name); ?>
+													<?= isset($edit) && $edit->sub_category == $cat->id ? 'selected' : '' ?>>
+													<?= ucwords($cat->name); ?>
 												</option>
 												<?php endforeach; endif; ?>
 											</select>

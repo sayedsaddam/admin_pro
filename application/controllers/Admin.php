@@ -1438,15 +1438,11 @@ class Admin extends CI_Controller{
     public function modify_item(){
         $id = $this->input->post('id'); 
         $data = array(
-            'location' => $this->input->post('location'),
-            'category' => $this->input->post('category'),
-            'sub_category' => $this->input->post('sub_category'),
             'type_name' => $this->input->post('item_name'),
             'quantity' => $this->input->post('quantity'),
             'status' => $this->input->post('status'),
             'model' => $this->input->post('model'),
             'serial_number' => $this->input->post('serial_number'),
-            'supplier' => $this->input->post('supplier'),
             'price' => $this->input->post('price'),
             'purchasedate' => $this->input->post('purchasedate'),
             'depreciation' => $this->input->post('depreciation'), 

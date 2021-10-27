@@ -159,7 +159,7 @@
 								<div class="control has-icons-left">
 									<span class="select is-small is-fullwidth">
 										<select name="category" class="browser-default custom-select" required>
-											<option disabled value="">Select Category</option>
+											<option disabled value="">Select a Category</option>
 											<?php if(!empty($categories)): foreach($categories as $cat): ?>
 											<option value="<?= $cat->id; ?>"
 												<?= $edit->category == $cat->id ? 'selected' : '' ?>>
