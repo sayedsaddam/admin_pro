@@ -121,14 +121,14 @@
 									<label class="label is-small">Supplier <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth"> 
-											<option selected disabled value="">Select a Supplier</option>
 											<?php  $role = ($this->session->userdata('user_role')); 
 											if($role == 'admin') {?> 
 											<select name="supplier" id="supplier" class="browser-default custom-select" <?= isset($edit) ? 'disabled' : '' ?>>
-												<option value="" disabled selected>--Select Supplier--</option>
+												<option value="" disabled selected>Select a Supplier</option>
 											</select>
 											<?php } else {?>
 											<select name="supplier" id="" required <?= isset($edit) ? 'disabled' : '' ?>> 
+												<option selected disabled value="">Select a Supplier</option>
 												<?php $suppliers = $this->admin_model->get_location_suplier($role);
 												if(!empty($suppliers)): foreach($suppliers as $sup): ?>
 												<option value="<?= $sup->id; ?>" <?= isset($edit) && $edit->supplier == $sup->id ? 'selected' : '' ?>>
