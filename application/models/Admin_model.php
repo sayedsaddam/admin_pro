@@ -584,12 +584,19 @@ class Admin_model extends CI_Model{
     }
     // Count all items for asset register
     public function count_assets(){
-        return $this->db->from('assets')->count_all_results();
+        $this->db->from('assets');
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('assets.location', $this->session->userdata('location'));
+        }
+        return $this->db->count_all_results();
     }
     // Get assets/items.
     public function get_assets($limit, $offset){
         $this->db->select('id, date, category, description, quantity, purchase_date, location, designation, user,remarks, giveaway, created_at');
         $this->db->from('assets');
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('assets.location', $this->session->userdata('location'));
+        }
         $this->db->order_by('id', 'ASC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
@@ -913,6 +920,11 @@ class Admin_model extends CI_Model{
     public function search_asset_register($search){
         $this->db->select('id, date, category, description, quantity, purchase_date, location, designation, user,remarks, giveaway, created_at');
         $this->db->from('assets');
+        if ($this->session->userdata('user_role') != 'admin') {
+            $this->db->where('assets.location', $this->session->userdata('location'));
+        }
+        
+        $this->db->group_start(); //start group
         $this->db->like('category', $search);
         $this->db->or_like('description', $search);
         $this->db->or_like('quantity', $search);
@@ -922,6 +934,8 @@ class Admin_model extends CI_Model{
         $this->db->or_like('user', $search);
         $this->db->or_like('remarks', $search);
         $this->db->or_like('giveaway', $search);
+        $this->db->group_end(); //close group
+
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
@@ -1057,7 +1071,7 @@ class Admin_model extends CI_Model{
         $this->db->select('item_assignment.id');
         $this->db->from('item_assignment');
         $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
-        $this->db->where('return_back_date !=', null);
+        $this->db->where('return_back_date =', null);
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('items.location', $this->session->userdata('location'));
         }
@@ -1069,11 +1083,11 @@ class Admin_model extends CI_Model{
         $this->db->select('item_assignment.id');
         $this->db->from('item_assignment');
         $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
-        $this->db->where('return_back_date !=', null);
+        $this->db->where('return_back_date =', null);
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('items.location', $this->session->userdata('location'));
         }
-        $this->db->where('items.location BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now()');
+        $this->db->where('item_assignment.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now()');
         return $this->db->count_all_results();
     }
 
@@ -1082,11 +1096,11 @@ class Admin_model extends CI_Model{
         $this->db->select('item_assignment.id');
         $this->db->from('item_assignment');
         $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
-        $this->db->where('return_back_date !=', null);
+        $this->db->where('return_back_date =', null);
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('items.location', $this->session->userdata('location'));
         }
-        $this->db->where('items.location BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK)');
+        $this->db->where('item_assignment.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK)');
         return $this->db->count_all_results();
     }
 
@@ -1332,9 +1346,9 @@ class Admin_model extends CI_Model{
     public function count_damaged_items() {
         $this->db->select('item_assignment.id, item_assignment.item_id, item_assignment.remarks');
         $this->db->from('item_assignment');
-        $this->db->join('items', 'items.id = item_assignment.id', 'left');
+        $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
         $this->db->group_by('item_assignment.item_id');
-        $this->db->where('item_assignment.remarks !=', NULL);
+        $this->db->where('item_assignment.remarks IS NOT NULL');
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('items.location', $this->session->userdata('location'));
         }
@@ -1345,13 +1359,13 @@ class Admin_model extends CI_Model{
     public function count_damaged_items_week_change() {
         $this->db->select('item_assignment.id, item_assignment.item_id, item_assignment.remarks, item_assignment.created_at');
         $this->db->from('item_assignment');
-        $this->db->join('items', 'items.id = item_assignment.id', 'left');
+        $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
         $this->db->group_by('item_assignment.item_id');
-        $this->db->where('item_assignment.remarks !=', NULL);
+        $this->db->where('item_assignment.remarks IS NOT NULL');
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('items.location', $this->session->userdata('location'));
         }
-        $this->db->where('items.location BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now()');
+        $this->db->where('item_assignment.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now()');
         return $this->db->count_all_results();
     }
 
@@ -1359,13 +1373,13 @@ class Admin_model extends CI_Model{
     public function count_damaged_items_last_week_change() {
         $this->db->select('item_assignment.id, item_assignment.item_id, item_assignment.remarks, item_assignment.created_at');
         $this->db->from('item_assignment');
-        $this->db->join('items', 'items.id = item_assignment.id', 'left');
+        $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
         $this->db->group_by('item_assignment.item_id');
-        $this->db->where('item_assignment.remarks !=', NULL);
+        $this->db->where('item_assignment.remarks IS NOT NULL');
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('items.location', $this->session->userdata('location'));
         }
-        $this->db->where('items.location BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK)');
+        $this->db->where('item_assignment.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK)');
         return $this->db->count_all_results();
     }
 
