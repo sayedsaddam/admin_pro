@@ -1519,23 +1519,15 @@ class Admin_model extends CI_Model{
       }  
   }
   // Get supplier based on city
-  public function get_location_suplier($loc_id){  
- $role = ($this->session->userdata('user_role')); 
-      if($role == 'admin'){
-        $this->db->select('id, name,email');
-        $this->db->from('suppliers');
-        $this->db->where('location', $loc_id);
-        return $this->db->get()->result();
-      }else{
-        $this->db->select('id, name,email');
-        $this->db->from('suppliers');
-        $this->db->where('location',$this->session->userdata('location'));
-        return $this->db->get()->result(); 
-      } 
-
-
-
+  public function get_location_suplier(){  
+    $this->db->select('id, name,email');
+    $this->db->from('suppliers');
+    if ($this->session->userdata('user_role') != 'admin') {
+        $this->db->where('location', $this->session->userdata('location'));
+    }
+    return $this->db->get()->result(); 
   }
+
   // Get supplier email based on supplier
   public function get_suplier_email($loc_id){
       $this->db->select('id, name,email');

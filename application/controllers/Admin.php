@@ -1685,9 +1685,9 @@ class Admin extends CI_Controller{
         echo json_encode($get_location_employ);
     }  
     // Get all suppliers based on city
-    public function get_location_suplier($loc_id){
+    public function get_location_suplier(){
        
-        $get_location_suplier = $this->admin_model->get_location_suplier($loc_id);
+        $get_location_suplier = $this->admin_model->get_location_suplier();
         echo json_encode($get_location_suplier);
     }   
     // Get all suppliers based on city
