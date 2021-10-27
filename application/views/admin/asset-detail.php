@@ -35,7 +35,7 @@
 						<div class="field has-addons"> 
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/asset_register'); ?>'"
-									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -44,7 +44,7 @@
 							</p>
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/add_asset'); ?>'"
-									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-plus"></i>
 									</span>

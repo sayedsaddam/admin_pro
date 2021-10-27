@@ -774,7 +774,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Asset Register | Admin & Procurement';
         $data['body'] = 'admin/asset-register';
         $data['assets'] = $this->admin_model->get_assets($limit, $offset);
-        $data['asset-register'] = true;
+        $data['asset_register'] = true;
         $data['breadcrumb'] = array("Assets");
         $this->load->view('admin/commons/new_template', $data);
     }
@@ -782,12 +782,14 @@ class Admin extends CI_Controller{
     public function add_asset(){
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
+        $data['add_asset'] = true;
         $this->load->view('admin/commons/new_template', $data);
     }
     // Asset detail
     public function asset_detail($id){  
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
+        $data['asset_register'] = true;
         $data['edit'] = $this->admin_model->asset_detail($id);
         $this->load->view('admin/commons/new_template', $data);
     }
