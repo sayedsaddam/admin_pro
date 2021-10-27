@@ -774,7 +774,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Asset Register | Admin & Procurement';
         $data['body'] = 'admin/asset-register';
         $data['assets'] = $this->admin_model->get_assets($limit, $offset);
-        $data['asset_register'] = true;
+        $data['asset-register'] = true;
         $data['breadcrumb'] = array("Assets");
         $this->load->view('admin/commons/new_template', $data);
     }
@@ -782,14 +782,12 @@ class Admin extends CI_Controller{
     public function add_asset(){
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
-        $data['add_asset'] = true;
         $this->load->view('admin/commons/new_template', $data);
     }
     // Asset detail
     public function asset_detail($id){  
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
-        $data['asset_register'] = true;
         $data['edit'] = $this->admin_model->asset_detail($id);
         $this->load->view('admin/commons/new_template', $data);
     }
@@ -1427,7 +1425,7 @@ class Admin extends CI_Controller{
             'depreciation' => $this->input->post('depreciation'), 
             'added_by' => $this->session->userdata('id'),
             'created_at' => date('Y-m-d')
-        ); 
+        );  
         if($this->admin_model->item_save($data, $model, $this->input->post('quantity'))){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
             redirect('admin/item_register');
@@ -1454,8 +1452,6 @@ class Admin extends CI_Controller{
             'depreciation' => $this->input->post('depreciation'), 
             'created_at' => date('Y-m-d')
         );
-        // echo "<pre>";
-        // print_r($data);exit;
         if($this->admin_model->modify_item($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Item was updated successfully.');
             redirect('admin/item_register');
