@@ -50,7 +50,7 @@
                 <form class="card" method="POST" action="<?= base_url('admin/update_asset_access') ?>">
                     <header class="card-header">
                         <p class="card-header-title">
-                        Assets Logic
+                        Assets Read/Write Access
                         </p>
                         <button class="card-header-icon" aria-label="more options">
                         <span class="icon">
@@ -72,11 +72,11 @@
                                             <label class="label">Access for Users <span class="has-text-danger">*</span></label>
                                             <div class="control">
                                                 <label class="radio">
-                                                    <input type="radio" name="USER_ASSET_ACCESS" <?= $ACCESS["USER_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
+                                                    <input type="radio" name="USER_ASSET_ACCESS" class="USER_ASSET_ACCESS_ENABLE" <?= $ACCESS["USER_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
                                                     Enable
                                                 </label>
                                                 <label class="radio">
-                                                    <input type="radio" name="USER_ASSET_ACCESS" <?= $ACCESS["USER_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
+                                                    <input type="radio" name="USER_ASSET_ACCESS" class="USER_ASSET_ACCESS_DISABLE" <?= $ACCESS["USER_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
                                                     Disable
                                                 </label>
                                             </div>
@@ -89,11 +89,11 @@
                                             <label class="label">Access for Supervisors <span class="has-text-danger">*</span></label>
                                             <div class="control">
                                                 <label class="radio">
-                                                    <input type="radio" name="SUPERVISOR_ASSET_ACCESS" <?= $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
+                                                    <input type="radio" name="SUPERVISOR_ASSET_ACCESS" class="SUPERVISOR_ASSET_ACCESS_ENABLE" <?= $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
                                                     Enable
                                                 </label>
                                                 <label class="radio">
-                                                    <input type="radio" name="SUPERVISOR_ASSET_ACCESS" <?= $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
+                                                    <input type="radio" name="SUPERVISOR_ASSET_ACCESS" class="SUPERVISOR_ASSET_ACCESS_DISABLE" <?= $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
                                                     Disable
                                                 </label>
                                             </div>
@@ -106,11 +106,11 @@
                                             <label class="label">Access for Everyone <span class="has-text-danger">*</span></label>
                                             <div class="control">
                                                 <label class="radio">
-                                                    <input type="radio" name="EVERYONE_ASSET_ACCESS" <?= $ACCESS["USER_ASSET_ACCESS"] == 1 && $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
+                                                    <input type="radio" name="EVERYONE_ASSET_ACCESS" class="EVERYONE_ASSET_ACCESS_ENABLE" <?= $ACCESS["USER_ASSET_ACCESS"] == 1 && $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
                                                     Enable
                                                 </label>
                                                 <label class="radio">
-                                                    <input type="radio" name="EVERYONE_ASSET_ACCESS" <?= $ACCESS["USER_ASSET_ACCESS"] == 0 || $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
+                                                    <input type="radio" name="EVERYONE_ASSET_ACCESS" class="EVERYONE_ASSET_ACCESS_DISABLE" <?= $ACCESS["USER_ASSET_ACCESS"] == 0 || $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
                                                     Disable
                                                 </label>
                                             </div>
@@ -127,3 +127,37 @@
                 </form>
 				
 </section>
+
+<script>
+    $(document).ready(function() {
+        $('input:radio[name="EVERYONE_ASSET_ACCESS"]').change(function(){
+            if ($('input:radio[name="EVERYONE_ASSET_ACCESS"][value=1]').is(":checked")) {
+                $("input:radio[name='USER_ASSET_ACCESS'][value=1]").prop('checked',true);
+                $("input:radio[name='SUPERVISOR_ASSET_ACCESS'][value=1]").prop('checked',true);
+                $("input:radio[name='USER_ASSET_ACCESS']").prop('disabled',false);
+                $("input:radio[name='SUPERVISOR_ASSET_ACCESS']").prop('disabled',false);
+            } else {
+                $("input:radio[name='USER_ASSET_ACCESS'][value=0]").prop('checked',true);
+                $("input:radio[name='SUPERVISOR_ASSET_ACCESS'][value=0]").prop('checked',true);
+                $("input:radio[name='USER_ASSET_ACCESS']").prop('disabled',true);
+                $("input:radio[name='SUPERVISOR_ASSET_ACCESS']").prop('disabled',true);
+            }
+        });
+        
+        $('input:radio[name="USER_ASSET_ACCESS"]').change(function() {
+            if ($('input:radio[name="USER_ASSET_ACCESS"][value=1]').is(":checked") && $('input:radio[name="SUPERVISOR_ASSET_ACCESS"][value=1]').is(":checked")) {
+                $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',false);
+            } else {
+                $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',true);
+            };
+        })
+
+        $('input:radio[name="SUPERVISOR_ASSET_ACCESS"]').change(function() {
+            if ($('input:radio[name="SUPERVISOR_ASSET_ACCESS"][value=1]').is(":checked") && $('input:radio[name="USER_ASSET_ACCESS"][value=1]').is(":checked")) {
+                $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',false);
+            } else {
+                $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',true);
+            };
+        })
+    })
+</script>
