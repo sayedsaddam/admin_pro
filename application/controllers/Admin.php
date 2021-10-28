@@ -402,10 +402,10 @@ class Admin extends CI_Controller{
         }
         $data['ACCESS'] = $this->fetch_access();
         
-        $data['title'] = 'Admin Controlled Logics | Admin & Procurement';
+        $data['title'] = 'Access Control List | Admin & Procurement';
         $data['body'] = 'admin/ACL/acl';
         $data['acl_page'] = true;
-        $data['breadcrumb'] = array("Admin Controlled Logics");
+        $data['breadcrumb'] = array("Access Control List");
         
         $this->load->view('admin/commons/new_template', $data);
     } 

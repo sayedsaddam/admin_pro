@@ -41,7 +41,7 @@
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
-									<span>Admin Controlled Logics</span>
+									<span>Access Control List</span>
 								</a>
 							</p>
 						</div>

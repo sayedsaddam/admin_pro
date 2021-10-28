@@ -58,7 +58,7 @@
 								</a>
 								<?php if($this->session->userdata('user_role') == 'admin') : ?>
 								<a href="<?= base_url('/admin/acl/') ?>" class="dropdown-item">
-									<i class="fas fa-sliders-h mr-2" aria-hidden="true"></i> Admin Controlled Logics
+									<i class="fas fa-sliders-h mr-2" aria-hidden="true"></i> Access Control List
 								</a>
 								<?php endif ?>
 								<hr class="dropdown-divider">
