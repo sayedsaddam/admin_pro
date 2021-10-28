@@ -16,7 +16,7 @@ class Admin extends CI_Controller{
             redirect('');
         }
     }
-    
+
     // Returns Access from database as an array
     public function fetch_access() {
         $DB_ASSET_CONFIGS = $this->admin_model->request_db_configs();
@@ -411,8 +411,8 @@ class Admin extends CI_Controller{
     } 
     // Form Logic for Assets Access on ACL Page
     public function update_asset_access() {
-        if($this->session->userdata('user_role') != 'admin') {
-            redirect(base_url('admin'));
+        if(!$this->access['hasAssetAccess']) {
+            redirect(base_url('admin/dashboard'));
         }
 
         $user_asset_access = $this->input->post('USER_ASSET_ACCESS'); 
@@ -812,6 +812,9 @@ class Admin extends CI_Controller{
     }
     // Asset register
     public function asset_register($offset = null){
+        if(!$this->access['hasAssetAccess']) {
+            redirect(base_url('admin/dashboard'));
+        }
         $limit = 10;
         if(!empty($offset)){
             $this->uri->segment(3);
@@ -842,6 +845,9 @@ class Admin extends CI_Controller{
     }
     // Asset register - add new item.
     public function add_asset(){
+        if(!$this->access['hasAssetAccess']) {
+            redirect(base_url('admin/dashboard'));
+        }
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
         $data['add_asset'] = true;
@@ -849,6 +855,9 @@ class Admin extends CI_Controller{
     }
     // Asset detail
     public function asset_detail($id){  
+        if(!$this->access['hasAssetAccess']) {
+            redirect(base_url('admin/dashboard'));
+        }
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
         $data['asset_register'] = true;
@@ -1269,6 +1278,9 @@ class Admin extends CI_Controller{
     }
     // Search filters - search asset register
     public function search_asset_register(){
+        if(!$this->access['hasAssetAccess']) {
+            redirect(base_url('admin/dashboard'));
+        }
         $search = $this->input->get('search');
         $data['title'] = 'Search Results > Asset Register';
         $data['body'] = 'admin/asset-register';
