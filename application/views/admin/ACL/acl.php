@@ -133,6 +133,11 @@
         if ($('input:radio[name="USER_ASSET_ACCESS"][value=1]').is(":checked") && $('input:radio[name="SUPERVISOR_ASSET_ACCESS"][value=1]').is(":checked")) {
             $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',false);
             $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=1]").prop('checked',true);
+        } else if ($('input:radio[name="USER_ASSET_ACCESS"][value=0]').is(":checked") && $('input:radio[name="SUPERVISOR_ASSET_ACCESS"][value=0]').is(":checked")) {
+            $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',false);
+            $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=1]").prop('checked',false);
+                $("input:radio[name='USER_ASSET_ACCESS']").prop('disabled',true);
+                $("input:radio[name='SUPERVISOR_ASSET_ACCESS']").prop('disabled',true);
         } else {
             $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',true);
             $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=1]").prop('checked',false);
