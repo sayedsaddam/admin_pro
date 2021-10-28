@@ -130,6 +130,14 @@
 
 <script>
     $(document).ready(function() {
+        if ($('input:radio[name="USER_ASSET_ACCESS"][value=1]').is(":checked") && $('input:radio[name="SUPERVISOR_ASSET_ACCESS"][value=1]').is(":checked")) {
+            $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',false);
+            $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=1]").prop('checked',true);
+        } else {
+            $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',true);
+            $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=1]").prop('checked',false);
+        };
+
         $('input:radio[name="EVERYONE_ASSET_ACCESS"]').change(function(){
             if ($('input:radio[name="EVERYONE_ASSET_ACCESS"][value=1]').is(":checked")) {
                 $("input:radio[name='USER_ASSET_ACCESS'][value=1]").prop('checked',true);
@@ -146,16 +154,20 @@
         
         $('input:radio[name="USER_ASSET_ACCESS"]').change(function() {
             if ($('input:radio[name="USER_ASSET_ACCESS"][value=1]').is(":checked") && $('input:radio[name="SUPERVISOR_ASSET_ACCESS"][value=1]').is(":checked")) {
+                $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=1]").prop('checked',true);
                 $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',false);
             } else {
+                $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=0]").prop('checked',true);
                 $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',true);
             };
         })
 
         $('input:radio[name="SUPERVISOR_ASSET_ACCESS"]').change(function() {
-            if ($('input:radio[name="SUPERVISOR_ASSET_ACCESS"][value=1]').is(":checked") && $('input:radio[name="USER_ASSET_ACCESS"][value=1]').is(":checked")) {
+            if ($('input:radio[name="SUPERVISOR_ASSET_ACCESS"][value=1]').is(":checked") && $('input:radio[name="USER_ASSET_ACCESS"][value=1]').is(":checked")) {    
+                $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=1]").prop('checked',true);
                 $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',false);
             } else {
+                $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=0]").prop('checked',true);
                 $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',true);
             };
         })
