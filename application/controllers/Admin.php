@@ -11,11 +11,31 @@ class Admin extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('supervisor_model');
         $this->load->helper('paginate');
-        $this->access['ACCESS'] = $this->fetch_access();
+        $this->access['hasAssetAccess'] = $this->UserAssetAccess();
         if(!$this->session->userdata('username')){
             redirect('');
         }
     }
+    
+    // Returns Access from database as an array
+    public function fetch_access() {
+        $DB_ASSET_CONFIGS = $this->admin_model->request_db_configs();
+        return array("USER_ASSET_ACCESS" => $DB_ASSET_CONFIGS[0]->value, "SUPERVISOR_ASSET_ACCESS" => $DB_ASSET_CONFIGS[1]->value);  
+    }
+
+    public function UserAssetAccess() {
+        $userAccess = $this->fetch_access();
+        $accessLevel = array();
+        if ($this->session->userdata('user_role') == 'user' && $userAccess["USER_ASSET_ACCESS"] == 1) {
+            return true;
+        } else if ($this->session->userdata('user_role') == 'supervisor' && $userAccess["SUPERVISOR_ASSET_ACCESS"] == 1) {
+            return true;
+        } else if ($this->session->userdata('user_role') == 'admin') {
+            return true;
+        }
+        return false;
+    }
+
     // Load the dashboard.
     public function index(){
        redirect('admin/dashboard');
@@ -344,7 +364,6 @@ class Admin extends CI_Controller{
         if($this->session->userdata('user_role') != 'admin') {
             redirect(base_url('admin'));
         }
-        $data['ACCESS'] = $this->fetch_access();
         $limit = 10;
         if(!empty($offset)){
             $this->uri->segment(3);
@@ -375,12 +394,6 @@ class Admin extends CI_Controller{
         
         $this->load->view('admin/commons/new_template', $data);
     } 
-
-    // Returns Access from database as an array
-    public function fetch_access() {
-        $DB_ASSET_CONFIGS = $this->admin_model->request_db_configs();
-        return array("USER_ASSET_ACCESS" => $DB_ASSET_CONFIGS[0]->value, "SUPERVISOR_ASSET_ACCESS" => $DB_ASSET_CONFIGS[1]->value);  
-    }
 
     // Controller for ACL page
     public function acl(){

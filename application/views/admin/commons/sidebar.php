@@ -14,7 +14,7 @@
 	<p class="menu-label">
 		Procurement
 	</p>
-	<?php if( ($this->session->userdata('user_role') == 'user' && $ACCESS["USER_ASSET_ACCESS"] == 1) || ($this->session->userdata('user_role') == 'supervisor' && $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 1) || $this->session->userdata('user_role') == 'admin') : ?>
+	<?php if($hasAssetAccess) : ?>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'asset_register' || $this->uri->segment(2) == 'asset_detail' || $this->uri->segment(2) == 'search_asset_register' || $this->uri->segment(2) == 'add_asset' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'asset_register' || $this->uri->segment(2) == 'asset_detail' || $this->uri->segment(2) == 'search_asset_register' || $this->uri->segment(2) == 'add_asset' ? 'style="background-color:#ebfffc;"' : '' ?>>Assets</a>
