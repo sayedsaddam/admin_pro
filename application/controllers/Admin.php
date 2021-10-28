@@ -11,6 +11,7 @@ class Admin extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('supervisor_model');
         $this->load->helper('paginate');
+        $this->access['ACCESS'] = $this->fetch_access();
         if(!$this->session->userdata('username')){
             redirect('');
         }
@@ -27,7 +28,6 @@ class Admin extends CI_Controller{
         }
         $data['title'] = 'Home | Admin & Procurement';
         $data['body'] = 'admin/dashboard';
-        
         $data['total_employees'] = $this->admin_model->count_employ();
         $data['count_employ_week_change'] = $this->admin_model->count_employ_week_change();
         if ($this->admin_model->count_employ_last_week_change() != 0) {
@@ -344,6 +344,7 @@ class Admin extends CI_Controller{
         if($this->session->userdata('user_role') != 'admin') {
             redirect(base_url('admin'));
         }
+        $data['ACCESS'] = $this->fetch_access();
         $limit = 10;
         if(!empty($offset)){
             $this->uri->segment(3);
@@ -374,13 +375,19 @@ class Admin extends CI_Controller{
         
         $this->load->view('admin/commons/new_template', $data);
     } 
+
+    // Returns Access from database as an array
+    public function fetch_access() {
+        $DB_ASSET_CONFIGS = $this->admin_model->request_db_configs();
+        return array("USER_ASSET_ACCESS" => $DB_ASSET_CONFIGS[0]->value, "SUPERVISOR_ASSET_ACCESS" => $DB_ASSET_CONFIGS[1]->value);  
+    }
+
     // Controller for ACL page
     public function acl(){
         if($this->session->userdata('user_role') != 'admin') {
             redirect(base_url('admin'));
         }
-        $DB_ASSET_CONFIGS = $this->admin_model->request_db_configs();
-        $data['ACCESS'] = array("USER_ASSET_ACCESS" => $DB_ASSET_CONFIGS[0]->value, "SUPERVISOR_ASSET_ACCESS" => $DB_ASSET_CONFIGS[1]->value);
+        $data['ACCESS'] = $this->fetch_access();
         
         $data['title'] = 'Admin Controlled Logics | Admin & Procurement';
         $data['body'] = 'admin/ACL/acl';
