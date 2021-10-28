@@ -72,11 +72,11 @@
                                             <label class="label">Access for Users <span class="has-text-danger">*</span></label>
                                             <div class="control">
                                                 <label class="radio">
-                                                    <input type="radio" name="USER_ASSET_ACCESS" class="USER_ASSET_ACCESS_ENABLE" <?= $ACCESS["USER_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
+                                                    <input type="radio" name="USER_ASSET_ACCESS" <?= $ACCESS["USER_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
                                                     Enable
                                                 </label>
                                                 <label class="radio">
-                                                    <input type="radio" name="USER_ASSET_ACCESS" class="USER_ASSET_ACCESS_DISABLE" <?= $ACCESS["USER_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
+                                                    <input type="radio" name="USER_ASSET_ACCESS" <?= $ACCESS["USER_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
                                                     Disable
                                                 </label>
                                             </div>
@@ -89,11 +89,11 @@
                                             <label class="label">Access for Supervisors <span class="has-text-danger">*</span></label>
                                             <div class="control">
                                                 <label class="radio">
-                                                    <input type="radio" name="SUPERVISOR_ASSET_ACCESS" class="SUPERVISOR_ASSET_ACCESS_ENABLE" <?= $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
+                                                    <input type="radio" name="SUPERVISOR_ASSET_ACCESS" <?= $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
                                                     Enable
                                                 </label>
                                                 <label class="radio">
-                                                    <input type="radio" name="SUPERVISOR_ASSET_ACCESS" class="SUPERVISOR_ASSET_ACCESS_DISABLE" <?= $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
+                                                    <input type="radio" name="SUPERVISOR_ASSET_ACCESS" <?= $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
                                                     Disable
                                                 </label>
                                             </div>
@@ -106,11 +106,11 @@
                                             <label class="label">Access for Everyone <span class="has-text-danger">*</span></label>
                                             <div class="control">
                                                 <label class="radio">
-                                                    <input type="radio" name="EVERYONE_ASSET_ACCESS" class="EVERYONE_ASSET_ACCESS_ENABLE" <?= $ACCESS["USER_ASSET_ACCESS"] == 1 && $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
+                                                    <input type="radio" name="EVERYONE_ASSET_ACCESS" <?= $ACCESS["USER_ASSET_ACCESS"] == 1 && $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
                                                     Enable
                                                 </label>
                                                 <label class="radio">
-                                                    <input type="radio" name="EVERYONE_ASSET_ACCESS" class="EVERYONE_ASSET_ACCESS_DISABLE" <?= $ACCESS["USER_ASSET_ACCESS"] == 0 || $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
+                                                    <input type="radio" name="EVERYONE_ASSET_ACCESS" <?= $ACCESS["USER_ASSET_ACCESS"] == 0 || $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
                                                     Disable
                                                 </label>
                                             </div>
