@@ -53,9 +53,14 @@
 						</div>
 						<div class="dropdown-menu" id="dropdown-menu2" role="menu">
 							<div class="dropdown-content">
-							<a href="<?= base_url('/admin/dashboard/') ?>" class="dropdown-item">
+								<a href="<?= base_url('/admin/dashboard/') ?>" class="dropdown-item">
 									<i class="fas fa-user-tie mr-2" aria-hidden="true"></i> Profile Information
 								</a>
+								<?php if($this->session->userdata('user_role') == 'admin') : ?>
+								<a href="<?= base_url('/admin/acl/') ?>" class="dropdown-item">
+									<i class="fas fa-sliders-h mr-2" aria-hidden="true"></i> Admin Controlled Logics
+								</a>
+								<?php endif ?>
 								<hr class="dropdown-divider">
 								<a href="<?= base_url('login/logout') ?>" class="dropdown-item">
 									<i class="fas fa-sign-out-alt mr-2" aria-hidden="true"></i> Logout

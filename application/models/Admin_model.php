@@ -145,6 +145,23 @@ class Admin_model extends CI_Model{
         $this->db->update('item_requisitions', $data);
         return true;
     }
+    // Model for Updating Asset Access
+    public function update_user_asset_access($data) {
+        $this->db->where('config', 'USER_ASSET_ACCESS');    
+        $this->db->update('acl_configuration', $data);
+        return true;
+    }
+    // Model for Updating Asset Access
+    public function update_supervisor_asset_access($data) {
+        $this->db->where('config', 'SUPERVISOR_ASSET_ACCESS');    
+        $this->db->update('acl_configuration', $data);
+        return true;
+    }
+    // Model for Requesting Asset Access Configs
+    public function request_db_configs() {
+        $this->db->from('acl_configuration');
+        return $this->db->get()->result();
+    }
     // Reject request.
     public function reject_request($id, $data){
         $this->db->where('id', $id);
@@ -1928,8 +1945,7 @@ class Admin_model extends CI_Model{
     $this->db->where(array('item_assignment.return_back_date' => null, 'item_assignment.item_id' => $id)); 
     $this->db->order_by('users.id', 'ASC');
     return $this->db->get()->result(); 
-}
-
+  }    
     // Count qutation
     public function count_qutation($id){
         $this->db->select('purchase_id');

@@ -374,6 +374,48 @@ class Admin extends CI_Controller{
         
         $this->load->view('admin/commons/new_template', $data);
     } 
+    // Controller for ACL page
+    public function acl(){
+        if($this->session->userdata('user_role') != 'admin') {
+            redirect(base_url('admin'));
+        }
+        $DB_ASSET_CONFIGS = $this->admin_model->request_db_configs();
+        $data['ACCESS'] = array("USER_ASSET_ACCESS" => $DB_ASSET_CONFIGS[0]->value, "SUPERVISOR_ASSET_ACCESS" => $DB_ASSET_CONFIGS[1]->value);
+        
+        $data['title'] = 'Admin Controlled Logics | Admin & Procurement';
+        $data['body'] = 'admin/ACL/acl';
+        $data['acl_page'] = true;
+        $data['breadcrumb'] = array("Admin Controlled Logics");
+        
+        $this->load->view('admin/commons/new_template', $data);
+    } 
+    // Form Logic for Assets Access on ACL Page
+    public function update_asset_access() {
+        if($this->session->userdata('user_role') != 'admin') {
+            redirect(base_url('admin'));
+        }
+
+        $user_asset_access = $this->input->post('USER_ASSET_ACCESS'); 
+        $data = array(
+            'value' => $user_asset_access
+        );
+        $user_access_update = $this->admin_model->update_user_asset_access($data);
+
+        
+        $supervisor_asset_access = $this->input->post('SUPERVISOR_ASSET_ACCESS'); 
+        $data = array(
+            'value' => $supervisor_asset_access
+        );
+        $supervisor_access_update = $this->admin_model->update_supervisor_asset_access($data);
+
+        if($user_access_update && $supervisor_access_update){
+            $this->session->set_flashdata('success', '<strong>Success! /strong>Employ added successfully.');
+            redirect('admin/acl');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/acl');
+        }
+    }
   // item register - add new item.
   public function add_employee(){
     $data['title'] = 'Add Employee';
