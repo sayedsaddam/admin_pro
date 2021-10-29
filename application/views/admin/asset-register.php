@@ -64,13 +64,11 @@
                 <th class="has-text-weight-semibold">ID</th>
                 <th class="has-text-weight-semibold">Category</th>
                 <th class="has-text-weight-semibold">Description</th>
-                <th class="has-text-weight-semibold"><abbr title="Quantity">Q</abbr></th> 
+                <th class="has-text-weight-semibold"><abbr title="Quantity">Quantity</abbr></th> 
                 <th class="has-text-weight-semibold"><abbr title="Purchase Date">PD</abbr></th>
-                <th class="has-text-weight-semibold">Location</th> 
-                <th class="has-text-weight-semibold">Designation</th>
+                <th class="has-text-weight-semibold">Location</th>  
                 <th class="has-text-weight-semibold">User</th>
-                <th class="has-text-weight-semibold">Remarks</th>
-                <th class="has-text-weight-semibold"><abbr title="Give Away">GA</abbr></th>
+                <th class="has-text-weight-semibold">Remarks</th> 
                 <th class="has-text-weight-semibold">Action</th>
             </tr>
           </thead>
@@ -83,11 +81,9 @@
                   <td><?= ucfirst($asset->description); ?></td>
                   <td><?= ucfirst($asset->quantity); ?></td>
                   <td><?= ucfirst($asset->purchase_date); ?></td>
-                  <td><?= ucfirst($asset->location); ?></td>
-                  <td><?= ucfirst($asset->designation); ?></td>
+                  <td><?= ucfirst($asset->name); ?></td> 
                   <td><?= ucfirst($asset->user); ?></td>
-                  <td><?= ucfirst($asset->remarks); ?></td>
-                  <td><?= ucfirst($asset->giveaway); ?></td> 
+                  <td><?= ucfirst($asset->remarks); ?></td> 
                   <!-- <td><?= date('M d, Y', strtotime($asset->purchase_date)); ?></td> -->
                   <!-- <td>
                     <?php $recDate = date('Y-m-d', strtotime($asset->purchase_date));

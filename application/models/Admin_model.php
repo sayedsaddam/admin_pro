@@ -609,8 +609,9 @@ class Admin_model extends CI_Model{
     }
     // Get assets/items.
     public function get_assets($limit, $offset){
-        $this->db->select('id, date, category, description, quantity, purchase_date, location, designation, user,remarks, giveaway, created_at');
+        $this->db->select('assets.id, assets.date, assets.category, assets.description, assets.quantity, assets.purchase_date, assets.location, assets.user,assets.remarks, assets.created_at,locations.id as loc_id,locations.name');
         $this->db->from('assets');
+        $this->db->join('locations', 'assets.location = locations.id', 'left');
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('assets.location', $this->session->userdata('location'));
         }
@@ -619,12 +620,26 @@ class Admin_model extends CI_Model{
         return $this->db->get()->result();
     }
     // Asset detail - view and edit.
-    public function asset_detail($id){
-        $this->db->select('id, date, category, description, quantity, purchase_date, location, designation, user,remarks, giveaway, created_at');
+    public function asset_detail($id){ 
+        $this->db->select('assets.id, 
+                        assets.date,
+                        assets.category, 
+                        assets.description,
+                        assets.quantity, 
+                        assets.purchase_date, 
+                        assets.location, 
+                        assets.designation, 
+                        assets.user,remarks,
+                        assets.created_at,
+                        locations.id as loc_id,
+                        locations.name');
         $this->db->from('assets');
-        $this->db->where('id', $id);
+        $this->db->join('locations', 'assets.location = locations.id', 'left');
+        $this->db->where('assets.id', $id); 
+        // echo "<pre>";
+        // print_r($this->db->get()->row());exit;
         return $this->db->get()->row();
-    }
+    } 
     // Asset detail - Update existing record
     public function update_item($id, $data){
         $this->db->where('id', $id);
@@ -1305,7 +1320,7 @@ class Admin_model extends CI_Model{
         return $this->db->get()->result();
     }
         // item detail - view and edit.
-        public function item_detail($id){
+        public function item_detail($id){ 
             $this->db->select('id, location, category,status, sub_category, type_name, model, serial_number, supplier,price, depreciation,purchasedate,quantity, created_at');
             $this->db->from('items');
             $this->db->where('id', $id);
@@ -1671,7 +1686,21 @@ class Admin_model extends CI_Model{
     }
     // Get employ for edit by id
     public function edit_employ($id){
-        $this->db->select('users.id, users.username, users.fullname, users.email, users.phone, users.location,users.doj, users.department,users.region, users.address, users.status,users.dob, users.created_at,locations.id as loc_id,locations.name');
+        $this->db->select('users.id, 
+                            users.username, 
+                            users.fullname, 
+                            users.email, 
+                            users.phone, 
+                            users.location,
+                            users.doj, 
+                            users.department,
+                            users.region, 
+                            users.address, 
+                            users.status,
+                            users.dob, 
+                            users.created_at,
+                            locations.id as loc_id,
+                            locations.name');
         $this->db->from('users');
         $this->db->join('locations', 'users.location = locations.id', 'left');
         $this->db->where('users.id', $id);
@@ -1960,6 +1989,7 @@ class Admin_model extends CI_Model{
       public function get_item_location(){
         $role = ($this->session->userdata('user_role')); 
         $location = $this->session->userdata('location'); 
+        
         if($role == 'admin'){
         return $this->db->from('locations')->get()->result();
         }else{
