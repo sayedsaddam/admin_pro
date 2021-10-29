@@ -11,10 +11,31 @@ class Admin extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('supervisor_model');
         $this->load->helper('paginate');
+        $this->access['hasAssetAccess'] = $this->UserAssetAccess();
         if(!$this->session->userdata('username')){
             redirect('');
         }
     }
+
+    // Returns Access from database as an array
+    public function fetch_access() {
+        $DB_ASSET_CONFIGS = $this->admin_model->request_db_configs();
+        return array("USER_ASSET_ACCESS" => $DB_ASSET_CONFIGS[0]->value, "SUPERVISOR_ASSET_ACCESS" => $DB_ASSET_CONFIGS[1]->value);  
+    }
+
+    public function UserAssetAccess() {
+        $userAccess = $this->fetch_access();
+        $accessLevel = array();
+        if ($this->session->userdata('user_role') == 'user' && $userAccess["USER_ASSET_ACCESS"] == 1) {
+            return true;
+        } else if ($this->session->userdata('user_role') == 'supervisor' && $userAccess["SUPERVISOR_ASSET_ACCESS"] == 1) {
+            return true;
+        } else if ($this->session->userdata('user_role') == 'admin') {
+            return true;
+        }
+        return false;
+    }
+
     // Load the dashboard.
     public function index(){
        redirect('admin/dashboard');
@@ -27,7 +48,6 @@ class Admin extends CI_Controller{
         }
         $data['title'] = 'Home | Admin & Procurement';
         $data['body'] = 'admin/dashboard';
-        
         $data['total_employees'] = $this->admin_model->count_employ();
         $data['count_employ_week_change'] = $this->admin_model->count_employ_week_change();
         if ($this->admin_model->count_employ_last_week_change() != 0) {
@@ -374,6 +394,48 @@ class Admin extends CI_Controller{
         
         $this->load->view('admin/commons/new_template', $data);
     } 
+
+    // Controller for ACL page
+    public function acl(){
+        if($this->session->userdata('user_role') != 'admin') {
+            redirect(base_url('admin'));
+        }
+        $data['ACCESS'] = $this->fetch_access();
+        
+        $data['title'] = 'Access Control List | Admin & Procurement';
+        $data['body'] = 'admin/ACL/acl';
+        $data['acl_page'] = true;
+        $data['breadcrumb'] = array("Access Control List");
+        
+        $this->load->view('admin/commons/new_template', $data);
+    } 
+    // Form Logic for Assets Access on ACL Page
+    public function update_asset_access() {
+        if(!$this->access['hasAssetAccess']) {
+            redirect(base_url('admin/dashboard'));
+        }
+
+        $user_asset_access = $this->input->post('USER_ASSET_ACCESS'); 
+        $data = array(
+            'value' => $user_asset_access
+        );
+        $user_access_update = $this->admin_model->update_user_asset_access($data);
+
+        
+        $supervisor_asset_access = $this->input->post('SUPERVISOR_ASSET_ACCESS'); 
+        $data = array(
+            'value' => $supervisor_asset_access
+        );
+        $supervisor_access_update = $this->admin_model->update_supervisor_asset_access($data);
+
+        if($user_access_update && $supervisor_access_update){
+            $this->session->set_flashdata('success', '<strong>Success! /strong>Employ added successfully.');
+            redirect('admin/acl');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect('admin/acl');
+        }
+    }
   // item register - add new item.
   public function add_employee(){
     $data['title'] = 'Add Employee';
@@ -750,6 +812,9 @@ class Admin extends CI_Controller{
     }
     // Asset register
     public function asset_register($offset = null){
+        if(!$this->access['hasAssetAccess']) {
+            redirect(base_url('admin/dashboard'));
+        }
         $limit = 10;
         if(!empty($offset)){
             $this->uri->segment(3);
@@ -780,13 +845,19 @@ class Admin extends CI_Controller{
     }
     // Asset register - add new item.
     public function add_asset(){
+        if(!$this->access['hasAssetAccess']) {
+            redirect(base_url('admin/dashboard'));
+        }
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
         $data['locations'] = $this->admin_model->get_item_location();
         $this->load->view('admin/commons/new_template', $data);
     }
     // Asset detail
-    public function asset_detail($id){
+    public function asset_detail($id){  
+        if(!$this->access['hasAssetAccess']) {
+            redirect(base_url('admin/dashboard'));
+        }
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
         $data['locations'] = $this->admin_model->get_item_location();
@@ -1018,9 +1089,6 @@ class Admin extends CI_Controller{
     }
     // Categories and sub-categories
     public function categories($offset = null){
-        if($this->session->userdata('user_role') != 'admin' || $this->session->userdata('user_role') != 'user') {
-            redirect(base_url('admin'));
-        }
         $limit = 15;
         if(!empty($offset)){
             $this->uri->segment(3);
@@ -1203,6 +1271,9 @@ class Admin extends CI_Controller{
     }
     // Search filters - search asset register
     public function search_asset_register(){
+        if(!$this->access['hasAssetAccess']) {
+            redirect(base_url('admin/dashboard'));
+        }
         $search = $this->input->get('search');
         $data['title'] = 'Search Results > Asset Register';
         $data['body'] = 'admin/asset-register';

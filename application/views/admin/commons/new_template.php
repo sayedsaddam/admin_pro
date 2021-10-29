@@ -7,6 +7,6 @@
 ?>
 <?php $this->load->view('admin/commons/new_head'); ?>
 
-<?php $this->load->view($body); ?>
+<?php $this->load->view($body, $this->access); ?>
 
 <?php $this->load->view('admin/commons/foot'); ?>

@@ -14,6 +14,7 @@
 	<p class="menu-label">
 		Procurement
 	</p>
+	<?php if($hasAssetAccess) : ?>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'asset_register' || $this->uri->segment(2) == 'asset_detail' || $this->uri->segment(2) == 'search_asset_register' || $this->uri->segment(2) == 'add_asset' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'asset_register' || $this->uri->segment(2) == 'asset_detail' || $this->uri->segment(2) == 'search_asset_register' || $this->uri->segment(2) == 'add_asset' ? 'style="background-color:#ebfffc;"' : '' ?>>Assets</a>
@@ -26,6 +27,7 @@
 			</ul>
 		</li>
 	</ul>
+	<?php endif ?>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'suppliers' || $this->uri->segment(2) == 'search_suppliers' || $this->uri->segment(2) == 'add_supplier' || $this->uri->segment(2) == 'edit_supplier' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'suppliers' || $this->uri->segment(2) == 'search_suppliers' || $this->uri->segment(2) == 'add_supplier' || $this->uri->segment(2) == 'edit_supplier' ? 'style="background-color:#ebfffc;"' : '' ?>>Suppliers</a>
@@ -52,7 +54,6 @@
 		</li>
 	</ul>
 	<?php endif ?>
-	<?php if($this->session->userdata('user_role') == 'admin' || $this->session->userdata('user_role') != 'user') : ?>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? 'style="background-color:#ebfffc;"' : '' ?>>Item
@@ -64,7 +65,6 @@
 			</ul>
 		</li>
 	</ul>
-	<?php endif ?>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin/travels_info') ?>">Travels Info</a></li> -->
 	</ul>
