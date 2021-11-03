@@ -422,7 +422,7 @@ class Admin extends CI_Controller{
             redirect('admin/acl');
         }
     }
-  // item register - add new item.
+  // employee register - add new employee.
   public function add_employee(){
     $data['title'] = 'Add Employee';
     $data['add_page'] = true;
@@ -457,7 +457,7 @@ class Admin extends CI_Controller{
             redirect('admin/employee');
         }
     } 
-    // Item detail
+    // Edit detail
     public function edit_employ($id){   
         $data['title'] = 'Edit Employee';
         $data['body'] = 'admin/employ/add_employee';
@@ -829,7 +829,7 @@ class Admin extends CI_Controller{
         $data['breadcrumb'] = array("Assets List");
         $this->load->view('admin/commons/new_template', $data);
     }
-    // Asset register - add new item.
+    // Asset register - add new asset.
     public function add_asset(){
         if ($this->AssetsAccessList()->write == 0) {
             redirect('admin/dashboard');
@@ -1590,9 +1590,7 @@ class Admin extends CI_Controller{
         if(!empty($offset)){
             $config['uri_segment'] = 3;
         }
-
         $search = $this->input->get('search'); 
-
         $this->load->library('pagination');
         $url = base_url('admin/search_item');
         $rowscount = $this->admin_model->count_item_search($search);
@@ -1611,7 +1609,7 @@ class Admin extends CI_Controller{
         $config['attributes'] = array('class' => 'pagination-link');
         $config['reuse_query_string'] = true;
         $this->pagination->initialize($config);
-    
+        
         $data['title'] = 'Search Results > Item List';
         $data['body'] = 'admin/item_assignment/item-register'; 
         $data['assign_flag'] = false; 
