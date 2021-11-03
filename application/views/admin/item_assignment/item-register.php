@@ -30,7 +30,7 @@
 							</div>
 						</form>
 					</div>
-					<div class="column is-hidden-print">
+					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/item_register'); ?>'"
