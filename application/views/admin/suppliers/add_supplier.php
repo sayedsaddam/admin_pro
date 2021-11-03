@@ -71,7 +71,7 @@
 											<option disabled value="">Select Location</option>
 											<?php endif ?>
 											<?php if(!empty($locations)): foreach($locations as $loc): ?>
-											<?php if ($loc->id == $this->session->userdata('location') || $this->session->userdata('user_role') == 'admin') : ?>
+											<?php if ($loc->id == $this->session->userdata('location') || $this->session->userdata('user_role') == '1') : ?>
 											<option value="<?= $loc->id; ?>"
 												<?= !empty($edit) && $edit->id == $loc->id ? 'selected' : '' ?>>
 												<?= ucwords($loc->name); ?>
