@@ -163,18 +163,34 @@
 								</tbody>
 								<?php endif; ?>
 							</table>
-							<div class="column is-hidden-print">
-								<nav class="pagination is-small" role="navigation" aria-label="pagination"
-									style="justify-content: center;">
-									<?php if(empty($results) AND !empty($employ)){ echo $this->pagination->create_links(); } ?>
-								</nav>
-							</div>
+							<div class="column" style="display: flex; justify-content: center;">
+						<label class="mr-2">Number of Records:</label>
+						<select class="result_limit">
+							<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25</option>
+							<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50</option>
+							<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100</option>
+						</select>
+					</div>
+					<div class="column is-hidden-print">
+						<nav class="pagination is-small" role="navigation" aria-label="pagination"
+							style="justify-content: center;">
+							<?php if(empty($results) AND !empty($employ)){ echo $this->pagination->create_links(); } ?>
+						</nav>
+					</div>
 						</div>
 					</div>
 				</div>
 </section>
 
 <script>
+	// fetch record
+	$(document).ready(function() {
+		$(".result_limit").on('change', function() {
+			var val = $(this).val();
+			$(location).prop('href', '<?= current_url() ?>?limit=' + val)
+		})
+	})
+
 	// add employ code start 
 	var cat1 = $("#exit-add-modal")
 	var cat2 = $("#close-add-modal")
@@ -214,8 +230,7 @@
 			// alert(supplier_id)
 			// AJAX request
 			$.ajax({
-				url: '<?= base_url('
-				admin / edit_employ / '); ?>' + supplier_id,
+				url: '<?= base_url('admin/edit_employ/'); ?>' + supplier_id,
 				method: 'POST',
 				dataType: 'JSON',
 				data: {
