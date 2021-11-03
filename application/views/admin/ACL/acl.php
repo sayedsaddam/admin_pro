@@ -47,7 +47,7 @@
 						</div>
 					</div>
 				</div>
-                <form class="card" method="POST" action="<?= base_url('admin/update_asset_access') ?>">
+                <form class="card" id="asset_form" method="POST" action="<?= base_url('admin/update_asset_access') ?>">
                     <header class="card-header">
                         <p class="card-header-title">
                         Assets Access
@@ -88,10 +88,6 @@
                             </div>
                         </div>
                     </div>
-                    <footer class="card-footer">
-                        <button type="submit" class="button card-footer-item">Save</button>
-                        <button type="reset" class="button card-footer-item">Reset</button>
-                    </footer>
                 </form>
 				
 </section>
@@ -102,8 +98,31 @@
     }
 
     $(document).ready(function() {
+
+        $("#asset_form").submit(function(e) {
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(), // serializes the form's elements.
+                success: function(data)
+                {
+                }
+            });
+
+        });
+
         $("td").click(function(){
+            
             $(this).find(':checkbox').toggleCheck();
+
+            $("#asset_form").submit();
+            
         });
     })
 </script>
