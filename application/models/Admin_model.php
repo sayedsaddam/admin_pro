@@ -1460,7 +1460,7 @@ class Admin_model extends CI_Model{
         $this->db->from('suppliers');
         $this->db->where(array('location'=> $loc_id,'status' => 1));
         $this->db->where('location', $loc_id);
-        return $this->db->get()->result(); 
+        return $this->db->get()->result();
     }
     // Get category for supplier form
     public function suppliers_category(){
