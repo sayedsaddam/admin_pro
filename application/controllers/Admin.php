@@ -899,6 +899,7 @@ class Admin extends CI_Controller{
         $data['breadcrumb'] = array("admin/asset_register" => "Assets List", "Add Asset");
         $data['add_asset'] = true;
         $data['locations'] = $this->admin_model->get_item_location();
+        $data['categories'] = $this->admin_model->get_item_categories();
         $this->load->view('admin/commons/new_template', $data);
     }
     // Asset detail
@@ -928,7 +929,7 @@ class Admin extends CI_Controller{
                 'user' => $this->input->post('user'),
                 'remarks' => $this->input->post('remarks'), 
                 'created_at' => date('Y-m-d')
-            );
+            ); 
             if($this->admin_model->add_item($data)){
                 $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
                 redirect('admin/asset_register');
