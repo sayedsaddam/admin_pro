@@ -264,7 +264,7 @@
 										<input name="price" value="<?= !empty($edit) ? $edit->price : '' ?>" class="input is-small"
 											type="number" min="1" max="9999999" placeholder="1-9,999,999" required>
 										<span class="icon is-small is-left">
-											<i class="fas fa-dollar-sign"></i>
+											<i class="far fa-money-bill-alt"></i>
 										</span>
 									</div>
 								</div>

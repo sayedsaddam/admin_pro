@@ -11,29 +11,18 @@ class Admin extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('supervisor_model');
         $this->load->helper('paginate');
-        $this->access['hasAssetAccess'] = $this->UserAssetAccess();
+
+        $this->access['AssetsAccess'] = $this->AssetsAccessList();
+
         if(!$this->session->userdata('username')){
             redirect('');
         }
     }
 
-    // Returns Access from database as an array
-    public function fetch_access() {
-        $DB_ASSET_CONFIGS = $this->admin_model->request_db_configs();
-        return array("USER_ASSET_ACCESS" => $DB_ASSET_CONFIGS[0]->value, "SUPERVISOR_ASSET_ACCESS" => $DB_ASSET_CONFIGS[1]->value);  
-    }
-
-    public function UserAssetAccess() {
-        $userAccess = $this->fetch_access();
-        $accessLevel = array();
-        if ($this->session->userdata('user_role') == 'user' && $userAccess["USER_ASSET_ACCESS"] == 1) {
-            return true;
-        } else if ($this->session->userdata('user_role') == 'supervisor' && $userAccess["SUPERVISOR_ASSET_ACCESS"] == 1) {
-            return true;
-        } else if ($this->session->userdata('user_role') == 'admin') {
-            return true;
-        }
-        return false;
+    public function AssetsAccessList() {
+        $user_role = $this->session->userdata('user_role');
+        $userAccess = $this->admin_model->request_db_configs($user_role);
+        return $userAccess[0];
     }
 
     // Load the dashboard.
@@ -41,7 +30,6 @@ class Admin extends CI_Controller{
        redirect('admin/dashboard');
     }
     public function dashboard($offset = null) {
-
         $limit = 10;
         if(!empty($offset)){
             $this->uri->segment(3);
@@ -361,9 +349,6 @@ class Admin extends CI_Controller{
     }
     // Employ - Go to employ page.
     public function employee($offset = null){
-        if($this->session->userdata('user_role') != 'admin') {
-            redirect(base_url('admin'));
-        }
         $limit = 10;
         if(!empty($offset)){
             $this->uri->segment(3);
@@ -397,13 +382,9 @@ class Admin extends CI_Controller{
 
     // Controller for ACL page
     public function acl(){
-        if($this->session->userdata('user_role') != 'admin') {
-            redirect(base_url('admin'));
-        }
-        $data['ACCESS'] = $this->fetch_access();
-        
         $data['title'] = 'Access Control List | Admin & Procurement';
         $data['body'] = 'admin/ACL/acl';
+        $data['assets_access_list'] = $this->admin_model->component_access_list('assets');
         $data['acl_page'] = true;
         $data['breadcrumb'] = array("Access Control List");
         
@@ -411,24 +392,29 @@ class Admin extends CI_Controller{
     } 
     // Form Logic for Assets Access on ACL Page
     public function update_asset_access() {
-        if(!$this->access['hasAssetAccess']) {
-            redirect(base_url('admin/dashboard'));
+        $asset_read = $this->input->post('read'); // read[1][1], read[1][2], read[1][3]
+        $asset_write = $this->input->post('write'); 
+        $asset_update = $this->input->post('update'); 
+        $asset_delete = $this->input->post('delete'); 
+
+        for ($i = 1; $i <= $this->admin_model->count_acl_components(); $i++) { 
+            // $i => component
+            for ($j = 1; $j <= $this->admin_model->count_users_roles(); $j++) { 
+                // $j => role_id
+                $data = array(
+                    "read" => isset($asset_read[$i][$j]),
+                    "write" => isset($asset_write[$i][$j]),
+                    "update" => isset($asset_update[$i][$j]),
+                    "delete" => isset($asset_delete[$i][$j]),
+                );
+
+                $access_update = $this->admin_model->access_update($data, $j, $i);
+
+            }
+
         }
 
-        $user_asset_access = $this->input->post('USER_ASSET_ACCESS'); 
-        $data = array(
-            'value' => $user_asset_access
-        );
-        $user_access_update = $this->admin_model->update_user_asset_access($data);
-
-        
-        $supervisor_asset_access = $this->input->post('SUPERVISOR_ASSET_ACCESS'); 
-        $data = array(
-            'value' => $supervisor_asset_access
-        );
-        $supervisor_access_update = $this->admin_model->update_supervisor_asset_access($data);
-
-        if($user_access_update && $supervisor_access_update){
+        if($access_update){
             $this->session->set_flashdata('success', '<strong>Success! /strong>Employ added successfully.');
             redirect('admin/acl');
         }else{
@@ -812,8 +798,8 @@ class Admin extends CI_Controller{
     }
     // Asset register
     public function asset_register($offset = null){
-        if(!$this->access['hasAssetAccess']) {
-            redirect(base_url('admin/dashboard'));
+        if ($this->AssetsAccessList()->read == 0) {
+            redirect('admin/dashboard');
         }
         $limit = 10;
         if(!empty($offset)){
@@ -839,29 +825,36 @@ class Admin extends CI_Controller{
         $data['title'] = 'Asset Register | Admin & Procurement';
         $data['body'] = 'admin/asset-register';
         $data['assets'] = $this->admin_model->get_assets($limit, $offset);
-        $data['asset-register'] = true;
-        $data['breadcrumb'] = array("Assets");
+        $data['asset_register'] = true;
+        $data['breadcrumb'] = array("Assets List");
         $this->load->view('admin/commons/new_template', $data);
     }
     // Asset register - add new asset.
     public function add_asset(){
-        if(!$this->access['hasAssetAccess']) {
-            redirect(base_url('admin/dashboard'));
+        if ($this->AssetsAccessList()->write == 0) {
+            redirect('admin/dashboard');
         }
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
+        $data['breadcrumb'] = array("admin/asset_register" => "Assets List", "Add Asset");
+        $data['add_asset'] = true;
         $data['locations'] = $this->admin_model->get_item_location();
         $this->load->view('admin/commons/new_template', $data);
     }
     // Asset detail
-    public function asset_detail($id){  
-        if(!$this->access['hasAssetAccess']) {
-            redirect(base_url('admin/dashboard'));
+    public function asset_detail($id){ 
+        if ($this->AssetsAccessList()->read == 0) {
+            redirect('admin/dashboard');
+        }
+        if ($this->AssetsAccessList()->update == 0) {
+            redirect('admin/dashboard');
         }
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
         $data['locations'] = $this->admin_model->get_item_location();
         $data['edit'] = $this->admin_model->asset_detail($id);
+        $data['breadcrumb'] = array("admin/asset_register" => "Assets List", "Edit Asset");
+        $data['asset_register'] = true;
         $this->load->view('admin/commons/new_template', $data);
     }
         // Add new asset into the database
@@ -907,6 +900,9 @@ class Admin extends CI_Controller{
     }
     // Delete asset
     public function delete_asset($id){
+        if ($this->AssetsAccessList()->delete == 0) {
+            redirect('admin/dashboard');
+        }
         if($this->admin_model->delete_asset($id)){
             $this->session->set_flashdata('success', '<strong>Delete! </strong>Item was deleted successfully.');
             redirect('admin/asset_register');
@@ -1271,12 +1267,14 @@ class Admin extends CI_Controller{
     }
     // Search filters - search asset register
     public function search_asset_register(){
-        if(!$this->access['hasAssetAccess']) {
-            redirect(base_url('admin/dashboard'));
+        if ($this->AssetsAccessList()->read == 0) {
+            redirect('admin/dashboard');
         }
         $search = $this->input->get('search');
         $data['title'] = 'Search Results > Asset Register';
         $data['body'] = 'admin/asset-register';
+        $data['breadcrumb'] = array("admin/asset_register" => "Assets List", "Search: " . $search);
+        $data['asset_register'] = true;
         $data['results'] = $this->admin_model->search_asset_register($search);
         $this->load->view('admin/commons/new_template', $data);
     }

@@ -56,7 +56,7 @@
 								<a href="<?= base_url('/admin/dashboard/') ?>" class="dropdown-item">
 									<i class="fas fa-user-tie mr-2" aria-hidden="true"></i> Profile Information
 								</a>
-								<?php if($this->session->userdata('user_role') == 'admin') : ?>
+								<?php if($this->session->userdata('user_role') == 1) : ?>
 								<a href="<?= base_url('/admin/acl/') ?>" class="dropdown-item">
 									<i class="fas fa-sliders-h mr-2" aria-hidden="true"></i> Access Control List
 								</a>

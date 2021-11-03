@@ -14,7 +14,7 @@
 	<p class="menu-label">
 		Procurement
 	</p>
-	<?php if($hasAssetAccess) : ?>
+	<?php if($AssetsAccess->read == 1) : ?>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'asset_register' || $this->uri->segment(2) == 'asset_detail' || $this->uri->segment(2) == 'search_asset_register' || $this->uri->segment(2) == 'add_asset' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'asset_register' || $this->uri->segment(2) == 'asset_detail' || $this->uri->segment(2) == 'search_asset_register' || $this->uri->segment(2) == 'add_asset' ? 'style="background-color:#ebfffc;"' : '' ?>>Assets</a>
