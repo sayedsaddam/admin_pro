@@ -248,13 +248,36 @@ class Admin extends CI_Controller{
         if ($this->SuppliersAccessList()->read == 0) {
             redirect('admin/dashboard');
         }
-        $limit = 10;
-        if(!empty($offset)){
-            $this->uri->segment(3);
+       
+        $limit = 25;
+        if($this->input->get('limit')) {
+            $limit = $this->input->get('limit');
         }
-        $url = 'admin/suppliers/suppliers';
+
+        if(!empty($offset)){
+            $config['uri_segment'] = 3;
+        }
+    
+        $this->load->library('pagination');
+        $url = base_url('admin/suppliers');
         $rowscount = $this->admin_model->count_suppliers();
-        paginate($url, $rowscount, $limit);
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
+        $this->pagination->initialize($config);
+       
+        
         $data['title'] = 'Suppliers | Admin & Procurement';
         $data['body'] = 'admin/suppliers/suppliers';
         $data['suppliers'] = $this->admin_model->get_suppliers($limit, $offset);
@@ -369,13 +392,20 @@ class Admin extends CI_Controller{
     }
     // Employ - Go to employ page.
     public function employee($offset = null){
-        $limit = 10;
+      
+        $limit = 25;
+        if($this->input->get('limit')) {
+            $limit = $this->input->get('limit');
+        }
+
         if(!empty($offset)){
-            $this->uri->segment(3);
-        } 
-        $this->load->library('pagination'); 
+            $config['uri_segment'] = 3;
+        }
+    
+        $this->load->library('pagination');
         $url = base_url('admin/employee');
         $rowscount = $this->admin_model->count_employ();
+
         $config['base_url'] = $url;
         $config['total_rows'] = $rowscount;
         $config['per_page'] = $limit;
@@ -388,8 +418,9 @@ class Admin extends CI_Controller{
         $config['next_link'] = 'Next';
         $config['last_link'] = 'Last';
         $config['attributes'] = array('class' => 'pagination-link');
-        $this->pagination->initialize($config); 
-        
+        $config['reuse_query_string'] = true;
+        $this->pagination->initialize($config);
+
         $data['title'] = 'Employ | Admin & Procurement';
         $data['body'] = 'admin/employ/employ';
         $data['employ'] = $this->admin_model->get_employ($limit, $offset);
