@@ -122,7 +122,7 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth"> 
 											<?php  $role = ($this->session->userdata('user_role')); 
-											if($role == 'admin' && !isset($edit)) {?> 
+											if($role == '1' && !isset($edit)) {?> 
 											<select name="supplier" id="supplier" class="browser-default custom-select" <?= isset($edit) ? 'disabled' : '' ?>>
 												<option value="" disabled selected>Select a Supplier</option>
 											</select>
@@ -500,7 +500,7 @@
 $(document).ready(function(){
  // City change
  $('#supplier_location').on('change', function(){
-   var location = $(this).val();  
+   var location = $(this).val();
    // AJAX request
    $.ajax({
      url:'<?=base_url('admin/supplier_against_location/')?>' + location,

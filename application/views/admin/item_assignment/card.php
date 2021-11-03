@@ -180,12 +180,12 @@
 														<?php if(!empty($item->serial_number)) { ?>
 														<p><?= $item->serial_number; ?></p>
 														<?php } else {?>
-															<p>null</p>
+															<p>N/A</p>
 															<?php } ?>
 															<?php if(!empty($item->model)) { ?>
 															<p><?= ucfirst($item->model); ?></p>
 															<?php } else {?>
-															<p>null</p>
+															<p>N/A</p>
 															<?php } ?>
 														<p> <?= $item->purchasedate;?></p>
 														<p><?php echo "<spanp id='price'>". $item->price.'</span>';?>
