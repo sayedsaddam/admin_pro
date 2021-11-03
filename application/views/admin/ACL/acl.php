@@ -97,7 +97,13 @@
 </section>
 
 <script>
+    $.fn.toggleCheck  =function() {
+        $(this).prop('checked', !($(this).is(':checked')));
+    }
+
     $(document).ready(function() {
-        
+        $("td").click(function(){
+            $(this).find(':checkbox').toggleCheck();
+        });
     })
 </script>

@@ -1337,11 +1337,13 @@ class Admin extends CI_Controller{
         $data['item'] = $this->admin_model->get_item_card_detail($id); 
         $this->load->view('admin/commons/new_template', $data);
     }
-    
 
     //Item register 
     public function item_register($offset = null){ 
-        $limit = 10;
+        $limit = 25;
+        if($this->input->get('limit')) {
+            $limit = $this->input->get('limit');
+        }
 
         if(!empty($offset)){
             $config['uri_segment'] = 3;
@@ -1363,6 +1365,7 @@ class Admin extends CI_Controller{
         $config['next_link'] = 'Next';
         $config['last_link'] = 'Last';
         $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
         $this->pagination->initialize($config);
         
         $data['title'] = 'Item Register | Admin & Procurement';
