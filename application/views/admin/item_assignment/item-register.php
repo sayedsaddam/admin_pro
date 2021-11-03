@@ -163,7 +163,7 @@
 												<button type="button" data-id="<?= $item->item_ids.'/'.$item->id; ?>"
 													class="button is-small has-text-danger return-btn">
 													<span class="icon is-small">
-														<i class="fas fa-times"></i>
+														<i class="fas fa-ban"></i>
 													</span>
 												</button>
 											</p>

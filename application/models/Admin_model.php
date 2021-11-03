@@ -3,6 +3,15 @@
  * undocumented class
  */
 class Admin_model extends CI_Model{
+    // Get User Role
+    public function component_access_list($component_type) {
+        $this->db->select('users_roles.title, acl_configuration.component, acl_configuration.read, acl_configuration.write, acl_configuration.update, acl_configuration.delete');
+        $this->db->from('users_roles');
+        $this->db->join('acl_configuration', 'users_roles.id = acl_configuration.role_id', 'left');
+        $this->db->join('acl_components', 'acl_configuration.component = acl_components.id', 'left');
+        $this->db->where('acl_components.type', $component_type);
+        return $this->db->get()->result();
+    }
     // Get pending requisitions.
     public function pending_requisitions(){
         $this->db->select('item_requisitions.id,
@@ -146,8 +155,9 @@ class Admin_model extends CI_Model{
         return true;
     }
     // Model for Updating Asset Access
-    public function update_user_asset_access($data) {
-        $this->db->where('config', 'USER_ASSET_ACCESS');    
+    public function access_update($data, $role_id, $component) {
+        $this->db->where('role_id', $role_id);
+        $this->db->where('component', $component);
         $this->db->update('acl_configuration', $data);
         return true;
     }
@@ -158,8 +168,9 @@ class Admin_model extends CI_Model{
         return true;
     }
     // Model for Requesting Asset Access Configs
-    public function request_db_configs() {
+    public function request_db_configs($user_role) {
         $this->db->from('acl_configuration');
+        $this->db->where('role_id', $user_role);
         return $this->db->get()->result();
     }
     // Reject request.
@@ -181,6 +192,16 @@ class Admin_model extends CI_Model{
         if ($this->session->userdata('user_role') != 'admin') {
             $this->db->where('suppliers.location', $this->session->userdata('location'));
         }
+        return $this->db->count_all_results();
+    }
+    // Count acl_components
+    public function count_acl_components(){
+        $this->db->from('acl_components');
+        return $this->db->count_all_results();
+    }
+    // Count users_roles
+    public function count_users_roles(){
+        $this->db->from('users_roles');
         return $this->db->count_all_results();
     }
     // Count suppliers

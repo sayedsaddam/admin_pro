@@ -50,7 +50,7 @@
                 <form class="card" method="POST" action="<?= base_url('admin/update_asset_access') ?>">
                     <header class="card-header">
                         <p class="card-header-title">
-                        Assets Read/Write Access
+                        Assets Access
                         </p>
                         <button class="card-header-icon" aria-label="more options">
                         <span class="icon">
@@ -62,60 +62,28 @@
                         <div class="content">
                             <div class="columns">
                                 <div class="column">
-                                    If you need to enable or disable the access for Assets, this is where you do it.
-                                </div>                            
-                            </div>
-                            <div class="columns">
-                                <div class="column">
-                                    <fieldset>
-                                        <div class="field">
-                                            <label class="label">Access for Users <span class="has-text-danger">*</span></label>
-                                            <div class="control">
-                                                <label class="radio">
-                                                    <input type="radio" name="USER_ASSET_ACCESS" <?= $ACCESS["USER_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
-                                                    Enable
-                                                </label>
-                                                <label class="radio">
-                                                    <input type="radio" name="USER_ASSET_ACCESS" <?= $ACCESS["USER_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
-                                                    Disable
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <div class="column">
-                                    <fieldset>
-                                        <div class="field">
-                                            <label class="label">Access for Supervisors <span class="has-text-danger">*</span></label>
-                                            <div class="control">
-                                                <label class="radio">
-                                                    <input type="radio" name="SUPERVISOR_ASSET_ACCESS" <?= $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
-                                                    Enable
-                                                </label>
-                                                <label class="radio">
-                                                    <input type="radio" name="SUPERVISOR_ASSET_ACCESS" <?= $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
-                                                    Disable
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <div class="column">
-                                    <fieldset>
-                                        <div class="field">
-                                            <label class="label">Access for Everyone <span class="has-text-danger">*</span></label>
-                                            <div class="control">
-                                                <label class="radio">
-                                                    <input type="radio" name="EVERYONE_ASSET_ACCESS" <?= $ACCESS["USER_ASSET_ACCESS"] == 1 && $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 1 ? 'checked' : '' ?> value=1>
-                                                    Enable
-                                                </label>
-                                                <label class="radio">
-                                                    <input type="radio" name="EVERYONE_ASSET_ACCESS" <?= $ACCESS["USER_ASSET_ACCESS"] == 0 || $ACCESS["SUPERVISOR_ASSET_ACCESS"] == 0 ? 'checked' : '' ?> value=0>
-                                                    Disable
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </fieldset>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Read</th>
+                                                <th>Write</th>
+                                                <th>Update</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach($assets_access_list as $key => $assets_access_list) : ?>
+                                                <tr>
+                                                <th><?= $assets_access_list->title ?></th>
+                                                <td><input type="checkbox" name="read[<?= $assets_access_list->component ?>][<?= $key + 1 ?>]" <?= $assets_access_list->read == 1 ? 'checked' : '' ?> value="1"></td>
+                                                <td><input type="checkbox" name="write[<?= $assets_access_list->component ?>][<?= $key + 1 ?>]" <?= $assets_access_list->write == 1 ? 'checked' : '' ?> value="1"></td>
+                                                <td><input type="checkbox" name="update[<?= $assets_access_list->component ?>][<?= $key + 1 ?>]" <?= $assets_access_list->update == 1 ? 'checked' : '' ?> value="1"></td>
+                                                <td><input type="checkbox" name="delete[<?= $assets_access_list->component ?>][<?= $key + 1 ?>]" <?= $assets_access_list->delete == 1 ? 'checked' : '' ?> value="1"></td>
+                                            </tr>
+                                            <?php endforeach ?>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -130,51 +98,6 @@
 
 <script>
     $(document).ready(function() {
-        if ($('input:radio[name="USER_ASSET_ACCESS"][value=1]').is(":checked") && $('input:radio[name="SUPERVISOR_ASSET_ACCESS"][value=1]').is(":checked")) {
-            $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',false);
-            $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=1]").prop('checked',true);
-        } else if ($('input:radio[name="USER_ASSET_ACCESS"][value=0]').is(":checked") && $('input:radio[name="SUPERVISOR_ASSET_ACCESS"][value=0]').is(":checked")) {
-            $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',false);
-            $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=1]").prop('checked',false);
-                $("input:radio[name='USER_ASSET_ACCESS']").prop('disabled',true);
-                $("input:radio[name='SUPERVISOR_ASSET_ACCESS']").prop('disabled',true);
-        } else {
-            $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',true);
-            $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=1]").prop('checked',false);
-        };
-
-        $('input:radio[name="EVERYONE_ASSET_ACCESS"]').change(function(){
-            if ($('input:radio[name="EVERYONE_ASSET_ACCESS"][value=1]').is(":checked")) {
-                $("input:radio[name='USER_ASSET_ACCESS'][value=1]").prop('checked',true);
-                $("input:radio[name='SUPERVISOR_ASSET_ACCESS'][value=1]").prop('checked',true);
-                $("input:radio[name='USER_ASSET_ACCESS']").prop('disabled',false);
-                $("input:radio[name='SUPERVISOR_ASSET_ACCESS']").prop('disabled',false);
-            } else {
-                $("input:radio[name='USER_ASSET_ACCESS'][value=0]").prop('checked',true);
-                $("input:radio[name='SUPERVISOR_ASSET_ACCESS'][value=0]").prop('checked',true);
-                $("input:radio[name='USER_ASSET_ACCESS']").prop('disabled',true);
-                $("input:radio[name='SUPERVISOR_ASSET_ACCESS']").prop('disabled',true);
-            }
-        });
         
-        $('input:radio[name="USER_ASSET_ACCESS"]').change(function() {
-            if ($('input:radio[name="USER_ASSET_ACCESS"][value=1]').is(":checked") && $('input:radio[name="SUPERVISOR_ASSET_ACCESS"][value=1]').is(":checked")) {
-                $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=1]").prop('checked',true);
-                $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',false);
-            } else {
-                $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=0]").prop('checked',true);
-                $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',true);
-            };
-        })
-
-        $('input:radio[name="SUPERVISOR_ASSET_ACCESS"]').change(function() {
-            if ($('input:radio[name="SUPERVISOR_ASSET_ACCESS"][value=1]').is(":checked") && $('input:radio[name="USER_ASSET_ACCESS"][value=1]').is(":checked")) {    
-                $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=1]").prop('checked',true);
-                $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',false);
-            } else {
-                $("input:radio[name='EVERYONE_ASSET_ACCESS'][value=0]").prop('checked',true);
-                $("input:radio[name='EVERYONE_ASSET_ACCESS']").prop('disabled',true);
-            };
-        })
     })
 </script>

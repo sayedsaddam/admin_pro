@@ -39,9 +39,10 @@
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
-									<span>Asset List</span>
+									<span>Assets List</span>
 								</button>
 							</p>
+							<?php if($AssetsAccess->write == 1) : ?>
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/add_asset'); ?>'"
 									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
@@ -51,6 +52,7 @@
 									<span>Add New</span>
 								</button>
 							</p>
+							<?php endif ?>
 						</div>
 					</div>
 				</div>
@@ -219,7 +221,7 @@
 								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
 								<?php endif ?>
 								<p class="control">
-									<button class="button is-small is-success" type="submit">
+									<button class="button is-small is-success" type="submit" <?= isset($edit) && $AssetsAccess->update == 0 || $AssetsAccess->write == 0 ? 'disabled' : '' ?>>
 										<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
 										<span class="icon is-small">
 											<i class="fas fa-arrow-right"></i>
