@@ -215,7 +215,7 @@
 	$(document).ready(function() {
 		$(".result_limit").on('change', function() {
 			var val = $(this).val();
-			$(location).prop('href', '<?= base_url('admin/item_register?limit=') ?>' + val)
+			$(location).prop('href', '<?= current_url() ?>?limit=' + val)
 		})
 	})
 </script>
