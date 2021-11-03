@@ -53,8 +53,7 @@
                             <div class="card">
                                 <header class="card-header">
                                     <p class="card-header-title">
-                                        Assets <span class="ml-2 has-text-weight-light">(Set Global Access for
-                                            Assets)</span>
+                                        Assets <span class="ml-2 has-text-weight-light">(Global Access)</span>
                                     </p>
                                     <button class="card-header-icon" aria-label="more options">
                                         <span class="icon">
@@ -112,8 +111,7 @@
                             <div class="card">
                                 <header class="card-header">
                                     <p class="card-header-title">
-                                        Suppliers <span class="ml-2 has-text-weight-light">(Set Global Access for
-                                        Suppliers)</span>
+                                        Suppliers <span class="ml-2 has-text-weight-light">(Global Access)</span>
                                     </p>
                                     <button class="card-header-icon" aria-label="more options">
                                         <span class="icon">
