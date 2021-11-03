@@ -112,9 +112,9 @@
 															<?=ucfirst($items[0]->names);?>
 														</p>
 														<p><?php if(!empty($items[0]->serial_number)){ ?>
-															<?=ucfirst($items[0]->serial_number);?>
+															<p><?=ucfirst($items[0]->serial_number);?>
 															<?php } else{ ?>NA <?php } ?></p>
-															<p><?= $items[0]->type_name; ?></p>
+															<p><?= $items[0]->model; ?></p>
 														<p><?= date('M d, Y', strtotime($items[0]->purchasedate)); ?>
 														</p>
 														<p><?php echo "<spanp id='price'>". $items[0]->price.'</span>';?>
@@ -148,7 +148,9 @@
 										<p class="subtitle has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd.
 									Islamabad, 44000</p>
 								<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
+								<?php if(!empty($item->cat_name)){ ?>
 								<?= $item->cat_name; ?></p> 
+								<?php } ?>
 										<div class="card-content">
 											<div class="columns">
 
@@ -170,12 +172,22 @@
 
 													</div>
 													<div class="column has-text-left">
+													<?php if(!empty($item->names)){ ?>
 														<p>
 															<?=ucfirst($item->names);?>
 														</p>
+														<?php } ?>
+														<?php if(!empty($item->serial_number)) { ?>
 														<p><?= $item->serial_number; ?></p>
-															<p><?= date('M d, Y', strtotime($item->purchasedate)); ?></p>
-														<p> <?= $item->price;?></p>
+														<?php } else {?>
+															<p>null</p>
+															<?php } ?>
+															<?php if(!empty($item->model)) { ?>
+															<p><?= ucfirst($item->model); ?></p>
+															<?php } else {?>
+															<p>null</p>
+															<?php } ?>
+														<p> <?= $item->purchasedate;?></p>
 														<p><?php echo "<spanp id='price'>". $item->price.'</span>';?>
 														</p>
 														<p><?php echo "<span id='dep'>".$item->depreciation .'</span>'. "(%)"; ?>
@@ -199,10 +211,12 @@
 														<p> Contact &raquo;</p>
 													</div>
 													<div class="column has-text-left">
+														<?php if(!empty($item->fullname)){ ?>
 														<p> <?= $item->fullname;?></p>
 														<p><?= $item->department;?></p>
 														<p><?= date('M d, Y', strtotime($item->doj)); ?></p>
 														<p><?= $item->phone;?></p>
+														<?php } ?>
 													</div>
 												</div>
 											</div>

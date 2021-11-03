@@ -16,7 +16,8 @@
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" type="search"
-										placeholder="Search Item" value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>">
+										placeholder="Search Item"
+										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>">
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
 									</span>
@@ -81,16 +82,49 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<form action="<?= base_url("admin/assign_item_save") ?>" method="POST">
 					<input type="hidden" name="item_id" value="<?php echo $this->uri->segment(3); ?>">
+
+					<div class="columns">
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Category</label>
+									<div class="control has-icons-left">
+										<input class="input is-small" type="text"
+											value="<?= ucwords($returning_items->cat_name) ?>" disabled>
+										<span class="icon is-small is-left">
+											<i class="fas fa-tags"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div> 
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Product</label>
+									<div class="control has-icons-left">
+										<input class="input is-small" type="text"
+											value="<?= ucwords($returning_items->names) ?>" disabled>
+										<span class="icon is-small is-left">
+											<i class="fas fa-luggage-cart"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+
+					</div>
 					<div class="columns">
 						<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Model</label>
 									<div class="control has-icons-left">
-										<input class="input is-small" type="text" value="<?= ucwords($returning_items->model) ?>" disabled>
+										<input class="input is-small" type="text" value="<?= $returning_items->model ?>"
+											disabled>
 										<span class="icon is-small is-left">
 											<i class="fas fa-bookmark"></i>
 										</span>
@@ -103,7 +137,8 @@
 								<div class="field">
 									<label class="label is-small">Price</label>
 									<div class="control has-icons-left">
-										<input class="input is-small" type="text" value="<?= $returning_items->price ?>" disabled>
+										<input class="input is-small" type="text" value="<?= $returning_items->price ?>"
+											disabled>
 										<span class="icon is-small is-left">
 											<i class="fas fa-dollar-sign"></i>
 										</span>
@@ -112,6 +147,9 @@
 							</fieldset>
 						</div>
 					</div>
+
+
+
 					<div class="columns">
 						<div class="column">
 							<fieldset>
@@ -120,8 +158,8 @@
 											class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
-									
-									<?php  $role = ($this->session->userdata('user_role')); 
+
+											<?php  $role = ($this->session->userdata('user_role')); 
 											if($role == 'admin') {?>
 											<select name="location" id="location" required>
 												<option selected disabled value="">Select a City</option>
@@ -132,15 +170,15 @@
 												</option>
 												<?php endforeach; endif; ?>
 												<?php } else { ?>
-										<select name="location" id="" required> 
-									<?php if(!empty($locations)): foreach($locations as $loc): ?>
-									<option value="<?= $loc->id; ?>"
-										<?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>>
-										<?= $loc->name; ?>
-									</option>
-									<?php endforeach; endif; ?>
-									<?php } ?>
-											</select>
+												<select name="location" id="" required>
+													<?php if(!empty($locations)): foreach($locations as $loc): ?>
+													<option value="<?= $loc->id; ?>"
+														<?php if(!empty($edit) && $edit->id == $loc->id){ echo 'selected'; } ?>>
+														<?= $loc->name; ?>
+													</option>
+													<?php endforeach; endif; ?>
+													<?php } ?>
+												</select>
 										</span>
 										<span class="icon is-small is-left">
 											<i class="fas fa-globe"></i>
@@ -157,10 +195,10 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<input type="hidden" name="assign_by" class="form-control"
-												value="<?= $this->session->userdata('id');  ?>"> 
-												<?php  $role = ($this->session->userdata('user_role')); 
+												value="<?= $this->session->userdata('id');  ?>">
+											<?php  $role = ($this->session->userdata('user_role')); 
 											if($role == 'admin') {?>
-                                          <select name="employ" class="employ" id="employ" required>
+											<select name="employ" class="employ" id="employ" required>
 												<option selected disabled value="">Select an Employee</option>
 												<?php foreach($assign_to as $loc){ ?>
 												<option value="<?= $loc->id; ?>">
@@ -169,7 +207,7 @@
 												<?php } ?>
 											</select>
 											<?php } else {?>
-											<select name="employ" id="" required> 
+											<select name="employ" id="" required>
 												<?php echo $role; $employee = $this->admin_model->get_location_employ($role);
 												if(!empty($employee)): foreach($employee as $loc): ?>
 												<option value="<?= $loc->id; ?>">
@@ -177,7 +215,7 @@
 												</option>
 												<?php endforeach; endif; ?>
 											</select>
-											<?php } ?> 
+											<?php } ?>
 
 										</span>
 										<span class="icon is-small is-left">

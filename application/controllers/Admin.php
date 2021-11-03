@@ -853,13 +853,20 @@ class Admin extends CI_Controller{
         if ($this->AssetsAccessList()->read == 0) {
             redirect('admin/dashboard');
         }
-        $limit = 10;
+
+        $limit = 25;
+        if($this->input->get('limit')) {
+            $limit = $this->input->get('limit');
+        }
+
         if(!empty($offset)){
-            $this->uri->segment(3);
-        } 
+            $config['uri_segment'] = 3;
+        }
+    
         $this->load->library('pagination');
         $url = base_url('admin/asset_register');
         $rowscount = $this->admin_model->count_assets();
+
         $config['base_url'] = $url;
         $config['total_rows'] = $rowscount;
         $config['per_page'] = $limit;
@@ -872,8 +879,9 @@ class Admin extends CI_Controller{
         $config['next_link'] = 'Next';
         $config['last_link'] = 'Last';
         $config['attributes'] = array('class' => 'pagination-link');
-        $this->pagination->initialize($config);  
-        
+        $config['reuse_query_string'] = true;
+        $this->pagination->initialize($config);
+               
         $data['title'] = 'Asset Register | Admin & Procurement';
         $data['body'] = 'admin/asset-register';
         $data['assets'] = $this->admin_model->get_assets($limit, $offset);
@@ -891,6 +899,7 @@ class Admin extends CI_Controller{
         $data['breadcrumb'] = array("admin/asset_register" => "Assets List", "Add Asset");
         $data['add_asset'] = true;
         $data['locations'] = $this->admin_model->get_item_location();
+        $data['categories'] = $this->admin_model->get_item_categories();
         $this->load->view('admin/commons/new_template', $data);
     }
     // Asset detail
@@ -920,7 +929,7 @@ class Admin extends CI_Controller{
                 'user' => $this->input->post('user'),
                 'remarks' => $this->input->post('remarks'), 
                 'created_at' => date('Y-m-d')
-            );
+            ); 
             if($this->admin_model->add_item($data)){
                 $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
                 redirect('admin/asset_register');
