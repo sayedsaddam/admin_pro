@@ -1718,8 +1718,7 @@ class Admin extends CI_Controller{
         $this->load->view('admin/commons/template', $data);
     }
       // Assignment Item form- To employ
-      public function assign_item(){
-        $id = $this->uri->segment(3);
+      public function assign_item($id){
         $data['title'] = 'Assign Item';
         $data['body'] = 'admin/item_assignment/assign-item'; 
         $data['assign_to'] = $this->admin_model->assign_to();
@@ -1729,6 +1728,8 @@ class Admin extends CI_Controller{
         $data['get_category'] = $this->admin_model->get_category(); 
         $data['locations'] = $this->admin_model->get_item_location(); 
         $data['returning_items'] = $this->admin_model->returning_assignment_list($id); 
+        $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Assign Item");
+        $data['item_register'] = true;
         $this->load->view('admin/commons/new_template', $data);
     }
         // assign_item_save into the database
