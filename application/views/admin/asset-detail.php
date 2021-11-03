@@ -98,20 +98,27 @@
 							</fieldset>
 						</div>
 						<div class="column">
-							<fieldset>
+						<fieldset>
 								<div class="field">
-									<label class="label is-small">Category <span
-											class="has-text-danger">*</span></label>
+									<label class="label is-small">Category <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input type="text" name="category" id="" class="input is-small"
-											value="<?php if(!empty($edit)){ echo $edit->category; } ?>" type="text"
-											placeholder="category ..." required="">
+										<span class="select is-small is-fullwidth">
+											<select name="category" id="category" required <?= isset($edit) ? 'disabled' : '' ?>>
+												<option selected disabled value="">Select a Category</option>
+												<?php if(!empty($categories)): foreach($categories as $cat): ?>
+												<option value="<?= $cat->id; ?>"
+													<?= isset($edit) && $edit->category == $cat->id ? 'selected' : '' ?>>
+													<?= ucwords($cat->cat_name); ?>
+												</option>
+												<?php endforeach; endif; ?>
+											</select>
+										</span>
 										<span class="icon is-small is-left">
-											<i class="fas fa-user"></i>
+											<i class="fas fa-tags"></i>
 										</span>
 									</div>
 								</div>
-							</fieldset>
+							</fieldset> 
 						</div>
 					</div>
 
@@ -181,7 +188,7 @@
 										<select name="location" id="" class="browser-default custom-select ">
 											<option disabled value="">Select Category</option>
 											<?php if(!empty($locations)): foreach($locations as $loc): ?>
-											<?php if ($loc->id == $this->session->userdata('location') || $this->session->userdata('user_role') == 'admin') : ?>
+											<?php if ($loc->id == $this->session->userdata('location') || $this->session->userdata('user_role') == '1') : ?>
 											<option value="<?= $loc->id; ?>"
 												<?= !empty($edit) && $edit->location == $loc->id ? 'selected' : '' ?>>												
 												<?= ucwords($loc->name); ?>

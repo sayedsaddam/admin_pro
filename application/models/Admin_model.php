@@ -2012,19 +2012,15 @@ class Admin_model extends CI_Model{
         // return $this->db->from('qutations')->where(array('po_id' => $po_id))->count_all_results();
         return $this->db->from('qutations')->where(array('po_id' => $id))->count_all_results();
     } 
-      // Locations - Get item locations
-      public function get_item_location(){
-        $role = ($this->session->userdata('user_role')); 
+    
+    // Locations - Get item locations
+    public function get_item_location(){
         $location = $this->session->userdata('location'); 
-        
-        if($role == 'admin'){
-        return $this->db->from('locations')->get()->result();
-        }else{
-            $this->db->select('id,name');
-            $this->db->from('locations');
-            $this->db->where('id',$location); 
-            return $this->db->get()->result();
-        } 
+        $this->db->from('locations');
+        if ($this->session->userdata('user_role') != '1') {
+            $this->db->where('id', $this->session->userdata('location'));
+        }
+        return $this->db->get()->result();
     } 
 
     // Item register - Delete an Item
