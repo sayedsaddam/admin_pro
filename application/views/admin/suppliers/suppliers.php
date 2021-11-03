@@ -71,7 +71,9 @@
 									<th class="has-text-weight-semibold">Category</th>
 									<th class="has-text-weight-semibold">Status</th>
 									<th class="has-text-weight-semibold">Date</th>
+									<?php if($SuppliersAccess->update == 1 || $SuppliersAccess->delete == 1) : ?>
 									<th class="has-text-weight-semibold">Action</th>
+									<?php endif ?>
 								</tr>
 							</thead>
 							<tfoot>
