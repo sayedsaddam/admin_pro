@@ -2018,7 +2018,7 @@ class Admin_model extends CI_Model{
         $location = $this->session->userdata('location'); 
         $this->db->from('locations');
         if ($this->session->userdata('user_role') != '1') {
-            $this->db->where('items.location', $this->session->userdata('location'));
+            $this->db->where('id', $this->session->userdata('location'));
         }
         return $this->db->get()->result();
     } 
