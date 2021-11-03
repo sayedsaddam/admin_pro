@@ -42,6 +42,7 @@
 									<span>Suppliers List</span>
 								</a>
 							</p>
+							<?php if($SuppliersAccess->write == 1) : ?>
 							<p class="control">
 								<a href="<?= base_url("admin/add_supplier") ?>"
 									class="button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
@@ -51,6 +52,7 @@
 									<span>Add New</span>
 								</a>
 							</p>
+							<?php endif ?>
 						</div>
 					</div>
 				</div> 
@@ -83,7 +85,9 @@
 									<th class="has-text-weight-semibold">Category</th>
 									<th class="has-text-weight-semibold">Status</th>
 									<th class="has-text-weight-semibold">Date</th>
+									<?php if($SuppliersAccess->update == 1 || $SuppliersAccess->delete == 1) : ?>
 									<th class="has-text-weight-semibold">Action</th>
+									<?php endif ?>
 								</tr>
 							</tfoot>
 							<?php if(empty($results)): ?>
@@ -115,21 +119,26 @@
 										<?php endif; ?>
 									</td>
 									<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
+									<?php if($SuppliersAccess->update == 1 || $SuppliersAccess->delete == 1) : ?>
 									<td class="is-narrow">
+										<?php if($SuppliersAccess->update == 1) : ?>
 										<a href="<?= base_url('admin/edit_supplier/' . $sup->sup_id) ?>" class="supplier_info button is-small"><span class="icon is-small"><i
 													class="fa fa-edit"></i></span></a>
-                          <?php if($session == 'admin'){ ?>
-										<a href="<?=base_url('admin/delete_supplier/'.$sup->sup_id);?>"	class="button is-small"><span class="icon is-small has-text-danger"><i
+										<?php endif ?>
+										<?php if($SuppliersAccess->delete == 1) : ?>
+										<a href="<?=base_url('admin/delete_supplier/'.$sup->sup_id);?>" 
+											class="button is-small"><span class="icon is-small has-text-danger"><i
 													class="fa fa-times"></i></span></a>
-                          <?php } ?>
+										<?php endif ?>
 									</td>
+									<?php endif ?>
 								</tr>
 								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
 							</tbody>
 							<?php else: ?>
 							<tbody>
 								<?php if(!empty($results)): foreach($results as $sup): ?>
-                  <tr>
+                  				<tr onclick="window.location='<?= base_url('admin/edit_supplier/' . $sup->id); ?>';">
 									<td><?= 'S2S-'.$sup->id; ?></td>
 									<td><span title="<?= $sup->email; ?>"><?= ucwords($sup->name); ?></td>
 									<td><?= $sup->phone; ?></td>
@@ -155,15 +164,19 @@
 										<?php endif; ?>
 									</td>
 									<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
+									<?php if($SuppliersAccess->update == 1 || $SuppliersAccess->delete == 1) : ?>
 									<td class="is-narrow">
+										<?php if($SuppliersAccess->update == 1) : ?>
 										<a href="<?= base_url('admin/edit_supplier/' . $sup->id) ?>" class="supplier_info button is-small"><span class="icon is-small"><i
 													class="fa fa-edit"></i></span></a>
-                          <?php if($session == 'admin'){ ?>
+										<?php endif ?>
+										<?php if($SuppliersAccess->delete == 1) : ?>
 										<a href="<?=base_url('admin/delete_supplier/'.$sup->id);?>" 
 											class="button is-small"><span class="icon is-small has-text-danger"><i
 													class="fa fa-times"></i></span></a>
-                          <?php } ?>
+										<?php endif ?>
 									</td>
+									<?php endif ?>
 								</tr>
 								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
 							</tbody>

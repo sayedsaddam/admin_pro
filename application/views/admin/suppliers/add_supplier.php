@@ -42,6 +42,7 @@
 									<span>Suppliers List</span>
 								</a>
 							</p>
+							<?php if($SuppliersAccess->write == 1) : ?>
 							<p class="control">
 								<a href="<?= base_url("admin/add_supplier") ?>"
 									class="button is-small <?= (isset($add_supplier_page)) ? 'has-background-primary-light' : '' ?>">
@@ -51,6 +52,7 @@
 									<span>Add New</span>
 								</a>
 							</p>
+							<?php endif ?>
 						</div>
 					</div>
 				</div>
@@ -201,7 +203,7 @@
 								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
 								<?php endif ?>
 								<p class="control">
-									<button class="button is-small is-success" type="submit">
+									<button class="button is-small is-success" type="submit"  <?= $SuppliersAccess->write != 1 ? 'disabled' : '' ?>>
 										<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
 										<span class="icon is-small">
 											<i class="fas fa-arrow-right"></i>

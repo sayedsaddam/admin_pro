@@ -13,6 +13,7 @@ class Admin extends CI_Controller{
         $this->load->helper('paginate');
 
         $this->access['AssetsAccess'] = $this->AssetsAccessList();
+        $this->access['SuppliersAccess'] = $this->SuppliersAccessList();
 
         if(!$this->session->userdata('username')){
             redirect('');
@@ -23,6 +24,12 @@ class Admin extends CI_Controller{
         $user_role = $this->session->userdata('user_role');
         $userAccess = $this->admin_model->request_db_configs($user_role);
         return $userAccess[0];
+    }
+
+    public function SuppliersAccessList() {
+        $user_role = $this->session->userdata('user_role');
+        $userAccess = $this->admin_model->request_db_configs($user_role);
+        return $userAccess[1];
     }
 
     // Load the dashboard.
@@ -238,6 +245,9 @@ class Admin extends CI_Controller{
     }
     // Suppliers - Go to suppliers page.
     public function suppliers($offset = null){
+        if ($this->SuppliersAccessList()->read == 0) {
+            redirect('admin/dashboard');
+        }
         $limit = 10;
         if(!empty($offset)){
             $this->uri->segment(3);
@@ -257,6 +267,9 @@ class Admin extends CI_Controller{
     }
     // Add Suppliers - Go to add suppliers page.
     public function add_supplier(){
+        if ($this->SuppliersAccessList()->write == 0) {
+            redirect('admin/dashboard');
+        }
         $data['title'] = 'Add Supplier | Admin & Procurement';
         $data['body'] = 'admin/suppliers/add_supplier';
         $data['locations'] = $this->admin_model->list_locations_suppliers();
@@ -268,11 +281,13 @@ class Admin extends CI_Controller{
     }
     // Edit Supplier - Navigates to `Edit Supplier` page
     public function edit_supplier($id = null){  
+        if ($this->SuppliersAccessList()->update == 0) {
+            redirect('admin/dashboard');
+        }
+
         $data['edit'] = $this->admin_model->edit_supplier($id); 
         
         if ($data['edit'] == NULL) {
-            redirect('admin/suppliers');
-        } elseif ($data['edit']->location != $this->session->userdata('location') && $this->session->userdata('user_role') != 'admin') {
             redirect('admin/suppliers');
         }
 
@@ -312,9 +327,14 @@ class Admin extends CI_Controller{
     }
     // Suppliers - Remove supplier
     public function delete_supplier($id){
+        if ($this->SuppliersAccessList()->delete == 0) {
+            redirect('admin/dashboard');
+        }
+
         $data = array(
             'status' => 0
         );
+
         if($this->admin_model->delete_supplier($id,$data)){
             $this->session->set_flashdata('success', '<strong>Success:</strong> Supplier removal was successful.');
             redirect('admin/suppliers');
@@ -385,13 +405,14 @@ class Admin extends CI_Controller{
         $data['title'] = 'Access Control List | Admin & Procurement';
         $data['body'] = 'admin/ACL/acl';
         $data['assets_access_list'] = $this->admin_model->component_access_list('assets');
+        $data['suppliers_access_list'] = $this->admin_model->component_access_list('suppliers');
         $data['acl_page'] = true;
         $data['breadcrumb'] = array("Access Control List");
         
         $this->load->view('admin/commons/new_template', $data);
     } 
     // Form Logic for Assets Access on ACL Page
-    public function update_asset_access() {
+    public function update_access_list() {
         $asset_read = $this->input->post('read'); // read[1][1], read[1][2], read[1][3]
         $asset_write = $this->input->post('write'); 
         $asset_update = $this->input->post('update'); 

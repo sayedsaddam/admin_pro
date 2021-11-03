@@ -42,6 +42,7 @@
 									<span>Suppliers List</span>
 								</a>
 							</p>
+							<?php if($SuppliersAccess->write == 1) : ?>
 							<p class="control">
 								<a href="<?= base_url("admin/add_supplier") ?>"
 									class="button is-small <?= (isset($add_supplier_page)) ? 'has-background-primary-light' : '' ?>">
@@ -51,6 +52,7 @@
 									<span>Add New</span>
 								</a>
 							</p>
+							<?php endif ?>
 						</div>
 					</div>
 				</div>
@@ -226,7 +228,7 @@
 								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
 								<?php endif ?>
 								<p class="control">
-									<button class="button is-small is-success" type="submit">
+									<button class="button is-small is-success" type="submit" <?= $SuppliersAccess->update != 1 ? 'disabled' : '' ?>>
 										<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
 										<span class="icon is-small">
 											<i class="fas fa-arrow-right"></i>
@@ -238,38 +240,6 @@
 					</div>
 				</form>
 			</div>
-		</div>
-
-		<div class="modal" id="modal-ter">
-			<div class="modal-background"></div>
-			<form action="<?= base_url('admin/product_report'); ?>" method="POST">
-				<div class="modal-card">
-					<header class="modal-card-head">
-						<p class="modal-card-title">Filter Report</p>
-						<button class="delete" aria-label="close" id="exit-report-modal" type="button"></button>
-					</header>
-					<section class="modal-card-body">
-						<div class="columns">
-							<div class="column">
-								<p class="control">
-									From:
-									<input class="input" type="date" placeholder="From" name="from_date">
-								</p>
-							</div>
-							<div class="column">
-								<p class="control">
-									To:
-									<input class="input" type="date" placeholder="From" name="to_date">
-								</p>
-							</div>
-						</div>
-					</section>
-					<footer class="modal-card-foot">
-						<button class="button is-success" type="submit">Apply</button>
-						<button class="button" aria-label="close" id="close-report-modal" type="button">Cancel</button>
-					</footer>
-				</div>
-			</form>
 		</div>
 	</div>
 </section>
