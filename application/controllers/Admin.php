@@ -1447,7 +1447,10 @@ class Admin extends CI_Controller{
 
     //Available Item list
     public function available_item_list($offset = null){ 
-        $limit = 10;
+        $limit = 25;
+        if($this->input->get('limit')) {
+            $limit = $this->input->get('limit');
+        }
 
         if(!empty($offset)){
             $config['uri_segment'] = 3;
@@ -1469,6 +1472,7 @@ class Admin extends CI_Controller{
         $config['next_link'] = 'Next';
         $config['last_link'] = 'Last';
         $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
         $this->pagination->initialize($config);
 
         $data['title'] = 'Item Register | Admin & Procurement';
@@ -1481,36 +1485,40 @@ class Admin extends CI_Controller{
     }
     //Assign item list
     public function get_assign_item($offset = null){  
-    $limit = 10;
-    if(!empty($offset)){
-        $config['uri_segment'] = 3;
+        $limit = 25;
+        if($this->input->get('limit')) {
+            $limit = $this->input->get('limit');
+        }
+        if(!empty($offset)){
+            $config['uri_segment'] = 3;
+        }
+
+        $this->load->library('pagination');
+        $url = 'admin/assign-list';
+        $rowscount = $this->admin_model->count_assign_item();
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
+        $this->pagination->initialize($config);
+
+        $data['title'] = 'Item Register | Admin & Procurement';
+        $data['body'] = 'admin/item_assignment/item-register';
+        $data['assign_page'] = true; 
+        $data['items'] = $this->admin_model->assign_item_list($limit, $offset); 
+        $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Assigned List");
+        $this->load->view('admin/commons/new_template', $data);
     }
-
-    $this->load->library('pagination');
-    $url = 'admin/assign-list';
-    $rowscount = $this->admin_model->count_assign_item();
-
-    $config['base_url'] = $url;
-    $config['total_rows'] = $rowscount;
-    $config['per_page'] = $limit;
-    $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
-    $config['cur_tag_close'] = '</a>';
-    $config['num_tag_open'] = '<li>';
-    $config['num_tag_open'] = '</li>';
-    $config['first_link'] = 'First';
-    $config['prev_link'] = 'Previous';
-    $config['next_link'] = 'Next';
-    $config['last_link'] = 'Last';
-    $config['attributes'] = array('class' => 'pagination-link');
-    $this->pagination->initialize($config);
-
-    $data['title'] = 'Item Register | Admin & Procurement';
-    $data['body'] = 'admin/item_assignment/item-register';
-    $data['assign_page'] = true; 
-    $data['items'] = $this->admin_model->assign_item_list($limit, $offset); 
-    $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Assigned List");
-    $this->load->view('admin/commons/new_template', $data);
-}
     //Assign item 
        public function assign_list($offset = null){ 
             $limit = 15;
@@ -1606,7 +1614,11 @@ class Admin extends CI_Controller{
     }
     // Search filters - search product date-wise
     public function product_report($offset = null){  
-        $limit = 10; 
+        $limit = 25;
+        if($this->input->get('limit')) {
+            $limit = $this->input->get('limit');
+        }
+
         if(!empty($offset)){
             $config['uri_segment'] = 3;
         }
@@ -1706,8 +1718,7 @@ class Admin extends CI_Controller{
         $this->load->view('admin/commons/template', $data);
     }
       // Assignment Item form- To employ
-      public function assign_item(){
-        $id = $this->uri->segment(3);
+      public function assign_item($id){
         $data['title'] = 'Assign Item';
         $data['body'] = 'admin/item_assignment/assign-item'; 
         $data['assign_to'] = $this->admin_model->assign_to();
@@ -1717,6 +1728,8 @@ class Admin extends CI_Controller{
         $data['get_category'] = $this->admin_model->get_category(); 
         $data['locations'] = $this->admin_model->get_item_location(); 
         $data['returning_items'] = $this->admin_model->returning_assignment_list($id); 
+        $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Assign Item");
+        $data['item_register'] = true;
         $this->load->view('admin/commons/new_template', $data);
     }
         // assign_item_save into the database
