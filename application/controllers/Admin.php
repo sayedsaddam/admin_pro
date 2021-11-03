@@ -1365,6 +1365,7 @@ class Admin extends CI_Controller{
         $config['next_link'] = 'Next';
         $config['last_link'] = 'Last';
         $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
         $this->pagination->initialize($config);
         
         $data['title'] = 'Item Register | Admin & Procurement';
