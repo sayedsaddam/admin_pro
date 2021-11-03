@@ -82,8 +82,7 @@
 				</div>
 				<div class="columns">
 					<div class="column">
-						<h1 class="subtitle is-5"><?= (!isset($edit_item)) ? 'Add Item' : 'Editing Item' ?>
-							<?= (isset($edit->id)) ? '<span class="has-text-grey-light">(ID: ' . $edit->id . ')</span>' : '' ?></h1>
+						<h1 class="subtitle is-5"><?= (!isset($edit_item)) ? 'Add Item' : 'Edit Item' ?></h1>
 					</div>
 				</div>
 				<form
