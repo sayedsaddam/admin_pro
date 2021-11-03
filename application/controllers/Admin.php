@@ -1337,11 +1337,13 @@ class Admin extends CI_Controller{
         $data['item'] = $this->admin_model->get_item_card_detail($id); 
         $this->load->view('admin/commons/new_template', $data);
     }
-    
 
     //Item register 
     public function item_register($offset = null){ 
-        $limit = 10;
+        $limit = 25;
+        if($this->input->get('limit')) {
+            $limit = $this->input->get('limit');
+        }
 
         if(!empty($offset)){
             $config['uri_segment'] = 3;
