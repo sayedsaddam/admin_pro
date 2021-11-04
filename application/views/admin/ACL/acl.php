@@ -83,8 +83,8 @@
                                                                     name="read[<?= $data->component ?>][<?= $key + 1 ?>]"
                                                                     <?= $data->read == 1 ? 'checked' : '' ?>
                                                                     value="1"></td>
-                                                            <td><input type="checkbox"
-                                                                    name="write[<?= $data->component ?>][<?= $key + 1 ?>]"
+                                                        <td><input type="checkbox"
+                                                                name="write[<?= $data->component ?>][<?= $key + 1 ?>]"
                                                                     <?= $data->write == 1 ? 'checked' : '' ?>
                                                                     value="1"></td>
                                                             <td><input type="checkbox"

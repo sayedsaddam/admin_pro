@@ -1458,6 +1458,7 @@ class Admin_model extends CI_Model{
     public function supplier_against_location($loc_id){
         $this->db->select('id, name, email');
         $this->db->from('suppliers');
+        $this->db->where(array('location'=> $loc_id,'status' => 1));
         $this->db->where('location', $loc_id);
         return $this->db->get()->result();
     }
