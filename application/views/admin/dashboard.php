@@ -277,23 +277,16 @@
 							<div class="tile is-parent">
 								<div class="tile is-child">
 									<table class="table is-hoverable is-fullwidth">
-									<thead>
-										<tr>
-											<th class="has-text-weight-semibold"><abbr title="Item Identification Number">ID</abbr></th>
-											<th class="has-text-weight-semibold">Location</th>
-											<th class="has-text-weight-semibold">Category</th>
-											<th class="has-text-weight-semibold">Company</th>
-											<th class="has-text-weight-semibold">Model</th>
-											<th class="has-text-weight-semibold">Supplier</th>
-											<?php if(isset($assign_page)) : ?>
-											<th class="has-text-weight-semibold">Assign To</th>
-											<?php endif ?>
-											<th class="has-text-weight-semibold"><abbr title="Depreciation Percentage">D%</abbr></th>
-											<th class="has-text-weight-semibold">Status</th>
-											<th class="has-text-weight-semibold"><abbr title="Purchase Date">PD</abbr></th>
-											<th class="has-text-weight-semibold is-hidden-print">Action</th>
-										</tr>
-									</thead>
+										<thead>
+											<tr>
+												<th class="has-text-weight-semibold"><abbr title="Item Identification Number">ID</abbr></th>
+												<th class="has-text-weight-semibold">Employee Name</th>
+												<th class="has-text-weight-semibold">Employee Location</th>
+												<th class="has-text-weight-semibold">Items Added</th>
+												<th class="has-text-weight-semibold">Items Assigned</th>
+												<th class="has-text-weight-semibold">Suppliers Added</th>
+											</tr>
+										</thead>
 									</table>
 								</div>
 							</div>
