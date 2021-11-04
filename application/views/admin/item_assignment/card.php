@@ -83,82 +83,87 @@
 				<div class='container has-text-centered'>
 					<div class='columns is-mobile is-centered'>
 						<div class='column is-12'>
-							<div class="card"> 
- 
-								<?php if(!empty($items)): ?> 
+							<div class="card">
+
+								<?php if(!empty($items)): ?>
 								<p class="subtitle has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd.
 									Islamabad, 44000</p>
 								<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
-									<?= $items[0]->cat_name ?></p> 
-									<div class="card-content"> 
-										<div class="columns">
-											<div class="column">
-												<div class="columns">
+									<?= $items[0]->cat_name ?></p>
+								<div class="card-content">
+									<div class="columns">
+										<div class="column">
+											<div class="columns">
 
-													<div class="column is-narrow has-text-left"
-														style="margin-left: 14%;">
+												<div class="column is-narrow has-text-left" style="margin-left: 14%;">
 
-														<p><strong>Product</strong></p>
-														<p>Serial No </p>
-														<p>Model</p>
-														<p>Purchase Date</p>
-														<p>Price<p>
-														<p>Depreciation</p>
-														<p>Current Value</p>
+													<p><strong>Product</strong></p>
+													<p>Serial No </p>
+													<p>Model</p>
+													<p>Purchase Date</p>
+													<p>Price<p>
+													<p>Depreciation</p>
+													<p>Current Value</p>
 
-													</div>
-													<div class="column has-text-left">
-														<p>
-															<?=ucfirst($items[0]->names);?>
-														</p>
-														<p><?php if(!empty($items[0]->serial_number)){ ?>
-															<p><?=ucfirst($items[0]->serial_number);?>
+												</div>
+												<div class="column has-text-left">
+													<p><?php if(!empty($items[0]->names)){ ?>
+														<?=ucfirst($items[0]->names);?>
+														<?php } else {?>
+														<p>N/A</p>
+														<?php } ?>
+													</p>
+													<p><?php if(!empty($items[0]->serial_number)){ ?>
+														<p><?=ucfirst($items[0]->serial_number);?>
 															<?php } else{ ?>NA <?php } ?></p>
-															<p><?= $items[0]->model; ?></p>
+															<?php if(!empty($items[0]->model)){ ?>
+														<p><?= $items[0]->model; ?></p>
+														<?php } else {?>
+															<p>N/A</p>
+															<?php } ?>
+															<?php if(!empty($items[0]->purchasedate)){ ?>
 														<p><?= date('M d, Y', strtotime($items[0]->purchasedate)); ?>
 														</p>
+														<?php } else {?> <p>N/A</p> <?php }?>
 														<p><?php echo "<spanp id='price'>". $items[0]->price.'</span>';?>
 														</p>
 														<p><?php echo "<span id='dep'>".$items[0]->depreciation .'</span>'. "(%)"; ?>
 														</p>
 														<p><span id="current"> </span></p>
-													</div>
-												</div> 
-											</div>
-											<div class="column">
-												<div class="columns">
-													<div class="column is-narrow has-text-left">
-														<p><strong>Employee</strong></p>
-														<p> Department &raquo; </p>
-														<p> Date Of Joining &raquo;</p>
-														<p> Contact &raquo;</p>
-													</div>
-													<div class="column has-text-left"> 
-													<?php if(!empty($current_item)) { ?>
-														<p><?= ucfirst($current_item[0]->emp_name); ?></p>
-														<p><?= ucfirst($current_item[0]->department); ?></p>
-														<p><?= date('M d, Y', strtotime($current_item[0]->doj)); ?></p>
-														<p><?= ucfirst($current_item[0]->phone); ?></p>
-														<?php } ?>
-													</div>
 												</div>
 											</div>
-										</div> 
-										<?php else : ?>  
-										<p class="subtitle has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd.
-									Islamabad, 44000</p>
-								<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
-								<?php if(!empty($item->cat_name)){ ?>
-								<?= $item->cat_name; ?></p> 
-								<?php } ?>
-										<div class="card-content">
+										</div>
+										<div class="column">
 											<div class="columns">
-
-
+												<div class="column is-narrow has-text-left">
+													<p><strong>Employee</strong></p>
+													<p> Department &raquo; </p>
+													<p> Date Of Joining &raquo;</p>
+													<p> Contact &raquo;</p>
+												</div>
+												<div class="column has-text-left">
+													<?php if(!empty($current_item)) { ?>
+													<p><?= ucfirst($current_item[0]->emp_name); ?></p>
+													<p><?= ucfirst($current_item[0]->department); ?></p>
+													<p><?= date('M d, Y', strtotime($current_item[0]->doj)); ?></p>
+													<p><?= ucfirst($current_item[0]->phone); ?></p>
+													<?php } ?>
+												</div>
+											</div>
+										</div>
+									</div>
+									<?php else : ?>
+									<p class="subtitle has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd.
+										Islamabad, 44000</p>
+									<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
+										<?php if(!empty($item->cat_name)){ ?>
+										<?= $item->cat_name; ?></p>
+									<?php } ?>
+									<div class="card-content">
+										<div class="columns">
 
 											<div class="column">
 												<div class="columns">
-
 													<div class="column is-narrow has-text-left"
 														style="margin-left: 14%;">
 
@@ -167,29 +172,31 @@
 														<p>Model</p>
 														<p>Purchase Date</p>
 														<p>Price<p>
-														<p>Depreciation</p>
-														<p>Current Value</p>
+																<p>Depreciation</p>
+																<p>Current Value</p>
 
 													</div>
 													<div class="column has-text-left">
-													<?php if(!empty($item->names)){ ?>
-														<p>
-															<?=ucfirst($item->names);?>
-														</p>
-														<?php } ?>
+														<?php if(!empty($item->names)){ ?>
+														<p> <?=ucfirst($item->names);?></p>
+														<?php }else{ ?> <p>N/A</p><?php } ?>
 														<?php if(!empty($item->serial_number)) { ?>
 														<p><?= $item->serial_number; ?></p>
+
+														<?php } else {?><p>N/A</p> <?php } ?>
+														<?php if(!empty($item->model)) { ?>
+														<p><?= ucfirst($item->model); ?></p>
+														<?php } else {?> <p>N/A</p> <?php } ?>
+														<?php if(!empty($item->purchasedate)){ ?>
+														<p> <?= $item->purchasedate;?></p>
 														<?php } else {?>
 															<p>N/A</p>
-															<?php } ?>
-															<?php if(!empty($item->model)) { ?>
-															<p><?= ucfirst($item->model); ?></p>
-															<?php } else {?>
+															<?php } ?> 
+														<?php if(!empty($item->price)){ ?>
+														<p><?php echo "<spanp id='price'>". $item->price.'</span>';?></p>
+														<?php } else {?>
 															<p>N/A</p>
-															<?php } ?>
-														<p> <?= $item->purchasedate;?></p>
-														<p><?php echo "<spanp id='price'>". $item->price.'</span>';?>
-														</p>
+															<?php }?>
 														<p><?php echo "<span id='dep'>".$item->depreciation .'</span>'. "(%)"; ?>
 														</p>
 														<p><?php  
@@ -200,12 +207,12 @@
 											}
 											?></p>
 													</div>
-												</div> 
+												</div>
 											</div>
 											<div class="column">
 												<div class="columns">
 													<div class="column is-narrow has-text-left">
-													<p><strong>Employee</strong></p>
+														<p><strong>Employee</strong></p>
 														<p> Department &raquo; </p>
 														<p> Date Of Joining &raquo;</p>
 														<p> Contact &raquo;</p>
@@ -220,82 +227,84 @@
 													</div>
 												</div>
 											</div>
- 
-											</div>
-											<span style='color: red;font-weight: bold'>This item still not assign to any
-												emplye </span>
-											<?php endif; ?> 
-											<div class="columns">
-												<div class="column">
-													<?php if(!empty($items)): ?>
 
-													<table class="table is-fullwidth">
-														<thead>
-															<tr>
-																<th>Name</th>
-																<th>Assign Date</th>
-																<th>Reason</th>
-																<th>Return Date</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<?php $id = 1; ?>
-																<?php if(!empty($items)): foreach($items as $item): ?>
-															<tr>
-																<!-- below some php code writen for available data which is not assign to someone -->
-																<?php if(empty($item->assign_date)){?><div class="col-sm-12 text-center"> <strong>Availabe Still Not Assignd</strong> </div>
-																<?php 
+										</div>
+										<span style='color: red;font-weight: bold'>This item still not assign to any
+											emplye </span>
+										<?php endif; ?>
+										<div class="columns">
+											<div class="column">
+												<?php if(!empty($items)): ?>
+
+												<table class="table is-fullwidth">
+													<thead>
+														<tr>
+															<th>Name</th>
+															<th>Assign Date</th>
+															<th>Reason</th>
+															<th>Return Date</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<?php $id = 1; ?>
+															<?php if(!empty($items)): foreach($items as $item): ?>
+														<tr>
+															<!-- below some php code writen for available data which is not assign to someone -->
+															<?php if(empty($item->assign_date)){?><div
+																class="col-sm-12 text-center"> <strong>Availabe Still
+																	Not Assignd</strong> </div>
+															<?php 
 															}
 															else{
 															?>
-																<?php $returned_date = $item->return_back_date;
+															<?php $returned_date = $item->return_back_date;
             $returned_date = ($returned_date) ? date('M d, Y', strtotime($item->return_back_date)) : ' Still In custody';?>
-																<td> <a data-id="<?= $item->asignment_id; ?>"
-																		class="emp_detail">
-																		<?php echo '<span >'.ucfirst($item->emp_name.'</span>')?></a>
-																</td>
-																<td><?php if(!empty($item->assign_date))
+															<td> <a data-id="<?= $item->asignment_id; ?>"
+																	class="emp_detail">
+																	<?php echo '<span >'.ucfirst($item->emp_name.'</span>')?></a>
+															</td>
+															<td><?php if(!empty($item->assign_date))
             {echo date('M d, Y', strtotime($item->assign_date)).'</date>';} 
             else{
             echo "<span'> - - - - - </span>";} ?>
-																</td>
-																<td>
-																	<?php if(!empty($item->return_back_date))
+															</td>
+															<td>
+																<?php if(!empty($item->return_back_date))
             {echo ' '.$item->returning_description;} 
             else{
             echo "<span style='font-weight:bold'>   - - - - - - </span>";} ?>
-																</td>
-																<td> <?php if(!empty($item->return_back_date))
+															</td>
+															<td> <?php if(!empty($item->return_back_date))
             {echo date('M d, Y', strtotime($item->return_back_date));} 
             else{
             echo "<span style='font-weight:bold'> Still In custody </span>";} ?>
-																</td>
-																<?php } ?>
-															</tr>
-															<?php endforeach;  ?>
-														</tbody>
-													</table>
-													<?php endif;  ?>
-													<?php 
+															</td>
+															<?php } ?>
+														</tr>
+														<?php endforeach;  ?>
+													</tbody>
+												</table>
+												<?php endif;  ?>
+												<?php 
  endif;
 ?>
-												</div>
 											</div>
-
-											<div class="buttons is-pulled-right">
-												<button onclick="window.print();" type="button"
-													class="button is-normal is-hidden-print">
-													<span class="icon is-small">
-														<i class="fas fa-print"></i>
-													</span>
-													<span>Print</span>
-												</button>
-											</div>
-											<br>
-
 										</div>
+
+										<div class="buttons is-pulled-right">
+											<button onclick="window.print();" type="button"
+												class="button is-normal is-hidden-print">
+												<span class="icon is-small">
+													<i class="fas fa-print"></i>
+												</span>
+												<span>Print</span>
+											</button>
+										</div>
+										<br>
+
 									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -325,7 +334,7 @@
 						<p>Remarks :</p>
 						<p>Description :</p>
 						<p>Return Date :</p>
-					</div> 
+					</div>
 					<div class="column">
 						<p id="emp_name"></p>
 						<p id="department"></p>
@@ -384,16 +393,18 @@
 					emp_id: emp_id
 				},
 				success: function (response) {
-					console.log(response); 
+					console.log(response);
 					// Add options   
 					document.getElementById("emp_name").innerHTML = response.fullname;
 					document.getElementById("department").innerHTML = response.department;
-					document.getElementById("product").innerHTML =response.sub_name;
-					document.getElementById("assigned_date").innerHTML = response.assigned_date;
+					document.getElementById("product").innerHTML = response.sub_name;
+					document.getElementById("assigned_date").innerHTML = response
+					.assigned_date;
 					document.getElementById("remarks").innerHTML = response.remarks;
-					document.getElementById("returning_description").innerHTML = response.returning_description;
-					document.getElementById("remarks").innerHTML = response.return_date; 
-					document.getElementById("item_image").innerHTML = "";  
+					document.getElementById("returning_description").innerHTML = response
+						.returning_description;
+					document.getElementById("remarks").innerHTML = response.return_date;
+					document.getElementById("item_image").innerHTML = "";
 					$("#item_image").attr({
 						src: "<?= base_url('upload/')?>" + response.item_file
 					});
@@ -404,5 +415,5 @@
 			event.stopPropagation();
 		});
 	});
- 
+
 </script>
