@@ -30,6 +30,7 @@ class Admin extends CI_Controller{
        redirect('admin/dashboard');
     }
     public function dashboard($offset = null) {
+        // print_r($this->admin_model->EmployeesStatistics()); exit;
         $limit = 10;
         if(!empty($offset)){
             $this->uri->segment(3);
