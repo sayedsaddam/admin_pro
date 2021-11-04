@@ -101,6 +101,8 @@ class Admin extends CI_Controller{
             $data['total_damaged_items_last_week_change'] = 1;
         }
 
+        $data['employees_statistics'] = $this->admin_model->EmployeesStatistics();
+
         $data['fetch_item_sum_by_last_7'] = $this->admin_model->fetch_item_sum_by_last_(6);
         $data['fetch_item_sum_by_last_6'] = $this->admin_model->fetch_item_sum_by_last_(5);
         $data['fetch_item_sum_by_last_5'] = $this->admin_model->fetch_item_sum_by_last_(4);

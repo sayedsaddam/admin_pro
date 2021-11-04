@@ -253,7 +253,7 @@
 						</div>
 					</div>
 				</div>
-
+				<?php if($this->session->userdata('user_role') == 1) : ?>
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
 						<div class="tile is-child box">
@@ -262,7 +262,7 @@
 									<div class="columns is-vcentered">
 										<div class="column">
 											<div class="is-size-5">Employees Statistics</div>
-											<div class="is-size-6 has-text-grey">Last 7 days vs Previous 7 days</div>
+											<div class="is-size-6 has-text-grey">Overall Days</div>
 										</div>
 										<div class="column is-narrow">
 											<button class="card-header-icon" aria-label="more options">
@@ -287,12 +287,25 @@
 												<th class="has-text-weight-semibold">Suppliers Added</th>
 											</tr>
 										</thead>
+										<tbody>
+											<?php foreach ($employees_statistics as $data) : ?>
+												<tr onclick="window.location='<?= base_url('admin/edit_employ/'.$data->id) ?>';">
+													<td><?= $data->id ?></td>
+													<td><?= ucwords($data->fullname) ?></td>
+													<td><?= ucwords($data->location) ?></td>
+													<td><?= $data->items_count ?></td>
+													<td><?= $data->items_assigned_count ?></td>
+													<td><?= $data->suppliers_added_count ?></td>
+												</tr>
+											<?php endforeach ?>
+										</tbody>
 									</table>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<?php endif ?>
 			</div>
 		</div>
 	</div>

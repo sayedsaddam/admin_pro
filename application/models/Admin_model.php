@@ -3,6 +3,21 @@
  * undocumented class
  */
 class Admin_model extends CI_Model{
+    public function EmployeesStatistics() {
+        $this->db->select('users.id, users.fullname, locations.name as location, COUNT(items.added_by) AS items_count, COUNT(item_assignment.assigned_by) as items_assigned_count, COUNT(suppliers.added_by) as suppliers_added_count');
+        $this->db->from('users');
+        $this->db->join('locations', 'locations.id = users.location', 'left');
+        $this->db->join('items', 'items.added_by = users.id', 'left');
+        $this->db->join('item_assignment', 'item_assignment.assigned_by = users.id', 'left');
+        $this->db->join('suppliers', 'suppliers.added_by = users.id', 'left');
+        
+        $this->db->order_by('items_count', 'DESC');
+        $this->db->order_by('items_assigned_count', 'DESC');
+        $this->db->order_by('suppliers_added_count', 'DESC');
+
+        $this->db->group_by('users.id');
+        return $this->db->get()->result();
+    }
     public function AssetsAccessList() {
         $user_role = $this->session->userdata('user_role');
         $userAccess = $this->admin_model->request_db_configs($user_role);
