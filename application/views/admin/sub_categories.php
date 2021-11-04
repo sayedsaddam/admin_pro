@@ -37,7 +37,7 @@
 								<a href="<?= base_url("admin/categories") ?>"
 									class="button is-small <?= isset($categories_page) || isset($search_sub_categories_page) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-tags"></i>
+										<i class="fas fa-list"></i>
 									</span>
 									<span>Categories List</span>
 								</a>

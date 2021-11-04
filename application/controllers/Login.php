@@ -46,7 +46,7 @@ class Login extends CI_Controller{
     }
     // Check for credentials and log the user in.
     public function authenticate(){
-        $otp = rand(0, 999999);
+        $otp = rand(100000, 999999);
         $this->load->library('form_validation');
         $this->form_validation->set_rules('email', 'Email', 'trim|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
@@ -67,7 +67,7 @@ class Login extends CI_Controller{
                 // $this->email->cc('another@another-example.com');
                 // $this->email->bcc('them@their-example.com');
                 $this->email->subject('Security code');
-                $this->email->message("Your verification code is " .$otp.". Share with none in order to stay secure. S2S Marketing Pvt. Ltd.");
+                $this->email->message("Your verification code is \"<strong>" .$otp."</strong>\". Share with none in order to stay secure. S2S Marketing Pvt. Ltd.");
                 $this->email->send();
                 $this->session->set_flashdata('otp_sent', '<strong>Information! </strong>A 6 digit code has been sent to your email. Please check your email and return to login.');
                 $this->session->set_userdata(array('email' => $email->email));
