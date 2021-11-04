@@ -113,7 +113,38 @@
 								</div>
 							</fieldset>
 						</div>
+
 						<div class="column">
+							<label class="label is-small">Dapartment <span class="has-text-danger">*</span></label>
+							<div class="select select is-small is-fullwidth">
+
+								<select name="department" id="" required>
+									<?php if(!isset($edit)): ?>
+									<option selected disabled value="">Select Department</option>
+									<?php endif ?>
+									<?php if(!empty($edit)): ?>
+									<option value="<?= $edit->department; ?>" <?php !empty($edit)? 'selected' : '' ?>>
+										<?= $edit->department; ?>
+									</option>
+									<?php endif; ?>
+                                    
+									<option value="1">Marketing</option>
+									<option value="2">Operations</option>
+									<option value="3">Sales</option>
+									<option value="4">Finance</option>
+									<option value="5">Admin (Super Admin)</option>
+									<option value="6">Design</option>
+									<option value="7">Construction</option>
+									<option value="8">Human Resource</option>
+									<option value="9">Senior Management</option>
+									<option value="10">CCD</option> 
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="columns"> 
+
+					<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Supplier <span class="has-text-danger">*</span></label>
@@ -142,38 +173,7 @@
 									</div>
 								</div>
 							</fieldset>
-						</div>
-					</div>
-					<div class="columns">
-
-					<div class="column">
-							<label class="label is-small">Dapartment <span class="has-text-danger">*</span></label>
-							<div class="select select is-small is-fullwidth">
-
-								<select name="department" id="" required>
-									<?php if(!isset($edit)): ?>
-									<option selected disabled value="">Select Department</option>
-									<?php endif ?>
-									<?php if(!empty($edit)): ?>
-									<option value="<?= $edit->department; ?>" <?php !empty($edit)? 'selected' : '' ?>>
-										<?= $edit->department; ?>
-									</option>
-									<?php endif; ?>
-                                    
-									<option value="1">Marketing</option>
-									<option value="2">Operations</option>
-									<option value="3">Sales</option>
-									<option value="4">Finance</option>
-									<option value="5">Admin (Super Admin)</option>
-									<option value="6">Design</option>
-									<option value="7">Construction</option>
-									<option value="8">Human Resource</option>
-									<option value="9">Senior Management</option>
-									<option value="10">CCD</option> 
-								</select>
-							</div>
-						</div>
-
+						</div> 
 
 						<div class="column">
 							<fieldset>
@@ -225,7 +225,35 @@
 								</div>
 							</fieldset>
 						</div>
+
 						<div class="column">
+							<label class="label is-small">Project/Company <span class="has-text-danger">*</span></label>
+							<div class="select select is-small is-fullwidth">
+
+								<select name="project" id="" required>
+									<?php if(!isset($edit)): ?>
+									<option selected disabled value="">Select Project/Cpmpany</option>
+									<?php endif ?>
+									<?php if(!empty($edit)): ?>
+									<option value="<?= $edit->project; ?>" <?php !empty($edit)? 'selected' : '' ?>>
+										<?= $edit->project; ?>
+									</option>
+									<?php endif; ?> 
+									<option value="091 Mall">091 Mall</option>
+									<option value="Mall of Hangu">Mall of Hangu</option>
+									<option value="North Hills">North Hills</option>
+									<option value="Florenza">Florenza</option>
+									<option value="AH Group">AH Group</option>
+									<option value="S2S Marketing">S2S Marketing</option>
+									<option value="AH Contractors">AH Contractors</option>
+									<option value="Realtors PK">Realtors PK</option>
+								</select>
+							</div>
+						</div> 
+						
+					</div>
+					<div class="columns">
+					<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Item Company <span class="has-text-danger">*</span></label>
@@ -239,8 +267,7 @@
 								</div>
 							</fieldset>
 						</div>
-					</div>
-					<div class="columns">
+						
 					<div class="column">
 							<fieldset>
 								<div class="field">
@@ -255,7 +282,10 @@
 								</div>
 							</fieldset>
 						</div>
-						<div class="column">
+					</div>
+					<div class="columns">
+						
+					<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Model <span class="has-text-danger">*</span></label>
@@ -269,9 +299,6 @@
 								</div>
 							</fieldset>
 						</div>
-					</div>
-					<div class="columns">
-						
 					<div class="column">
 							<fieldset>
 								<div class="field">
@@ -287,7 +314,10 @@
 								</div>
 							</fieldset>
 						</div>
-						<div class="column">
+					</div>
+					<div class="columns">
+						
+					<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Price (PKR) <span class="has-text-danger">*</span></label>
@@ -301,8 +331,6 @@
 								</div>
 							</fieldset>
 						</div>
-					</div>
-					<div class="columns">
 					<div class="column">
 							<fieldset>
 								<div class="field">
@@ -345,8 +373,11 @@
 									</div>
 								</div>
 							</fieldset>
-						</div>
-						<div class="column">
+						</div> 
+					</div>
+					<div class="columns">
+						
+					<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Status <span class="has-text-danger">*</span></label>
@@ -367,10 +398,8 @@
 									</div>
 								</div>
 							</fieldset>
-						</div> 
-					</div>
-					<div class="columns">
-					<div class="column is-half">
+						</div>
+					<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Purchase Date <span class="has-text-danger">*</span></label>

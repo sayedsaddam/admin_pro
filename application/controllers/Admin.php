@@ -1554,6 +1554,7 @@ class Admin extends CI_Controller{
             'department' => $this->input->post('department'),
             'category' => $this->input->post('category'),
             'sub_category' => $this->input->post('sub_category'),
+            'project' => $this->input->post('project'),
             'type_name' => $this->input->post('item_name'),
             'status' => $this->input->post('status'),
             'quantity' => 1,
@@ -1578,9 +1579,11 @@ class Admin extends CI_Controller{
     public function modify_item(){
         $id = $this->input->post('id'); 
         $data = array(
+            'department' => $this->input->post('department'),
             'type_name' => $this->input->post('item_name'),
             'quantity' => $this->input->post('quantity'),
             'status' => $this->input->post('status'),
+            'project' => $this->input->post('project'),
             'model' => $this->input->post('model'),
             'serial_number' => $this->input->post('serial_number'),
             'price' => $this->input->post('price'),
