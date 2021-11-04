@@ -293,9 +293,9 @@
 													<td><?= $data->id ?></td>
 													<td><?= ucwords($data->fullname) ?></td>
 													<td><?= ucwords($data->location) ?></td>
-													<td><?= $data->items_count ?></td>
-													<td><?= $data->items_assigned_count ?></td>
-													<td><?= $data->suppliers_added_count ?></td>
+													<td><span class="tag"><?= $data->items_count ?></span></td>
+													<td><span class="tag"><?= $data->items_assigned_count ?></span></td>
+													<td><span class="tag"><?= $data->suppliers_added_count ?></span></td>
 												</tr>
 											<?php endforeach ?>
 										</tbody>
