@@ -11,25 +11,18 @@ class Admin extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('supervisor_model');
         $this->load->helper('paginate');
-
-        $this->access['AssetsAccess'] = $this->AssetsAccessList();
-        $this->access['SuppliersAccess'] = $this->SuppliersAccessList();
+        $this->access['AssetsAccess'] = $this->AccessList()["Assets"];
+        $this->access['SuppliersAccess'] = $this->AccessList()["Suppliers"];
 
         if(!$this->session->userdata('username')){
             redirect('');
         }
     }
 
-    public function AssetsAccessList() {
+    public function AccessList() {
         $user_role = $this->session->userdata('user_role');
         $userAccess = $this->admin_model->request_db_configs($user_role);
-        return $userAccess[0];
-    }
-
-    public function SuppliersAccessList() {
-        $user_role = $this->session->userdata('user_role');
-        $userAccess = $this->admin_model->request_db_configs($user_role);
-        return $userAccess[1];
+        return $arrayName = array('Assets' => $userAccess[0], 'Suppliers' => $userAccess[1]);
     }
 
     // Load the dashboard.
@@ -245,7 +238,7 @@ class Admin extends CI_Controller{
     }
     // Suppliers - Go to suppliers page.
     public function suppliers($offset = null){
-        if ($this->SuppliersAccessList()->read == 0) {
+        if ($this->AccessList()["Suppliers"]->read == 0) {
             redirect('admin/dashboard');
         }
        
@@ -290,7 +283,7 @@ class Admin extends CI_Controller{
     }
     // Add Suppliers - Go to add suppliers page.
     public function add_supplier(){
-        if ($this->SuppliersAccessList()->write == 0) {
+        if ($this->AccessList()["Suppliers"]->write == 0) {
             redirect('admin/dashboard');
         }
         $data['title'] = 'Add Supplier | Admin & Procurement';
@@ -304,7 +297,7 @@ class Admin extends CI_Controller{
     }
     // Edit Supplier - Navigates to `Edit Supplier` page
     public function edit_supplier($id = null){  
-        if ($this->SuppliersAccessList()->update == 0) {
+        if ($this->AccessList()["Suppliers"]->update == 0) {
             redirect('admin/dashboard');
         }
 
@@ -350,7 +343,7 @@ class Admin extends CI_Controller{
     }
     // Suppliers - Remove supplier
     public function delete_supplier($id){
-        if ($this->SuppliersAccessList()->delete == 0) {
+        if ($this->AccessList()["Suppliers"]->delete == 0) {
             redirect('admin/dashboard');
         }
 
@@ -850,7 +843,7 @@ class Admin extends CI_Controller{
     }
     // Asset register
     public function asset_register($offset = null){
-        if ($this->AssetsAccessList()->read == 0) {
+        if ($this->AccessList()["Assets"]->read == 0) {
             redirect('admin/dashboard');
         }
 
@@ -891,7 +884,7 @@ class Admin extends CI_Controller{
     }
     // Asset register - add new asset.
     public function add_asset(){
-        if ($this->AssetsAccessList()->write == 0) {
+        if ($this->AccessList()["Assets"]->write == 0) {
             redirect('admin/dashboard');
         }
         $data['title'] = 'Asset Detail';
@@ -904,10 +897,10 @@ class Admin extends CI_Controller{
     }
     // Asset detail
     public function asset_detail($id){ 
-        if ($this->AssetsAccessList()->read == 0) {
+        if ($this->AccessList()["Assets"]->read == 0) {
             redirect('admin/dashboard');
         }
-        if ($this->AssetsAccessList()->update == 0) {
+        if ($this->AccessList()["Assets"]->update == 0) {
             redirect('admin/dashboard');
         }
         $data['title'] = 'Asset Detail';
@@ -961,7 +954,7 @@ class Admin extends CI_Controller{
     }
     // Delete asset
     public function delete_asset($id){
-        if ($this->AssetsAccessList()->delete == 0) {
+        if ($this->AccessList()["Assets"]->delete == 0) {
             redirect('admin/dashboard');
         }
         if($this->admin_model->delete_asset($id)){
@@ -1328,7 +1321,7 @@ class Admin extends CI_Controller{
     }
     // Search filters - search asset register
     public function search_asset_register(){
-        if ($this->AssetsAccessList()->read == 0) {
+        if ($this->AccessList()["Assets"]->read == 0) {
             redirect('admin/dashboard');
         }
         $search = $this->input->get('search');
