@@ -85,8 +85,7 @@
 						<h1 class="subtitle is-5"><?= (!isset($edit_item)) ? 'Add Item' : 'Edit Item' ?></h1>
 					</div>
 				</div>
-				<form
-					action="<?php if(empty($edit)){ echo base_url('admin/item_save'); }else{ echo base_url('admin/modify_item'); } ?>"
+				<form action="<?php if(empty($edit)){ echo base_url('admin/item_save'); }else{ echo base_url('admin/modify_item'); } ?>"
 					method="POST">
 					<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">
@@ -146,6 +145,36 @@
 						</div>
 					</div>
 					<div class="columns">
+
+					<div class="column">
+							<label class="label is-small">Dapartment <span class="has-text-danger">*</span></label>
+							<div class="select select is-small is-fullwidth">
+
+								<select name="department" id="" required>
+									<?php if(!isset($edit)): ?>
+									<option selected disabled value="">Select Department</option>
+									<?php endif ?>
+									<?php if(!empty($edit)): ?>
+									<option value="<?= $edit->department; ?>" <?php !empty($edit)? 'selected' : '' ?>>
+										<?= $edit->department; ?>
+									</option>
+									<?php endif; ?>
+                                    
+									<option value="1">Marketing</option>
+									<option value="2">Operations</option>
+									<option value="3">Sales</option>
+									<option value="4">Finance</option>
+									<option value="5">Admin (Super Admin)</option>
+									<option value="6">Design</option>
+									<option value="7">Construction</option>
+									<option value="8">Human Resource</option>
+									<option value="9">Senior Management</option>
+									<option value="10">CCD</option> 
+								</select>
+							</div>
+						</div>
+
+
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -169,7 +198,11 @@
 								</div>
 							</fieldset>
 						</div>
-						<div class="column">
+						
+					</div>
+					<div class="columns">
+						
+					<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Subcategory <span class="has-text-danger">*</span></label>
@@ -192,8 +225,6 @@
 								</div>
 							</fieldset>
 						</div>
-					</div>
-					<div class="columns">
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -208,7 +239,9 @@
 								</div>
 							</fieldset>
 						</div>
-						<div class="column">
+					</div>
+					<div class="columns">
+					<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Quantity <span class="has-text-danger">*</span></label>
@@ -222,8 +255,6 @@
 								</div>
 							</fieldset>
 						</div>
-					</div>
-					<div class="columns">
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -238,7 +269,10 @@
 								</div>
 							</fieldset>
 						</div>
-						<div class="column">
+					</div>
+					<div class="columns">
+						
+					<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Serial Number <span class="has-text-danger" id="serial-required"
@@ -253,8 +287,6 @@
 								</div>
 							</fieldset>
 						</div>
-					</div>
-					<div class="columns">
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -269,7 +301,9 @@
 								</div>
 							</fieldset>
 						</div>
-						<div class="column">
+					</div>
+					<div class="columns">
+					<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Depreciation (%) <span class="has-text-danger">*</span></label>
@@ -312,8 +346,6 @@
 								</div>
 							</fieldset>
 						</div>
-					</div>
-					<div class="columns">
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -335,8 +367,10 @@
 									</div>
 								</div>
 							</fieldset>
-						</div>
-						<div class="column">
+						</div> 
+					</div>
+					<div class="columns">
+					<div class="column is-half">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Purchase Date <span class="has-text-danger">*</span></label>
