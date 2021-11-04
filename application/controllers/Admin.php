@@ -723,19 +723,63 @@ class Admin extends CI_Controller{
         }
     }
     // Projects - Go to projects page.
-    public function projects(){
+    public function projects($offset = null){ 
+        $limit = 25;
+        if($this->input->get('limit')) {
+            $limit = $this->input->get('limit');
+        }
+
+        if(!empty($offset)){
+            $config['uri_segment'] = 3;
+        }
+    
+        $this->load->library('pagination');
+        $url = base_url('admin/projects');
+        $rowscount = $this->admin_model->count_projects();
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
+        $this->pagination->initialize($config);
+
         $data['title'] = 'Projects | Admin & Procurement';
-        $data['body'] = 'admin/projects';
-        $data['projects'] = $this->admin_model->get_projects();
-        $this->load->view('admin/commons/template', $data);
+        $data['body'] = 'admin/projects/project_list';
+        $data['breadcrumb'] = array("admin/projects/project_list" => "Project List");
+        $data['project_list'] = true; 
+        $data['projects'] = $this->admin_model->get_projects($limit, $offset);
+        $this->load->view('admin/commons/new_template', $data);
+    }
+    
+    // Asset register - add new asset.
+    public function add_project(){
+        if ($this->AssetsAccessList()->write == 0) {
+            redirect('admin/dashboard');
+        }
+        $data['title'] = 'Project Detail';
+        $data['body'] = 'admin/projects/add_project';
+        $data['breadcrumb'] = array("admin/projects/add_project" => "Project List","Add Project");
+        $data['add_project'] = true; 
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Projects - Add new project
-    public function add_project(){
+    public function save_project(){
         $data = array(
             'project_name' => $this->input->post('project_name'),
-            'project_desc' => $this->input->post('project_desc')
+            'status' => $this->input->post('status'),
+            'project_desc' => $this->input->post('project_desc'),
+            'created_at' => date('Y-m-d')
         );
-        if($this->admin_model->add_project($data)){
+        if($this->admin_model->save_project($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Project was added successfully.');
             redirect('admin/projects');
         }else{
@@ -743,8 +787,21 @@ class Admin extends CI_Controller{
             redirect('admin/projects');
         }
     }
+    // Edit projects
+    public function edit_project($id = null){  
+        $data['edit'] = $this->admin_model->edit_project($id); 
+        if ($data['edit'] == NULL) {
+            redirect('admin/projects');
+        }
+        $data['title'] = 'Edit Projects | Admin & Procurement';
+        $data['body'] = 'admin/projects/add_project'; 
+        $data['project_page'] = true;
+        $data['breadcrumb'] = array("admin/projects/add_project" => "Project List","Edit Project");
+        $this->load->view('admin/commons/new_template', $data);
+    }
+
     // Projects - edit project
-    public function edit_project($id){
+    public function edit_projectss($id){
         $project = $this->admin_model->edit_project($id);
         echo json_encode($project);
     }
@@ -753,7 +810,7 @@ class Admin extends CI_Controller{
         $id = $this->input->post('project_id');
         $data = array(
             'project_name' => $this->input->post('project_name'),
-            'project_desc' => $this->input->post('project_desc')
+            'project_desc' => $this->input->post('project_desc'), 
         );
         if($this->admin_model->update_project($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Project update was successful.');
@@ -764,9 +821,12 @@ class Admin extends CI_Controller{
         }
     }
     // Projects - Remove project
-    public function delete_project($id){
-        if($this->admin_model->delete_project()($id)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Project removal was successful.');
+    public function complete_project($id){
+        $data = array(
+            'status' => 0,
+        );
+        if($this->admin_model->complete_project($id,$data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Project completion was successful.');
             redirect('admin/projects');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
@@ -1512,6 +1572,8 @@ class Admin extends CI_Controller{
         $data['categories'] = $this->admin_model->get_item_categories();
         $data['supplier'] = $this->admin_model->get_item_supplier();
         $data['locations'] = $this->admin_model->get_item_location(); 
+        $data['departments'] = $this->admin_model->department(); 
+        $data['projects'] = $this->admin_model->project(); 
         $data['status_list'] = $this->admin_model->status_list(); 
         $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Add Item");
         $this->load->view('admin/commons/new_template', $data);
@@ -1578,6 +1640,8 @@ class Admin extends CI_Controller{
         $data['categories'] = $this->admin_model->get_item_categories();
         $data['sub_categories'] = $this->admin_model->get_item_sub_category();    
         $data['supplier'] = $this->admin_model->get_item_supplier();
+        $data['projects'] = $this->admin_model->project(); 
+        $data['departments'] = $this->admin_model->department(); 
         $data['locations'] = $this->admin_model->get_item_location();
         $data['depreciation'] = $this->admin_model->get_item_depreciation($id);
         $data['status_list'] = $this->admin_model->status_list(); 
