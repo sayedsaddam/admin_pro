@@ -293,9 +293,9 @@
 													<td><?= $data->id ?></td>
 													<td><?= ucwords($data->fullname) ?></td>
 													<td><?= ucwords($data->location) ?></td>
-													<td><span class="tag"><?= $data->items_count ?></span></td>
-													<td><span class="tag"><?= $data->items_assigned_count ?></span></td>
-													<td><span class="tag"><?= $data->suppliers_added_count ?></span></td>
+													<td><span class="tag"><?= $data->items_count ?></span><span class="tag is-light is-success ml-2"><?= number_format($data->items_count / $total_items, 2, '.', '') ?>%</span></td>
+													<td><span class="tag"><?= $data->items_assigned_count ?></span><span class="tag is-light is-success ml-2"><?= number_format($data->items_assigned_count / $total_items, 2, '.', '') ?>%</span></td>
+													<td><span class="tag"><?= $data->suppliers_added_count ?></span><span class="tag is-light is-success ml-2"><?= number_format($data->suppliers_added_count / $total_assigned_items, 2, '.', '') ?>%</span></td>
 												</tr>
 											<?php endforeach ?>
 										</tbody>
