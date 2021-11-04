@@ -325,7 +325,8 @@ class Admin extends CI_Controller{
     // Suppliers - Add new supplier
     public function add_supplier_request(){ 
         $data = array(
-            'name' => $this->input->post('name'), 
+            'name' => $this->input->post('name'),
+            'added_by' => $this->session->userdata('id'),
             'category' => $this->input->post('category'),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
@@ -334,7 +335,7 @@ class Admin extends CI_Controller{
             'rating' => $this->input->post('rating'),
             'address' => ucfirst($this->input->post('address')),
             'created_at' => date('Y-m-d')
-        );
+        ); 
         if ($id = $this->admin_model->add_supplier($data)) {
             $this->session->set_flashdata('success', 'Supplier (<strong>' . $this->input->post('name') . '</strong>) was added successfully.');
             redirect('admin/edit_supplier/' . $id);
@@ -1551,8 +1552,10 @@ class Admin extends CI_Controller{
         $result = $this->input->post('type_name');  
         $data = array(
             'location' => $this->input->post('location'),
+            'department' => $this->input->post('department'),
             'category' => $this->input->post('category'),
             'sub_category' => $this->input->post('sub_category'),
+            'project' => $this->input->post('project'),
             'type_name' => $this->input->post('item_name'),
             'status' => $this->input->post('status'),
             'quantity' => 1,
@@ -1577,9 +1580,11 @@ class Admin extends CI_Controller{
     public function modify_item(){
         $id = $this->input->post('id'); 
         $data = array(
+            'department' => $this->input->post('department'),
             'type_name' => $this->input->post('item_name'),
             'quantity' => $this->input->post('quantity'),
             'status' => $this->input->post('status'),
+            'project' => $this->input->post('project'),
             'model' => $this->input->post('model'),
             'serial_number' => $this->input->post('serial_number'),
             'price' => $this->input->post('price'),
@@ -1739,6 +1744,7 @@ class Admin extends CI_Controller{
         if(!empty($assign)){
         $data = array(
             'assignd_to' => $this->input->post('employ'),
+            'assigned_by' => $this->session->userdata('id'),
             'item_id' => $this->input->post('item_id'),   
             'quantity' => 1,  
             'status' => 1,  
