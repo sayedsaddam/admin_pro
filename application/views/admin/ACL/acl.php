@@ -36,7 +36,7 @@
 					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
 							<p class="control">
-								<a href="<?= base_url("admin/employee") ?>"
+								<a href="<?= base_url("admin/acl/") ?>"
 									class="button is-small <?= (isset($acl_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>

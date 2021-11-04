@@ -210,16 +210,6 @@
 				</div>
 			</div>
 		</div>
-
-<script>
-	$(document).ready(function() {
-		$(".result_limit").on('change', function() {
-			var val = $(this).val();
-			$(location).prop('href', '<?= current_url() ?>?limit=' + val)
-		})
-	})
-</script>
-
 		<div class="modal" id="modal-ter">
 			<div class="modal-background"></div>
 			<form action="<?= base_url('admin/product_report'); ?>" method="GET">
@@ -312,6 +302,14 @@
 		</div>
 	</div>
 </section>
+<script>
+	$(document).ready(function() {
+		$(".result_limit").on('change', function() {
+			var val = $(this).val();
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'product_report' ? 'from_date=' . $this->input->get('from_date') . '&to_date=' . $this->input->get('to_date') . '&' : '' ?>limit=' + val)
+		})
+	})
+</script>
 <script>
 	$('.return-btn').click(function () {
 		var item_id = $(this).data('id');
