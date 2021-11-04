@@ -29,12 +29,7 @@ class Admin extends CI_Controller{
     public function index(){
        redirect('admin/dashboard');
     }
-    public function dashboard($offset = null) {
-        // print_r($this->admin_model->EmployeesStatistics()); exit;
-        $limit = 10;
-        if(!empty($offset)){
-            $this->uri->segment(3);
-        }
+    public function dashboard() {
         $data['title'] = 'Home | Admin & Procurement';
         $data['body'] = 'admin/dashboard';
         $data['total_employees'] = $this->admin_model->count_employ();
@@ -128,27 +123,6 @@ class Admin extends CI_Controller{
         $data['fetch_damaged_item_sum_by_last_2'] = $this->admin_model->fetch_damaged_item_sum_by_last_(1);
         $data['fetch_damaged_item_sum_by_last_1'] = $this->admin_model->fetch_damaged_item_sum_by_last_(0);
         
-        // $data['total_isbd'] = $this->admin_model->expenses_isbd();
-        // $data['ctc_own_isbd'] = $this->admin_model->ctc_own_isbd();
-        // $data['total_bln'] = $this->admin_model->expenses_bln();
-        // $data['ctc_own_bln'] = $this->admin_model->ctc_own_bln();
-        // $data['total_kp'] = $this->admin_model->expenses_kp();
-        // $data['ctc_own_kp'] = $this->admin_model->ctc_own_kp();
-        // $data['total_sindh'] = $this->admin_model->expenses_sindh();
-        // $data['ctc_own_sindh'] = $this->admin_model->ctc_own_sindh();
-        // $data['total_punjab'] = $this->admin_model->expenses_punjab();
-        // $data['ctc_own_punjab'] = $this->admin_model->ctc_own_punjab();
-        // $data['pending'] = $this->admin_model->total_pending();
-        // $data['approved'] = $this->admin_model->total_approved();
-        // $data['rejected'] = $this->admin_model->total_rejected();
-        // $data['pending_requisitions'] = $this->admin_model->pending_requisitions($limit, $offset);
-        // $data['approved_requisitions'] = $this->admin_model->approved_requisitions($limit, $offset);
-        // $data['rejected_requisitions'] = $this->admin_model->rejected_requisitions($limit, $offset);
-        // $data['isbd_stats'] = $this->admin_model->overall_stats_isbd();
-        // $data['bln_stats'] = $this->admin_model->overall_stats_bln();
-        // $data['khyber_stats'] = $this->admin_model->overall_stats_khyber();
-        // $data['sindh_stats'] = $this->admin_model->overall_stats_sindh();
-        // $data['annual_expense'] = $this->admin_model->annual_expenses();
         $data['breadcrumb'] = array("Dashboard");
         
         $this->load->view('admin/commons/new_template', $data);
