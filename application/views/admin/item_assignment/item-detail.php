@@ -113,32 +113,22 @@
 								</div>
 							</fieldset>
 						</div>
-
 						<div class="column">
 							<label class="label is-small">Dapartment <span class="has-text-danger">*</span></label>
 							<div class="select select is-small is-fullwidth">
 
-								<select name="department" id="" required>
+							<select name="department" required <?= isset($edit) ? 'disabled' : '' ?>>
 									<?php if(!isset($edit)): ?>
-									<option selected disabled value="">Select Department</option>
+									<option selected disabled value="">Select a departments</option>
 									<?php endif ?>
-									<?php if(!empty($edit)): ?>
-									<option value="<?= $edit->department; ?>" <?php !empty($edit)? 'selected' : '' ?>>
-										<?= $edit->department; ?>
+									<?php if(!empty($departments)): foreach($departments as $department): ?> 
+									<option value="<?= $department->id; ?>"
+									<?php if(!empty($edit) && $edit->dep_id == $department->id){ echo 'selected';$department->department;  } ?>
+									><?= ucwords($department->department); ?>
 									</option>
-									<?php endif; ?>
-                                    
-									<option value="1">Marketing</option>
-									<option value="2">Operations</option>
-									<option value="3">Sales</option>
-									<option value="4">Finance</option>
-									<option value="5">Admin (Super Admin)</option>
-									<option value="6">Design</option>
-									<option value="7">Construction</option>
-									<option value="8">Human Resource</option>
-									<option value="9">Senior Management</option>
-									<option value="10">CCD</option> 
-								</select>
+									<?php endforeach; endif; ?>
+							</select>
+							 
 							</div>
 						</div>
 					</div>
@@ -228,26 +218,19 @@
 
 						<div class="column">
 							<label class="label is-small">Project/Company <span class="has-text-danger">*</span></label>
-							<div class="select select is-small is-fullwidth">
-
-								<select name="project" id="" required>
+							<div class="select select is-small is-fullwidth">  
+								<select name="project" required <?= isset($edit) ? 'disabled' : '' ?>>
 									<?php if(!isset($edit)): ?>
 									<option selected disabled value="">Select Project/Cpmpany</option>
 									<?php endif ?>
-									<?php if(!empty($edit)): ?>
-									<option value="<?= $edit->project; ?>" <?php !empty($edit)? 'selected' : '' ?>>
-										<?= $edit->project; ?>
+									<?php if(!empty($projects)): foreach($projects as $project): ?> 
+									<option value="<?= $project->id; ?>"
+									<?php if(!empty($edit) && $edit->project == $project->id){ echo 'selected';$project->project_name;  } ?>
+									><?= ucwords($project->project_name); ?>
 									</option>
-									<?php endif; ?> 
-									<option value="091 Mall">091 Mall</option>
-									<option value="Mall of Hangu">Mall of Hangu</option>
-									<option value="North Hills">North Hills</option>
-									<option value="Florenza">Florenza</option>
-									<option value="AH Group">AH Group</option>
-									<option value="S2S Marketing">S2S Marketing</option>
-									<option value="AH Contractors">AH Contractors</option>
-									<option value="Realtors PK">Realtors PK</option>
-								</select>
+									<?php endforeach; endif; ?>
+							</select>
+
 							</div>
 						</div> 
 						

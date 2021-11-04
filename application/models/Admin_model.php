@@ -422,7 +422,7 @@ class Admin_model extends CI_Model{
         return true;
     }
     // Projects - Add project
-    public function add_project($data){
+    public function save_project($data){
         $this->db->insert('projects', $data);
         if($this->db->affected_rows() > 0){
             return true;
@@ -431,16 +431,33 @@ class Admin_model extends CI_Model{
         }
     }
     // Projects - Get projects.
-    public function get_projects(){
+    public function get_projects($limit, $offset){
         $this->db->select('id, project_name, project_desc, status, created_at');
         $this->db->from('projects');
-        $this->db->where('status', 1);
+        // $this->db->where('status', 1);
         $this->db->order_by('id', 'DESC');
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
+    
+    // Count all projects from projects 
+    public function count_projects(){
+        $this->db->from('projects'); 
+        return $this->db->count_all_results();
+    }
+         
+    // get projects for add item form
+    public function project(){
+        return $this->db->from('projects')->get()->result();
+    }
+    // get department for add item form
+    public function department(){
+        return $this->db->from('departments')->get()->result();
+    }
+    
     // Project - Get project by id
     public function edit_project($id){
-        $this->db->select('id, project_name, project_desc');
+        $this->db->select('id, project_name, project_desc,status');
         $this->db->from('projects');
         $this->db->where('id', $id);
         return $this->db->get()->row();
@@ -452,9 +469,9 @@ class Admin_model extends CI_Model{
         return true;
     }
     // Projects - Remove project
-    public function delete_project($id){
+    public function complete_project($id, $data){
         $this->db->where('id', $id);
-        $this->db->delete('projects');
+        $this->db->update('projects',$data);
         return true;
     }
     // Expenses - region based - Islamabad
@@ -1348,10 +1365,23 @@ class Admin_model extends CI_Model{
     }
         // item detail - view and edit.
         public function item_detail($id){ 
-            $this->db->select('id, location, category,status, sub_category, type_name, model, serial_number, supplier,price, depreciation,purchasedate,quantity, created_at');
-            $this->db->from('items');
-            $this->db->where('id', $id);
-            return $this->db->get()->row();
+                                        $this->db->select('items.id, items.location,
+                                        items.department, items.category,
+                                        items.status, items.sub_category,
+                                        items.project, items.type_name, 
+                                        items.model, items.serial_number, 
+                                        items.supplier,items.price, 
+                                        items.depreciation,items.purchasedate,
+                                        items.quantity, items.created_at,
+                                        projects.id as project_id,
+                                        projects.project_name,
+                                        departments.id as dep_id,
+                                        departments.department');
+                                        $this->db->from('items');
+                                        $this->db->join('projects', 'items.project = projects.id', 'left');
+                                        $this->db->join('departments', 'items.department = departments.id', 'left');
+                                        $this->db->where('items.id', $id);
+                                        return $this->db->get()->row();
         }
     // get sub categories for edit item page 
     public function get_item_sub_category(){
