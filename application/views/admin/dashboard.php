@@ -289,14 +289,16 @@
 										</thead>
 										<tbody>
 											<?php foreach ($employees_statistics as $data) : ?>
-												<tr onclick="window.location='<?= base_url('admin/edit_employ/'.$data->id) ?>';">
-													<td><?= $data->id ?></td>
-													<td><?= ucwords($data->fullname) ?></td>
-													<td><?= ucwords($data->location) ?></td>
-													<td><span class="tag"><?= $data->items_count ?></span></td>
-													<td><span class="tag"><?= $data->items_assigned_count ?></span></td>
-													<td><span class="tag"><?= $data->suppliers_added_count ?></span></td>
-												</tr>
+												<?php if($data->role_type == 'employee') : ?>
+													<tr onclick="window.location='<?= base_url('admin/edit_employ/'.$data->id) ?>';">
+														<td><?= $data->id ?></td>
+														<td><?= ucwords($data->fullname) ?></td>
+														<td><?= ucwords($data->location) ?></td>
+														<td><span class="tag"><?= $this->admin_model->EmployeeAddedItems($data->id)[0]->total ?></span><span class="tag is-light <?= ($this->admin_model->EmployeeAddedItems($data->id)[0]->total / $total_items) * 100 == 0 ? 'is-danger' : '' ?><?= ($this->admin_model->EmployeeAddedItems($data->id)[0]->total / $total_items) * 100 >= 50 ? 'is-success' : '' ?><?= ($this->admin_model->EmployeeAddedItems($data->id)[0]->total / $total_items) * 100 < 50 && ($this->admin_model->EmployeeAddedItems($data->id)[0]->total / $total_items) * 100 > 0  ? 'is-warning' : '' ?> ml-2"><?= number_format(($this->admin_model->EmployeeAddedItems($data->id)[0]->total / $total_items) * 100, 2, '.', '') ?>%</span></td>
+														<td><span class="tag"><?= $this->admin_model->EmployeeAssignedItems($data->id)[0]->total ?></span><span class="tag is-light <?= ($this->admin_model->EmployeeAssignedItems($data->id)[0]->total / $total_assigned_items) * 100 == 0 ? 'is-danger' : '' ?><?= ($this->admin_model->EmployeeAssignedItems($data->id)[0]->total / $total_assigned_items) * 100 >= 50 ? 'is-success' : '' ?><?= ($this->admin_model->EmployeeAssignedItems($data->id)[0]->total / $total_assigned_items) * 100 < 50 && ($this->admin_model->EmployeeAssignedItems($data->id)[0]->total / $total_assigned_items) * 100 > 0 ? 'is-warning' : '' ?> ml-2"><?= number_format(($this->admin_model->EmployeeAssignedItems($data->id)[0]->total / $total_assigned_items) * 100, 2, '.', '') ?>%</span></td>
+														<td><span class="tag"><?= $this->admin_model->EmployeeAddedSuppliers($data->id)[0]->total ?></span><span class="tag is-light <?= ($this->admin_model->EmployeeAddedSuppliers($data->id)[0]->total / $total_suppliers) * 100 == 0 ? 'is-danger' : '' ?><?= ($this->admin_model->EmployeeAddedSuppliers($data->id)[0]->total / $total_suppliers) * 100 >= 50 ? 'is-success' : '' ?><?= ($this->admin_model->EmployeeAddedSuppliers($data->id)[0]->total / $total_suppliers) * 100 < 50 && ($this->admin_model->EmployeeAddedSuppliers($data->id)[0]->total / $total_suppliers) * 100 > 0 ? 'is-warning' : '' ?> ml-2"><?= number_format(($this->admin_model->EmployeeAddedSuppliers($data->id)[0]->total / $total_suppliers) * 100, 2, '.', '') ?>%</span></td>
+													</tr>
+												<?php endif ?>
 											<?php endforeach ?>
 										</tbody>
 									</table>

@@ -4,18 +4,30 @@
  */
 class Admin_model extends CI_Model{
     public function EmployeesStatistics() {
-        $this->db->select('users.id, users.fullname, locations.name as location, COUNT(items.added_by) AS items_count, COUNT(item_assignment.assigned_by) as items_assigned_count, COUNT(suppliers.added_by) as suppliers_added_count');
+        $this->db->select('users.id, users.fullname, users_roles.type as role_type, locations.name as location');
         $this->db->from('users');
-        $this->db->join('locations', 'locations.id = users.location', 'left');
-        $this->db->join('items', 'items.added_by = users.id', 'left');
-        $this->db->join('item_assignment', 'item_assignment.assigned_by = users.id', 'left');
-        $this->db->join('suppliers', 'suppliers.added_by = users.id', 'left');
-        
-        $this->db->order_by('items_count', 'DESC');
-        $this->db->order_by('items_assigned_count', 'DESC');
-        $this->db->order_by('suppliers_added_count', 'DESC');
-
+        $this->db->join('locations', 'users.location = locations.id', 'left');
+        $this->db->join('users_roles', 'users.user_role = users_roles.id', 'left');
         $this->db->group_by('users.id');
+        $this->db->order_by('users.id', 'ASC');
+        return $this->db->get()->result();
+    }
+    public function EmployeeAddedItems($id) {
+        $this->db->select('COUNT(added_by) AS total');
+        $this->db->from('items');
+        $this->db->where('added_by', $id);
+        return $this->db->get()->result();
+    }
+    public function EmployeeAssignedItems($id) {
+        $this->db->select('COUNT(assigned_by) AS total');
+        $this->db->from('item_assignment');
+        $this->db->where('assigned_by', $id);
+        return $this->db->get()->result();
+    }
+    public function EmployeeAddedSuppliers($id) {
+        $this->db->select('COUNT(added_by) AS total');
+        $this->db->from('suppliers');
+        $this->db->where('added_by', $id);
         return $this->db->get()->result();
     }
     public function AssetsAccessList() {
