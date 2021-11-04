@@ -762,9 +762,6 @@ class Admin extends CI_Controller{
     
     // Asset register - add new asset.
     public function add_project(){
-        if ($this->AssetsAccessList()->write == 0) {
-            redirect('admin/dashboard');
-        }
         $data['title'] = 'Project Detail';
         $data['body'] = 'admin/projects/add_project';
         $data['breadcrumb'] = array("admin/projects/add_project" => "Project List","Add Project");
