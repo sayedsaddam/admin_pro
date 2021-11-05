@@ -35,7 +35,7 @@
 						<div class="field has-addons">
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/projects'); ?>'"
-									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($projects) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
