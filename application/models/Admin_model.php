@@ -501,6 +501,22 @@ class Admin_model extends CI_Model{
         $this->db->update('projects',$data);
         return true;
     }
+    // Search projects / company
+    public function search_project($search){
+        $this->db->select('id, project_name, project_desc,created_at');
+        $this->db->from('projects');
+        if ($this->session->userdata('user_role') != '1') {
+            $this->db->where('assets.location', $this->session->userdata('location'));
+        }
+        
+        $this->db->group_start(); //start group
+        $this->db->like('project_name', $search);
+        $this->db->or_like('project_desc', $search); 
+        $this->db->group_end(); //close group
+
+        $this->db->order_by('created_at', 'DESC');
+        return $this->db->get()->result();
+    }
     // Expenses - region based - Islamabad
     public function expenses_isbd(){
         $this->db->select('SUM(IF(region="islamabad", amount, 0)) as isbd_total');
@@ -1021,7 +1037,7 @@ class Admin_model extends CI_Model{
     }
     // Search filters - assets search
     public function search_asset_register($search){
-        $this->db->select('id, date, category, description, quantity, purchase_date, location, designation, user,remarks, giveaway, created_at');
+        $this->db->select('id, date, category, description, quantity, purchase_date, location, designation, user,remarks, created_at');
         $this->db->from('assets');
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('assets.location', $this->session->userdata('location'));
@@ -1035,8 +1051,7 @@ class Admin_model extends CI_Model{
         $this->db->or_like('location', $search);
         $this->db->or_like('designation', $search);
         $this->db->or_like('user', $search);
-        $this->db->or_like('remarks', $search);
-        $this->db->or_like('giveaway', $search);
+        $this->db->or_like('remarks', $search); 
         $this->db->group_end(); //close group
 
         $this->db->order_by('created_at', 'DESC');
