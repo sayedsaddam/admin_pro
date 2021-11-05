@@ -667,8 +667,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Invoices | Admin & Procurement';
         $data['body'] = 'admin/invoices';
         $data['suppliers'] = $this->admin_model->get_suppliers_for_invoice();
-        $data['invoices'] = $this->admin_model->get_invoices($limit, $offset);
-        $data['projects'] = $this->admin_model->get_projects();
+        $data['invoices'] = $this->admin_model->get_invoices($limit, $offset); 
         $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/template', $data);
     }
