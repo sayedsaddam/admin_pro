@@ -12,11 +12,11 @@
 				</div>
 				<div class="columns">
 					<div class="column">
-					<form action="<?= base_url('admin/search_project'); ?>" method="get">
+						<form action="<?= base_url('admin/search_asset_register'); ?>" method="get">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
-									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
-										placeholder="Search Project"
+									<input class="input is-small is-fullwidth" name="search" type="search"
+										placeholder="Search Assets"
 										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
@@ -97,19 +97,15 @@
 								</div>
 							</fieldset>
 						</div>
-					 
-				
+					</div>
+				<div class="columns">
 						<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Description</label>
-									<div class="control has-icons-left"> 
-											<input type="text" name="project_desc" id="" class="input is-small"
-											value="<?php if(!empty($edit)){ echo $edit->project_desc; } ?>" type="text"
-											placeholder="description ..." required="">
-										<span class="icon is-small is-left">
-                                        <i class="fas fa-list"></i>
-										</span>
+									<div class="control has-icons-left">
+										<textarea class="textarea is-small" name="project_desc" rows="2"
+											placeholder="some detail"><?php if(!empty($edit)){ echo $edit->project_desc; } ?></textarea>
 									</div>
 								</div>
 							</fieldset>
