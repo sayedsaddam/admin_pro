@@ -82,7 +82,7 @@
 								<tr>
 									<td><?= 'S2S-0'.$asset->id; ?></td>
 									<td>
-										<div class="tag"><?= $asset->category; ?></div>
+										<div class="tag"><?= $asset->cat_name; ?></div>
 									</td>
 									<td><?= ucfirst($asset->description); ?></td>
 									<td><?= ucfirst($asset->quantity); ?></td>
@@ -121,17 +121,13 @@
 								<tr>
 
 									<td><?= 'CTC-0'.$res->id; ?></td>
-									<td><?= $res->category; ?></td>
+									<td><?= $res->cat_name; ?></td>
 									<td><?= ucfirst($res->description); ?></td>
 									<td><?= ucfirst($res->quantity); ?></td>
 									<td><?= ucfirst($res->purchase_date); ?></td>
-									<td><?= ucfirst($res->location); ?></td>
-									<td><?= ucfirst($res->designation); ?></td>
+									<td><?= ucfirst($res->location); ?></td> 
 									<td><?= ucfirst($res->user); ?></td>
-									<td><?= ucfirst($res->remarks); ?></td>
-									<td><?= ucfirst($res->giveaway); ?></td>
-									<!-- <td><?= date('M d, Y', strtotime($res->purchase_date)); ?></td> -->
-									<!-- <td>
+									<td><?= ucfirst($res->remarks); ?></td>  
                     <?php $recDate = date('Y-m-d', strtotime($res->purchase_date));
                           $today = date("Y-m-d"); // Today's date
                           $diff = date_diff(date_create($recDate), date_create($today));
