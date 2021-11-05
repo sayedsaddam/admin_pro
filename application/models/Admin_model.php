@@ -696,9 +696,23 @@ class Admin_model extends CI_Model{
     }
     // Get assets/items.
     public function get_assets($limit, $offset){
-        $this->db->select('assets.id, assets.date, assets.category, assets.description, assets.quantity, assets.purchase_date, assets.location, assets.user,assets.remarks, assets.created_at,locations.id as loc_id,locations.name');
+        $this->db->select('assets.id, 
+        assets.date, 
+        assets.category, 
+        assets.description, 
+        assets.quantity, 
+        assets.purchase_date, 
+        assets.location, 
+        assets.user,
+        assets.remarks, 
+        assets.created_at,
+        locations.id as loc_id,
+        locations.name,
+        categories.id as cat_id,
+        categories.cat_name');
         $this->db->from('assets');
         $this->db->join('locations', 'assets.location = locations.id', 'left');
+        $this->db->join('categories', 'assets.category = categories.id', 'left');
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('assets.location', $this->session->userdata('location'));
         }

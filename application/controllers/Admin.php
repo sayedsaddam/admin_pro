@@ -716,7 +716,7 @@ class Admin extends CI_Controller{
             'amount' => $this->input->post('amount'),
             'inv_desc' => $this->input->post('inv_desc'),
             'created_at' => date('Y-m-d')
-        ); 
+        );
         if($this->admin_model->add_invoice($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Adding invoice was successful.');
             redirect('admin/invoices');
