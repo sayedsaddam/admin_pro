@@ -13,11 +13,11 @@
 
 				<div class="columns is-hidden-touch">
 					<div class="column is-hidden-print">
-						<form action="<?= base_url('admin/search_asset_register'); ?>" method="get">
+						<form action="<?= base_url('admin/search_project'); ?>" method="get">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
-										placeholder="Search Employees"
+										placeholder="Search Project"
 										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
@@ -65,8 +65,8 @@
 								<tr>
 									<th class="has-text-weight-semibold">ID</th>
 									<th class="has-text-weight-semibold">Projects</th>
-									<th class="has-text-weight-semibold">Description</th>
-									<th class="has-text-weight-semibold">Status</th>
+									<th class="has-text-weight-semibold">Description</th> 
+									<th class="has-text-weight-semibold">Date</th> 
 								
 									<th class="has-text-weight-semibold">Action</th>
 								</tr>
@@ -76,22 +76,17 @@
 								<?php if(!empty($projects)): foreach($projects as $project): ?>
 								<tr>
 									<td><?= 'S2S-0'.$project->id; ?></td>
-									<td>
-										<div class="tag"><?= $project->project_name; ?></div>
-									</td>
-									<td><?= ucfirst($project->project_desc); ?></td>
-									<td><?php  if($project->status == 1){echo "<span class='tag is-warning'>Progress</span>";}else{echo "<span class='tag is-primary'>Complete</span>";} ?></td> 
-								
-									<td class="is-narrow">
-										<div class="field has-addons"> 
-											<p class="control">
+									<td> <span class="tag"><?= $project->project_name; ?></span></td>
+									<td><?= ucfirst($project->project_desc); ?></td> 
+									<td><?= date('M d, Y', strtotime($project->created_at)); ?></td> 
+									<td class="">
+										<div class="field has-addons">  
 												<a href="<?= base_url('admin/edit_project/'.$project->id); ?>"
 													class="button is-small">
 													<span class="icon is-small">
 														<i class="fas fa-edit"></i>
 													</span>
-												</a>
-											</p> 
+												</a> 
 											<a href="<?=base_url('admin/complete_project/'.$project->id);?>"
 												class="button is-small"><span class="icon is-small has-text-success"><i
 														class="fa fa-check"></i></span></a> 
@@ -107,9 +102,9 @@
 
 									<td><?= 'CTC-0'.$res->id; ?></td>
 									<td><?= $res->project_name; ?></td>
-									<td><?= ucfirst($res->project_desc); ?></td>
-									<td><?= ucfirst($res->status); ?></td> 
-									<td class="is-narrow">
+									<td><?= ucfirst($res->project_desc); ?></td> 
+									<td><?= date('M d, Y', strtotime($res->created_at)); ?></td> 
+									<td class="">
 										<div class="field has-addons"> 
 											<p class="control">
 												<a href="<?= base_url('admin/edit_project/'.$res->id); ?>"

@@ -772,7 +772,7 @@ class Admin extends CI_Controller{
     public function save_project(){
         $data = array(
             'project_name' => $this->input->post('project_name'),
-            'status' => $this->input->post('status'),
+            'status' => 1,
             'project_desc' => $this->input->post('project_desc'),
             'created_at' => date('Y-m-d')
         );
@@ -829,6 +829,17 @@ class Admin extends CI_Controller{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
             redirect('admin/projects');
         }
+    }
+    
+    // Search filters - search asset register
+    public function search_project(){ 
+        $search = $this->input->get('search');
+        $data['title'] = 'Search Results > Project list';
+        $data['body'] = 'admin/projects/project_list';
+        $data['breadcrumb'] = array("admin/project_list" => "Project List", "Search: " . $search);
+        $data['project_list'] = true; 
+        $data['results'] = $this->admin_model->search_project($search);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Maintenance - Office equipments
     public function maintenance($offset = null){

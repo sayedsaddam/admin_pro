@@ -114,10 +114,10 @@
 							</fieldset>
 						</div>
 						<div class="column">
-							<label class="label is-small">Dapartment <span class="has-text-danger">*</span></label>
+							<label class="label is-small">Dapartment</label>
 							<div class="select select is-small is-fullwidth">
 
-							<select name="department" required <?= isset($edit) ? 'disabled' : '' ?>>
+							<select name="department" <?= isset($edit) ? 'disabled' : '' ?>>
 									<?php if(!isset($edit)): ?>
 									<option selected disabled value="">Select a departments</option>
 									<?php endif ?>
