@@ -12,11 +12,11 @@
 				</div>
 				<div class="columns">
 					<div class="column">
-						<form action="<?= base_url('admin/search_asset_register'); ?>" method="get">
+					<form action="<?= base_url('admin/search_project'); ?>" method="get">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
-									<input class="input is-small is-fullwidth" name="search" type="search"
-										placeholder="Search Assets"
+									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
+										placeholder="Search Project"
 										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
