@@ -23,12 +23,12 @@
 						<div class="control">
 							<input type="hidden" name="otp" id="otp-full" />
 							<div id="otp" class="is-flex justify-center">
-								<input class="input is-medium form-control form-control-solid" type="number" id="first" maxlength="1" />
-								<input class="ml-4 input is-medium form-control form-control-solid" type="number" id="second" maxlength="1" />
-								<input class="ml-4 input is-medium form-control form-control-solid" type="number" id="third" maxlength="1" />
-								<input class="ml-4 input is-medium form-control form-control-solid" type="number" id="fourth" maxlength="1" />
-								<input class="ml-4 input is-medium form-control form-control-solid" type="number" id="fifth" maxlength="1" />
-								<input class="ml-4 input is-medium form-control form-control-solid" type="number" id="sixth" maxlength="1" />
+								<input class="input is-medium form-control form-control-solid" type="number" id="first" min="0" max="9" />
+								<input class="ml-4 input is-medium form-control form-control-solid" type="number" id="second" min="0" max="9" />
+								<input class="ml-4 input is-medium form-control form-control-solid" type="number" id="third" min="0" max="9" />
+								<input class="ml-4 input is-medium form-control form-control-solid" type="number" id="fourth" min="0" max="9" />
+								<input class="ml-4 input is-medium form-control form-control-solid" type="number" id="fifth" min="0" max="9" />
+								<input class="ml-4 input is-medium form-control form-control-solid" type="number" id="sixth" min="0" max="9" />
 							</div>
 							<div class="mt-2">Please enter the 6-digit code sent to your email.</div>
 						</div>
