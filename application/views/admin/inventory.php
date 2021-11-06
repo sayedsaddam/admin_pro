@@ -1,12 +1,9 @@
-<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
-  <div class="container-fluid">
+<div class="jumbotron jumbotron-fluid blue-gradient text-light">
+  <div class="container">
     <div class="row">
-      <div class="col-lg-1 col-md-1">
-        <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid" width="200">
-      </div>
-      <div class="col-lg-7 col-md-7">
+      <div class="col-lg-8 col-md-8">
         <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
-        <h3 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h3>
+        <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
         <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
@@ -36,7 +33,6 @@
     <div class="col-lg-6 col-md-6 text-right">
       <button data-toggle="modal" data-target="#add_inventory" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</button>
       <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
-      <a href="<?=base_url('admin/assign_inventory/');?>" class="btn btn-outline-success"><i class="fa fa-angle-right"></i> Assign Item</a>
     </div>
   </div>
   <div class="row">
@@ -46,14 +42,15 @@
         <thead>
           <tr>
             <th class="font-weight-bold">ID</th>
-            <th class="font-weight-bold">Location</th>
-            <th class="font-weight-bold">Name</th>
+            <th class="font-weight-bold">Item Name</th>
+            <th class="font-weight-bold">Description</th>
             <th class="font-weight-bold">Category</th>
-            <th class="font-weight-bold">Quantity</th>
+            <th class="font-weight-bold">Location</th>
+            <th class="font-weight-bold">Original Value</th>
+            <th class="font-weight-bold">Current Value</th>
             <th class="font-weight-bold">Unit Price</th>
-            <th class="font-weight-bold">Total Cost</th>
-            <th class="font-weight-bold">Date Added</th>
-            <th class="font-weight-bold">Assign</th>
+            <th class="font-weight-bold">Total Price</th>
+            <th class="font-weight-bold">Date</th>
             <th class="font-weight-bold">Action</th>
           </tr>
         </thead>
@@ -62,33 +59,36 @@
             <?php if(!empty($inventory)): foreach($inventory as $inv): ?>
               <tr>
                 <td><?= 'Inv-0'.$inv->id; ?></td>
-                <td><?= $inv->loc_name; ?></td>
-                <td><?= $inv->sub_cat_name; ?></td>
-                <td><?= $inv->cat_name; ?></td>
+                <td><?= $inv->item_name; ?></td>
+                <td><?= ucfirst($inv->item_desc); ?></td>
+                <td><?= ucfirst($inv->item_category); ?></td>
+                <td><?= ucfirst($inv->name); ?></td>
                 <td><?= $inv->item_qty; ?></td>
+                <td><?php if($inv->status == 1){ $remaining_items = $inv->item_qty - $inv->req_qty; echo $remaining_items;  }else{ echo $inv->item_qty; } ?></td>
                 <td><?= number_format($inv->unit_price) ?></td>
-                <td><?= number_format($inv->unit_price * $inv->item_qty); ?></td>
+                <td><?php if($inv->status == 1){ echo number_format($inv->unit_price * $remaining_items); }else{ echo number_format($inv->unit_price * $inv->item_qty); } ?></td>
                 <td><?= date('M d, Y', strtotime($inv->created_at)); ?></td>
-                <td><?php if($inv->status == 0){echo "<span class='btn btn-sm btn-warning'>pending</span>";}  ?></td>
                 <td>
                     <a data-id="<?= $inv->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                     <a href="<?=base_url('admin/delete_inventory/'.$inv->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                     <a href="<?= base_url('admin/inventory_detail/'.$inv->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                 </td>
               </tr>
-            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
+            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
           </tbody>
         <?php else: ?>
           <tbody>
             <?php if(!empty($results)): foreach($results as $res): ?>
               <tr>
                 <td><?= 'Inv-0'.$res->id; ?></td>
-                <td><?= $res->loc_name; ?></td>
-                <td><?= $res->sub_cat_name; ?></td>
-                <td><?= $res->cat_name; ?></td>
+                <td><?= $res->item_name; ?></td>
+                <td><?= ucfirst($res->item_desc); ?></td>
+                <td><?= ucfirst($res->item_category); ?></td>
+                <td><?= ucfirst($res->name); ?></td>
                 <td><?= $res->item_qty; ?></td>
+                <td><?php if($res->status == 1){ $remaining_items = $res->item_qty - $res->req_qty; echo $remaining_items;  }else{ echo $res->item_qty; } ?></td>
                 <td><?= number_format($res->unit_price) ?></td>
-                <td><?= number_format($res->unit_price * $res->item_qty); ?></td>
+                <td><?php if($res->status == 1){ echo number_format($res->unit_price * $remaining_items); }else{ echo number_format($res->unit_price * $res->item_qty); } ?></td>
                 <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                 <td>
                     <a data-id="<?= $res->id; ?>" class="inventory"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
@@ -96,7 +96,7 @@
                     <a href="<?= base_url('admin/inventory_detail/'.$res->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                 </td>
               </tr>
-            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='8'>No record found.</td></tr>"; endif; ?>
+            <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
           </tbody>
         <?php endif; ?>
       </table>
@@ -122,48 +122,46 @@
       </div>
       <div class="modal-body mx-3">
         <form action="<?=base_url('admin/add_inventory');?>" method="post" class="md-form">
-          <div class="md-form mb-5">
-            <select name="location" id="for32" class="browser-default custom-select">
-              <option value="" disabled selected>--select location--</option>
-              <?php foreach($locations as $loc): ?>
-                <option value="<?= $loc->id; ?>"><?= ucfirst($loc->name); ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
+            <div class="md-form mb-5">
+                <input name="item_name" type="text" id="form34" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="form34">Item name</label>
+            </div>
 
-          <div class="md-form mb-5">
-            <select name="category" id="category" class="browser-default custom-select">
-              <option value="" disabled selected>--select category--</option>
-              <?php if(!empty($categories)): foreach($categories as $cat): ?>
-                <option value="<?= $cat->id; ?>"><?= $cat->cat_name; ?></option>
-              <?php endforeach; endif; ?>
-            </select>
-          </div>
+            <div class="md-form mb-5">
+                <input name="item_desc" type="text" id="form29" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="form29">Item description</label>
+            </div>
 
-          <div class="md-form mb-5">
-            <select name="item_name" id="item_name" class="browser-default custom-select">
-              <option value="" disabled selected>--select item--</option>
-            </select>
-          </div>
+            <div class="md-form mb-5">
+                <input name="unit_price" type="number" id="form32" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="form32">Unit price</label>
+            </div>
 
-          <div class="md-form mb-5">
-            <input type="text" name="item_qty" id="item_qty" class="form-control" required>
-            <label for="item-qty">Quantity</label>
-          </div>
+            <div class="md-form mb-5">
+                <input name="item_qty" type="number" id="form32" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="form32">Item quantity</label>
+            </div>
 
-          <div class="md-form mb-5">
-            <input type="number" name="unit_price" id="unit_price" class="form-control" required>
-            <label for="item-qty">Unit Price</label>
-          </div>
-        
-          <div class="md-form">
-            <textarea name="item_desc" id="form7" class="md-textarea form-control" rows="3"></textarea>
-            <label for="form7">Item Desctiption</label>
-          </div>
+            <div class="md-form mb-5">
+                <select name="item_cat" id="for32" class="browser-default custom-select">
+                    <option value="" disabled selected>--select category--</option>
+                    <option value="stationary">Stationary</option>
+                    <option value="electronics">Electronics</option>
+                </select>
+            </div>
 
-          <div class="md-form mb-5">
-            <input type="submit" class="btn btn-primary" value="Save Changes">
-          </div>
+            <div class="md-form mb-5">
+              <select name="item_loc" id="for32" class="browser-default custom-select">
+                  <option value="" disabled selected>--select location--</option>
+                  <?php foreach($locations as $loc): ?>
+                    <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
+                  <?php endforeach; ?>
+              </select>
+            </div>
+
+            <div class="md-form mb-5">
+                <input type="submit" class="btn btn-primary" value="Save Changes">
+            </div>
         </form>
       </div>
       <div class="modal-footer d-flex justify-content-right">
@@ -185,50 +183,48 @@
         </button>
       </div>
       <div class="modal-body mx-3">
-        <form action="<?=base_url('admin/add_inventory');?>" method="post" class="md-form">
-          <input type="hidden" name="category" value="<?php  ?>">
-          <div class="md-form mb-5">
-            <select name="location" id="for32" class="browser-default custom-select">
-              <option value="" disabled selected>--select location--</option>
-              <?php foreach($locations as $loc): ?>
-                <option value="<?= $loc->id; ?>"><?= ucfirst($loc->name); ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
+        <form action="<?=base_url('admin/update_inventory');?>" method="post" class="md-form">
+            <input type="hidden" name="id" id="inventoryId" value="">
+            <div class="md-form mb-5">
+                <input name="item_name" type="text" id="item_name" class="form-control validate" value="">
+                <label data-error="wrong" data-success="right" for="form34">Item name</label>
+            </div>
 
-          <div class="md-form mb-5">
-            <select name="category" id="for32" class="browser-default custom-select">
-              <option value="" disabled selected>--select category--</option>
-              <?php if(!empty($categories)): foreach($categories as $cat): ?>
-                <option value="<?= $cat->id; ?>"><?= $cat->cat_name; ?></option>
-              <?php endforeach; endif; ?>
-            </select>
-          </div>
+            <div class="md-form mb-5">
+                <input name="item_desc" type="text" id="item_desc" class="form-control validate" value="">
+                <label data-error="wrong" data-success="right" for="form29">Item description</label>
+            </div>
 
-          <div class="md-form mb-5">
-            <select name="item_name" id="for32" class="browser-default custom-select">
-              <option value="" disabled selected>--select item--</option>
-            </select>
-          </div>
+            <div class="md-form mb-5">
+                <input name="unit_price" type="number" id="unit_price" class="form-control validate" value="">
+                <label data-error="wrong" data-success="right" for="form32">Unit price</label>
+            </div>
 
-          <div class="md-form mb-5">
-            <input type="text" name="item_qty" id="item_qty" class="form-control" required>
-            <label for="item-qty">Quantity</label>
-          </div>
+            <div class="md-form mb-5">
+                <input name="item_qty" type="number" id="item_qty" class="form-control validate" value="">
+                <label data-error="wrong" data-success="right" for="form32">Item quantity</label>
+            </div>
 
-          <div class="md-form mb-5">
-            <input type="number" name="unit_price" id="unit_price" class="form-control" required>
-            <label for="item-qty">Unit Price</label>
-          </div>
-        
-          <div class="md-form">
-            <textarea name="item_desc" id="form7" class="md-textarea form-control" rows="3"></textarea>
-            <label for="form7">Item Desctiption</label>
-          </div>
+            <div class="md-form mb-5">
+              <select name="item_cat" id="item_cat" class="browser-default custom-select">
+                  <option value="" disabled selected>--select category--</option>
+                  <option value="stationary">Stationary</option>
+                  <option value="electronics">Electronics</option>
+              </select>
+            </div>
 
-          <div class="md-form mb-5">
-            <input type="submit" class="btn btn-primary" value="Save Changes">
-          </div>
+            <div class="md-form mb-5">
+              <select name="item_loc" id="item_loc" class="browser-default custom-select">
+                  <option value="" disabled selected>--select location--</option>
+                  <?php foreach($locations as $loc): ?>
+                    <option value="<?= $loc->id; ?>"><?= $loc->name; ?></option>
+                  <?php endforeach; ?>
+              </select>
+            </div>
+
+            <div class="md-form mb-5">
+                <input type="submit" class="btn btn-primary" value="Save Changes">
+            </div>
         </form>
       </div>
       <div class="modal-footer d-flex justify-content-right">
@@ -264,32 +260,5 @@ $(document).ready(function(){
       }
     });
   });
-});
-</script>
-<script>
-$(document).ready(function(){
- 
- // City change
- $('#category').on('change', function(){
-   var category = $(this).val();
-
-   // AJAX request
-   $.ajax({
-     url:'<?=base_url('admin/get_sub_categories/')?>' + category,
-     method: 'post',
-     data: {category: category},
-     dataType: 'json',
-     success: function(response){
-      console.log(response);
-       // Remove options 
-       $('#item_name').find('option').not(':first').remove();
-
-       // Add options
-       $.each(response,function(index, data){
-          $('#item_name').append('<option value="'+data['id']+'">'+data['name']+'</option>');
-       });
-     }
-  });
-});
 });
 </script>

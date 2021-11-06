@@ -7,6 +7,16 @@ class Supervisor_model extends CI_Model{
     {
         parent::__construct();
     }
+    // Count all leave applications for logged in supervisor.
+    public function total_leave_applications(){
+        $this->db->select('employee_leaves.id,
+                            employee_leaves.emp_id,
+                            users.supervisor');
+        $this->db->from('employee_leaves');
+        $this->db->join('users', 'employee_leaves.emp_id = users.id', 'left');
+        $this->db->where('users.supervisor', $this->session->userdata('id'));
+        return $this->db->count_all_results();
+    }
     // Count all items requisitions for logged in supervisor.
     public function total_item_requisitions(){
         $this->db->select('item_requisitions.id,
@@ -17,48 +27,40 @@ class Supervisor_model extends CI_Model{
         $this->db->where('users.supervisor', $this->session->userdata('id'));
         return $this->db->count_all_results();
     }
-    // Get inventory items to list in the dropdown for user request submission > get the main categories.
-    public function get_employees($user_id){
-        $this->db->select('users.id,
-                            users.fullname,
+    // Count all travel requisitions for logged in supervisor.
+    public function total_travel_requisitions(){
+        $this->db->select('travel_hotel_stay.id,
+                            travel_hotel_stay.requested_by,
                             users.supervisor');
-        $this->db->from('users');
-        $this->db->where('users.supervisor =' , $user_id);
-        $this->db->order_by('users.fullname', 'asc');
-        return $this->db->get()->result();
+        $this->db->from('travel_hotel_stay');
+        $this->db->join('users', 'travel_hotel_stay.requested_by = users.id', 'left');
+        $this->db->where('users.supervisor', $this->session->userdata('id'));
+        return $this->db->count_all_results();
     }
-    // Get inventory items to list in the dropdown for user request submission > get the main categories.
-    public function get_items(){
-        $this->db->select('categories.id as cat_id,
-                            categories.cat_name,
-                            inventory.id,
-                            inventory.category,
-                            inventory.name');
-        $this->db->from('categories');
-        $this->db->join('inventory', 'categories.id = inventory.category', 'left');
-        $this->db->group_by('inventory.category');
-        $this->db->order_by('categories.cat_name', 'asc');
+    // Get leave applications by employees.
+    public function get_leave_applications($limit, $offset){
+        $this->db->select('employee_leaves.id,
+                            employee_leaves.emp_id,
+                            employee_leaves.leave_type,
+                            employee_leaves.leave_from,
+                            employee_leaves.leave_to,
+                            employee_leaves.no_of_days,
+                            employee_leaves.leave_reason,
+                            employee_leaves.leave_status,
+                            employee_leaves.created_at,
+                            users.id as user_id,
+                            users.fullname,
+                            users.department,
+                            users.supervisor');
+        $this->db->from('employee_leaves');
+        $this->db->join('users', 'employee_leaves.emp_id = users.id', 'left');
+        $this->db->limit($limit, $offset);
+        $this->db->order_by('employee_leaves.created_at', 'DESC');
+        $this->db->where('users.supervisor', $this->session->userdata('id'));
         return $this->db->get()->result();
-    }
-  
-    // Get sub categories for placing requisition
-    public function get_sub_categories($cat_id){
-        $this->db->select('id, name');
-        $this->db->from('sub_categories');
-        $this->db->where('cat_id', $cat_id);
-        return $this->db->get()->result();
-    }
-    // Create an item requisition
-    public function create_requisition($data){
-        $this->db->insert('item_requisitions', $data);
-        if($this->db->affected_rows() > 0){
-            return true;
-        }else{
-            return false;
-        }
     }
     // Get pending requisitions. > Only pending requisitions to be displayed on supervisor's dashboard.
-    public function get_requisitions($limit, $offset, $date_from = '', $date_to = ''){
+    public function get_requisitions($limit, $offset){
         $this->db->select('item_requisitions.id,
                             item_requisitions.item_name,
                             item_requisitions.item_desc,
@@ -72,33 +74,27 @@ class Supervisor_model extends CI_Model{
                             users.location,
                             users.supervisor,
                             inventory.id as inv_id,
-                            inventory.name as inv_name,
-                            sub_categories.id as sub_cat_id,
-                            sub_categories.name as sub_cat_name,
-                            categories.id as cat_id,
-                            categories.cat_name');
+                            inventory.item_name as inv_name');
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
-        $this->db->join('sub_categories', 'item_requisitions.item_name = sub_categories.id', 'left');
-        $this->db->join('categories', 'sub_categories.cat_id = categories.id', 'left');
         $this->db->where('users.supervisor', $this->session->userdata('id'));
-        if (!empty($date_from) && !empty($date_to)) {  
-            $this->db->where('item_requisitions.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
-        }
         $this->db->order_by('item_requisitions.id', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
-    // Count all travel requisitions for logged in supervisor.
-    public function total_travel_requisitions(){
-        $this->db->select('travel_hotel_stay.id,
-                            travel_hotel_stay.requested_by,
-                            users.supervisor');
-        $this->db->from('travel_hotel_stay');
-        $this->db->join('users', 'travel_hotel_stay.requested_by = users.id', 'left');
-        $this->db->where('users.supervisor', $this->session->userdata('id'));
-        return $this->db->count_all_results();
+    // Get leave info
+    public function get_leave_info($id){
+        $this->db->select('id, emp_id, leave_reason, sup_remarks');
+        $this->db->from('employee_leaves');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
+    }
+    // Approve / disapprove leave request.
+    public function leave_actions($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('employee_leaves', $data);
+        return true;
     }
     // Approve request > Approve or reject items requisition.
     public function request_actions($id, $data){
@@ -106,18 +102,8 @@ class Supervisor_model extends CI_Model{
         $this->db->update('item_requisitions', $data);
         return true;
     }
-    //== ------------------------------------------ Travel and hotel stay ----------------------------------------------- ==//
-    // Apply travel
-    public function apply_travel($data){
-        $this->db->insert('travel_hotel_stay', $data);
-        if($this->db->affected_rows() > 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
     // Get leave applications by employees.
-    public function get_travel_applications($date_from = '', $date_to = ''){
+    public function get_travel_applications(){
         $this->db->select('travel_hotel_stay.*,
                             users.id as user_id,
                             users.fullname,
@@ -126,9 +112,6 @@ class Supervisor_model extends CI_Model{
         $this->db->from('travel_hotel_stay');
         $this->db->join('users', 'travel_hotel_stay.requested_by = users.id', 'left');
         $this->db->where('users.supervisor', $this->session->userdata('id'));
-        if (!empty($date_from) && !empty($date_to)) {  
-            $this->db->where('travel_hotel_stay.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
-        }
         $this->db->order_by('travel_hotel_stay.created_at', 'DESC');
         return $this->db->get()->result();
     }

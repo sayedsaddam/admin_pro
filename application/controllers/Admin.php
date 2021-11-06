@@ -11,122 +11,41 @@ class Admin extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('supervisor_model');
         $this->load->helper('paginate');
-        $this->access['AssetsAccess'] = $this->AccessList()["Assets"];
-        $this->access['SuppliersAccess'] = $this->AccessList()["Suppliers"];
-
         if(!$this->session->userdata('username')){
             redirect('');
         }
     }
-
-    public function AccessList() {
-        $user_role = $this->session->userdata('user_role');
-        $userAccess = $this->admin_model->request_db_configs($user_role);
-        return $arrayName = array('Assets' => $userAccess[0], 'Suppliers' => $userAccess[1]);
-    }
-
     // Load the dashboard.
-    public function index(){
-       redirect('admin/dashboard');
-    }
-    public function dashboard() {
+    public function index($offset = null){
+        $limit = 10;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
         $data['title'] = 'Home | Admin & Procurement';
         $data['body'] = 'admin/dashboard';
-        $data['total_employees'] = $this->admin_model->count_employ();
-        $data['count_employ_week_change'] = $this->admin_model->count_employ_week_change();
-        if ($this->admin_model->count_employ_last_week_change() != 0) {
-            $data['count_employ_last_week_change'] = $this->admin_model->count_employ_last_week_change();
-        } else {
-            $data['count_employ_last_week_change'] = 1;
-        }
-        
-        
-        $data['total_items'] = $this->admin_model->count_item();
-        $data['total_items_week_change'] = $this->admin_model->count_item_week_change();
-        if ($this->admin_model->count_item_last_week_change() != 0) {
-            $data['total_items_last_week_change'] = $this->admin_model->count_item_last_week_change();
-        } else {
-            $data['total_items_last_week_change'] = 1;
-        }
-
-        $data['total_suppliers'] = $this->admin_model->count_suppliers();
-        $data['total_suppliers_week_change'] = $this->admin_model->count_suppliers_week_change();
-        if ($this->admin_model->count_suppliers_last_week_change() != 0) {
-            $data['total_suppliers_last_week_change'] = $this->admin_model->count_suppliers_last_week_change();
-        } else {
-            $data['total_suppliers_last_week_change'] = 1;
-        }
-
-        $data['total_categories'] = $this->admin_model->count_categories();
-        $data['total_categories_week_change'] = $this->admin_model->count_categories_week_change();
-        if ($this->admin_model->count_categories_last_week_change() != 0) {
-            $data['total_categories_last_week_change'] = $this->admin_model->count_categories_last_week_change();
-        } else {
-            $data['total_categories_last_week_change'] = 1;
-        }
-
-        $data['total_offices'] = $this->admin_model->count_locations();
-        $data['total_offices_week_change'] = $this->admin_model->count_locations_week_change();
-        if ($this->admin_model->count_locations_last_week_change() != 0) {
-            $data['total_offices_last_week_change'] = $this->admin_model->count_locations_last_week_change();
-        } else {
-            $data['total_offices_last_week_change'] = 1;
-        }
-
-        $data['total_available_items'] = $this->admin_model->count_available_items();
-        $data['total_available_items_week_change'] = $this->admin_model->count_available_items_week_change();
-        if ($this->admin_model->count_available_items_last_week_change() != 0) {
-            $data['total_available_items_last_week_change'] = $this->admin_model->count_available_items_last_week_change();
-        } else {
-            $data['total_available_items_last_week_change'] = 1;
-        }
-
-        $data['total_assigned_items'] = $this->admin_model->count_assign_item();
-        $data['total_assigned_items_week_change'] = $this->admin_model->count_assign_item_week_change();
-        if ($this->admin_model->count_assign_item_last_week_change() != 0) {
-            $data['total_assigned_items_last_week_change'] = $this->admin_model->count_assign_item_last_week_change();
-        } else {
-            $data['total_assigned_items_last_week_change'] = 1;
-        }
-
-        $data['total_damaged_items'] = $this->admin_model->count_damaged_items();
-        $data['total_damaged_items_week_change'] = $this->admin_model->count_damaged_items_week_change();
-        if ($this->admin_model->count_damaged_items_last_week_change() != 0) {
-            $data['total_damaged_items_last_week_change'] = $this->admin_model->count_damaged_items_last_week_change();
-        } else {
-            $data['total_damaged_items_last_week_change'] = 1;
-        }
-
-        $data['employees_statistics'] = $this->admin_model->EmployeesStatistics();
-
-        $data['fetch_item_sum_by_last_7'] = $this->admin_model->fetch_item_sum_by_last_(6);
-        $data['fetch_item_sum_by_last_6'] = $this->admin_model->fetch_item_sum_by_last_(5);
-        $data['fetch_item_sum_by_last_5'] = $this->admin_model->fetch_item_sum_by_last_(4);
-        $data['fetch_item_sum_by_last_4'] = $this->admin_model->fetch_item_sum_by_last_(3);
-        $data['fetch_item_sum_by_last_3'] = $this->admin_model->fetch_item_sum_by_last_(2);
-        $data['fetch_item_sum_by_last_2'] = $this->admin_model->fetch_item_sum_by_last_(1);
-        $data['fetch_item_sum_by_last_1'] = $this->admin_model->fetch_item_sum_by_last_(0);
-
-        $data['fetch_assigned_item_sum_by_last_7'] = $this->admin_model->fetch_assigned_item_sum_by_last_(6);
-        $data['fetch_assigned_item_sum_by_last_6'] = $this->admin_model->fetch_assigned_item_sum_by_last_(5);
-        $data['fetch_assigned_item_sum_by_last_5'] = $this->admin_model->fetch_assigned_item_sum_by_last_(4);
-        $data['fetch_assigned_item_sum_by_last_4'] = $this->admin_model->fetch_assigned_item_sum_by_last_(3);
-        $data['fetch_assigned_item_sum_by_last_3'] = $this->admin_model->fetch_assigned_item_sum_by_last_(2);
-        $data['fetch_assigned_item_sum_by_last_2'] = $this->admin_model->fetch_assigned_item_sum_by_last_(1);
-        $data['fetch_assigned_item_sum_by_last_1'] = $this->admin_model->fetch_assigned_item_sum_by_last_(0);
-
-        $data['fetch_damaged_item_sum_by_last_7'] = $this->admin_model->fetch_damaged_item_sum_by_last_(6);
-        $data['fetch_damaged_item_sum_by_last_6'] = $this->admin_model->fetch_damaged_item_sum_by_last_(5);
-        $data['fetch_damaged_item_sum_by_last_5'] = $this->admin_model->fetch_damaged_item_sum_by_last_(4);
-        $data['fetch_damaged_item_sum_by_last_4'] = $this->admin_model->fetch_damaged_item_sum_by_last_(3);
-        $data['fetch_damaged_item_sum_by_last_3'] = $this->admin_model->fetch_damaged_item_sum_by_last_(2);
-        $data['fetch_damaged_item_sum_by_last_2'] = $this->admin_model->fetch_damaged_item_sum_by_last_(1);
-        $data['fetch_damaged_item_sum_by_last_1'] = $this->admin_model->fetch_damaged_item_sum_by_last_(0);
-        
-        $data['breadcrumb'] = array("Dashboard");
-        
-        $this->load->view('admin/commons/new_template', $data);
-    }    
+        $data['total_isbd'] = $this->admin_model->expenses_isbd();
+        $data['ctc_own_isbd'] = $this->admin_model->ctc_own_isbd();
+        $data['total_bln'] = $this->admin_model->expenses_bln();
+        $data['ctc_own_bln'] = $this->admin_model->ctc_own_bln();
+        $data['total_kp'] = $this->admin_model->expenses_kp();
+        $data['ctc_own_kp'] = $this->admin_model->ctc_own_kp();
+        $data['total_sindh'] = $this->admin_model->expenses_sindh();
+        $data['ctc_own_sindh'] = $this->admin_model->ctc_own_sindh();
+        $data['total_punjab'] = $this->admin_model->expenses_punjab();
+        $data['ctc_own_punjab'] = $this->admin_model->ctc_own_punjab();
+        $data['pending'] = $this->admin_model->total_pending();
+        $data['approved'] = $this->admin_model->total_approved();
+        $data['rejected'] = $this->admin_model->total_rejected();
+        $data['pending_requisitions'] = $this->admin_model->pending_requisitions($limit, $offset);
+        $data['approved_requisitions'] = $this->admin_model->approved_requisitions($limit, $offset);
+        $data['rejected_requisitions'] = $this->admin_model->rejected_requisitions($limit, $offset);
+        $data['isbd_stats'] = $this->admin_model->overall_stats_isbd();
+        $data['bln_stats'] = $this->admin_model->overall_stats_bln();
+        $data['khyber_stats'] = $this->admin_model->overall_stats_khyber();
+        $data['sindh_stats'] = $this->admin_model->overall_stats_sindh();
+        $data['annual_expense'] = $this->admin_model->annual_expenses();
+        $this->load->view('admin/commons/template', $data);
+    }
     // Pending requests - listing
     public function pending_requests($offset = null){
         $limit = 10;
@@ -215,331 +134,71 @@ class Admin extends CI_Controller{
     }
     // Suppliers - Go to suppliers page.
     public function suppliers($offset = null){
-        if ($this->AccessList()["Suppliers"]->read == 0) {
-            redirect('admin/dashboard');
-        }
-       
-        $limit = 25;
-        if($this->input->get('limit')) {
-            $limit = $this->input->get('limit');
-        }
-
+        $limit = 10;
         if(!empty($offset)){
-            $config['uri_segment'] = 3;
+            $this->uri->segment(3);
         }
-    
-        $this->load->library('pagination');
-        $url = base_url('admin/suppliers');
+        $url = 'admin/suppliers';
         $rowscount = $this->admin_model->count_suppliers();
-
-        $config['base_url'] = $url;
-        $config['total_rows'] = $rowscount;
-        $config['per_page'] = $limit;
-        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
-        $config['cur_tag_close'] = '</a>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_open'] = '</li>';
-        $config['first_link'] = 'First';
-        $config['prev_link'] = 'Previous';
-        $config['next_link'] = 'Next';
-        $config['last_link'] = 'Last';
-        $config['attributes'] = array('class' => 'pagination-link');
-        $config['reuse_query_string'] = true;
-        $this->pagination->initialize($config);
-       
-        
+        paginate($url, $rowscount, $limit);
         $data['title'] = 'Suppliers | Admin & Procurement';
-        $data['body'] = 'admin/suppliers/suppliers';
+        $data['body'] = 'admin/suppliers';
         $data['suppliers'] = $this->admin_model->get_suppliers($limit, $offset);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
-        $data['categories'] = $this->admin_model->suppliers_category();
-        $data['suppliers_page'] = true;
-        $data['breadcrumb'] = array("Suppliers");
-        
-        $this->load->view('admin/commons/new_template', $data);
-    }
-    // Add Suppliers - Go to add suppliers page.
-    public function add_supplier(){
-        if ($this->AccessList()["Suppliers"]->write == 0) {
-            redirect('admin/dashboard');
-        }
-        $data['title'] = 'Add Supplier | Admin & Procurement';
-        $data['body'] = 'admin/suppliers/add_supplier';
-        $data['locations'] = $this->admin_model->list_locations_suppliers();
-        $data['categories'] = $this->admin_model->suppliers_category();
-        $data['add_supplier_page'] = true;
-        $data['breadcrumb'] = array("admin/suppliers" => "Suppliers", "Add Supplier");
-        
-        $this->load->view('admin/commons/new_template', $data);
-    }
-    // Edit Supplier - Navigates to `Edit Supplier` page
-    public function edit_supplier($id = null){  
-        if ($this->AccessList()["Suppliers"]->update == 0) {
-            redirect('admin/dashboard');
-        }
-
-        $data['edit'] = $this->admin_model->edit_supplier($id); 
-        
-        if ($data['edit'] == NULL) {
-            redirect('admin/suppliers');
-        }
-
-        $data['title'] = 'Edit Supplier | Admin & Procurement';
-        $data['body'] = 'admin/suppliers/edit_supplier';
-        $data['locations'] = $this->admin_model->list_locations_suppliers(); 
-        $data['categories'] = $this->admin_model->suppliers_category();
-        $data['suppliers_page'] = true;
-        $data['breadcrumb'] = array("admin/suppliers" => "Suppliers", "Edit Supplier");
-        $this->load->view('admin/commons/new_template', $data);
+        $this->load->view('admin/commons/template', $data);
     }
     // Suppliers - Add new supplier
-    public function add_supplier_request(){ 
+    public function add_supplier(){
         $data = array(
             'name' => $this->input->post('name'),
-            'added_by' => $this->session->userdata('id'),
             'category' => $this->input->post('category'),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
-            'location' => $this->input->post('location'), 
-            'ntn_number' => $this->input->post('ntn_number'),
-            'rating' => $this->input->post('rating'),
-            'address' => ucfirst($this->input->post('address')),
-            'created_at' => date('Y-m-d')
-        ); 
-        if ($id = $this->admin_model->add_supplier($data)) {
-            $this->session->set_flashdata('success', 'Supplier (<strong>' . $this->input->post('name') . '</strong>) was added successfully.');
-            redirect('admin/edit_supplier/' . $id);
+            'location' => $this->input->post('location'),
+            'region' => $this->input->post('region'),
+            'address' => $this->input->post('address')
+        );
+        if($this->admin_model->add_supplier($data)){
+            $this->session->set_flashdata('success', '<strong>Success! /strong>Supplier added successfully.');
+            redirect('admin/suppliers');
         }else{
-            $this->session->set_flashdata('failed', 'Something went wrong, please try again!');
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
             redirect('admin/suppliers');
         }
-    }
-     // get_supplier against location 
-     public function supplier_against_location($loc_id){
-        $location = $this->admin_model->supplier_against_location($loc_id);
-        echo json_encode($location);
     }
     // Suppliers - Remove supplier
     public function delete_supplier($id){
-        if ($this->AccessList()["Suppliers"]->delete == 0) {
-            redirect('admin/dashboard');
-        }
-
-        $data = array(
-            'status' => 0
-        );
-
-        if($this->admin_model->delete_supplier($id,$data)){
-            $this->session->set_flashdata('success', '<strong>Success:</strong> Supplier removal was successful.');
+        if($this->admin_model->delete_supplier($id)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Supplier removal was successful.');
             redirect('admin/suppliers');
         }else{
-            $this->session->set_flashdata('failed', '<strong>Failed:</strong> Something went wrong, please try again!');
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
             redirect('admin/suppliers');
         }
+    }
+    // Get single supplier by id
+    public function edit_supplier($id){
+        $supplier = $this->admin_model->edit_supplier($id);
+        echo json_encode($supplier);
     }
     // Update supplier
-    public function update_supplier($id = NULL){
-        if ($id == NULL) {
-            redirect('admin/edit_supplier');
-        }
-
+    public function update_supplier(){
+        $id = $this->input->post('sup_id');
         $data = array(
-            'location' => $this->input->post('location'),
             'name' => $this->input->post('name'),
+            'category' => $this->input->post('category'),
             'email' => $this->input->post('email'),
             'phone' => $this->input->post('phone'),
-            'category' => $this->input->post('category'),    
-            'ntn_number' => $this->input->post('ntn_number'),
-            'rating' => $this->input->post('rating'), 
-            'address' => $this->input->post('address')
-        );  
-        if($this->admin_model->update_supplier($id, $data)){
-            $this->session->set_flashdata('success', 'Supplier (<strong>' . $this->input->post('name') . '</strong>) was updated successfully.');
-            redirect('admin/edit_supplier/' . $id);
-        }else{
-            $this->session->set_flashdata('failed', 'Something went wrong, please try again!');
-            redirect('admin/edit_supplier/' . $id);
-        }
-    }
-    // Employ - Go to employ page.
-    public function employee($offset = null){
-      
-        $limit = 25;
-        if($this->input->get('limit')) {
-            $limit = $this->input->get('limit');
-        }
-
-        if(!empty($offset)){
-            $config['uri_segment'] = 3;
-        }
-    
-        $this->load->library('pagination');
-        $url = base_url('admin/employee');
-        $rowscount = $this->admin_model->count_employ();
-
-        $config['base_url'] = $url;
-        $config['total_rows'] = $rowscount;
-        $config['per_page'] = $limit;
-        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
-        $config['cur_tag_close'] = '</a>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_open'] = '</li>';
-        $config['first_link'] = 'First';
-        $config['prev_link'] = 'Previous';
-        $config['next_link'] = 'Next';
-        $config['last_link'] = 'Last';
-        $config['attributes'] = array('class' => 'pagination-link');
-        $config['reuse_query_string'] = true;
-        $this->pagination->initialize($config);
-
-        $data['title'] = 'Employ | Admin & Procurement';
-        $data['body'] = 'admin/employ/employ';
-        $data['employ'] = $this->admin_model->get_employ($limit, $offset);
-        $data['locations'] = $this->admin_model->list_locations_suppliers();
-        $data['employees_page'] = true;
-        $data['breadcrumb'] = array("Employees");
-        
-        $this->load->view('admin/commons/new_template', $data);
-    } 
-
-    // Controller for ACL page
-    public function acl(){
-        $data['title'] = 'Access Control List | Admin & Procurement';
-        $data['body'] = 'admin/ACL/acl';
-        $data['assets_access_list'] = $this->admin_model->component_access_list('assets');
-        $data['suppliers_access_list'] = $this->admin_model->component_access_list('suppliers');
-        $data['acl_page'] = true;
-        $data['breadcrumb'] = array("Access Control List");
-        
-        $this->load->view('admin/commons/new_template', $data);
-    } 
-    // Form Logic for Assets Access on ACL Page
-    public function update_access_list() {
-        $asset_read = $this->input->post('read'); // read[1][1], read[1][2], read[1][3]
-        $asset_write = $this->input->post('write'); 
-        $asset_update = $this->input->post('update'); 
-        $asset_delete = $this->input->post('delete'); 
-
-        for ($i = 1; $i <= $this->admin_model->count_acl_components(); $i++) { 
-            // $i => component
-            for ($j = 1; $j <= $this->admin_model->count_users_roles(); $j++) { 
-                // $j => role_id
-                $data = array(
-                    "read" => isset($asset_read[$i][$j]),
-                    "write" => isset($asset_write[$i][$j]),
-                    "update" => isset($asset_update[$i][$j]),
-                    "delete" => isset($asset_delete[$i][$j]),
-                );
-
-                $access_update = $this->admin_model->access_update($data, $j, $i);
-
-            }
-
-        }
-
-        if($access_update){
-            $this->session->set_flashdata('success', '<strong>Success! /strong>Employ added successfully.');
-            redirect('admin/acl');
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('admin/acl');
-        }
-    }
-  // employee register - add new employee.
-  public function add_employee(){
-    $data['title'] = 'Add Employee';
-    $data['add_page'] = true;
-    $data['body'] = 'admin/employ/add_employee';   
-    $data['locations'] = $this->admin_model->get_item_location(); 
-    $data['breadcrumb'] = array("admin/employee" => "Employee List", "Add Employee");
-    $this->load->view('admin/commons/new_template', $data);
-}
-    // Suppliers - Add new supplier
-    public function employee_save(){ 
-        $data = array(
-            'fullname' => ucfirst($this->input->post('full_name')),
-            'email' => $this->input->post('email'),
-            'phone' => $this->input->post('phone'),
-            'username' => ucfirst($this->input->post('user_name')),
-            'department' =>ucfirst($this->input->post('department')),
             'location' => $this->input->post('location'),
-            'password' => sha1($this->input->post('phone')),
-            'region' => ucfirst($this->input->post('region')),
-            'address' => ucfirst($this->input->post('address')),
-            'status' => 1,
-            'dob' => $this->input->post('dob'),
-            'doj' => $this->input->post('doj'),
-            'user_role' => 'employee',
-            'created_at' => date('Y-m-d')
-        );  
-        if($this->admin_model->add_employ($data)){
-            $this->session->set_flashdata('success', '<strong>Success! /strong>Employ added successfully.');
-            redirect('admin/employee');
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('admin/employee');
-        }
-    } 
-    // Edit detail
-    public function edit_employ($id){   
-        $data['title'] = 'Edit Employee';
-        $data['body'] = 'admin/employ/add_employee';
-        $data['locations'] = $this->admin_model->get_employ_location($id); 
-        $data['edit'] = $this->admin_model->edit_employ($id);  
-        $data['breadcrumb'] = array("admin/employee" => "Employee List", "Edit Employee");
-        $data['employees_page'] = true;
-        $this->load->view('admin/commons/new_template', $data);
-    }
-
-    // Get single employee by id
-    public function edit_employ_changed($id){ 
-        $employ = $this->admin_model->edit_employ($id);
-        echo json_encode($employ);
-    }
-    // Update employ
-    public function update_employ(){
-        $id = $this->input->post('id'); 
-        $data = array(
-            'fullname' => ucfirst($this->input->post('full_name')), 
-            'email' => $this->input->post('email'), 
-            'phone' => $this->input->post('phone'), 
-            'department' =>ucfirst($this->input->post('department')),
-            'location' => $this->input->post('location'), 
-            'region' => ucfirst($this->input->post('region')),
-            'address' => ucfirst($this->input->post('address')),
-            'status' => 1,
-            'dob' => $this->input->post('dob'),
-            'doj' => $this->input->post('doj')
+            'region' => $this->input->post('region'),
+            'address' => $this->input->post('address')
         );
-        // echo "<pre>";
-        // print_r($data);exit;  
-        if($this->admin_model->update_employ($id, $data)){
-            $this->session->set_flashdata('success', 'Employee (<strong>' . $this->input->post('full_name') . '</strong>) was updated successfully.'); 
-            redirect('admin/edit_employ/' . $id);
-        }else{
-            $this->session->set_flashdata('failed', 'Something went wrong, please try again!');
-            redirect('admin/edit_employ/' . $id);
-        }
-    }
-     // Search filters - search employ
-     public function search_employ(){
-        $search = $this->input->get('search');
-        $data['title'] = 'Search Results > Employ';
-        $data['body'] = 'admin/employ/employ';
-        $data['results'] = $this->admin_model->search_employ($search); 
-        $data['breadcrumb'] = array("admin/employ" => "Employees", "Search: " . $search); 
-        $data['search_employ_page'] = true;
-
-        $this->load->view('admin/commons/new_template', $data);
-    } 
-    // Employ - Remove employ
-    public function delete_employ($id){
-        if($this->admin_model->delete_employ($id)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Employ removal was successful.');
-            redirect('admin/employ');
+        if($this->admin_model->update_supplier($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Supplier update was successful.');
+            redirect('admin/suppliers');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('admin/employ');
+            redirect('admin/suppliers');
         }
     }
     // Inventory - Go to inventory page.
@@ -554,41 +213,18 @@ class Admin extends CI_Controller{
         $data['title'] = 'Inventory | Admin & Procurement';
         $data['body'] = 'admin/inventory';
         $data['locations'] = $this->login_model->get_locations();
-        $data['categories'] = $this->admin_model->get_categories();
         $data['inventory'] = $this->admin_model->get_inventory($limit, $offset);
         $this->load->view('admin/commons/template', $data);
-    } 
-    // Inventory - Go to assign inventory page.
-    public function assign_inventory($offset = null){
-        $limit = 10;
-        if(!empty($offset)){
-            $this->uri->segment(3);
-        }
-        $url = 'admin/inventory';
-        $rowscount = $this->admin_model->count_inventory();
-        paginate($url, $rowscount, $limit);
-        $data['title'] = 'Inventory | Admin & Procurement';
-        $data['body'] = 'admin/assign_inventory';
-        $data['locations'] = $this->login_model->get_locations();
-        $data['categories'] = $this->admin_model->get_categories();
-        $data['assign_inventory'] = $this->admin_model->get_assign_inventory($limit, $offset);
-        $this->load->view('admin/commons/template', $data);
-    }
-    
-    // Get all sub categories based on cat_id
-    public function get_sub_categories($cat_id){
-        $sub_categories = $this->admin_model->get_sub_categories($cat_id);
-        echo json_encode($sub_categories);
     }
     // Inventory - Add inventory.
     public function add_inventory(){
         $data = array(
-            'location' => $this->input->post('location'),
-            'category' => $this->input->post('category'),
-            'name' => $this->input->post('item_name'),
-            'item_qty' => $this->input->post('item_qty'),
+            'item_name' => $this->input->post('item_name'),
+            'item_desc' => $this->input->post('item_desc'),
             'unit_price' => $this->input->post('unit_price'),
-            'item_desc' => $this->input->post('item_desc')
+            'item_qty' => $this->input->post('item_qty'),
+            'item_category' => $this->input->post('item_cat'),
+            'item_loc' => $this->input->post('item_loc')
         );
         if($this->admin_model->add_inventory($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Inventory was added successfully');
@@ -607,12 +243,12 @@ class Admin extends CI_Controller{
     public function update_inventory(){
         $id = $this->input->post('id');
         $data = array(
-            'location' => $this->input->post('location'),
-            'category' => $this->input->post('category'),
-            'name' => $this->input->post('item_name'),
-            'item_qty' => $this->input->post('item_qty'),
+            'item_name' => $this->input->post('item_name'),
+            'item_desc' => $this->input->post('item_desc'),
             'unit_price' => $this->input->post('unit_price'),
-            'item_desc' => $this->input->post('item_desc')
+            'item_qty' => $this->input->post('item_qty'),
+            'item_category' => $this->input->post('item_cat'),
+            'item_loc' => $this->input->post('item_loc')
         );
         if($this->admin_model->update_inventory($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Inventory was updated successfully');
@@ -658,55 +294,23 @@ class Admin extends CI_Controller{
     }
     // Invoices - Go to the invoices list page.
     public function invoices($offset = null){
-        $limit = 25;
-        if($this->input->get('limit')) {
-            $limit = $this->input->get('limit');
-        }
+        $limit = 10;
         if(!empty($offset)){
-            $config['uri_segment'] = 3;
+            $this->uri->segment(3);
         }
-        $this->load->library('pagination');
-        $url = base_url('admin/invoices');
+        $url = 'admin/invoices';
         $rowscount = $this->admin_model->count_invoices();
-
-        $config['base_url'] = $url;
-        $config['total_rows'] = $rowscount;
-        $config['per_page'] = $limit;
-        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
-        $config['cur_tag_close'] = '</a>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_open'] = '</li>';
-        $config['first_link'] = 'First';
-        $config['prev_link'] = 'Previous';
-        $config['next_link'] = 'Next';
-        $config['last_link'] = 'Last';
-        $config['attributes'] = array('class' => 'pagination-link');
-        $config['reuse_query_string'] = true;
-        $this->pagination->initialize($config);
-
+        paginate($url, $rowscount, $limit);
         $data['title'] = 'Invoices | Admin & Procurement';
         $data['body'] = 'admin/invoices';
-        $data['breadcrumb'] = array("admin/invoices" => "Invoice List");
-        $data['invoices'] = true;  
-        $data['body'] = 'admin/invoices';
         $data['suppliers'] = $this->admin_model->get_suppliers_for_invoice();
-        $data['invoices'] = $this->admin_model->get_invoices($limit, $offset); 
+        $data['invoices'] = $this->admin_model->get_invoices($limit, $offset);
+        $data['projects'] = $this->admin_model->get_projects();
         $data['locations'] = $this->login_model->get_locations();
-        $this->load->view('admin/commons/new_template', $data);
-    }
-
-       // Add invoice - add new invoice.
-       public function add_invoice(){
-        $data['title'] = 'Add Invoice';
-        $data['body'] = 'admin/add_invoice';
-        $data['breadcrumb'] = array("admin/add_invoice" => "Add Invoice");
-        $data['add_invoice'] = true; 
-        $data['projects'] = $this->admin_model->project();
-        $data['locations'] = $this->login_model->get_locations();
-        $this->load->view('admin/commons/new_template', $data);
+        $this->load->view('admin/commons/template', $data);
     }
     // Invoices - Add invoice into the database.
-    public function save_invoice(){
+    public function add_invoice(){
         $data = array(
             'inv_no' => $this->input->post('inv_no'),
             'inv_date' => date('Y-m-d', strtotime($this->input->post('inv_date'))),
@@ -715,8 +319,7 @@ class Admin extends CI_Controller{
             'region' => $this->input->post('region'),
             'item' => $this->input->post('item_name'),
             'amount' => $this->input->post('amount'),
-            'inv_desc' => $this->input->post('inv_desc'),
-            'created_at' => date('Y-m-d')
+            'inv_desc' => $this->input->post('inv_desc')
         );
         if($this->admin_model->add_invoice($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Adding invoice was successful.');
@@ -757,60 +360,19 @@ class Admin extends CI_Controller{
         }
     }
     // Projects - Go to projects page.
-    public function projects($offset = null){ 
-        $limit = 25;
-        if($this->input->get('limit')) {
-            $limit = $this->input->get('limit');
-        }
-
-        if(!empty($offset)){
-            $config['uri_segment'] = 3;
-        }
-    
-        $this->load->library('pagination');
-        $url = base_url('admin/projects');
-        $rowscount = $this->admin_model->count_projects();
-
-        $config['base_url'] = $url;
-        $config['total_rows'] = $rowscount;
-        $config['per_page'] = $limit;
-        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
-        $config['cur_tag_close'] = '</a>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_open'] = '</li>';
-        $config['first_link'] = 'First';
-        $config['prev_link'] = 'Previous';
-        $config['next_link'] = 'Next';
-        $config['last_link'] = 'Last';
-        $config['attributes'] = array('class' => 'pagination-link');
-        $config['reuse_query_string'] = true;
-        $this->pagination->initialize($config);
-
+    public function projects(){
         $data['title'] = 'Projects | Admin & Procurement';
-        $data['body'] = 'admin/projects/project_list';
-        $data['breadcrumb'] = array("admin/projects/project_list" => "Project List");
-        $data['project_list'] = true; 
-        $data['projects'] = $this->admin_model->get_projects($limit, $offset);
-        $this->load->view('admin/commons/new_template', $data);
-    }
-    
-    // Add Projects - add new project.
-    public function add_project(){
-        $data['title'] = 'Project Detail';
-        $data['body'] = 'admin/projects/add_project';
-        $data['breadcrumb'] = array("admin/projects/add_project" => "Project List","Add Project");
-        $data['add_project'] = true; 
-        $this->load->view('admin/commons/new_template', $data);
+        $data['body'] = 'admin/projects';
+        $data['projects'] = $this->admin_model->get_projects();
+        $this->load->view('admin/commons/template', $data);
     }
     // Projects - Add new project
-    public function save_project(){
+    public function add_project(){
         $data = array(
             'project_name' => $this->input->post('project_name'),
-            'status' => 1,
-            'project_desc' => $this->input->post('project_desc'),
-            'created_at' => date('Y-m-d')
+            'project_desc' => $this->input->post('project_desc')
         );
-        if($this->admin_model->save_project($data)){
+        if($this->admin_model->add_project($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Project was added successfully.');
             redirect('admin/projects');
         }else{
@@ -818,21 +380,8 @@ class Admin extends CI_Controller{
             redirect('admin/projects');
         }
     }
-    // Edit projects
-    public function edit_project($id = null){  
-        $data['edit'] = $this->admin_model->edit_project($id); 
-        if ($data['edit'] == NULL) {
-            redirect('admin/projects');
-        }
-        $data['title'] = 'Edit Projects | Admin & Procurement';
-        $data['body'] = 'admin/projects/add_project'; 
-        $data['project_page'] = true;
-        $data['breadcrumb'] = array("admin/projects/add_project" => "Project List","Edit Project");
-        $this->load->view('admin/commons/new_template', $data);
-    }
-
     // Projects - edit project
-    public function edit_projectss($id){
+    public function edit_project($id){
         $project = $this->admin_model->edit_project($id);
         echo json_encode($project);
     }
@@ -841,7 +390,7 @@ class Admin extends CI_Controller{
         $id = $this->input->post('project_id');
         $data = array(
             'project_name' => $this->input->post('project_name'),
-            'project_desc' => $this->input->post('project_desc'), 
+            'project_desc' => $this->input->post('project_desc')
         );
         if($this->admin_model->update_project($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Project update was successful.');
@@ -852,28 +401,14 @@ class Admin extends CI_Controller{
         }
     }
     // Projects - Remove project
-    public function complete_project($id){
-        $data = array(
-            'status' => 0,
-        );
-        if($this->admin_model->complete_project($id,$data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Project completion was successful.');
+    public function delete_project($id){
+        if($this->admin_model->delete_project()($id)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Project removal was successful.');
             redirect('admin/projects');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
             redirect('admin/projects');
         }
-    }
-    
-    // Search filters - search asset register
-    public function search_project(){ 
-        $search = $this->input->get('search');
-        $data['title'] = 'Search Results > Project list';
-        $data['body'] = 'admin/projects/project_list';
-        $data['breadcrumb'] = array("admin/project_list" => "Project List", "Search: " . $search);
-        $data['project_list'] = true; 
-        $data['results'] = $this->admin_model->search_project($search);
-        $this->load->view('admin/commons/new_template', $data);
     }
     // Maintenance - Office equipments
     public function maintenance($offset = null){
@@ -923,105 +458,84 @@ class Admin extends CI_Controller{
     }
     // Asset register
     public function asset_register($offset = null){
-        if ($this->AccessList()["Assets"]->read == 0) {
-            redirect('admin/dashboard');
-        }
-
-        $limit = 25;
-        if($this->input->get('limit')) {
-            $limit = $this->input->get('limit');
-        }
-
+        $limit = 15;
         if(!empty($offset)){
-            $config['uri_segment'] = 3;
+            $this->uri->segment(3);
         }
-    
-        $this->load->library('pagination');
-        $url = base_url('admin/asset_register');
+        $url = 'admin/asset_register';
         $rowscount = $this->admin_model->count_assets();
-
-        $config['base_url'] = $url;
-        $config['total_rows'] = $rowscount;
-        $config['per_page'] = $limit;
-        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
-        $config['cur_tag_close'] = '</a>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_open'] = '</li>';
-        $config['first_link'] = 'First';
-        $config['prev_link'] = 'Previous';
-        $config['next_link'] = 'Next';
-        $config['last_link'] = 'Last';
-        $config['attributes'] = array('class' => 'pagination-link');
-        $config['reuse_query_string'] = true;
-        $this->pagination->initialize($config);
-               
+        paginate($url, $rowscount, $limit);
         $data['title'] = 'Asset Register | Admin & Procurement';
         $data['body'] = 'admin/asset-register';
         $data['assets'] = $this->admin_model->get_assets($limit, $offset);
-        $data['asset_register'] = true;
-        $data['breadcrumb'] = array("Assets List");
-        $this->load->view('admin/commons/new_template', $data);
+        $this->load->view('admin/commons/template', $data);
     }
-    // Asset register - add new asset.
+    // Asset register - add new item.
     public function add_asset(){
-        if ($this->AccessList()["Assets"]->write == 0) {
-            redirect('admin/dashboard');
-        }
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
-        $data['breadcrumb'] = array("admin/asset_register" => "Assets List", "Add Asset");
-        $data['add_asset'] = true;
-        $data['locations'] = $this->admin_model->get_item_location();
-        $data['categories'] = $this->admin_model->get_item_categories();
-        $this->load->view('admin/commons/new_template', $data);
+        $this->load->view('admin/commons/template', $data);
     }
     // Asset detail
-    public function asset_detail($id){ 
-        if ($this->AccessList()["Assets"]->read == 0) {
-            redirect('admin/dashboard');
-        }
-        if ($this->AccessList()["Assets"]->update == 0) {
-            redirect('admin/dashboard');
-        }
+    public function asset_detail($id){
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
-        $data['locations'] = $this->admin_model->get_item_location();
         $data['edit'] = $this->admin_model->asset_detail($id);
-        $data['breadcrumb'] = array("admin/asset_register" => "Assets List", "Edit Asset");
-        $data['asset_register'] = true;
-        $this->load->view('admin/commons/new_template', $data);
+        $this->load->view('admin/commons/template', $data);
     }
-        // Add new asset into the database
-        public function save_item(){
-            $data = array(
-                'purchase_date' => $this->input->post('purchase_date'), 
-                'category' => $this->input->post('category'), 
-                'description' => $this->input->post('description'),
-                'quantity' => $this->input->post('quantity'),
-                'location' => $this->input->post('location'), 
-                'user' => $this->input->post('user'),
-                'remarks' => $this->input->post('remarks'), 
-                'created_at' => date('Y-m-d')
-            ); 
-            if($this->admin_model->add_item($data)){
-                $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
-                redirect('admin/asset_register');
-            }else{
-                $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
-                redirect('admin/asset_register');
-            }
+    // Add new asset into the database
+    public function save_item(){
+        $data = array(
+            'year' => $this->input->post('year'),
+            'project' => $this->input->post('project'),
+            'category' => $this->input->post('category'),
+            'item' => $this->input->post('item'),
+            'description' => $this->input->post('description'),
+            'model' => $this->input->post('model'),
+            'asset_code' => $this->input->post('asset_code'),
+            'serial_number' => $this->input->post('serial_no'),
+            'custodian_location' => $this->input->post('custodian'),
+            'designation' => $this->input->post('designation'),
+            'department' => $this->input->post('department'),
+            'quantity' => $this->input->post('quantity'),
+            'district_region' => $this->input->post('district'),
+            'status' => $this->input->post('status'),
+            'po_no' => $this->input->post('po_no'),
+            'contact' => $this->input->post('contact'),
+            'purchase_date' => $this->input->post('purchase_date'),
+            'receive_date' => $this->input->post('receive_date'),
+            'created_at' => date('Y-m-d')
+        );
+        if($this->admin_model->add_item($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
+            redirect('admin/asset_register');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
+            redirect('admin/asset_register');
         }
+    }
     // Update an existing asset record
     public function update_item(){
         $id = $this->input->post('id');
         $data = array(
-            'purchase_date' => $this->input->post('purchase_date'), 
-            'category' => $this->input->post('category'), 
+            'year' => $this->input->post('year'),
+            'project' => $this->input->post('project'),
+            'category' => $this->input->post('category'),
+            'item' => $this->input->post('item'),
             'description' => $this->input->post('description'),
+            'model' => $this->input->post('model'),
+            'asset_code' => $this->input->post('asset_code'),
+            'serial_number' => $this->input->post('serial_no'),
+            'custodian_location' => $this->input->post('custodian'),
+            'designation' => $this->input->post('designation'),
+            'department' => $this->input->post('department'),
             'quantity' => $this->input->post('quantity'),
-            'location' => $this->input->post('location'), 
-            'user' => $this->input->post('user'),
-            'remarks' => $this->input->post('remarks'), 
+            'district_region' => $this->input->post('district'),
+            'status' => $this->input->post('status'),
+            'po_no' => $this->input->post('po_no'),
+            'contact' => $this->input->post('contact'),
+            'purchase_date' => $this->input->post('purchase_date'),
+            'receive_date' => $this->input->post('receive_date'),
             'created_at' => date('Y-m-d')
         );
         if($this->admin_model->update_item($id, $data)){
@@ -1034,9 +548,6 @@ class Admin extends CI_Controller{
     }
     // Delete asset
     public function delete_asset($id){
-        if ($this->AccessList()["Assets"]->delete == 0) {
-            redirect('admin/dashboard');
-        }
         if($this->admin_model->delete_asset($id)){
             $this->session->set_flashdata('success', '<strong>Delete! </strong>Item was deleted successfully.');
             redirect('admin/asset_register');
@@ -1195,6 +706,29 @@ class Admin extends CI_Controller{
             redirect('admin/locations');
         }
     }
+    // Leaves information
+    public function leaves_info($offset = null){
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'admin/leaves_info';
+        $rowscount = $this->admin_model->count_leaves();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Leaves Info | Admin & Procurement';
+        $data['body'] = 'admin/leaves';
+        $data['leaves'] = $this->admin_model->get_leave_applications($limit, $offset);
+        $data['users'] = $this->admin_model->attendance_employees();
+        $data['locations'] = $this->login_model->get_locations();
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Leave detail by ID.
+    public function leave_detail($id){
+        $data['title'] = 'Leave Detail > Leaves Info';
+        $data['body'] = 'admin/leave_detail';
+        $data['leave'] = $this->admin_model->get_leave_detail($id);
+        $this->load->view('admin/commons/template', $data);
+    }
     // Travels and hotel stays information.
     public function travels_info($offset = null){
         $limit = 15;
@@ -1217,163 +751,109 @@ class Admin extends CI_Controller{
         // echo json_encode($data['travel']); exit;
         $this->load->view('admin/commons/template', $data);
     }
-    // Categories and sub-categories
-    public function categories($offset = null){
-        $limit = 15;
-        if(!empty($offset)){
-            $this->uri->segment(3);
+    // Search travel requisitions.
+    public function search_travel_requisitions(){
+        $search = $this->input->get('search');
+        $data['title'] = 'Travle & Stay Info | Admin & Procurement';
+        $data['body'] = 'admin/travels_info';
+        $data['results'] = $this->admin_model->search_travel_requisitions($search);
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Get employees for attendance => filter by region.
+    public function filter_by_region($location){
+        $employees = $this->admin_model->filter_employee_by_region($location);
+        echo json_encode($employees);
+    }
+    // Add daily attendance.
+    public function add_daily_attendance(){
+        if (isset($_POST)){
+            $time_in = array();
+            $time_out = array();
+            $remarks = array();
+            $approved_timings = array();
+            $attendance_date = array();
+            foreach ($_POST['time_in'] as $key => $value) { // $value = Time In
+                if ($value != '') {
+                    array_push($time_in, $value);
+                }
+            }
+            foreach ($_POST['time_out'] as $key1 => $value1) { // $value1 =  Time out
+                if ($value1 != '') {
+                    array_push($time_out, $value1);
+                }
+            }
+            foreach ($_POST['remarks'] as $key2 => $value2) { // $value2 = Remarks
+                if ($value2 != '') {
+                    array_push($remarks, $value2);
+                }
+            }
+            foreach ($_POST['approved_time'] as $key3 => $value3) { // $value3 = Approved timings
+                if ($value3 != '') {
+                    array_push($approved_timings, $value3);
+                }
+            }
+            foreach ($_POST['attendance_date'] as $key4 => $value4) {
+                if ($value4 != '') {
+                    array_push($attendance_date, $value4);
+                }
+            }
+            for ($i = 0; $i < count($_POST['emp_id']); $i++) {
+                $data[$i] = array(
+                'emp_id' => $_POST['emp_id'][$i],
+                'approved_timings' => $approved_timings[$i],
+                'time_in' => $time_in[$i],
+                'time_out' => $time_out[$i],
+                'attendance_date' => $attendance_date[$i],
+                'remarks' => $remarks[$i]
+            );
+            }
+            if ($this->admin_model->add_daily_attendance($data)) {
+                $this->session->set_flashdata('success', '<strong>Success! </strong>Daily attendance record was added successfully.');
+                redirect($_SERVER['HTTP_REFERER']);
+            } else {
+                $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong.Please try again!');
+                redirect($_SERVER['HTTP_REFERER']);
+            }
         }
-        $url = 'admin/categories';
-        $rowscount = $this->admin_model->count_categories();
-        paginate($url, $rowscount, $limit);
-        $data['title'] = 'Categories > Admin & Procurement';
-        $data['body'] = 'admin/categories';
-        $data['categories'] = $this->admin_model->categories($limit, $offset);
+    }
+    // List daily attendance.
+    public function daily_attendance(){
+        // $limit = 15;
+        // if(!empty($offset)){
+        //     $this->uri->segment(3);
+        // }
+        // $url = 'admin/daily_attendance';
+        // $rowscount = $this->admin_model->count_attendace();
+        // paginate($url, $rowscount, $limit);
+        $data['title'] = 'Daily Attendance | Admin & Procurement';
+        $data['body'] = 'admin/daily_attendance';
+        $data['attendance'] = $this->admin_model->get_daily_attendance();
+        $data['users'] = $this->admin_model->attendance_employees();
         $data['locations'] = $this->login_model->get_locations();
-        $data['categories_page'] = true;
-        $data['breadcrumb'] = array("Item Categories");
-
-        $this->load->view('admin/commons/new_template', $data);
+        $this->load->view('admin/commons/template', $data);
     }
-    // Adding a category
-    public function add_category(){
-        $data = array( 
-            'cat_name' => $this->input->post('cat_name'),
-            'added_by' => $this->session->userdata('id')
-        );
-        if($this->admin_model->add_category($data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Category was added successfully.');
-            redirect($_SERVER['HTTP_REFERER']);
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect($_SERVER['HTTP_REFERER']);
-        }
-    }
-    // Edit category > Get category by ID to update it
-    public function edit_category($id){
-        $category = $this->admin_model->edit_category($id);
-        echo json_encode($category);
-    }
-    // Adding a category
-    public function update_category(){
-        $id = $this->input->post('id');
-        $data = array(
-            'cat_location' => $this->input->post('cat_location'),
-            'cat_name' => $this->input->post('cat_name')
-        );
-        if($this->admin_model->update_category($id, $data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Updating a category was successful.');
-            redirect($_SERVER['HTTP_REFERER']);
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect($_SERVER['HTTP_REFERER']);
-        }
-    }
-    // Delete category by ID
-    public function delete_category($id){
-        if($this->admin_model->delete_category($id)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Deleting a category was successful.');
-            redirect($_SERVER['HTTP_REFERER']);
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect($_SERVER['HTTP_REFERER']);
-        }
-    }
-    // Sub categories > Listing and adding sub categories
-    public function sub_categories($cat_id,$offset = null){ // $id = category ID 
-        $limit = 10; 
-        if(!empty($offset)){
-            $config['uri_segment'] = 4;
-        }
-
-        $this->load->library('pagination');
-        $url = base_url('admin/sub_categories');
-        $rowscount = $this->admin_model->count_subcategory();
-        
-        $config['base_url'] = $url;
-        $config['total_rows'] = $rowscount;
-        $config['per_page'] = $limit;
-        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
-        $config['cur_tag_close'] = '</a>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_open'] = '</li>';
-        $config['first_link'] = 'First';
-        $config['prev_link'] = 'Previous';
-        $config['next_link'] = 'Next';
-        $config['last_link'] = 'Last';
-        $config['attributes'] = array('class' => 'pagination-link');
-        $this->pagination->initialize($config);
-
-        $data['title'] = 'Sub Categories | Categories';
-        $data['body'] = 'admin/sub_categories'; 
-        $data['cat_id'] = $cat_id;
-        $data['sub_categories'] = $this->admin_model->sub_categories($cat_id);
-        $data['parent_category'] = $this->admin_model->parent_category_name($cat_id);
-        $data['categories_page'] = true;
-        $data['breadcrumb'] = array("admin/categories" => "Item Categories", $this->admin_model->parent_category_name($cat_id)[0]->cat_name);
-
-        $this->load->view('admin/commons/new_template', $data);
-    }
-    // Adding a sub category
-    public function add_sub_category(){
-        $data = array(
-            'cat_id' => $this->input->post('parent_category'),
-            'name' => $this->input->post('name'),
-            'added_by' => $this->session->userdata('id')
-        );
-        $checkIfExist = $this->db->select('name')->from('sub_categories')->where('name', strtolower($data['name']))->get()->row(); // Get sub_category name.
-        if(strtolower($checkIfExist->name) != NULL){
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Record already exists, try adding a different one.');
-            redirect($_SERVER['HTTP_REFERER']); 
-            exit;
-        }
-        elseif($this->admin_model->add_sub_category($data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Category was added successfully.');
-            redirect($_SERVER['HTTP_REFERER']);
-        }
-    }
-    // Edit sub category > get sub category by ID
-    public function edit_sub_category($id){
-        $sub_category = $this->admin_model->edit_sub_category($id);
-        echo json_encode($sub_category);
-    }
-    // Update sub category by ID
-    public function update_sub_category(){
-        $id = $this->input->post('sub_cat_id');
-        $data = array(
-            'name' => $this->input->post('name'), 
-        );
-        if($this->admin_model->update_sub_category($id, $data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Category was updated successfully.');
-            redirect($_SERVER['HTTP_REFERER']);
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect($_SERVER['HTTP_REFERER']);
-        }
-    }
-    // Delete sub category
-    public function delete_sub_category($id){
-        if($this->admin_model->delete_sub_category($id)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Deleting a category was successful.');
-            redirect($_SERVER['HTTP_REFERER']);
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect($_SERVER['HTTP_REFERER']);
-        }
+    // Attendance report
+    public function attendance_report(){
+        $date_from = date('Y-m-d', strtotime($this->input->get('date_from')));
+        $date_to = date('Y-m-d', strtotime($this->input->get('date_to')));
+        $location = $this->input->get('location');
+        // $employee = $this->input->get('employee');
+        $data['title'] = "Search Results > Attendance Report";
+        $data['body'] = 'admin/daily_attendance';
+        $data['results'] = $this->admin_model->attendance_report($date_from, $date_to);
+        $data['users'] = $this->admin_model->filter_employee_by_region($location);
+        $this->load->view('admin/commons/template', $data);
     }
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){
         $search = $this->input->get('search');
         $data['title'] = 'Search Results > Suppliers';
-        $data['body'] = 'admin/suppliers/suppliers';
+        $data['body'] = 'admin/suppliers';
         $data['results'] = $this->admin_model->search_suppliers($search);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
-        $data['suppliers_page'] = true;
-        $data['breadcrumb'] = array("admin/suppliers" => "Suppliers", "Search: " . $search);
-        
-        $this->load->view('admin/commons/new_template', $data);
-    } 
+        $this->load->view('admin/commons/template', $data);
+    }
     // Search filters - search inventory
     public function search_inventory(){
         $search = $this->input->get('search');
@@ -1401,16 +881,11 @@ class Admin extends CI_Controller{
     }
     // Search filters - search asset register
     public function search_asset_register(){
-        if ($this->AccessList()["Assets"]->read == 0) {
-            redirect('admin/dashboard');
-        }
         $search = $this->input->get('search');
         $data['title'] = 'Search Results > Asset Register';
         $data['body'] = 'admin/asset-register';
-        $data['breadcrumb'] = array("admin/asset_register" => "Assets List", "Search: " . $search);
-        $data['asset_register'] = true;
         $data['results'] = $this->admin_model->search_asset_register($search);
-        $this->load->view('admin/commons/new_template', $data);
+        $this->load->view('admin/commons/template', $data);
     }
     // Search filter - search equipment maintenance
     public function search_equip_maintenance(){
@@ -1436,518 +911,18 @@ class Admin extends CI_Controller{
         $data['results'] = $this->admin_model->search_locations($search);
         $this->load->view('admin/commons/template', $data);
     }
-    // Search filters - search categories
-    public function search_categories(){
-        $search = $this->input->get('search');
-        $data['title'] = 'Search Results > Categories';
-        $data['body'] = 'admin/categories';
-        $data['results'] = $this->admin_model->search_categories($search);
-        $data['breadcrumb'] = array("admin/categories" => "Item Categories", "Search: " . $search);
-        $data['search_categories_page'] = true;
-        
-        $this->load->view('admin/commons/new_template', $data);
-    }
-    // Search filters - search sub categories
-    public function search_sub_categories(){
-        $search = $this->input->get('search');
-        $cat_id = $this->input->get('cat_id');
-        $parent_cat = $this->admin_model->parent_category_name($cat_id);
-        $data['title'] = 'Search Results > Categories';
-        $data['body'] = 'admin/sub_categories';
-        $data['results'] = $this->admin_model->search_sub_categories($cat_id, $search);
-        $data['breadcrumb'] = array("admin/categories" => "Item Categories", "admin/sub_categories/" . $cat_id => $parent_cat[0]->cat_name, "Search: " . $search);
-        $data['search_sub_categories_page'] = true;
-
-        $this->load->view('admin/commons/new_template', $data);
-    }
-
-    //Item register 
-    public function product_card($id,$offset = null){
-    $employ_id = $this->uri->segment(4);   
-        $data['title'] = 'Item Register | Admin & Procurement';
-        $data['body'] = 'admin/item_assignment/card';  
-        $data['items'] = $this->admin_model->get_item_card($id); 
-        $data['current_item'] = $this->admin_model->current_item_assign($id); 
-        $data['item'] = $this->admin_model->get_item_card_detail($id); 
-        $this->load->view('admin/commons/new_template', $data);
-    }
-
-    //Item register 
-    public function item_register($offset = null){ 
-        $limit = 25;
-        if($this->input->get('limit')) {
-            $limit = $this->input->get('limit');
-        }
-
-        if(!empty($offset)){
-            $config['uri_segment'] = 3;
-        }
-    
-        $this->load->library('pagination');
-        $url = base_url('admin/item_register');
-        $rowscount = $this->admin_model->count_item();
-
-        $config['base_url'] = $url;
-        $config['total_rows'] = $rowscount;
-        $config['per_page'] = $limit;
-        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
-        $config['cur_tag_close'] = '</a>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_open'] = '</li>';
-        $config['first_link'] = 'First';
-        $config['prev_link'] = 'Previous';
-        $config['next_link'] = 'Next';
-        $config['last_link'] = 'Last';
-        $config['attributes'] = array('class' => 'pagination-link');
-        $config['reuse_query_string'] = true;
-        $this->pagination->initialize($config);
-        
-        $data['title'] = 'Item Register | Admin & Procurement';
-        $data['body'] = 'admin/item_assignment/item-register';
-        $data['item_register'] = true;
-        $data['items'] = $this->admin_model->get_items($limit, $offset);
-        $data['breadcrumb'] = array("Item Register");
-
-        $this->load->view('admin/commons/new_template', $data);
-    }
-
-    
-    //Assign item employee detail 
-    public function assigned_item_emp($id){ 
-        $employee = $this->admin_model->assigned_item_emp($id);
-        echo json_encode($employee); 
-}
-
-    //Available Item list
-    public function available_item_list($offset = null){ 
-        $limit = 25;
-        if($this->input->get('limit')) {
-            $limit = $this->input->get('limit');
-        }
-
-        if(!empty($offset)){
-            $config['uri_segment'] = 3;
-        }
-
-        $this->load->library('pagination');
-        $url = base_url('admin/available_item_list');
-        $rowscount = $this->admin_model->count_item();
-
-        $config['base_url'] = $url;
-        $config['total_rows'] = $rowscount;
-        $config['per_page'] = $limit;
-        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
-        $config['cur_tag_close'] = '</a>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_open'] = '</li>';
-        $config['first_link'] = 'First';
-        $config['prev_link'] = 'Previous';
-        $config['next_link'] = 'Next';
-        $config['last_link'] = 'Last';
-        $config['attributes'] = array('class' => 'pagination-link');
-        $config['reuse_query_string'] = true;
-        $this->pagination->initialize($config);
-
-        $data['title'] = 'Item Register | Admin & Procurement';
-        $data['body'] = 'admin/item_assignment/item-register';
-        $data['available_page'] = true;
-        $data['items'] = $this->admin_model->get_available_items($limit, $offset); 
-        $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Available List");
-
-        $this->load->view('admin/commons/new_template', $data);
-    }
-    //Assign item list
-    public function get_assign_item($offset = null){  
-        $limit = 25;
-        if($this->input->get('limit')) {
-            $limit = $this->input->get('limit');
-        }
-        if(!empty($offset)){
-            $config['uri_segment'] = 3;
-        }
-
-        $this->load->library('pagination');
-        $url = 'admin/assign-list';
-        $rowscount = $this->admin_model->count_assign_item();
-
-        $config['base_url'] = $url;
-        $config['total_rows'] = $rowscount;
-        $config['per_page'] = $limit;
-        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
-        $config['cur_tag_close'] = '</a>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_open'] = '</li>';
-        $config['first_link'] = 'First';
-        $config['prev_link'] = 'Previous';
-        $config['next_link'] = 'Next';
-        $config['last_link'] = 'Last';
-        $config['attributes'] = array('class' => 'pagination-link');
-        $config['reuse_query_string'] = true;
-        $this->pagination->initialize($config);
-
-        $data['title'] = 'Item Register | Admin & Procurement';
-        $data['body'] = 'admin/item_assignment/item-register';
-        $data['assign_page'] = true; 
-        $data['items'] = $this->admin_model->assign_item_list($limit, $offset); 
-        $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Assigned List");
-        $this->load->view('admin/commons/new_template', $data);
-    }
-    //Assign item 
-       public function assign_list($offset = null){ 
-            $limit = 15;
-            if(!empty($offset)){
-            $this->uri->segment(3);
-            }
-        $url = 'admin/item_register';
-        $rowscount = $this->admin_model->count_item();
-        paginate($url, $rowscount, $limit);
-        $data['title'] = 'Item Register | Admin & Procurement';
-        $data['body'] = 'admin/item_assignment/assign-list';
-        $data['items'] = $this->admin_model->assign_list($limit, $offset); 
+    // Search filters - Search leaves report between two dates.
+    public function leaves_report(){
+        $date_from = $this->input->get('date_from');
+        $date_to = $this->input->get('date_to');
+        $location = $this->input->get('location');
+        $data['title'] = 'Leaves Report > Leaves Info';
+        $data['body'] = 'admin/leaves';
+        $data['locations'] = $this->login_model->get_locations();
+        $data['results'] = $this->admin_model->search_leaves($date_from, $date_to, $location);
         $this->load->view('admin/commons/template', $data);
     }
-    // item register - add new item.
-    public function add_item(){
-        $data['title'] = 'Item Detail';
-        $data['add_page'] = true;
-        $data['body'] = 'admin/item_assignment/item-detail';  
-        $data['categories'] = $this->admin_model->get_item_categories();
-        $data['supplier'] = $this->admin_model->get_item_supplier();
-        $data['locations'] = $this->admin_model->get_item_location(); 
-        $data['departments'] = $this->admin_model->department(); 
-        $data['projects'] = $this->admin_model->project(); 
-        $data['status_list'] = $this->admin_model->status_list(); 
-        $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Add Item");
-        $this->load->view('admin/commons/new_template', $data);
-    }
-    // Add new Item into the database
-    public function item_save(){  
-        $model = $this->input->post('model');
-        $result = $this->input->post('type_name');  
-        $data = array(
-            'location' => $this->input->post('location'),
-            'department' => $this->input->post('department'),
-            'category' => $this->input->post('category'),
-            'sub_category' => $this->input->post('sub_category'),
-            'project' => $this->input->post('project'),
-            'type_name' => $this->input->post('item_name'),
-            'status' => $this->input->post('status'),
-            'quantity' => 1,
-            'model' => $this->input->post('model'),
-            'serial_number' => $this->input->post('serial_number'),
-            'supplier' => $this->input->post('supplier'),
-            'price' => $this->input->post('price'), 
-            'purchasedate' => $this->input->post('purchasedate'),
-            'depreciation' => $this->input->post('depreciation'), 
-            'added_by' => $this->session->userdata('id'),
-            'created_at' => date('Y-m-d')
-        );  
-        if($this->admin_model->item_save($data, $model, $this->input->post('quantity'))){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
-            redirect('admin/item_register');
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
-            redirect('admin/item_register');
-        }
-    }
-    // Update an existing asset record
-    public function modify_item(){
-        $id = $this->input->post('id'); 
-        $data = array(
-            'department' => $this->input->post('department'),
-            'type_name' => $this->input->post('item_name'),
-            'quantity' => $this->input->post('quantity'),
-            'status' => $this->input->post('status'),
-            'project' => $this->input->post('project'),
-            'model' => $this->input->post('model'),
-            'serial_number' => $this->input->post('serial_number'),
-            'price' => $this->input->post('price'),
-            'purchasedate' => $this->input->post('purchasedate'),
-            'depreciation' => $this->input->post('depreciation'), 
-            'created_at' => date('Y-m-d')
-        );
-        if($this->admin_model->modify_item($id, $data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Item was updated successfully.');
-            redirect('admin/item_register');
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
-            redirect('admin/item_register');
-        }
-    }
-    // Item detail
-    public function item_detail($id){   
-        $data['title'] = 'Item Detail';
-        $data['body'] = 'admin/item_assignment/item-detail';
-        $data['edit'] = $this->admin_model->item_detail($id);
-        $data['categories'] = $this->admin_model->get_item_categories();
-        $data['sub_categories'] = $this->admin_model->get_item_sub_category();    
-        $data['supplier'] = $this->admin_model->get_item_supplier();
-        $data['projects'] = $this->admin_model->project(); 
-        $data['departments'] = $this->admin_model->department(); 
-        $data['locations'] = $this->admin_model->get_item_location();
-        $data['depreciation'] = $this->admin_model->get_item_depreciation($id);
-        $data['status_list'] = $this->admin_model->status_list(); 
-        $data['edit_item'] = true;
-        $data['item_register'] = true;
-        $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Edit Item");
-        
-        $this->load->view('admin/commons/new_template', $data);
-    }
-    // Search filters - search product date-wise
-    public function product_report($offset = null){  
-        $limit = 25;
-        if($this->input->get('limit')) {
-            $limit = $this->input->get('limit');
-        }
-
-        if(!empty($offset)){
-            $config['uri_segment'] = 3;
-        }
-        $date_from = $this->input->get('from_date');
-        $date_to = $this->input->get('to_date');
-    
-        $this->load->library('pagination');
-        $url = base_url('admin/product_report');
-        $rowscount = $this->admin_model->count_item_date($date_from, $date_to);
-
-        $config['base_url'] = $url;
-        $config['total_rows'] = $rowscount;
-        $config['per_page'] = $limit;
-        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
-        $config['cur_tag_close'] = '</a>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_open'] = '</li>';
-        $config['first_link'] = 'First';
-        $config['prev_link'] = 'Previous';
-        $config['next_link'] = 'Next';
-        $config['last_link'] = 'Last';
-        $config['attributes'] = array('class' => 'pagination-link');
-        $config['reuse_query_string'] = true;
-
-        $this->pagination->initialize($config);
-        
-        $data['title'] = 'Search Results > Report';
-        $data['product_report'] = true;
-        $data['body'] = 'admin/item_assignment/item-register';
-
-        $data['items'] =  $this->admin_model->get_items($limit, $offset, $date_from, $date_to);
-        $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Report List");
-
-        $this->load->view('admin/commons/new_template', $data);
-    } 
-     // Get all sub categories based on cat_id of items
-    public function get_item_sub_categories($cat_id){
-        $sub_categories = $this->admin_model->get_item_sub_categories($cat_id);
-        echo json_encode($sub_categories);
-    }
-    // Search filters - search asset register
-    public function search_item($offset = null){
-        $limit = 15;
-
-        if(!empty($offset)){
-            $config['uri_segment'] = 3;
-        }
-        $search = $this->input->get('search'); 
-        $this->load->library('pagination');
-        $url = base_url('admin/search_item');
-        $rowscount = $this->admin_model->count_item_search($search);
-
-        $config['base_url'] = $url;
-        $config['total_rows'] = $rowscount;
-        $config['per_page'] = $limit;
-        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
-        $config['cur_tag_close'] = '</a>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_open'] = '</li>';
-        $config['first_link'] = 'First';
-        $config['prev_link'] = 'Previous';
-        $config['next_link'] = 'Next';
-        $config['last_link'] = 'Last';
-        $config['attributes'] = array('class' => 'pagination-link');
-        $config['reuse_query_string'] = true;
-        $this->pagination->initialize($config);
-        
-        $data['title'] = 'Search Results > Item List';
-        $data['body'] = 'admin/item_assignment/item-register'; 
-        $data['assign_flag'] = false; 
-        $data['items'] = $this->admin_model->search_items($search, $limit, $offset);
-        $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Search: " . $search);
-        $this->load->view('admin/commons/new_template', $data);
-    }
-    // Delete item
-    public function delete_item($id){
-        if($this->admin_model->delete_item($id)){
-            $this->session->set_flashdata('success', '<strong>Delete! </strong>Item was deleted successfully.');
-            redirect('admin/asset_register');
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('admin/asset_register');
-        }
-    }
-     // Assignment Item List- 
-     public function assign_item_list($offset = null){
-        $limit = 15;
-        if(!empty($offset)){
-            $this->uri->segment(3);
-        } 
-        $url = 'admin/assign_item_list';
-        $rowscount = $this->admin_model->count_item_assign();
-        paginate($url, $rowscount, $limit);
-        $data['title'] = 'Assign Item list';
-        $data['body'] = 'admin/item_assignment/assign-item-list'; 
-        $data['items'] = $this->admin_model->check_assign_list($limit, $offset); 
-        $this->load->view('admin/commons/template', $data);
-    }
-      // Assignment Item form- To employ
-      public function assign_item($id){
-        $data['title'] = 'Assign Item';
-        $data['body'] = 'admin/item_assignment/assign-item'; 
-        $data['assign_to'] = $this->admin_model->assign_to();
-        $data['assign_by'] = $this->admin_model->assign_by(); 
-        $data['get_item'] = $this->admin_model->get_item();  
-        $data['get_model'] = $this->admin_model->get_model(); 
-        $data['get_category'] = $this->admin_model->get_category(); 
-        $data['locations'] = $this->admin_model->get_item_location(); 
-        $data['returning_items'] = $this->admin_model->returning_assignment_list($id); 
-        $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Assign Item");
-        $data['item_register'] = true;
-        $this->load->view('admin/commons/new_template', $data);
-    }
-        // assign_item_save into the database
-        public function assign_item_save(){  
-        $item_id = $this->input->post('item_id');   
-        $assign = $this->input->post('employ');   
-        if(!empty($assign)){
-        $data = array(
-            'assignd_to' => $this->input->post('employ'),
-            'assigned_by' => $this->session->userdata('id'),
-            'item_id' => $this->input->post('item_id'),   
-            'quantity' => 1,  
-            'status' => 1,  
-            'created_at' => date('Y-m-d'),
-        );
-        $invantory = array( 
-            'status' => 1,   
-        );
-        $item = array( 
-            'status' => 0,   
-        );
-        $return_back = array( 
-            'return_back_date' => null,   
-        );
-        } 
-        if($this->admin_model->assign_item_save($data,$item,$invantory,$item_id)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Item was assignd successfully.');
-            redirect('admin/item_register');
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
-            redirect('admin/item_register');
-        }
-        }
-        // assign_item_save into the database
-        public function return_item(){ 
-        $id = $this->input->post('id'); 
-         $model_explode = explode('/', $id); 
-        $assign_item_id =  $model_explode[0]; 
-        $item_id =  $model_explode[1];
-        $remarks = $this->input->post('remarks'); 
-        $description = $this->input->post('description');
-        $file = $this->input->post('userfile'); 
-        $config['upload_path']   = './upload/'; 
-        $config['allowed_types'] = 'gif|jpg|png';  
-        $this->load->library('upload', $config); 
-      
-        if ( ! $this->upload->do_upload('userfile')) { 
-            echo $this->upload->display_errors(); exit;
-           $error = array('error' => $this->upload->display_errors()); 
-           redirect('admin/item_register');
-        }
-        else {   
-          
-           $datas = $this->upload->data(); 
-           $fileUpload = $datas['file_name'];  
-            $data = array(   
-                'remarks' => $remarks,
-                'item_file' => $fileUpload,
-                'returning_description' => $description, 
-                'status' => 0,  
-                'return_back_date' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d'),
-            );  
-            $invantory = array( 
-                'status' => 0,   
-            );
-             $item = array( 
-                'status' => 1,   
-            ); 
-            if($this->admin_model->return_item_save($data,$invantory,$item,$item_id,$assign_item_id)){
-                $this->session->set_flashdata('success', '<strong>Success! </strong>Item was return back successfully.');
-                redirect('admin/item_register');
-            }else{
-                $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
-                redirect('admin/item_register');
-            } 
-        }
-        } 
-    // Search filters - search asset register
-    public function search_assign_items(){
-        $search = $this->input->get('search'); 
-        $data['title'] = 'Search Results > Assign Item';
-        $data['body'] = 'admin/item_assignment/assign-item-list'; 
-        $data['results'] = $this->admin_model->search_assign_item($search);
-        $this->load->view('admin/commons/template', $data);
-    }   
-     // Get all suppliers based on city
-     public function get_assign_category($loc_id){
-        $get_assign_category = $this->admin_model->get_assign_category($loc_id);
-        echo json_encode($get_assign_category);
-    }  
-    // Get all suppliers based on city
-    public function get_location_employ($loc_id){
-        $get_location_employ = $this->admin_model->get_location_employ($loc_id);
-        echo json_encode($get_location_employ);
-    }  
-    // Get all suppliers based on city
-    public function get_location_suplier(){
-       
-        $get_location_suplier = $this->admin_model->get_location_suplier();
-        echo json_encode($get_location_suplier);
-    }   
-    // Get all suppliers based on city
-    public function get_suplier_email($loc_id){
-        $get_suplier_email = $this->admin_model->get_suplier_email($loc_id);
-        echo json_encode($get_suplier_email);
-    }  
-    // Get all item type based on item
-    public function get_item_type($item_id){ 
-        $get_item_type = $this->admin_model->get_item_type($item_id);
-        echo json_encode($get_item_type);
-    }  
-    // Get item model against item type
-    public function get_item_model($item_type){ 
-        $get_item_model = $this->admin_model->get_item_model($item_type);
-        echo json_encode($get_item_model);
-    }
-     // Get assign item data against employ
-     public function get_employ_data($data){   
-        $get_employ_data = $this->admin_model->get_employ_data($data);
-        echo json_encode($get_employ_data);
-    } 
-    // Get item model against item type
-    public function get_item_serial_umber($id){
-        $get_item_serial_umber = $this->admin_model->get_item_serial_umber($id);
-        echo json_encode($get_item_serial_umber);
-    }    
-    //Item card   
-    public function item_card($id,$offset = null){
-    $employ_id = $this->uri->segment(4);   
-     $data['title'] = 'Item Register | Admin & Procurement';
-     $data['body'] = 'admin/item_assignment/item-card';
-     $data['items'] = $this->admin_model->get_item_card($id,$employ_id); 
-     $data['item'] = $this->admin_model->get_item_card_detail($id);
-     $this->load->view('admin/commons/template', $data);
- }
-     // 404 page.
+    // 404 page.
     public function page_not_found(){
         echo "We're sorry but the page you're looking for could not be found.";
     }

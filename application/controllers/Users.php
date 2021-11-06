@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\map;
+
 defined('BASEPATH') OR exit('No direct script access allowed!');
 /**
  * undocumented class
@@ -8,10 +11,8 @@ class Users extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('user_model');
-        $this->load->helper('paginate'); 
-        if(!$this->session->userdata('username') || $this->session->userdata('user_role') != 'supervisor' && $this->session->userdata('user_role') != 'user'){
-            redirect('');
-        }
+        $this->load->model('login_model');
+        $this->load->helper('paginate');
     }
     public function index($offset = null){
         $limit = 10;
@@ -23,24 +24,16 @@ class Users extends CI_Controller{
         $data['pending'] = $this->user_model->total_pending();
         $data['approved'] = $this->user_model->total_approved();
         $data['rejected'] = $this->user_model->total_rejected();
+        $data['availed_leaves'] = $this->user_model->all_approved_leaves();
         $data['total_travels'] = $this->user_model->total_travel_requests();
         $data['items'] = $this->user_model->get_items();
         $data['requisitions'] = $this->user_model->get_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
-    // Get sub categories based on category ID.
-    public function get_sub_categories($cat_id){
-        $sub_categories = $this->user_model->get_sub_categories($cat_id);
-        echo json_encode($sub_categories);
-    }
     // Created requisition
     public function create_requisition(){
-		if(empty($this->input->post('category')) || empty($this->input->post('sub_category')) || empty($this->input->post('quantity'))) {
-			$this->session->set_flashdata('failed', '<strong>Failed! </strong>You did not provide the correct inputs!');
-            redirect('users');
-		}
         $data = array(
-            'item_name' => $this->input->post('sub_category'), // Name of sub category > item name
+            'item_name' => $this->input->post('item_name'),
             'item_desc' => $this->input->post('description'),
             'item_qty' => $this->input->post('quantity'),
             'requested_by' => $this->session->userdata('id')
@@ -64,9 +57,45 @@ class Users extends CI_Controller{
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Requisitions | Admin & Procurement';
         $data['body'] = 'user/requisitions';
-        $data['items'] = $this->user_model->get_items();
         $data['requisitions'] = $this->user_model->get_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
+    }
+    //= ------------------------------------------------- Employee Leaves -------------------------------------------- =//
+    public function apply_leave(){
+        $data = array(
+            'emp_id' => $this->session->userdata('id'),
+            'leave_type' => $this->input->post('leave_type'),
+            'leave_from' => $this->input->post('from_date'),
+            'leave_to' => $this->input->post('to_date'),
+            'no_of_days' => $this->input->post('no_of_days'),
+            'leave_reason' => $this->input->post('leave_reason')
+        );
+        if($this->user_model->apply_leave($data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Your application for leave has been submitted successfully.');
+            redirect('users');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Your application for leave could not be submitted at the moment, please try again later.');
+            redirect('users');
+        }
+    }
+    // Track leaves record.
+    public function track_leaves($offset = null){
+        $limit = 10;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'users/track_leaves';
+        $rowscount = $this->user_model->total_leaves();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Track Leaves | Admin & Procurement';
+        $data['body'] = 'user/track_leaves';
+        $data['leaves'] = $this->user_model->track_leaves($limit, $offset);
+        $this->load->view('admin/commons/template', $data);
+    }
+    // Leave detail > Reason for leaving.
+    public function leave_detail($id){
+        $leave_detail = $this->user_model->leave_detail($id);
+        echo json_encode($leave_detail);
     }
     //== ---------------------------------------------- Employee Travel Requests --------------------------------------------- ==//
     // Place a travel request.
@@ -111,28 +140,39 @@ class Users extends CI_Controller{
         $data['travels'] = $this->user_model->travel_history($limit, $offset);
         $this->load->view('admin/commons/template', $data);   
     }
-    //== ----------------------------------------------- Profile --------------------------------------------------- ==//
-    // User profile > employee profile
+    // Profile > user profile
     public function profile(){
         $data['title'] = 'Profile | Admin & Procurement';
         $data['body'] = 'user/profile';
         $data['profile'] = $this->user_model->profile();
+        $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/template', $data);
     }
     // Update profile.
     public function update_profile(){
-        $id = $this->input->post('user_id');
+        $id = $this->session->userdata('id');
         $data = array(
             'fullname' => $this->input->post('fullname'),
             'email' => $this->input->post('email'),
             'username' => $this->input->post('username'),
-            'password' => sha1($this->input->post('password'))
+            'department' => $this->input->post('department'),
+            'location' => $this->input->post('location'),
+            'designation' => $this->input->post('designation'),
+            'province' => $this->input->post('province'),
+            'gender' => $this->input->post('gender'),
+            'cnic' => $this->input->post('cnic'),
+            'personal_contact' => $this->input->post('personal_contact'),
+            'official_contact' => $this->input->post('official_contact'),
+            'address' => $this->input->post('address'),
+            'grader' => $this->input->post('grader'),
+            'dob' => $this->input->post('dob'),
+            'doj' => $this->input->post('doj')
         );
         if($this->user_model->update_profile($id, $data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Profile update was successful.');
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Updating profile was successful.');
             redirect($_SERVER['HTTP_REFERER']);
         }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong. Please try again!');
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
             redirect($_SERVER['HTTP_REFERER']);
         }
     }

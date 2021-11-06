@@ -1,127 +1,176 @@
-<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
-  <div class="container-fluid">
+<div class="jumbotron jumbotron-fluid blue-gradient text-light">
+  <div class="container">
     <div class="row">
-      <div class="col-lg-1 col-md-1">
-        <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid">
-      </div>
-      <div class="col-lg-7 col-md-7">
-        <h1 class="display-4 font-weight-bold mb-0">Admin & Procurement <?php if($this->session->userdata('user_role') == 'supervisor'): ?>|<a href="<?= base_url('supervisor'); ?>" class="btn btn-outline-light btn-sm">Supervisor board</a><?php endif; ?></h1>
-        <h2 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h2>
+      <div class="col-lg-8 col-md-8">
+        <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
+        <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
-        <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
+        <a href="#0" class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></a>
         <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
-        <h4 class="font-weight-bold orange-text mt-2">Employee Dashboard <i class="fa fa-chart-bar"></i><span class="font-weight-light"><br>User Profile</span> | <a href="<?= base_url('users'); ?>" class="text-light">Home</a></h4>
+        <h4 class="font-weight-bold orange-text mt-2">Employee Dashboard <i class="fa fa-chart-bar"></i><span class="font-weight-light"><br>Profile</span> | <a href="<?=base_url('users');?>" class="text-light">Home</a></h4>
       </div>
     </div>
   </div>
 </div>
-
 <div class="container-fluid">
-    <?php if($success = $this->session->flashdata('success')): ?>
     <div class="row">
-        <div class="col-11">
-            <div class="alert alert-success"><?= $success; ?></div>
-        </div>
-    </div>
-    <?php endif; ?>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card testimonial-card">
-            <div class="card-up morpheus-den-gradient lighten-1"></div>
-                <div class="avatar mx-auto white">
-                    <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" class="rounded-circle"
-                    alt="profile avatar">
+        <div class="col-md-3 col-lg-3 col-sm-12">
+            <div class="card">
+                <div class="card-header blue-gradient text-light">
+                    <h5 class="card-title">Personal Info</h5>
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title"><?= $profile->fullname; ?></h4>
-                    <hr>
-                    <div class="row">
-                        <div class="col-4 text-left">
-                            <p>Email</p>
-                        </div>
-                        <div class="col-6 text-left">
-                            <p></i> <?= $profile->email; ?></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4 text-left">
-                            <p>Username</p>
-                        </div>
-                        <div class="col-6 text-left">
-                            <p></i> <?= $profile->username; ?></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4 text-left">
-                            <p>Department</p>
-                        </div>
-                        <div class="col-6 text-left">
-                            <p></i> <?= ucfirst($profile->department); ?></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4 text-left">
-                            <p>Role</p>
-                        </div>
-                        <div class="col-6 text-left">
-                            <p></i> <?= ucfirst($profile->user_role); ?></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4 text-left">
-                            <p>Registered on</p>
-                        </div>
-                        <div class="col-8 text-left">
-                            <p></i> <?= date('M d, Y', strtotime($profile->created_at)).' at '. date('h:m:i A', strtotime($profile->created_at)); ?></p>
-                        </div>
-                    </div>
+                    <p>Name: <strong><?= $profile->fullname; ?></strong></p>
+                    <p>Email: <strong><?= $profile->email; ?></strong></p>
+                    <p>Username: <strong><?= $profile->username; ?></strong></p>
+                    <p>Dept: <strong><?= ucfirst($profile->department); ?></strong></p>
+                    <p>Location: <strong><?= ucfirst($profile->name); ?></strong></p>
+                    <p>Role: <strong><?= ucfirst($profile->user_role); ?></strong></p>
+                    <p>Designation: <strong><?= ucfirst($profile->designation); ?></strong></p>
+                    <p>Project: <strong><?= ucfirst($profile->project_name); ?></strong></p>
+                    <p>Gender: <strong><?= ucfirst($profile->gender); ?></strong></p>
+                    <p>CNIC: <strong><?= $profile->cnic; ?></strong></p>
+                    <p>Contact: <strong><?= $profile->personal_contact; ?></strong></p>
+                    <p>Contact (Office): <strong><?= $profile->official_contact; ?></strong></p>
+                    <p>Birthday: <strong><?= date('M d, Y', strtotime($profile->dob)); ?></strong></p>
+                    <p>Joining Date: <strong><?= date('M d, Y', strtotime($profile->doj)); ?></strong></p>
+                    <p>Registered: <strong><?= date('M d, Y', strtotime($profile->created_at)); ?></strong></p>
                 </div>
             </div>
         </div>
-        <div class="col-md-7">
-            <div class="card">
-                <h5 class="card-header morpheus-den-gradient white-text text-center py-4">
-                    <strong>Update Profile</strong>
-                </h5>
-                <div class="card-body px-lg-5 pt-0">
-                    <form class="mt-2 mb-2" style="color: #757575;" action="<?= base_url('users/update_profile'); ?>" method="post">
-                        <input type="hidden" name="user_id" value="<?= $profile->id; ?>">
-                        <div class="form-row">
-                            <div class="col">
+        <div class="col-md-9 col-lg-9 col-sm-12">
+            <div class="card mb-5">
+                <div class="card-header blue-gradient text-light">
+                    <h5 class="card-title">Update Profile</h5>
+                </div>
+                <div class="card-body">
+                    <form action="<?= base_url('users/update_profile'); ?>" method="post">
+                        <div class="row">
+                            <div class="col-6">
                                 <div class="md-form">
-                                    <input name="fullname" type="text" id="materialRegisterFormFirstName" class="form-control" required>
-                                    <label for="materialRegisterFormFirstName">Full Name</label>
+                                    <input type="text" name="fullname" id="materialLoginFormName" class="form-control">
+                                    <label for="materialLoginFormName">Full Name</label>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-6">
                                 <div class="md-form">
-                                    <input name="username" type="text" id="materialRegisterFormLastName" class="form-control" required>
-                                    <label for="materialRegisterFormLastName">Username</label>
+                                    <input type="email" name="email" id="materialLoginFormEmail" class="form-control">
+                                    <label for="materialLoginFormEmail">Email</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="md-form mt-0">
-                            <input name="email" type="email" id="materialRegisterFormEmail" class="form-control" required>
-                            <label for="materialRegisterFormEmail">Email</label>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <input type="text" name="username" id="materialLoginFormUsername" class="form-control">
+                                    <label for="materialLoginFormUsername">Userame</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <input type="text" name="department" id="materialLoginFormDept" class="form-control">
+                                    <label for="materialLoginFormDept">Department</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="md-form mb-5">
-                            <input name="password" type="password" id="materialRegisterFormPassword" class="form-control" required>
-                            <label for="materialRegisterFormPassword">Password</label>
-                            <small class="deep-orange-text">Enter your existing password if you're not updating your password.</small>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <select name="location" id="defaultRegisterFormLocation" class="browser-default custom-select mb-4" required>
+                                        <option value="" disabled selected>Location</option>
+                                        <?php foreach($locations as $loc): ?>
+                                        <option value="<?= $loc->id; ?>" <?php if(!empty($edit) && $edit->location == $loc->id){ echo 'selected'; } ?>><?= $loc->name; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <input type="text" name="designation" id="materialLoginFormDept" class="form-control">
+                                    <label for="materialLoginFormDept">Designation</label>
+                                </div>
+                            </div>
                         </div>
-                        <button class="btn btn-outline-success my-4 waves-effect z-depth-0" type="submit">Update</button>
-                        <a href="javascript:history.go(-1)" class="btn btn-outline-orange my-4 waves-effect z-deprth-0">Back</a>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <input type="text" name="province" id="materialLoginFormUsername" class="form-control">
+                                    <label for="materialLoginFormUsername">Province</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <select name="gender" id="defaultRegisterFormLocation" class="browser-default custom-select mb-4" required>
+                                        <option value="" disabled selected>Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <input type="text" name="cnic" id="materialLoginFormUsername" class="form-control">
+                                    <label for="materialLoginFormUsername">CNIC</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <input type="text" name="personal_contact" id="materialLoginFormDept" class="form-control">
+                                    <label for="materialLoginFormDept">Personal Contact</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <input type="text" name="official_contact" id="materialLoginFormUsername" class="form-control">
+                                    <label for="materialLoginFormUsername">Official Contact</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <input type="text" name="grader" id="materialLoginFormDept" class="form-control">
+                                    <label for="materialLoginFormDept">Grader</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <input type="date" name="dob" id="materialLoginFormUsername" class="form-control">
+                                    <label for="materialLoginFormUsername">Date of Birth</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <input type="date" name="doj" id="materialLoginFormDept" class="form-control">
+                                    <label for="materialLoginFormDept">Date of Joining</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="md-form">
+                                <textarea name="address" id="materialContactFormAddress" class="form-control md-textarea" rows="3"></textarea>
+                                <label for="materialContactFormAddress">Address</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-info btn-block">Update Profile</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="reset" class="btn btn-orange btn-block">clear form</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-8"></div>
-        <div class="col-4 text-right mb-2">
-            <small>Copyright &copy; <?= '2019 - '.date('Y'); ?> <span class="purple-text">AH Group of Companies (Pvt.) Ltd.</span></small>
         </div>
     </div>
 </div>

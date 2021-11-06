@@ -7,10 +7,7 @@ class Supervisor extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('supervisor_model');
-        $this->load->helper('paginate'); 
-        if(!$this->session->userdata('username') || $this->session->userdata('user_role') != 'supervisor'){
-            redirect('');
-        }
+        $this->load->helper('paginate');
     }
     public function index($offset = null){
         $limit = 10;
@@ -19,21 +16,30 @@ class Supervisor extends CI_Controller{
         }
         $data['title'] = 'Supervisor Dashboard | Admin & Procurement';
         $data['body'] = 'supervisor/dashboard';
+        $data['total_leaves'] = $this->supervisor_model->total_leave_applications();
         $data['total_requisitions'] = $this->supervisor_model->total_item_requisitions();
         $data['total_travels'] = $this->supervisor_model->total_travel_requisitions();
-        $data['employees'] = $this->supervisor_model->get_employees($this->session->userdata('id'));
-        $data['items'] = $this->supervisor_model->get_items();
+        $data['leaves'] = $this->supervisor_model->get_leave_applications($limit, $offset);
         $data['requisitions'] = $this->supervisor_model->get_requisitions($limit, $offset);
         $data['travels'] = $this->supervisor_model->get_travel_applications($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
+    // list all leaves > on a separate page with pagination.
+    public function view_all_leaves($offset = null){
+        $limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'supervisor/view_all_leaves';
+        $rowscount = $this->supervisor_model->total_leave_applications();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Leave Applications | Admin & Procurement';
+        $data['body'] = 'supervisor/leaves_list';
+        $data['leaves'] = $this->supervisor_model->get_leave_applications($limit, $offset);
+        $this->load->view('admin/commons/template', $data);
+    }
     // list all item requisitions > on a separate page with pagination.
     public function view_all_requisitions($offset = null){
-        if($this->input->post('filter')) {
-            $date_from = $this->input->post('date_from');
-            $date_to = $this->input->post('date_to');
-        }
-
         $limit = 15;
         if(!empty($offset)){
             $this->uri->segment(3);
@@ -43,17 +49,9 @@ class Supervisor extends CI_Controller{
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Item Requisitions | Admin & Procurement';
         $data['body'] = 'supervisor/requisitions_list';
-        $data['requisitions'] = NULL;
-        if($this->input->post('filter')) {
-            $date_from = $this->input->post('date_from');
-            $date_to = $this->input->post('date_to');
-            $data['requisitions'] = $this->supervisor_model->get_requisitions($limit, $offset, $date_from, $date_to);
-        } else {
-            $data['requisitions'] = $this->supervisor_model->get_requisitions($limit, $offset);
-        }
+        $data['requisitions'] = $this->supervisor_model->get_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
-    
     // list all travel history > on a separate page with pagination.
     public function view_travel_history($offset = null){
         $limit = 15;
@@ -65,13 +63,7 @@ class Supervisor extends CI_Controller{
         paginate($url, $rowscount, $limit);
         $data['title'] = 'Item Requisitions | Admin & Procurement';
         $data['body'] = 'supervisor/travels_list';
-        if($this->input->post('filter')) {
-            $date_from = $this->input->post('date_from');
-            $date_to = $this->input->post('date_to');
-            $data['travels'] = $this->supervisor_model->get_travel_applications($date_from, $date_to);
-        } else {
-            $data['travels'] = $this->supervisor_model->get_travel_applications();
-        }
+        $data['travels'] = $this->supervisor_model->get_travel_applications($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
     // Get leave info to pass ID to hidden field in form for approving or rejecting leave.
@@ -79,84 +71,35 @@ class Supervisor extends CI_Controller{
         $leave_info = $this->supervisor_model->get_leave_info($id);
         echo json_encode($leave_info);
     }
-
-    // Exports all travel records assigned to supervisor.
-    // Takes date range (from) and date range (to) as input
-    public function export_travels() {
-        if(empty($this->input->post('date_from')) || empty($this->input->post('date_to'))) {
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>You did not provide the correct inputs!');
-            redirect('supervisor');
-        }
-
-        $date_from = $this->input->post('date_from');
-        $date_to = $this->input->post('date_to');
-
-        if(!empty($offset)){
-            $this->uri->segment(3);
-        }
-
-        $url = 'supervisor/export';
-
-        $data['title'] = 'Exporting Data | Admin & Procurement';
-        $data['body'] = 'supervisor/export';
-        $data['travels'] = $this->supervisor_model->export_travels($date_from, $date_to);
-        
-        $this->load->view('admin/commons/template', $data);
-    }
-
-    // Created requisition
-    public function create_requisition(){
-		if(empty($this->input->post('category')) || empty($this->input->post('sub_category')) || empty($this->input->post('quantity'))) {
-			$this->session->set_flashdata('failed', '<strong>Failed! </strong>You did not provide the correct inputs!');
-            redirect('supervisor');
-		}
+    // Approve leave.
+    public function approve_leave(){
+        $id = $this->input->post('id'); // Leave id.
         $data = array(
-            'item_name' => $this->input->post('sub_category'), // Name of sub category > item name
-            'item_desc' => $this->input->post('description'),
-            'item_qty' => $this->input->post('quantity'),
-            'requested_by' => $this->input->post('employees')
+            'leave_status' => 1,
+            'sup_remarks' => $this->input->post('remarks')
         );
-        if($this->supervisor_model->create_requisition($data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Request submission was successful.');
-            redirect('supervisor');
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>An error occured in request submission.');
-            redirect('supervisor');
-        }
-    }
-    //== ---------------------------------------------- Employee Travel Requests --------------------------------------------- ==//
-    // Place a travel request.
-    public function apply_travel(){
-        $stay_request = $this->input->post('stay_request');
-        $stay_request_one = $this->input->post('stay_request_one');
-        $data = array(
-            'visit_of' => $this->input->post('visit_of'),
-            'requested_by' => $this->input->post('requested_by'),
-            'assignment' => $this->input->post('assignment'),
-            'place_of_visit' => $this->input->post('place_of_visit'),
-            'visit_date_start' => $this->input->post('visit_start'),
-            'visit_date_end' => $this->input->post('visit_end'),
-            'charge_to' => $this->input->post('charge_to'),
-            'request_type' => $this->input->post('request_type'),
-            'stay_request_type' => $stay_request.', '.$stay_request_one,
-            'staying_at' => $this->input->post('staying_at'),
-            'check_in' => $this->input->post('check_in'),
-            'check_out' => $this->input->post('check_out'),
-            'payment_mode' => $this->input->post('payment_mode'),
-            'approx_cash' => $this->input->post('approx_cash')
-        );
-        if($this->supervisor_model->apply_travel($data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Your application for travel has been submitted successfully.');
-            redirect('supervisor');
+        if($this->supervisor_model->leave_actions($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Leave request was approved successfully.');
+            redirect($_SERVER['HTTP_REFERER']);
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('supervisor');
+            redirect($_SERVER['HTTP_REFERER']);
         }
     }
-    // Get sub categories based on category ID.
-    public function get_sub_categories($cat_id){
-        $sub_categories = $this->supervisor_model->get_sub_categories($cat_id);
-        echo json_encode($sub_categories);
+    // Reject leave.
+    public function reject_leave(){
+        $id = $this->input->post('id');
+        $data = array(
+            'leave_status' => 2,
+            'sup_remarks' => $this->input->post('remarks')
+        );
+        if($this->supervisor_model->leave_actions($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Leave request was rejected successfully.');
+            redirect($_SERVER['HTTP_REFERER']);
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
     }
     // Approve item request.
     public function approve_request($id){

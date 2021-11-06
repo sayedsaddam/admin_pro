@@ -1,12 +1,9 @@
-<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
-  <div class="container-fluid">
+<div class="jumbotron jumbotron-fluid blue-gradient text-light">
+  <div class="container">
     <div class="row">
-      <div class="col-lg-1 col-md-1">
-        <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid">
-      </div>
-      <div class="col-lg-7 col-md-7">
-        <h2 class="display-4 font-weight-bold mb-0">Admin & Procurement</h2>
-        <h3 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h3>
+      <div class="col-lg-8 col-md-8">
+        <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
+        <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
         <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
@@ -34,7 +31,7 @@
             </form>
         </div>
         <div class="col-lg-6 col-md-6 text-right">
- <a data-toggle="modal" data-target="#add_location" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</a>
+            <a data-toggle="modal" data-target="#add_location" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</a>
             <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
         </div>
     </div>

@@ -7,24 +7,11 @@ class User_model extends CI_Model{
     {
         parent::__construct();
     }
-    // Get inventory items to list in the dropdown for user request submission > get the main categories.
+    // Get inventory items to list in the dropdown for user request submission.
     public function get_items(){
-        $this->db->select('categories.id as cat_id,
-                            categories.cat_name,
-                            inventory.id,
-                            inventory.category,
-                            inventory.name');
-        $this->db->from('categories');
-        $this->db->join('inventory', 'categories.id = inventory.category', 'left');
-        $this->db->group_by('inventory.category');
-        $this->db->order_by('categories.cat_name', 'asc');
-        return $this->db->get()->result();
-    }
-    // Get sub categories for placing requisition
-    public function get_sub_categories($cat_id){
-        $this->db->select('id, name');
-        $this->db->from('sub_categories');
-        $this->db->where('cat_id', $cat_id);
+        $this->db->select('id, item_name, item_qty');
+        $this->db->from('inventory');
+        $this->db->where('item_loc', $this->session->userdata('location'));
         return $this->db->get()->result();
     }
     // Create an item requisition
@@ -62,17 +49,49 @@ class User_model extends CI_Model{
                             item_requisitions.created_at,
                             item_requisitions.updated_at,
                             inventory.id as inv_id,
-                            inventory.name as inv_name,
-                            inventory.category,
-                            sub_categories.id as sub_cat_id,
-                            sub_categories.name as sub_cat_name');
+                            inventory.item_name as inv_name');
         $this->db->from('item_requisitions');
         $this->db->join('inventory', 'item_requisitions.item_name = inventory.id', 'left');
-        $this->db->join('sub_categories', 'item_requisitions.item_name = sub_categories.id', 'left');
         $this->db->where('item_requisitions.requested_by', $this->session->userdata('id'));
         $this->db->order_by('item_requisitions.created_at', 'desc');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
+    }
+    // =----------------------------------------------- Employee Leaves -----------------------------------------------== //
+    // Apply leave
+    public function apply_leave($data){
+        $this->db->insert('employee_leaves', $data);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // Count number of leaves for currently logged in user.
+    public function total_leaves(){
+        return $this->db->where('emp_id', $this->session->userdata('id'))->from('employee_leaves')->count_all_results();
+    }
+    // Count approved leaves.
+    public function all_approved_leaves(){
+        $this->db->select('id, emp_id, leave_status, SUM(no_of_days) as availed_leaves');
+        $this->db->from('employee_leaves');
+        $this->db->where(array('emp_id' => $this->session->userdata('id'), 'leave_status' => 1));
+        return $this->db->get()->row();
+    }
+    // Get leaves > Track leaves record.
+    public function track_leaves($limit, $offset){
+        $this->db->select('id, emp_id, leave_type, leave_from, leave_to, no_of_days, leave_reason, leave_status, created_at');
+        $this->db->from('employee_leaves');
+        $this->db->where('emp_id', $this->session->userdata('id'));
+        $this->db->limit($limit, $offset);
+        return $this->db->get()->result();
+    }
+    // Leave detail > Reason for leave.
+    public function leave_detail($id){
+        $this->db->select('id, leave_reason, sup_remarks');
+        $this->db->from('employee_leaves');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
     }
     //== ------------------------------------------ Travel and hotel stay ----------------------------------------------- ==//
     // Apply travel
@@ -92,15 +111,17 @@ class User_model extends CI_Model{
     public function travel_history($limit, $offset){
         return $this->db->where('requested_by', $this->session->userdata('id'))->from('travel_hotel_stay')->limit($limit, $offset)->get()->result();
     }
-    //== ------------------------------------------------ Profile ------------------------------------------------------- ==//
-    // User/employee profile
+    //== ------------------------------------------------- User profile ----------------------------------------------------- ==//
+    // Profile > view profile
     public function profile(){
-        $this->db->select('id, fullname, email, username, department, user_role, supervisor, created_at');
+        $this->db->select('users.*, locations.id as loc_id, locations.name, projects.id as project_id, projects.project_name');
         $this->db->from('users');
-        $this->db->where('id', $this->session->userdata('id'));
+        $this->db->join('locations', 'users.location = locations.id', 'left');
+        $this->db->join('projects', 'users.project = projects.id', 'left');
+        $this->db->where('users.id', $this->session->userdata('id'));
         return $this->db->get()->row();
     }
-    // Update user/employee profile
+    // Update profile
     public function update_profile($id, $data){
         $this->db->where('id', $id);
         $this->db->update('users', $data);
