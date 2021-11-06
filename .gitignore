@@ -20,6 +20,7 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.jpeg
 *.pdf
 *.ico
+confg.php
 # IDE Files
 #-------------------------
 /nbproject/
@@ -33,3 +34,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.sublime-project
 /tests/tests/
 /tests/results/
+application/config/config.php

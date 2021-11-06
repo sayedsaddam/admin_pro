@@ -1,55 +1,77 @@
-<div class="jumbotron jumbotron-fluid blue-gradient text-light">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-8">
-        <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
-        <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
-      </div>
-      <div class="col-lg-4 col-md-4 text-right">
-        <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
-        <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
-        <h4 class="font-weight-bold orange-text mt-2">Admin Dashboard <i class="fa fa-chart-bar"></i><br><span class="font-weight-light orange-text"><?php if(empty($results)){ echo 'Invoices'; }else{ echo 'Search Results'; } ?> | <a href="<?=base_url('admin');?>" class="text-light font-weight-bold">Home</a></span></h4>
-      </div>
-    </div>
-  </div>
-</div>
+<section class="columns is-gapless mb-0 pb-0">
+	<div class="column is-narrow is-fullheight is-hidden-print" id="custom-sidebar">
+		<?php $this->view('admin/commons/sidebar'); ?>
+	</div>
+	<div class="column">
+		<div class="columns">
+			<div class="column section">
+				<div class="columns">
+					<div class="column">
+						<?php $this->view('admin/commons/breadcrumb'); ?>
+					</div>
+				</div>
 
-<div class="container">
-    <?php if($success = $this->session->flashdata('success')): ?>
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="alert alert-success"><?=$success;?></div>
-            </div>
-        </div>
-    <?php endif; ?>
-    <div class="row mb-4">
-        <div class="col-lg-6 col-md-6">
-            <form action="<?= base_url('admin/search_invoices'); ?>" method="get" class="md-form form-inline">
-                <input type="text" name="search" id="" class="form-control md-form col-5">
-                <label for="">Search Query</label>
-                <input type="submit" value="go &raquo;" class="btn btn-outline-primary rounded-pill">
-            </form>
-        </div>
-        <div class="col-lg-6 col-md-6 text-right">
-            <button data-toggle="modal" data-target="#add_invoice" class="btn btn-outline-info"><i class="fa fa-plus"></i> Add New</button>
-            <a href="javascript:history.go(-1)" class="btn btn-outline-danger"><i class="fa fa-angle-left"></i> Back</a>
-        </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12 col-md-12">
-        <table class="table table-sm">
-          <caption><?php if(empty($results)){ echo 'List of Invoices'; }else{ echo 'Search Results'; } ?></caption>
-          <thead>
+				<div class="columns is-hidden-touch">
+					<div class="column is-hidden-print">
+						<form action="<?= base_url('admin/search_project'); ?>" method="get">
+							<div class="field has-addons">
+								<div class="control has-icons-left is-expanded">
+									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
+										placeholder="Search Project"
+										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
+									<span class="icon is-small is-left">
+										<i class="fas fa-search"></i>
+									</span>
+								</div>
+								<div class="control">
+									<button class="button is-small" type="submit"><span class="icon is-small">
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="column is-hidden-print is-narrow">
+						<div class="field has-addons">
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/invoices'); ?>'"
+									class="button is-small <?= isset($invoices) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-list"></i>
+									</span>
+									<span>Project List</span>
+								</button>
+							</p>
+							<?php if($AssetsAccess->write == 1) : ?>
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/add_invoice'); ?>'"
+									data-target="#add_supplier"
+									class="button is-small <?= (isset($add_invoice)) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-plus"></i>
+									</span>
+									<span>Add New</span>
+								</button>
+							</p>
+							<?php endif ?>
+						</div>
+					</div>
+				</div>
+				<div class="columns" style="display: grid">
+					<div class="column table-container ">
+          <table class="table table-sm is-fullwidth"> 
+             <thead>
             <tr>
-              <th class="font-weight-bold">ID</th>
-              <th class="font-weight-bold">Inv No.</th>
-              <th class="font-weight-bold">Vendor</th>
-              <th class="font-weight-bold">Region</th>
-              <th class="font-weight-bold">Item</th>
-              <th class="font-weight-bold">Amount</th>
-              <th class="font-weight-bold">Date</th>
-              <th class="font-weight-bold">Status</th>
-              <th class="font-weight-bold">Action</th>
+              <th class="has-text-weight-semibold">ID</th>
+              <th class="has-text-weight-semibold">Inv No.</th>
+              <th class="has-text-weight-semibold">Vendor</th>
+              <th class="has-text-weight-semibold">Region</th>
+              <th class="has-text-weight-semibold">Item</th>
+              <th class="has-text-weight-semibold">Amount</th>
+              <th class="has-text-weight-semibold">Date</th>
+              <th class="has-text-weight-semibold">Status</th>
+              <th class="has-text-weight-semibold">Action</th>
             </tr>
           </thead>
           <?php if(empty($results)): ?>
@@ -64,11 +86,14 @@
                   <td><?= number_format($inv->amount); ?></td>
                   <td><?php if($inv->inv_date){ echo date('M d, Y', strtotime($inv->inv_date)); }else{ echo '--/--/--'; } ?></td>
                   <td><?php if($inv->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }else{ echo "<span class='badge badge-success'>cleared</span>"; } ?></td>
-                  <td>
-                      <a href="<?=base_url('admin/print_invoice/'.$inv->id);?>"><span class="badge badge-primary"><i class="fa fa-print"></i></span></a>
-                      <a href="<?=base_url('admin/delete_invoice/'.$inv->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                      <a href="<?= base_url('admin/invoice_status/'.$inv->id); ?>"><span class="badge badge-success"><i class="fa fa-check"></i></span></a>
-                  </td>
+                 
+                  <td class="">
+										<div class="field has-addons">
+                      <a href="<?=base_url('admin/print_invoice/'.$inv->id);?>"><span class="icon is-small has-text-primary"><i class="fa fa-print"></i></span></a>
+                      <a href="<?=base_url('admin/delete_invoice/'.$inv->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" ><span class='icon is-small has-text-danger'><i class="fa fa-trash"></i></span></a>
+                      <a href="<?= base_url('admin/invoice_status/'.$inv->id); ?>"><span class="icon is-small has-text-success"><i class="fa fa-check"></i></span></a>
+										</div>
+									</td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
             </tbody>
@@ -99,89 +124,29 @@
             </tbody>
           <?php endif; ?>
         </table>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12 col-md-12">
-        <?php if(empty($results) AND !empty($invoices)){ echo $this->pagination->create_links(); } ?>
-      </div>
-    </div>
-</div>
-
-<!-- Add invoice -->
-<div class="modal fade" id="add_invoice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title w-100 font-weight-bold">Add Invoice</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <form action="<?=base_url('admin/add_invoice');?>" method="post" class="md-form">
-            <div class="md-form mb-5">
-              <input name="inv_no" type="text" id="form34" class="form-control validate">
-              <label data-error="wrong" data-success="right" for="form34">Invoice number</label>
-            </div>
-
-            <div class="md-form mb-5">
-              <input name="inv_date" type="date" id="form34" class="form-control validate">
-              <label data-error="wrong" data-success="right" for="form34">Invoice date</label>
-            </div>
-
-            <div class="md-form mb-5">
-              <select name="project" class="browser-default custom-select" id="selectListProject">
-                <option value="" disabled selected>--Select project--</option>
-                <?php if(!empty($projects)): foreach($projects as $proj): ?>
-                  <option value="<?=$proj->project_name;?>"><?=$proj->project_name;?></option>
-                <?php endforeach; endif; ?>
-              </select>
-            </div>
-
-            <div class="md-form mb-5">
-              <select name="vendor_name" id="selectListVendors" class="browser-default custom-select">
-                <option value="" disabled selected>-- Select vendor/supplier --</option>
-                <?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
-                  <option value="<?=$sup->name;?>"><?=$sup->name;?></option>
-                <?php endforeach; endif; ?>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-
-            <div class="md-form mb-5">
-              <select name="region" class="browser-default custom-select" id="selectList">
-                <option value="" disabled selected>--Select region--</option>
-                <?php foreach($locations as $loc): ?>
-                  <option value="<?= $loc->name; ?>"><?= ucfirst($loc->name); ?></option>
-                <?php endforeach; ?>
-              </select>
-            </div>
-
-            <div class="md-form mb-5">
-              <input name="item_name" type="text" id="form29" class="form-control validate">
-              <label data-error="wrong" data-success="right" for="form29">Item</label>
-            </div>
-
-            <div class="md-form mb-5">
-              <input name="amount" type="text" id="form32" class="form-control validate">
-              <label data-error="wrong" data-success="right" for="form32">Amount</label>
-            </div>
-
-            <div class="md-form">
-              <textarea name="inv_desc" type="text" class="md-textarea form-control" rows="3"></textarea>
-              <label data-error="wrong" data-success="right" for="form8">Description</label>
-            </div>
-
-            <div class="md-form mb-5">
-              <input type="submit" class="btn btn-primary" value="Save Changes">
-            </div>
-        </form>
-      </div>
-      <div class="modal-footer d-flex justify-content-right">
-        <button class="btn btn-unique" data-dismiss="modal" aria-label="Close">Close <i class="fas fa-paper-plane-o ml-1"></i></button>
-      </div>
-    </div>
-  </div>
-</div>
+						<div class="column" style="display: flex; justify-content: center;">
+						<label class="mr-2">Number of Records:</label>
+						<select class="result_limit">
+							<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25</option>
+							<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50</option>
+							<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100</option>
+						</select>
+					</div>
+					<div class="column is-hidden-print">
+						<nav class="pagination is-small" role="navigation" aria-label="pagination"
+							style="justify-content: center;">
+							<?php if(empty($results) AND !empty($projects)){ echo $this->pagination->create_links(); } ?>
+						</nav>
+					</div> 
+					</div>
+				</div>
+			</div>
+</section>
+<script>
+	$(document).ready(function() {
+		$(".result_limit").on('change', function() {
+			var val = $(this).val();
+			$(location).prop('href', '<?= current_url() ?>?limit=' + val)
+		})
+	})
+</script>

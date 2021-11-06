@@ -1,93 +1,249 @@
-<?php 
-/*
-* Filename: add_items.php
-* Author: Saddam
-*/
-?>
-<div class="jumbotron jumbotron-fluid blue-gradient text-light">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-8">
-        <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
-        <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
-      </div>
-      <div class="col-lg-4 col-md-4 text-right">
-        <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
-        <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
-        <h4 class="font-weight-bold orange-text mt-2">Admin Dashboard <i class="fa fa-chart-bar"></i><br><span class="font-weight-light orange-text">Asset Detail | <a href="<?=base_url('admin');?>" class="text-light font-weight-bold">Home</a></span></h4>
-      </div>
-    </div>
-  </div>
-</div>
+<section class="columns is-gapless mb-0 pb-0">
+	<div class="column is-narrow is-fullheight" id="custom-sidebar">
+		<?php $this->view('admin/commons/sidebar'); ?>
+	</div>
+	<div class="column">
+		<div class="columns">
+			<div class="column section">
+				<div class="columns">
+					<div class="column">
+						<?php $this->view('admin/commons/breadcrumb'); ?>
+					</div>
+				</div>
+				<div class="columns">
+					<div class="column">
+						<form action="<?= base_url('admin/search_asset_register'); ?>" method="get">
+							<div class="field has-addons">
+								<div class="control has-icons-left is-expanded">
+									<input class="input is-small is-fullwidth" name="search" type="search"
+										placeholder="Search Assets"
+										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
+									<span class="icon is-small is-left">
+										<i class="fas fa-search"></i>
+									</span>
+								</div>
+								<div class="control">
+									<button class="button is-small" type="submit"><span class="icon is-small">
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="column is-hidden-touch is-narrow">
+						<div class="field has-addons">
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/asset_register'); ?>'"
+									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-list"></i>
+									</span>
+									<span>Assets List</span>
+								</button>
+							</p>
+							<?php if($AssetsAccess->write == 1) : ?>
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/add_asset'); ?>'"
+									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-plus"></i>
+									</span>
+									<span>Add New</span>
+								</button>
+							</p>
+							<?php endif ?>
+						</div>
+					</div>
+				</div>
 
-<section class="secMainWidth container mt-4 mb-4">
-  <section class="secFormLayout">
-    <div class="mainInputBg">
-      <div class="row">
-        <div class="col-lg-12">
-          <h3><?php if(empty($edit)){ echo "Add Item"; }else{ echo "Update Item"; } ?></h3><hr>
-          <?php if($success = $this->session->flashdata('success')): ?>
-            <div class="alert alert-success text-center">
-              <?php echo $success; ?>
-            </div>
-          <?php endif; ?>
-          <form action="<?php if(empty($edit)){ echo base_url('admin/save_item'); }else{ echo base_url('admin/update_item'); } ?>" method="post">
-            <input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
-            <div class="row">
-              <div class="col-lg-6">
-                <label>Year</label>
-                <input type="text" name="year" class="form-control" placeholder="Year" value="<?php if(!empty($edit)){ echo $edit->year; } ?>">
-                <label>Project</label>
-                <input type="text" name="project" class="form-control" placeholder="Project" value="<?php if(!empty($edit)){ echo $edit->project; } ?>">
-                <label>Category</label>
-                <input type="text" name="category" class="form-control" placeholder="Category" value="<?php if(!empty($edit)){ echo $edit->category; } ?>">
-                <label>Item</label>
-                <input type="text" name="item" class="form-control" placeholder="Item" value="<?php if(!empty($edit)){ echo $edit->item; } ?>">
-                <label>Description</label>
-                <textarea name="description" class="form-control" placeholder="Desctiption..."><?php if(!empty($edit)){ echo $edit->description; } ?></textarea>
-                <label>Model</label>
-                <input type="text" name="model" class="form-control" placeholder="Model" value="<?php if(!empty($edit)){ echo $edit->model; } ?>">
-                <label>Asset Code</label>
-                <input type="text" name="asset_code" class="form-control" placeholder="Asset Code" value="<?php if(!empty($edit)){ echo $edit->asset_code; } ?>">
-                <label>P.O No.</label>
-                <input type="text" name="po_no" class="form-control" placeholder="P.O Number" value="<?php if(!empty($edit)){ echo $edit->po_no; } ?>">
-                <label>Contact</label>
-                <input type="text" name="contact" class="form-control" placeholder="Contact" value="<?php if(!empty($edit)){ echo $edit->contact; } ?>">
-              </div>
-              <div class="col-lg-6">
-                <label>Serial Number</label>
-                <input type="text" name="serial_no" class="form-control" placeholder="Serial Number" value="<?php if(!empty($edit)){ echo $edit->serial_number; } ?>">
-                <label>Custodian</label>
-                <input type="text" name="custodian" class="form-control" placeholder="Custodian" value="<?php if(!empty($edit)){ echo $edit->custodian_location; } ?>">
-                <label>Designation</label>
-                <input type="text" name="designation" class="form-control" placeholder="Designation" value="<?php if(!empty($edit)){ echo $edit->designation; } ?>">
-                <label>Department</label>
-                <input type="text" name="department" class="form-control" placeholder="Department" value="<?php if(!empty($edit)){ echo $edit->department; } ?>">
-                <label>Quantity</label>
-                <input type="text" name="quantity" class="form-control" placeholder="Quantity" value="<?php if(!empty($edit)){ echo $edit->quantity; } ?>">
-                <label>District/Region</label>
-                <input type="text" name="district" class="form-control" placeholder="District" value="<?php if(!empty($edit)){ echo $edit->district_region; } ?>">
-                <label>Status</label>
-                <textarea name="status" class="form-control" placeholder="Status..."><?php if(!empty($edit)){ echo $edit->status; } ?></textarea>
-                <label>Receiving Date</label>
-                <input type="<?php if(!empty($edit)){ echo 'text'; }else{ echo 'date'; } ?>" name="receive_date" class="form-control" placeholder="Receiving Date" value="<?php if(!empty($edit)){ echo $edit->receive_date; } ?>">
-                <label>Purchasing Date</label>
-                <input type="<?php if(!empty($edit)){ echo 'text'; }else{ echo 'date'; } ?>" name="purchase_date" class="form-control" placeholder="Purchasing Date" value="<?php if(!empty($edit)){ echo $edit->purchase_date; } ?>">
-              </div>
-            </div><br>
-            <div class="row">
-              <div class="col-lg-12 text-right">
-                <a href="javascript:history.go(-1);" class="btn btn-default">Back</a>
-                <?php if(empty($edit)): ?>
-                  <button type="submit" class="btn btn-default">Add Item</button>
-                <?php else: ?>
-                  <button type="submit" class="btn btn-default">Save Changes</button>
-                <?php endif; ?>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>  
-    </div>
-  </section>
+				<?php if($this->session->flashdata('success')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-success is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('success'); ?>
+						</div>
+					</div>
+				</div>
+				<?php elseif($this->session->flashdata('failed')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-danger is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('failed'); ?>
+						</div>
+					</div>
+				</div>
+				<?php endif ?>
+
+				<form
+					action="<?php if(empty($edit)){ echo base_url('admin/save_item'); }else{ echo base_url('admin/update_item'); } ?>"
+					method="post">
+					<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
+					<div class="columns">
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">User <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<input type="text" name="user" id="" class="input is-small"
+											value="<?php if(!empty($edit)){ echo $edit->user; } ?>" type="text"
+											placeholder="user name ..." required="">
+										<span class="icon is-small is-left">
+											<i class="fas fa-user"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="column">
+						<fieldset>
+								<div class="field">
+									<label class="label is-small">Category <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<span class="select is-small is-fullwidth">
+											<select name="category" id="category" required <?= isset($edit) ? 'disabled' : '' ?>>
+												<option selected disabled value="">Select a Category</option>
+												<?php if(!empty($categories)): foreach($categories as $cat): ?>
+												<option value="<?= $cat->id; ?>"
+													<?= !empty($edit) && $edit->category == $cat->id ? 'selected' : '' ?>>
+													<?= ucwords($cat->cat_name); ?>
+												</option>
+												<?php endforeach; endif; ?>
+											</select>  
+										</span>
+										<span class="icon is-small is-left">
+											<i class="fas fa-tags"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset> 
+						</div>
+					</div>
+
+					<div class="columns">
+						<div class="column">
+							<div class="control">
+								<label class="label is-small">Quantity <span class="has-text-danger">*</span></label>
+								<div class="select is-small is-fullwidth">
+									<div class="control has-icons-left">
+										<input type="number" name="quantity" id="" class="input is-small"
+											value="<?php if(!empty($edit)){ echo $edit->quantity; } ?>" type="text"
+											placeholder="quantity ..." required="">
+										<span class="icon is-small is-left">
+											<i class="fas fa-sort-numeric-up"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="control">
+
+								<fieldset>
+									<div class="field">
+										<label class="label is-small">Remarks <span
+												class="has-text-danger">*</span></label>
+										<div class="control has-icons-left">
+											<input type="text" name="remarks" id="" class="input is-small"
+												value="<?php if(!empty($edit)){ echo $edit->remarks; } ?>" type="text"
+												placeholder="remarks ..." required="">
+											<span class="icon is-small is-left">
+												<i class="fas fa-envelope-square"></i>
+											</span>
+										</div>
+									</div>
+								</fieldset>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="columns">
+						<div class="column">
+							<div class="control">
+								<label class="label is-small">Purchase Date <span
+										class="has-text-danger">*</span></label>
+								<div class="is-small is-fullwidth">
+									<div class="control has-icons-left">
+										<?php if(!empty($edit)){
+            $date = strtotime($edit->purchase_date); 
+            $purchase_date = date('Y-m-d', $date); 
+            }?>
+										<input name="purchase_date" class="input is-small" type="date" required
+											value="<?php if(!empty($edit)){ echo $purchase_date; } ?>">
+										<span class="icon is-small is-left">
+											<i class="far fa-calendar-alt"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="control">
+								<label class="label is-small">Location <span class="has-text-danger">*</span></label>
+								<div class="control has-icons-left">
+									<span class="select is-small is-fullwidth">
+										<select name="location" id="" class="browser-default custom-select ">
+											<option disabled value="">Select Category</option>
+											<?php if(!empty($locations)): foreach($locations as $loc): ?>
+											<?php if ($loc->id == $this->session->userdata('location') || $this->session->userdata('user_role') == '1') : ?>
+											<option value="<?= $loc->id; ?>"
+												<?= !empty($edit) && $edit->location == $loc->id ? 'selected' : '' ?>>												
+												<?= ucwords($loc->name); ?>
+											</option>
+											<?php endif ?>
+											<?php endforeach; endif; ?>
+										</select>
+									</span>
+									<span class="icon is-small is-left">
+										<i class="fas fa-globe"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="columns">
+
+
+						<div class="column column is-6">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Description</label>
+									<div class="control has-icons-left">
+										<textarea class="textarea is-small" name="description" rows="2" id=""
+											placeholder="some detail"><?php if(!empty($edit)){ echo $edit->description; } ?></textarea>
+
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+
+					<div class="columns">
+						<div class="column has-text-right">
+							<div class="buttons is-pulled-right">
+								<?php if(!isset($edit_item)): ?>
+								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
+								<?php endif ?>
+								<p class="control">
+									<button class="button is-small is-success" type="submit" <?= isset($edit) && $AssetsAccess->update == 0 || $AssetsAccess->write == 0 ? 'disabled' : '' ?>>
+										<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
+										<span class="icon is-small">
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button>
+								</p>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </section>
+<script>
+
+
+</script>

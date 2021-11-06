@@ -1,0 +1,41 @@
+@font-face {
+      font-family: 'Product Sans';
+      src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+}
+
+body {
+      font-family: Product Sans, sans-serif;
+}
+
+table {
+      border-collapse: separate;
+}
+
+tr {
+      margin-bottom: 20px;
+      height: 40px;
+}
+
+tbody tr:hover {
+      transform: scale(1.01);
+      transition: 0.1s ease-in-out;
+      cursor: pointer;
+}
+
+th, td {
+      border: none !important;
+}
+
+.clickable {
+      cursor: pointer;
+}
+
+.hoverable:hover {
+      transform: scale(1.05);
+      transition: 0.1s ease-in-out;
+}
+
+#custom-sidebar {
+      background-color:#fafafa; 
+      min-width: 250px;
+}

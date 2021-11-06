@@ -21,9 +21,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 | If you need to allow multiple domains, remember that this file is still
 | a PHP script and you can easily do that on your own.
-|
+| .
 */
-$config['base_url'] = 'http://localhost:8080/admin_pro/';
+defined('BASE_URL') OR define('BASE_URL', (is_https() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . '/');
+$config['base_url'] = BASE_URL;
 
 /*
 |--------------------------------------------------------------------------
