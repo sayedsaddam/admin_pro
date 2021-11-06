@@ -1,19 +1,11 @@
+
+
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="<?= base_url('assets/js/popper.min.js'); ?>"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="<?= base_url('assets/js/bootstrap.min.js'); ?>"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="<?= base_url('assets/js/mdb.min.js'); ?>"></script>
+
 </body>
-<style>
-    @media print {
-		.is-hidden-print {
-			display: none;
-		}
-	}
-</style>
-<script>
-    $(document).ready(function () {
-		$(".nav-category").click(function () {
-			$(this).siblings().toggle('fast');
-		});
-        $(".delete").click(function () {
-			$(this).parent().hide();
-		});
-	});
-</script>
 </html>

@@ -1,12 +1,9 @@
-<div class="jumbotron jumbotron-fluid morpheus-den-gradient text-light">
-  <div class="container-fluid">
+<div class="jumbotron jumbotron-fluid blue-gradient text-light">
+  <div class="container">
     <div class="row">
-      <div class="col-lg-1 col-md-1">
-        <img src="<?= base_url('assets/img/favicon.ico'); ?>" alt="admin-and-procurement" class="img-fluid" width="200">
-      </div>
-      <div class="col-lg-7 col-md-7">
-        <h2 class="display-4 font-weight-bold mb-0">Admin & Procurement</h2>
-        <h3 class="font-weight-bold text-light">AH Group of Companies (Pvt.) Ltd.</h3>
+      <div class="col-lg-8 col-md-8">
+        <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
+        <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
         <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
@@ -62,12 +59,13 @@
                             <td><?= $user->fullname; ?></td>
                             <td><?= $user->email; ?></td>
                             <td><?= $user->username; ?></td>
-                            <td><?= $user->location; ?></td>
+                            <td><?= ucfirst($user->name); ?></td>
                             <td><?php if($user->user_role == 'user'){ echo "Staff"; }else{ echo "Adminstrator"; } ?></td>
                             <td><?= date('M d, Y', strtotime($user->created_at)); ?></td>
                             <td>
-                                <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                                <a href="<?=base_url('login/edit_user/'.$user->id);?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                                 <a href="<?=base_url('admin/delete_user/'.$user->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                                <a href="<?= base_url('admin/user_detail/'.$user->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                             </td>
                         </tr>
                     <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='8'>No record found.</td></tr>"; endif; ?>
@@ -80,13 +78,13 @@
                             <td><?= $res->fullname; ?></td>
                             <td><?= $res->email; ?></td>
                             <td><?= $res->username; ?></td>
-                            <td><?= $res->location; ?></td>
+                            <td><?= ucfirst($res->name); ?></td>
                             <td><?php if($res->user_role == 'user'){ echo "Staff"; }else{ echo "Adminstrator"; } ?></td>
                             <td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
                             <td>
-                                <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                                <a href="<?=base_url('login/edit_user/'.$res->id);?>"><span class="badge badge-primary"><i class="fa fa-edit"></i></span></a>
                                 <a href="<?=base_url('admin/delete_user/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                                <!-- <a href="<?= base_url('admin/user_detail/'.$res->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a> -->
+                                <a href="<?= base_url('admin/user_detail/'.$res->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                             </td>
                         </tr>
                     <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='8'>No record found.</td></tr>"; endif; ?>
@@ -95,4 +93,5 @@
             </table>
         </div>
     </div>
+    <?php if(!empty($users) && empty($results)){ echo $this->pagination->create_links(); } ?>
 </div>
