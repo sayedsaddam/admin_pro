@@ -2145,7 +2145,7 @@ class Admin_model extends CI_Model{
         $this->db->select('item_assignment.id');
         $this->db->from('item_assignment');
         $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
-        $this->db->where('return_back_date !=', null);
+        $this->db->where('item_assignment.status = 1');
         $this->db->where("item_assignment.created_at <= DATE_SUB(NOW(), INTERVAL $int day)");
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('items.location', $this->session->userdata('location'));
