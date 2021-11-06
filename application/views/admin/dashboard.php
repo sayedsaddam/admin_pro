@@ -157,28 +157,7 @@
 									<?php endif ?>
 								</a>
 							</div>
-						</div>
-					</div>
-					<div class="tile is-parent">
-						<div class="tile is-child box">
-							<div class="tile is-parent">
-								<div class="tile is-child">
-									<div class="columns is-vcentered">
-										<div class="column">
-											<div class="is-size-5">Items</div>
-											<div class="is-size-6 has-text-grey">Last 7 days vs Previous 7 days</div>
-										</div>
-										<div class="column is-narrow">
-											<button class="card-header-icon" aria-label="more options">
-												<span class="icon">
-													<i class="fas fa-ellipsis-v" aria-hidden="true"></i>
-												</span>
-											</button>
-										</div>
-									</div>
-
-								</div>
-							</div>
+							
 							<div class="tile is-parent">
 								<a href="<?= base_url('admin/available_item_list') ?>"
 									class="tile is-child clickable hoverable has-text-dark">
@@ -245,11 +224,47 @@
 									<?php endif ?>
 								</a>
 							</div>
+						</div>
+					</div>
+					<div class="tile is-parent">
+						<div class="tile is-child box">
 							<div class="tile is-parent">
 								<div class="tile is-child">
-									<canvas id="myChart" height="70"></canvas>
+									<div class="columns is-vcentered">
+										<div class="column">
+											<div class="is-size-5">Graph Statistics (Items)</div>
+											<div class="is-size-6 has-text-grey">Available, Assigned & Damaged</div>
+										</div>
+										<div class="column is-narrow">
+											<button class="card-header-icon" aria-label="more options">
+												<span class="icon">
+													<i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+												</span>
+											</button>
+										</div>
+									</div>
+
 								</div>
 							</div>
+							<div class="tile is-parent">
+								<div class="tile is-child">
+									<canvas id="myChartAvailable" height="60"></canvas>
+								</div>
+							</div>
+
+							<div class="tile is-parent">
+								<div class="tile is-child">
+									<canvas id="myChartAssigned" height="60"></canvas>
+								</div>
+							</div>
+
+							<div class="tile is-parent">
+								<div class="tile is-child">
+									<canvas id="myChartDamaged" height="60"></canvas>
+								</div>
+
+							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -313,7 +328,76 @@
 	</div>
 </section>
 <script>
-	new Chart(document.getElementById("myChart"), {
+	new Chart(document.getElementById("myChartAvailable"), {
+		type: 'line',
+		data: {
+			labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+			datasets: [{
+				label: "Available",
+				type: "line",
+				borderColor: "#5DADE2",
+				backgroundColor: "#f4f9ff",
+				borderDash: [5, 5],
+				data: [ <?= $fetch_item_sum_by_last_7 ?> , <?= $fetch_item_sum_by_last_6 ?> , <?= $fetch_item_sum_by_last_5 ?> , <?= $fetch_item_sum_by_last_4 ?> , <?= $fetch_item_sum_by_last_3 ?> , <?= $fetch_item_sum_by_last_2 ?> , <?= $fetch_item_sum_by_last_1 ?>
+				],
+				spanGaps: true,
+				tension: 0.4,
+				fill: true
+			} ]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: true,
+			plugins: {
+				legend: false // Hide legend
+			},
+			scales: {
+				y: {
+					display: true // Hide Y axis labels
+				},
+				x: {
+					display: false // Hide X axis labels
+				}
+			}
+		},
+	});
+	new Chart(document.getElementById("myChartAssigned"), {
+		type: 'line',
+		data: {
+			labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+			datasets: [{
+				label: "Assigned",
+				type: "line",
+				borderColor: "#82E0AA",
+				backgroundColor: "#f6fffb",
+				borderDash: [5, 5],
+				data: [ <?= $fetch_assigned_item_sum_by_last_7 ?> , <?=
+					$fetch_assigned_item_sum_by_last_6 ?> , <?= $fetch_assigned_item_sum_by_last_5 ?> , <?=
+					$fetch_assigned_item_sum_by_last_4 ?> , <?= $fetch_assigned_item_sum_by_last_3 ?> , <?=
+					$fetch_assigned_item_sum_by_last_2 ?> , <?= $fetch_assigned_item_sum_by_last_1 ?>
+				],
+				spanGaps: true,
+				tension: 0.4,
+				fill: true
+			} ]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: true,
+			plugins: {
+				legend: false // Hide legend
+			},
+			scales: {
+				y: {
+					display: true // Hide Y axis labels
+				},
+				x: {
+					display: false // Hide X axis labels
+				}
+			}
+		},
+	});
+	new Chart(document.getElementById("myChartDamaged"), {
 		type: 'line',
 		data: {
 			labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
@@ -331,41 +415,17 @@
 				spanGaps: true,
 				tension: 0.4,
 				fill: true
-			}, {
-				label: "Assigned",
-				type: "line",
-				borderColor: "#82E0AA",
-				backgroundColor: "#f6fffb",
-				borderDash: [5, 5],
-				data: [ <?= $fetch_assigned_item_sum_by_last_7 ?> , <?=
-					$fetch_assigned_item_sum_by_last_6 ?> , <?= $fetch_assigned_item_sum_by_last_5 ?> , <?=
-					$fetch_assigned_item_sum_by_last_4 ?> , <?= $fetch_assigned_item_sum_by_last_3 ?> , <?=
-					$fetch_assigned_item_sum_by_last_2 ?> , <?= $fetch_assigned_item_sum_by_last_1 ?>
-				],
-				spanGaps: true,
-				tension: 0.4,
-				fill: true
-			}, {
-				label: "Available",
-				type: "line",
-				borderColor: "#5DADE2",
-				backgroundColor: "#fcfcfc",
-				data: [ <?= $fetch_item_sum_by_last_7 ?> , <?= $fetch_item_sum_by_last_6 ?> , <?= $fetch_item_sum_by_last_5 ?> , <?= $fetch_item_sum_by_last_4 ?> , <?= $fetch_item_sum_by_last_3 ?> , <?= $fetch_item_sum_by_last_2 ?> , <?= $fetch_item_sum_by_last_1 ?>
-				],
-				spanGaps: true,
-				tension: 0.4,
-				fill: true
-			}, ]
+			} ]
 		},
 		options: {
 			responsive: true,
-			maintainAspectRatio: false,
+			maintainAspectRatio: true,
 			plugins: {
 				legend: false // Hide legend
 			},
 			scales: {
 				y: {
-					display: false // Hide Y axis labels
+					display: true // Hide Y axis labels
 				},
 				x: {
 					display: false // Hide X axis labels
@@ -373,5 +433,4 @@
 			}
 		},
 	});
-
 </script>
