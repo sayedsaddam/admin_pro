@@ -35,7 +35,7 @@
 						<div class="field has-addons">
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/projects'); ?>'"
-									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($projects) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -97,42 +97,19 @@
 								</div>
 							</fieldset>
 						</div>
-						<div class="column">
-						<fieldset>
-								<div class="field">
-									<label class="label is-small">Status <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-										<span class="select is-small is-fullwidth">
-											<select name="status" id="status" required>
-											<?php if(!isset($edit)) {?>	
-                                            <option selected disabled value="">Select a Status</option>
-                                            <option value="1">Start</option>
-											<option value="2">Complete</option> 
-                                            <?php } else{?>
-											<option value="<?= $edit->status ?>"><?php if($edit->status == 1){ echo 'Active';}else {echo "complete";} ?></option>
-                                                  <?php }?>
-											</select>  
-										</span>
-										<span class="icon is-small is-left">
-											<i class="fas fa-tags"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset> 
-						</div>
 					</div>
-					<div class="columns">
-						<div class="column column is-6">
+				<div class="columns">
+						<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Description</label>
 									<div class="control has-icons-left">
-										<textarea class="textarea is-small" name="project_desc" rows="2" id=""
+										<textarea class="textarea is-small" name="project_desc" rows="2"
 											placeholder="some detail"><?php if(!empty($edit)){ echo $edit->project_desc; } ?></textarea>
 									</div>
 								</div>
 							</fieldset>
-						</div>
+					</div>
 					</div>
 
 					<div class="columns">

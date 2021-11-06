@@ -658,23 +658,55 @@ class Admin extends CI_Controller{
     }
     // Invoices - Go to the invoices list page.
     public function invoices($offset = null){
-        $limit = 10;
-        if(!empty($offset)){
-            $this->uri->segment(3);
+        $limit = 25;
+        if($this->input->get('limit')) {
+            $limit = $this->input->get('limit');
         }
-        $url = 'admin/invoices';
+        if(!empty($offset)){
+            $config['uri_segment'] = 3;
+        }
+        $this->load->library('pagination');
+        $url = base_url('admin/invoices');
         $rowscount = $this->admin_model->count_invoices();
-        paginate($url, $rowscount, $limit);
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
+        $this->pagination->initialize($config);
+
         $data['title'] = 'Invoices | Admin & Procurement';
         $data['body'] = 'admin/invoices';
+        $data['breadcrumb'] = array("admin/invoices" => "Invoice List");
+        $data['invoices'] = true;  
+        $data['body'] = 'admin/invoices';
         $data['suppliers'] = $this->admin_model->get_suppliers_for_invoice();
-        $data['invoices'] = $this->admin_model->get_invoices($limit, $offset);
-        $data['projects'] = $this->admin_model->get_projects();
+        $data['invoices'] = $this->admin_model->get_invoices($limit, $offset); 
         $data['locations'] = $this->login_model->get_locations();
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
+    }
+
+       // Add invoice - add new invoice.
+       public function add_invoice(){
+        $data['title'] = 'Add Invoice';
+        $data['body'] = 'admin/add_invoice';
+        $data['breadcrumb'] = array("admin/add_invoice" => "Add Invoice");
+        $data['add_invoice'] = true; 
+        $data['projects'] = $this->admin_model->project();
+        $data['locations'] = $this->login_model->get_locations();
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Invoices - Add invoice into the database.
-    public function add_invoice(){
+    public function save_invoice(){
         $data = array(
             'inv_no' => $this->input->post('inv_no'),
             'inv_date' => date('Y-m-d', strtotime($this->input->post('inv_date'))),
@@ -683,7 +715,8 @@ class Admin extends CI_Controller{
             'region' => $this->input->post('region'),
             'item' => $this->input->post('item_name'),
             'amount' => $this->input->post('amount'),
-            'inv_desc' => $this->input->post('inv_desc')
+            'inv_desc' => $this->input->post('inv_desc'),
+            'created_at' => date('Y-m-d')
         );
         if($this->admin_model->add_invoice($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Adding invoice was successful.');
@@ -761,7 +794,7 @@ class Admin extends CI_Controller{
         $this->load->view('admin/commons/new_template', $data);
     }
     
-    // Asset register - add new asset.
+    // Add Projects - add new project.
     public function add_project(){
         $data['title'] = 'Project Detail';
         $data['body'] = 'admin/projects/add_project';
@@ -773,7 +806,7 @@ class Admin extends CI_Controller{
     public function save_project(){
         $data = array(
             'project_name' => $this->input->post('project_name'),
-            'status' => $this->input->post('status'),
+            'status' => 1,
             'project_desc' => $this->input->post('project_desc'),
             'created_at' => date('Y-m-d')
         );
@@ -830,6 +863,17 @@ class Admin extends CI_Controller{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
             redirect('admin/projects');
         }
+    }
+    
+    // Search filters - search asset register
+    public function search_project(){ 
+        $search = $this->input->get('search');
+        $data['title'] = 'Search Results > Project list';
+        $data['body'] = 'admin/projects/project_list';
+        $data['breadcrumb'] = array("admin/project_list" => "Project List", "Search: " . $search);
+        $data['project_list'] = true; 
+        $data['results'] = $this->admin_model->search_project($search);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Maintenance - Office equipments
     public function maintenance($offset = null){
