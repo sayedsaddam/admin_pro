@@ -501,6 +501,7 @@ class Admin extends CI_Controller{
         $id = $this->input->post('id'); 
         $data = array(
             'fullname' => ucfirst($this->input->post('full_name')), 
+            'email' => $this->input->post('email'), 
             'phone' => $this->input->post('phone'), 
             'department' =>ucfirst($this->input->post('department')),
             'location' => $this->input->post('location'), 
