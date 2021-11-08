@@ -30,11 +30,6 @@ class Admin_model extends CI_Model{
         $this->db->where('added_by', $id);
         return $this->db->get()->result();
     }
-    public function AssetsAccessList() {
-        $user_role = $this->session->userdata('user_role');
-        $userAccess = $this->admin_model->request_db_configs($user_role);
-        return $userAccess[0];
-    }
     
     // Get User Role
     public function component_access_list($component_type) {
