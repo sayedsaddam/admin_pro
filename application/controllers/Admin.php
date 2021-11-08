@@ -13,6 +13,9 @@ class Admin extends CI_Controller{
         $this->load->helper('paginate');
         $this->access['AssetsAccess'] = $this->AccessList()["Assets"];
         $this->access['SuppliersAccess'] = $this->AccessList()["Suppliers"];
+        $this->access['EmployeesAccess'] = $this->AccessList()["Employees"];
+        $this->access['CategoriesAccess'] = $this->AccessList()["Categories"];
+        $this->access['RegisterAccess'] = $this->AccessList()["Register"];
 
         if(!$this->session->userdata('username')){
             redirect('');
@@ -22,7 +25,7 @@ class Admin extends CI_Controller{
     public function AccessList() {
         $user_role = $this->session->userdata('user_role');
         $userAccess = $this->admin_model->request_db_configs($user_role);
-        return $arrayName = array('Assets' => $userAccess[0], 'Suppliers' => $userAccess[1]);
+        return $arrayName = array('Assets' => $userAccess[0], 'Suppliers' => $userAccess[1], 'Employees' => $userAccess[2], 'Categories' => $userAccess[3], 'Register' => $userAccess[4]);
     }
 
     // Load the dashboard.
@@ -363,6 +366,9 @@ class Admin extends CI_Controller{
     }
     // Employ - Go to employ page.
     public function employee($offset = null){
+        if ($this->AccessList()["Employees"]->read == 0) {
+            redirect('admin/dashboard');
+        }
       
         $limit = 25;
         if($this->input->get('limit')) {
@@ -408,6 +414,9 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/ACL/acl';
         $data['assets_access_list'] = $this->admin_model->component_access_list('assets');
         $data['suppliers_access_list'] = $this->admin_model->component_access_list('suppliers');
+        $data['employees_access_list'] = $this->admin_model->component_access_list('employees');
+        $data['categories_access_list'] = $this->admin_model->component_access_list('categories');
+        $data['register_access_list'] = $this->admin_model->component_access_list('register');
         $data['acl_page'] = true;
         $data['breadcrumb'] = array("Access Control List");
         
@@ -438,15 +447,18 @@ class Admin extends CI_Controller{
         }
 
         if($access_update){
-            $this->session->set_flashdata('success', '<strong>Success! /strong>Employ added successfully.');
+            $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>Employ added successfully.');
             redirect('admin/acl');
         }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+            $this->session->set_flashdata('failed', '<strong class="mr-1">Failed.</strong>Something went wrong, please try again!');
             redirect('admin/acl');
         }
     }
   // employee register - add new employee.
   public function add_employee(){
+    if ($this->AccessList()["Employees"]->write == 0) {
+        redirect('admin/dashboard');
+    }
     $data['title'] = 'Add Employee';
     $data['add_page'] = true;
     $data['body'] = 'admin/employ/add_employee';   
@@ -481,7 +493,10 @@ class Admin extends CI_Controller{
         }
     } 
     // Edit detail
-    public function edit_employ($id){   
+    public function edit_employ($id){
+        if ($this->AccessList()["Employees"]->update == 0) {
+            redirect('admin/dashboard');
+        }
         $data['title'] = 'Edit Employee';
         $data['body'] = 'admin/employ/add_employee';
         $data['locations'] = $this->admin_model->get_employ_location($id); 
@@ -523,6 +538,9 @@ class Admin extends CI_Controller{
     }
      // Search filters - search employ
      public function search_employ(){
+        if ($this->AccessList()["Employees"]->read == 0) {
+            redirect('admin/dashboard');
+        }
         $search = $this->input->get('search');
         $data['title'] = 'Search Results > Employ';
         $data['body'] = 'admin/employ/employ';
@@ -1219,6 +1237,9 @@ class Admin extends CI_Controller{
     }
     // Categories and sub-categories
     public function categories($offset = null){
+        if ($this->AccessList()["Categories"]->read == 0) {
+            redirect('admin/dashboard');
+        }
         $limit = 15;
         if(!empty($offset)){
             $this->uri->segment(3);
@@ -1237,6 +1258,9 @@ class Admin extends CI_Controller{
     }
     // Adding a category
     public function add_category(){
+        if ($this->AccessList()["Categories"]->write == 0) {
+            redirect('admin/dashboard');
+        }
         $data = array( 
             'cat_name' => $this->input->post('cat_name'),
             'added_by' => $this->session->userdata('id')
@@ -1274,6 +1298,9 @@ class Admin extends CI_Controller{
     }
     // Delete category by ID
     public function delete_category($id){
+        if ($this->AccessList()["Categories"]->delete == 0) {
+            redirect('admin/dashboard');
+        }
         if($this->admin_model->delete_category($id)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Deleting a category was successful.');
             redirect($_SERVER['HTTP_REFERER']);
@@ -1284,6 +1311,9 @@ class Admin extends CI_Controller{
     }
     // Sub categories > Listing and adding sub categories
     public function sub_categories($cat_id,$offset = null){ // $id = category ID 
+        if ($this->AccessList()["Categories"]->read == 0) {
+            redirect('admin/dashboard');
+        }
         $limit = 10; 
         if(!empty($offset)){
             $config['uri_segment'] = 4;
@@ -1319,6 +1349,9 @@ class Admin extends CI_Controller{
     }
     // Adding a sub category
     public function add_sub_category(){
+        if ($this->AccessList()["Categories"]->write == 0) {
+            redirect('admin/dashboard');
+        }
         $data = array(
             'cat_id' => $this->input->post('parent_category'),
             'name' => $this->input->post('name'),
@@ -1337,11 +1370,17 @@ class Admin extends CI_Controller{
     }
     // Edit sub category > get sub category by ID
     public function edit_sub_category($id){
+        if ($this->AccessList()["Categories"]->update == 0) {
+            redirect('admin/dashboard');
+        }
         $sub_category = $this->admin_model->edit_sub_category($id);
         echo json_encode($sub_category);
     }
     // Update sub category by ID
     public function update_sub_category(){
+        if ($this->AccessList()["Categories"]->update == 0) {
+            redirect('admin/dashboard');
+        }
         $id = $this->input->post('sub_cat_id');
         $data = array(
             'name' => $this->input->post('name'), 
@@ -1356,6 +1395,9 @@ class Admin extends CI_Controller{
     }
     // Delete sub category
     public function delete_sub_category($id){
+        if ($this->AccessList()["Categories"]->delete == 0) {
+            redirect('admin/dashboard');
+        }
         if($this->admin_model->delete_sub_category($id)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Deleting a category was successful.');
             redirect($_SERVER['HTTP_REFERER']);
@@ -1367,6 +1409,9 @@ class Admin extends CI_Controller{
     //== ----------------------------------------- Search filters ---------------------------------------- ==\\
     // Search filters - search suppliers
     public function search_suppliers(){
+        if ($this->AccessList()["Suppliers"]->read == 0) {
+            redirect('admin/dashboard');
+        }
         $search = $this->input->get('search');
         $data['title'] = 'Search Results > Suppliers';
         $data['body'] = 'admin/suppliers/suppliers';
@@ -1441,6 +1486,9 @@ class Admin extends CI_Controller{
     }
     // Search filters - search categories
     public function search_categories(){
+        if ($this->AccessList()["Categories"]->read == 0) {
+            redirect('admin/dashboard');
+        }
         $search = $this->input->get('search');
         $data['title'] = 'Search Results > Categories';
         $data['body'] = 'admin/categories';
@@ -1452,6 +1500,9 @@ class Admin extends CI_Controller{
     }
     // Search filters - search sub categories
     public function search_sub_categories(){
+        if ($this->AccessList()["Categories"]->read == 0) {
+            redirect('admin/dashboard');
+        }
         $search = $this->input->get('search');
         $cat_id = $this->input->get('cat_id');
         $parent_cat = $this->admin_model->parent_category_name($cat_id);
@@ -1477,6 +1528,9 @@ class Admin extends CI_Controller{
 
     //Item register 
     public function item_register($offset = null){ 
+        if ($this->AccessList()["Register"]->read == 0) {
+            redirect('admin/dashboard');
+        }
         $limit = 25;
         if($this->input->get('limit')) {
             $limit = $this->input->get('limit');
@@ -1519,10 +1573,13 @@ class Admin extends CI_Controller{
     public function assigned_item_emp($id){ 
         $employee = $this->admin_model->assigned_item_emp($id);
         echo json_encode($employee); 
-}
+    }
 
     //Available Item list
     public function available_item_list($offset = null){ 
+        if ($this->AccessList()["Register"]->read == 0) {
+            redirect('admin/dashboard');
+        }
         $limit = 25;
         if($this->input->get('limit')) {
             $limit = $this->input->get('limit');
@@ -1561,6 +1618,9 @@ class Admin extends CI_Controller{
     }
     //Assign item list
     public function get_assign_item($offset = null){  
+        if ($this->AccessList()["Register"]->read == 0) {
+            redirect('admin/dashboard');
+        }
         $limit = 25;
         if($this->input->get('limit')) {
             $limit = $this->input->get('limit');
@@ -1611,6 +1671,9 @@ class Admin extends CI_Controller{
     }
     // item register - add new item.
     public function add_item(){
+        if ($this->AccessList()["Register"]->write == 0) {
+            redirect('admin/dashboard');
+        }
         $data['title'] = 'Item Detail';
         $data['add_page'] = true;
         $data['body'] = 'admin/item_assignment/item-detail';  
@@ -1677,7 +1740,10 @@ class Admin extends CI_Controller{
         }
     }
     // Item detail
-    public function item_detail($id){   
+    public function item_detail($id){  
+        if ($this->AccessList()["Register"]->update == 0) {
+            redirect('admin/dashboard');
+        } 
         $data['title'] = 'Item Detail';
         $data['body'] = 'admin/item_assignment/item-detail';
         $data['edit'] = $this->admin_model->item_detail($id);
@@ -1696,7 +1762,10 @@ class Admin extends CI_Controller{
         $this->load->view('admin/commons/new_template', $data);
     }
     // Search filters - search product date-wise
-    public function product_report($offset = null){  
+    public function product_report($offset = null){
+        if ($this->AccessList()["Register"]->read == 0) {
+            redirect('admin/dashboard');
+        }
         $limit = 25;
         if($this->input->get('limit')) {
             $limit = $this->input->get('limit');
@@ -1788,6 +1857,9 @@ class Admin extends CI_Controller{
     }
      // Assignment Item List- 
      public function assign_item_list($offset = null){
+        if ($this->AccessList()["Register"]->read == 0) {
+            redirect('admin/dashboard');
+        }
         $limit = 15;
         if(!empty($offset)){
             $this->uri->segment(3);
