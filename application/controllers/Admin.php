@@ -1656,7 +1656,6 @@ class Admin extends CI_Controller{
         $data = array(
             'department' => $this->input->post('department'),
             'type_name' => $this->input->post('item_name'),
-            'quantity' => $this->input->post('quantity'),
             'status' => $this->input->post('status'),
             'project' => $this->input->post('project'),
             'model' => $this->input->post('model'),

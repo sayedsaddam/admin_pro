@@ -80,75 +80,89 @@
 					</div>
 				</div>
 
-				<div class='container has-text-centered'>
-					<div class='columns is-mobile is-centered'>
+				<div class='container'>
+					<div class='columns is-mobile'>
 						<div class='column is-12'>
 							<div class="card">
-
 								<?php if(!empty($items)): ?>
 								<p class="subtitle has-text-centered is-hidden">AH Group of Companies (Pvt.) Ltd.
 									Islamabad, 44000</p>
 								<p class="subtitle has-text-centered"><strong>Category</strong> &raquo;
 									<?= $items[0]->cat_name ?></p>
 								<div class="card-content">
-									<div class="columns">
+									<div class="columns is-12">
 										<div class="column">
 											<div class="columns">
-
-												<div class="column is-narrow has-text-left" style="margin-left: 14%;">
-
-													<p><strong>Product</strong></p>
-													<p>Serial No </p>
-													<p>Model</p>
-													<p>Purchase Date</p>
-													<p>Price<p>
-													<p>Depreciation</p>
-													<p>Current Value</p>
-
-												</div>
-												<div class="column has-text-left">
-													<p><?php if(!empty($items[0]->names)){ ?>
-														<?=ucfirst($items[0]->names);?>
-														<?php } else {?>
-														<p>N/A</p>
+												<table class="table table-striped table-sm">
+													<tbody>
+														<tr>
+															<th>Product</th>
+															<?php if(!empty($items[0]->name)) { ?>
+															<td><?= $items[0]->names; ?></td>
+															<?php } else{ ?>
+																<td>N/A</td>
+																<?php } ?>
+															<th>Employee</th>
+															<?php if(!empty($items[0]->emp_name)) { ?>
+															<td><?= $items[0]->emp_name; ?></td>
+															<?php }else { ?>
+																<td>N/A</td>
+																<?php } ?>
+														</tr>
+														<tr>
+															<th>Serial/IMEI</th>
+															<?php if(!empty($items[0]->serial_number)) { ?>
+															<td><?= $items[0]->serial_number; ?></td>
+															<?php } else { ?>
+																<td>N/A</td>
+																<?php } ?>
+															<th>Model</th>
+															<?php if(!empty($items[0]->model)) { ?>
+															<td><?= $items[0]->model; ?></td>
+															<?php } else {?>
+																<td>N/A</td>
+																<?php } ?>
+														</tr>
+														<tr>
+															<th>Purchase Date</th>
+															<?php if(!empty($items[0]->purchasedate)) { ?>
+															<td><?= $items[0]->purchasedate; ?></td>
+															<?php } else {?>
+																<td>N/A</td>
+																<?php } ?>
+															<th>Price</th>
+															<?php if(!empty($items[0]->price)) { ?>
+															<td><?= $items[0]->price; ?></td>
+															<?php } else {?>
+																<td>N/A</td>
+																<?php } ?>
+														</tr>
+														<tr>
+															<th>Depreciation</th>
+															<?php if(!empty($items[0]->depreciation)) { ?>
+															<td><?php echo "<span id='dep'>".$items[0]->depreciation .'</span>'. "(%)"; ?></td>
+															<?php } else {?>
+																<td>N/A</td>
+																<?php } ?>
+															<th>Current Value</th>
+															<td><span id="current"></span></td>
+														</tr>
+														<tr>
+															<?php if(!empty($current_item)) { ?>
+															<th>Department</th>
+															<td><?= $items[0]->department; ?></td>
+															<th>Date of Joininig</th>
+															<td><?= $current_item[0]->doj; ?></td>
+														</tr>
 														<?php } ?>
-													</p>
-													<p><?php if(!empty($items[0]->serial_number)){ ?>
-														<p><?=ucfirst($items[0]->serial_number);?>
-															<?php } else{ ?>NA <?php } ?></p>
-															<?php if(!empty($items[0]->model)){ ?>
-														<p><?= $items[0]->model; ?></p>
-														<?php } else {?>
-															<p>N/A</p>
-															<?php } ?>
-															<?php if(!empty($items[0]->purchasedate)){ ?>
-														<p><?= date('M d, Y', strtotime($items[0]->purchasedate)); ?>
-														</p>
-														<?php } else {?> <p>N/A</p> <?php }?>
-														<p><?php echo "<spanp id='price'>". $items[0]->price.'</span>';?>
-														</p>
-														<p><?php echo "<span id='dep'>".$items[0]->depreciation .'</span>'. "(%)"; ?>
-														</p>
-														<p><span id="current"> </span></p>
-												</div>
-											</div>
-										</div>
-										<div class="column">
-											<div class="columns">
-												<div class="column is-narrow has-text-left">
-													<p><strong>Employee</strong></p>
-													<p> Department &raquo; </p>
-													<p> Date Of Joining &raquo;</p>
-													<p> Contact &raquo;</p>
-												</div>
-												<div class="column has-text-left">
-													<?php if(!empty($current_item)) { ?>
-													<p><?= ucfirst($current_item[0]->emp_name); ?></p>
-													<p><?= ucfirst($current_item[0]->department); ?></p>
-													<p><?= date('M d, Y', strtotime($current_item[0]->doj)); ?></p>
-													<p><?= ucfirst($current_item[0]->phone); ?></p>
-													<?php } ?>
-												</div>
+														<tr>
+															<?php if(!empty($current_item)) { ?>
+															<th>Contact </th>
+															<td><?= $current_item[0]->phone; ?></td> 
+														</tr>
+														<?php } ?>
+													</tbody>
+												</table>
 											</div>
 										</div>
 									</div>
@@ -161,72 +175,100 @@
 									<?php } ?>
 									<div class="card-content">
 										<div class="columns">
-
-											<div class="column">
-												<div class="columns">
-													<div class="column is-narrow has-text-left"
-														style="margin-left: 14%;">
-
-														<p><strong>Product</strong></p>
-														<p>Serial No </p>
-														<p>Model</p>
-														<p>Purchase Date</p>
-														<p>Price<p>
-																<p>Depreciation</p>
-																<p>Current Value</p>
-
-													</div>
-													<div class="column has-text-left">
-														<?php if(!empty($item->names)){ ?>
-														<p> <?=ucfirst($item->names);?></p>
-														<?php }else{ ?> <p>N/A</p><?php } ?>
-														<?php if(!empty($item->serial_number)) { ?>
-														<p><?= $item->serial_number; ?></p>
-
-														<?php } else {?><p>N/A</p> <?php } ?>
-														<?php if(!empty($item->model)) { ?>
-														<p><?= ucfirst($item->model); ?></p>
-														<?php } else {?> <p>N/A</p> <?php } ?>
-														<?php if(!empty($item->purchasedate)){ ?>
-														<p> <?= $item->purchasedate;?></p>
-														<?php } else {?>
-															<p>N/A</p>
-															<?php } ?> 
-														<?php if(!empty($item->price)){ ?>
-														<p><?php echo "<spanp id='price'>". $item->price.'</span>';?></p>
-														<?php } else {?>
-															<p>N/A</p>
-															<?php }?>
-														<p><?php echo "<span id='dep'>".$item->depreciation .'</span>'. "(%)"; ?>
-														</p>
-														<p><?php  
-											error_reporting(0);
-											if($item->depreciation > 0){ 
-											$depreciation = ($item->price*$item->depreciation / 100) ;  
-											echo $item->price - $depreciation;
-											}
-											?></p>
-													</div>
-												</div>
-											</div>
-											<div class="column">
-												<div class="columns">
-													<div class="column is-narrow has-text-left">
-														<p><strong>Employee</strong></p>
-														<p> Department &raquo; </p>
-														<p> Date Of Joining &raquo;</p>
-														<p> Contact &raquo;</p>
-													</div>
-													<div class="column has-text-left">
-														<?php if(!empty($item->fullname)){ ?>
-														<p> <?= $item->fullname;?></p>
-														<p><?= $item->department;?></p>
-														<p><?= date('M d, Y', strtotime($item->doj)); ?></p>
-														<p><?= $item->phone;?></p>
+<div class="column">
+<table class="table table-striped table-sm">
+													<tbody>
+														<tr>
+															<th>Product</th>
+															<?php if(!empty($item->name)) { ?>
+															<td><?= $item->names; ?></td>
+															<?php } else{ ?>
+																<td>N/A</td>
+																<?php } ?>
+															<th>Employee</th>
+															<?php if(!empty($item->emp_name)) { ?>
+															<td><?= $item->emp_name; ?></td>
+															<?php }else { ?>
+																<td>N/A</td>
+																<?php } ?>
+														</tr>
+														<tr>
+															<th>Serial/IMEI</th>
+															<?php if(!empty($item->serial_number)) { ?>
+															<td><?= $item->serial_number; ?></td>
+															<?php } else { ?>
+																<td>N/A</td>
+																<?php } ?>
+															<th>Model</th>
+															<?php if(!empty($item->model)) { ?>
+															<td><?= $item->model; ?></td>
+															<?php } else {?>
+																<td>N/A</td>
+																<?php } ?>
+														</tr>
+														<tr>
+															<th>Purchase Date</th>
+															<?php if(!empty($item->purchasedate)) { ?>
+															<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
+															<?php } else {?>
+																<td>N/A</td>
+																<?php } ?>
+															<th>Price</th>
+															<?php if(!empty($item->price)){ ?>
+															<td><?php echo "<spanp id='price'>". $item->price.'</span>';?></td>
+															<?php } else {?>
+																<td>N/A</td>
+																<?php } ?>
+														</tr>
+														<tr>
+															<th>Depreciation</th>
+															<td>
+															<?php echo "<span id='dep'>".$item->depreciation .'</span>'. "(%)"; ?>
+															<?php	error_reporting(0);
+															if($item->depreciation > 0){ 
+															$depreciation = ($item->price*$item->depreciation / 100) ;  
+															echo $item->price - $depreciation;
+															}
+															?>
+															</td>
+															<th>Current Value</th>
+															<td><span id="current"></span></td>
+														</tr>
+														<tr>
+															<th>Department</th>
+															<td>
+															<?php echo $item->department; ?> 
+															</td>
+															<th>Date oF Joininig</th>
+															<td<?php echo $item->doj; ?> </td>
+														</tr>
+														<tr>
+															<th>Contact</th>
+															<td><?= $item->phone; ?></td>
+														</tr>
+														<tr>
+															<?php if(!empty($current_item)) { ?>
+															<th>Department</th>
+															<td><?= $item->department; ?></td>
+															<th>Date of Joininig</th>
+															<td><?= date('M d, Y', strtotime($current_item[0]->doj)); ?><td>
+														</tr>
 														<?php } ?>
-													</div>
-												</div>
-											</div>
+														<tr>
+															<?php if(!empty($current_item)) { ?>
+															<th>Contact</th>
+															<td><?= $current_item[0]->phone; ?></td>
+															<th>Employee</th>
+															<td><?= $current_item[0]->emp_name; ?></td>
+														</tr>
+														<?php } ?>
+													</tbody>
+												</table>
+</div>
+										 
+
+
+
 
 										</div>
 										<span style='color: red;font-weight: bold'>This item still not assign to any
