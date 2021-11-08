@@ -747,6 +747,44 @@ class Admin extends CI_Controller{
             redirect('admin/invoices');
         }
     }
+    
+    // Edit detail
+    public function edit_invoice($id){   
+        $data['title'] = 'Edit Invoice';
+        $data['body'] = 'admin/add_invoice';
+        $data['breadcrumb'] = array("admin/add_invoice" => "Edit Invoice");
+        $data['locations'] = $this->admin_model->get_employ_location($id); 
+        $data['edit'] = $this->admin_model->edit_invoice($id); 
+        $data['projects'] = $this->admin_model->project();
+        $data['breadcrumb'] = array("admin/invoices" => "Invoice List", "Edit Invoice");
+        $data['employees_page'] = true;
+        $this->load->view('admin/commons/new_template', $data);
+    }
+
+ // Update employ
+ public function update_invoice(){
+    $id = $this->input->post('id'); 
+    $data = array(
+        'inv_no' => $this->input->post('inv_no'),
+        'inv_date' => date('Y-m-d', strtotime($this->input->post('inv_date'))),
+        'project' => $this->input->post('project'),
+        'vendor' => $this->input->post('vendor_name'),
+        'region' => $this->input->post('region'),
+        'item' => $this->input->post('item_name'),
+        'amount' => $this->input->post('amount'),
+        'inv_desc' => $this->input->post('inv_desc'),
+        'created_at' => date('Y-m-d')
+    ); 
+    if($this->admin_model->update_invoice($id, $data)){
+        $this->session->set_flashdata('success', 'Product (<strong>' . $this->input->post('item_name') . '</strong>) was updated successfully.'); 
+        redirect('admin/edit_invoice/' . $id);
+    }else{
+        $this->session->set_flashdata('failed', 'Something went wrong, please try again!');
+        redirect('admin/edit_invoice/' . $id);
+    }
+}
+
+
     // Invoices - print invoice
     public function print_invoice($id){
         $data['title'] = 'Print Invoice | Admin & Procurement';
@@ -1007,7 +1045,9 @@ class Admin extends CI_Controller{
         $data['title'] = 'Asset Detail';
         $data['body'] = 'admin/asset-detail';
         $data['locations'] = $this->admin_model->get_item_location();
+        $data['categories'] = $this->admin_model->get_item_categories();
         $data['edit'] = $this->admin_model->asset_detail($id);
+        $data['sub_categories'] = $this->admin_model->sub_categories($id);
         $data['breadcrumb'] = array("admin/asset_register" => "Assets List", "Edit Asset");
         $data['asset_register'] = true;
         $this->load->view('admin/commons/new_template', $data);
@@ -1016,14 +1056,15 @@ class Admin extends CI_Controller{
         public function save_item(){
             $data = array(
                 'purchase_date' => $this->input->post('purchase_date'), 
-                'category' => $this->input->post('category'), 
+                'category' => $this->input->post('category'),
+                'sub_categories' => $this->input->post('sub_categories'),
                 'description' => $this->input->post('description'),
                 'quantity' => $this->input->post('quantity'),
+                'price' => $this->input->post('price'),
                 'location' => $this->input->post('location'), 
-                'user' => $this->input->post('user'),
-                'remarks' => $this->input->post('remarks'), 
+                'user' => $this->session->userdata('id'), 
                 'created_at' => date('Y-m-d')
-            ); 
+            );
             if($this->admin_model->add_item($data)){
                 $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
                 redirect('admin/asset_register');
@@ -1038,14 +1079,15 @@ class Admin extends CI_Controller{
         $data = array(
             'purchase_date' => $this->input->post('purchase_date'), 
             'category' => $this->input->post('category'), 
+            'sub_categories' => $this->input->post('sub_categories'),
             'description' => $this->input->post('description'),
-            'quantity' => $this->input->post('quantity'),
+            'quantity' => $this->input->post('quantity'), 
+            'price' => $this->input->post('price'),
             'location' => $this->input->post('location'), 
-            'user' => $this->input->post('user'),
-            'remarks' => $this->input->post('remarks'), 
+            'user' => $this->session->userdata('id'), 
             'created_at' => date('Y-m-d')
         );
-        if($this->admin_model->update_item($id, $data)){
+                if($this->admin_model->update_item($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Item was updated successfully.');
             redirect('admin/asset_register');
         }else{
