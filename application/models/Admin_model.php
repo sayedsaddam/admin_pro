@@ -3,6 +3,10 @@
  * undocumented class
  */
 class Admin_model extends CI_Model{
+    public function UserRoles() {
+        $this->db->from('users_roles');
+        return $this->db->get()->result();
+    }
     public function EmployeesStatistics() {
         $this->db->select('users.id, users.fullname, users_roles.type as role_type, locations.name as location');
         $this->db->from('users');
@@ -29,11 +33,6 @@ class Admin_model extends CI_Model{
         $this->db->from('suppliers');
         $this->db->where('added_by', $id);
         return $this->db->get()->result();
-    }
-    public function AssetsAccessList() {
-        $user_role = $this->session->userdata('user_role');
-        $userAccess = $this->admin_model->request_db_configs($user_role);
-        return $userAccess[0];
     }
     
     // Get User Role
@@ -1856,9 +1855,11 @@ public function update_invoice($id, $data){
                             users.dob, 
                             users.created_at,
                             locations.id as loc_id,
-                            locations.name');
+                            locations.name,
+                            users_roles.id as user_role');
         $this->db->from('users');
         $this->db->join('locations', 'users.location = locations.id', 'left');
+        $this->db->join('users_roles', 'users.user_role = users_roles.id', 'left');
         $this->db->where('users.id', $id);
         return $this->db->get()->row();
     } 

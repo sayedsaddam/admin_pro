@@ -46,6 +46,7 @@
 		</li>
 	</ul>
 	<?php endif ?>
+	<?php if($EmployeesAccess->read == 1) : ?>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'employee' || $this->uri->segment(2) == 'search_employ' || $this->uri->segment(2) == 'add_employee' || $this->uri->segment(2) == 'edit_employ' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'employee' || $this->uri->segment(2) == 'search_employ' || $this->uri->segment(2) == 'add_employee' || $this->uri->segment(2) == 'edit_employ' ? 'style="background-color:#ebfffc;"' : '' ?>>Employees</a>
@@ -58,6 +59,8 @@
 			</ul>
 		</li>
 	</ul>
+	<?php endif ?>
+	<?php if($CategoriesAccess->read == 1) : ?>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'categories' || $this->uri->segment(2) == 'sub_categories' || $this->uri->segment(2) == 'search_sub_categories' || $this->uri->segment(2) == 'search_categories' ? 'style="background-color:#ebfffc;"' : '' ?>>Item
@@ -69,24 +72,8 @@
 			</ul>
 		</li>
 	</ul>
-	<ul class="menu-list">
-		<!-- <li><a href="<?= base_url('admin/travels_info') ?>">Travels Info</a></li> -->
-	</ul>
-	<ul class="menu-list">
-		<!-- <li><a href="<?= base_url('admin/locations') ?>">Locations</a></li> -->
-	</ul>
-	<ul class="menu-list">
-		<!-- <li><a href="<?= base_url('admin/inventory') ?>">Inventory</a></li> -->
-	</ul>
-	<ul class="menu-list">
-		<!-- <li><a href="<?= base_url('admin/users') ?>">Users</a></li> -->
-	</ul>
-	<ul class="menu-list">
-		<!-- <li><a href="<?=  base_url('admin/invoices') ?>">Invoices</a></li> -->
-	</ul>
-	<ul class="menu-list">
-		<!-- <li><a href="<?= base_url('/admin/projects') ?>">Projects</a></li> -->
-	</ul>
+	<?php endif ?>
+	<?php if($RegisterAccess->read == 1) : ?>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' || $this->uri->segment(2) == 'item_detail' || $this->uri->segment(2) == 'assign_item' ? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' || $this->uri->segment(2) == 'item_detail' || $this->uri->segment(2) == 'assign_item' ? 'style="background-color:#ebfffc;"' : '' ?>>Item
@@ -103,8 +90,8 @@
 						New</a></li>
 			</ul>
 		</li>
-
 	</ul>
+	<?php endif ?>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('Purchase/purchase_order_list') ?>">Purchase</a></li> -->
 	</ul>

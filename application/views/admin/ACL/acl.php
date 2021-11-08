@@ -164,6 +164,180 @@
                             </div>
                         </div>
                     </div>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="card">
+                                <header class="card-header">
+                                    <p class="card-header-title">
+                                        Employees <span class="ml-2 has-text-weight-light">(Global Access)</span>
+                                    </p>
+                                    <button class="card-header-icon" aria-label="more options">
+                                        <span class="icon">
+                                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                </header>
+                                <div class="card-content">
+                                    <div class="content">
+                                        <div class="columns">
+                                            <div class="column">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Read</th>
+                                                            <th>Write</th>
+                                                            <th>Update</th>
+                                                            <th>Delete</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php foreach($employees_access_list as $key => $data) : ?>
+                                                        <tr>
+                                                            <th><?= $data->title ?></th>
+                                                            <td><input type="checkbox"
+                                                                    name="read[<?= $data->component ?>][<?= $key + 1 ?>]"
+                                                                    <?= $data->read == 1 ? 'checked' : '' ?>
+                                                                    value="1"></td>
+                                                            <td><input type="checkbox"
+                                                                    name="write[<?= $data->component ?>][<?= $key + 1 ?>]"
+                                                                    <?= $data->write == 1 ? 'checked' : '' ?>
+                                                                    value="1"></td>
+                                                            <td><input type="checkbox"
+                                                                    name="update[<?= $data->component ?>][<?= $key + 1 ?>]"
+                                                                    <?= $data->update == 1 ? 'checked' : '' ?>
+                                                                    value="1"></td>
+                                                            <td><input type="checkbox"
+                                                                    name="delete[<?= $data->component ?>][<?= $key + 1 ?>]"
+                                                                    <?= $data->delete == 1 ? 'checked' : '' ?>
+                                                                    value="1"></td>
+                                                        </tr>
+                                                        <?php endforeach ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="card">
+                                <header class="card-header">
+                                    <p class="card-header-title">
+                                        Categories <span class="ml-2 has-text-weight-light">(Global Access)</span>
+                                    </p>
+                                    <button class="card-header-icon" aria-label="more options">
+                                        <span class="icon">
+                                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                </header>
+                                <div class="card-content">
+                                    <div class="content">
+                                        <div class="columns">
+                                            <div class="column">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Read</th>
+                                                            <th>Write</th>
+                                                            <th>Update</th>
+                                                            <th>Delete</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php foreach($categories_access_list as $key => $data) : ?>
+                                                        <tr>
+                                                            <th><?= $data->title ?></th>
+                                                            <td><input type="checkbox"
+                                                                    name="read[<?= $data->component ?>][<?= $key + 1 ?>]"
+                                                                    <?= $data->read == 1 ? 'checked' : '' ?>
+                                                                    value="1"></td>
+                                                            <td><input type="checkbox"
+                                                                    name="write[<?= $data->component ?>][<?= $key + 1 ?>]"
+                                                                    <?= $data->write == 1 ? 'checked' : '' ?>
+                                                                    value="1"></td>
+                                                            <td><input type="checkbox"
+                                                                    name="update[<?= $data->component ?>][<?= $key + 1 ?>]"
+                                                                    <?= $data->update == 1 ? 'checked' : '' ?>
+                                                                    value="1"></td>
+                                                            <td><input type="checkbox"
+                                                                    name="delete[<?= $data->component ?>][<?= $key + 1 ?>]"
+                                                                    <?= $data->delete == 1 ? 'checked' : '' ?>
+                                                                    value="1"></td>
+                                                        </tr>
+                                                        <?php endforeach ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="card">
+                                <header class="card-header">
+                                    <p class="card-header-title">
+                                        Register <span class="ml-2 has-text-weight-light">(Global Access)</span>
+                                    </p>
+                                    <button class="card-header-icon" aria-label="more options">
+                                        <span class="icon">
+                                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                </header>
+                                <div class="card-content">
+                                    <div class="content">
+                                        <div class="columns">
+                                            <div class="column">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Read</th>
+                                                            <th>Write</th>
+                                                            <th>Update</th>
+                                                            <th>Delete</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php foreach($register_access_list as $key => $data) : ?>
+                                                        <tr>
+                                                            <th><?= $data->title ?></th>
+                                                            <td><input type="checkbox"
+                                                                    name="read[<?= $data->component ?>][<?= $key + 1 ?>]"
+                                                                    <?= $data->read == 1 ? 'checked' : '' ?>
+                                                                    value="1"></td>
+                                                            <td><input type="checkbox"
+                                                                    name="write[<?= $data->component ?>][<?= $key + 1 ?>]"
+                                                                    <?= $data->write == 1 ? 'checked' : '' ?>
+                                                                    value="1"></td>
+                                                            <td><input type="checkbox"
+                                                                    name="update[<?= $data->component ?>][<?= $key + 1 ?>]"
+                                                                    <?= $data->update == 1 ? 'checked' : '' ?>
+                                                                    value="1"></td>
+                                                            <td><input type="checkbox"
+                                                                    name="delete[<?= $data->component ?>][<?= $key + 1 ?>]"
+                                                                    <?= $data->delete == 1 ? 'checked' : '' ?>
+                                                                    value="1"></td>
+                                                        </tr>
+                                                        <?php endforeach ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
 </section>
 
@@ -197,6 +371,23 @@
 			$(this).parent().submit();
 
 		});
+
+        $(".card-header-icon").click(function() {
+            $(this).toggleClass('rotate-90');
+            $(this).parent().parent().find(".card-content").slideToggle();
+        })
 	})
 
 </script>
+
+<style>
+    .card-header-icon {
+        transition:all 0.5s;
+    }
+    .card-content {
+        display: none;
+    }
+    .rotate-90 {
+        transform: rotate(180deg);
+    }
+</style>
