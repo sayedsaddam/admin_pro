@@ -410,6 +410,31 @@ class Admin_model extends CI_Model{
             return false;
         }
     }
+  // Get employ for edit by id
+  public function edit_invoice($id){
+    $this->db->select('invoices.id, 
+                        invoices.inv_no, 
+                        invoices.inv_date, 
+                        invoices.project, 
+                        invoices.vendor, 
+                        invoices.region,
+                        invoices.item, 
+                        invoices.amount,
+                        invoices.inv_desc, 
+                        invoices.status,
+                        invoices.created_at
+                        ');
+    $this->db->from('invoices'); 
+    $this->db->where('id', $id);
+    return $this->db->get()->row();
+} 
+// Update employ by ID.
+public function update_invoice($id, $data){
+    $this->db->where('id', $id);
+    $this->db->update('invoices', $data);
+    return true;
+}
+
     // Get suppliers for inovice form
     public function get_suppliers_for_invoice(){
         $this->db->select('id, name');
@@ -423,9 +448,21 @@ class Admin_model extends CI_Model{
     }
     // Invoices - Get invoices
     public function get_invoices($limit, $offset){
-        $this->db->select('id, inv_no, inv_date, project, vendor, region, item, amount, inv_desc, status, created_at');
+     $this->db->select('invoices.id,
+                        invoices.inv_no, 
+                        invoices.inv_date, 
+                        invoices.project, 
+                        invoices.vendor, 
+                        invoices.region, 
+                        invoices.item,
+                        invoices.amount,
+                        invoices.inv_desc, 
+                        invoices.status, 
+                        invoices.created_at,
+                        locations.id as loc_id,
+                        locations.name');
         $this->db->from('invoices');
-        $this->db->order_by('id', 'DESC');
+        $this->db->join('locations', 'invoices.region = locations.id', 'left');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -724,18 +761,23 @@ class Admin_model extends CI_Model{
     public function asset_detail($id){ 
         $this->db->select('assets.id, 
                         assets.date,
-                        assets.category, 
+                        assets.category,
+                        assets.sub_categories,
                         assets.description,
                         assets.quantity, 
+                        assets.price, 
                         assets.purchase_date, 
                         assets.location, 
                         assets.designation, 
                         assets.user,remarks,
                         assets.created_at,
                         locations.id as loc_id,
-                        locations.name');
+                        locations.name,
+                        sub_categories.id as sub_id,
+                        sub_categories.name,');
         $this->db->from('assets');
         $this->db->join('locations', 'assets.location = locations.id', 'left');
+        $this->db->join('sub_categories', 'assets.sub_categories = sub_categories.id', 'left');
         $this->db->where('assets.id', $id); 
         // echo "<pre>";
         // print_r($this->db->get()->row());exit;

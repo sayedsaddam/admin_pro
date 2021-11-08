@@ -82,28 +82,14 @@
 					method="post">
 					<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">User <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-										<input type="text" name="user" id="" class="input is-small"
-											value="<?php if(!empty($edit)){ echo $edit->user; } ?>" type="text"
-											placeholder="user name ..." required="">
-										<span class="icon is-small is-left">
-											<i class="fas fa-user"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-						<div class="column">
+						
+					<div class="column">
 						<fieldset>
 								<div class="field">
 									<label class="label is-small">Category <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
-											<select name="category" id="category" required <?= isset($edit) ? 'disabled' : '' ?>>
+											<select name="category" id="category" required>
 												<option selected disabled value="">Select a Category</option>
 												<?php if(!empty($categories)): foreach($categories as $cat): ?>
 												<option value="<?= $cat->id; ?>"
@@ -120,9 +106,35 @@
 								</div>
 							</fieldset> 
 						</div>
+
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Subcategory <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<span class="select is-small is-fullwidth">
+											 
+											<select name="sub_categories" id="sub_categories" required>
+												<option selected disabled value="">Select a Sub Categories</option>
+												<?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
+												<option value="<?= $cat->id; ?>"
+													<?= !empty($edit) && $edit->sub_categories == $cat->id ? 'selected' : '' ?>>
+													<?= ucwords($cat->name); ?>
+												</option>
+												<?php endforeach; endif; ?>
+											</select>  
+										</span>
+										<span class="icon is-small is-left">
+											<i class="fas fa-luggage-cart"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+
 					</div>
 
-					<div class="columns">
+					<div class="columns"> 
 						<div class="column">
 							<div class="control">
 								<label class="label is-small">Quantity <span class="has-text-danger">*</span></label>
@@ -130,33 +142,30 @@
 									<div class="control has-icons-left">
 										<input type="number" name="quantity" id="" class="input is-small"
 											value="<?php if(!empty($edit)){ echo $edit->quantity; } ?>" type="text"
-											placeholder="quantity ..." required="">
+											placeholder="1-9,99" required="">
 										<span class="icon is-small is-left">
 											<i class="fas fa-sort-numeric-up"></i>
 										</span>
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> 
+						
 						<div class="column">
 							<div class="control">
-
-								<fieldset>
-									<div class="field">
-										<label class="label is-small">Remarks <span
-												class="has-text-danger">*</span></label>
-										<div class="control has-icons-left">
-											<input type="text" name="remarks" id="" class="input is-small"
-												value="<?php if(!empty($edit)){ echo $edit->remarks; } ?>" type="text"
-												placeholder="remarks ..." required="">
-											<span class="icon is-small is-left">
-												<i class="fas fa-envelope-square"></i>
-											</span>
-										</div>
+								<label class="label is-small">Price <span class="has-text-danger">*</span></label>
+								<div class="select is-small is-fullwidth">
+									<div class="control has-icons-left">
+										<input type="number" name="price" id="" class="input is-small"
+											value="<?php if(!empty($edit)){ echo $edit->price; } ?>" type="text"
+											placeholder="50,00" required="">
+										<span class="icon is-small is-left">
+											<i class="fas fa-sort-numeric-up"></i>
+										</span>
 									</div>
-								</fieldset>
+								</div>
 							</div>
-						</div>
+						</div> 
 					</div>
 
 
@@ -244,6 +253,32 @@
 	</div>
 </section>
 <script>
+$(document).ready(function () {
+
+// category change
+$('#category').on('change', function () {
+	var category = $(this).val(); 
+	 alert(category)
+	// AJAX request
+	$.ajax({
+		url: '<?= base_url("admin/get_item_sub_categories/"); ?>' + category,
+		method: 'POST',
+		data: {
+			category: category
+		},
+		dataType: 'json',
+		success: function (response) {
+			// Remove options 
+			$('#sub_categories').find('option').not(':first').remove();
+
+			// Add options
+			$.each(response, function (index, data) {
+				$('#sub_categories').append('<option value="' + data['id'] + '">' + data['name'] + '</option>');
+			});
+		}
+	});
+});
+});
 
 
 </script>
