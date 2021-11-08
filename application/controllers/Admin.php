@@ -463,6 +463,7 @@ class Admin extends CI_Controller{
     $data['add_page'] = true;
     $data['body'] = 'admin/employ/add_employee';   
     $data['locations'] = $this->admin_model->get_item_location(); 
+    $data['user_roles'] = $this->admin_model->UserRoles();
     $data['breadcrumb'] = array("admin/employee" => "Employee List", "Add Employee");
     $this->load->view('admin/commons/new_template', $data);
 }
@@ -481,7 +482,7 @@ class Admin extends CI_Controller{
             'status' => 1,
             'dob' => $this->input->post('dob'),
             'doj' => $this->input->post('doj'),
-            'user_role' => 'employee',
+            'user_role' => $this->input->post('user_role'),
             'created_at' => date('Y-m-d')
         );  
         if($this->admin_model->add_employ($data)){
@@ -501,6 +502,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/employ/add_employee';
         $data['locations'] = $this->admin_model->get_employ_location($id); 
         $data['edit'] = $this->admin_model->edit_employ($id);  
+        $data['user_roles'] = $this->admin_model->UserRoles();
         $data['breadcrumb'] = array("admin/employee" => "Employee List", "Edit Employee");
         $data['employees_page'] = true;
         $this->load->view('admin/commons/new_template', $data);
@@ -524,7 +526,8 @@ class Admin extends CI_Controller{
             'address' => ucfirst($this->input->post('address')),
             'status' => 1,
             'dob' => $this->input->post('dob'),
-            'doj' => $this->input->post('doj')
+            'doj' => $this->input->post('doj'),
+            'user_role' => $this->input->post('user_role')
         );
         // echo "<pre>";
         // print_r($data);exit;  

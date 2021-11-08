@@ -62,7 +62,8 @@
 							<button class="delete is-small"></button>
 							<div class="columns is-vcentered">
 								<div class="column is-size-7">
-									<i class="fas fa-check pr-1"></i> <?= $message = $this->session->flashdata('success'); ?>
+									<i class="fas fa-check pr-1"></i>
+									<?= $message = $this->session->flashdata('success'); ?>
 								</div>
 							</div>
 						</div>
@@ -71,11 +72,12 @@
 				<?php elseif($this->session->flashdata('failed')) : ?>
 				<div class="columns">
 					<div class="column">
-					<div class="notification is-danger is-light">
+						<div class="notification is-danger is-light">
 							<button class="delete is-small"></button>
 							<div class="columns is-vcentered">
 								<div class="column is-size-7">
-									<i class="fas fa-exclamation pr-1"></i> <?= $message = $this->session->flashdata('failed'); ?>
+									<i class="fas fa-exclamation pr-1"></i>
+									<?= $message = $this->session->flashdata('failed'); ?>
 								</div>
 							</div>
 						</div>
@@ -91,14 +93,14 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">User Name <span
+									<label class="label is-small">Username <span
 											class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<input type="text" name="user_name" id="" class="input is-small"
 											value="<?= !empty($edit) ? $edit->username : '' ?>" type="text"
-											placeholder="user name ..." required="">
+											placeholder="e.g john_doe" required="">
 										<span class="icon is-small is-left">
-											<i class="fas fa-user"></i>
+											<i class="fas fa-user-tie"></i>
 										</span>
 									</div>
 								</div>
@@ -107,14 +109,14 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Full Name <span
+									<label class="label is-small">Fullname <span
 											class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<input type="text" name="full_name" id="" class="input is-small"
 											value="<?= !empty($edit) ? $edit->fullname : '' ?>" type="text"
-											placeholder="full name ..." required="">
+											placeholder="e.g John Doe" required="">
 										<span class="icon is-small is-left">
-											<i class="fas fa-user"></i>
+											<i class="fas fa-signature"></i>
 										</span>
 									</div>
 								</div>
@@ -124,19 +126,24 @@
 
 					<div class="columns">
 						<div class="column">
-							<div class="control">
+							<div class="control has-icons-left">
 								<label class="label is-small">Location <span class="has-text-danger">*</span></label>
-								<div class="select is-small is-fullwidth">  
-											<select name="location" id="location" required>
-												<?php if(!isset($edit)): ?>
-												<option selected disabled value="">Select a City</option>
-												<?php endif ?> 
-												<?php if(!empty($locations)): foreach($locations as $loc): ?>
-												<option value="<?= $loc->id; ?>"
-													<?php !empty($edit) && $edit->location == $loc->id ? 'selected' : '' ?>><?= $loc->name; ?>
-												</option>
-												<?php endforeach; endif; ?> 
-											</select> 
+								<div class="select is-small is-fullwidth">
+									<select name="location" id="location" required>
+										<?php if(!isset($edit)): ?>
+										<option selected disabled value="">Select a City</option>
+										<?php endif ?>
+										<?php if(!empty($locations)): foreach($locations as $loc): ?>
+										<option value="<?= $loc->id; ?>"
+											<?php !empty($edit) && $edit->location == $loc->id ? 'selected' : '' ?>>
+											<?= $loc->name; ?>
+										</option>
+										<?php endforeach; endif; ?>
+									</select>
+									
+								<span class="icon is-small is-left">
+									<i class="fas fa-street-view"></i>
+								</span>
 								</div>
 							</div>
 						</div>
@@ -150,9 +157,9 @@
 										<div class="control has-icons-left">
 											<input type="email" name="email" id="" class="input is-small"
 												value="<?= !empty($edit) ? $edit->email : '' ?>" type="text"
-												placeholder="example@yahoo.com ..." required="">
+												placeholder="e.g user@example.com" required="">
 											<span class="icon is-small is-left">
-												<i class="fas fa-envelope-square"></i>
+												<i class="fas fa-envelope"></i>
 											</span>
 										</div>
 									</div>
@@ -164,40 +171,48 @@
 
 					<div class="columns">
 						<div class="column">
-							<div class="control">
-								<label class="label is-small">Phone No <span class="has-text-danger">*</span></label>
+							<label class="label is-small">Phone No <span class="has-text-danger">*</span></label>
+							<div class="control has-icons-left">
 								<div class="is-small is-fullwidth">
 									<input type="number" name="phone" id="" class="input is-small"
 										value="<?= !empty($edit) ? $edit->phone : '' ?>" type="text"
-										placeholder="034354556554 ..." required="">
+										placeholder="e.g 03311234567" required="">
+									<span class="icon is-small is-left">
+										<i class="fas fa-phone"></i>
+									</span>
 								</div>
 							</div>
 						</div>
 						<div class="column">
 							<label class="label is-small">Dapartment <span class="has-text-danger">*</span></label>
-							<div class="select select is-small is-fullwidth">
+							<div class="control has-icons-left">
+								<div class="select select is-small is-fullwidth">
+									<select name="department" id="" required>
+										<?php if(!isset($edit)): ?>
+										<option selected disabled value="">Select Department</option>
+										<?php endif ?>
+										<?php if(!empty($edit)): ?>
+										<option value="<?= $edit->department; ?>"
+											<?php !empty($edit)? 'selected' : '' ?>>
+											<?= $edit->department; ?>
+										</option>
+										<?php endif; ?>
 
-								<select name="department" id="" required>
-									<?php if(!isset($edit)): ?>
-									<option selected disabled value="">Select Department</option>
-									<?php endif ?>
-									<?php if(!empty($edit)): ?>
-									<option value="<?= $edit->department; ?>" <?php !empty($edit)? 'selected' : '' ?>>
-										<?= $edit->department; ?>
-									</option>
-									<?php endif; ?>
-                                    
-									<option value="Marketing">Marketing</option>
-									<option value="Operations">Operations</option>
-									<option value="Sales">Sales</option>
-									<option value="Finance">Finance</option>
-									<option value="Admin (Super Admin)">Admin (Super Admin)</option>
-									<option value="Design">Design</option>
-									<option value="Construction">Construction</option>
-									<option value="Human Resource">Human Resource</option>
-									<option value="Senior Management">Senior Management</option>
-									<option value="CCD">CCD</option> 
-								</select>
+										<option value="Marketing">Marketing</option>
+										<option value="Operations">Operations</option>
+										<option value="Sales">Sales</option>
+										<option value="Finance">Finance</option>
+										<option value="Admin (Super Admin)">Admin (Super Admin)</option>
+										<option value="Design">Design</option>
+										<option value="Construction">Construction</option>
+										<option value="Human Resource">Human Resource</option>
+										<option value="Senior Management">Senior Management</option>
+										<option value="CCD">CCD</option>
+									</select>
+									<div class="icon is-small is-left">
+										<i class="fas fa-building"></i>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -208,9 +223,9 @@
 									<label class="label is-small">Region </label>
 									<div class="control has-icons-left">
 										<input type="text" name="region" id="" class="input is-small"
-											value="<?= !empty($edit) ? $edit->region : '' ?>" placeholder="region ...">
+											value="<?= !empty($edit) ? $edit->region : '' ?>" placeholder="e.g KPK">
 										<span class="icon is-small is-left">
-											<i class="fas fa fa-globe"></i>
+											<i class="fas fa fa-location-arrow"></i>
 										</span>
 									</div>
 								</div>
@@ -218,14 +233,16 @@
 						</div>
 
 						<div class="column">
-							<label class="label is-small"> DOB <span class="has-text-danger">*</span></label>
+							<label class="label is-small">Date of Birth <span class="has-text-danger">*</span></label>
 							<div class="is-small is-fullwidth">
-							<?php if(!empty($edit)){
-										$dateob = strtotime($edit->dob);
-										$date_of_birth= date('Y-m-d', $dateob);  
-							}?>
-								<input type="date" name="dob" id="" class="input is-small"
-									value="<?= !empty($edit) ? $date_of_birth : '' ?>" placeholder="region ...">
+								<?php if(!empty($edit)){ $dateob = strtotime($edit->dob); $date_of_birth= date('Y-m-d', $dateob);}?>
+								<div class="control has-icons-left">
+									<input type="date" name="dob" id="" class="input is-small"
+									value="<?= !empty($edit) ? $date_of_birth : '' ?>" placeholder="e.g 31/01/1990">
+									<span class="icon is-small is-left">
+										<i class="fas fa fa-birthday-cake"></i>
+									</span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -235,15 +252,15 @@
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Joining Date</label>
-									<div class="control">
-										<?php if(!empty($edit)){
-										$dateoj = strtotime($edit->doj);
-										$date_of_joining = date('Y-m-d', $dateoj); 
-										}?>
-									<input name="doj" class="input is-small" type="date" required
-											value="<?= !empty($edit) ? $date_of_joining : '' ?>">
-
-										 </div>
+									<div class="control has-icons-left">
+										<?php if(!empty($edit)){ $dateoj = strtotime($edit->doj); $date_of_joining = date('Y-m-d', $dateoj); }?>
+										<input name="doj" class="input is-small" type="date" required
+											value="<?= !empty($edit) ? $date_of_joining : '' ?>"
+											placeholder="e.g 31/01/2010">
+										<span class="icon is-small is-left">
+											<i class="fas fa fa-table"></i>
+										</span>
+									</div>
 								</div>
 							</fieldset>
 						</div>
@@ -253,11 +270,40 @@
 								<div class="field">
 									<label class="label is-small">Address</label>
 									<div class="control has-icons-left">
-										<textarea class="textarea is-small" name="address" rows="1" id=""
-											placeholder="some detail"><?= !empty($edit) ? $edit->address : '' ?></textarea>
+										<input class="input is-small" name="address" rows="1" id=""
+											placeholder="e.g Street No.1, Block No.E, Sector 11"><?= !empty($edit) ? $edit->address : '' ?></input>
+										<span class="icon is-small is-left">
+											<i class="fas fa-compass"></i>
+										</span>
 									</div>
 								</div>
 							</fieldset>
+						</div>
+					</div>
+
+					
+					<div class="columns">
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">User Role <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+									<div class="select select is-small is-fullwidth">
+										<select name="user_role" required>
+											<option selected disabled value="">Select User Role</option>
+											<?php foreach ($user_roles as $data) : ?>
+												<option value="<?= $data->id ?>" <?= isset($edit->user_role) && $edit->user_role == $data->id ? 'selected' : '' ?>><?= $data->title ?></option>
+											<?php endforeach ?>
+										</select>
+										<div class="icon is-small is-left">
+											<i class="fas fa-user-tag"></i>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+
+						<div class="column">
 						</div>
 					</div>
 
@@ -280,10 +326,10 @@
 					</div>
 				</form>
 			</div>
-		</div> 
+		</div>
 	</div>
 </section>
 <script>
- 
+
 
 </script>
