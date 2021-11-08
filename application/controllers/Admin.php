@@ -1241,11 +1241,14 @@ class Admin extends CI_Controller{
             'cat_name' => $this->input->post('cat_name'),
             'added_by' => $this->session->userdata('id')
         );
-        if($this->admin_model->add_category($data)){
+        $checkIfExist = $this->db->select('cat_name')->from('categories')->where('cat_name', strtolower($data['cat_name']))->get()->row(); // Get sub_category name.
+        if(strtolower($checkIfExist->cat_name) != NULL){
+            $this->session->set_flashdata('failed', '<strong class="mr-1">Failed.</strong>Category already exists, try adding a different one.');
+            redirect($_SERVER['HTTP_REFERER']); 
+            exit;
+        }
+        elseif($this->admin_model->add_category($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Category was added successfully.');
-            redirect($_SERVER['HTTP_REFERER']);
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
             redirect($_SERVER['HTTP_REFERER']);
         }
     }
