@@ -20,7 +20,7 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.jpeg
 *.pdf
 *.ico
-confg.php
+config.php
 # IDE Files
 #-------------------------
 /nbproject/
