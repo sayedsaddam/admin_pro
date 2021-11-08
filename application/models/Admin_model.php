@@ -3,6 +3,10 @@
  * undocumented class
  */
 class Admin_model extends CI_Model{
+    public function UserRoles() {
+        $this->db->from('users_roles');
+        return $this->db->get()->result();
+    }
     public function EmployeesStatistics() {
         $this->db->select('users.id, users.fullname, users_roles.type as role_type, locations.name as location');
         $this->db->from('users');
@@ -1809,9 +1813,11 @@ class Admin_model extends CI_Model{
                             users.dob, 
                             users.created_at,
                             locations.id as loc_id,
-                            locations.name');
+                            locations.name,
+                            users_roles.id as user_role');
         $this->db->from('users');
         $this->db->join('locations', 'users.location = locations.id', 'left');
+        $this->db->join('users_roles', 'users.user_role = users_roles.id', 'left');
         $this->db->where('users.id', $id);
         return $this->db->get()->row();
     } 
