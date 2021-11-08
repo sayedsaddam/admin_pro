@@ -256,8 +256,8 @@
 								<div class="field">
 									<label class="label is-small">Quantity <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input name="quantity" id="item-quantity" value="<?= !empty($edit) ? $edit->quantity : '1' ?>"
-											class="input is-small" type="number" min="1" max="9999" placeholder="1-9,999" required>
+										<input name="quantity" id="item-quantity" value="<?= !empty($edit) ? $edit->quantity : '1'; ?>"
+											class="input is-small" type="number" min="1" max="9999" placeholder="1-9,999" required <?= isset($edit) ? 'disabled' : '' ?>>
 										<span class="icon is-small is-left">
 											<i class="fas fa-sort-numeric-up"></i>
 										</span>
