@@ -256,7 +256,6 @@ $(document).ready(function () {
 // category change
 $('#category').on('change', function () {
 	var category = $(this).val(); 
-	 alert(category)
 	// AJAX request
 	$.ajax({
 		url: '<?= base_url("admin/get_item_sub_categories/"); ?>' + category,
