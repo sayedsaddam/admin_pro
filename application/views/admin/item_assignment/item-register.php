@@ -21,11 +21,15 @@
 										<i class="fas fa-search"></i>
 									</span>
 								</div>
-								<div class="control">
-									<button class="button is-small" type="submit"><span class="icon is-small">
+								<div class="control has-addons">
+									<button class="button is-small" type="submit">
+										<span class="icon is-small">
 											<i class="fas fa-arrow-right"></i>
 										</span>
 									</button>
+									<a href="<?= base_url('admin/item_advance_search') ?>" class="button is-small" type="submit">
+									<span>Advance Search</span>
+									</a>
 								</div>
 							</div>
 						</form>
