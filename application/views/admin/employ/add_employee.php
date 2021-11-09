@@ -271,7 +271,7 @@
 									<label class="label is-small">Address</label>
 									<div class="control has-icons-left">
 										<input class="input is-small" name="address" rows="1" id=""
-											placeholder="e.g Street No.1, Block No.E, Sector 11"><?= !empty($edit) ? $edit->address : '' ?></input>
+											placeholder="e.g Street No.1, Block No.E, Sector 11" value="<?= !empty($edit) ? $edit->address : '' ?>"></input>
 										<span class="icon is-small is-left">
 											<i class="fas fa-compass"></i>
 										</span>
