@@ -1,106 +1,140 @@
-<div class="container mt-5 pt-5">
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <!-- Card -->
-            <div class="card">
-                <!-- Card content -->
-                <div class="card-body">
-                    <h1 class="font-weight-bold text-center mb-0">AH Group of Companies (Pvt.) Ltd.</h1>
-                    <h2 class="font-weight-light text-center mb-0">Islamabad, 44000</h2>
-                    <h3 class="font-weight-lighter text-center mb-5">Invoice</h3>
-                    <hr class="mb-5">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Invoice Number</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><?=$invoice->inv_no;?></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Project</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><?=$invoice->project;?></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Vendor Name</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><?=$invoice->vendor;?></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Region</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><?=ucfirst($invoice->region);?></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Item Name</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><?=$invoice->item;?></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Amount</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><?=number_format($invoice->amount);?></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Description</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><?=$invoice->inv_desc;?></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Invoice Date</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><?php if($invoice->inv_date){echo date('F d, Y', strtotime($invoice->inv_date)); }else{ echo '--/--/--'; } ?></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>Invoice Status</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><?php if($invoice->status == 0){echo "<span class='badge badge-warning'>pending</span>"; }else{ echo "<span class='badge badge-success'>cleared</span>"; } ?></p>
-                        </div>
-                    </div>
-                    <div class="row mb-5">
-                        <div class="col-md-6">
-                            <p>Entry Date</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><?=date('F d, Y', strtotime($invoice->created_at));?></p>
-                        </div>
-                    </div>
-                    <div class="row mb-5">
-                        <div class="col-md-12 text-right">
-                            <p>Printed by: <?= $this->session->userdata('fullname'); ?><br>************************</p>
-                        </div>
-                    </div>
-                    <br><br><br><br><br>
-                    <!-- Button -->
-                    <a href="#" class="btn btn-primary d-print-none" onclick="javascript:window.print();"><i class="fa fa-print"></i> Print</a>
-                    <a href="javascript:history.go(-1)" class="btn btn-outline-danger d-print-none"><i class="fa fa-angle-left"></i> back</a>
-                </div>
-            </div>
-            <!-- Card -->
-        </div>
-    </div>
-</div>
+<section class="columns is-gapless mb-0 pb-0 ">
+	<div class="column is-narrow is-fullheight is-hidden-print" id="custom-sidebar">
+		<?php $this->view('admin/commons/sidebar'); ?>
+	</div>
+
+	<div class="column">
+		<div class="columns">
+			<div class="column section">
+
+			<div class="columns is-hidden-touch">
+					<div class="column is-hidden-print">
+						<form action="<?= base_url('admin/search_project'); ?>" method="get">
+							<div class="field has-addons">
+								<div class="control has-icons-left is-expanded">
+									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
+										placeholder="Search Project"
+										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
+									<span class="icon is-small is-left">
+										<i class="fas fa-search"></i>
+									</span>
+								</div>
+								<div class="control">
+									<button class="button is-small" type="submit"><span class="icon is-small">
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="column is-hidden-print is-narrow">
+						<div class="field has-addons">
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/invoices'); ?>'"
+									class="button is-small <?= isset($invoices) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-list"></i>
+									</span>
+									<span>Project List</span>
+								</button>
+							</p>
+							<?php if($AssetsAccess->write == 1) : ?>
+							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/add_invoice'); ?>'"
+									data-target="#add_supplier"
+									class="button is-small <?= (isset($add_invoice)) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-plus"></i>
+									</span>
+									<span>Add New</span>
+								</button>
+							</p>
+							<?php endif ?>
+						</div>
+					</div>
+				</div>
+
+				<div class='container'>
+					<div class='columns is-mobile'>
+						<div class='column is-12'>
+							<div class="card py-5 px-5"> 
+								<p class="subtitle has-text-centered"><strong>AH Group of Companies (Pvt.) Ltd.
+									Islamabad, 44000</strong></p>
+								<p class="subtitle has-text-centered"><strong>Invoice</strong>
+									 </p>
+								<div class="card-content">
+									<div class="columns is-12">
+										<div class="column">
+											<div class="columns">
+												<table class="table table-striped table-sm is-fullwidth">
+													<tbody>
+														<tr>
+															<th>Invoice #</th>
+															 <td><?=$invoice->inv_no;?></td> 
+                                                             <th>Project</th>
+															 <td><?=$invoice->project_name;?></td> 
+														</tr>
+														<tr>
+															<th>Vendor</th>
+															<td><?=$invoice->vendor;?></td>
+                                                            <th>Location</th>
+															 <td><?=ucfirst($invoice->name);?></td> 
+															 
+														</tr>
+														<tr>
+															<th>Item Name</th>
+															<td><?=$invoice->item;?></td>
+                                                            <th>Amount</th>
+															 <td><?=number_format($invoice->amount);?></td> 
+															 
+														</tr>
+														<tr>
+															 
+															<th>Invoice Date</th>
+															 <td><?php if($invoice->inv_date){echo date('F d, Y', strtotime($invoice->inv_date)); }else{ echo '--/--/--'; } ?></td> 
+                                                            <th>Entry Date</th>
+															 <td><?=date('F d, Y', strtotime($invoice->created_at));?></td> 
+															 
+														</tr>
+                                                        <tr>
+                                                            <th>Status</th>
+															<td><?php if($invoice->status == 0){echo "<span class='tag is-warning'>pending</span>"; }else{ echo "<span class='tag is-success'>cleared</span>"; } ?></td>
+															
+														</tr>
+                                                        <tr>
+                                                            <th>Description</th>
+															<td colspan="3"><?=$invoice->inv_desc;?></td>
+                                                        </tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>  
+									 
+									<div class="card-content">
+										
+
+										<div class="buttons is-pulled-right">
+											<button onclick="window.print();" type="button"
+												class="button is-normal is-hidden-print">
+												<span class="icon is-small">
+													<i class="fas fa-print"></i>
+												</span>
+												<span>Print</span>
+											</button>
+										</div>
+										<br>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+</section>
+
+ 
