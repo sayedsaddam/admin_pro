@@ -132,7 +132,7 @@
 								<?php else: ?>
 								<tbody id="myTable">
 									<?php if(!empty($results)): foreach($results as $res): ?>
-									<tr>
+									<tr onclick="window.location='<?= base_url('admin/edit_employ/'.$res->id); ?>';">
 										<td><?= 'S2S-'.$res->id; ?></td>
 										<td><abbr title="<?= $res->email; ?>"><?= ucwords($res->fullname); ?></abbr>
 										</td>
