@@ -132,7 +132,7 @@
 								<?php else: ?>
 								<tbody id="myTable">
 									<?php if(!empty($results)): foreach($results as $res): ?>
-									<tr>
+									<tr onclick="window.location='<?= base_url('admin/edit_employ/'.$res->id); ?>';">
 										<td><?= 'S2S-'.$res->id; ?></td>
 										<td><abbr title="<?= $res->email; ?>"><?= ucwords($res->fullname); ?></abbr>
 										</td>
@@ -142,9 +142,9 @@
 										<td><?= date('M d, Y', strtotime($res->doj)); ?></td>
 										<td>
 											<?php if($res->status == 1): ?>
-											<span class="badge badge-success">Active</span>
+											<span class="tag is-success is-light">Active</span>
 											<?php else: ?>
-											<span class="badge badge-danger">Inactive</span>
+											<span class="tag is-danger is-light">Inactive</span>
 											<?php endif; ?>
 										</td>
 										<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
