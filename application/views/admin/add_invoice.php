@@ -16,7 +16,7 @@
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" type="search"
-										placeholder="Search Assets"
+										placeholder="Search Invoices"
 										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
@@ -126,7 +126,7 @@
 												<?php endif ?>
 												<?php if(!empty($projects)): foreach($projects as $proj): ?>
 												<option value="<?= $proj->id; ?>"
-													<?php !empty($edit) && $edit->id == $proj->id ? 'selected' : '' ?>><?= ucwords($proj->project_name); ?>
+													<?php !empty($edit) ? 'selected' : '' ?>><?= ucwords($proj->project_name); ?>
 												</option>
 												<?php endforeach; endif; ?>
 											</select>
