@@ -27,9 +27,6 @@
 											<i class="fas fa-arrow-right"></i>
 										</span>
 									</button>
-									<a href="<?= base_url('admin/item_advance_search') ?>" class="button is-small" type="submit">
-									<span>Advance Search</span>
-									</a>
 								</div>
 							</div>
 						</form>
