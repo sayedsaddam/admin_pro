@@ -313,6 +313,14 @@ class Admin_model extends CI_Model{
         $this->db->where('cat_id', $cat_id);
         return $this->db->get()->result();
     }
+   // Sub sub_categories for asset list > List sub categories
+   public function invoice_sub_categories($id){
+    $this->db->select('sub_categories.id, sub_categories.cat_id, sub_categories.name, assets.id as asset_id, assets.sub_categories');
+    $this->db->from('sub_categories'); 
+    $this->db->join('assets', 'sub_categories.id = assets.sub_categories', 'left');
+    $this->db->where('assets.id', $id);
+    return $this->db->get()->result();
+}
     // Inventory - Get inventory.
     public function get_inventory($limit, $offset){
         $this->db->select('inventory.id,
@@ -411,7 +419,7 @@ class Admin_model extends CI_Model{
     }
   // Get employ for edit by id
   public function edit_invoice($id){
-    $this->db->select('invoices.id, 
+     $this->db->select('invoices.id, 
                         invoices.inv_no, 
                         invoices.inv_date, 
                         invoices.project, 
@@ -510,8 +518,12 @@ public function update_invoice($id, $data){
     }
          
     // get projects for add item form
-    public function project(){
-        return $this->db->from('projects')->get()->result();
+    public function project($id = null){
+        $this->db->select('projects.id,projects.project_name,invoices.id as inv_id,invoices.project');
+        $this->db->from('projects');
+        $this->db->join('invoices', 'projects.id = invoices.project', 'left');
+        $this->db->where('invoices.id',$id);
+        return $this->db->get()->result(); 
     }
     // get department for add item form
     public function department(){
@@ -745,10 +757,13 @@ public function update_invoice($id, $data){
         locations.id as loc_id,
         locations.name,
         categories.id as cat_id,
-        categories.cat_name');
+        categories.cat_name,
+        users.id as user_ids,
+        users.fullname');
         $this->db->from('assets');
         $this->db->join('locations', 'assets.location = locations.id', 'left');
         $this->db->join('categories', 'assets.category = categories.id', 'left');
+        $this->db->join('users', 'assets.user = users.id', 'left');
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('assets.location', $this->session->userdata('location'));
         }
@@ -1092,8 +1107,21 @@ public function update_invoice($id, $data){
     }
     // Search filters - assets search
     public function search_asset_register($search){
-        $this->db->select('id, date, category, description, quantity, purchase_date, location, designation, user,remarks, created_at');
+        $this->db->select('assets.id, 
+        assets.date, 
+        assets.category, 
+        assets.description, 
+        assets.quantity, 
+        assets.purchase_date, 
+        assets.location, 
+        assets.designation, 
+        assets.user,
+        assets.remarks, 
+        assets.created_at,
+        categories.id,
+        categories.cat_name,');
         $this->db->from('assets');
+        $this->db->join('categories', 'assets.category = categories.id', 'left'); 
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('assets.location', $this->session->userdata('location'));
         }
@@ -1689,6 +1717,15 @@ public function update_invoice($id, $data){
           $this->db->where('users.id',$id);
           return $this->db->get()->result(); 
         } 
+    }
+
+    // Get locationfor invoice form
+    public function get_invoice_location($id){
+          $this->db->select('locations.id,locations.name,invoices.id as inv_id,invoices.region');
+          $this->db->from('locations');
+          $this->db->join('invoices', 'locations.id = invoices.region', 'left');
+          $this->db->where('invoices.id',$id);
+          return $this->db->get()->result(); 
     }
   // Get employee based on city
   public function get_location_employ($loc_id){  

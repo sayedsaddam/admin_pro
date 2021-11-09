@@ -11,15 +11,16 @@ class Admin extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('supervisor_model');
         $this->load->helper('paginate');
+        if(!$this->session->userdata('username')){
+            redirect('');
+        }
         $this->access['AssetsAccess'] = $this->AccessList()["Assets"];
         $this->access['SuppliersAccess'] = $this->AccessList()["Suppliers"];
         $this->access['EmployeesAccess'] = $this->AccessList()["Employees"];
         $this->access['CategoriesAccess'] = $this->AccessList()["Categories"];
         $this->access['RegisterAccess'] = $this->AccessList()["Register"];
 
-        if(!$this->session->userdata('username')){
-            redirect('');
-        }
+      
     }
 
     public function AccessList() {
@@ -753,9 +754,9 @@ class Admin extends CI_Controller{
         $data['title'] = 'Edit Invoice';
         $data['body'] = 'admin/add_invoice';
         $data['breadcrumb'] = array("admin/add_invoice" => "Edit Invoice");
-        $data['locations'] = $this->admin_model->get_employ_location($id); 
+        $data['locations'] = $this->admin_model->get_invoice_location($id); 
         $data['edit'] = $this->admin_model->edit_invoice($id); 
-        $data['projects'] = $this->admin_model->project();
+        $data['projects'] = $this->admin_model->project($id);
         $data['breadcrumb'] = array("admin/invoices" => "Invoice List", "Edit Invoice");
         $data['employees_page'] = true;
         $this->load->view('admin/commons/new_template', $data);
@@ -1047,7 +1048,7 @@ class Admin extends CI_Controller{
         $data['locations'] = $this->admin_model->get_item_location();
         $data['categories'] = $this->admin_model->get_item_categories();
         $data['edit'] = $this->admin_model->asset_detail($id);
-        $data['sub_categories'] = $this->admin_model->sub_categories($id);
+        $data['sub_categories'] = $this->admin_model->invoice_sub_categories($id);
         $data['breadcrumb'] = array("admin/asset_register" => "Assets List", "Edit Asset");
         $data['asset_register'] = true;
         $this->load->view('admin/commons/new_template', $data);

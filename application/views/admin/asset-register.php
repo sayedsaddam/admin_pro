@@ -88,7 +88,7 @@
 									<td><?= ucfirst($asset->quantity); ?></td>
 									<td><?= ucfirst($asset->purchase_date); ?></td>
 									<td><?= ucfirst($asset->name); ?></td>
-									<td><?= ucfirst($asset->user); ?></td>
+									<td><?= ucfirst($asset->fullname); ?></td>
 									<td><?= ucfirst($asset->remarks); ?></td>
 									<?php if($AssetsAccess->update == 1 || $AssetsAccess->delete == 1) : ?>
 									<td class="is-narrow">
@@ -128,11 +128,8 @@
 									<td><?= ucfirst($res->location); ?></td> 
 									<td><?= ucfirst($res->user); ?></td>
 									<td><?= ucfirst($res->remarks); ?></td>  
-                    <?php $recDate = date('Y-m-d', strtotime($res->purchase_date));
-                          $today = date("Y-m-d"); // Today's date
-                          $diff = date_diff(date_create($recDate), date_create($today));
-                          echo $diff->format('%yyr %mm %dd'); ?> 
-                  </td> -->
+                   
+                  </td>  
 									<td class="is-narrow">
 										<div class="field has-addons">
 											<?php if($AssetsAccess->update == 1) : ?>

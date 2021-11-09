@@ -126,7 +126,7 @@
 												<?php endif ?>
 												<?php if(!empty($projects)): foreach($projects as $proj): ?>
 												<option value="<?= $proj->id; ?>"
-													<?php !empty($edit) && $edit->id == $proj->id ? 'selected' : '' ?>><?= ucwords($proj->project_name); ?>
+													<?php !empty($edit) ? 'selected' : '' ?>><?= ucwords($proj->project_name); ?>
 												</option>
 												<?php endforeach; endif; ?>
 											</select>
