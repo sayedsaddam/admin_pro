@@ -475,9 +475,25 @@ public function update_invoice($id, $data){
     }
     // Invoices - print invoice
     public function print_invoice($id){
-        $this->db->select('id, inv_no, inv_date, project, vendor, region, item, amount, inv_desc, status, created_at');
+                        $this->db->select('invoices.id, 
+                        invoices.inv_no, 
+                        invoices.inv_date, 
+                        invoices.project, 
+                        invoices.vendor, 
+                        invoices.region, 
+                        invoices.item, 
+                        invoices.amount, 
+                        invoices.inv_desc, 
+                        invoices.status, 
+                        invoices.created_at,
+                        locations.id as loc_id,
+                        locations.name,
+                        projects.id as project_id,
+                        projects.project_name');
         $this->db->from('invoices');
-        $this->db->where('id', $id);
+        $this->db->join('locations','invoices.region = locations.id','left');
+        $this->db->join('projects','invoices.project = projects.id','left');
+        $this->db->where('invoices.id', $id);
         return $this->db->get()->row();
     }
     // Invoices - status change to cleared.

@@ -791,7 +791,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Print Invoice | Admin & Procurement';
         $data['body'] = 'admin/print_invoice';
         $data['invoice'] = $this->admin_model->print_invoice($id);
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Invoices - Remove invoices
     public function delete_invoice($id){
