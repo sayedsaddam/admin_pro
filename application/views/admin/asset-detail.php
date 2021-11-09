@@ -142,7 +142,7 @@
 									<div class="control has-icons-left">
 										<input type="number" name="quantity" id="" class="input is-small"
 											value="<?php if(!empty($edit)){ echo $edit->quantity; } ?>" type="text"
-											placeholder="1-9,99" required="">
+											placeholder="1-99" required="">
 										<span class="icon is-small is-left">
 											<i class="fas fa-sort-numeric-up"></i>
 										</span>
@@ -153,14 +153,14 @@
 						
 						<div class="column">
 							<div class="control">
-								<label class="label is-small">Price <span class="has-text-danger">*</span></label>
+								<label class="label is-small">Price (PKR) <span class="has-text-danger">*</span></label>
 								<div class="select is-small is-fullwidth">
 									<div class="control has-icons-left">
 										<input type="number" name="price" id="" class="input is-small"
 											value="<?php if(!empty($edit)){ echo $edit->price; } ?>" type="text"
-											placeholder="50,00" required="">
+											placeholder="1-9,999,999" required="">
 										<span class="icon is-small is-left">
-											<i class="fas fa-sort-numeric-up"></i>
+											<i class="far fa-money-bill-alt"></i>
 										</span>
 									</div>
 								</div>
@@ -214,15 +214,13 @@
 						</div>
 					</div>
 					<div class="columns">
-
-
-						<div class="column column is-6">
+						<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Description</label>
 									<div class="control has-icons-left">
 										<textarea class="textarea is-small" name="description" rows="2" id=""
-											placeholder="some detail"><?php if(!empty($edit)){ echo $edit->description; } ?></textarea>
+											placeholder="Enter brief description of the asset you are adding."><?php if(!empty($edit)){ echo $edit->description; } ?></textarea>
 
 									</div>
 								</div>

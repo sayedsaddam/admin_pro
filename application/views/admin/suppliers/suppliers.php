@@ -104,15 +104,15 @@
 									<td>
 										<?php if(!empty($sup->rating)) : ?>
 											<?php if ($sup->rating >= 5) : ?>
-												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">5</span> <span class="far fa-star checked" style="color: orange"></span> 
+												<span style="color: orange; font-size: 18px; font-weight: bold" class="icon is-small">5</span> <span class="far fa-star" style="color: orange"></span> 
 											<?php elseif ($sup->rating <= 1) : ?>
-												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">1</span> <span class="far fa-star checked" style="color: orange"></span>
+												<span style="color: orange; font-size: 18px; font-weight: bold" class="icon is-small">1</span> <span class="far fa-star" style="color: orange"></span>
 											<?php else : ?>
-												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small"><?= $sup->rating ?></span> <span class="far fa-star checked" style="color: orange"></span>
+												<span style="color: orange; font-size: 18px; font-weight: bold" class="icon is-small"><?= $sup->rating ?></span> <span class="far fa-star" style="color: orange"></span>
 											<?php endif ?>
 										<?php endif ?>
 									</td>
-									<td><?= ucwords($sup->cat_name); ?></td>
+									<td><?= ucwords($sup->category); ?></td>
 									<td>
 										<?php if($sup->status == 1): ?>
 										<span class="tag is-success is-light">Active</span>
@@ -149,20 +149,20 @@
 									<td>
 										<?php if(!empty($sup->rating)) : ?>
 											<?php if ($sup->rating >= 5) : ?>
-												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">5</span> <span class="fa fa-star checked" style="color: orange"></span> 
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">5</span> <span class="far fa-star" style="color: orange"></span> 
 											<?php elseif ($sup->rating <= 1) : ?>
-												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">1</span> <span class="fa fa-star checked" style="color: orange"></span>
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small">1</span> <span class="far fa-star" style="color: orange"></span>
 											<?php else : ?>
-												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small"><?= $sup->rating ?></span> <span class="fa fa-star checked" style="color: orange"></span>
+												<span style="color:  orange;font-size: 18px;font-weight: bold" class="icon is-small"><?= $sup->rating ?></span> <span class="far fa-star" style="color: orange"></span>
 											<?php endif ?>
 										<?php endif ?>
 									</td>
 									<td><?= ucwords($sup->category); ?></td>
 									<td>
 										<?php if($sup->status == 1): ?>
-										<span class="badge badge-success">Active</span>
+										<span class="tag is-success is-light">Active</span>
 										<?php else: ?>
-										<span class="badge badge-danger">Inactive</span>
+										<span class="tag is-danger is-light">Inactive</span>
 										<?php endif; ?>
 									</td>
 									<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
