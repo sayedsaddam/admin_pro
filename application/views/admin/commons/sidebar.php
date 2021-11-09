@@ -92,6 +92,19 @@
 		</li>
 	</ul>
 	<?php endif ?>
+	<?php if($RegisterAccess->read == 1) : ?>
+	<ul class="menu-list">
+		<li><a class="<?= $this->uri->segment(2) == 'add_invoice' || $this->uri->segment(2) == 'invoices'? 'is-primary has-text-weight-bold is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'add_invoice' || $this->uri->segment(2) == 'invoices'?>>Add Invoices</a>
+			<ul class="sub-categories"
+				style="<?= $this->uri->segment(2) == 'add_invoice' || $this->uri->segment(2) == 'invoices'? 'has-text-weight-bold' : '' ?>">
+				<li class="is-size-7 <?= $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'add_invoice' ? 'has-text-weight-bold' : '' ?>"><a href="<?= base_url('admin/invoices'); ?>"><i class="fas fa-list mr-1"></i>
+						Invoice List</a></li>
+				<li class="is-size-7 <?= $this->uri->segment(2) == 'available_item_list' ? 'has-text-weight-bold' : '' ?>"><a href="<?= base_url('admin/add_invoice'); ?>"><i class="fas fa-plus mr-1"></i> Add Invoice</a></li> 
+			</ul>
+		</li>
+	</ul>
+	<?php endif ?>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('Purchase/purchase_order_list') ?>">Purchase</a></li> -->
 	</ul>
