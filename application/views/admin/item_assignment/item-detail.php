@@ -217,11 +217,11 @@
 						</div>
 
 						<div class="column">
-							<label class="label is-small">Project/Company <span class="has-text-danger">*</span></label>
+							<label class="label is-small">Project / Company <span class="has-text-danger">*</span></label>
 							<div class="select select is-small is-fullwidth">  
 								<select name="project" required <?= isset($edit) ? 'disabled' : '' ?>>
 									<?php if(!isset($edit)): ?>
-									<option selected disabled value="">Select Project/Cpmpany</option>
+									<option selected disabled value="">Select a Project / Company</option>
 									<?php endif ?>
 									<?php if(!empty($projects)): foreach($projects as $project): ?> 
 									<option value="<?= $project->id; ?>"
@@ -285,7 +285,7 @@
 					<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Serial Number <span class="has-text-danger" id="serial-required"
+									<label class="label is-small">Serial Number / IMEI <span class="has-text-danger" id="serial-required"
 											style="display:none;">*</span></label>
 									<div class="control has-icons-left">
 										<input name="serial_number" value="<?= !empty($edit) ? $edit->serial_number : '' ?>"
