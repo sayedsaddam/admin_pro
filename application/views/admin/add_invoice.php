@@ -106,7 +106,7 @@
 											class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<input type="text" name="vendor_name" id="" class="input is-small"
-											value="<?php if(!empty($edit)){ echo $edit->project_name; } ?>" type="text"
+											value="<?php if(!empty($edit)){ echo $edit->vendor; } ?>" type="text"
 											placeholder="vendor name ..." required="">
 										<span class="icon is-small is-left">
 											<i class="fas fa-project-diagram"></i>
@@ -119,13 +119,18 @@
 					<div class="columns">
 						<div class="column"> 
                         <label class="label is-small">Project <span class="has-text-danger">*</span></label>
-							<div class="select select is-small is-fullwidth"> 
-								<select name="project" <?= isset($edit) ? 'disabled' : '' ?>>
-									<option value="" disabled selected>--Select project--</option>
-									<?php if(!empty($projects)): foreach($projects as $proj): ?>
-									<option value="<?=$proj->project_name;?>"><?=$proj->project_name;?></option>
-									<?php endforeach; endif; ?>
-								</select> 
+							<div class="select select is-small is-fullwidth">
+								<select name="project" required>
+												<?php if(!isset($edit)): ?>
+												<option selected disabled value="">Select a Project</option>
+												<?php endif ?>
+												<?php if(!empty($projects)): foreach($projects as $proj): ?>
+												<option value="<?= $proj->id; ?>"
+													<?php !empty($edit) && $edit->id == $proj->id ? 'selected' : '' ?>><?= ucwords($proj->project_name); ?>
+												</option>
+												<?php endforeach; endif; ?>
+											</select>
+
 							</div>
 						</div>
 						<div class="column">
@@ -147,14 +152,18 @@
 
 					<div class="columns">
                     <div class="column"> 
-                        <label class="label is-small">Region <span class="has-text-danger">*</span></label>
-							<div class="select select is-small is-fullwidth"> 
-								<select name="region" <?= isset($edit) ? 'disabled' : '' ?>>
-                                <option value="" disabled selected>--Select region--</option>
-                <?php foreach($locations as $loc): ?>
-                  <option value="<?= $loc->name; ?>"><?= ucfirst($loc->name); ?></option>
-                <?php endforeach; ?>
-								</select> 
+                        <label class="label is-small">Location <span class="has-text-danger">*</span></label>
+							<div class="select select is-small is-fullwidth">
+								<select name="region" id="">
+												<?php if(!isset($edit)): ?>
+												<option selected disabled value="">Select a Location</option>
+												<?php endif ?> 
+												<?php if(!empty($locations)): foreach($locations as $loc): ?>
+												<option value="<?= $loc->id; ?>"
+													<?php !empty($edit) && $edit->region == $loc->id ? 'selected' : '' ?>><?= $loc->name; ?>
+												</option>
+												<?php endforeach; endif; ?> 
+											</select> 
 							</div>
 						</div>
 						<div class="column">
@@ -180,7 +189,7 @@
 									<label class="label is-small">Date <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<input type="date" name="inv_date" id="" class="input is-small"
-											value="<?php if(!empty($edit)){ echo $edit->amount; } ?>" required="">
+											value="<?php if(!empty($edit)){ echo $edit->inv_date; } ?>" required="">
 										<span class="icon is-small is-left">
 											<i class="fas fa-project-diagram"></i>
 										</span>
@@ -195,7 +204,7 @@
 									<label class="label is-small">Description</label>
 									<div class="control has-icons-left">
 										<textarea class="textarea is-small" name="inv_desc" rows="1"
-											placeholder="some detail"><?php if(!empty($edit)){ echo $edit->project_desc; } ?></textarea>
+											placeholder="some detail"><?php if(!empty($edit)){ echo $edit->inv_desc; } ?></textarea>
 									</div>
 								</div>
 							</fieldset>

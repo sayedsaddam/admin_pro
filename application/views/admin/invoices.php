@@ -81,19 +81,22 @@
                   <td><?= 'Inv-0'.$inv->id; ?></td>
                   <td><?= $inv->inv_no; ?></td>
                   <td><?= $inv->vendor; ?></td>
-                  <td><?= ucfirst($inv->region); ?></td>
+                  <td><?= ucfirst($inv->name); ?></td>
                   <td><?= $inv->item; ?></td>
                   <td><?= number_format($inv->amount); ?></td>
                   <td><?php if($inv->inv_date){ echo date('M d, Y', strtotime($inv->inv_date)); }else{ echo '--/--/--'; } ?></td>
-                  <td><?php if($inv->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }else{ echo "<span class='badge badge-success'>cleared</span>"; } ?></td>
+                  <td class="tag"><?php if($inv->status == 0){ echo "<span class='has-text-warning'>pending</span>"; }else{ echo "<span class='has-text-primary'>cleared</span>"; } ?></td>
                  
                   <td class="">
-										<div class="field has-addons">
-                      <a href="<?=base_url('admin/print_invoice/'.$inv->id);?>"><span class="icon is-small has-text-primary"><i class="fa fa-print"></i></span></a>
-                      <a href="<?=base_url('admin/delete_invoice/'.$inv->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');" ><span class='icon is-small has-text-danger'><i class="fa fa-trash"></i></span></a>
-                      <a href="<?= base_url('admin/invoice_status/'.$inv->id); ?>"><span class="icon is-small has-text-success"><i class="fa fa-check"></i></span></a>
-										</div>
-									</td>
+					<div class="field has-addons">
+					   <a href="<?= base_url('admin/edit_invoice/' . $inv->id) ?>" class="button is-small"><span class="icon is-small"><i
+						class="fa fa-edit"></i></span></a>
+						<a href="<?= base_url('admin/invoice_status/' . $inv->id) ?>" class="button is-small"><span class="icon is-small"><i
+						class="fa fa-check"></i></span></a>
+						<a href="<?= base_url('admin/print_invoice/' . $inv->id) ?>" class="button is-small"><span class="icon is-small"><i
+						class="fa fa-print"></i></span></a>
+ 					</div>
+				</td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
             </tbody>
@@ -104,16 +107,21 @@
                   <td><?= 'Inv-0'.$res->id; ?></td>
                   <td><?= $res->inv_no; ?></td>
                   <td><?= $res->vendor; ?></td>
-                  <td><?= ucfirst($res->region); ?></td>
+                  <td><?= ucfirst($res->name); ?></td>
                   <td><?= $res->item; ?></td>
                   <td><?= number_format($res->amount); ?></td>
                   <td><?php if($res->inv_date){ echo date('M d, Y', strtotime($res->inv_date)); }else{ echo '--/--/--'; } ?></td>
                   <td><?php if($res->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }else{ echo "<span class='badge badge-success'>cleared</span>"; } ?></td>
-                  <td>
-                      <a href="<?=base_url('admin/print_invoice/'.$res->id);?>"><span class="badge badge-primary"><i class="fa fa-print"></i></span></a>
-                      <a href="<?=base_url('admin/delete_invoice/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
-                      <a href="<?= base_url('admin/invoice_status/'.$res->id); ?>"><span class="badge badge-success"><i class="fa fa-check"></i></span></a>
-                  </td>
+                  <td class="">
+					<div class="field has-addons">
+					   <a href="<?= base_url('admin/edit_invoice/' . $res->id) ?>" class="button is-small"><span class="icon is-small"><i
+						class="fa fa-edit"></i></span></a>
+						<a href="<?= base_url('admin/invoice_status/' . $res->id) ?>" class="button is-small"><span class="icon is-small"><i
+						class="fa fa-check"></i></span></a>
+						<a href="<?= base_url('admin/print_invoice/' . $res->id) ?>" class="button is-small"><span class="icon is-small"><i
+						class="fa fa-print"></i></span></a>
+ 					</div>
+				</td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
               <tr class="bg-success">
