@@ -1111,8 +1111,9 @@ public function update_invoice($id, $data){
     }
     // Search filters - invoices search
     public function search_invoices($search){
-        $this->db->select('id, inv_no, inv_date, project, vendor, region, item, amount, inv_desc, status, created_at');
+        $this->db->select('invoices.id, invoices.inv_no, invoices.inv_date, invoices.project, invoices.vendor, invoices.region, invoices.item, invoices.amount, invoices.inv_desc, invoices.status, invoices.created_at,locations.id as loc_id,locations.name');
         $this->db->from('invoices');
+        $this->db->join('locations','invoices.region = locations.id');
         $this->db->like('inv_no', $search);
         $this->db->or_like('project', $search);
         $this->db->or_like('vendor', $search);

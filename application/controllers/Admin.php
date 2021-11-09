@@ -1491,7 +1491,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Search Results > Invoices';
         $data['body'] = 'admin/invoices';
         $data['results'] = $this->admin_model->search_invoices($search);
-        $this->load->view('admin/commons/template', $data);
+        $this->load->view('admin/commons/new_template', $data);
     }
     // Search filters - search asset register
     public function search_asset_register(){
