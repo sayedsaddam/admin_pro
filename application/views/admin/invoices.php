@@ -13,7 +13,7 @@
 
 				<div class="columns is-hidden-touch">
 					<div class="column is-hidden-print">
-						<form action="<?= base_url('admin/search_project'); ?>" method="get">
+						<form action="<?= base_url('admin/search_invoices'); ?>" method="get">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
@@ -124,11 +124,7 @@
 				</td>
                 </tr>
               <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
-              <tr class="bg-success">
-                <td colspan="5" class="text-white font-weight-bold">Total</td>
-                <td class="text-white font-weight-bold"><?= number_format($expenses); ?></td>
-                <td colspan="3"></td>
-              </tr>
+        
             </tbody>
           <?php endif; ?>
         </table>
