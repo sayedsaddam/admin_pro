@@ -36,9 +36,12 @@
 	<section class="hero is-small is-primary is-hidden-print" style="background-color:#15BCA1;">
 		<div class="hero-body">
 			<div class="columns is-vcentered">
-				<div class="column has-text-left">
+				<div class="column has-text-left is-narrow">
 					<img src="https://s2smark.com/assets/img/logo/s2s-logo-1.png"
 						style="filter: invert(.5) brightness(2);" width="200" title="S2S Marketing Logo">
+				</div>
+				<div class="column is-centered has-text-centered">
+					<strong><span class="viewing"></span> others online, including Management...</strong>
 				</div>
 				<div class="column is-right is-narrow is-hidden-touch">
 					<div class="dropdown is-right is-hoverable">

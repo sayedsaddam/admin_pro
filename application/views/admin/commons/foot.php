@@ -15,5 +15,12 @@
 			$(this).parent().hide();
 		});
 	});
+	$(document).ready(function(){
+        setInterval(function(){
+        var spanNumber = $('.viewing');
+        var number = Math.floor(Math.random() * 12) + 3;
+        spanNumber.text(number);
+        }, 3000);
+    });
 </script>
 </html>
