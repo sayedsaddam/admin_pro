@@ -730,10 +730,28 @@ class Admin extends CI_Controller{
     }
     // Invoices - Add invoice into the database.
     public function save_invoice(){
+
+        $file = $this->input->post('userfile'); 
+        $config['upload_path']   = './assets/uploads/'; 
+        $config['allowed_types'] = 'gif|jpg|png';  
+        $this->load->library('upload', $config); 
+      
+        if ( ! $this->upload->do_upload('userfile')) { 
+            echo $this->upload->display_errors(); exit;
+           $error = array('error' => $this->upload->display_errors()); 
+           redirect('admin/invoices');
+        }
+        else {   
+          
+           $datas = $this->upload->data(); 
+           $fileUpload = $datas['file_name'];  
+           
         $data = array(
             'inv_no' => $this->input->post('inv_no'),
             'inv_date' => date('Y-m-d', strtotime($this->input->post('inv_date'))),
             'project' => $this->input->post('project'),
+            'supplier' => $this->input->post('supplier'),
+            'file' => $fileUpload,
             'vendor' => $this->input->post('vendor_name'),
             'region' => $this->input->post('region'),
             'item' => $this->input->post('item_name'),
@@ -748,6 +766,7 @@ class Admin extends CI_Controller{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
             redirect('admin/invoices');
         }
+        }
     }
     
     // Edit detail
@@ -758,6 +777,7 @@ class Admin extends CI_Controller{
         $data['locations'] = $this->admin_model->get_invoice_location($id); 
         $data['edit'] = $this->admin_model->edit_invoice($id); 
         $data['projects'] = $this->admin_model->project($id);
+        $data['suppliers'] = $this->admin_model->invoice_supplier($id);
         $data['breadcrumb'] = array("admin/invoices" => "Invoice List", "Edit Invoice");
         $data['employees_page'] = true;
         $this->load->view('admin/commons/new_template', $data);
@@ -770,13 +790,16 @@ class Admin extends CI_Controller{
         'inv_no' => $this->input->post('inv_no'),
         'inv_date' => date('Y-m-d', strtotime($this->input->post('inv_date'))),
         'project' => $this->input->post('project'),
+        'supplier' => $this->input->post('supplier'),
         'vendor' => $this->input->post('vendor_name'),
         'region' => $this->input->post('region'),
         'item' => $this->input->post('item_name'),
         'amount' => $this->input->post('amount'),
         'inv_desc' => $this->input->post('inv_desc'),
         'created_at' => date('Y-m-d')
-    ); 
+    );
+    echo '<pre>';
+    print_r($data);exit;
     if($this->admin_model->update_invoice($id, $data)){
         $this->session->set_flashdata('success', 'Product (<strong>' . $this->input->post('item_name') . '</strong>) was updated successfully.'); 
         redirect('admin/edit_invoice/' . $id);

@@ -79,7 +79,7 @@
 
 				<form
 					action="<?php if(empty($edit)){ echo base_url('admin/save_invoice'); }else{ echo base_url('admin/update_invoice'); } ?>"
-					method="post">
+					method="post" enctype="multipart/form-data">
 					<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">
 						<div class="column">
@@ -156,34 +156,42 @@
 						<div class="column">
 							<label class="label is-small">Supplier <span class="has-text-danger">*</span></label>
 							<div class="select select is-small is-fullwidth">
+
 								<select name="supplier" required>
 									<?php if(!isset($edit)): ?>
 									<option selected disabled value="">Select a Supplier</option>
 									<?php endif ?>
 									<?php if(!empty($suppliers)): foreach($suppliers as $supplier): ?>
 									<option value="<?= $supplier->id; ?>" <?php !empty($edit) ? 'selected' : '' ?>>
-										<?= ucwords($supplier->name); ?>
+										<?= ucwords($supplier->sup_name); ?>
 									</option>
 									<?php endforeach; endif; ?>
 								</select>
 
 							</div>
 						</div>
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">File <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-										<input type="text" name="item_name" id="" class="input is-small"
-											value="<?php if(!empty($edit)){ echo $edit->item; } ?>" type="text"
-											placeholder="Item name ..." required="">
-										<span class="icon is-small is-left">
-											<i class="fas fa-project-diagram"></i>
+						<div class="column"><br>
+								<div class="file is-small has-name is-fullwidth">
+									<label class="file-label">
+										<?php if(!empty($edit)){ ?>
+										<input class="file-input" name="userfile" type="file" value="<?= $edit->file; ?>">
+										<?php } else {?>
+											  <input class="file-input" name="userfile" type="file" required> 
+											  <?php } ?>
+										<span class="file-cta">
+											<span class="file-icon">
+												<i class="fas fa-upload"></i>
+											</span>
+											<span class="file-label">
+												Choose a file…
+											</span>
 										</span>
-									</div>
+										<span class="file-name">
+											Example.png
+										</span>
+									</label>
 								</div>
-							</fieldset>
-						</div>
+							</div>
 
 					</div>
 

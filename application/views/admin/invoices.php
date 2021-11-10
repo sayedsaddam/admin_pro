@@ -66,6 +66,7 @@
               <th class="has-text-weight-semibold">ID</th>
               <th class="has-text-weight-semibold">Inv No.</th>
               <th class="has-text-weight-semibold">Vendor</th>
+              <th class="has-text-weight-semibold">Supplier</th>
               <th class="has-text-weight-semibold">Region</th>
               <th class="has-text-weight-semibold">Item</th>
               <th class="has-text-weight-semibold">Amount</th>
@@ -81,6 +82,7 @@
                   <td><?= 'Inv-0'.$inv->id; ?></td>
                   <td><?= $inv->inv_no; ?></td>
                   <td><?= $inv->vendor; ?></td>
+                  <td><?= $inv->sup_name; ?></td>
                   <td><?= ucfirst($inv->name); ?></td>
                   <td><?= $inv->item; ?></td>
                   <td><?= number_format($inv->amount); ?></td>
