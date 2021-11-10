@@ -85,7 +85,7 @@
                   <td><?= $inv->item; ?></td>
                   <td><?= number_format($inv->amount); ?></td>
                   <td><?php if($inv->inv_date){ echo date('M d, Y', strtotime($inv->inv_date)); }else{ echo '--/--/--'; } ?></td>
-                  <td class="tag"><?php if($inv->status == 0){ echo "<span class='has-text-warning'>pending</span>"; }else{ echo "<span class='has-text-primary'>cleared</span>"; } ?></td>
+                  <td><?php if($inv->status == 0){ echo "<span class='tag is-warning'>pending</span>"; }else{ echo "<span class='tag is-success'>cleared</span>"; } ?></td>
                  
                   <td class="">
 					<div class="field has-addons">

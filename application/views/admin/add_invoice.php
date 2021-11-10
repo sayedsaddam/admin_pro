@@ -117,22 +117,78 @@
 						</div>
 					</div>
 					<div class="columns">
-						<div class="column"> 
-                        <label class="label is-small">Project <span class="has-text-danger">*</span></label>
+
+						<div class="column">
+							<label class="label is-small">Location <span class="has-text-danger">*</span></label>
+							<div class="select select is-small is-fullwidth">
+								<select name="region" id="">
+									<?php if(!isset($edit)): ?>
+									<option selected disabled value="">Select a Location</option>
+									<?php endif ?>
+									<?php if(!empty($locations)): foreach($locations as $loc): ?>
+									<option value="<?= $loc->id; ?>"
+										<?php !empty($edit) && $edit->region == $loc->id ? 'selected' : '' ?>>
+										<?= $loc->name; ?>
+									</option>
+									<?php endforeach; endif; ?>
+								</select>
+							</div>
+						</div>
+
+						<div class="column">
+							<label class="label is-small">Project <span class="has-text-danger">*</span></label>
 							<div class="select select is-small is-fullwidth">
 								<select name="project" required>
-												<?php if(!isset($edit)): ?>
-												<option selected disabled value="">Select a Project</option>
-												<?php endif ?>
-												<?php if(!empty($projects)): foreach($projects as $proj): ?>
-												<option value="<?= $proj->id; ?>"
-													<?php !empty($edit) ? 'selected' : '' ?>><?= ucwords($proj->project_name); ?>
-												</option>
-												<?php endforeach; endif; ?>
-											</select>
+									<?php if(!isset($edit)): ?>
+									<option selected disabled value="">Select a Project</option>
+									<?php endif ?>
+									<?php if(!empty($projects)): foreach($projects as $proj): ?>
+									<option value="<?= $proj->id; ?>" <?php !empty($edit) ? 'selected' : '' ?>>
+										<?= ucwords($proj->project_name); ?>
+									</option>
+									<?php endforeach; endif; ?>
+								</select>
 
 							</div>
 						</div>
+					</div>
+					<div class="columns">
+						<div class="column">
+							<label class="label is-small">Supplier <span class="has-text-danger">*</span></label>
+							<div class="select select is-small is-fullwidth">
+								<select name="supplier" required>
+									<?php if(!isset($edit)): ?>
+									<option selected disabled value="">Select a Supplier</option>
+									<?php endif ?>
+									<?php if(!empty($suppliers)): foreach($suppliers as $supplier): ?>
+									<option value="<?= $supplier->id; ?>" <?php !empty($edit) ? 'selected' : '' ?>>
+										<?= ucwords($supplier->name); ?>
+									</option>
+									<?php endforeach; endif; ?>
+								</select>
+
+							</div>
+						</div>
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">File <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<input type="text" name="item_name" id="" class="input is-small"
+											value="<?php if(!empty($edit)){ echo $edit->item; } ?>" type="text"
+											placeholder="Item name ..." required="">
+										<span class="icon is-small is-left">
+											<i class="fas fa-project-diagram"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+
+					</div>
+
+					<div class="columns">
+
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -148,24 +204,7 @@
 								</div>
 							</fieldset>
 						</div>
-					</div>
 
-					<div class="columns">
-                    <div class="column"> 
-                        <label class="label is-small">Location <span class="has-text-danger">*</span></label>
-							<div class="select select is-small is-fullwidth">
-								<select name="region" id="">
-												<?php if(!isset($edit)): ?>
-												<option selected disabled value="">Select a Location</option>
-												<?php endif ?> 
-												<?php if(!empty($locations)): foreach($locations as $loc): ?>
-												<option value="<?= $loc->id; ?>"
-													<?php !empty($edit) && $edit->region == $loc->id ? 'selected' : '' ?>><?= $loc->name; ?>
-												</option>
-												<?php endforeach; endif; ?> 
-											</select> 
-							</div>
-						</div>
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -182,8 +221,8 @@
 							</fieldset>
 						</div>
 					</div>
-                    <div class="columns">
-                    <div class="column">
+					<div class="columns">
+						<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Date <span class="has-text-danger">*</span></label>
@@ -208,7 +247,7 @@
 									</div>
 								</div>
 							</fieldset>
-					</div>
+						</div>
 					</div>
 
 					<div class="columns">

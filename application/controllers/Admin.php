@@ -724,6 +724,7 @@ class Admin extends CI_Controller{
         $data['breadcrumb'] = array("admin/add_invoice" => "Add Invoice");
         $data['add_invoice'] = true; 
         $data['projects'] = $this->admin_model->project();
+        $data['suppliers'] = $this->admin_model->suppliers();
         $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/new_template', $data);
     }

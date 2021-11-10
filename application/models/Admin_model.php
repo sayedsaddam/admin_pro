@@ -453,6 +453,13 @@ public function update_invoice($id, $data){
     public function count_invoices(){
         return $this->db->from('invoices')->count_all_results();
     }
+    
+      // get suppliers for invoice form
+      public function suppliers(){
+        $this->db->select('id,name');
+        $this->db->from('suppliers');  
+        return $this->db->get()->result(); 
+    }
     // Invoices - Get invoices
     public function get_invoices($limit, $offset){
      $this->db->select('invoices.id,
