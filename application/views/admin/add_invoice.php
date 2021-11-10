@@ -170,7 +170,27 @@
 
 							</div>
 						</div>
-						<div class="column"><br>
+						
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Item <span class="has-text-danger">*</span></label>
+									<div class="control has-icons-left">
+										<input type="text" name="item_name" id="" class="input is-small"
+											value="<?php if(!empty($edit)){ echo $edit->item; } ?>" type="text"
+											placeholder="Item name ..." required="">
+										<span class="icon is-small is-left">
+											<i class="fas fa-project-diagram"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+
+					</div>
+
+					<div class="columns">
+					<div class="column"><br>
 								<div class="file is-small has-name is-fullwidth">
 									<label class="file-label">
 										<?php if(!empty($edit)){ ?>
@@ -192,26 +212,6 @@
 									</label>
 								</div>
 							</div>
-
-					</div>
-
-					<div class="columns">
-
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Item <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-										<input type="text" name="item_name" id="" class="input is-small"
-											value="<?php if(!empty($edit)){ echo $edit->item; } ?>" type="text"
-											placeholder="Item name ..." required="">
-										<span class="icon is-small is-left">
-											<i class="fas fa-project-diagram"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
 
 						<div class="column">
 							<fieldset>
