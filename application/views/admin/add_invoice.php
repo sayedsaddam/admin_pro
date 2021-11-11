@@ -97,26 +97,31 @@
 									</div>
 								</div>
 							</fieldset>
-						</div>
-
+						</div>  
 						<div class="column">
-							<label class="label is-small">Supplier <span class="has-text-danger">*</span></label>
-							<div class="control has-icons-left">
-							<span class="select select is-small is-fullwidth">
-
-								<select name="supplier" id="supplier"  required>
-									<?php if(!isset($edit)): ?>
-									<option selected disabled value="">Select a Supplier</option>
-									<?php endif ?>
-									<?php if(!empty($suppliers)): foreach($suppliers as $supplier): ?>
-									<option value="<?= $supplier->id; ?>" <?php !empty($edit) ? 'selected' : '' ?>>
-										<?= ucwords($supplier->sup_name); ?>
-									</option>
-									<?php endforeach; endif; ?>
-								</select>
-							</span> 
+							<div class="control">
+								<label class="label is-small">Suppliers <span class="has-text-danger">*</span></label>
+								<div class="control has-icons-left">
+									<span class="select is-small is-fullwidth"> 
+										<select name="supplier" id="supplier" required>
+												<option selected disabled value="">Select a Supplier</option>
+												<?php if(!empty($suppliers)): foreach($suppliers as $supplier): ?>
+												<option value="<?= $supplier->id; ?>"
+													<?= !empty($edit) && $edit->supplier == $supplier->id ? 'selected' : '' ?>>
+													<?= ucwords($supplier->sup_name); ?>
+												</option>
+												<?php endforeach; endif; ?>
+											</select>  
+									</span> 
+								</div>
 							</div>
 						</div>
+
+
+
+
+
+
 					</div>
 					<div class="columns">
 

@@ -491,6 +491,7 @@ public function update_invoice($id, $data){
         $this->db->join('suppliers', 'invoices.supplier = suppliers.id', 'left');
         $this->db->join('projects', 'invoices.project = projects.id', 'left');
         $this->db->limit($limit, $offset);
+        $this->db->order_by('invoices.id', 'DESC');
         return $this->db->get()->result();
     }
     // Invoices - print invoice
@@ -571,8 +572,7 @@ public function update_invoice($id, $data){
     public function invoice_supplier($id = null){
         $this->db->select('suppliers.id,suppliers.name as sup_name,invoices.id as inv_id,invoices.supplier');
         $this->db->from('suppliers');
-        $this->db->join('invoices', 'suppliers.id = invoices.supplier', 'left');
-        $this->db->where('invoices.id',$id);
+        $this->db->join('invoices', 'suppliers.id = invoices.supplier', 'left'); 
         return $this->db->get()->result(); 
     }
     // get department for add item form

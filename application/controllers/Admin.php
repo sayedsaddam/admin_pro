@@ -759,7 +759,7 @@ class Admin extends CI_Controller{
             'created_at' => date('Y-m-d')
         ); 
         if($this->admin_model->add_invoice($data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Adding invoice was successful.');
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Invoice Added successfully.');
             redirect('admin/invoices');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
@@ -789,13 +789,14 @@ class Admin extends CI_Controller{
         'inv_no' => $this->input->post('inv_no'),
         'inv_date' => date('Y-m-d', strtotime($this->input->post('inv_date'))),
         'project' => $this->input->post('project'),
-        'supplier' => $this->input->post('supplier'), 
+        'supplier' => $this->input->post('supplier'),
         'region' => $this->input->post('region'),
         'item' => $this->input->post('item_name'),
         'amount' => $this->input->post('amount'),
         'inv_desc' => $this->input->post('inv_desc'),
         'created_at' => date('Y-m-d')
     ); 
+  
     if($this->admin_model->update_invoice($id, $data)){
         $this->session->set_flashdata('success', 'Product (<strong>' . $this->input->post('item_name') . '</strong>) was updated successfully.'); 
         redirect('admin/edit_invoice/' . $id);
