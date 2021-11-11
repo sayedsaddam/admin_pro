@@ -232,8 +232,8 @@
 								<div class="tile is-child">
 									<div class="columns is-vcentered">
 										<div class="column">
-											<div class="is-size-5">Graph Statistics (Items)</div>
-											<div class="is-size-6 has-text-grey">Available, Assigned & Damaged</div>
+											<div class="is-size-5">Graph Statistics - Items</div>
+											<div class="is-size-6 has-text-grey">Total, Assigned & Damaged</div>
 										</div>
 										<div class="column is-narrow">
 											<button class="card-header-icon" aria-label="more options">
