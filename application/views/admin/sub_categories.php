@@ -118,8 +118,7 @@
 							<?php endif; ?>
 						</table>
 					</div>
-				</div>
-				<div class="column">
+					<div class="column">
 						<div class="columns">
 							<div class="column is-hidden-print">
 								<label class="mr-2">Number of Records:</label>
@@ -157,6 +156,7 @@
 							</div>
 						</div>
 					</div>
+				</div>
 			</div>
 		</div>
 </section>
