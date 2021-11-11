@@ -252,8 +252,7 @@
 			// alert(supplier_id)
 			// AJAX request
 			$.ajax({
-				url: '<?= base_url('
-				admin / edit_employ / '); ?>' + supplier_id,
+				url: '<?= base_url('admin/edit_employ/'); ?>' + supplier_id,
 				method: 'POST',
 				dataType: 'JSON',
 				data: {
