@@ -79,7 +79,7 @@
 
 				<form
 					action="<?php if(empty($edit)){ echo base_url('admin/save_invoice'); }else{ echo base_url('admin/update_invoice'); } ?>"
-					method="post">
+					method="post" enctype="multipart/form-data">
 					<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">
 						<div class="column">
@@ -117,22 +117,60 @@
 						</div>
 					</div>
 					<div class="columns">
-						<div class="column"> 
-                        <label class="label is-small">Project <span class="has-text-danger">*</span></label>
+
+						<div class="column">
+							<label class="label is-small">Location <span class="has-text-danger">*</span></label>
+							<div class="select select is-small is-fullwidth">
+								<select name="region" id="">
+									<?php if(!isset($edit)): ?>
+									<option selected disabled value="">Select a Location</option>
+									<?php endif ?>
+									<?php if(!empty($locations)): foreach($locations as $loc): ?>
+									<option value="<?= $loc->id; ?>"
+										<?php !empty($edit) && $edit->region == $loc->id ? 'selected' : '' ?>>
+										<?= $loc->name; ?>
+									</option>
+									<?php endforeach; endif; ?>
+								</select>
+							</div>
+						</div>
+
+						<div class="column">
+							<label class="label is-small">Project <span class="has-text-danger">*</span></label>
 							<div class="select select is-small is-fullwidth">
 								<select name="project" required>
-												<?php if(!isset($edit)): ?>
-												<option selected disabled value="">Select a Project</option>
-												<?php endif ?>
-												<?php if(!empty($projects)): foreach($projects as $proj): ?>
-												<option value="<?= $proj->id; ?>"
-													<?php !empty($edit) ? 'selected' : '' ?>><?= ucwords($proj->project_name); ?>
-												</option>
-												<?php endforeach; endif; ?>
-											</select>
+									<?php if(!isset($edit)): ?>
+									<option selected disabled value="">Select a Project</option>
+									<?php endif ?>
+									<?php if(!empty($projects)): foreach($projects as $proj): ?>
+									<option value="<?= $proj->id; ?>" <?php !empty($edit) ? 'selected' : '' ?>>
+										<?= ucwords($proj->project_name); ?>
+									</option>
+									<?php endforeach; endif; ?>
+								</select>
 
 							</div>
 						</div>
+					</div>
+					<div class="columns">
+						<div class="column">
+							<label class="label is-small">Supplier <span class="has-text-danger">*</span></label>
+							<div class="select select is-small is-fullwidth">
+
+								<select name="supplier" required>
+									<?php if(!isset($edit)): ?>
+									<option selected disabled value="">Select a Supplier</option>
+									<?php endif ?>
+									<?php if(!empty($suppliers)): foreach($suppliers as $supplier): ?>
+									<option value="<?= $supplier->id; ?>" <?php !empty($edit) ? 'selected' : '' ?>>
+										<?= ucwords($supplier->sup_name); ?>
+									</option>
+									<?php endforeach; endif; ?>
+								</select>
+
+							</div>
+						</div>
+						
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -148,24 +186,33 @@
 								</div>
 							</fieldset>
 						</div>
+
 					</div>
 
 					<div class="columns">
-                    <div class="column"> 
-                        <label class="label is-small">Location <span class="has-text-danger">*</span></label>
-							<div class="select select is-small is-fullwidth">
-								<select name="region" id="">
-												<?php if(!isset($edit)): ?>
-												<option selected disabled value="">Select a Location</option>
-												<?php endif ?> 
-												<?php if(!empty($locations)): foreach($locations as $loc): ?>
-												<option value="<?= $loc->id; ?>"
-													<?php !empty($edit) && $edit->region == $loc->id ? 'selected' : '' ?>><?= $loc->name; ?>
-												</option>
-												<?php endforeach; endif; ?> 
-											</select> 
+					<div class="column"><br>
+								<div class="file is-small has-name is-fullwidth">
+									<label class="file-label">
+										<?php if(!empty($edit)){ ?>
+										<input class="file-input" name="userfile" type="file" value="<?= $edit->file; ?>">
+										<?php } else {?>
+											  <input class="file-input" name="userfile" type="file" required> 
+											  <?php } ?>
+										<span class="file-cta">
+											<span class="file-icon">
+												<i class="fas fa-upload"></i>
+											</span>
+											<span class="file-label">
+												Choose a file…
+											</span>
+										</span>
+										<span class="file-name">
+											Example.png
+										</span>
+									</label>
+								</div>
 							</div>
-						</div>
+
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -182,8 +229,8 @@
 							</fieldset>
 						</div>
 					</div>
-                    <div class="columns">
-                    <div class="column">
+					<div class="columns">
+						<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Date <span class="has-text-danger">*</span></label>
@@ -208,7 +255,7 @@
 									</div>
 								</div>
 							</fieldset>
-					</div>
+						</div>
 					</div>
 
 					<div class="columns">

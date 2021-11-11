@@ -66,6 +66,7 @@
               <th class="has-text-weight-semibold">ID</th>
               <th class="has-text-weight-semibold">Inv No.</th>
               <th class="has-text-weight-semibold">Vendor</th>
+              <th class="has-text-weight-semibold">Supplier</th>
               <th class="has-text-weight-semibold">Region</th>
               <th class="has-text-weight-semibold">Item</th>
               <th class="has-text-weight-semibold">Amount</th>
@@ -81,11 +82,12 @@
                   <td><?= 'Inv-0'.$inv->id; ?></td>
                   <td><?= $inv->inv_no; ?></td>
                   <td><?= $inv->vendor; ?></td>
+                  <td><?= $inv->sup_name; ?></td>
                   <td><?= ucfirst($inv->name); ?></td>
                   <td><?= $inv->item; ?></td>
                   <td><?= number_format($inv->amount); ?></td>
                   <td><?php if($inv->inv_date){ echo date('M d, Y', strtotime($inv->inv_date)); }else{ echo '--/--/--'; } ?></td>
-                  <td class="tag"><?php if($inv->status == 0){ echo "<span class='has-text-warning'>pending</span>"; }else{ echo "<span class='has-text-primary'>cleared</span>"; } ?></td>
+                  <td><?php if($inv->status == 0){ echo "<span class='tag is-warning'>pending</span>"; }else{ echo "<span class='tag is-success'>cleared</span>"; } ?></td>
                  
                   <td class="">
 					<div class="field has-addons">

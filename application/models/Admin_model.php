@@ -423,16 +423,21 @@ class Admin_model extends CI_Model{
                         invoices.inv_no, 
                         invoices.inv_date, 
                         invoices.project, 
+                        invoices.supplier, 
+                        invoices.file, 
                         invoices.vendor, 
                         invoices.region,
                         invoices.item, 
                         invoices.amount,
                         invoices.inv_desc, 
                         invoices.status,
-                        invoices.created_at
+                        invoices.created_at,
+                        projects.id as project_id,
+                        projects.project_name,
                         ');
     $this->db->from('invoices'); 
-    $this->db->where('id', $id);
+    $this->db->join('projects', 'invoices.project = projects.id', 'left');
+    $this->db->where('invoices.id', $id);
     return $this->db->get()->row();
 } 
 // Update employ by ID.
@@ -453,12 +458,21 @@ public function update_invoice($id, $data){
     public function count_invoices(){
         return $this->db->from('invoices')->count_all_results();
     }
+    
+      // get suppliers for invoice form
+      public function suppliers(){
+        $this->db->select('id,name as sup_name');
+        $this->db->from('suppliers');  
+        return $this->db->get()->result(); 
+    }
+    
     // Invoices - Get invoices
     public function get_invoices($limit, $offset){
      $this->db->select('invoices.id,
                         invoices.inv_no, 
                         invoices.inv_date, 
                         invoices.project, 
+                        invoices.supplier, 
                         invoices.vendor, 
                         invoices.region, 
                         invoices.item,
@@ -467,9 +481,12 @@ public function update_invoice($id, $data){
                         invoices.status, 
                         invoices.created_at,
                         locations.id as loc_id,
-                        locations.name');
+                        locations.name,
+                        suppliers.id as sup_id,
+                        suppliers.name as sup_name');
         $this->db->from('invoices');
         $this->db->join('locations', 'invoices.region = locations.id', 'left');
+        $this->db->join('suppliers', 'invoices.supplier = suppliers.id', 'left');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -538,6 +555,14 @@ public function update_invoice($id, $data){
         $this->db->select('projects.id,projects.project_name,invoices.id as inv_id,invoices.project');
         $this->db->from('projects');
         $this->db->join('invoices', 'projects.id = invoices.project', 'left');
+        $this->db->where('invoices.id',$id);
+        return $this->db->get()->result(); 
+    }
+    // get suppliers for edit invoice form
+    public function invoice_supplier($id = null){
+        $this->db->select('suppliers.id,suppliers.name as sup_name,invoices.id as inv_id,invoices.supplier');
+        $this->db->from('suppliers');
+        $this->db->join('invoices', 'suppliers.id = invoices.supplier', 'left');
         $this->db->where('invoices.id',$id);
         return $this->db->get()->result(); 
     }

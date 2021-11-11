@@ -83,8 +83,8 @@
 									<td><?= 'S2S-0'.$asset->id; ?></td>
 									<td>
 										<div class="tag"><?= $asset->cat_name; ?></div>
-									</td>
-									<td><?= ucfirst($asset->description); ?></td>
+									</td> 
+									<td><?= ucfirst(substr($asset->description,0,50)); ?></td>
 									<td><?= ucfirst($asset->quantity); ?></td>
 									<td><?= ucfirst($asset->purchase_date); ?></td>
 									<td><?= ucfirst($asset->name); ?></td>
@@ -122,7 +122,7 @@
 
 									<td><?= 'CTC-0'.$res->id; ?></td>
 									<td><?= $res->cat_name; ?></td>
-									<td><?= ucfirst($res->description); ?></td>
+									<td><?= ucfirst(substr($res->description,0,50)); ?></td>
 									<td><?= ucfirst($res->quantity); ?></td>
 									<td><?= ucfirst($res->purchase_date); ?></td>
 									<td><?= ucfirst($res->location); ?></td> 
