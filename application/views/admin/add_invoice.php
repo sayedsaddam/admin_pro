@@ -104,7 +104,7 @@
 							<div class="control has-icons-left">
 							<span class="select select is-small is-fullwidth">
 
-								<select name="supplier" required <?php if(!empty($edit)){echo 'disabled';} ?>>
+								<select name="supplier" id="supplier"  required <?php if(!empty($edit)){echo 'disabled';} ?>>
 									<?php if(!isset($edit)): ?>
 									<option selected disabled value="">Select a Supplier</option>
 									<?php endif ?>
@@ -114,11 +114,7 @@
 									</option>
 									<?php endforeach; endif; ?>
 								</select>
-							</span>
-							
-							<span class="icon is-small is-left">
-											<i class="fas fa-user"></i>
-										</span>
+							</span> 
 							</div>
 						</div>
 					</div>
@@ -128,7 +124,7 @@
 							<label class="label is-small">Location <span class="has-text-danger">*</span></label>
 							<div class="control has-icons-left">
 							<span class="select select is-small is-fullwidth">
-								<select name="region" id="" required <?php if(!empty($edit)){echo 'disabled';} ?>>
+								<select name="region" required <?php if(!empty($edit)){echo 'disabled';} ?>>
 									<?php if(!isset($edit)): ?>
 									<option selected disabled value="">Select a Location</option>
 									<?php endif ?>
@@ -146,7 +142,6 @@
 							</span>
 							</div>
 						</div>
-
 						<div class="column">
 							<label class="label is-small">Project <span class="has-text-danger">*</span></label>
 							<div class="control has-icons-left">
@@ -283,6 +278,5 @@
 	</div>
 </section>
 <script>
-
-
+	 $("#supplier").select2();
 </script>

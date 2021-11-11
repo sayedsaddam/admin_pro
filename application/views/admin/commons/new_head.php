@@ -28,6 +28,11 @@
 	<!-- custom css -->
 	<link href="<?= base_url('assets/custom/custom.css'); ?>" rel="stylesheet">
 	<title><?= $title; ?></title>
+	<!-- Select2 cdn link -->
+<link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css' />
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
+ 
+
 </head>
 
 <?php if(!isset($login_page)) : ?>
