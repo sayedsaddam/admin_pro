@@ -16,7 +16,8 @@
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" type="search"
-										placeholder="Search Items" value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
+										placeholder="Search Items"
+										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
 									</span>
@@ -27,9 +28,6 @@
 											<i class="fas fa-arrow-right"></i>
 										</span>
 									</button>
-									<a href="<?= base_url('admin/item_advance_search') ?>" class="button is-small" type="submit">
-									<span>Advance Search</span>
-									</a>
 								</div>
 							</div>
 						</form>
@@ -72,16 +70,6 @@
 									<span>Add New</span>
 								</button>
 							</p>
-							<p class="control">
-								<button
-									class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>"
-									id="report-btn">
-									<span class="icon is-small">
-										<i class="fas fa-paperclip"></i>
-									</span>
-									<span>Report</span>
-								</button>
-							</p>
 						</div>
 					</div>
 				</div>
@@ -90,7 +78,8 @@
 						<table class="table is-hoverable is-fullwidth" id="myTable">
 							<thead>
 								<tr>
-									<th class="has-text-weight-semibold"><abbr title="Item Identification Number">ID</abbr></th>
+									<th class="has-text-weight-semibold"><abbr
+											title="Item Identification Number">ID</abbr></th>
 									<th class="has-text-weight-semibold">Location</th>
 									<th class="has-text-weight-semibold">Category</th>
 									<th class="has-text-weight-semibold">Company</th>
@@ -99,7 +88,8 @@
 									<?php if(isset($assign_page)) : ?>
 									<th class="has-text-weight-semibold">Assign To</th>
 									<?php endif ?>
-									<th class="has-text-weight-semibold"><abbr title="Depreciation Percentage">D%</abbr></th>
+									<th class="has-text-weight-semibold"><abbr title="Depreciation Percentage">D%</abbr>
+									</th>
 									<th class="has-text-weight-semibold">Status</th>
 									<th class="has-text-weight-semibold"><abbr title="Purchase Date">PD</abbr></th>
 									<th class="has-text-weight-semibold is-hidden-print">Action</th>
@@ -107,7 +97,8 @@
 							</thead>
 							<tfoot>
 								<tr>
-									<th class="has-text-weight-semibold"><abbr title="Item Identification Number">ID</abbr></th>
+									<th class="has-text-weight-semibold"><abbr
+											title="Item Identification Number">ID</abbr></th>
 									<th class="has-text-weight-semibold">Location</th>
 									<th class="has-text-weight-semibold">Category</th>
 									<th class="has-text-weight-semibold">Company</th>
@@ -116,7 +107,8 @@
 									<?php if(isset($assign_page)) : ?>
 									<th class="has-text-weight-semibold">Assigned To</th>
 									<?php endif ?>
-									<th class="has-text-weight-semibold"><abbr title="Depreciation Percentage">D%</abbr></th>
+									<th class="has-text-weight-semibold"><abbr title="Depreciation Percentage">D%</abbr>
+									</th>
 									<th class="has-text-weight-semibold">Status</th>
 									<th class="has-text-weight-semibold"><abbr title="Purchase Date">PD</abbr></th>
 									<th class="has-text-weight-semibold is-hidden-print">Action</th>
@@ -178,38 +170,43 @@
 							</tbody>
 						</table>
 					</div>
-					<?php if(isset($product_report)) : ?>
-					<div class="column has-text-right is-hidden-print">
-						<div class="buttons is-pulled-right">
-							<button onClick="window.print();" type="button" class="button is-small ">
-								<span class="icon is-small">
-									<i class="fas fa-print"></i>
-								</span>
-								<span>Print</span>
-							</button>
-							<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
-								class="button is-small ">
-								<span class="icon is-small">
-									<i class="fas fa-file-export"></i>
-								</span>
-								<span>Export</span>
-							</a>
+					<div class="column">
+						<div class="columns">
+							<div class="column is-hidden-print">
+								<label class="mr-2">Number of Records:</label>
+								<select class="result_limit">
+									<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
+									</option>
+									<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
+									</option>
+									<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
+									</option>
+								</select>
+							</div>
+							<div class="column is-hidden-print">
+								<nav class="pagination is-small" role="navigation" aria-label="pagination"
+									style="justify-content: center;">
+									<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
+								</nav>
+							</div>
+							<div class="column is-hidden-print">
+								<div class="buttons is-pulled-right">
+									<button onClick="window.print();" type="button" class="button is-small ">
+										<span class="icon is-small">
+											<i class="fas fa-print"></i>
+										</span>
+										<span>Print</span>
+									</button>
+									<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+										class="button is-small ">
+										<span class="icon is-small">
+											<i class="fas fa-file-export"></i>
+										</span>
+										<span>Export</span>
+									</a>
+								</div>
+							</div>
 						</div>
-					</div>
-					<?php endif ?>
-					<div class="column" style="display: flex; justify-content: center;">
-						<label class="mr-2">Number of Records:</label>
-						<select class="result_limit">
-							<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25</option>
-							<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50</option>
-							<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100</option>
-						</select>
-					</div>
-					<div class="column is-hidden-print">
-						<nav class="pagination is-small" role="navigation" aria-label="pagination"
-							style="justify-content: center;">
-							<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
-						</nav>
 					</div>
 				</div>
 			</div>
@@ -307,12 +304,13 @@
 	</div>
 </section>
 <script>
-	$(document).ready(function() {
-		$(".result_limit").on('change', function() {
+	$(document).ready(function () {
+		$(".result_limit").on('change', function () {
 			var val = $(this).val();
-			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'product_report' ? 'from_date=' . $this->input->get('from_date') . '&to_date=' . $this->input->get('to_date') . '&' : '' ?>limit=' + val)
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'product_report' ? 'from_date=' . $this->input->get('from_date') . '&to_date=' . $this->input->get('to_date ') . ' & ' : '' ?>limit=' + val)
 		})
 	})
+
 </script>
 <script>
 	$('.return-btn').click(function () {

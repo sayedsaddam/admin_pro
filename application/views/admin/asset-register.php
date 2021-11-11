@@ -76,6 +76,21 @@
 									<?php endif ?>
 								</tr>
 							</thead>
+							<tfoot>
+								<tr>
+									<th class="has-text-weight-semibold">ID</th>
+									<th class="has-text-weight-semibold">Category</th>
+									<th class="has-text-weight-semibold">Description</th>
+									<th class="has-text-weight-semibold"><abbr title="Quantity">Quantity</abbr></th>
+									<th class="has-text-weight-semibold"><abbr title="Purchase Date">PD</abbr></th>
+									<th class="has-text-weight-semibold">Location</th>
+									<th class="has-text-weight-semibold">User</th>
+									<th class="has-text-weight-semibold">Remarks</th>
+									<?php if($AssetsAccess->update == 1 || $AssetsAccess->delete == 1) : ?>
+									<th class="has-text-weight-semibold">Action</th>
+									<?php endif ?>
+								</tr>
+							</tfoot>
 							<?php if(empty($results)): ?>
 							<tbody>
 								<?php if(!empty($assets)): foreach($assets as $asset): ?>
@@ -155,20 +170,44 @@
 							</tbody>
 							<?php endif; ?>
 						</table>
-						<div class="column" style="display: flex; justify-content: center;">
-						<label class="mr-2">Number of Records:</label>
-						<select class="result_limit">
-							<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25</option>
-							<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50</option>
-							<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100</option>
-						</select>
 					</div>
-					<div class="column is-hidden-print">
-						<nav class="pagination is-small" role="navigation" aria-label="pagination"
-							style="justify-content: center;">
-							<?php if(empty($results) AND !empty($assets)){ echo $this->pagination->create_links(); } ?>
-						</nav>
-					</div> 
+					<div class="column">
+						<div class="columns">
+							<div class="column is-hidden-print">
+								<label class="mr-2">Number of Records:</label>
+								<select class="result_limit">
+									<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
+									</option>
+									<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
+									</option>
+									<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
+									</option>
+								</select>
+							</div>
+							<div class="column is-hidden-print">
+								<nav class="pagination is-small" role="navigation" aria-label="pagination"
+									style="justify-content: center;">
+									<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
+								</nav>
+							</div>
+							<div class="column is-hidden-print">
+								<div class="buttons is-pulled-right">
+									<button onClick="window.print();" type="button" class="button is-small ">
+										<span class="icon is-small">
+											<i class="fas fa-print"></i>
+										</span>
+										<span>Print</span>
+									</button>
+									<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+										class="button is-small ">
+										<span class="icon is-small">
+											<i class="fas fa-file-export"></i>
+										</span>
+										<span>Export</span>
+									</a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
