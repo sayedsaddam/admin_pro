@@ -8,7 +8,31 @@ body {
 }
 
 table {
-      border-collapse: separate;
+      border-collapse: collapse;
+}
+
+thead {
+      border-bottom: 1px solid #f1f1f1;
+      line-height:10px;
+}
+
+tfoot {
+      border-top: 1px solid #f1f1f1;
+      line-height:30px;
+}
+
+tbody:before {
+      content:"@";
+      display:block;
+      line-height:15px;
+      text-indent:-99999px;
+}
+
+tbody:after {
+      content:"@";
+      display:block;
+      line-height:15px;
+      text-indent:-99999px;
 }
 
 tr {
