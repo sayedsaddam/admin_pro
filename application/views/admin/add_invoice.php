@@ -88,11 +88,11 @@
 									<label class="label is-small">Invoice Number <span
 											class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input type="number" name="inv_no" id="" class="input is-small"
+										<input type="number" name="inv_no" id="" class="input is-small" <?php if(!empty($edit)){echo 'disabled';} ?>
 											value="<?php if(!empty($edit)){ echo $edit->inv_no; } ?>" type="text"
 											placeholder="Invoice number ..." required="">
 										<span class="icon is-small is-left">
-											<i class="fas fa-project-diagram"></i>
+										<i class="fas fa-file-invoice"></i>
 										</span>
 									</div>
 								</div>
@@ -100,28 +100,31 @@
 						</div>
 
 						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Vendor Name <span
-											class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-										<input type="text" name="vendor_name" id="" class="input is-small"
-											value="<?php if(!empty($edit)){ echo $edit->vendor; } ?>" type="text"
-											placeholder="vendor name ..." required="">
-										<span class="icon is-small is-left">
-											<i class="fas fa-project-diagram"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
+							<label class="label is-small">Supplier <span class="has-text-danger">*</span></label>
+							<div class="control has-icons-left">
+							<span class="select select is-small is-fullwidth">
+
+								<select name="supplier" id="supplier"  required <?php if(!empty($edit)){echo 'disabled';} ?>>
+									<?php if(!isset($edit)): ?>
+									<option selected disabled value="">Select a Supplier</option>
+									<?php endif ?>
+									<?php if(!empty($suppliers)): foreach($suppliers as $supplier): ?>
+									<option value="<?= $supplier->id; ?>" <?php !empty($edit) ? 'selected' : '' ?>>
+										<?= ucwords($supplier->sup_name); ?>
+									</option>
+									<?php endforeach; endif; ?>
+								</select>
+							</span> 
+							</div>
 						</div>
 					</div>
 					<div class="columns">
 
 						<div class="column">
 							<label class="label is-small">Location <span class="has-text-danger">*</span></label>
-							<div class="select select is-small is-fullwidth">
-								<select name="region" id="">
+							<div class="control has-icons-left">
+							<span class="select select is-small is-fullwidth">
+								<select name="region" required <?php if(!empty($edit)){echo 'disabled';} ?>>
 									<?php if(!isset($edit)): ?>
 									<option selected disabled value="">Select a Location</option>
 									<?php endif ?>
@@ -132,13 +135,18 @@
 									</option>
 									<?php endforeach; endif; ?>
 								</select>
+								
+								<span class="icon is-small is-left">
+											<i class="fas fa-globe"></i>
+										</span>
+							</span>
 							</div>
 						</div>
-
 						<div class="column">
 							<label class="label is-small">Project <span class="has-text-danger">*</span></label>
-							<div class="select select is-small is-fullwidth">
-								<select name="project" required>
+							<div class="control has-icons-left">
+										<span class="select is-small is-fullwidth">
+								<select name="project" required <?php if(!empty($edit)){echo 'disabled';} ?>>
 									<?php if(!isset($edit)): ?>
 									<option selected disabled value="">Select a Project</option>
 									<?php endif ?>
@@ -148,28 +156,14 @@
 									</option>
 									<?php endforeach; endif; ?>
 								</select>
-
+										</span>
+										<span class="icon is-small is-left">
+										<i class="fa fa-tasks" aria-hidden="true"></i>
+										</span>
 							</div>
 						</div>
 					</div>
 					<div class="columns">
-						<div class="column">
-							<label class="label is-small">Supplier <span class="has-text-danger">*</span></label>
-							<div class="select select is-small is-fullwidth">
-
-								<select name="supplier" required>
-									<?php if(!isset($edit)): ?>
-									<option selected disabled value="">Select a Supplier</option>
-									<?php endif ?>
-									<?php if(!empty($suppliers)): foreach($suppliers as $supplier): ?>
-									<option value="<?= $supplier->id; ?>" <?php !empty($edit) ? 'selected' : '' ?>>
-										<?= ucwords($supplier->sup_name); ?>
-									</option>
-									<?php endforeach; endif; ?>
-								</select>
-
-							</div>
-						</div>
 						
 						<div class="column">
 							<fieldset>
@@ -180,17 +174,15 @@
 											value="<?php if(!empty($edit)){ echo $edit->item; } ?>" type="text"
 											placeholder="Item name ..." required="">
 										<span class="icon is-small is-left">
-											<i class="fas fa-project-diagram"></i>
+										<i class="fas fa-list"></i>
 										</span>
 									</div>
 								</div>
 							</fieldset>
 						</div>
-
-					</div>
-
-					<div class="columns">
-					<div class="column"><br>
+						
+					<div class="column">
+					<label class="label is-small">File <span class="has-text-danger">*</span></label>
 								<div class="file is-small has-name is-fullwidth">
 									<label class="file-label">
 										<?php if(!empty($edit)){ ?>
@@ -213,6 +205,10 @@
 								</div>
 							</div>
 
+					</div>
+
+					<div class="columns">
+
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -220,16 +216,15 @@
 									<div class="control has-icons-left">
 										<input type="number" name="amount" id="" class="input is-small"
 											value="<?php if(!empty($edit)){ echo $edit->amount; } ?>"
-											placeholder="amount ..." required="">
+											placeholder="1-9,999,999" required="">
 										<span class="icon is-small is-left">
-											<i class="fas fa-project-diagram"></i>
+											<i class="far fa-money-bill-alt"></i>
 										</span>
 									</div>
 								</div>
 							</fieldset>
 						</div>
-					</div>
-					<div class="columns">
+						
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -238,14 +233,15 @@
 										<input type="date" name="inv_date" id="" class="input is-small"
 											value="<?php if(!empty($edit)){ echo $edit->inv_date; } ?>" required="">
 										<span class="icon is-small is-left">
-											<i class="fas fa-project-diagram"></i>
+											<i class="far fa-calendar-alt"></i>
 										</span>
 									</div>
 								</div>
 							</fieldset>
 						</div>
-
-						<div class="column">
+					</div>
+					<div class="columns">
+						<div class="column is-6">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Description</label>
@@ -282,6 +278,5 @@
 	</div>
 </section>
 <script>
-
-
+	 $("#supplier").select2();
 </script>
