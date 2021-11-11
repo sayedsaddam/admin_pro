@@ -88,7 +88,7 @@
 									<label class="label is-small">Invoice Number <span
 											class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input type="number" name="inv_no" id="" class="input is-small" <?php if(!empty($edit)){echo 'disabled';} ?>
+										<input type="number" name="inv_no" id="" class="input is-small" 
 											value="<?php if(!empty($edit)){ echo $edit->inv_no; } ?>" type="text"
 											placeholder="Invoice number ..." required="">
 										<span class="icon is-small is-left">
@@ -104,7 +104,7 @@
 							<div class="control has-icons-left">
 							<span class="select select is-small is-fullwidth">
 
-								<select name="supplier" id="supplier"  required <?php if(!empty($edit)){echo 'disabled';} ?>>
+								<select name="supplier" id="supplier"  required>
 									<?php if(!isset($edit)): ?>
 									<option selected disabled value="">Select a Supplier</option>
 									<?php endif ?>
@@ -124,7 +124,7 @@
 							<label class="label is-small">Location <span class="has-text-danger">*</span></label>
 							<div class="control has-icons-left">
 							<span class="select select is-small is-fullwidth">
-								<select name="region" required <?php if(!empty($edit)){echo 'disabled';} ?>>
+								<select name="region" required>
 									<?php if(!isset($edit)): ?>
 									<option selected disabled value="">Select a Location</option>
 									<?php endif ?>
@@ -146,7 +146,7 @@
 							<label class="label is-small">Project <span class="has-text-danger">*</span></label>
 							<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
-								<select name="project" required <?php if(!empty($edit)){echo 'disabled';} ?>>
+								<select name="project" required>
 									<?php if(!isset($edit)): ?>
 									<option selected disabled value="">Select a Project</option>
 									<?php endif ?>

@@ -60,6 +60,7 @@
 				</div>
 				<div class="columns" style="display: grid">
 					<div class="column table-container ">
+						
           <table class="table table-sm is-fullwidth"> 
              <thead>
             <tr>
