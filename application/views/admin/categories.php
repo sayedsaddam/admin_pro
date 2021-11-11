@@ -81,7 +81,7 @@
 				</div>
 				<?php endif ?>
  				<div class="columns" style="display: grid">
- 					<div class="column table-container ">
+ 					<div class="column table-container">
  						<table class="table is-hoverable is-fullwidth">
 						 <thead>
  								<tr>
