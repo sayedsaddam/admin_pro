@@ -213,39 +213,6 @@
 		})
 	})
 
-	// add employ code start 
-	var cat1 = $("#exit-add-modal")
-	var cat2 = $("#close-add-modal")
-	var catmdl = new BulmaModal("#add_employ")
-
-	cat1.click(function (ev) {
-		catmdl.close();
-		ev.stopPropagation();
-	});
-	cat2.click(function (ev) {
-		catmdl.close();
-		ev.stopPropagation();
-	});
-
-	$('.add_employ').click(function (ev) {
-		catmdl.show();
-		$(".modal-card-head").show();
-		ev.stopPropagation();
-	});
-
-	// code for updat employ
-	var empedt1 = $("#exit-edit-modal")
-	var empedt2 = $("#close-edit-modal")
-	var empedtmdl = new BulmaModal("#edit_employ")
-	empedt1.click(function (ev) {
-		empedtmdl.close();
-		ev.stopPropagation();
-	});
-	empedt2.click(function (ev) {
-		empedtmdl.close();
-		ev.stopPropagation();
-	});
-
 	$(document).ready(function () {
 		$('.supplier_info').click(function () {
 			var supplier_id = $(this).data('id');
