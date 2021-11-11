@@ -76,6 +76,21 @@
 									<?php endif ?>
 								</tr>
 							</thead>
+							<tfoot>
+								<tr>
+									<th class="has-text-weight-semibold">ID</th>
+									<th class="has-text-weight-semibold">Category</th>
+									<th class="has-text-weight-semibold">Description</th>
+									<th class="has-text-weight-semibold"><abbr title="Quantity">Quantity</abbr></th>
+									<th class="has-text-weight-semibold"><abbr title="Purchase Date">PD</abbr></th>
+									<th class="has-text-weight-semibold">Location</th>
+									<th class="has-text-weight-semibold">User</th>
+									<th class="has-text-weight-semibold">Remarks</th>
+									<?php if($AssetsAccess->update == 1 || $AssetsAccess->delete == 1) : ?>
+									<th class="has-text-weight-semibold">Action</th>
+									<?php endif ?>
+								</tr>
+							</tfoot>
 							<?php if(empty($results)): ?>
 							<tbody>
 								<?php if(!empty($assets)): foreach($assets as $asset): ?>
