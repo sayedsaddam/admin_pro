@@ -483,10 +483,13 @@ public function update_invoice($id, $data){
                         locations.id as loc_id,
                         locations.name,
                         suppliers.id as sup_id,
-                        suppliers.name as sup_name');
+                        suppliers.name as sup_name,
+                        projects.id as project_id,
+                        projects.project_name');
         $this->db->from('invoices');
         $this->db->join('locations', 'invoices.region = locations.id', 'left');
         $this->db->join('suppliers', 'invoices.supplier = suppliers.id', 'left');
+        $this->db->join('projects', 'invoices.project = projects.id', 'left');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -549,7 +552,13 @@ public function update_invoice($id, $data){
         $this->db->from('projects'); 
         return $this->db->count_all_results();
     }
-         
+       // get projects for add invoice form
+       public function inoice_project($id = null){
+        $this->db->select('id,project_name');
+        $this->db->from('projects');
+        return $this->db->get()->result(); 
+    }     
+
     // get projects for add item form
     public function project($id = null){
         $this->db->select('projects.id,projects.project_name,invoices.id as inv_id,invoices.project');
@@ -592,7 +601,7 @@ public function update_invoice($id, $data){
     }
     // Search projects / company
     public function search_project($search){
-        $this->db->select('id, project_name, project_desc,created_at');
+        $this->db->select('id, project_name, project_desc,status,created_at');
         $this->db->from('projects');
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('assets.location', $this->session->userdata('location'));
@@ -1136,13 +1145,31 @@ public function update_invoice($id, $data){
     }
     // Search filters - invoices search
     public function search_invoices($search){
-        $this->db->select('invoices.id, invoices.inv_no, invoices.inv_date, invoices.project, invoices.vendor, invoices.region, invoices.item, invoices.amount, invoices.inv_desc, invoices.status, invoices.created_at,locations.id as loc_id,locations.name');
+                    $this->db->select('invoices.id, 
+                    invoices.inv_no, 
+                    invoices.inv_date, 
+                    invoices.project, 
+                    invoices.supplier, 
+                    invoices.region, 
+                    invoices.item, 
+                    invoices.amount, 
+                    invoices.inv_desc, 
+                    invoices.status, 
+                    invoices.created_at,
+                    locations.id as loc_id,
+                    locations.name,
+                    suppliers.id as sup_id,
+                    suppliers.name as sup_name,
+                    projects.id as project_id,
+                    projects.project_name');
         $this->db->from('invoices');
         $this->db->join('locations','invoices.region = locations.id');
+        $this->db->join('suppliers','invoices.supplier = suppliers.id');
+        $this->db->join('projects','invoices.project = projects.id');
         $this->db->like('inv_no', $search);
         $this->db->or_like('project', $search);
-        $this->db->or_like('vendor', $search);
-        $this->db->or_like('region', $search);
+        $this->db->or_like('suppliers.name', $search); 
+        $this->db->or_like('invoices.region', $search);
         $this->db->or_like('item', $search);
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();

@@ -16,7 +16,7 @@
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" type="search"
-										placeholder="Search Assets"
+										placeholder="Search Project"
 										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
@@ -42,7 +42,7 @@
 									<span>Project List</span>
 								</button>
 							</p>
-							<?php if($AssetsAccess->write == 1) : ?>
+							<!-- <?php if($AssetsAccess->write == 1) : ?> -->
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/add_project'); ?>'"
 									class="button is-small <?= isset($add_project) ? 'has-background-primary-light' : '' ?>">
@@ -52,7 +52,7 @@
 									<span>Add New</span>
 								</button>
 							</p>
-							<?php endif ?>
+							<!-- <?php endif ?> -->
 						</div>
 					</div>
 				</div>
@@ -78,9 +78,9 @@
 				<?php endif ?>
 
 				<form
-					action="<?php if(empty($edit)){ echo base_url('admin/save_project'); }else{ echo base_url('admin/update_item'); } ?>"
+					action="<?php if(empty($edit)){ echo base_url('admin/save_project'); }else{ echo base_url('admin/update_project'); } ?>"
 					method="post">
-					<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
+					<input type="hidden" name="project_id" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">
 						<div class="column">
 							<fieldset>
@@ -91,7 +91,7 @@
 											value="<?php if(!empty($edit)){ echo $edit->project_name; } ?>" type="text"
 											placeholder="Project name ..." required="">
 										<span class="icon is-small is-left">
-                                        <i class="fas fa-project-diagram"></i>
+                                        <i class="fa fa-tasks" aria-hidden="true"></i>
 										</span>
 									</div>
 								</div>

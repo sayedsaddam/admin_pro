@@ -723,7 +723,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/add_invoice';
         $data['breadcrumb'] = array("admin/add_invoice" => "Add Invoice");
         $data['add_invoice'] = true; 
-        $data['projects'] = $this->admin_model->project();
+        $data['projects'] = $this->admin_model->inoice_project();
         $data['suppliers'] = $this->admin_model->suppliers();
         $data['locations'] = $this->login_model->get_locations();
         $this->load->view('admin/commons/new_template', $data);
@@ -752,13 +752,12 @@ class Admin extends CI_Controller{
             'project' => $this->input->post('project'),
             'supplier' => $this->input->post('supplier'),
             'file' => $fileUpload,
-            'vendor' => $this->input->post('vendor_name'),
             'region' => $this->input->post('region'),
             'item' => $this->input->post('item_name'),
             'amount' => $this->input->post('amount'),
             'inv_desc' => $this->input->post('inv_desc'),
             'created_at' => date('Y-m-d')
-        );
+        ); 
         if($this->admin_model->add_invoice($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Adding invoice was successful.');
             redirect('admin/invoices');
@@ -790,16 +789,13 @@ class Admin extends CI_Controller{
         'inv_no' => $this->input->post('inv_no'),
         'inv_date' => date('Y-m-d', strtotime($this->input->post('inv_date'))),
         'project' => $this->input->post('project'),
-        'supplier' => $this->input->post('supplier'),
-        'vendor' => $this->input->post('vendor_name'),
+        'supplier' => $this->input->post('supplier'), 
         'region' => $this->input->post('region'),
         'item' => $this->input->post('item_name'),
         'amount' => $this->input->post('amount'),
         'inv_desc' => $this->input->post('inv_desc'),
         'created_at' => date('Y-m-d')
-    );
-    echo '<pre>';
-    print_r($data);exit;
+    ); 
     if($this->admin_model->update_invoice($id, $data)){
         $this->session->set_flashdata('success', 'Product (<strong>' . $this->input->post('item_name') . '</strong>) was updated successfully.'); 
         redirect('admin/edit_invoice/' . $id);
@@ -873,7 +869,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Projects | Admin & Procurement';
         $data['body'] = 'admin/projects/project_list';
         $data['breadcrumb'] = array("admin/projects/project_list" => "Project List");
-        $data['project_list'] = true; 
+        $data['projects'] = true; 
         $data['projects'] = $this->admin_model->get_projects($limit, $offset);
         $this->load->view('admin/commons/new_template', $data);
     }
@@ -910,15 +906,9 @@ class Admin extends CI_Controller{
         }
         $data['title'] = 'Edit Projects | Admin & Procurement';
         $data['body'] = 'admin/projects/add_project'; 
-        $data['project_page'] = true;
+        $data['edit_project'] = true;
         $data['breadcrumb'] = array("admin/projects/add_project" => "Project List","Edit Project");
         $this->load->view('admin/commons/new_template', $data);
-    }
-
-    // Projects - edit project
-    public function edit_projectss($id){
-        $project = $this->admin_model->edit_project($id);
-        echo json_encode($project);
     }
     // Projects - update project
     public function update_project(){
@@ -926,14 +916,14 @@ class Admin extends CI_Controller{
         $data = array(
             'project_name' => $this->input->post('project_name'),
             'project_desc' => $this->input->post('project_desc'), 
-        );
+        ); 
         if($this->admin_model->update_project($id, $data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Project update was successful.');
-            redirect('admin/projects');
+            $this->session->set_flashdata('success', 'Product (<strong>' . $this->input->post('project_name') . '</strong>) was updated successfully.'); 
+            redirect('admin/edit_project/' . $id);
         }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('admin/projects');
-        }
+            $this->session->set_flashdata('failed', 'Something went wrong, please try again!');
+            redirect('admin/edit_project/' . $id);
+        } 
     }
     // Projects - Remove project
     public function complete_project($id){
@@ -955,7 +945,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Search Results > Project list';
         $data['body'] = 'admin/projects/project_list';
         $data['breadcrumb'] = array("admin/project_list" => "Project List", "Search: " . $search);
-        $data['project_list'] = true; 
+        $data['search_project'] = true; 
         $data['results'] = $this->admin_model->search_project($search);
         $this->load->view('admin/commons/new_template', $data);
     }
@@ -1514,6 +1504,7 @@ class Admin extends CI_Controller{
         $search = $this->input->get('search');
         $data['title'] = 'Search Results > Invoices';
         $data['body'] = 'admin/invoices';
+        $data['breadcrumb'] = array("admin/invoices" => "Invoice List", "Search: " . $search);
         $data['results'] = $this->admin_model->search_invoices($search);
         $this->load->view('admin/commons/new_template', $data);
     }

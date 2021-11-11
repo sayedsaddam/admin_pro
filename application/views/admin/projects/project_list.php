@@ -60,14 +60,33 @@
 				</div>
 				<div class="columns" style="display: grid">
 					<div class="column table-container ">
+					<?php if($this->session->flashdata('success')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-success is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('success'); ?>
+						</div>
+					</div>
+				</div>
+				<?php elseif($this->session->flashdata('failed')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-danger is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('failed'); ?>
+						</div>
+					</div>
+				</div>
+				<?php endif ?>
 						<table class="table table-sm is-fullwidth">
 							<thead>
 								<tr>
 									<th class="has-text-weight-semibold">ID</th>
 									<th class="has-text-weight-semibold">Projects</th>
 									<th class="has-text-weight-semibold">Description</th> 
-									<th class="has-text-weight-semibold">Date</th> 
-								
+									<th class="has-text-weight-semibold">Date</th>  
+									<th class="has-text-weight-semibold">Status</th>
 									<th class="has-text-weight-semibold">Action</th>
 								</tr>
 							</thead>
@@ -79,6 +98,7 @@
 									<td> <span class="tag"><?= $project->project_name; ?></span></td>
 									<td><?= ucfirst($project->project_desc); ?></td> 
 									<td><?= date('M d, Y', strtotime($project->created_at)); ?></td> 
+									<td><?php if($project->status == 0){ echo "<span class='tag is-warning'>Progress</span>"; }else{ echo "<span class='tag is-success'>Completed</span>"; } ?></td>
 									<td class="">
 										<div class="field has-addons">  
 												<a href="<?= base_url('admin/edit_project/'.$project->id); ?>"
@@ -102,8 +122,9 @@
 
 									<td><?= 'CTC-0'.$res->id; ?></td>
 									<td><?= $res->project_name; ?></td>
-									<td><?= ucfirst($res->project_desc); ?></td> 
+									<td><?= ucfirst($res->project_desc); ?></td>
 									<td><?= date('M d, Y', strtotime($res->created_at)); ?></td> 
+									<td><?php if($res->status == 0){ echo "<span class='tag is-warning'>Progress</span>"; }else{ echo "<span class='tag is-success'>Completed</span>"; } ?></td>
 									<td class="">
 										<div class="field has-addons"> 
 											<p class="control">

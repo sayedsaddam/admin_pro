@@ -40,7 +40,7 @@
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
-									<span>Project List</span>
+									<span>Invoice List</span>
 								</button>
 							</p>
 							<?php if($AssetsAccess->write == 1) : ?>
@@ -64,10 +64,10 @@
              <thead>
             <tr>
               <th class="has-text-weight-semibold">ID</th>
-              <th class="has-text-weight-semibold">Inv No.</th>
-              <th class="has-text-weight-semibold">Vendor</th>
+              <th class="has-text-weight-semibold">Inv No.</th> 	
               <th class="has-text-weight-semibold">Supplier</th>
-              <th class="has-text-weight-semibold">Region</th>
+              <th class="has-text-weight-semibold">Location</th>
+              <th class="has-text-weight-semibold">Project</th>
               <th class="has-text-weight-semibold">Item</th>
               <th class="has-text-weight-semibold">Amount</th>
               <th class="has-text-weight-semibold">Date</th>
@@ -80,10 +80,10 @@
               <?php if(!empty($invoices)): foreach($invoices as $inv): ?>
                 <tr>
                   <td><?= 'Inv-0'.$inv->id; ?></td>
-                  <td><?= $inv->inv_no; ?></td>
-                  <td><?= $inv->vendor; ?></td>
+                  <td><?= $inv->inv_no; ?></td> 
                   <td><?= $inv->sup_name; ?></td>
                   <td><?= ucfirst($inv->name); ?></td>
+                  <td><?= $inv->project_name; ?></td>
                   <td><?= $inv->item; ?></td>
                   <td><?= number_format($inv->amount); ?></td>
                   <td><?php if($inv->inv_date){ echo date('M d, Y', strtotime($inv->inv_date)); }else{ echo '--/--/--'; } ?></td>
@@ -108,8 +108,9 @@
                 <tr>
                   <td><?= 'Inv-0'.$res->id; ?></td>
                   <td><?= $res->inv_no; ?></td>
-                  <td><?= $res->vendor; ?></td>
+                  <td><?= $res->sup_name; ?></td>
                   <td><?= ucfirst($res->name); ?></td>
+                  <td><?= $res->project_name; ?></td>
                   <td><?= $res->item; ?></td>
                   <td><?= number_format($res->amount); ?></td>
                   <td><?php if($res->inv_date){ echo date('M d, Y', strtotime($res->inv_date)); }else{ echo '--/--/--'; } ?></td>
