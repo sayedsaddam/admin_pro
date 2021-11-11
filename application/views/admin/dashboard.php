@@ -328,10 +328,28 @@
 	</div>
 </section>
 <script>
+	const d = new Date();
+
+	const weekday = new Array(7);
+	weekday[0] = "Sunday";
+	weekday[1] = "Monday";
+	weekday[2] = "Tuesday";
+	weekday[3] = "Wednesday";
+	weekday[4] = "Thursday";
+	weekday[5] = "Friday";
+	weekday[6] = "Saturday";
+	
+	function _getDay(int = null) {
+		const d = new Date()
+		d.setDate(d.getDate() - int)
+		let day = weekday[d.getDay()];
+		return day;
+	}
+
 	new Chart(document.getElementById("myChartAvailable"), {
 		type: 'line',
 		data: {
-			labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+			labels: [_getDay(6), _getDay(5), _getDay(4), _getDay(3), _getDay(2), _getDay(1), _getDay()],
 			datasets: [{
 				label: "Available",
 				type: "line",
@@ -364,7 +382,7 @@
 	new Chart(document.getElementById("myChartAssigned"), {
 		type: 'line',
 		data: {
-			labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+			labels: [_getDay(6), _getDay(5), _getDay(4), _getDay(3), _getDay(2), _getDay(1), _getDay()],
 			datasets: [{
 				label: "Assigned",
 				type: "line",
@@ -400,7 +418,7 @@
 	new Chart(document.getElementById("myChartDamaged"), {
 		type: 'line',
 		data: {
-			labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+			labels: [_getDay(6), _getDay(5), _getDay(4), _getDay(3), _getDay(2), _getDay(1), _getDay()],
 			datasets: [{
 				label: "Damaged",
 				type: "line",
