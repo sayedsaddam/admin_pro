@@ -89,8 +89,7 @@
 							<?php if(empty($results)): ?>
 							<tbody id="myTable">
 								<?php if(!empty($employ)): foreach($employ as $sup): ?>
-								<tr
-									onclick="window.location='<?= base_url('admin/edit_employ/'.$sup->emp_id); ?>';">
+								<tr onclick="window.location='<?= base_url('admin/edit_employ/'.$sup->emp_id); ?>';">
 									<td><?= 'S2S-'.$sup->emp_id; ?></td>
 									<td><abbr title="<?= $sup->email; ?>"><?= ucwords($sup->emp_name); ?></abbr>
 									</td>
@@ -119,8 +118,7 @@
 											<?php if($session == 'admin'){ ?>
 											<a href="<?=base_url('admin/delete_employ/'.$sup->emp_id);?>"
 												onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
-												class="button is-small"><span
-													class="icon is-small has-text-danger"><i
+												class="button is-small"><span class="icon is-small has-text-danger"><i
 														class="fa fa-times"></i></span></a>
 											<?php } ?>
 										</div>
@@ -162,65 +160,58 @@
 							</tbody>
 							<?php endif; ?>
 						</table>
-						<div class="column" style="display: flex; justify-content: center;">
-					<label class="mr-2">Number of Records:</label>
-					<select class="result_limit">
-						<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25</option>
-						<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50</option>
-						<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100</option>
-					</select>
-					<div class="column is-hidden-print">
-						<nav class="pagination is-small" role="navigation" aria-label="pagination"
-							style="justify-content: center;">
-							<?php if(empty($results) AND !empty($employ)){ echo $this->pagination->create_links(); } ?>
-						</nav>
 					</div>
+					
+					<div class="column">
+						<div class="columns">
+							<div class="column is-hidden-print">
+								<label class="mr-2">Number of Records:</label>
+								<select class="result_limit">
+									<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
+									</option>
+									<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
+									</option>
+									<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
+									</option>
+								</select>
+							</div>
+							<div class="column is-hidden-print">
+								<nav class="pagination is-small" role="navigation" aria-label="pagination"
+									style="justify-content: center;">
+									<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
+								</nav>
+							</div>
+							<div class="column is-hidden-print">
+								<div class="buttons is-pulled-right">
+									<button onClick="window.print();" type="button" class="button is-small ">
+										<span class="icon is-small">
+											<i class="fas fa-print"></i>
+										</span>
+										<span>Print</span>
+									</button>
+									<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+										class="button is-small ">
+										<span class="icon is-small">
+											<i class="fas fa-file-export"></i>
+										</span>
+										<span>Export</span>
+									</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 </section>
 
 <script>
 	// fetch record
-	$(document).ready(function() {
-		$(".result_limit").on('change', function() {
+	$(document).ready(function () {
+		$(".result_limit").on('change', function () {
 			var val = $(this).val();
 			$(location).prop('href', '<?= current_url() ?>?limit=' + val)
 		})
 	})
-
-	// add employ code start 
-	var cat1 = $("#exit-add-modal")
-	var cat2 = $("#close-add-modal")
-	var catmdl = new BulmaModal("#add_employ")
-
-	cat1.click(function (ev) {
-		catmdl.close();
-		ev.stopPropagation();
-	});
-	cat2.click(function (ev) {
-		catmdl.close();
-		ev.stopPropagation();
-	});
-
-	$('.add_employ').click(function (ev) {
-		catmdl.show();
-		$(".modal-card-head").show();
-		ev.stopPropagation();
-	});
-
-	// code for updat employ
-	var empedt1 = $("#exit-edit-modal")
-	var empedt2 = $("#close-edit-modal")
-	var empedtmdl = new BulmaModal("#edit_employ")
-	empedt1.click(function (ev) {
-		empedtmdl.close();
-		ev.stopPropagation();
-	});
-	empedt2.click(function (ev) {
-		empedtmdl.close();
-		ev.stopPropagation();
-	});
 
 	$(document).ready(function () {
 		$('.supplier_info').click(function () {
