@@ -216,37 +216,5 @@
 				</form>
 			</div>
 		</div>
-
-		<div class="modal" id="modal-ter">
-			<div class="modal-background"></div>
-			<form action="<?= base_url('admin/product_report'); ?>" method="POST">
-				<div class="modal-card">
-					<header class="modal-card-head">
-						<p class="modal-card-title">Filter Report</p>
-						<button class="delete" aria-label="close" id="exit-report-modal" type="button"></button>
-					</header>
-					<section class="modal-card-body">
-						<div class="columns">
-							<div class="column">
-								<p class="control">
-									From:
-									<input class="input" type="date" placeholder="From" name="from_date">
-								</p>
-							</div>
-							<div class="column">
-								<p class="control">
-									To:
-									<input class="input" type="date" placeholder="From" name="to_date">
-								</p>
-							</div>
-						</div>
-					</section>
-					<footer class="modal-card-foot">
-						<button class="button is-success" type="submit">Apply</button>
-						<button class="button" aria-label="close" id="close-report-modal" type="button">Cancel</button>
-					</footer>
-				</div>
-			</form>
-		</div>
 	</div>
 </section>
