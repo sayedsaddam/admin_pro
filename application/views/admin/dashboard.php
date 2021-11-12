@@ -214,7 +214,7 @@
 									</div>
 									<?php elseif($total_damaged_items_week_change == $total_damaged_items_last_week_change || ($total_damaged_items_week_change == 0 AND $total_damaged_items_last_week_change == 0)) : ?>
 									<div class="has-text-weight-light is-size-7"><span
-											class="has-text-success">+<?= $total_damaged_items_week_change ?></span>
+											class="has-text-danger">+<?= $total_damaged_items_week_change ?></span>
 										<span class="has-text-grey">(0.00%)</span></div>
 									<?php else : ?>
 									<div class="has-text-weight-light is-size-7"><span
