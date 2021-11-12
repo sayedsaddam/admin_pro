@@ -103,13 +103,7 @@ class Admin extends CI_Controller{
 
         $data['employees_statistics'] = $this->admin_model->EmployeesStatistics();
 
-        $data['fetch_item_sum_by_last_7'] = $this->admin_model->fetch_item_sum_by_last_(6);
-        $data['fetch_item_sum_by_last_6'] = $this->admin_model->fetch_item_sum_by_last_(5);
-        $data['fetch_item_sum_by_last_5'] = $this->admin_model->fetch_item_sum_by_last_(4);
-        $data['fetch_item_sum_by_last_4'] = $this->admin_model->fetch_item_sum_by_last_(3);
-        $data['fetch_item_sum_by_last_3'] = $this->admin_model->fetch_item_sum_by_last_(2);
-        $data['fetch_item_sum_by_last_2'] = $this->admin_model->fetch_item_sum_by_last_(1);
-        $data['fetch_item_sum_by_last_1'] = $this->admin_model->fetch_item_sum_by_last_(0);
+        $data['total_items_count_by_days'] = $this->admin_model->total_items_count_by_days();
 
         $data['fetch_assigned_item_sum_by_last_7'] = $this->admin_model->fetch_assigned_item_sum_by_last_(6);
         $data['fetch_assigned_item_sum_by_last_6'] = $this->admin_model->fetch_assigned_item_sum_by_last_(5);
@@ -119,13 +113,7 @@ class Admin extends CI_Controller{
         $data['fetch_assigned_item_sum_by_last_2'] = $this->admin_model->fetch_assigned_item_sum_by_last_(1);
         $data['fetch_assigned_item_sum_by_last_1'] = $this->admin_model->fetch_assigned_item_sum_by_last_(0);
 
-        $data['fetch_damaged_item_sum_by_last_7'] = $this->admin_model->fetch_damaged_item_sum_by_last_(6);
-        $data['fetch_damaged_item_sum_by_last_6'] = $this->admin_model->fetch_damaged_item_sum_by_last_(5);
-        $data['fetch_damaged_item_sum_by_last_5'] = $this->admin_model->fetch_damaged_item_sum_by_last_(4);
-        $data['fetch_damaged_item_sum_by_last_4'] = $this->admin_model->fetch_damaged_item_sum_by_last_(3);
-        $data['fetch_damaged_item_sum_by_last_3'] = $this->admin_model->fetch_damaged_item_sum_by_last_(2);
-        $data['fetch_damaged_item_sum_by_last_2'] = $this->admin_model->fetch_damaged_item_sum_by_last_(1);
-        $data['fetch_damaged_item_sum_by_last_1'] = $this->admin_model->fetch_damaged_item_sum_by_last_(0);
+        $data['damaged_items_count_by_days'] = $this->admin_model->damaged_items_count_by_days();
         
         $data['breadcrumb'] = array("Dashboard");
         

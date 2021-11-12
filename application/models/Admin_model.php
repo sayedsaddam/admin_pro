@@ -2266,27 +2266,25 @@ public function update_invoice($id, $data){
         return true;
     }
 
-    public function fetch_item_sum_by_last_($int) {
-        $this->db->select('items.id');
+    public function total_items_count_by_days() {
+        $this->db->select("COUNT(*) as count");
         $this->db->from('items');
-        $this->db->where("items.created_at <= DATE_SUB(NOW(), INTERVAL $int day)");
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('items.location', $this->session->userdata('location'));
         }
-        return $this->db->count_all_results();
+        $this->db->group_by("cast(items.created_at as Date)");
+        return $this->db->get()->result();
     }
 
-    public function fetch_damaged_item_sum_by_last_($int) {
-        $this->db->select('item_assignment.id, item_assignment.item_id, item_assignment.remarks');
+    public function damaged_items_count_by_days() {
+        $this->db->select('COUNT(item_assignment.id) as count');
         $this->db->from('item_assignment');
         $this->db->join('items', 'items.id = item_assignment.id', 'left');
-        $this->db->group_by('item_assignment.item_id');
-        $this->db->where('item_assignment.remarks !=', NULL);
-        $this->db->where("item_assignment.created_at <= DATE_SUB(NOW(), INTERVAL $int day)");
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('items.location', $this->session->userdata('location'));
         }
-        return $this->db->count_all_results();
+        $this->db->group_by("cast(item_assignment.created_at as Date)");
+        return $this->db->get()->result();
     }
 
     public function fetch_assigned_item_sum_by_last_($int) {
