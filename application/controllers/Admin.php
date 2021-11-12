@@ -784,6 +784,7 @@ class Admin extends CI_Controller{
 
         $image = $this->admin_model->invoice_file($id); // checking file against id 
         $new_name = $_FILES["userfile"]['name'];
+      
  if(!empty($new_name)){
         $new_name = time().$_FILES["userfile"]['name'];
         $config['file_name']        = $new_name;
@@ -797,6 +798,13 @@ class Admin extends CI_Controller{
             unlink($image->file); // if file exsist it will be removed from folder
         }
     } 
+    if (isset($_data['full_path']))  
+    {
+      $_data[ 'full_path' ]; 
+    }
+    else {
+        $_data[ 'full_path' ] = $image->file;
+    }
         $data = array(
             'inv_no' => $this->input->post('inv_no'),
             'inv_date' => date('Y-m-d', strtotime($this->input->post('inv_date'))),
