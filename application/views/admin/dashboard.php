@@ -351,13 +351,12 @@
 		data: {
 			labels: [_getDay(6), _getDay(5), _getDay(4), _getDay(3), _getDay(2), _getDay(1), _getDay()],
 			datasets: [{
-				label: "Available",
+				label: "Added",
 				type: "line",
 				borderColor: "#5DADE2",
 				backgroundColor: "#f4f9ff",
 				borderDash: [5, 5],
-				data: [ <?= $fetch_item_sum_by_last_7 ?> , <?= $fetch_item_sum_by_last_6 ?> , <?= $fetch_item_sum_by_last_5 ?> , <?= $fetch_item_sum_by_last_4 ?> , <?= $fetch_item_sum_by_last_3 ?> , <?= $fetch_item_sum_by_last_2 ?> , <?= $fetch_item_sum_by_last_1 ?>
-				],
+				data: [<?php $count = count($total_items_count_by_days); foreach(array_reverse($total_items_count_by_days) as $key => $data) { echo $data; if($key + 1 < $count) {echo ', ';} } ?>],
 				spanGaps: true,
 				tension: 0.4,
 				fill: true
@@ -389,11 +388,7 @@
 				borderColor: "#82E0AA",
 				backgroundColor: "#f6fffb",
 				borderDash: [5, 5],
-				data: [ <?= $fetch_assigned_item_sum_by_last_7 ?> , <?=
-					$fetch_assigned_item_sum_by_last_6 ?> , <?= $fetch_assigned_item_sum_by_last_5 ?> , <?=
-					$fetch_assigned_item_sum_by_last_4 ?> , <?= $fetch_assigned_item_sum_by_last_3 ?> , <?=
-					$fetch_assigned_item_sum_by_last_2 ?> , <?= $fetch_assigned_item_sum_by_last_1 ?>
-				],
+				data: [<?php $count = count($assigned_items_count_by_days); foreach(array_reverse($assigned_items_count_by_days) as $key => $data) { echo $data; if($key + 1 < $count) {echo ', ';} } ?>],
 				spanGaps: true,
 				tension: 0.4,
 				fill: true
@@ -425,11 +420,7 @@
 				borderColor: "#E74C3C",
 				backgroundColor: "#ffedf1",
 				borderDash: [5, 5],
-				data: [ <?= $fetch_damaged_item_sum_by_last_7 ?> , <?=
-					$fetch_damaged_item_sum_by_last_6 ?> , <?= $fetch_damaged_item_sum_by_last_5 ?> , <?=
-					$fetch_damaged_item_sum_by_last_4 ?> , <?= $fetch_damaged_item_sum_by_last_3 ?> , <?=
-					$fetch_damaged_item_sum_by_last_2 ?> , <?= $fetch_damaged_item_sum_by_last_1 ?>
-				],
+				data: [<?php $count = count($damaged_items_count_by_days); foreach(array_reverse($damaged_items_count_by_days) as $key => $data) { echo $data; if($key + 1 < $count) {echo ', ';} } ?>],
 				spanGaps: true,
 				tension: 0.4,
 				fill: true
