@@ -1438,7 +1438,7 @@ public function update_invoice($id, $data){
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
             $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
             $this->db->join('suppliers', 'items.supplier = suppliers.id', 'left');
-            $this->db->where(array('item_assignment.status' => 0,'Item_assignment.remarks' => 'damage'));
+            $this->db->where(array('item_assignment.status' => 0,'item_assignment.remarks' => 'damaged'));
             if ($this->session->userdata('user_role') != '1') {
                 $this->db->where('items.location', $this->session->userdata('location'));
             }
