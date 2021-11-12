@@ -2302,7 +2302,6 @@ public function update_invoice($id, $data){
     public function fetch_item_sum_by_last_($int) {
         $this->db->select('items.id');
         $this->db->from('items');
-        $this->db->where("items.quantity > 0");
         $this->db->where("items.created_at <= DATE_SUB(NOW(), INTERVAL $int day)");
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('items.location', $this->session->userdata('location'));
