@@ -274,9 +274,9 @@
 									<div class="select is-small is-fullwidth">
 										<select name="remarks" required>
 											<option value="" disabled selected>Reason for Returning</option>
-											<option value="damage">Damaged Item</option>
+											<option value="damaged">Damaged Item</option>
 											<option value="disabled">Disabled Item</option>
-											<option value="others">Others</option>
+											<option value="other">Other</option>
 										</select>
 									</div>
 									<span class="icon is-small is-left">
