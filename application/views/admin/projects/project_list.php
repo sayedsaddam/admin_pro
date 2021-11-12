@@ -98,7 +98,7 @@
 									<td> <span class="tag"><?= $project->project_name; ?></span></td>
 									<td><?= ucfirst($project->project_desc); ?></td> 
 									<td><?= date('M d, Y', strtotime($project->created_at)); ?></td> 
-									<td><?php if($project->status == 0){ echo "<span class='tag is-warning'>Progress</span>"; }else{ echo "<span class='tag is-success'>Completed</span>"; } ?></td>
+									<td><?php if($project->status == 0){ echo "<span class='tag is-warning is-light'>Progress</span>"; }else{ echo "<span class='tag is-success is-light'>Completed</span>"; } ?></td>
 									<td class="">
 										<div class="field has-addons">  
 												<a href="<?= base_url('admin/edit_project/'.$project->id); ?>"
