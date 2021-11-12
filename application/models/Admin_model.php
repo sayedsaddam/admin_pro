@@ -2329,6 +2329,7 @@ public function update_invoice($id, $data){
             $this->db->select("COUNT(*) as count");
             $this->db->from('item_assignment');
 
+            $this->db->where("item_assignment.status = 0");
             $this->db->where("CAST(item_assignment.created_at AS date) = '$time'");
                     
             $this->db->join('items', 'item_assignment.id = items.id', 'left');
