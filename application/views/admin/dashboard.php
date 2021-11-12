@@ -202,7 +202,7 @@
 									</div>
 									<?php endif ?>
 								</a>
-								<a href="<?= base_url('admin/dashboard') ?>"
+								<a href="<?= base_url('admin/get_damaged_item') ?>"
 									class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Total Damaged</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_damaged_items ?></div>
