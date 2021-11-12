@@ -62,6 +62,15 @@
 								</button>
 							</p>
 							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/get_damaged_item'); ?>'"
+									class="button is-small <?= (isset($assign_pdamaged_pageage)) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-bars"></i>
+									</span>
+									<span>Damaged Item</span>
+								</button>
+							</p>
+							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/add_item'); ?>'"
 									class="button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
@@ -132,7 +141,13 @@
 									<?php endif; ?>
 									<td><?= $item->depreciation.' (%)'; ?></td>
 									<td>
-										<?= $status = $item->quantity > 0 && $item->status != 1 || isset($available_page) ? '<span class="tag is-success is-light">Available</span>' : '<span class="tag is-warning is-light">Assigned</span>'; ?>
+										<?php if($status = $item->quantity > 0 && $item->status != 1 && (!isset($damaged_page))){
+											echo '<span class="tag is-success is-light">Available</span>';
+										}elseif((isset($damaged_page)) && $item->status != 1){
+											echo '<span class="tag is-red is-light">Damaged</span>';
+										}else{
+											echo  '<span class="tag is-warning is-light">Assigned</span>';
+										} ?>
 									</td>
 									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
 									<td class="is-hidden-print is-narrow">
@@ -259,8 +274,9 @@
 									<div class="select is-small is-fullwidth">
 										<select name="remarks" required>
 											<option value="" disabled selected>Reason for Returning</option>
-											<option value="damage">Damaged Item</option>
+											<option value="damaged">Damaged Item</option>
 											<option value="disabled">Disabled Item</option>
+											<option value="other">Other</option>
 										</select>
 									</div>
 									<span class="icon is-small is-left">

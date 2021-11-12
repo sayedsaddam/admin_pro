@@ -742,16 +742,13 @@ class Admin extends CI_Controller{
            redirect('admin/invoices');
         }
         else {   
-          
-           $datas = $this->upload->data(); 
-           $fileUpload = $datas['file_name'];  
-           
+           $datas = $this->upload->data();  
         $data = array(
             'inv_no' => $this->input->post('inv_no'),
             'inv_date' => date('Y-m-d', strtotime($this->input->post('inv_date'))),
             'project' => $this->input->post('project'),
             'supplier' => $this->input->post('supplier'),
-            'file' => $fileUpload,
+            'file' => $datas['full_path'],
             'region' => $this->input->post('region'),
             'item' => $this->input->post('item_name'),
             'amount' => $this->input->post('amount'),
@@ -759,7 +756,7 @@ class Admin extends CI_Controller{
             'created_at' => date('Y-m-d')
         ); 
         if($this->admin_model->add_invoice($data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Adding invoice was successful.');
+            $this->session->set_flashdata('success', '<strong>Invoice! </strong>Invoice Added successfully.');
             redirect('admin/invoices');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
@@ -781,29 +778,54 @@ class Admin extends CI_Controller{
         $data['employees_page'] = true;
         $this->load->view('admin/commons/new_template', $data);
     }
+    // Update Invoice
+    public function update_invoice(){
+        $id = $this->input->post('id'); 
 
- // Update employ
- public function update_invoice(){
-    $id = $this->input->post('id'); 
-    $data = array(
-        'inv_no' => $this->input->post('inv_no'),
-        'inv_date' => date('Y-m-d', strtotime($this->input->post('inv_date'))),
-        'project' => $this->input->post('project'),
-        'supplier' => $this->input->post('supplier'), 
-        'region' => $this->input->post('region'),
-        'item' => $this->input->post('item_name'),
-        'amount' => $this->input->post('amount'),
-        'inv_desc' => $this->input->post('inv_desc'),
-        'created_at' => date('Y-m-d')
-    ); 
-    if($this->admin_model->update_invoice($id, $data)){
-        $this->session->set_flashdata('success', 'Product (<strong>' . $this->input->post('item_name') . '</strong>) was updated successfully.'); 
-        redirect('admin/edit_invoice/' . $id);
-    }else{
-        $this->session->set_flashdata('failed', 'Something went wrong, please try again!');
-        redirect('admin/edit_invoice/' . $id);
+        $image = $this->admin_model->invoice_file($id); // checking file against id 
+        $new_name = $_FILES["userfile"]['name'];
+      
+ if(!empty($new_name)){
+        $new_name = time().$_FILES["userfile"]['name'];
+        $config['file_name']        = $new_name;
+        $config['upload_path']   = './assets/uploads/'; 
+        $config['allowed_types'] = 'pdf|jpg|png|jpeg';  
+        $this->load->library('upload', $config);  
+        $this->upload->do_upload('userfile');
+        $_data = $this->upload->data();
+
+        if (isset($image)) {
+            unlink($image->file); // if file exsist it will be removed from folder
+        }
+    } 
+    if (isset($_data['full_path']))  
+    {
+      $_data[ 'full_path' ]; 
     }
+    else {
+        $_data[ 'full_path' ] = $image->file;
+    }
+        $data = array(
+            'inv_no' => $this->input->post('inv_no'),
+            'inv_date' => date('Y-m-d', strtotime($this->input->post('inv_date'))),
+            'project' => $this->input->post('project'),
+            'supplier' => $this->input->post('supplier'),
+            'file' => $_data['full_path'], 
+            'region' => $this->input->post('region'),
+            'item' => $this->input->post('item_name'),
+            'amount' => $this->input->post('amount'),
+            'inv_desc' => $this->input->post('inv_desc'),
+            'created_at' => date('Y-m-d')
+        );
+        if($this->admin_model->update_invoice($id, $data)){
+            $this->session->set_flashdata('success', 'Product (<strong>' . $this->input->post('item_name') . '</strong>) was updated successfully.'); 
+            redirect('admin/edit_invoice/' . $id);
+        }else{
+            $this->session->set_flashdata('failed', 'Something went wrong, please try again!');
+            redirect('admin/edit_invoice/' . $id);
+        }
 }
+
 
 
     // Invoices - print invoice
@@ -1635,7 +1657,6 @@ class Admin extends CI_Controller{
         $employee = $this->admin_model->assigned_item_emp($id);
         echo json_encode($employee); 
     }
-
     //Available Item list
     public function available_item_list($offset = null){ 
         if ($this->AccessList()["Register"]->read == 0) {
@@ -1677,6 +1698,47 @@ class Admin extends CI_Controller{
 
         $this->load->view('admin/commons/new_template', $data);
     }
+     //Damaget Item list
+     public function get_damaged_item($offset = null){ 
+        if ($this->AccessList()["Register"]->read == 0) {
+            redirect('admin/dashboard');
+        }
+        $limit = 25;
+        if($this->input->get('limit')) {
+            $limit = $this->input->get('limit');
+        }
+
+        if(!empty($offset)){
+            $config['uri_segment'] = 3;
+        }
+
+        $this->load->library('pagination');
+        $url = base_url('admin/get_damaged_item');
+        $rowscount = $this->admin_model->count_damaged_item();
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
+        $this->pagination->initialize($config);
+
+        $data['title'] = 'Item Register | Admin & Procurement';
+        $data['body'] = 'admin/item_assignment/item-register';
+        $data['damaged_page'] = true;
+        $data['items'] = $this->admin_model->get_damaged_items($limit, $offset); 
+        $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Damaged");
+
+        $this->load->view('admin/commons/new_template', $data);
+    }
     //Assign item list
     public function get_assign_item($offset = null){  
         if ($this->AccessList()["Register"]->read == 0) {
@@ -1711,7 +1773,7 @@ class Admin extends CI_Controller{
 
         $data['title'] = 'Item Register | Admin & Procurement';
         $data['body'] = 'admin/item_assignment/item-register';
-        $data['assign_page'] = true; 
+        $data['assign_page'] = true;
         $data['items'] = $this->admin_model->assign_item_list($limit, $offset); 
         $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Assigned List");
         $this->load->view('admin/commons/new_template', $data);
