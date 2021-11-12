@@ -2300,35 +2300,69 @@ public function update_invoice($id, $data){
     }
 
     public function total_items_count_by_days() {
-        $this->db->select("COUNT(*) as count");
-        $this->db->from('items');
-        if ($this->session->userdata('user_role') != '1') {
-            $this->db->where('items.location', $this->session->userdata('location'));
+        $result = array();
+
+        for ($i = 0; $i <= 6; $i++) {
+            $time = date("Y-m-d", time() - ((60*60*24) * $i));
+
+            $this->db->select("COUNT(*) as count");
+            $this->db->from('items');
+
+            $this->db->where("CAST(items.created_at AS date) = '$time'");
+
+            if ($this->session->userdata('user_role') != '1') {
+                $this->db->where('items.location', $this->session->userdata('location'));
+            }
+
+            array_push($result, $this->db->get()->result()[0]->count);
         }
-        $this->db->group_by("cast(items.created_at as Date)");
-        return $this->db->get()->result();
+
+        return $result;
     }
 
     public function damaged_items_count_by_days() {
-        $this->db->select('COUNT(item_assignment.id) as count');
-        $this->db->from('item_assignment');
-        $this->db->join('items', 'items.id = item_assignment.id', 'left');
-        if ($this->session->userdata('user_role') != '1') {
-            $this->db->where('items.location', $this->session->userdata('location'));
+        $result = array();
+
+        for ($i = 0; $i <= 6; $i++) {
+            $time = date("Y-m-d", time() - ((60*60*24) * $i));
+
+            $this->db->select("COUNT(*) as count");
+            $this->db->from('item_assignment');
+
+            $this->db->where("CAST(item_assignment.created_at AS date) = '$time'");
+                    
+            $this->db->join('items', 'item_assignment.id = items.id', 'left');
+            if ($this->session->userdata('user_role') != '1') {
+                $this->db->where('items.location', $this->session->userdata('location'));
+            }
+
+            array_push($result, $this->db->get()->result()[0]->count);
         }
-        $this->db->group_by("cast(item_assignment.created_at as Date)");
-        return $this->db->get()->result();
+
+        return $result;
     }
 
-    public function fetch_assigned_item_sum_by_last_($int) {
-        $this->db->select('item_assignment.id');
-        $this->db->from('item_assignment');
-        $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
-        $this->db->where('item_assignment.status = 1');
-        $this->db->where("item_assignment.created_at <= DATE_SUB(NOW(), INTERVAL $int day)");
-        if ($this->session->userdata('user_role') != '1') {
-            $this->db->where('items.location', $this->session->userdata('location'));
+    public function assigned_items_count_by_days() {
+        $result = array();
+
+        for ($i = 0; $i <= 6; $i++) {
+            $time = date("Y-m-d", time() - ((60*60*24) * $i));
+
+            $this->db->select("COUNT(*) as count");
+            $this->db->from('item_assignment');
+
+            $this->db->where("CAST(item_assignment.created_at AS date) = '$time'");
+                    
+            $this->db->join('items', 'item_assignment.id = items.id', 'left');
+
+            $this->db->where('item_assignment.status = 1');
+            if ($this->session->userdata('user_role') != '1') {
+                $this->db->where('items.location', $this->session->userdata('location'));
+            }
+
+            array_push($result, $this->db->get()->result()[0]->count);
         }
-        return $this->db->count_all_results();
+
+        return $result;
     }
 }
