@@ -349,7 +349,7 @@
 	new Chart(document.getElementById("myChartAvailable"), {
 		type: 'line',
 		data: {
-			labels: [_getDay(5), _getDay(4), _getDay(3), _getDay(2), _getDay(1), _getDay()],
+			labels: [_getDay(6), _getDay(5), _getDay(4), _getDay(3), _getDay(2), _getDay(1), _getDay()],
 			datasets: [{
 				label: "Added",
 				type: "line",
@@ -381,7 +381,7 @@
 	new Chart(document.getElementById("myChartAssigned"), {
 		type: 'line',
 		data: {
-			labels: [_getDay(5), _getDay(4), _getDay(3), _getDay(2), _getDay(1), _getDay()],
+			labels: [_getDay(6), _getDay(5), _getDay(4), _getDay(3), _getDay(2), _getDay(1), _getDay()],
 			datasets: [{
 				label: "Assigned",
 				type: "line",
@@ -417,7 +417,7 @@
 	new Chart(document.getElementById("myChartDamaged"), {
 		type: 'line',
 		data: {
-			labels: [_getDay(5), _getDay(4), _getDay(3), _getDay(2), _getDay(1), _getDay()],
+			labels: [_getDay(6), _getDay(5), _getDay(4), _getDay(3), _getDay(2), _getDay(1), _getDay()],
 			datasets: [{
 				label: "Damaged",
 				type: "line",
