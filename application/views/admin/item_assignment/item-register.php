@@ -17,7 +17,8 @@
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" type="search"
 										placeholder="Search Items"
-										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
+										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>"
+										required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
 									</span>
@@ -44,7 +45,8 @@
 								</button>
 							</p>
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/available_item_list'); ?>'"
+								<button
+									onclick="location.href='<?= base_url('admin/available_item_list'); ?>'"
 									class="button is-small <?= (isset($available_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="far fa-list-alt"></i>
@@ -82,148 +84,164 @@
 						</div>
 					</div>
 				</div>
-				<div class="columns" style="display: grid">
-					<div class="column table-container">
-						<table class="table is-hoverable is-fullwidth" id="myTable">
-							<thead>
-								<tr>
-									<th class="has-text-weight-semibold"><abbr
-											title="Item Identification Number">ID</abbr></th>
-									<th class="has-text-weight-semibold">Location</th>
-									<th class="has-text-weight-semibold">Category</th>
-									<th class="has-text-weight-semibold">Company</th>
-									<th class="has-text-weight-semibold">Model</th>
-									<th class="has-text-weight-semibold">Supplier</th>
-									<?php if(isset($assign_page)) : ?>
-									<th class="has-text-weight-semibold">Assign To</th>
-									<?php endif ?>
-									<th class="has-text-weight-semibold"><abbr title="Depreciation Percentage">D%</abbr>
-									</th>
-									<th class="has-text-weight-semibold">Status</th>
-									<th class="has-text-weight-semibold"><abbr title="Purchase Date">PD</abbr></th>
-									<th class="has-text-weight-semibold is-hidden-print">Action</th>
-								</tr>
-							</thead>
-							<tfoot>
-								<tr>
-									<th class="has-text-weight-semibold"><abbr
-											title="Item Identification Number">ID</abbr></th>
-									<th class="has-text-weight-semibold">Location</th>
-									<th class="has-text-weight-semibold">Category</th>
-									<th class="has-text-weight-semibold">Company</th>
-									<th class="has-text-weight-semibold">Model</th>
-									<th class="has-text-weight-semibold">Supplier</th>
-									<?php if(isset($assign_page)) : ?>
-									<th class="has-text-weight-semibold">Assigned To</th>
-									<?php endif ?>
-									<th class="has-text-weight-semibold"><abbr title="Depreciation Percentage">D%</abbr>
-									</th>
-									<th class="has-text-weight-semibold">Status</th>
-									<th class="has-text-weight-semibold"><abbr title="Purchase Date">PD</abbr></th>
-									<th class="has-text-weight-semibold is-hidden-print">Action</th>
-								</tr>
-							</tfoot>
-							<tbody>
-								<?php if(!empty($items)): foreach($items as $item): ?>
-								<tr onclick="window.location='<?= base_url('admin/product_card/'.$item->id) ?>';">
-									<td><span><?= 'S2S-'.$item->id; ?></a></td>
-									<td><?= $item->name; ?></td>
-									<td>
-										<div class="tags"><span class="tag"><?= ucwords($item->cat_name); ?></span><span
-												class="tag is-info is-light"><?= ucwords($item->names); ?></span>
-										</div>
-									</td>
-									<td><?= ucwords($item->type_name); ?></td>
-									<td><?= ucwords($item->model); ?></td>
-									<td><?= ucwords($item->sup_name); ?></td>
-									<?php if(isset($assign_page)) : ?>
-									<td><?= ucwords($item->employ_name); ?></td>
-									<?php endif; ?>
-									<td><?= $item->depreciation.' (%)'; ?></td>
-									<td>
-										<?php if($status = $item->quantity > 0 && $item->status != 1 && (!isset($damaged_page))){
+
+				<div class="tile is-ancestor">
+					<div class="tile is-parent">
+						<div class="tile is-child box">
+							<div class="columns" style="display: grid">
+								<div class="column table-container">
+									<table class="table is-hoverable is-fullwidth" id="myTable">
+										<thead>
+											<tr>
+												<th class="has-text-weight-semibold"><abbr
+														title="Item Identification Number">ID</abbr></th>
+												<th class="has-text-weight-semibold">Location</th>
+												<th class="has-text-weight-semibold">Category</th>
+												<th class="has-text-weight-semibold">Company</th>
+												<th class="has-text-weight-semibold">Model</th>
+												<th class="has-text-weight-semibold">Supplier</th>
+												<?php if(isset($assign_page)) : ?>
+												<th class="has-text-weight-semibold">Assign To</th>
+												<?php endif ?>
+												<th class="has-text-weight-semibold"><abbr
+														title="Depreciation Percentage">D%</abbr>
+												</th>
+												<th class="has-text-weight-semibold">Status</th>
+												<th class="has-text-weight-semibold"><abbr
+														title="Purchase Date">PD</abbr></th>
+												<th class="has-text-weight-semibold is-hidden-print">Action</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th class="has-text-weight-semibold"><abbr
+														title="Item Identification Number">ID</abbr></th>
+												<th class="has-text-weight-semibold">Location</th>
+												<th class="has-text-weight-semibold">Category</th>
+												<th class="has-text-weight-semibold">Company</th>
+												<th class="has-text-weight-semibold">Model</th>
+												<th class="has-text-weight-semibold">Supplier</th>
+												<?php if(isset($assign_page)) : ?>
+												<th class="has-text-weight-semibold">Assigned To</th>
+												<?php endif ?>
+												<th class="has-text-weight-semibold"><abbr
+														title="Depreciation Percentage">D%</abbr>
+												</th>
+												<th class="has-text-weight-semibold">Status</th>
+												<th class="has-text-weight-semibold"><abbr
+														title="Purchase Date">PD</abbr></th>
+												<th class="has-text-weight-semibold is-hidden-print">Action</th>
+											</tr>
+										</tfoot>
+										<tbody>
+											<?php if(!empty($items)): foreach($items as $item): ?>
+											<tr
+												onclick="window.location='<?= base_url('admin/product_card/'.$item->id) ?>';">
+												<td><span><?= 'S2S-'.$item->id; ?></a></td>
+												<td><?= $item->name; ?></td>
+												<td>
+													<div class="tags"><span
+															class="tag"><?= ucwords($item->cat_name); ?></span><span
+															class="tag is-info is-light"><?= ucwords($item->names); ?></span>
+													</div>
+												</td>
+												<td><?= ucwords($item->type_name); ?></td>
+												<td><?= ucwords($item->model); ?></td>
+												<td><?= ucwords($item->sup_name); ?></td>
+												<?php if(isset($assign_page)) : ?>
+												<td><?= ucwords($item->employ_name); ?></td>
+												<?php endif; ?>
+												<td><?= $item->depreciation.' (%)'; ?></td>
+												<td>
+													<?php if($status = $item->quantity > 0 && $item->status != 1 && (!isset($damaged_page))){
 											echo '<span class="tag is-success is-light">Available</span>';
 										}elseif((isset($damaged_page)) && $item->status != 1){
 											echo '<span class="tag is-danger is-light">Damaged</span>';
 										}else{
 											echo  '<span class="tag is-warning is-light">Assigned</span>';
 										} ?>
-									</td>
-									<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
-									<td class="is-hidden-print is-narrow">
-										<div class="field has-addons">
-											<p class="control">
-												<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"
-													class="button is-small">
-													<span class="icon is-small">
-														<i class="fas fa-edit"></i>
-													</span>
-												</a>
-											</p>
-											<?php if($item->quantity > 0 && $item->status != 1 || isset($available_page)): ?>
-											<p class="control">
-												<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"
-													class="button is-small">
-													<span class="icon is-small has-text-success">
-														<i class="fas fa-check"></i>
-													</span>
-												</a>
-											</p>
-											<?php else: ?>
-											<p class="control return-btn">
-												<button type="button" data-id="<?= $item->item_ids.'/'.$item->id; ?>"
-													class="button is-small has-text-danger return-btn">
-													<span class="icon is-small">
-														<i class="fas fa-ban"></i>
-													</span>
-												</button>
-											</p>
-											<?php endif; ?>
-										</div>
-								</tr>
-								<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='17'>No records found.</td></tr>"; endif; ?>
-							</tbody>
-						</table>
-					</div>
-					<div class="column">
-						<div class="columns">
-							<div class="column is-hidden-print">
-								<label class="mr-2">Number of Records:</label>
-								<select class="result_limit">
-									<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
-									</option>
-									<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
-									</option>
-									<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
-									</option>
-								</select>
-							</div>
-							<div class="column is-hidden-print">
-								<nav class="pagination is-small" role="navigation" aria-label="pagination"
-									style="justify-content: center;">
-									<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
-								</nav>
-							</div>
-							<div class="column is-hidden-print">
-								<div class="buttons is-pulled-right">
-									<button onClick="window.print();" type="button" class="button is-small ">
-										<span class="icon is-small">
-											<i class="fas fa-print"></i>
-										</span>
-										<span>Print</span>
-									</button>
-									<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
-										class="button is-small ">
-										<span class="icon is-small">
-											<i class="fas fa-file-export"></i>
-										</span>
-										<span>Export</span>
-									</a>
+												</td>
+												<td><?= date('M d, Y', strtotime($item->purchasedate)); ?></td>
+												<td class="is-hidden-print is-narrow">
+													<div class="field has-addons">
+														<p class="control">
+															<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"
+																class="button is-small">
+																<span class="icon is-small">
+																	<i class="fas fa-edit"></i>
+																</span>
+															</a>
+														</p>
+														<?php if($item->quantity > 0 && $item->status != 1 || isset($available_page)): ?>
+														<p class="control">
+															<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"
+																class="button is-small">
+																<span class="icon is-small has-text-success">
+																	<i class="fas fa-check"></i>
+																</span>
+															</a>
+														</p>
+														<?php else: ?>
+														<p class="control return-btn">
+															<button type="button"
+																data-id="<?= $item->item_ids.'/'.$item->id; ?>"
+																class="button is-small has-text-danger return-btn">
+																<span class="icon is-small">
+																	<i class="fas fa-ban"></i>
+																</span>
+															</button>
+														</p>
+														<?php endif; ?>
+													</div>
+											</tr>
+											<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='17'>No records found.</td></tr>"; endif; ?>
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+
+				<div class="column">
+					<div class="columns">
+						<div class="column is-hidden-print">
+							<label class="mr-2">Number of Records:</label>
+							<select class="result_limit">
+								<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
+								</option>
+								<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
+								</option>
+								<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
+								</option>
+							</select>
+						</div>
+						<div class="column is-hidden-print">
+							<nav class="pagination is-small" role="navigation" aria-label="pagination"
+								style="justify-content: center;">
+								<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
+							</nav>
+						</div>
+						<div class="column is-hidden-print">
+							<div class="buttons is-pulled-right">
+								<button onClick="window.print();" type="button" class="button is-small ">
+									<span class="icon is-small">
+										<i class="fas fa-print"></i>
+									</span>
+									<span>Print</span>
+								</button>
+								<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+									class="button is-small ">
+									<span class="icon is-small">
+										<i class="fas fa-file-export"></i>
+									</span>
+									<span>Export</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
 		<div class="modal" id="modal-ter">
@@ -323,7 +341,7 @@
 	$(document).ready(function () {
 		$(".result_limit").on('change', function () {
 			var val = $(this).val();
-			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'product_report' ? 'from_date=' . $this->input->get('from_date') . '&to_date=' . $this->input->get('to_date ') . ' & ' : '' ?>limit=' + val)
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'product_report' ? 'from_date=' . $this->input->get('from_date') . '&to_date=' . $this->input->get('to_date') . '&' : '' ?>limit=' + val)
 		})
 	})
 
