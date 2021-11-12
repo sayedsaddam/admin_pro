@@ -59,6 +59,15 @@
 								</button>
 							</p>
 							<p class="control">
+								<button onclick="location.href='<?= base_url('admin/get_damaged_item'); ?>'"
+									class="button is-small <?= isset($damaged_page) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-bars"></i>
+									</span>
+									<span>Damaged Item</span>
+								</button>
+							</p>
+							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/add_item'); ?>'"
 									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">

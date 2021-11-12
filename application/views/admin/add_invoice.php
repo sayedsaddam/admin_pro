@@ -187,14 +187,10 @@
 						</div>
 						
 					<div class="column">
-					<label class="label is-small">File <span class="has-text-danger">*</span></label>
+					<label class="label is-small">File </label>
 								<div class="file is-small has-name is-fullwidth">
-									<label class="file-label">
-										<?php if(!empty($edit)){ ?>
-										<input class="file-input" name="userfile" type="file" value="<?= $edit->file; ?>">
-										<?php } else {?>
-											  <input class="file-input" name="userfile" type="file" required> 
-											  <?php } ?>
+									<label class="file-label"> 
+											  <input class="file-input" name="userfile" type="file"> 
 										<span class="file-cta">
 											<span class="file-icon">
 												<i class="fas fa-upload"></i>

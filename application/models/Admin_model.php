@@ -529,6 +529,13 @@ public function update_invoice($id, $data){
         $this->db->delete('invoices');
         return true;
     }
+      // Invoice image - Remove from invoice invoice
+      public function invoice_file($id){
+        $this->db->select('id,file');
+        $this->db->from('invoices');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
+    }
     // Projects - Add project
     public function save_project($data){
         $this->db->insert('projects', $data);
@@ -1303,6 +1310,12 @@ public function update_invoice($id, $data){
         $num_results = $this->db->count_all_results();
         return $num_results;
     }
+      // Count damaged items 
+      public function count_damaged_item(){
+        $this->db->from('item_assignment');
+        $num_results = $this->db->where('status',0)->count_all_results();
+        return $num_results;
+    }
     // Count all items between two weeks
     public function count_item_week_change(){
         $this->db->from('items');
@@ -1407,6 +1420,25 @@ public function update_invoice($id, $data){
             $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
             $this->db->join('suppliers', 'items.supplier = suppliers.id', 'left');
             $this->db->where('items.quantity >', 0);
+            if ($this->session->userdata('user_role') != '1') {
+                $this->db->where('items.location', $this->session->userdata('location'));
+            }
+            $this->db->group_by('items.id'); 
+            $this->db->order_by('id', 'DESC');
+            $this->db->limit($limit, $offset);
+            return $this->db->get()->result();
+        }
+        // Get Damaged items.
+        public function get_damaged_items($limit, $offset){
+            $this->db->select('items.id, items.location, items.category, items.sub_category, items.type_name, items.model, items.serial_number, items.supplier, items.price, items.quantity, items.depreciation, items.purchasedate, items.created_at, users.fullname as employ_name, users.id as employ_id, item_assignment.id as item_ids, item_assignment.item_id,item_assignment.remarks, item_assignment.status, item_assignment.assignd_to, sub_categories.name as names, categories.cat_name, locations.name, suppliers.id sup_id, suppliers.name as sup_name');
+            $this->db->from('items');
+            $this->db->join('categories', 'items.category = categories.id', 'left');
+            $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
+            $this->db->join('locations', 'items.location = locations.id', 'left');
+            $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
+            $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+            $this->db->join('suppliers', 'items.supplier = suppliers.id', 'left');
+            $this->db->where(array('item_assignment.status' => 0,'Item_assignment.remarks' => 'damage'));
             if ($this->session->userdata('user_role') != '1') {
                 $this->db->where('items.location', $this->session->userdata('location'));
             }
@@ -1999,6 +2031,7 @@ public function update_invoice($id, $data){
  }
   // Return Item Save - 
   public function return_item_save($data,$invantory,$item,$item_id,$assign_item_id){    
+ 
         $this->db->where(array('item_assignment.id' => $assign_item_id, 'item_assignment.status' => 1));
         $this->db->update('item_assignment', $data); 
         $this->db->update('inventory', $invantory);
