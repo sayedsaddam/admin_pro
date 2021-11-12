@@ -80,7 +80,7 @@
 				</div>
 				<?php endif ?>
 						<table class="table table-sm is-fullwidth">
-							<thead>
+						<thead>
 								<tr>
 									<th class="has-text-weight-semibold">ID</th>
 									<th class="has-text-weight-semibold">Projects</th>
@@ -90,6 +90,16 @@
 									<th class="has-text-weight-semibold">Action</th>
 								</tr>
 							</thead>
+							<tfoot>
+								<tr>
+									<th class="has-text-weight-semibold">ID</th>
+									<th class="has-text-weight-semibold">Projects</th>
+									<th class="has-text-weight-semibold">Description</th> 
+									<th class="has-text-weight-semibold">Date</th>  
+									<th class="has-text-weight-semibold">Status</th>
+									<th class="has-text-weight-semibold">Action</th>
+								</tr>
+							</tfoot>
 							<?php if(empty($results)): ?>
 							<tbody>
 								<?php if(!empty($projects)): foreach($projects as $project): ?>
