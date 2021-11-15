@@ -76,22 +76,7 @@
 									<span>Add New</span>
 								</button>
 							</p>
-							<p class="control">
-								<button
-									class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>"
-									id="report-btn">
-									<span class="icon is-small">
-										<i class="fas fa-paperclip"></i>
-									</span>
-									<span>Report</span>
-								</button>
-							</p>
 						</div>
-					</div>
-				</div>
-				<div class="columns">
-					<div class="column">
-						<h1 class="subtitle is-5"><?= (!isset($edit_item)) ? 'Add Item' : 'Edit Item' ?></h1>
 					</div>
 				</div>
 				<form action="<?php if(empty($edit)){ echo base_url('admin/item_save'); }else{ echo base_url('admin/modify_item'); } ?>"

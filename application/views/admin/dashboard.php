@@ -11,7 +11,6 @@
 						<?php $this->view('admin/commons/breadcrumb'); ?>
 					</div>
 				</div>
-
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
 						<div class="tile is-child box">
@@ -202,7 +201,7 @@
 									</div>
 									<?php endif ?>
 								</a>
-								<a href="<?= base_url('admin/dashboard') ?>"
+								<a href="<?= base_url('admin/get_damaged_item') ?>"
 									class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Total Damaged</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_damaged_items ?></div>
@@ -214,7 +213,7 @@
 									</div>
 									<?php elseif($total_damaged_items_week_change == $total_damaged_items_last_week_change || ($total_damaged_items_week_change == 0 AND $total_damaged_items_last_week_change == 0)) : ?>
 									<div class="has-text-weight-light is-size-7"><span
-											class="has-text-success">+<?= $total_damaged_items_week_change ?></span>
+											class="has-text-danger">+<?= $total_damaged_items_week_change ?></span>
 										<span class="has-text-grey">(0.00%)</span></div>
 									<?php else : ?>
 									<div class="has-text-weight-light is-size-7"><span
@@ -351,13 +350,12 @@
 		data: {
 			labels: [_getDay(6), _getDay(5), _getDay(4), _getDay(3), _getDay(2), _getDay(1), _getDay()],
 			datasets: [{
-				label: "Available",
+				label: "Added",
 				type: "line",
 				borderColor: "#5DADE2",
 				backgroundColor: "#f4f9ff",
 				borderDash: [5, 5],
-				data: [ <?= $fetch_item_sum_by_last_7 ?> , <?= $fetch_item_sum_by_last_6 ?> , <?= $fetch_item_sum_by_last_5 ?> , <?= $fetch_item_sum_by_last_4 ?> , <?= $fetch_item_sum_by_last_3 ?> , <?= $fetch_item_sum_by_last_2 ?> , <?= $fetch_item_sum_by_last_1 ?>
-				],
+				data: [<?php $count = count($total_items_count_by_days); foreach(array_reverse($total_items_count_by_days) as $key => $data) { echo $data; if($key + 1 < $count) {echo ', ';} } ?>],
 				spanGaps: true,
 				tension: 0.4,
 				fill: true
@@ -389,11 +387,7 @@
 				borderColor: "#82E0AA",
 				backgroundColor: "#f6fffb",
 				borderDash: [5, 5],
-				data: [ <?= $fetch_assigned_item_sum_by_last_7 ?> , <?=
-					$fetch_assigned_item_sum_by_last_6 ?> , <?= $fetch_assigned_item_sum_by_last_5 ?> , <?=
-					$fetch_assigned_item_sum_by_last_4 ?> , <?= $fetch_assigned_item_sum_by_last_3 ?> , <?=
-					$fetch_assigned_item_sum_by_last_2 ?> , <?= $fetch_assigned_item_sum_by_last_1 ?>
-				],
+				data: [<?php $count = count($assigned_items_count_by_days); foreach(array_reverse($assigned_items_count_by_days) as $key => $data) { echo $data; if($key + 1 < $count) {echo ', ';} } ?>],
 				spanGaps: true,
 				tension: 0.4,
 				fill: true
@@ -425,11 +419,7 @@
 				borderColor: "#E74C3C",
 				backgroundColor: "#ffedf1",
 				borderDash: [5, 5],
-				data: [ <?= $fetch_damaged_item_sum_by_last_7 ?> , <?=
-					$fetch_damaged_item_sum_by_last_6 ?> , <?= $fetch_damaged_item_sum_by_last_5 ?> , <?=
-					$fetch_damaged_item_sum_by_last_4 ?> , <?= $fetch_damaged_item_sum_by_last_3 ?> , <?=
-					$fetch_damaged_item_sum_by_last_2 ?> , <?= $fetch_damaged_item_sum_by_last_1 ?>
-				],
+				data: [<?php $count = count($damaged_items_count_by_days); foreach(array_reverse($damaged_items_count_by_days) as $key => $data) { echo $data; if($key + 1 < $count) {echo ', ';} } ?>],
 				spanGaps: true,
 				tension: 0.4,
 				fill: true

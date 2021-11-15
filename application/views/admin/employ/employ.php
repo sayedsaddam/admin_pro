@@ -56,206 +56,173 @@
 						</div>
 					</div>
 				</div>
-				<div class="columns" style="display: grid">
-					<div class="column table-container">
-						<table class="table is-hoverable is-fullwidth">
-							<caption><?php if(empty($results)){ echo ''; }else{ echo ''; } ?></caption>
-							<thead>
-								<tr>
-									<th class="font-weight-bold">ID</th>
-									<th class="font-weight-bold">Name</th>
-									<th class="font-weight-bold">Phone</th>
-									<th class="font-weight-bold">Location</th>
-									<th class="font-weight-bold">Department</th>
-									<th class="font-weight-bold">DOJ</th>
-									<th class="font-weight-bold">Status</th>
-									<th class="font-weight-bold">Date</th>
-									<th class="font-weight-bold">Action</th>
-								</tr>
-							</thead>
-							<tfoot>
-								<tr>
-									<th class="font-weight-bold">ID</th>
-									<th class="font-weight-bold">Name</th>
-									<th class="font-weight-bold">Phone</th>
-									<th class="font-weight-bold">Location</th>
-									<th class="font-weight-bold">Department</th>
-									<th class="font-weight-bold">DOJ</th>
-									<th class="font-weight-bold">Status</th>
-									<th class="font-weight-bold">Date</th>
-									<th class="font-weight-bold">Action</th>
-								</tr>
-							</tfoot>
-							<?php if(empty($results)): ?>
-							<tbody id="myTable">
-								<?php if(!empty($employ)): foreach($employ as $sup): ?>
-								<tr onclick="window.location='<?= base_url('admin/edit_employ/'.$sup->emp_id); ?>';">
-									<td><?= 'S2S-'.$sup->emp_id; ?></td>
-									<td><abbr title="<?= $sup->email; ?>"><?= ucwords($sup->emp_name); ?></abbr>
-									</td>
-									<td><?= $sup->phone; ?></td>
-									<td><?= ucwords($sup->name); ?></td>
-									<td><?= ucwords($sup->department); ?></td>
-									<td><?= date('M d, Y', strtotime($sup->doj)); ?></td>
-									<td>
-										<?php if($sup->status == 1): ?>
-										<span class="tag is-success is-light">Active</span>
+
+				<div class="tile is-ancestor">
+					<div class="tile is-parent">
+						<div class="tile is-child box">
+
+							<div class="columns" style="display: grid">
+								<div class="column table-container">
+									<table class="table is-hoverable is-fullwidth">
+										<caption><?php if(empty($results)){ echo ''; }else{ echo ''; } ?></caption>
+										<thead>
+											<tr>
+												<th class="font-weight-bold">ID</th>
+												<th class="font-weight-bold">Name</th>
+												<th class="font-weight-bold">Phone</th>
+												<th class="font-weight-bold">Location</th>
+												<th class="font-weight-bold">Department</th>
+												<th class="font-weight-bold">DOJ</th>
+												<th class="font-weight-bold">Status</th>
+												<th class="font-weight-bold">Date</th>
+												<th class="font-weight-bold">Action</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th class="font-weight-bold">ID</th>
+												<th class="font-weight-bold">Name</th>
+												<th class="font-weight-bold">Phone</th>
+												<th class="font-weight-bold">Location</th>
+												<th class="font-weight-bold">Department</th>
+												<th class="font-weight-bold">DOJ</th>
+												<th class="font-weight-bold">Status</th>
+												<th class="font-weight-bold">Date</th>
+												<th class="font-weight-bold">Action</th>
+											</tr>
+										</tfoot>
+										<?php if(empty($results)): ?>
+										<tbody id="myTable">
+											<?php if(!empty($employ)): foreach($employ as $sup): ?>
+											<tr
+												onclick="window.location='<?= base_url('admin/edit_employ/'.$sup->emp_id); ?>';">
+												<td><?= 'S2S-'.$sup->emp_id; ?></td>
+												<td><abbr
+														title="<?= $sup->email; ?>"><?= ucwords($sup->emp_name); ?></abbr>
+												</td>
+												<td><?= $sup->phone; ?></td>
+												<td><?= ucwords($sup->name); ?></td>
+												<td><?= ucwords($sup->department); ?></td>
+												<td><?= date('M d, Y', strtotime($sup->doj)); ?></td>
+												<td>
+													<?php if($sup->status == 1): ?>
+													<span class="tag is-success is-light">Active</span>
+													<?php else: ?>
+													<span class="tag is-warning is-light">Inactive</span>
+													<?php endif; ?>
+												</td>
+												<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
+												<td class="is-narrow">
+													<div class="field has-addons">
+														<p class="control">
+															<a href="<?= base_url('admin/edit_employ/'.$sup->emp_id); ?>"
+																class="button is-small">
+																<span class="icon is-small">
+																	<i class="fas fa-edit"></i>
+																</span>
+															</a>
+														</p>
+														<?php if($session == 'admin'){ ?>
+														<a href="<?=base_url('admin/delete_employ/'.$sup->emp_id);?>"
+															onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
+															class="button is-small"><span
+																class="icon is-small has-text-danger"><i
+																	class="fa fa-times"></i></span></a>
+														<?php } ?>
+													</div>
+												</td>
+											</tr>
+											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
+										</tbody>
 										<?php else: ?>
-										<span class="tag is-warning is-light">Inactive</span>
+										<tbody id="myTable">
+											<?php if(!empty($results)): foreach($results as $res): ?>
+											<tr
+												onclick="window.location='<?= base_url('admin/edit_employ/'.$res->id); ?>';">
+												<td><?= 'S2S-'.$res->id; ?></td>
+												<td><abbr
+														title="<?= $res->email; ?>"><?= ucwords($res->fullname); ?></abbr>
+												</td>
+												<td><?= $res->phone; ?></td>
+												<td><?= ucwords($res->name); ?></td>
+												<td><?= ucwords($res->department); ?></td>
+												<td><?= date('M d, Y', strtotime($res->doj)); ?></td>
+												<td>
+													<?php if($res->status == 1): ?>
+													<span class="tag is-success is-light">Active</span>
+													<?php else: ?>
+													<span class="tag is-danger is-light">Inactive</span>
+													<?php endif; ?>
+												</td>
+												<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
+												<td class="is-narrow">
+													<a data-id="<?= $res->id; ?>"
+														class="supplier_info button is-small"><span
+															class="icon is-small"><i class="fa fa-edit"></i></span></a>
+													<?php if($session == 'admin'){ ?>
+													<a href="<?=base_url('admin/delete_employ/'.$res->id);?>"
+														onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
+														class="button is-small"><span
+															class="icon is-small has-text-danger"><i
+																class="fa fa-times"></i></span></a>
+													<?php } ?>
+												</td>
+											</tr>
+											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
+										</tbody>
 										<?php endif; ?>
-									</td>
-									<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
-									<td class="is-narrow">
-										<div class="field has-addons">
-											<p class="control">
-												<a href="<?= base_url('admin/edit_employ/'.$sup->emp_id); ?>"
-													class="button is-small">
-													<span class="icon is-small">
-														<i class="fas fa-edit"></i>
-													</span>
-												</a>
-											</p>
-											<?php if($session == 'admin'){ ?>
-											<a href="<?=base_url('admin/delete_employ/'.$sup->emp_id);?>"
-												onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
-												class="button is-small"><span class="icon is-small has-text-danger"><i
-														class="fa fa-times"></i></span></a>
-											<?php } ?>
-										</div>
-									</td>
-								</tr>
-								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
-							</tbody>
-							<?php else: ?>
-							<tbody id="myTable">
-								<?php if(!empty($results)): foreach($results as $res): ?>
-								<tr onclick="window.location='<?= base_url('admin/edit_employ/'.$res->id); ?>';">
-									<td><?= 'S2S-'.$res->id; ?></td>
-									<td><abbr title="<?= $res->email; ?>"><?= ucwords($res->fullname); ?></abbr>
-									</td>
-									<td><?= $res->phone; ?></td>
-									<td><?= ucwords($res->name); ?></td>
-									<td><?= ucwords($res->department); ?></td>
-									<td><?= date('M d, Y', strtotime($res->doj)); ?></td>
-									<td>
-										<?php if($res->status == 1): ?>
-										<span class="tag is-success is-light">Active</span>
-										<?php else: ?>
-										<span class="tag is-danger is-light">Inactive</span>
-										<?php endif; ?>
-									</td>
-									<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
-									<td class="is-narrow">
-										<a data-id="<?= $res->id; ?>" class="supplier_info button is-small"><span
-												class="icon is-small"><i class="fa fa-edit"></i></span></a>
-										<?php if($session == 'admin'){ ?>
-										<a href="<?=base_url('admin/delete_employ/'.$res->id);?>"
-											onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
-											class="button is-small"><span class="icon is-small has-text-danger"><i
-													class="fa fa-times"></i></span></a>
-										<?php } ?>
-									</td>
-								</tr>
-								<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
-							</tbody>
-							<?php endif; ?>
-						</table>
-					</div>
-					
-					<div class="column">
-						<div class="columns">
-							<div class="column is-hidden-print">
-								<label class="mr-2">Number of Records:</label>
-								<select class="result_limit">
-									<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
-									</option>
-									<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
-									</option>
-									<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
-									</option>
-								</select>
-							</div>
-							<div class="column is-hidden-print">
-								<nav class="pagination is-small" role="navigation" aria-label="pagination"
-									style="justify-content: center;">
-									<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
-								</nav>
-							</div>
-							<div class="column is-hidden-print">
-								<div class="buttons is-pulled-right">
-									<button onClick="window.print();" type="button" class="button is-small ">
-										<span class="icon is-small">
-											<i class="fas fa-print"></i>
-										</span>
-										<span>Print</span>
-									</button>
-									<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
-										class="button is-small ">
-										<span class="icon is-small">
-											<i class="fas fa-file-export"></i>
-										</span>
-										<span>Export</span>
-									</a>
+									</table>
 								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="column">
+					<div class="columns">
+						<div class="column is-hidden-print">
+							<label class="mr-2">Number of Records:</label>
+							<select class="result_limit">
+								<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
+								</option>
+								<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
+								</option>
+								<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
+								</option>
+							</select>
+						</div>
+						<div class="column is-hidden-print">
+							<nav class="pagination is-small" role="navigation" aria-label="pagination"
+								style="justify-content: center;">
+								<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
+							</nav>
+						</div>
+						<div class="column is-hidden-print">
+							<div class="buttons is-pulled-right">
+								<button onClick="window.print();" type="button" class="button is-small ">
+									<span class="icon is-small">
+										<i class="fas fa-print"></i>
+									</span>
+									<span>Print</span>
+								</button>
+								<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+									class="button is-small ">
+									<span class="icon is-small">
+										<i class="fas fa-file-export"></i>
+									</span>
+									<span>Export</span>
+								</a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 </section>
-
 <script>
-	// fetch record
 	$(document).ready(function () {
 		$(".result_limit").on('change', function () {
 			var val = $(this).val();
-			$(location).prop('href', '<?= current_url() ?>?limit=' + val)
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_employ' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
 		})
 	})
-
-	$(document).ready(function () {
-		$('.supplier_info').click(function () {
-			var supplier_id = $(this).data('id');
-			// alert(supplier_id)
-			// AJAX request
-			$.ajax({
-				url: '<?= base_url('admin/edit_employ/'); ?>' + supplier_id,
-				method: 'POST',
-				dataType: 'JSON',
-				data: {
-					supplier_id: supplier_id
-				},
-				success: function (response) {
-					console.log(response);
-					$('#employId').val(response.id);
-					$('#employ_location').val(response.location);
-					$('#f_name').val(response.fullname);
-					$('#department').val(response.department);
-					$('#employ_email').val(response.email);
-					$('#phone').val(response.phone);
-					$('#employ_address').val(response.address);
-					$('#region').val(response.region);
-
-					document.getElementById("dob").valueAsDate = new Date(response.dob)
-					document.getElementById("doj").valueAsDate = new Date(response.doj)
-
-					// $('.edit-modal-body').html(response);
-					// Display Modal
-					// $('#edit_employ').modal('show'); 
-					empedtmdl.show();
-				}
-			});
-			event.stopPropagation();
-		});
-	});
-
-	$(document).ready(function () {
-		$("#myInput").on("keyup", function () {
-			var value = $(this).val().toLowerCase();
-			$("#myTable tr").filter(function () {
-				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-			});
-		});
-	});
-
 </script>
