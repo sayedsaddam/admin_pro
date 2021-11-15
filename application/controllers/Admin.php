@@ -732,7 +732,7 @@ class Admin extends CI_Controller{
     public function save_invoice(){
 
         $file = $this->input->post('userfile'); 
-        $config['upload_path']   = './assets/uploads/'; 
+        $config['upload_path']   = './upload/invoices/'; 
         $config['allowed_types'] = 'gif|jpg|png';  
         $this->load->library('upload', $config); 
       
@@ -1733,7 +1733,7 @@ class Admin extends CI_Controller{
 
         $data['title'] = 'Item Register | Admin & Procurement';
         $data['body'] = 'admin/item_assignment/item-register';
-        $data['damaged_page'] = true;
+        $data['damaged_item'] = true;
         $data['items'] = $this->admin_model->get_damaged_items($limit, $offset); 
         $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Damaged");
 

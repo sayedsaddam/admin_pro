@@ -190,7 +190,7 @@
   					<input type="hidden" name="id" id="item_id" value="">
   					<div class="md-form mb-5">
   						<select name="remarks" class="form-control validate">
-  							<option value="damage">Damage</option>
+  							<option value="Damaged">Damaged</option>
   							<option value="disabled">Disabled</option>
   						</select>
   					</div>

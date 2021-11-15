@@ -384,7 +384,7 @@
 						<p id="assigned_date"></p>
 						<p id="remarks"></p>
 						<p id="returning_description"></p>
-						<p id="return_date"></p>
+						<p id="return_back_date"></p>
 					</div>
 					<div class="column ">
 						<img src="" alt="" id="item_image">
@@ -401,11 +401,11 @@
 <script>
 	// code to show current value of product	
 	$(document).ready(function () {
-		var price = document.getElementById("price").innerHTML;
-		var price = price.replace(/&nbsp;/, '');
-		var dep = document.getElementById("dep").innerHTML;
-		currentval = price * dep / 100;
-		var output = document.getElementById("current").innerHTML = currentval;
+		// var price = document.getElementById("price").innerHTML;
+		// var price = price.replace(/&nbsp;/, '');
+		// var dep = document.getElementById("dep").innerHTML;
+		// currentval = price * dep / 100;
+		// var output = document.getElementById("current").innerHTML = currentval;
 	});
 
 
@@ -439,13 +439,26 @@
 					// Add options   
 					document.getElementById("emp_name").innerHTML = response.fullname;
 					document.getElementById("department").innerHTML = response.department;
-					document.getElementById("product").innerHTML = response.sub_name;
+					if(document.getElementById("product").innerHTML = response.sub_name == null){
+						document.getElementById("product").innerHTML = 'N/A';
+					}else{
+						document.getElementById("product").innerHTML = response.sub_name;
+					}
+					if(document.getElementById("assigned_date").innerHTML = response
+					.assigned_date == null){
+						document.getElementById("product").innerHTML = 'N/A';
+					}else{	
 					document.getElementById("assigned_date").innerHTML = response
 					.assigned_date;
-					document.getElementById("remarks").innerHTML = response.remarks;
+					}
+					if(document.getElementById("remarks").innerHTML = response.remarks == null){
+						document.getElementById("remarks").innerHTML = 'N/A';
+					}else{
+						document.getElementById("remarks").innerHTML = response.remarks;
+					} 
 					document.getElementById("returning_description").innerHTML = response
 						.returning_description;
-					document.getElementById("remarks").innerHTML = response.return_date;
+					// document.getElementById("return_back_date").innerHTML = response.return_back_date;
 					document.getElementById("item_image").innerHTML = "";
 					$("#item_image").attr({
 						src: "<?= base_url('upload/')?>" + response.item_file
