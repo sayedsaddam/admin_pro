@@ -322,8 +322,7 @@
  			var category_id = $(this).data('id');
  			// AJAX request
  			$.ajax({
- 				url: '<?= base_url('
- 				admin / edit_category / '); ?>' + category_id,
+ 				url: '<?= base_url('admin/edit_category/'); ?>' + category_id,
  				method: 'POST',
  				dataType: 'JSON',
  				data: {
