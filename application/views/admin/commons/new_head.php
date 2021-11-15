@@ -78,7 +78,7 @@
 							</a>
 							<?php endif ?>
 							<hr class="navbar-divider">
-							<a href="<?= base_url('login/logout') ?>" class="dropdown-item">
+							<a href="<?= base_url('login/logout') ?>" class="dropdown-item" data-no-instant>
 								<i class="fas fa-sign-out-alt mr-2" aria-hidden="true"></i> Logout
 							</a>
 						</div>
