@@ -160,8 +160,14 @@
 			</div>
 		</div>
 </section>
-
-<!-- Add sub categories -->
+ <script>
+	$(document).ready(function () {
+		$(".result_limit").on('change', function () {
+			var val = $(this).val();
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_sub_categories' ? 'search=' . $this->input->get('search') . '&' : '' ?><?= $this->input->get('cat_id') ? 'cat_id=' . $this->input->get('cat_id') . '&' : '' ?>limit=' + val)
+		})
+	})
+</script>
 <div class="modal" id="add_inventory">
 	<div class="modal-background"></div>
 	<form action="<?=base_url('admin/add_sub_category');?>" method="post">

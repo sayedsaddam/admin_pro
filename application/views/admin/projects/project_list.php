@@ -225,8 +225,7 @@
 	$(document).ready(function () {
 		$(".result_limit").on('change', function () {
 			var val = $(this).val();
-			$(location).prop('href', '<?= current_url() ?>?limit=' + val)
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_project' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
 		})
 	})
-
 </script>

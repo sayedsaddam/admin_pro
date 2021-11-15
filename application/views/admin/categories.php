@@ -276,7 +276,14 @@
  		</div>
  	</form>
  </div>
- <!-- Script for showing up the modal -->
+ <script>
+	$(document).ready(function () {
+		$(".result_limit").on('change', function () {
+			var val = $(this).val();
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_categories' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
+		})
+	})
+</script>
  <script>
  	var cat1 = $("#exit-cat-modal")
  	var cat2 = $("#close-cat-modal")
@@ -335,5 +342,4 @@
  			event.stopPropagation();
  		});
  	});
-
  </script>
