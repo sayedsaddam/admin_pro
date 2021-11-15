@@ -39,7 +39,7 @@
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
-									<span>Invoices List</span>
+									<span>Invoice List</span>
 								</button>
 							</p>
 							<?php if($AssetsAccess->write == 1) : ?>

@@ -5,18 +5,19 @@
  	<div class="column">
  		<div class="columns">
  			<div class="column section">
-			 	<div class="columns">
-					<div class="column">
-						<?php $this->view('admin/commons/breadcrumb'); ?>
-					</div>
-				</div>
+ 				<div class="columns">
+ 					<div class="column">
+ 						<?php $this->view('admin/commons/breadcrumb'); ?>
+ 					</div>
+ 				</div>
  				<div class="columns is-hidden-touch">
  					<div class="column is-hidden-print">
  						<form action="<?= base_url('admin/search_categories'); ?>" method="GET">
  							<div class="field has-addons">
  								<div class="control has-icons-left is-expanded">
  									<input class="input is-small is-fullwidth" name="search" type="search"
- 										placeholder="Search Categories" value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
+ 										placeholder="Search Categories"
+ 										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
  									<span class="icon is-small is-left">
  										<i class="fas fa-search"></i>
  									</span>
@@ -54,138 +55,156 @@
  					</div>
  				</div>
  				<?php if($this->session->flashdata('success')) : ?>
-				<div class="columns">
-					<div class="column">
-						<div class="notification is-success is-light">
-							<button class="delete is-small"></button>
-							<div class="columns is-vcentered">
-								<div class="column is-size-7">
-									<i class="fas fa-check pr-1"></i> <?= $message = $this->session->flashdata('success'); ?>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<?php elseif($this->session->flashdata('failed')) : ?>
-				<div class="columns">
-					<div class="column">
-					<div class="notification is-danger is-light">
-							<button class="delete is-small"></button>
-							<div class="columns is-vcentered">
-								<div class="column is-size-7">
-									<i class="fas fa-exclamation pr-1"></i> <?= $message = $this->session->flashdata('failed'); ?>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<?php endif ?>
- 				<div class="columns" style="display: grid">
- 					<div class="column table-container">
- 						<table class="table is-hoverable is-fullwidth">
-						 <thead>
- 								<tr>
- 									<th class="has-text-weight-semibold">ID</th>
- 									<th class="has-text-weight-semibold">Category</th>
- 									<th class="has-text-weight-semibold">Added By</th>
- 									<th class="has-text-weight-semibold">Date Added</th>
- 									<th class="has-text-weight-semibold">Action</th>
- 								</tr>
- 							</thead>
-							<tfoot>
- 								<tr>
- 									<th class="has-text-weight-semibold">ID</th>
- 									<th class="has-text-weight-semibold">Category</th>
- 									<th class="has-text-weight-semibold">Added By</th>
- 									<th class="has-text-weight-semibold">Date Added</th>
- 									<th class="has-text-weight-semibold">Action</th>
- 								</tr>
- 							</tfoot>
- 							<?php if(empty($results)): ?>
- 							<tbody>
- 								<?php if(!empty($categories)): foreach($categories as $cat): ?>
- 								<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';">
- 									<td><?= 'S2S-'.$cat->id; ?></td>
- 									<td><div class="tag"><?= ucwords($cat->cat_name); ?></tag></td>
- 									<td><?= ucwords($cat->fullname); ?></td>
- 									<td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
- 									<td class="is-narrow">
- 										<button type="button" title="Edit" data-id="<?= $cat->id; ?>"
- 											class="category button is-small"><span class="icon is-small"><i
- 													class="fa fa-edit"></i></span></button>
- 										<a title="Delete" href="<?=base_url('admin/delete_category/'.$cat->id);?>"
- 											class="button is-small has-text-danger"
- 											onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');">
- 											<span class="icon is-small"><i class="fa fa-times"></i></span></a>
- 									</td>
- 								</tr>
- 								<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='17'>No record found.</td></tr>"; endif; ?>
- 							</tbody>
- 							<?php else: ?>
- 							<tbody>
- 								<?php if(!empty($results)): foreach($results as $res): ?>
- 								<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$res->id) ?>';"
- 									style="cursor: pointer;">
- 									<td><?= 'S2S-'.$res->id; ?></td>
- 									<td><div class="tag"><?= ucwords($res->cat_name); ?></div></td>
- 									<td><?= ucwords($res->fullname); ?></td>
- 									<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
- 									<td class="is-narrow">
- 										<a title="Edit" data-id="<?= $res->id; ?>"
- 											class="category button is-small"><span class="icon is-small"><i
- 													class="fa fa-edit"></i></span></a>
- 										<a title="Delete" href="<?=base_url('admin/delete_category/'.$res->id);?>"
- 											class="button is-small has-text-danger"
- 											onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
- 											class=""><span class="icon is-small "><i
- 													class="fa fa-times"></i></span></a>
- 									</td>
- 								</tr>
- 								<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='7'>No record found.</td></tr>"; endif; ?>
- 							</tbody>
- 							<?php endif; ?>
- 						</table>
+ 				<div class="columns">
+ 					<div class="column">
+ 						<div class="notification is-success is-light">
+ 							<button class="delete is-small"></button>
+ 							<div class="columns is-vcentered">
+ 								<div class="column is-size-7">
+ 									<i class="fas fa-check pr-1"></i>
+ 									<?= $message = $this->session->flashdata('success'); ?>
+ 								</div>
+ 							</div>
+ 						</div>
  					</div>
-					<div class="column">
-						<div class="columns">
-							<div class="column is-hidden-print">
-								<label class="mr-2">Number of Records:</label>
-								<select class="result_limit">
-									<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
-									</option>
-									<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
-									</option>
-									<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
-									</option>
-								</select>
-							</div>
-							<div class="column is-hidden-print">
-								<nav class="pagination is-small" role="navigation" aria-label="pagination"
-									style="justify-content: center;">
-									<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
-								</nav>
-							</div>
-							<div class="column is-hidden-print">
-								<div class="buttons is-pulled-right">
-									<button onClick="window.print();" type="button" class="button is-small ">
-										<span class="icon is-small">
-											<i class="fas fa-print"></i>
-										</span>
-										<span>Print</span>
-									</button>
-									<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
-										class="button is-small ">
-										<span class="icon is-small">
-											<i class="fas fa-file-export"></i>
-										</span>
-										<span>Export</span>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
+ 				</div>
+ 				<?php elseif($this->session->flashdata('failed')) : ?>
+ 				<div class="columns">
+ 					<div class="column">
+ 						<div class="notification is-danger is-light">
+ 							<button class="delete is-small"></button>
+ 							<div class="columns is-vcentered">
+ 								<div class="column is-size-7">
+ 									<i class="fas fa-exclamation pr-1"></i>
+ 									<?= $message = $this->session->flashdata('failed'); ?>
+ 								</div>
+ 							</div>
+ 						</div>
+ 					</div>
+ 				</div>
+ 				<?php endif ?>
+ 				<div class="tile is-ancestor">
+ 					<div class="tile is-parent">
+ 						<div class="tile is-child box">
+ 							<div class="columns" style="display: grid">
+ 								<div class="column table-container">
+ 									<table class="table is-hoverable is-fullwidth">
+ 										<thead>
+ 											<tr>
+ 												<th class="has-text-weight-semibold">ID</th>
+ 												<th class="has-text-weight-semibold">Category</th>
+ 												<th class="has-text-weight-semibold">Added By</th>
+ 												<th class="has-text-weight-semibold">Date Added</th>
+ 												<th class="has-text-weight-semibold">Action</th>
+ 											</tr>
+ 										</thead>
+ 										<tfoot>
+ 											<tr>
+ 												<th class="has-text-weight-semibold">ID</th>
+ 												<th class="has-text-weight-semibold">Category</th>
+ 												<th class="has-text-weight-semibold">Added By</th>
+ 												<th class="has-text-weight-semibold">Date Added</th>
+ 												<th class="has-text-weight-semibold">Action</th>
+ 											</tr>
+ 										</tfoot>
+ 										<?php if(empty($results)): ?>
+ 										<tbody>
+ 											<?php if(!empty($categories)): foreach($categories as $cat): ?>
+ 											<tr
+ 												onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';">
+ 												<td><?= 'S2S-'.$cat->id; ?></td>
+ 												<td>
+ 													<div class="tag"><?= ucwords($cat->cat_name); ?></tag>
+ 												</td>
+ 												<td><?= ucwords($cat->fullname); ?></td>
+ 												<td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
+ 												<td class="is-narrow">
+ 													<button type="button" title="Edit" data-id="<?= $cat->id; ?>"
+ 														class="category button is-small"><span class="icon is-small"><i
+ 																class="fa fa-edit"></i></span></button>
+ 													<a title="Delete"
+ 														href="<?=base_url('admin/delete_category/'.$cat->id);?>"
+ 														class="button is-small has-text-danger"
+ 														onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');">
+ 														<span class="icon is-small"><i
+ 																class="fa fa-times"></i></span></a>
+ 												</td>
+ 											</tr>
+ 											<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='17'>No record found.</td></tr>"; endif; ?>
+ 										</tbody>
+ 										<?php else: ?>
+ 										<tbody>
+ 											<?php if(!empty($results)): foreach($results as $res): ?>
+ 											<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$res->id) ?>';"
+ 												style="cursor: pointer;">
+ 												<td><?= 'S2S-'.$res->id; ?></td>
+ 												<td>
+ 													<div class="tag"><?= ucwords($res->cat_name); ?></div>
+ 												</td>
+ 												<td><?= ucwords($res->fullname); ?></td>
+ 												<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
+ 												<td class="is-narrow">
+ 													<a title="Edit" data-id="<?= $res->id; ?>"
+ 														class="category button is-small"><span class="icon is-small"><i
+ 																class="fa fa-edit"></i></span></a>
+ 													<a title="Delete"
+ 														href="<?=base_url('admin/delete_category/'.$res->id);?>"
+ 														class="button is-small has-text-danger"
+ 														onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
+ 														class=""><span class="icon is-small "><i
+ 																class="fa fa-times"></i></span></a>
+ 												</td>
+ 											</tr>
+ 											<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='7'>No record found.</td></tr>"; endif; ?>
+ 										</tbody>
+ 										<?php endif; ?>
+ 									</table>
+ 								</div>
+ 							</div>
+ 						</div>
+ 					</div>
+ 				</div>
+
+ 				<div class="column">
+ 					<div class="columns">
+ 						<div class="column is-hidden-print">
+ 							<label class="mr-2">Number of Records:</label>
+ 							<select class="result_limit">
+ 								<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
+ 								</option>
+ 								<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
+ 								</option>
+ 								<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
+ 								</option>
+ 							</select>
+ 						</div>
+ 						<div class="column is-hidden-print">
+ 							<nav class="pagination is-small" role="navigation" aria-label="pagination"
+ 								style="justify-content: center;">
+ 								<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
+ 							</nav>
+ 						</div>
+ 						<div class="column is-hidden-print">
+ 							<div class="buttons is-pulled-right">
+ 								<button onClick="window.print();" type="button" class="button is-small ">
+ 									<span class="icon is-small">
+ 										<i class="fas fa-print"></i>
+ 									</span>
+ 									<span>Print</span>
+ 								</button>
+ 								<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+ 									class="button is-small ">
+ 									<span class="icon is-small">
+ 										<i class="fas fa-file-export"></i>
+ 									</span>
+ 									<span>Export</span>
+ 								</a>
+ 							</div>
+ 						</div>
+ 					</div>
  				</div>
  			</div>
+ 		</div>
  </section>
 
  <!-- Add inventory -->
@@ -296,7 +315,8 @@
  			var category_id = $(this).data('id');
  			// AJAX request
  			$.ajax({
- 				url: '<?= base_url('admin/edit_category/'); ?>' + category_id,
+ 				url: '<?= base_url('
+ 				admin / edit_category / '); ?>' + category_id,
  				method: 'POST',
  				dataType: 'JSON',
  				data: {
