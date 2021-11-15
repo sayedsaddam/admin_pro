@@ -115,7 +115,7 @@
 										<span class="select is-small is-fullwidth">
 											 
 											<select name="sub_categories" id="sub_categories" required>
-												<option selected disabled value="">Select a Sub Categories</option>
+												<option selected disabled value="">Select a Subcategory</option>
 												<?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
 												<option value="<?= $cat->id; ?>"
 													<?= !empty($edit) && $edit->sub_categories == $cat->id ? 'selected' : '' ?>>
