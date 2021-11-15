@@ -328,9 +328,8 @@
 	</div>
 </section>
 <script>
-	const d = new Date();
-
-	const weekday = new Array(7);
+	var d = new Date();
+	var weekday = new Array(7);
 	weekday[0] = "Sunday";
 	weekday[1] = "Monday";
 	weekday[2] = "Tuesday";
@@ -340,7 +339,6 @@
 	weekday[6] = "Saturday";
 	
 	function _getDay(int = null) {
-		const d = new Date()
 		d.setDate(d.getDate() - int)
 		let day = weekday[d.getDay()];
 		return day;
