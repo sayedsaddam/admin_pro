@@ -830,8 +830,9 @@ class Admin extends CI_Controller{
     // Invoices - Changes invoice status to cleared
     public function invoice_status($id){
         $data = array(
+            'status_reason' => "    ",
             'status' => 1
-        );
+        ); 
         if($this->admin_model->update_status($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Invoice status change was successful.');
             redirect('admin/invoices');
@@ -841,10 +842,24 @@ class Admin extends CI_Controller{
         }
     }
       // Invoices - Changes invoice status to pending
-      public function invoice_status_pending($id){
+      public function invoice_status_pending(){
+        $id = $this->input->post('id');
         $data = array(
-            'status' => 0
-        );
+            'status_reason' => $this->input->post('reason'),
+            'status' => 0,
+        ); 
+       
+        $logs_data = array(
+            'status_reason' => $this->input->post('reason'),
+            'added_by' => $this->session->userdata('id'),
+            'created_at' => date('Y-m-d'),
+            'status' => 0,
+        ); 
+
+
+        $invoice_data = json_encode($logs_data, true);
+        echo "<pre>";
+        print_r($invoice_data);exit;
         if($this->admin_model->invoice_status_pending($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Invoice status change was successful.');
             redirect('admin/invoices');

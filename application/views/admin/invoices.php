@@ -132,10 +132,17 @@
 														<a href="<?= base_url('admin/invoice_status/' . $inv->id) ?>"
 															class="button is-small"><span class="icon is-small"><i
 																	class="fa fa-check"></i></span></a>
-														<?php } else {?>			
-															<a href="<?= base_url('admin/invoice_status_pending/' . $inv->id) ?>"
-															class="button is-small"><span class="icon is-small has-text-danger"><i
-																	class="fa fa-ban"></i></span></a>
+														<?php } else {?>
+															
+															<p class="control return-btn">
+															<button type="button" 
+																data-id="<?= $inv->id; ?>"
+																class="button is-small has-text-danger return-btn">
+																<span class="icon is-small">
+																	<i class="fas fa-ban"></i>
+																</span>
+															</button>
+														</p> 
 																	<?php } ?>
 														<a href="<?= base_url('admin/print_invoice/' . $inv->id) ?>"
 															class="button is-small"><span class="icon is-small"><i
@@ -165,9 +172,22 @@
 														<a href="<?= base_url('admin/edit_invoice/' . $res->id) ?>"
 															class="button is-small"><span class="icon is-small"><i
 																	class="fa fa-edit"></i></span></a>
+																	<?php if($res->status == 0) {?>			
 														<a href="<?= base_url('admin/invoice_status/' . $res->id) ?>"
 															class="button is-small"><span class="icon is-small"><i
 																	class="fa fa-check"></i></span></a>
+														<?php } else {?>
+															
+															<p class="control return-btn">
+															<button type="button" 
+																data-id="<?= $res->id; ?>"
+																class="button is-small has-text-danger return-btn">
+																<span class="icon is-small">
+																	<i class="fas fa-ban"></i>
+																</span>
+															</button>
+														</p> 
+																	<?php } ?> 
 														<a href="<?= base_url('admin/print_invoice/' . $res->id) ?>"
 															class="button is-small"><span class="icon is-small"><i
 																	class="fa fa-print"></i></span></a>
@@ -222,6 +242,32 @@
 						</div>
 					</div>
 				</div>
+	
+				<div class="modal" id="modal-rej">
+			<div class="modal-background"></div>
+			<form action="<?= base_url('admin/invoice_status_pending'); ?>" method="POST" enctype="multipart/form-data">
+				<div class="modal-card">
+					<input type="hidden" name="id" id="invoice-id" value="">
+					<header class="modal-card-head">
+						<p class="modal-card-title">Revert Status</p>
+						<button class="delete" aria-label="close" id="exit-return-modal" type="button"></button>
+					</header>
+					<section class="modal-card-body"> 
+						<div class="columns">
+							<div class="column">
+								<textarea name="reason" class="textarea"
+									placeholder="Please elaboratly describe your reason for reverting the status."></textarea>
+							</div>
+						</div>
+					</section>
+					<footer class="modal-card-foot">
+						<button class="button is-success" type="submit">Apply</button>
+						<button class="button" aria-label="close" id="close-return-modal" type="reset">Cancel</button>
+					</footer>
+				</div>
+			</form>
+		</div>
+
 			</div>
 </section>
 
@@ -232,4 +278,43 @@
 			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_invoices' ? 'search=' . $this->input->get('search') . ' & ' : '' ?>limit=' + val)
 		})
 	})
+ 
+	$('.return-btn').click(function () {
+		var invoice_id = $(this).data('id');
+ 
+		$('#invoice-id').val(invoice_id);
+	});
+
+	var btn2 = $(".return-btn")
+	var btn3 = $("#exit-report-modal")
+	var btn4 = $("#close-report-modal")
+	var btn5 = $("#exit-return-modal")
+	var btn6 = $("#close-return-modal")
+
+	var md2 = new BulmaModal("#modal-rej")
+ 
+btn2.click(function (ev) {
+	md2.show();
+	$(".modal-card-head").show();
+	ev.stopPropagation();
+});
+btn3.click(function (ev) {
+	mdl.close();
+	ev.stopPropagation();
+});
+btn4.click(function (ev) {
+	mdl.close();
+	ev.stopPropagation();
+});
+btn5.click(function (ev) {
+	md2.close();
+	ev.stopPropagation();
+});
+btn6.click(function (ev) {
+	md2.close();
+	ev.stopPropagation();
+});
+
+
+
 </script>
