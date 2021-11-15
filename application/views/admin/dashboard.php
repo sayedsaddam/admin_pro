@@ -304,7 +304,7 @@
 										</thead>
 										<tbody>
 											<?php foreach ($employees_statistics as $data) : ?>
-												<?php if($data->role_type == 'employee') : ?>
+												<?php if($data->role_type == 'employee' || $data->role_type == 'supervisor') : ?>
 													<tr onclick="window.location='<?= base_url('admin/edit_employ/'.$data->id) ?>';">
 														<td><?= $data->id ?></td>
 														<td><?= ucwords($data->fullname) ?></td>
