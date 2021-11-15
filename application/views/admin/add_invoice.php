@@ -88,31 +88,31 @@
 									<label class="label is-small">Invoice Number <span
 											class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input type="number" name="inv_no" id="" class="input is-small" 
+										<input type="number" name="inv_no" id="" class="input is-small"
 											value="<?php if(!empty($edit)){ echo $edit->inv_no; } ?>" type="text"
 											placeholder="Invoice number ..." required="">
 										<span class="icon is-small is-left">
-										<i class="fas fa-file-invoice"></i>
+											<i class="fas fa-file-invoice"></i>
 										</span>
 									</div>
 								</div>
 							</fieldset>
-						</div>  
+						</div>
 						<div class="column">
 							<div class="control">
 								<label class="label is-small">Suppliers <span class="has-text-danger">*</span></label>
 								<div class="control has-icons-left">
-									<span class="select is-small is-fullwidth"> 
+									<span class="select is-small is-fullwidth">
 										<select name="supplier" id="supplier" required>
-												<option selected disabled value="">Select a Supplier</option>
-												<?php if(!empty($suppliers)): foreach($suppliers as $supplier): ?>
-												<option value="<?= $supplier->id; ?>"
-													<?= !empty($edit) && $edit->supplier == $supplier->id ? 'selected' : '' ?>>
-													<?= ucwords($supplier->sup_name); ?>
-												</option>
-												<?php endforeach; endif; ?>
-											</select>  
-									</span> 
+											<option selected disabled value="">Select a Supplier</option>
+											<?php if(!empty($suppliers)): foreach($suppliers as $supplier): ?>
+											<option value="<?= $supplier->id; ?>"
+												<?= !empty($edit) && $edit->supplier == $supplier->id ? 'selected' : '' ?>>
+												<?= ucwords($supplier->sup_name); ?>
+											</option>
+											<?php endforeach; endif; ?>
+										</select>
+									</span>
 								</div>
 							</div>
 						</div>
@@ -128,48 +128,48 @@
 						<div class="column">
 							<label class="label is-small">Location <span class="has-text-danger">*</span></label>
 							<div class="control has-icons-left">
-							<span class="select select is-small is-fullwidth">
-								<select name="region" required>
-									<?php if(!isset($edit)): ?>
-									<option selected disabled value="">Select a Location</option>
-									<?php endif ?>
-									<?php if(!empty($locations)): foreach($locations as $loc): ?>
-									<option value="<?= $loc->id; ?>"
-										<?php !empty($edit) && $edit->region == $loc->id ? 'selected' : '' ?>>
-										<?= $loc->name; ?>
-									</option>
-									<?php endforeach; endif; ?>
-								</select>
-								
-								<span class="icon is-small is-left">
-											<i class="fas fa-globe"></i>
-										</span>
-							</span>
+								<span class="select select is-small is-fullwidth">
+									<select name="region" required>
+										<?php if(!isset($edit)): ?>
+										<option selected disabled value="">Select a Location</option>
+										<?php endif ?>
+										<?php if(!empty($locations)): foreach($locations as $loc): ?>
+										<option value="<?= $loc->id; ?>"
+											<?php !empty($edit) && $edit->region == $loc->id ? 'selected' : '' ?>>
+											<?= $loc->name; ?>
+										</option>
+										<?php endforeach; endif; ?>
+									</select>
+
+									<span class="icon is-small is-left">
+										<i class="fas fa-globe"></i>
+									</span>
+								</span>
 							</div>
 						</div>
 						<div class="column">
 							<label class="label is-small">Project <span class="has-text-danger">*</span></label>
 							<div class="control has-icons-left">
-										<span class="select is-small is-fullwidth">
-								<select name="project" required>
-									<?php if(!isset($edit)): ?>
-									<option selected disabled value="">Select a Project</option>
-									<?php endif ?>
-									<?php if(!empty($projects)): foreach($projects as $proj): ?>
-									<option value="<?= $proj->id; ?>" <?php !empty($edit) ? 'selected' : '' ?>>
-										<?= ucwords($proj->project_name); ?>
-									</option>
-									<?php endforeach; endif; ?>
-								</select>
-										</span>
-										<span class="icon is-small is-left">
-										<i class="fa fa-tasks" aria-hidden="true"></i>
-										</span>
+								<span class="select is-small is-fullwidth">
+									<select name="project" required>
+										<?php if(!isset($edit)): ?>
+										<option selected disabled value="">Select a Project</option>
+										<?php endif ?>
+										<?php if(!empty($projects)): foreach($projects as $proj): ?>
+										<option value="<?= $proj->id; ?>" <?php !empty($edit) ? 'selected' : '' ?>>
+											<?= ucwords($proj->project_name); ?>
+										</option>
+										<?php endforeach; endif; ?>
+									</select>
+								</span>
+								<span class="icon is-small is-left">
+									<i class="fa fa-tasks" aria-hidden="true"></i>
+								</span>
 							</div>
 						</div>
 					</div>
 					<div class="columns">
-						
+
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -179,32 +179,32 @@
 											value="<?php if(!empty($edit)){ echo $edit->item; } ?>" type="text"
 											placeholder="Item name ..." required="">
 										<span class="icon is-small is-left">
-										<i class="fas fa-list"></i>
+											<i class="fas fa-list"></i>
 										</span>
 									</div>
 								</div>
 							</fieldset>
 						</div>
-						
-					<div class="column">
-					<label class="label is-small">File </label>
-								<div class="file is-small has-name is-fullwidth">
-									<label class="file-label"> 
-											  <input class="file-input" name="userfile" type="file"> 
-										<span class="file-cta">
-											<span class="file-icon">
-												<i class="fas fa-upload"></i>
-											</span>
-											<span class="file-label">
-												Choose a file…
-											</span>
+
+						<div class="column">
+							<label class="label is-small">File </label>
+							<div class="file is-small has-name is-fullwidth">
+								<label class="file-label">
+									<input class="file-input" name="userfile" type="file">
+									<span class="file-cta">
+										<span class="file-icon">
+											<i class="fas fa-upload"></i>
 										</span>
-										<span class="file-name">
-											Example.png
+										<span class="file-label">
+											Choose a file…
 										</span>
-									</label>
-								</div>
+									</span>
+									<span class="file-name">
+										Example.png
+									</span>
+								</label>
 							</div>
+						</div>
 
 					</div>
 
@@ -225,7 +225,7 @@
 								</div>
 							</fieldset>
 						</div>
-						
+
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -279,5 +279,6 @@
 	</div>
 </section>
 <script>
-	 $("#supplier").select2();
+	$("#supplier").select2();
+
 </script>
