@@ -11,7 +11,6 @@
 						<?php $this->view('admin/commons/breadcrumb'); ?>
 					</div>
 				</div>
-
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
 						<div class="tile is-child box">
@@ -202,7 +201,7 @@
 									</div>
 									<?php endif ?>
 								</a>
-								<a href="<?= base_url('admin/dashboard') ?>"
+								<a href="<?= base_url('admin/get_damaged_item') ?>"
 									class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Total Damaged</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_damaged_items ?></div>
@@ -214,7 +213,7 @@
 									</div>
 									<?php elseif($total_damaged_items_week_change == $total_damaged_items_last_week_change || ($total_damaged_items_week_change == 0 AND $total_damaged_items_last_week_change == 0)) : ?>
 									<div class="has-text-weight-light is-size-7"><span
-											class="has-text-success">+<?= $total_damaged_items_week_change ?></span>
+											class="has-text-danger">+<?= $total_damaged_items_week_change ?></span>
 										<span class="has-text-grey">(0.00%)</span></div>
 									<?php else : ?>
 									<div class="has-text-weight-light is-size-7"><span

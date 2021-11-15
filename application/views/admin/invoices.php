@@ -10,7 +10,6 @@
 						<?php $this->view('admin/commons/breadcrumb'); ?>
 					</div>
 				</div>
-
 				<div class="columns is-hidden-touch">
 					<div class="column is-hidden-print">
 						<form action="<?= base_url('admin/search_invoices'); ?>" method="get">
@@ -58,15 +57,17 @@
 						</div>
 					</div>
 				</div>
-				<div class="columns" style="display: grid">
-					<div class="column table-container ">
-						
-					<?php if($this->session->flashdata('success')) : ?>
+				<?php if($this->session->flashdata('success')) : ?>
 				<div class="columns">
 					<div class="column">
 						<div class="notification is-success is-light">
-							<button class="delete"></button>
-							<?= $message = $this->session->flashdata('success'); ?>
+							<button class="delete is-small"></button>
+							<div class="columns is-vcentered">
+								<div class="column is-size-7">
+									<i class="fas fa-check pr-1"></i>
+									<?= $message = $this->session->flashdata('success'); ?>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -74,106 +75,155 @@
 				<div class="columns">
 					<div class="column">
 						<div class="notification is-danger is-light">
-							<button class="delete"></button>
-							<?= $message = $this->session->flashdata('failed'); ?>
+							<button class="delete is-small"></button>
+							<div class="columns is-vcentered">
+								<div class="column is-size-7">
+									<i class="fas fa-exclamation pr-1"></i>
+									<?= $message = $this->session->flashdata('failed'); ?>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 				<?php endif ?>
-          <table class="table table-sm is-fullwidth"> 
-             <thead>
-            <tr>
-              <th class="has-text-weight-semibold">ID</th>
-              <th class="has-text-weight-semibold">Inv No.</th> 	
-              <th class="has-text-weight-semibold">Supplier</th>
-              <th class="has-text-weight-semibold">Location</th>
-              <th class="has-text-weight-semibold">Project</th>
-              <th class="has-text-weight-semibold">Item</th>
-              <th class="has-text-weight-semibold">Amount</th>
-              <th class="has-text-weight-semibold">Date</th>
-              <th class="has-text-weight-semibold">Status</th>
-              <th class="has-text-weight-semibold">Action</th>
-            </tr>
-          </thead>
-          <?php if(empty($results)): ?>
-            <tbody>
-              <?php if(!empty($invoices)): foreach($invoices as $inv): ?>
-                <tr>
-                  <td><?= 'Inv-0'.$inv->id; ?></td>
-                  <td><?= $inv->inv_no; ?></td> 
-                  <td><?= $inv->sup_name; ?></td>
-                  <td><?= ucfirst($inv->name); ?></td>
-                  <td><?= $inv->project_name; ?></td>
-                  <td><?= $inv->item; ?></td>
-                  <td><?= number_format($inv->amount); ?></td>
-                  <td><?php if($inv->inv_date){ echo date('M d, Y', strtotime($inv->inv_date)); }else{ echo '--/--/--'; } ?></td>
-                  <td><?php if($inv->status == 0){ echo "<span class='tag is-warning'>pending</span>"; }else{ echo "<span class='tag is-success'>cleared</span>"; } ?></td>
-                 
-                  <td class="">
-					<div class="field has-addons">
-					   <a href="<?= base_url('admin/edit_invoice/' . $inv->id) ?>" class="button is-small"><span class="icon is-small"><i
-						class="fa fa-edit"></i></span></a>
-						<a href="<?= base_url('admin/invoice_status/' . $inv->id) ?>" class="button is-small"><span class="icon is-small"><i
-						class="fa fa-check"></i></span></a>
-						<a href="<?= base_url('admin/print_invoice/' . $inv->id) ?>" class="button is-small"><span class="icon is-small"><i
-						class="fa fa-print"></i></span></a>
- 					</div>
-				</td>
-                </tr>
-              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
-            </tbody>
-          <?php else: ?>
-            <tbody>
-              <?php if(!empty($results)): $expenses = 0; foreach($results as $res): $expenses += $res->amount; ?>
-                <tr>
-                  <td><?= 'Inv-0'.$res->id; ?></td>
-                  <td><?= $res->inv_no; ?></td>
-                  <td><?= $res->sup_name; ?></td>
-                  <td><?= ucfirst($res->name); ?></td>
-                  <td><?= $res->project_name; ?></td>
-                  <td><?= $res->item; ?></td>
-                  <td><?= number_format($res->amount); ?></td>
-                  <td><?php if($res->inv_date){ echo date('M d, Y', strtotime($res->inv_date)); }else{ echo '--/--/--'; } ?></td>
-                  <td><?php if($res->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }else{ echo "<span class='badge badge-success'>cleared</span>"; } ?></td>
-                  <td class="">
-					<div class="field has-addons">
-					   <a href="<?= base_url('admin/edit_invoice/' . $res->id) ?>" class="button is-small"><span class="icon is-small"><i
-						class="fa fa-edit"></i></span></a>
-						<a href="<?= base_url('admin/invoice_status/' . $res->id) ?>" class="button is-small"><span class="icon is-small"><i
-						class="fa fa-check"></i></span></a>
-						<a href="<?= base_url('admin/print_invoice/' . $res->id) ?>" class="button is-small"><span class="icon is-small"><i
-						class="fa fa-print"></i></span></a>
- 					</div>
-				</td>
-                </tr>
-              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
-        
-            </tbody>
-          <?php endif; ?>
-        </table>
-						<div class="column" style="display: flex; justify-content: center;">
-						<label class="mr-2">Number of Records:</label>
-						<select class="result_limit">
-							<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25</option>
-							<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50</option>
-							<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100</option>
-						</select>
+				<div class="tile is-ancestor">
+					<div class="tile is-parent">
+						<div class="tile is-child box">
+
+							<div class="columns" style="display: grid">
+								<div class="column table-container ">
+									<table class="table table-sm is-fullwidth">
+										<thead>
+											<tr>
+												<th class="has-text-weight-semibold">ID</th>
+												<th class="has-text-weight-semibold">Inv No.</th>
+												<th class="has-text-weight-semibold">Supplier</th>
+												<th class="has-text-weight-semibold">Location</th>
+												<th class="has-text-weight-semibold">Project</th>
+												<th class="has-text-weight-semibold">Item</th>
+												<th class="has-text-weight-semibold">Amount</th>
+												<th class="has-text-weight-semibold">Date</th>
+												<th class="has-text-weight-semibold">Status</th>
+												<th class="has-text-weight-semibold">Action</th>
+											</tr>
+										</thead>
+										<?php if(empty($results)): ?>
+										<tbody>
+											<?php if(!empty($invoices)): foreach($invoices as $inv): ?>
+											<tr>
+												<td><?= 'S2S-'.$inv->id; ?></td>
+												<td><?= $inv->inv_no; ?></td>
+												<td><?= $inv->sup_name; ?></td>
+												<td><?= ucfirst($inv->name); ?></td>
+												<td><?= $inv->project_name; ?></td>
+												<td><?= $inv->item; ?></td>
+												<td><?= number_format($inv->amount); ?></td>
+												<td><?php if($inv->inv_date){ echo date('M d, Y', strtotime($inv->inv_date)); }else{ echo '--/--/--'; } ?>
+												</td>
+												<td><?php if($inv->status == 0){ echo "<span class='tag is-warning is-light'>Pending</span>"; }else{ echo "<span class='tag is-success is-light'>Cleared</span>"; } ?>
+												</td>
+
+												<td class="">
+													<div class="field has-addons">
+														<a href="<?= base_url('admin/edit_invoice/' . $inv->id) ?>"
+															class="button is-small"><span class="icon is-small"><i
+																	class="fa fa-edit"></i></span></a>
+														<a href="<?= base_url('admin/invoice_status/' . $inv->id) ?>"
+															class="button is-small"><span class="icon is-small"><i
+																	class="fa fa-check"></i></span></a>
+														<a href="<?= base_url('admin/print_invoice/' . $inv->id) ?>"
+															class="button is-small"><span class="icon is-small"><i
+																	class="fa fa-print"></i></span></a>
+													</div>
+												</td>
+											</tr>
+											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
+										</tbody>
+										<?php else: ?>
+										<tbody>
+											<?php if(!empty($results)): $expenses = 0; foreach($results as $res): $expenses += $res->amount; ?>
+											<tr>
+												<td><?= 'S2S-'.$res->id; ?></td>
+												<td><?= $res->inv_no; ?></td>
+												<td><?= $res->sup_name; ?></td>
+												<td><?= ucfirst($res->name); ?></td>
+												<td><?= $res->project_name; ?></td>
+												<td><?= $res->item; ?></td>
+												<td><?= number_format($res->amount); ?></td>
+												<td><?php if($res->inv_date){ echo date('M d, Y', strtotime($res->inv_date)); }else{ echo '--/--/--'; } ?>
+												</td>
+												<td><?php if($res->status == 0){ echo "<span class='tag is-warning is-light'>Pending</span>"; }else{ echo "<span class='tag is-success is-light'>Cleared</span>"; } ?>
+												</td>
+												<td class="">
+													<div class="field has-addons">
+														<a href="<?= base_url('admin/edit_invoice/' . $res->id) ?>"
+															class="button is-small"><span class="icon is-small"><i
+																	class="fa fa-edit"></i></span></a>
+														<a href="<?= base_url('admin/invoice_status/' . $res->id) ?>"
+															class="button is-small"><span class="icon is-small"><i
+																	class="fa fa-check"></i></span></a>
+														<a href="<?= base_url('admin/print_invoice/' . $res->id) ?>"
+															class="button is-small"><span class="icon is-small"><i
+																	class="fa fa-print"></i></span></a>
+													</div>
+												</td>
+											</tr>
+											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
+
+										</tbody>
+										<?php endif; ?>
+									</table>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="column is-hidden-print">
-						<nav class="pagination is-small" role="navigation" aria-label="pagination"
-							style="justify-content: center;">
-							<?php if(empty($results) AND !empty($projects)){ echo $this->pagination->create_links(); } ?>
-						</nav>
-					</div> 
+				</div>
+				<div class="column">
+					<div class="columns">
+						<div class="column is-hidden-print">
+							<label class="mr-2">Number of Records:</label>
+							<select class="result_limit">
+								<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
+								</option>
+								<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
+								</option>
+								<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
+								</option>
+							</select>
+						</div>
+						<div class="column is-hidden-print">
+							<nav class="pagination is-small" role="navigation" aria-label="pagination"
+								style="justify-content: center;">
+								<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
+							</nav>
+						</div>
+						<div class="column is-hidden-print">
+							<div class="buttons is-pulled-right">
+								<button onClick="window.print();" type="button" class="button is-small ">
+									<span class="icon is-small">
+										<i class="fas fa-print"></i>
+									</span>
+									<span>Print</span>
+								</button>
+								<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+									class="button is-small ">
+									<span class="icon is-small">
+										<i class="fas fa-file-export"></i>
+									</span>
+									<span>Export</span>
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 </section>
+
 <script>
-	$(document).ready(function() {
-		$(".result_limit").on('change', function() {
+	$(document).ready(function () {
+		$(".result_limit").on('change', function () {
 			var val = $(this).val();
-			$(location).prop('href', '<?= current_url() ?>?limit=' + val)
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_invoices' ? 'search=' . $this->input->get('search') . ' & ' : '' ?>limit=' + val)
 		})
 	})
 </script>
