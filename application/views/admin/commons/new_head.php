@@ -60,6 +60,9 @@
 				<a href="<?= base_url('admin/dashboard') ?>" class="navbar-item">
 					Home
 				</a>
+				<div class="navbar-item">
+					<strong class="has-text-white"><span class="viewing">0</span> others online, including Management...</strong>
+				</div>
 			</div>
 
 			<div class="navbar-end">
@@ -89,7 +92,7 @@
 	</nav>
 </header>
 <!-- <div class="column is-centered has-text-centered">
-	<strong><span class="viewing"></span> others online, including Management...</strong>
+	
 </div> -->
 <body>
 	<?php else: ?>
