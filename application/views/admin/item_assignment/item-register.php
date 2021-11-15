@@ -17,8 +17,7 @@
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" type="search"
 										placeholder="Search Items"
-										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>"
-										required>
+										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
 									</span>
@@ -45,8 +44,7 @@
 								</button>
 							</p>
 							<p class="control">
-								<button
-									onclick="location.href='<?= base_url('admin/available_item_list'); ?>'"
+								<button onclick="location.href='<?= base_url('admin/available_item_list'); ?>'"
 									class="button is-small <?= (isset($available_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="far fa-list-alt"></i>
@@ -341,9 +339,10 @@
 	$(document).ready(function () {
 		$(".result_limit").on('change', function () {
 			var val = $(this).val();
-			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_item' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_item' ? 'search=' . $this->input->get('search') . ' & ' : '' ?>limit=' + val)
 		})
 	})
+
 </script>
 <script>
 	$('.return-btn').click(function () {
@@ -441,5 +440,4 @@
 			downloadLink.click();
 		}
 	}
-
 </script>
