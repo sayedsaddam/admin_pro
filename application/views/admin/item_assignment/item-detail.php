@@ -62,7 +62,7 @@
 								<button onclick="location.href='<?= base_url('admin/get_damaged_item'); ?>'"
 									class="button is-small <?= isset($damaged_page) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-bars"></i>
+										<i class="fas fa-unlink"></i>
 									</span>
 									<span>Damaged Item</span>
 								</button>

@@ -714,7 +714,7 @@ class Admin extends CI_Controller{
     public function save_invoice(){
 
         $file = $this->input->post('userfile'); 
-        $config['upload_path']   = './assets/uploads/'; 
+        $config['upload_path']   = './upload/invoices/'; 
         $config['allowed_types'] = 'gif|jpg|png';  
         $this->load->library('upload', $config); 
       
@@ -840,6 +840,19 @@ class Admin extends CI_Controller{
             redirect('admin/invoices');
         }
     }
+      // Invoices - Changes invoice status to pending
+      public function invoice_status_pending($id){
+        $data = array(
+            'status' => 0
+        );
+        if($this->admin_model->invoice_status_pending($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Invoice status change was successful.');
+            redirect('admin/invoices');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/invoices');
+        }
+    }
     // Projects - Go to projects page.
     public function projects($offset = null){ 
         $limit = 25;
@@ -929,20 +942,33 @@ class Admin extends CI_Controller{
             redirect('admin/edit_project/' . $id);
         } 
     }
-    // Projects - Remove project
-    public function complete_project($id){
+    // Projects - Active project
+    public function active_project($id){
         $data = array(
-            'status' => 0,
+            'status' => 1,
         );
-        if($this->admin_model->complete_project($id,$data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Project completion was successful.');
+        if($this->admin_model->active_project($id,$data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Project was Active successful.');
             redirect('admin/projects');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
             redirect('admin/projects');
         }
+    } 
+   // Projects - DeActive project
+   public function de_active_project($id){
+    $data = array(
+        'status' => 0,
+    );
+    if($this->admin_model->de_active_project($id,$data)){
+        $this->session->set_flashdata('success', '<strong>Success! </strong>Project was De Active successful.');
+        redirect('admin/projects');
+    }else{
+        $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+        redirect('admin/projects');
     }
-    
+}
+
     // Search filters - search asset register
     public function search_project(){ 
         $search = $this->input->get('search');
@@ -1715,7 +1741,7 @@ class Admin extends CI_Controller{
 
         $data['title'] = 'Item Register | Admin & Procurement';
         $data['body'] = 'admin/item_assignment/item-register';
-        $data['damaged_page'] = true;
+        $data['damaged_item'] = true;
         $data['items'] = $this->admin_model->get_damaged_items($limit, $offset); 
         $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Damaged");
 

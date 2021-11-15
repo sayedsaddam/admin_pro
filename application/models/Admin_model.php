@@ -523,6 +523,12 @@ public function update_invoice($id, $data){
         $this->db->update('invoices', $data);
         return true;
     }
+       // Invoices - status change to pending.
+       public function invoice_status_pending($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('invoices', $data);
+        return true;
+    }
     // Invoices - Remove invoice
     public function delete_invoice($id){
         $this->db->where('id', $id);
@@ -600,12 +606,18 @@ public function update_invoice($id, $data){
         $this->db->update('projects', $data);
         return true;
     }
-    // Projects - Remove project
-    public function complete_project($id, $data){
+    // Projects - Active project
+    public function active_project($id, $data){
         $this->db->where('id', $id);
         $this->db->update('projects',$data);
         return true;
     }
+    // Projects - De Active project
+    public function de_active_project($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('projects',$data);
+        return true;
+    } 
     // Search projects / company
     public function search_project($search){
         $this->db->select('id, project_name, project_desc,status,created_at');
@@ -1313,7 +1325,7 @@ public function update_invoice($id, $data){
       // Count damaged items 
       public function count_damaged_item(){
         $this->db->from('item_assignment');
-        $num_results = $this->db->where('status',0)->count_all_results();
+        $num_results = $this->db->count_all_results();
         return $num_results;
     }
     // Count all items between two weeks
@@ -1438,11 +1450,11 @@ public function update_invoice($id, $data){
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
             $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
             $this->db->join('suppliers', 'items.supplier = suppliers.id', 'left');
-            $this->db->where(array('item_assignment.status' => 0,'item_assignment.remarks' => 'damaged'));
+            $this->db->where(array('item_assignment.status' => 0));
             if ($this->session->userdata('user_role') != '1') {
                 $this->db->where('items.location', $this->session->userdata('location'));
             }
-            $this->db->group_by('items.id'); 
+            $this->db->group_by('item_assignment.id'); 
             $this->db->order_by('id', 'DESC');
             $this->db->limit($limit, $offset);
             return $this->db->get()->result();
