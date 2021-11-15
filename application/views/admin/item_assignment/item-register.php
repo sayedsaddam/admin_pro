@@ -63,7 +63,7 @@
 							</p>
 							<p class="control">
 								<button onclick="location.href='<?= base_url('admin/get_damaged_item'); ?>'"
-									class="button is-small <?= (isset($damaged_page)) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= (isset($damaged_item)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-unlink"></i>
 									</span>
@@ -151,7 +151,7 @@
 												<?php endif; ?>
 												<td><?= $item->depreciation.' (%)'; ?></td>
 												<td>
-													<?php if($status = $item->quantity > 0 && $item->status != 1 && (!isset($damaged_page))){
+													<?php if($status = $item->quantity > 0 && $item->status != 1 && (!isset($damaged_item))){
 											echo '<span class="tag is-success is-light">Available</span>';
 										}elseif((isset($damaged_item)) && $item->status != 1){
 											echo '<span class="tag is-danger is-light">'. $item->remarks;'</span>';
