@@ -125,7 +125,7 @@
 												<td> <span class="tag"><?= $project->project_name; ?></span></td>
 												<td><?= ucfirst($project->project_desc); ?></td>
 												<td><?= date('M d, Y', strtotime($project->created_at)); ?></td>
-												<td><?php if($project->status == 0){ echo "<span class='tag is-warning is-light'>Progress</span>"; }else{ echo "<span class='tag is-success is-light'>Completed</span>"; } ?>
+												<td><?php if($project->status == 1){ echo "<span class='tag is-success is-light'>Active</span>"; }else{ echo "<span class='tag is-warning is-light'>DeActive</span>"; } ?>
 												</td>
 												<td class="">
 													<div class="field has-addons">
@@ -135,10 +135,13 @@
 																<i class="fas fa-edit"></i>
 															</span>
 														</a>
-														<a href="<?=base_url('admin/complete_project/'.$project->id);?>"
-															class="button is-small"><span
-																class="icon is-small has-text-success"><i
-																	class="fa fa-check"></i></span></a>
+														<?php if($project->status == 1){ ?>
+															<a href="<?=base_url('admin/de_active_project/'.$project->id);?>"
+															class="button is-small"><span class="icon is-small has-text-danger"><i class="fas fa-ban"></i></span></a>
+															<?php } else{?>
+																<a href="<?=base_url('admin/active_project/'.$project->id);?>"
+															class="button is-small"><span class="icon is-small has-text-success"><i class="fa fa-check"></i></span></a>
+                                                        <?php } ?>
 													</div>
 												</td>
 											</tr>

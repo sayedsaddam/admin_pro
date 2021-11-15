@@ -128,9 +128,15 @@
 														<a href="<?= base_url('admin/edit_invoice/' . $inv->id) ?>"
 															class="button is-small"><span class="icon is-small"><i
 																	class="fa fa-edit"></i></span></a>
+														<?php if($inv->status == 0) {?>			
 														<a href="<?= base_url('admin/invoice_status/' . $inv->id) ?>"
 															class="button is-small"><span class="icon is-small"><i
 																	class="fa fa-check"></i></span></a>
+														<?php } else {?>			
+															<a href="<?= base_url('admin/invoice_status_pending/' . $inv->id) ?>"
+															class="button is-small"><span class="icon is-small has-text-danger"><i
+																	class="fa fa-ban"></i></span></a>
+																	<?php } ?>
 														<a href="<?= base_url('admin/print_invoice/' . $inv->id) ?>"
 															class="button is-small"><span class="icon is-small"><i
 																	class="fa fa-print"></i></span></a>

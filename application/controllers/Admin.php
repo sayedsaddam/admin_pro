@@ -840,6 +840,19 @@ class Admin extends CI_Controller{
             redirect('admin/invoices');
         }
     }
+      // Invoices - Changes invoice status to pending
+      public function invoice_status_pending($id){
+        $data = array(
+            'status' => 0
+        );
+        if($this->admin_model->invoice_status_pending($id, $data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Invoice status change was successful.');
+            redirect('admin/invoices');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
+            redirect('admin/invoices');
+        }
+    }
     // Projects - Go to projects page.
     public function projects($offset = null){ 
         $limit = 25;
@@ -929,20 +942,33 @@ class Admin extends CI_Controller{
             redirect('admin/edit_project/' . $id);
         } 
     }
-    // Projects - Remove project
-    public function complete_project($id){
+    // Projects - Active project
+    public function active_project($id){
         $data = array(
-            'status' => 0,
+            'status' => 1,
         );
-        if($this->admin_model->complete_project($id,$data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Project completion was successful.');
+        if($this->admin_model->active_project($id,$data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Project was Active successful.');
             redirect('admin/projects');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
             redirect('admin/projects');
         }
+    } 
+   // Projects - DeActive project
+   public function de_active_project($id){
+    $data = array(
+        'status' => 0,
+    );
+    if($this->admin_model->de_active_project($id,$data)){
+        $this->session->set_flashdata('success', '<strong>Success! </strong>Project was De Active successful.');
+        redirect('admin/projects');
+    }else{
+        $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+        redirect('admin/projects');
     }
-    
+}
+
     // Search filters - search asset register
     public function search_project(){ 
         $search = $this->input->get('search');

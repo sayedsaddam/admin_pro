@@ -523,6 +523,12 @@ public function update_invoice($id, $data){
         $this->db->update('invoices', $data);
         return true;
     }
+       // Invoices - status change to pending.
+       public function invoice_status_pending($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('invoices', $data);
+        return true;
+    }
     // Invoices - Remove invoice
     public function delete_invoice($id){
         $this->db->where('id', $id);
@@ -600,12 +606,18 @@ public function update_invoice($id, $data){
         $this->db->update('projects', $data);
         return true;
     }
-    // Projects - Remove project
-    public function complete_project($id, $data){
+    // Projects - Active project
+    public function active_project($id, $data){
         $this->db->where('id', $id);
         $this->db->update('projects',$data);
         return true;
     }
+    // Projects - De Active project
+    public function de_active_project($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('projects',$data);
+        return true;
+    } 
     // Search projects / company
     public function search_project($search){
         $this->db->select('id, project_name, project_desc,status,created_at');
