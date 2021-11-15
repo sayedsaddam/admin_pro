@@ -145,7 +145,7 @@
 	</p>
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('admin') ?>">Dashboard</a></li> -->
-		<li><a href="<?= base_url('login/logout') ?>">Logout</a></li>
+		<li><a href="<?= base_url('login/logout') ?>" data-no-instant>Logout</a></li>
 	</ul>
 	<!-- <ul class="menu-list">
 			<li><a><b class="has-text-grey">Travel</b> Requests <span class="tag is-info is-light">2</span></a></li>
