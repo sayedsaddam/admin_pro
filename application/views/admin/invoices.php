@@ -179,43 +179,43 @@
 					</div>
 				</div>
 				<div class="column">
- 					<div class="columns">
- 						<div class="column is-hidden-print">
- 							<label class="mr-2">Number of Records:</label>
- 							<select class="result_limit">
- 								<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
- 								</option>
- 								<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
- 								</option>
- 								<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
- 								</option>
- 							</select>
- 						</div>
- 						<div class="column is-hidden-print">
- 							<nav class="pagination is-small" role="navigation" aria-label="pagination"
- 								style="justify-content: center;">
- 								<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
- 							</nav>
- 						</div>
- 						<div class="column is-hidden-print">
- 							<div class="buttons is-pulled-right">
- 								<button onClick="window.print();" type="button" class="button is-small ">
- 									<span class="icon is-small">
- 										<i class="fas fa-print"></i>
- 									</span>
- 									<span>Print</span>
- 								</button>
- 								<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
- 									class="button is-small ">
- 									<span class="icon is-small">
- 										<i class="fas fa-file-export"></i>
- 									</span>
- 									<span>Export</span>
- 								</a>
- 							</div>
- 						</div>
- 					</div>
- 				</div>
+					<div class="columns">
+						<div class="column is-hidden-print">
+							<label class="mr-2">Number of Records:</label>
+							<select class="result_limit">
+								<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
+								</option>
+								<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
+								</option>
+								<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
+								</option>
+							</select>
+						</div>
+						<div class="column is-hidden-print">
+							<nav class="pagination is-small" role="navigation" aria-label="pagination"
+								style="justify-content: center;">
+								<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
+							</nav>
+						</div>
+						<div class="column is-hidden-print">
+							<div class="buttons is-pulled-right">
+								<button onClick="window.print();" type="button" class="button is-small ">
+									<span class="icon is-small">
+										<i class="fas fa-print"></i>
+									</span>
+									<span>Print</span>
+								</button>
+								<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+									class="button is-small ">
+									<span class="icon is-small">
+										<i class="fas fa-file-export"></i>
+									</span>
+									<span>Export</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 </section>
 
@@ -223,7 +223,7 @@
 	$(document).ready(function () {
 		$(".result_limit").on('change', function () {
 			var val = $(this).val();
-			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_invoices' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_invoices' ? 'search=' . $this->input->get('search') . ' & ' : '' ?>limit=' + val)
 		})
 	})
 </script>
