@@ -35,24 +35,24 @@
 					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/asset_register'); ?>'"
+								<a href='<?= base_url('admin/asset_register'); ?>'"
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
 									<span>Assets List</span>
-								</button>
+								</a>
 							</p>
 							<?php if($AssetsAccess->write == 1) : ?>
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/add_asset'); ?>'"
+								<a href='<?= base_url('admin/add_asset'); ?>'"
 									data-target="#add_supplier"
 									class="button is-small <?= (isset($add_asset)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-plus"></i>
 									</span>
 									<span>Add New</span>
-								</button>
+								</a>
 							</p>
 							<?php endif ?>
 						</div>
