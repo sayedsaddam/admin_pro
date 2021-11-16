@@ -501,7 +501,7 @@ public function update_invoice($id, $data){
                         invoices.inv_no, 
                         invoices.inv_date, 
                         invoices.project, 
-                        invoices.vendor, 
+                        invoices.supplier, 
                         invoices.region, 
                         invoices.item, 
                         invoices.amount, 
@@ -511,10 +511,13 @@ public function update_invoice($id, $data){
                         locations.id as loc_id,
                         locations.name,
                         projects.id as project_id,
-                        projects.project_name');
+                        projects.project_name,
+                        suppliers.id as sup_id,
+                        suppliers.name as sup_name');
         $this->db->from('invoices');
         $this->db->join('locations','invoices.region = locations.id','left');
         $this->db->join('projects','invoices.project = projects.id','left');
+        $this->db->join('suppliers','invoices.supplier = suppliers.id','left');
         $this->db->where('invoices.id', $id);
         return $this->db->get()->row();
     }
