@@ -472,7 +472,7 @@
 					} 
 					document.getElementById("returning_description").innerHTML = response
 						.returning_description;
-					// document.getElementById("return_back_date").innerHTML = response.return_back_date;
+					document.getElementById("return_back_date").innerHTML = response.return_date;
 					document.getElementById("item_image").innerHTML = "";
 					$("#item_image").attr({
 						src: "<?= base_url('upload/')?>" + response.item_file
