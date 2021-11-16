@@ -34,50 +34,40 @@
 					<div class="column">
 						<div class="field has-addons">
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/item_register'); ?>'"
+								<a href='<?= base_url('admin/item_register'); ?>'"
 									class="button is-small <?= (isset($item_register)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
 									<span>Items List</span>
-								</button>
+								</a>
 							</p>
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/available_item_list'); ?>'"
+								<a href='<?= base_url('admin/available_item_list'); ?>'"
 									class="button is-small <?= (isset($available_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="far fa-list-alt"></i>
 									</span>
 									<span>Available List</span>
-								</button>
+								</a>
 							</p>
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/get_assign_item'); ?>'"
+								<a href='<?= base_url('admin/get_assign_item'); ?>'"
 									class="button is-small <?= (isset($assign_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-bars"></i>
 									</span>
 									<span>Assigned List</span>
-								</button>
+								</a>
 							</p>
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/add_item'); ?>'"
+								<a href='<?= base_url('admin/add_item'); ?>'"
 									class="button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-plus"></i>
 									</span>
 									<span>Add New</span>
-								</button>
-							</p>
-							<p class="control">
-								<button
-									class="button is-small <?= (isset($product_report)) ? 'has-background-primary-light' : '' ?>"
-									id="report-btn">
-									<span class="icon is-small">
-										<i class="fas fa-paperclip"></i>
-									</span>
-									<span>Report</span>
-								</button>
+								</a>
 							</p>
 						</div>
 					</div>

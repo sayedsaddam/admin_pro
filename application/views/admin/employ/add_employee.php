@@ -43,13 +43,13 @@
 								</a>
 							</p>
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/add_employee'); ?>'"
+								<a href='<?= base_url('admin/add_employee'); ?>'"
 									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-plus"></i>
 									</span>
 									<span>Add New</span>
-								</button>
+								</a>
 							</p>
 						</div>
 					</div>

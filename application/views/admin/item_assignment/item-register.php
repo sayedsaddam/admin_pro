@@ -35,49 +35,49 @@
 					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/item_register'); ?>'"
+								<a href='<?= base_url('admin/item_register'); ?>'"
 									class="button is-small <?= (isset($item_register)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
 									<span>Items List</span>
-								</button>
+								</a>
 							</p>
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/available_item_list'); ?>'"
+								<a href='<?= base_url('admin/available_item_list'); ?>'"
 									class="button is-small <?= (isset($available_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="far fa-list-alt"></i>
 									</span>
 									<span>Available List</span>
-								</button>
+								</a>
 							</p>
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/get_assign_item'); ?>'"
+								<a href='<?= base_url('admin/get_assign_item'); ?>'"
 									class="button is-small <?= (isset($assign_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-bars"></i>
 									</span>
 									<span>Assigned List</span>
-								</button>
+								</a>
 							</p>
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/get_damaged_item'); ?>'"
+								<a href='<?= base_url('admin/get_damaged_item'); ?>'"
 									class="button is-small <?= (isset($damaged_item)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-unlink"></i>
 									</span>
 									<span>Damaged List</span>
-								</button>
+								</a>
 							</p>
 							<p class="control">
-								<button onclick="location.href='<?= base_url('admin/add_item'); ?>'"
+								<a href='<?= base_url('admin/add_item'); ?>'"
 									class="button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-plus"></i>
 									</span>
 									<span>Add New</span>
-								</button>
+								</a>
 							</p>
 						</div>
 					</div>
