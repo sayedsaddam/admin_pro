@@ -140,7 +140,7 @@
 																<td>N/A</td>
 																<?php } ?>
 															<th>Price</th>
-															<?php if(empty($items[0]->price)) { ?>
+															<?php if(!empty($items[0]->price)) { ?>
 															<td id="price"><?php echo '<span>'.$items[0]->price.'</span>'; ?></td>
 															<?php } else {?>
 																<td>N/A</td>
@@ -154,7 +154,7 @@
 																<td>N/A</td>
 																<?php } ?>
 															<th>Current Value</th> 
-															<td><span id="current">
+															<td><span id="current_v">
 															<?php $percent = $items[0]->price * $items[0]->depreciation / 100;
 															echo $current = $items[0]->price - $percent;
 															?>
@@ -226,7 +226,7 @@
 																<?php } ?>
 															<th>Price</th>  
 															<?php if(!empty($item->price)){ ?>
-															<td><?php echo "<spanp idy='price'>". $item->price.'</span>';?></td>
+															<td><?php echo "<spanp id='price'>". $item->price.'</span>';?></td>
 															<?php } else {?>
 																<td>N/A</td>
 																<?php } ?>
@@ -236,14 +236,17 @@
 															<td>
 															<?php echo "<span id='dep'>".$item->depreciation .'</span>'. "(%)"; ?>
 															<?php	error_reporting(0);
-															if($item->depreciation > 0){ 
-															$depreciation = ($item->price*$item->depreciation / 100) ;  
-															echo $item->price - $depreciation;
+															if($item->depreciation > 0){  
 															}
 															?>
 															</td>
 															<th>Current Value</th>
-															<td><span id="current"></span></td>
+															<td><span id="current_v"></span>
+															<?php 
+															$price = str_replace( ',', '', $item->price);
+														    echo $price * $item->depreciation / 100;
+															 ?>
+															</td>
 														</tr>
 														<tr>
 															<th>Department</th>
@@ -416,7 +419,6 @@
 		var prices = price.replace(/&nbsp;/, '');
 		var dep = document.getElementById("dep").innerHTML;
 		currentval = prices * dep / 100;
-		alert(currentval)
 		var output = document.getElementById("current").innerHTML = currentval;
 	});
 
@@ -470,7 +472,7 @@
 					} 
 					document.getElementById("returning_description").innerHTML = response
 						.returning_description;
-					// document.getElementById("return_back_date").innerHTML = response.return_back_date;
+					document.getElementById("return_back_date").innerHTML = response.return_date;
 					document.getElementById("item_image").innerHTML = "";
 					$("#item_image").attr({
 						src: "<?= base_url('upload/')?>" + response.item_file

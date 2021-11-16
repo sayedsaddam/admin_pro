@@ -76,8 +76,8 @@
 															 <td><?=$invoice->project_name;?></td> 
 														</tr>
 														<tr>
-															<th>Vendor</th>
-															<td><?=$invoice->vendor;?></td>
+															<th>Supplier</th>
+															<td><?=$invoice->sup_name;?></td>
                                                             <th>Location</th>
 															 <td><?=ucfirst($invoice->name);?></td> 
 															 
