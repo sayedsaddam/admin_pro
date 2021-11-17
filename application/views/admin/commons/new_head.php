@@ -61,7 +61,7 @@
 					Home
 				</a>
 				<div class="navbar-item">
-					<strong class="has-text-white"><span class="viewing">0</span> others online, including Management...</strong>
+					<span class="has-text-white viewing mr-1">0</span>others online, including management.
 				</div>
 			</div>
 
