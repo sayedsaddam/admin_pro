@@ -113,7 +113,7 @@
 
 							<select name="department" <?= isset($edit) ? 'disabled' : '' ?>>
 									<?php if(!isset($edit)): ?>
-									<option selected disabled value="">Select a departments</option>
+									<option selected disabled value="">Select a Department</option>
 									<?php endif ?>
 									<?php if(!empty($departments)): foreach($departments as $department): ?> 
 									<option value="<?= $department->id; ?>"
