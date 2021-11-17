@@ -133,8 +133,7 @@
 										</tfoot>
 										<tbody>
 											<?php if(!empty($items)): foreach($items as $item): ?>
-											<tr
-												onclick="window.location='<?= base_url('admin/product_card/'.$item->id) ?>';">
+											<tr>
 												<td><span><?= 'S2S-'.$item->id; ?></a></td>
 												<td><?= $item->name; ?></td>
 												<td>
@@ -190,6 +189,14 @@
 															</button>
 														</p>
 														<?php endif; ?>
+														<p class="control">
+															<a href="<?= base_url('admin/product_card/'.$item->id) ?>"
+																class="button is-small">
+																<span class="icon is-small">
+																	<i class="fas fa-print"></i>
+																</span>
+															</a>
+														</p>
 													</div>
 											</tr>
 											<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='17'>No records found.</td></tr>"; endif; ?>
