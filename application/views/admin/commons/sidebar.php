@@ -75,18 +75,18 @@
 	<?php endif ?>
 	<?php if($RegisterAccess->read == 1) : ?>
 	<ul class="menu-list">
-		<li><a class="<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' || $this->uri->segment(2) == 'item_detail' || $this->uri->segment(2) == 'damaged_item'  || $this->uri->segment(2) == 'assign_item' ? 'is-primary is-inverted' : '' ?> nav-category"
-				<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' || $this->uri->segment(2) == 'item_detail'|| $this->uri->segment(2) == 'damaged_item' || $this->uri->segment(2) == 'assign_item' ? 'style="background-color:#f1f1f1;"' : '' ?>>Item
+		<li><a class="<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' || $this->uri->segment(2) == 'item_detail' || $this->uri->segment(2) == 'get_damaged_item'  || $this->uri->segment(2) == 'assign_item' ? 'is-primary is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'search_item' || $this->uri->segment(2) == 'item_detail'|| $this->uri->segment(2) == 'get_damaged_item' || $this->uri->segment(2) == 'assign_item' ? 'style="background-color:#f1f1f1;"' : '' ?>>Item
 				Register</a>
 			<ul class="sub-categories"
-				style="<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'damaged_item' || $this->uri->segment(2) == 'search_item' || $this->uri->segment(2) == 'item_detail' || $this->uri->segment(2) == 'assign_item' ? '' : 'display: none;' ?>">
+				style="<?= $this->uri->segment(2) == 'get_assign_item' || $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'add_item' || $this->uri->segment(2) == 'get_damaged_item' || $this->uri->segment(2) == 'search_item' || $this->uri->segment(2) == 'item_detail' || $this->uri->segment(2) == 'assign_item' ? '' : 'display: none;' ?>">
 				<li class="is-size-7 <?= $this->uri->segment(2) == 'item_register' || $this->uri->segment(2) == 'product_report' || $this->uri->segment(2) == 'damaged_item' || $this->uri->segment(2) == 'search_item' || $this->uri->segment(2) == 'item_detail' ? 'has-text-weight-bold' : '' ?>"><a href="<?= base_url('admin/item_register'); ?>"><i class="fas fa-list mr-1"></i>
 						Items List</a></li>
 				<li class="is-size-7 <?= $this->uri->segment(2) == 'available_item_list' ? 'has-text-weight-bold' : '' ?>"><a href="<?= base_url('admin/available_item_list'); ?>"><i
 							class="far fa-list-alt mr-1"></i> Available List</a></li>
 				<li class="is-size-7 <?= $this->uri->segment(2) == 'get_assign_item' ? 'has-text-weight-bold' : '' ?>"><a href="<?= base_url('admin/get_assign_item'); ?>"><i
 							class="fas fa-bars mr-1"></i> Assigned List</a></li>
-				<li class="is-size-7 <?= $this->uri->segment(2) == 'damaged_item' ? 'has-text-weight-bold' : '' ?>"><a href="<?= base_url('admin/get_damaged_item'); ?>"><i
+				<li class="is-size-7 <?= $this->uri->segment(2) == 'get_damaged_item' ? 'has-text-weight-bold' : '' ?>"><a href="<?= base_url('admin/get_damaged_item'); ?>"><i
 							class="fas fa-unlink mr-1"></i> Damaged Item</a></li>
 				<li class="is-size-7 <?= $this->uri->segment(2) == 'add_item' ? 'has-text-weight-bold' : '' ?>"><a href="<?= base_url('admin/add_item'); ?>"><i class="fas fa-plus mr-1"></i> Add
 						New</a></li>
@@ -116,8 +116,8 @@
 		<li><a class="<?= $this->uri->segment(2) == 'add_invoice' || $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'search_invoice' || $this->uri->segment(2) == 'add_invoice' ? 'is-primary is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'add_invoice' || $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'search_invoice' || $this->uri->segment(2) == 'invoices' ? 'style="background-color:#f1f1f1;"' : '' ?>>Invoices</a>
 			<ul class="sub-categories"
-				style="<?= $this->uri->segment(2) == 'add_invoice' || $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'search_invoice' || $this->uri->segment(2) == 'add_asset' ? '' : 'display: none;' ?>">
-				<li class="is-size-7 <?= $this->uri->segment(2) == 'add_invoice' || $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'search_invoice' ? 'has-text-weight-bold' : '' ?>"><a href="<?= base_url('admin/invoices'); ?>"><i class="fas fa-list mr-1"></i>
+				style="<?= $this->uri->segment(2) == 'add_invoice' || $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'search_invoice' ? '' : 'display: none;' ?>">
+				<li class="is-size-7 <?= $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'search_invoice' ? 'has-text-weight-bold' : '' ?>"><a href="<?= base_url('admin/invoices'); ?>"><i class="fas fa-list mr-1"></i>
 						Invoices</a></li>
 				<?php if($AssetsAccess->write == 1) : ?>
 				<li class="is-size-7 <?= $this->uri->segment(2) == 'add_invoice' ? 'has-text-weight-bold' : '' ?>"><a href="<?= base_url('admin/add_invoice'); ?>"><i class="fas fa-plus mr-1"></i>
