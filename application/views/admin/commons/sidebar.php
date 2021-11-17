@@ -128,6 +128,21 @@
 	</ul>
 	<?php endif ?>
 
+	<?php if($SuppliersAccess->read == 1) : ?>
+	<ul class="menu-list">
+		<li><a class="<?= $this->uri->segment(2) == 'reports' || $this->uri->segment(2) == 'search_reports' ? 'is-primary is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'reports' || $this->uri->segment(2) == 'search_reports' ? 'style="background-color:#f1f1f1;"' : '' ?>>Reports</a>
+			<ul class="sub-categories"
+				style="<?= $this->uri->segment(2) == 'reports' || $this->uri->segment(2) == 'search_reports' ? '' : 'display: none;' ?>">
+				<li class="is-size-7 <?= $this->uri->segment(2) == 'reports' || $this->uri->segment(2) == 'search_reports' ? 'has-text-weight-bold' : '' ?>"><a href="<?= base_url('admin/asset_reports'); ?>"><i class="fas fa-list mr-1"></i>
+						Report List</a></li> 
+			</ul>
+		</li>
+	</ul>
+	<?php endif ?>
+
+
+
 	<ul class="menu-list">
 		<!-- <li><a href="<?= base_url('Purchase/purchase_order_list') ?>">Purchase</a></li> -->
 	</ul>

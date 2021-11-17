@@ -848,15 +848,7 @@ class Admin extends CI_Controller{
             'status_reason' => $this->input->post('reason'),
             'status' => 0,
         ); 
-       
-        // $logs_data = array(
-        //     'status_reason' => $this->input->post('reason'),
-        //     'added_by' => $this->session->userdata('id'),
-        //     'created_at' => date('Y-m-d'),
-        //     'status' => 0,
-        // ); 
-
-
+        
         // $invoice_data = json_encode($logs_data, true);
         // echo "<pre>";
         // print_r($invoice_data);exit;
@@ -994,6 +986,39 @@ class Admin extends CI_Controller{
         $data['results'] = $this->admin_model->search_project($search);
         $this->load->view('admin/commons/new_template', $data);
     }
+// all reports code below
+    public function asset_reports(){ 
+        $data['title'] = 'Reports > Reports';
+        $data['body'] = 'admin/report/asset-report';
+        $data['locations'] = $this->admin_model->get_item_location();
+        $data['categories'] = $this->admin_model->get_item_categories();
+        $data['breadcrumb'] = array("admin/report/asset-report" => "Assets Reports");
+        $this->load->view('admin/commons/new_template', $data);
+    } 
+  // Search filters - search Asset
+  public function filter_asset(){
+    if ($this->AccessList()["Assets"]->read == 0) {
+        redirect('admin/dashboard');
+    }
+    
+    $data = array(
+        'category' => $this->input->get('category'),
+        'sub_categories' => $this->input->get('sub_categories'),
+        'quantity' => $this->input->get('quantity'),
+        'price' => $this->input->get('price'),
+        'purchase_date' => $this->input->get('purchase_date'),
+        'location' => $this->input->get('location')
+    ); 
+//  print_r($data['category']);exit;
+    $data['title'] = 'Search Results > Assets';
+    $data['body'] = 'admin/report/filter-asset';
+    $data['results'] = $this->admin_model->filter_asset($data); 
+    $data['filter_asset'] = true;
+    $data['breadcrumb'] = array("admin/report/report-list" => "Asets Reports List");
+    $this->load->view('admin/commons/new_template', $data);
+} 
+
+
     // Maintenance - Office equipments
     public function maintenance($offset = null){
         $limit = 10;
