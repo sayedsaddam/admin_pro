@@ -1,3 +1,4 @@
+<?php $session = $this->session->userdata('user_role'); ?>
 <section class="columns is-gapless mb-0 pb-0">
 	<div class="column is-narrow is-fullheight is-hidden-print" id="custom-sidebar">
 		<?php $this->view('admin/commons/sidebar'); ?>
@@ -10,14 +11,13 @@
 						<?php $this->view('admin/commons/breadcrumb'); ?>
 					</div>
 				</div>
-
 				<div class="columns is-hidden-touch">
 					<div class="column is-hidden-print">
-						<form action="<?= base_url('admin/filter_asset'); ?>" method="get">
+						<form action="<?= base_url('admin/search_suppliers') ?>" method="get">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
-										placeholder="Search Assets Report"
+										placeholder="Search Suppliers Report"
 										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
@@ -31,9 +31,8 @@
 								</div>
 							</div>
 						</form>
-					</div>
-				
-					<div class="column is-hidden-touch is-narrow is-hidden-print">
+					</div> 
+                    <div class="column is-hidden-touch is-narrow is-hidden-print">
 						<div class="field has-addons">
 							<p class="control">
 								<a href='<?= base_url('report/asset_report'); ?>'
@@ -110,85 +109,111 @@
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
 						<div class="tile is-child box">
+
 							<div class="columns" style="display: grid">
-								<div class="column table-container ">
-									<table class="table table-sm is-fullwidth" id="myTable">
+								<div class="column table-container">
+									<table class="table is-hoverable is-fullwidth">
+										<caption><?php if(empty($results)){ echo ''; }else{ echo ''; } ?></caption>
 										<thead>
 											<tr>
 												<th class="has-text-weight-semibold">ID</th>
-												<th class="has-text-weight-semibold">Category</th> 
-												<th class="has-text-weight-semibold"><abbr
-														title="Quantity">Quantity</abbr></th>
-												<th class="has-text-weight-semibold"><abbr
-														title="Purchase Date">PD</abbr></th>
+												<th class="has-text-weight-semibold">Name</th>
+												<th class="has-text-weight-semibold">Phone</th>
 												<th class="has-text-weight-semibold">Location</th>
-												<th class="has-text-weight-semibold">User</th> 
-												<?php if($AssetsAccess->update == 1 || $AssetsAccess->delete == 1) : ?>
-												<th class="has-text-weight-semibold is-hidden-print">Action</th>
+												<th class="has-text-weight-semibold">NTN</th>
+												<th class="has-text-weight-semibold">Rating</th>
+												<th class="has-text-weight-semibold">Category</th> 
+												<th class="has-text-weight-semibold">Date</th>
+												<?php if($SuppliersAccess->update == 1 || $SuppliersAccess->delete == 1) : ?>
+												<th class="has-text-weight-semibold">Action</th>
 												<?php endif ?>
 											</tr>
 										</thead>
-										<tfoot class="is-hidden-print">
+										<tfoot>
 											<tr>
 												<th class="has-text-weight-semibold">ID</th>
-												<th class="has-text-weight-semibold">Category</th> 
-												<th class="has-text-weight-semibold"><abbr
-														title="Quantity">Quantity</abbr></th>
-												<th class="has-text-weight-semibold"><abbr
-														title="Purchase Date">PD</abbr></th>
+												<th class="has-text-weight-semibold">Name</th>
+												<th class="has-text-weight-semibold">Phone</th>
 												<th class="has-text-weight-semibold">Location</th>
-												<th class="has-text-weight-semibold">User</th> 
-												<?php if($AssetsAccess->update == 1 || $AssetsAccess->delete == 1) : ?>
-												<th class="has-text-weight-semibold is-hidden-print">Action</th>
+												<th class="has-text-weight-semibold">NTN</th>
+												<th class="has-text-weight-semibold">Rating(*)</th>
+												<th class="has-text-weight-semibold">Category</th> 
+												<th class="has-text-weight-semibold">Date</th>
+												<?php if($SuppliersAccess->update == 1 || $SuppliersAccess->delete == 1) : ?>
+												<th class="has-text-weight-semibold">Action</th>
 												<?php endif ?>
 											</tr>
-										</tfoot>
-										<?php if(empty($results)): ?>
-										<?php else: ?>
-										<tbody>
-											<?php if(!empty($results)): foreach($results as $res): ?>
-											<tr> 
-												<td><?= 'S2S-0'.$res->id; ?></td>
-												<td><?= $res->cat_name; ?></td> 
-												<td><?= ucfirst($res->quantity); ?></td>
-												<td><?= ucfirst($res->purchase_date); ?></td>
-												<td><?= ucfirst($res->loc_name); ?></td>
-												<td><?= ucfirst($res->user); ?></td>  
+										</tfoot> 
+											<?php if(!empty($results)): foreach($results as $sup): ?>
+											<tr
+												onclick="window.location='<?= base_url('admin/edit_supplier/' . $sup->id); ?>';">
+												<td><?= 'S2S-'.$sup->id; ?></td>
+												<td><span title="<?= $sup->email; ?>"><?= ucwords($sup->name); ?></td>
+												<td><?= $sup->phone; ?></td>
+												<td><?= ucwords($sup->loc_name); ?></td>
+												<td><?= $sup->ntn_number; ?></td>
+												<td>
+													<?php if(!empty($sup->rating)) : ?>
+													<?php if ($sup->rating >= 5) : ?>
+													<span style="color:  orange;font-size: 18px;font-weight: bold"
+														class="icon is-small">5</span> <span class="far fa-star"
+														style="color: orange"></span>
+													<?php elseif ($sup->rating <= 1) : ?>
+													<span style="color:  orange;font-size: 18px;font-weight: bold"
+														class="icon is-small">1</span> <span class="far fa-star"
+														style="color: orange"></span>
+													<?php else : ?>
+													<span style="color:  orange;font-size: 18px;font-weight: bold"
+														class="icon is-small"><?= $sup->rating ?></span> <span
+														class="far fa-star" style="color: orange"></span>
+													<?php endif ?>
+													<?php endif ?>
 												</td>
-												<td class="is-narrow is-hidden-print">
-													<div class="field has-addons">
-														<?php if($AssetsAccess->update == 1) : ?>
-														<p class="control">
-															<a href="<?= base_url('admin/asset_detail/'.$res->id); ?>"
-																class="button is-small">
-																<span class="icon is-small">
-																	<i class="fas fa-edit"></i>
-																</span>
-															</a>
-														</p>
-														<?php endif ?>
-														<?php if ($AssetsAccess->delete == 1) : ?>
-														<a href="<?=base_url('admin/delete_asset/'.$res->id);?>"
-															onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
-															class="button is-small"><span
-																class="icon is-small has-text-danger"><i
-																	class="fa fa-times"></i></span></a>
-														<?php endif ?>
-													</div>
+												<td><?= ucwords($sup->category); ?></td> 
+												<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
+												<?php if($SuppliersAccess->update == 1 || $SuppliersAccess->delete == 1) : ?>
+												<td class="is-narrow">
+													<?php if($SuppliersAccess->update == 1) : ?>
+													<a href="<?= base_url('admin/edit_supplier/' . $sup->id) ?>"
+														class="supplier_info button is-small"><span
+															class="icon is-small"><i class="fa fa-edit"></i></span></a>
+													<?php endif ?>
+													<?php if($SuppliersAccess->delete == 1) : ?>
+													<a href="<?=base_url('admin/delete_supplier/'.$sup->id);?>"
+														class="button is-small"><span
+															class="icon is-small has-text-danger"><i
+																class="fa fa-times"></i></span></a>
+													<?php endif ?>
 												</td>
+												<?php endif ?>
 											</tr>
-											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
-										</tbody>
-										<?php endif; ?>
+											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
+										</tbody> 
 									</table>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
 				<div class="column">
-					<div class="columns"> 
+					<div class="columns">
+						<div class="column is-hidden-print">
+							<label class="mr-2">Number of Records:</label>
+							<select class="result_limit">
+								<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
+								</option>
+								<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
+								</option>
+								<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
+								</option>
+							</select>
+						</div>
+						<div class="column is-hidden-print">
+							<nav class="pagination is-small" role="navigation" aria-label="pagination"
+								style="justify-content: center;">
+								<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
+							</nav>
+						</div>
 						<div class="column is-hidden-print">
 							<div class="buttons is-pulled-right">
 								<button onClick="window.print();" type="button" class="button is-small ">
@@ -197,7 +222,7 @@
 									</span>
 									<span>Print</span>
 								</button>
-								<a href="javascript:exportTableToExcel('myTable','Assets Reports');" type="button"
+								<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
 									class="button is-small ">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>
@@ -214,58 +239,7 @@
 	$(document).ready(function () {
 		$(".result_limit").on('change', function () {
 			var val = $(this).val();
-			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_asset_register' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_suppliers' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
 		})
 	})
-
-	function exportTableToExcel(tableId, filename) {
-		let dataType = 'application/vnd.ms-excel';
-		let extension = '.xls';
-
-		let base64 = function (s) {
-			return window.btoa(unescape(encodeURIComponent(s)))
-		};
-
-		let template =
-			'<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';
-		let render = function (template, content) {
-			var r1 = template.replace(/{(\w+)}/g, function (m, p) {
-				return content[p];
-			});
-			var r2 = r1.replace(/{(\w+)}/g, function (m, p) {
-				return content[p];
-			});
-			return r2
-		};
-
-		let tableElement = document.getElementById(tableId);
-
-		let tableExcel = render(template, {
-			worksheet: filename,
-			table: tableElement.innerHTML
-		});
-
-		filename = filename + extension;
-
-		if (navigator.msSaveOrOpenBlob) {
-			let blob = new Blob(
-				['\ufeff', tableExcel], {
-					type: dataType
-				}
-			);
-
-			navigator.msSaveOrOpenBlob(blob, filename);
-		} else {
-			let downloadLink = document.createElement("a");
-
-			document.body.appendChild(downloadLink);
-
-			downloadLink.href = 'data:' + dataType + ';base64,' + base64(tableExcel);
-
-			downloadLink.download = filename;
-
-			downloadLink.click();
-		}
-	}
-
 </script>

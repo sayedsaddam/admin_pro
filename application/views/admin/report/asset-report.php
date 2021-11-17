@@ -12,12 +12,12 @@
 				</div>
 				<div class="columns">
 					<div class="column">
-						<form action="<?= base_url('admin/filter_asset'); ?>" method="get">
+						<form action="<?= base_url('report/filter_asset'); ?>" method="get">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" type="search"
 										placeholder="Search Assets Reports"
-										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
+										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>">
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
 									</span>
@@ -35,7 +35,7 @@
 					<div class="column is-hidden-touch is-narrow">
 						<div class="field has-addons">
 							<p class="control">
-								<a href='<?= base_url('admin/asset_reports'); ?>'"
+								<a href='<?= base_url('report/asset_report'); ?>'
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-file"></i>
@@ -44,7 +44,7 @@
 								</a>
 							</p>
 							<p class="control">
-								<a href='<?= base_url('admin/asset_register'); ?>'"
+								<a href='<?= base_url('report/supplier_report'); ?>'
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-file"></i>
@@ -53,7 +53,7 @@
 								</a>
 							</p>
 							<p class="control">
-								<a href='<?= base_url('admin/asset_register'); ?>'"
+								<a href='<?= base_url('admin/asset_register'); ?>'
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-file"></i>
@@ -126,7 +126,7 @@
 				</div>
 				<?php endif ?>
 
-				<form action="<?php echo base_url('admin/filter_asset')?>"
+				<form action="<?php echo base_url('report/filter_asset')?>"
 					method="get"> 
 					<div class="columns">
 						

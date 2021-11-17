@@ -637,62 +637,6 @@ public function update_invoice($id, $data){
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
-    // all report start below
- // Search filters - Asset search 
-public function filter_asset($data){
-    $this->db->select('assets.id,
-    assets.category,
-    assets.quantity, 
-    assets.purchase_date, 
-    assets.location, 
-    assets.sub_categories, 
-    assets.price,  
-    assets.user,  
-    assets.created_at,
-    categories.id as cat_id,
-    categories.cat_name,
-    locations.id as loc_id,
-    locations.name as loc_name');
-    $this->db->from('assets');
-    $this->db->join('categories', 'assets.category = categories.id', 'left'); 
-    $this->db->join('locations', 'assets.location = locations.id', 'left'); 
-    if ($this->session->userdata('user_role') != '1') {
-        $this->db->where('assets.location', $this->session->userdata('location'));
-    }
-//  print_r($data['quantity']);exit;
-if(isset($data['category']) || $data['quantity']){
-    
-    $this->db->where('category', $data['category']);
-    $this->db->or_where('quantity', $data['quantity']);
-    $this->db->order_by('created_at', 'DESC');
-    return $this->db->get()->result();
-}
-elseif(isset($data['sub_categories'])) {
-    $this->db->where('sub_categories', $data['sub_categories']);
-    $this->db->order_by('created_at', 'DESC');
-    return $this->db->get()->result();
-}
-elseif(isset($data['price'])) {
-    $this->db->where('price', $data['price']);
-    $this->db->order_by('created_at', 'DESC');
-    return $this->db->get()->result();
-}
-elseif(isset($data['purchase_date'])) {
-    $this->db->where('purchase_date', $data['purchase_date']);
-    $this->db->order_by('created_at', 'DESC');
-    return $this->db->get()->result();
-}
-elseif(isset($data['location'])) {
-    $this->db->where('location', $data['location']);
-    $this->db->order_by('created_at', 'DESC');
-    return $this->db->get()->result();
-}
-else{
-    $this->db->where('quantity', $data['quantity']);
-    $this->db->order_by('created_at', 'DESC');
-    return $this->db->get()->result();
-} 
-}
     // Expenses - region based - Islamabad
     public function expenses_isbd(){
         $this->db->select('SUM(IF(region="islamabad", amount, 0)) as isbd_total');
