@@ -43,7 +43,7 @@
 								</a>
 							</p>
 							<p class="control">
-								<a href='<?= base_url('report/supplier_report'); ?>'"
+								<a href='<?= base_url('report/supplier_report'); ?>'
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-file"></i>
@@ -52,25 +52,16 @@
 								</a>
 							</p>
 							<p class="control">
-								<a href='<?= base_url('admin/asset_register'); ?>'"
+								<a href='<?= base_url('report/employee_report'); ?>'
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-file"></i>
 									</span>
 									<span>Employee</span>
 								</a>
-							</p>
+							</p> 
 							<p class="control">
-								<a href='<?= base_url('admin/asset_register'); ?>'"
-									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
-									<span class="icon is-small">
-										<i class="fas fa-file"></i>
-									</span>
-									<span>Item Category</span>
-								</a>
-							</p>
-							<p class="control">
-								<a href='<?= base_url('admin/asset_register'); ?>'"
+								<a href='<?= base_url('report/item_report'); ?>'
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-file"></i>
@@ -80,7 +71,7 @@
 							</p>
 							<?php if($AssetsAccess->write == 1) : ?>
 							<p class="control">
-								<a href='<?= base_url('admin/add_asset'); ?>'"
+								<a href='<?= base_url('report/project_report'); ?>'
 									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-file"></i>
@@ -91,7 +82,7 @@
 							<?php endif ?>
 							<?php if($AssetsAccess->write == 1) : ?>
 							<p class="control">
-								<a href='<?= base_url('admin/add_asset'); ?>'"
+								<a href='<?= base_url('report/invoice_report'); ?>'
 									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-file"></i>
@@ -112,13 +103,13 @@
 									<span class="select is-small is-fullwidth">
 										<select name="location" id="" class="browser-default custom-select "> 
 											<option disabled value="" selected>Select Location</option>
-											<?php if(!empty($locations)): foreach($locations as $loc): ?>
+											<?php foreach($locations as $loc): ?>
 											<?php if ($loc->id == $this->session->userdata('location') || $this->session->userdata('user_role') == '1') : ?>
 											<option value="<?= $loc->id; ?>" >
 												<?= ucwords($loc->name); ?>
 											</option>
 											<?php endif ?>
-											<?php endforeach; endif; ?>
+											<?php endforeach; ?>
 										</select>
 									</span>
 									<span class="icon is-small is-left">
@@ -177,11 +168,11 @@
 									<span class="select is-small is-fullwidth">
 										<select name="category" class="browser-default custom-select" > 
 											<option disabled value="" selected>Select Category</option> 
-											<?php if(!empty($categories)): foreach($categories as $cat): ?>
+											<?php foreach($categories as $cat): ?>
 											<option value="<?= $cat->id; ?>">
 												<?= ucwords($cat->cat_name); ?>
 											</option>
-											<?php endforeach; endif; ?>
+											<?php endforeach;?>
 										</select>
 									</span>
 									<span class="icon is-small is-left">
