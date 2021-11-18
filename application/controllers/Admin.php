@@ -848,15 +848,7 @@ class Admin extends CI_Controller{
             'status_reason' => $this->input->post('reason'),
             'status' => 0,
         ); 
-       
-        // $logs_data = array(
-        //     'status_reason' => $this->input->post('reason'),
-        //     'added_by' => $this->session->userdata('id'),
-        //     'created_at' => date('Y-m-d'),
-        //     'status' => 0,
-        // ); 
-
-
+        
         // $invoice_data = json_encode($logs_data, true);
         // echo "<pre>";
         // print_r($invoice_data);exit;

@@ -629,7 +629,6 @@ public function update_invoice($id, $data){
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('assets.location', $this->session->userdata('location'));
         }
-        
         $this->db->group_start(); //start group
         $this->db->like('project_name', $search);
         $this->db->or_like('project_desc', $search); 
