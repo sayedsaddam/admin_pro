@@ -6,14 +6,6 @@
 		}
 	}
 </style>
-<script data-no-instant>
-	$(".nav-category").click(function () {
-		$(this).siblings().toggle('fast');
-	});
-	$(".delete").click(function () {
-		$(this).parent().hide();
-	});
-</script>
 <script src="<?= base_url('assets/js/instantclick.min.js'); ?>" data-no-instant></script>
 <script data-no-instant>
 	var flag = true;
@@ -28,7 +20,13 @@
 		}
 	}
 	InstantClick.on('change', function() {
-		onlineUsers();		
+		onlineUsers();
+		$(".nav-category").click(function () {
+			$(this).siblings().toggle('fast');
+		});
+		$(".delete").click(function () {
+			$(this).parent().hide();
+		});	
 	});
 </script>
 <script data-no-instant>InstantClick.init(100);</script>
