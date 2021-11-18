@@ -6,7 +6,7 @@
 		}
 	}
 </style>
-<script>
+<script data-no-instant>
 	$(".nav-category").click(function () {
 		$(this).siblings().toggle('fast');
 	});
