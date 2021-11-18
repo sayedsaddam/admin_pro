@@ -6,20 +6,12 @@
 		}
 	}
 </style>
-<script>
-	$(".nav-category").click(function () {
-		$(this).siblings().toggle('fast');
-	});
-	$(".delete").click(function () {
-		$(this).parent().hide();
-	});
-</script>
 <script src="<?= base_url('assets/js/instantclick.min.js'); ?>" data-no-instant></script>
 <script data-no-instant>
-	var flag = false;
+	var flag = true;
 	function onlineUsers() {
-		if (flag == false) {
-			flag = true;
+		if (flag == true) {
+			flag = false;
 			setInterval(function () {
 				var spanNumber = $('.viewing');
 				var number = Math.floor(Math.random() * 12) + 3;
@@ -28,7 +20,13 @@
 		}
 	}
 	InstantClick.on('change', function() {
-		onlineUsers();		
+		onlineUsers();
+		$(".nav-category").click(function () {
+			$(this).siblings().toggle('fast');
+		});
+		$(".delete").click(function () {
+			$(this).parent().hide();
+		});	
 	});
 </script>
 <script data-no-instant>InstantClick.init(100);</script>

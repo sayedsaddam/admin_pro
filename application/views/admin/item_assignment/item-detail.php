@@ -26,6 +26,14 @@
 										</span>
 									</button>
 								</div>
+								<div class="ml-1 control">
+									<a href="<?= base_url('report/item_report') ?>" class="button is-small">
+										<span class="icon is-small">
+											<i class="fas fa-sort-alpha-down"></i>
+										</span>
+										<span>Filter</span>
+									</a>
+								</div>
 							</div>
 						</form>
 					</div>
@@ -113,7 +121,7 @@
 
 							<select name="department" <?= isset($edit) ? 'disabled' : '' ?>>
 									<?php if(!isset($edit)): ?>
-									<option selected disabled value="">Select a departments</option>
+									<option selected disabled value="">Select a Department</option>
 									<?php endif ?>
 									<?php if(!empty($departments)): foreach($departments as $department): ?> 
 									<option value="<?= $department->id; ?>"

@@ -25,6 +25,14 @@
 										</span>
 									</button>
 								</div>
+								<div class="ml-1 control">
+									<a href="<?= base_url('report/invoice_report') ?>" class="button is-small">
+										<span class="icon is-small">
+											<i class="fas fa-sort-alpha-down"></i>
+										</span>
+										<span>Filter</span>
+									</a>
+								</div>
 							</div>
 						</form>
 					</div>
@@ -36,7 +44,7 @@
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
-									<span>Project List</span>
+									<span>Invoice List</span>
 								</button>
 							</p>
 							<?php if($AssetsAccess->write == 1) : ?>
