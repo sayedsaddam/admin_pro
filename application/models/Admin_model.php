@@ -478,6 +478,7 @@ public function update_invoice($id, $data){
                         invoices.item,
                         invoices.amount,
                         invoices.inv_desc, 
+                        invoices.status_reason, 
                         invoices.status, 
                         invoices.created_at,
                         locations.id as loc_id,
@@ -500,7 +501,7 @@ public function update_invoice($id, $data){
                         invoices.inv_no, 
                         invoices.inv_date, 
                         invoices.project, 
-                        invoices.vendor, 
+                        invoices.supplier, 
                         invoices.region, 
                         invoices.item, 
                         invoices.amount, 
@@ -510,10 +511,13 @@ public function update_invoice($id, $data){
                         locations.id as loc_id,
                         locations.name,
                         projects.id as project_id,
-                        projects.project_name');
+                        projects.project_name,
+                        suppliers.id as sup_id,
+                        suppliers.name as sup_name');
         $this->db->from('invoices');
         $this->db->join('locations','invoices.region = locations.id','left');
         $this->db->join('projects','invoices.project = projects.id','left');
+        $this->db->join('suppliers','invoices.supplier = suppliers.id','left');
         $this->db->where('invoices.id', $id);
         return $this->db->get()->row();
     }
@@ -2202,11 +2206,13 @@ public function update_invoice($id, $data){
                        items.depreciation,
                        items.purchasedate,
                        items.created_at, 
+                       users.id as user_id,
                        users.fullname as emp_name,
                        users.location,
                        users.id as employ_id,
                        users.phone,
                        users.department,
+                       users.doj,
                        sub_categories.name as names,
                        categories.cat_name, 
                        locations.name,
