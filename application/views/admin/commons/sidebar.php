@@ -134,7 +134,7 @@
 				<?= $this->uri->segment(2) == 'reports' || $this->uri->segment(2) == 'search_reports' ? 'style="background-color:#f1f1f1;"' : '' ?>>Reports</a>
 			<ul class="sub-categories"
 				style="<?= $this->uri->segment(2) == 'reports' || $this->uri->segment(2) == 'search_reports' ? '' : 'display: none;' ?>">
-				<li class="is-size-7 <?= $this->uri->segment(2) == 'reports' || $this->uri->segment(2) == 'search_reports' ? 'has-text-weight-bold' : '' ?>"><a href="<?= base_url('report/asset_reports'); ?>"><i class="fas fa-list mr-1"></i>
+				<li class="is-size-7 <?= $this->uri->segment(2) == 'reports' || $this->uri->segment(2) == 'search_reports' ? 'has-text-weight-bold' : '' ?>"><a href="<?= base_url('report/asset_report'); ?>"><i class="fas fa-list mr-1"></i>
 						Report List</a></li> 
 			</ul>
 		</li>
