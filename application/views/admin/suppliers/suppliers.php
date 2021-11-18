@@ -29,6 +29,14 @@
 										</span>
 									</button>
 								</div>
+								<div class="ml-1 control">
+									<a href="<?= base_url('report/supplier_report') ?>" class="button is-small">
+										<span class="icon is-small">
+											<i class="fas fa-sort-alpha-down"></i>
+										</span>
+										<span>Filter</span>
+									</a>
+								</div>
 							</div>
 						</form>
 					</div>
@@ -102,8 +110,7 @@
 										<?php if(empty($results)): ?>
 										<tbody>
 											<?php if(!empty($suppliers)): foreach($suppliers as $sup): ?>
-											<tr
-												onclick="window.location='<?= base_url('admin/edit_supplier/' . $sup->sup_id); ?>';">
+											<tr>
 												<td><?= 'S2S-'.$sup->sup_id; ?></td>
 												<td><abbr
 														title="<?= $sup->email; ?>"><?= ucwords($sup->sup_name); ?></abbr>
@@ -158,8 +165,7 @@
 										<?php else: ?>
 										<tbody>
 											<?php if(!empty($results)): foreach($results as $sup): ?>
-											<tr
-												onclick="window.location='<?= base_url('admin/edit_supplier/' . $sup->id); ?>';">
+											<tr>
 												<td><?= 'S2S-'.$sup->id; ?></td>
 												<td><span title="<?= $sup->email; ?>"><?= ucwords($sup->name); ?></td>
 												<td><?= $sup->phone; ?></td>

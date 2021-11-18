@@ -28,6 +28,14 @@
 										</span>
 									</button>
 								</div>
+								<div class="ml-1 control">
+									<a href="<?= base_url('report/item_report') ?>" class="button is-small">
+										<span class="icon is-small">
+											<i class="fas fa-sort-alpha-down"></i>
+										</span>
+										<span>Filter</span>
+									</a>
+								</div>
 							</div>
 						</form>
 					</div>
@@ -58,6 +66,15 @@
 										<i class="fas fa-bars"></i>
 									</span>
 									<span>Assigned List</span>
+								</a>
+							</p>
+							<p class="control">
+								<a href='<?= base_url('admin/get_damaged_item'); ?>'"
+									class="button is-small <?= (isset($damaged_item)) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-unlink"></i>
+									</span>
+									<span>Damaged List</span>
 								</a>
 							</p>
 							<p class="control">
