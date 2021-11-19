@@ -206,12 +206,10 @@ class Admin extends CI_Controller{
         if ($this->AccessList()["Suppliers"]->read == 0) {
             redirect('admin/dashboard');
         }
-       
         $limit = 25;
         if($this->input->get('limit')) {
             $limit = $this->input->get('limit');
         }
-
         if(!empty($offset)){
             $config['uri_segment'] = 3;
         }
@@ -1338,14 +1336,36 @@ class Admin extends CI_Controller{
     public function categories($offset = null){
         if ($this->AccessList()["Categories"]->read == 0) {
             redirect('admin/dashboard');
+        } 
+      
+        $limit = 25;
+        if($this->input->get('limit')) {
+            $limit = $this->input->get('limit');
         }
-        $limit = 15;
+
         if(!empty($offset)){
-            $this->uri->segment(3);
+            $config['uri_segment'] = 3;
         }
-        $url = 'admin/categories';
+    
+        $this->load->library('pagination');
+        $url = base_url('admin/categories');
         $rowscount = $this->admin_model->count_categories();
-        paginate($url, $rowscount, $limit);
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
+        $this->pagination->initialize($config);
+ 
         $data['title'] = 'Categories > Admin & Procurement';
         $data['body'] = 'admin/categories';
         $data['categories'] = $this->admin_model->categories($limit, $offset);

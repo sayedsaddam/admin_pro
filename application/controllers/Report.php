@@ -37,10 +37,40 @@ public function asset_report(){
     $this->load->view('admin/commons/new_template', $data);
 } 
 // Search filters - search Asset
-public function filter_asset(){
+public function filter_asset($offset = null){
 if ($this->AccessList()["Assets"]->read == 0) {
     redirect('admin/dashboard');
 }
+
+$limit = 25;
+if($this->input->get('limit')) {
+    $limit = $this->input->get('limit');
+}
+
+if(!empty($offset)){
+    $config['uri_segment'] = 3;
+}
+
+$this->load->library('pagination');
+$url = base_url('report/filter_asset');
+$rowscount = $this->admin_model->count_assets();
+
+$config['base_url'] = $url;
+$config['total_rows'] = $rowscount;
+$config['per_page'] = $limit;
+$config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+$config['cur_tag_close'] = '</a>';
+$config['num_tag_open'] = '<li>';
+$config['num_tag_open'] = '</li>';
+$config['first_link'] = 'First';
+$config['prev_link'] = 'Previous';
+$config['next_link'] = 'Next';
+$config['last_link'] = 'Last';
+$config['attributes'] = array('class' => 'pagination-link');
+$config['reuse_query_string'] = true;
+$this->pagination->initialize($config);
+
+
 $data = array(
     'category' => $this->input->get('category'),
     'sub_categories' => $this->input->get('sub_categories'),
@@ -52,7 +82,7 @@ $data = array(
 //  print_r($data['category']);exit;
 $data['title'] = 'Search Results > Assets';
 $data['body'] = 'admin/report/filter-asset';
-$data['results'] = $this->report_model->filter_asset($data); 
+$data['results'] = $this->report_model->filter_asset($limit, $offset,$data); 
 $data['filter_asset'] = true;
 $data['breadcrumb'] = array("admin/report/report-list" => "Asets Reports List");
 $this->load->view('admin/commons/new_template', $data);
@@ -71,10 +101,38 @@ $data['breadcrumb'] = array("admin/report/supplier-report" => "Supplier Reports"
 $this->load->view('admin/commons/new_template', $data);
 } 
 // filters - search suppliers
-public function filter_supplier(){
+public function filter_supplier($offset = null){
 if ($this->AccessList()["Suppliers"]->read == 0) {
     redirect('admin/dashboard');
 }
+
+$limit = 25;
+if($this->input->get('limit')) {
+    $limit = $this->input->get('limit');
+}
+if(!empty($offset)){
+    $config['uri_segment'] = 3;
+}
+
+$this->load->library('pagination');
+$url = base_url('report/filter_supplier');
+$rowscount = $this->admin_model->count_suppliers();
+
+$config['base_url'] = $url;
+$config['total_rows'] = $rowscount;
+$config['per_page'] = $limit;
+$config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+$config['cur_tag_close'] = '</a>';
+$config['num_tag_open'] = '<li>';
+$config['num_tag_open'] = '</li>';
+$config['first_link'] = 'First';
+$config['prev_link'] = 'Previous';
+$config['next_link'] = 'Next';
+$config['last_link'] = 'Last';
+$config['attributes'] = array('class' => 'pagination-link');
+$config['reuse_query_string'] = true;
+$this->pagination->initialize($config);
+
 $data = array(
     'name' => $this->input->get('name'),
     'category' => $this->input->get('category'),
@@ -86,7 +144,7 @@ $data = array(
 );
 $data['title'] = 'Search Results > Filter Suppliers';
 $data['body'] = 'admin/report/filter-supplier';
-$data['results'] = $this->report_model->filter_supplier($data);
+$data['results'] = $this->report_model->filter_supplier($limit, $offset,$data);
 $data['locations'] = $this->admin_model->list_locations_suppliers();
 $data['suppliers_page'] = true;
 $data['breadcrumb'] = array("admin/report/filter-suppliers" => "Filter Suppliers", "Search: ");
@@ -106,7 +164,35 @@ public function employee_report(){
     $data['breadcrumb'] = array("report/employee-report" => "Employee Report");
     $this->load->view('admin/commons/new_template', $data);
 }
-public function filter_employee(){
+public function filter_employee($offset = null){
+
+    $limit = 25;
+    if($this->input->get('limit')) {
+        $limit = $this->input->get('limit');
+    }
+    if(!empty($offset)){
+        $config['uri_segment'] = 3;
+    }
+    
+    $this->load->library('pagination');
+    $url = base_url('report/filter_employee');
+    $rowscount = $this->admin_model->count_employ();
+    
+    $config['base_url'] = $url;
+    $config['total_rows'] = $rowscount;
+    $config['per_page'] = $limit;
+    $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+    $config['cur_tag_close'] = '</a>';
+    $config['num_tag_open'] = '<li>';
+    $config['num_tag_open'] = '</li>';
+    $config['first_link'] = 'First';
+    $config['prev_link'] = 'Previous';
+    $config['next_link'] = 'Next';
+    $config['last_link'] = 'Last';
+    $config['attributes'] = array('class' => 'pagination-link');
+    $config['reuse_query_string'] = true;
+    $this->pagination->initialize($config);
+
     $data = array(
         'user_name' => ucfirst($this->input->get('user_name')),
         'fullname' => ucfirst($this->input->get('full_name')),
@@ -117,11 +203,10 @@ public function filter_employee(){
         'region' => ucfirst($this->input->get('region')), 
         'dob' => $this->input->get('dob'),
         'doj' => $this->input->get('doj')
-    ); 
-    // print_r($data['phone']);exit;
+    );  
     $data['title'] = 'Employ | Admin & Procurement';
     $data['body'] = 'admin/report/filter-employee';
-    $data['employ'] = $this->report_model->filter_employee($data);
+    $data['results'] = $this->report_model->filter_employee($limit, $offset,$data);
     $data['locations'] = $this->admin_model->list_locations_suppliers();
     $data['employees_filter'] = true; 
     $data['breadcrumb'] = array("report/employee-filter" => "Employee Report filter");
@@ -159,7 +244,7 @@ public function filter_item($offset = null){
     }
 
     $this->load->library('pagination');
-    $url = base_url('admin/item_register');
+    $url = base_url('report/filter_item');
     $rowscount = $this->admin_model->count_item();
     $config['base_url'] = $url;
     $config['total_rows'] = $rowscount;
@@ -208,7 +293,36 @@ $this->load->view('admin/commons/new_template', $data);
     $this->load->view('admin/commons/new_template', $data);
 } 
 // Search filters - search asset register
-public function filter_project(){
+public function filter_project($offset = null){
+
+    $limit = 25;
+    if($this->input->get('limit')) {
+        $limit = $this->input->get('limit');
+    }
+
+    if(!empty($offset)){
+        $config['uri_segment'] = 3;
+    }
+
+    $this->load->library('pagination');
+    $url = base_url('report/filter_project');
+    $rowscount = $this->admin_model->count_projects();
+
+    $config['base_url'] = $url;
+    $config['total_rows'] = $rowscount;
+    $config['per_page'] = $limit;
+    $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+    $config['cur_tag_close'] = '</a>';
+    $config['num_tag_open'] = '<li>';
+    $config['num_tag_open'] = '</li>';
+    $config['first_link'] = 'First';
+    $config['prev_link'] = 'Previous';
+    $config['next_link'] = 'Next';
+    $config['last_link'] = 'Last';
+    $config['attributes'] = array('class' => 'pagination-link');
+    $config['reuse_query_string'] = true;
+    $this->pagination->initialize($config);
+
     $data = array(
         'project_name' => $this->input->get('project_name'),
         'created_at' => $this->input->get('date'),
@@ -217,7 +331,7 @@ public function filter_project(){
     $data['body'] = 'admin/report/filter-project';
     $data['breadcrumb'] = array("admin/report/filter_project" => "Filter Project");
     $data['filter_project'] = true; 
-    $data['results'] = $this->report_model->filter_project($data);
+    $data['results'] = $this->report_model->filter_project($limit, $offset,$data);
     $this->load->view('admin/commons/new_template', $data);
 }
 // invoice_report  
@@ -233,7 +347,34 @@ public function filter_project(){
     }
     
     // Invoices - Add invoice into the database.
-    public function filter_invoice(){  
+    public function filter_invoice($offset = null){ 
+        
+        $limit = 25;
+        if($this->input->get('limit')) {
+            $limit = $this->input->get('limit');
+        }
+        if(!empty($offset)){
+            $config['uri_segment'] = 3;
+        }
+        $this->load->library('pagination');
+        $url = base_url('report/filter_invoice');
+        $rowscount = $this->admin_model->count_invoices();
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
+        $this->pagination->initialize($config);
+
         $data = array(
             'inv_no' => $this->input->get('inv_no'),
             'inv_date' => $this->input->get('inv_date'),
@@ -247,7 +388,7 @@ public function filter_project(){
     $data['body'] = 'admin/report/filter-invoice';
     $data['breadcrumb'] = array("admin/report/filter-invoice" => "Filter Invoice");
     $data['filter_invoice'] = true; 
-    $data['results'] = $this->report_model->filter_invoice($data);
+    $data['results'] = $this->report_model->filter_invoice($limit, $offset,$data);
     $this->load->view('admin/commons/new_template', $data);        
     }
      // 404 page.

@@ -234,8 +234,7 @@
 								<div class="field">
 									<label class="label is-small">Date</label>
 									<div class="control has-icons-left">
-										<input type="date" name="inv_date" id="" class="input is-small"
-											value="">
+										<input type="date" name="inv_date" id="" class="input is-small" value="">
 										<span class="icon is-small is-left">
 											<i class="far fa-calendar-alt"></i>
 										</span>

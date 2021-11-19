@@ -233,21 +233,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="columns">
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Region </label>
-									<div class="control has-icons-left">
-										<input type="text" name="region" id="" class="input is-small"
-											value="" placeholder="e.g KPK">
-										<span class="icon is-small is-left">
-											<i class="fas fa fa-location-arrow"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
+					<div class="columns"> 
 
 						<div class="column">
 							<label class="label is-small">Date of Birth</label>
@@ -261,9 +247,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
-
-					<div class="columns">
+						
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -279,9 +263,6 @@
 								</div>
 							</fieldset>
 						</div> 
-                        <div class="column">
-
-                        </div>
 					</div> 
 
 					<div class="columns">

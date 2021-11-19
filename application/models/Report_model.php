@@ -10,7 +10,7 @@ class Report_model extends CI_Model{
 
 // ************************ all report start below *********************** 
  // Search filters - Asset search 
- public function filter_asset($data){
+ public function filter_asset($limit, $offset,$data){
     $this->db->select('assets.id,
     assets.category,
     assets.quantity, 
@@ -48,11 +48,12 @@ if($data['location'] != null) {
 if($data['quantity'] != null) {
     $this->db->where('quantity', $data['quantity']); 
 } 
+$this->db->limit($limit, $offset);
 return $this->db->get()->result();
 
 }
 // filter supplier 
-  public function filter_supplier($data){ 
+  public function filter_supplier($limit, $offset,$data){ 
     $this->db->select('suppliers.id, suppliers.name,suppliers.email, suppliers.phone, suppliers.location,suppliers.ntn_number,suppliers.category,suppliers.rating, suppliers.region, suppliers.created_at,locations.id as loc_id,locations.name as loc_name');
     $this->db->from('suppliers');
     $this->db->join('locations', 'suppliers.location = locations.id', 'left'); 
@@ -84,18 +85,23 @@ return $this->db->get()->result();
     if($data['rating'] != null){
         $this->db->where('rating', $data['rating']);
     }
-
+    $this->db->limit($limit, $offset);
     return $this->db->get()->result();
 }   
      // Filter employee
-     public function filter_employee($data){
+     public function filter_employee($limit, $offset,$data){
         $this->db->select('users.id as emp_id, users.fullname as emp_name,
                            users.doj, users.email,users.department, 
-                           users.phone, users.location, users.region,
+                           users.phone, users.location,
                            users.address, users.status, 
-                           users.created_at,locations.id,locations.name');
+                           users.created_at,locations.id,locations.name,
+                           locations.id as loc_id,
+                           locations.name as loc_name,
+                           departments.id as dep_id,
+                           departments.department as dep_name');
         $this->db->from('users');
         $this->db->join('locations', 'users.location = locations.id', 'left');
+        $this->db->join('departments', 'users.department = departments.id', 'left');
         
         if($data['fullname'] != null){
             $this->db->where('fullname', $data['fullname']);
@@ -121,6 +127,7 @@ return $this->db->get()->result();
         if($data['location'] != null){
             $this->db->where('location', $data['location']);
         } 
+        $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // filter_item 
@@ -186,7 +193,7 @@ return $this->db->get()->result();
     }
 // project report
 // filter_project
-public function filter_project($data){
+public function filter_project($limit, $offset,$data){
     $this->db->select('id,project_name,project_desc,status,created_at');
     $this->db->from('projects');
     if($data['created_at'] != null){ 
@@ -195,10 +202,11 @@ public function filter_project($data){
     if($data['project_name'] != null){ 
         $this->db->like(array('project_name' => $data['project_name']));
     }
+    $this->db->limit($limit, $offset);
     return $this->db->get()->result();
 }
 // filter_invoice 
-  public function filter_invoice($data){
+  public function filter_invoice($limit, $offset,$data){
     $this->db->select('invoices.id, 
     invoices.inv_no, 
     invoices.inv_date, 
@@ -242,6 +250,7 @@ if($data['item'] != null){
 if($data['amount'] != null){
     $this->db->where('amount', $data['amount']);
 }
+$this->db->limit($limit, $offset);
 return $this->db->get()->result();
 }
 

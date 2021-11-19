@@ -155,41 +155,10 @@
 												<th class="has-text-weight-semibold">Action</th>
 											</tr>
 										</tfoot>
-										<?php if(empty($results)): ?>
-										<tbody>
-											<?php if(!empty($projects)): foreach($projects as $project): ?>
-											<tr>
-												<td><?= 'S2S-0'.$project->id; ?></td>
-												<td> <span class="tag"><?= $project->project_name; ?></span></td>
-												<td><?= ucfirst($project->project_desc); ?></td>
-												<td><?= date('M d, Y', strtotime($project->created_at)); ?></td>
-												<td><?php if($project->status == 1){ echo "<span class='tag is-success is-light'>Active</span>"; }else{ echo "<span class='tag is-warning is-light'>DeActive</span>"; } ?>
-												</td>
-												<td class="">
-													<div class="field has-addons">
-														<a href="<?= base_url('admin/edit_project/'.$project->id); ?>"
-															class="button is-small">
-															<span class="icon is-small">
-																<i class="fas fa-edit"></i>
-															</span>
-														</a>
-														<?php if($project->status == 1){ ?>
-															<a href="<?=base_url('admin/de_active_project/'.$project->id);?>"
-															class="button is-small"><span class="icon is-small has-text-danger"><i class="fas fa-ban"></i></span></a>
-															<?php } else{?>
-																<a href="<?=base_url('admin/active_project/'.$project->id);?>"
-															class="button is-small"><span class="icon is-small has-text-success"><i class="fa fa-check"></i></span></a>
-                                                        <?php } ?>
-													</div>
-												</td>
-											</tr>
-											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
-										</tbody>
-										<?php else: ?>
+										<?php if(!empty($results)): ?>
 										<tbody>
 											<?php if(!empty($results)): foreach($results as $res): ?>
 											<tr>
-
 												<td><?= 'CTC-0'.$res->id; ?></td>
 												<td><?= $res->project_name; ?></td>
 												<td><?= ucfirst($res->project_desc); ?></td>
@@ -238,7 +207,7 @@
  						<div class="column is-hidden-print">
  							<nav class="pagination is-small" role="navigation" aria-label="pagination"
  								style="justify-content: center;">
- 								<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
+ 								<?php if(!empty($results)){ echo $this->pagination->create_links(); } ?>
  							</nav>
  						</div>
  						<div class="column is-hidden-print">
