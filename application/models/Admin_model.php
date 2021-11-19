@@ -1403,7 +1403,7 @@ public function update_invoice($id, $data){
     }
 
     // Get items.
-    public function get_items($limit, $offset, $date_from = null, $date_to = null ){
+    public function get_items($limit, $offset){
         $this->db->select('items.id, items.location, items.category, items.sub_category, items.type_name, items.model, items.status as item_status, items.serial_number, items.supplier, items.price, items.quantity, items.depreciation, items.purchasedate, items.created_at, users.fullname as employ_name, users.id as employ_id, sub_categories.name as names, categories.cat_name, locations.name, item_assignment.id as item_ids, item_assignment.assignd_to, item_assignment.item_id, item_assignment.status, item_assignment.return_back_date, suppliers.id sup_id, suppliers.name as sup_name ');
         $this->db->from('items');
         $this->db->join('categories', 'items.category = categories.id', 'left');
@@ -1412,9 +1412,6 @@ public function update_invoice($id, $data){
         $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
         $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
         $this->db->join('suppliers', 'items.supplier = suppliers.id', 'left');
-        if (!empty($date_from) && !empty($date_to)) {  
-            $this->db->where('items.created_at BETWEEN \'' . $date_from . '\' AND \'' . $date_to . '\'');
-        }
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('items.location', $this->session->userdata('location'));
         }

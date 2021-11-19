@@ -23,16 +23,18 @@ class Admin extends CI_Controller{
       
     }
 
-    public function AccessList() {
+    private function AccessList() {
         $user_role = $this->session->userdata('user_role');
         $userAccess = $this->admin_model->request_db_configs($user_role);
         return $arrayName = array('Assets' => $userAccess[0], 'Suppliers' => $userAccess[1], 'Employees' => $userAccess[2], 'Categories' => $userAccess[3], 'Register' => $userAccess[4]);
     }
 
-    // Load the dashboard.
+    // Redirects to `Dashboard` view.
     public function index(){
        redirect('admin/dashboard');
     }
+
+    // Loads the `Dashboard` view.
     public function dashboard() {
         $data['title'] = 'Home | Admin & Procurement';
         $data['body'] = 'admin/dashboard';
