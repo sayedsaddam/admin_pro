@@ -179,7 +179,24 @@
 				</div>
 
 				<div class="column">
-					<div class="columns"> 
+					<div class="columns">
+						<div class="column is-hidden-print">
+							<label class="mr-2">Number of Records:</label>
+							<select class="result_limit">
+								<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
+								</option>
+								<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
+								</option>
+								<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
+								</option>
+							</select>
+						</div>
+						<div class="column is-hidden-print">
+							<nav class="pagination is-small" role="navigation" aria-label="pagination"
+								style="justify-content: center;">
+								<?php if(!empty($results)){ echo $this->pagination->create_links(); } ?>
+							</nav>
+						</div>
 						<div class="column is-hidden-print">
 							<div class="buttons is-pulled-right">
 								<button onClick="window.print();" type="button" class="button is-small ">
@@ -188,7 +205,7 @@
 									</span>
 									<span>Print</span>
 								</button>
-								<a href="javascript:exportTableToExcel('myTable','Assets Reports');" type="button"
+								<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
 									class="button is-small ">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>
