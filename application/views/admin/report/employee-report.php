@@ -12,12 +12,12 @@
 				</div>
 				<div class="columns">
 					<div class="column">
-						<form action="<?= base_url('report/filter_asset'); ?>" method="get">
+						<form action="<?= base_url('report/filter_employee') ?>" method="GET">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" type="search"
-										placeholder="Search Assets Reports"
-										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>">
+										placeholder="Filter Employees"
+										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
 									</span>
@@ -30,9 +30,9 @@
 								</div>
 							</div>
 						</form>
-					</div>
-
-					<div class="column is-hidden-touch is-narrow">
+					</div> 
+                    
+					<div class="column is-hidden-touch is-narrow is-hidden-print">
 						<div class="field has-addons">
 							<p class="control">
 								<a href='<?= base_url('report/asset_report'); ?>'
@@ -44,7 +44,7 @@
 								</a>
 							</p>
 							<p class="control">
-								<a href='<?= base_url('report/supplier_report'); ?>'
+								<a href='<?= base_url('report/supplier_report'); ?>'"
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-file"></i>
@@ -53,7 +53,7 @@
 								</a>
 							</p>
 							<p class="control">
-								<a href='<?= base_url('report/employee_report'); ?>'
+								<a href='<?= base_url('report/employee_report'); ?>'"
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-file"></i>
@@ -94,15 +94,19 @@
 							<?php endif ?>
 						</div>
 					</div>
-
 				</div>
 
 				<?php if($this->session->flashdata('success')) : ?>
 				<div class="columns">
 					<div class="column">
 						<div class="notification is-success is-light">
-							<button class="delete"></button>
-							<?= $message = $this->session->flashdata('success'); ?>
+							<button class="delete is-small"></button>
+							<div class="columns is-vcentered">
+								<div class="column is-size-7">
+									<i class="fas fa-check pr-1"></i>
+									<?= $message = $this->session->flashdata('success'); ?>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -110,152 +114,188 @@
 				<div class="columns">
 					<div class="column">
 						<div class="notification is-danger is-light">
-							<button class="delete"></button>
-							<?= $message = $this->session->flashdata('failed'); ?>
+							<button class="delete is-small"></button>
+							<div class="columns is-vcentered">
+								<div class="column is-size-7">
+									<i class="fas fa-exclamation pr-1"></i>
+									<?= $message = $this->session->flashdata('failed'); ?>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 				<?php endif ?>
 
-				<form action="<?php echo base_url('report/filter_asset')?>"
-					method="get"> 
+				<form action="<?php echo base_url('report/filter_employee'); ?>" method="get"> 
 					<div class="columns">
-						
-					<div class="column">
-						<fieldset>
-								<div class="field">
-									<label class="label is-small">Category</label>
-									<div class="control has-icons-left">
-										<span class="select is-small is-fullwidth">
-											<select name="category" id="category">
-												<option selected disabled value="">Select a Category</option>
-												<?php if(!empty($categories)): foreach($categories as $cat): ?>
-												<option value="<?= $cat->id; ?>">
-													<?= ucwords($cat->cat_name); ?>
-												</option>
-												<?php endforeach; endif; ?>
-											</select>  
-										</span>
-										<span class="icon is-small is-left">
-											<i class="fas fa-tags"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset> 
-						</div>
-
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Subcategory</label>
+									<label class="label is-small">Username </label>
 									<div class="control has-icons-left">
-										<span class="select is-small is-fullwidth">
-											 
-											<select name="sub_categories" id="sub_categories">
-												<option selected disabled value="">Select a Subcategory</option>
-												<?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
-												<option value="<?= $cat->id; ?>"
-													>
-													<?= ucwords($cat->name); ?>
-												</option>
-												<?php endforeach; endif; ?>
-											</select>  
-										</span>
+										<input type="text" name="user_name" id="" class="input is-small"
+											value="" type="text"
+											placeholder="e.g john_doe">
 										<span class="icon is-small is-left">
-											<i class="fas fa-luggage-cart"></i>
+											<i class="fas fa-user-tie"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Fullname </label>
+									<div class="control has-icons-left">
+										<input type="text" name="full_name" id="" class="input is-small"
+											value="" type="text"
+											placeholder="e.g John Doe">
+										<span class="icon is-small is-left">
+											<i class="fas fa-signature"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+
+					<div class="columns">
+						<div class="column">
+							<div class="control has-icons-left">
+								<label class="label is-small">Location</label>
+								<div class="select is-small is-fullwidth">
+									<select name="location" id="location"> 
+										<option selected disabled value="">Select a City</option> 
+										<?php foreach($locations as $loc): ?>
+										<option value="<?= $loc->id; ?>">
+											<?= $loc->name; ?>
+										</option>
+										<?php endforeach; ?>
+									</select> 
+								<span class="icon is-small is-left">
+									<i class="fas fa-street-view"></i>
+								</span>
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="control">
+
+								<fieldset>
+									<div class="field">
+										<label class="label is-small">Email</label>
+										<div class="control has-icons-left">
+											<input type="email" name="email" id="" class="input is-small"
+												value="" type="text"
+												placeholder="e.g user@example.com">
+											<span class="icon is-small is-left">
+												<i class="fas fa-envelope"></i>
+											</span>
+										</div>
+									</div>
+								</fieldset>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="columns">
+						<div class="column">
+							<label class="label is-small">Phone No</label>
+							<div class="control has-icons-left">
+								<div class="is-small is-fullwidth">
+									<input type="number" name="phone" id="" class="input is-small"
+										value="" type="text"
+										placeholder="e.g 03311234567">
+									<span class="icon is-small is-left">
+										<i class="fas fa-phone"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<label class="label is-small">Dapartment</label>
+							<div class="control has-icons-left">
+								<div class="select select is-small is-fullwidth">
+									<select name="department" id="">  
+									<option selected disabled value="">Select Department</option> 
+                                    <?php foreach($departments as $department): ?>
+										<option value="<?= $department->id; ?>">
+											<?= $department->department; ?>
+										</option>
+										<?php endforeach; ?> 
+									</select>
+									<div class="icon is-small is-left">
+										<i class="fas fa-building"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="columns">
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Region </label>
+									<div class="control has-icons-left">
+										<input type="text" name="region" id="" class="input is-small"
+											value="" placeholder="e.g KPK">
+										<span class="icon is-small is-left">
+											<i class="fas fa fa-location-arrow"></i>
 										</span>
 									</div>
 								</div>
 							</fieldset>
 						</div>
 
-					</div>
-
-					<div class="columns"> 
 						<div class="column">
-							<div class="control">
-								<label class="label is-small">Quantity</label>
-								<div class="select is-small is-fullwidth">
-									<div class="control has-icons-left">
-										<input type="number" name="quantity" id="" class="input is-small"
-											value="" type="text"
-											placeholder="1-99">
-										<span class="icon is-small is-left">
-											<i class="fas fa-sort-numeric-up"></i>
-										</span>
-									</div>
+							<label class="label is-small">Date of Birth</label>
+							<div class="is-small is-fullwidth"> 
+								<div class="control has-icons-left">
+									<input type="date" name="dob" id="" class="input is-small"
+									value="" placeholder="e.g 31/01/1990">
+									<span class="icon is-small is-left">
+										<i class="fas fa fa-birthday-cake"></i>
+									</span>
 								</div>
 							</div>
-						</div> 
-						
-						<div class="column">
-							<div class="control">
-								<label class="label is-small">Price (PKR)</label>
-								<div class="select is-small is-fullwidth">
-									<div class="control has-icons-left">
-										<input type="number" name="price" id="" class="input is-small"
-											value="" type="text"
-											placeholder="1-9,999,999">
-										<span class="icon is-small is-left">
-											<i class="far fa-money-bill-alt"></i>
-										</span>
-									</div>
-								</div>
-							</div>
-						</div> 
+						</div>
 					</div>
-
 
 					<div class="columns">
 						<div class="column">
-							<div class="control">
-								<label class="label is-small">Purchase Date</label>
-								<div class="is-small is-fullwidth">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Joining Date</label>
 									<div class="control has-icons-left">
-										<input name="purchase_date" class="input is-small" type="date"
-											value="">
+ 										<input name="doj" class="input is-small" type="date"
+											value=""
+											placeholder="e.g 31/01/2010">
 										<span class="icon is-small is-left">
-											<i class="far fa-calendar-alt"></i>
+											<i class="fas fa fa-table"></i>
 										</span>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="column">
-							<div class="control">
-								<label class="label is-small">Location </label>
-								<div class="control has-icons-left">
-									<span class="select is-small is-fullwidth">
-										<select name="location" id="" class="browser-default custom-select ">
-											<option disabled value="" selected>Select Category</option>
-											<?php foreach($locations as $loc): ?>
-											<?php if ($loc->id == $this->session->userdata('location') || $this->session->userdata('user_role') == '1') : ?>
-											<option value="<?= $loc->id; ?>">												
-												<?= ucwords($loc->name); ?>
-											</option>
-											<?php endif ?>
-											<?php endforeach; ?>
-										</select>
-									</span>
-									<span class="icon is-small is-left">
-										<i class="fas fa-globe"></i>
-									</span>
-								</div>
-							</div>
-						</div>
+							</fieldset>
+						</div> 
+                        <div class="column">
+
+                        </div>
 					</div> 
+
 					<div class="columns">
 						<div class="column has-text-right">
 							<div class="buttons is-pulled-right"> 
 								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
-								<p class="control" >
+								<p class="control">
 									<button class="button is-small is-success" type="submit">
-										<span><?= 'Filter ' ?></span>
+										<span><?=  'Report' ?></span>
 										<span class="icon is-small">
 											<i class="fas fa-arrow-right"></i>
 										</span>
 									</button>
-								</p> 
+								</p>
 							</div>
 						</div>
 					</div>
@@ -263,33 +303,8 @@
 			</div>
 		</div>
 	</div>
-</section> 
+</section>
 <script>
-$(document).ready(function () {
-
-// category change
-$('#category').on('change', function () {
-	// AJAX request
-	var category = $(this).val();
-	$.ajax({
-		url: '<?= base_url("admin/get_item_sub_categories/"); ?>' + category,
-		method: 'POST',
-		data: {
-			category: category
-		},
-		dataType: 'json',
-		success: function (response) {
-			// Remove options 
-			$('#sub_categories').find('option').not(':first').remove();
-
-			// Add options
-			$.each(response, function (index, data) {
-				$('#sub_categories').append('<option value="' + data['id'] + '">' + data['name'] + '</option>');
-			});
-		}
-	});
-});
-});
 
 
 </script>
