@@ -17,7 +17,7 @@
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
-										placeholder="Search Project"
+										placeholder="Filter Project"
 										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
@@ -29,37 +29,67 @@
 										</span>
 									</button>
 								</div>
-								<div class="ml-1 control">
-									<a href="<?= base_url('report/project_report') ?>" class="button is-small">
-										<span class="icon is-small">
-											<i class="fas fa-sort-alpha-down"></i>
-										</span>
-										<span>Filter</span>
-									</a>
-								</div>
 							</div>
 						</form>
 					</div>
-					<div class="column is-hidden-print is-narrow">
+			
+                    <div class="column is-hidden-touch is-narrow is-hidden-print">
 						<div class="field has-addons">
 							<p class="control">
-								<a href='<?= base_url('admin/projects'); ?>'"
-									class="button is-small <?= isset($project_list) ? 'has-background-primary-light' : '' ?>">
+								<a href='<?= base_url('report/asset_report'); ?>'
+									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-list"></i>
+										<i class="fas fa-file"></i>
 									</span>
-									<span>Project List</span>
+									<span>Assets</span>
+								</a>
+							</p>
+							<p class="control">
+								<a href='<?= base_url('report/supplier_report'); ?>'"
+									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-file"></i>
+									</span>
+									<span>Supplier</span>
+								</a>
+							</p>
+							<p class="control">
+								<a href='<?= base_url('report/employee_report'); ?>'
+									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-file"></i>
+									</span>
+									<span>Employee</span>
+								</a>
+							</p> 
+							<p class="control">
+								<a href='<?= base_url('report/item_report'); ?>'
+									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-file"></i>
+									</span>
+									<span>Item</span>
 								</a>
 							</p>
 							<?php if($AssetsAccess->write == 1) : ?>
 							<p class="control">
-								<a href='<?= base_url('admin/add_project'); ?>'"
-									data-target="#add_supplier"
-									class="button is-small <?= (isset($add_project)) ? 'has-background-primary-light' : '' ?>">
+								<a href='<?= base_url('report/project_report'); ?>'
+									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-plus"></i>
+										<i class="fas fa-file"></i>
 									</span>
-									<span>Add New</span>
+									<span>Project</span>
+								</a>
+							</p>
+							<?php endif ?>
+							<?php if($AssetsAccess->write == 1) : ?>
+							<p class="control">
+								<a href='<?= base_url('report/invoice_report'); ?>'"
+									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-file"></i>
+									</span>
+									<span>Invoice</span>
 								</a>
 							</p>
 							<?php endif ?>
@@ -125,41 +155,10 @@
 												<th class="has-text-weight-semibold">Action</th>
 											</tr>
 										</tfoot>
-										<?php if(empty($results)): ?>
-										<tbody>
-											<?php if(!empty($projects)): foreach($projects as $project): ?>
-											<tr>
-												<td><?= 'S2S-0'.$project->id; ?></td>
-												<td> <span class="tag"><?= $project->project_name; ?></span></td>
-												<td><?= ucfirst($project->project_desc); ?></td>
-												<td><?= date('M d, Y', strtotime($project->created_at)); ?></td>
-												<td><?php if($project->status == 1){ echo "<span class='tag is-success is-light'>Active</span>"; }else{ echo "<span class='tag is-warning is-light'>DeActive</span>"; } ?>
-												</td>
-												<td class="">
-													<div class="field has-addons">
-														<a href="<?= base_url('admin/edit_project/'.$project->id); ?>"
-															class="button is-small">
-															<span class="icon is-small">
-																<i class="fas fa-edit"></i>
-															</span>
-														</a>
-														<?php if($project->status == 1){ ?>
-															<a href="<?=base_url('admin/de_active_project/'.$project->id);?>"
-															class="button is-small"><span class="icon is-small has-text-danger"><i class="fas fa-ban"></i></span></a>
-															<?php } else{?>
-																<a href="<?=base_url('admin/active_project/'.$project->id);?>"
-															class="button is-small"><span class="icon is-small has-text-success"><i class="fa fa-check"></i></span></a>
-                                                        <?php } ?>
-													</div>
-												</td>
-											</tr>
-											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
-										</tbody>
-										<?php else: ?>
+										<?php if(!empty($results)): ?>
 										<tbody>
 											<?php if(!empty($results)): foreach($results as $res): ?>
 											<tr>
-
 												<td><?= 'CTC-0'.$res->id; ?></td>
 												<td><?= $res->project_name; ?></td>
 												<td><?= ucfirst($res->project_desc); ?></td>
@@ -208,7 +207,7 @@
  						<div class="column is-hidden-print">
  							<nav class="pagination is-small" role="navigation" aria-label="pagination"
  								style="justify-content: center;">
- 								<?php if(!empty($projects)){ echo $this->pagination->create_links(); } ?>
+ 								<?php if(!empty($results)){ echo $this->pagination->create_links(); } ?>
  							</nav>
  						</div>
  						<div class="column is-hidden-print">

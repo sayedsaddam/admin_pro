@@ -1,3 +1,4 @@
+<?php $session = $this->session->userdata('user_role'); ?>
 <section class="columns is-gapless mb-0 pb-0">
 	<div class="column is-narrow is-fullheight is-hidden-print" id="custom-sidebar">
 		<?php $this->view('admin/commons/sidebar'); ?>
@@ -13,11 +14,11 @@
 
 				<div class="columns is-hidden-touch">
 					<div class="column is-hidden-print">
-						<form action="<?= base_url('admin/filter_asset'); ?>" method="get">
+						<form action="<?= base_url('admin/search_employ') ?>" method="get">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
-										placeholder="Search Assets Report"
+										placeholder="Filter Employee"
 										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
@@ -32,7 +33,6 @@
 							</div>
 						</form>
 					</div>
-				
 					<div class="column is-hidden-touch is-narrow is-hidden-print">
 						<div class="field has-addons">
 							<p class="control">
@@ -97,87 +97,82 @@
 					</div>
 				</div>
 
-
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
 						<div class="tile is-child box">
+
 							<div class="columns" style="display: grid">
-								<div class="column table-container ">
-									<table class="table table-sm is-fullwidth" id="myTable">
+								<div class="column table-container">
+									<table class="table is-hoverable is-fullwidth">
+										<caption><?php if(empty($results)){ echo ''; }else{ echo ''; } ?></caption>
 										<thead>
 											<tr>
-												<th class="has-text-weight-semibold">ID</th>
-												<th class="has-text-weight-semibold">Category</th> 
-												<th class="has-text-weight-semibold"><abbr
-														title="Quantity">Quantity</abbr></th>
-												<th class="has-text-weight-semibold"><abbr
-														title="Purchase Date">PD</abbr></th>
-												<th class="has-text-weight-semibold">Location</th>
-												<th class="has-text-weight-semibold">User</th> 
-												<?php if($AssetsAccess->update == 1 || $AssetsAccess->delete == 1) : ?>
-												<th class="has-text-weight-semibold is-hidden-print">Action</th>
-												<?php endif ?>
+												<th class="font-weight-bold">ID</th>
+												<th class="font-weight-bold">Name</th>
+												<th class="font-weight-bold">Phone</th>
+												<th class="font-weight-bold">Location</th>
+												<th class="font-weight-bold">Department</th>
+												<th class="font-weight-bold">DOJ</th>
+												<th class="font-weight-bold">Status</th>
+												<th class="font-weight-bold">Date</th>
+												<th class="font-weight-bold">Action</th>
 											</tr>
 										</thead>
-										<tfoot class="is-hidden-print">
+										<tfoot>
 											<tr>
-												<th class="has-text-weight-semibold">ID</th>
-												<th class="has-text-weight-semibold">Category</th> 
-												<th class="has-text-weight-semibold"><abbr
-														title="Quantity">Quantity</abbr></th>
-												<th class="has-text-weight-semibold"><abbr
-														title="Purchase Date">PD</abbr></th>
-												<th class="has-text-weight-semibold">Location</th>
-												<th class="has-text-weight-semibold">User</th> 
-												<?php if($AssetsAccess->update == 1 || $AssetsAccess->delete == 1) : ?>
-												<th class="has-text-weight-semibold is-hidden-print">Action</th>
-												<?php endif ?>
+												<th class="font-weight-bold">ID</th>
+												<th class="font-weight-bold">Name</th>
+												<th class="font-weight-bold">Phone</th>
+												<th class="font-weight-bold">Location</th>
+												<th class="font-weight-bold">Department</th>
+												<th class="font-weight-bold">DOJ</th>
+												<th class="font-weight-bold">Status</th>
+												<th class="font-weight-bold">Date</th>
+												<th class="font-weight-bold">Action</th>
 											</tr>
-										</tfoot>
-										<?php if(empty($results)): ?>
-										<?php else: ?>
-										<tbody>
+										</tfoot> 
+										<tbody id="myTable">
 											<?php if(!empty($results)): foreach($results as $res): ?>
-											<tr> 
-												<td><?= 'S2S-0'.$res->id; ?></td>
-												<td><?= $res->cat_name; ?></td> 
-												<td><?= ucfirst($res->quantity); ?></td>
-												<td><?= ucfirst($res->purchase_date); ?></td>
-												<td><?= ucfirst($res->loc_name); ?></td>
-												<td><?= ucfirst($res->user); ?></td>  
+											<tr
+												onclick="window.location='<?= base_url('admin/edit_employ/'.$res->id); ?>';">
+												<td><?= 'S2S-'.$res->id; ?></td>
+												<td><abbr
+														title="<?= $res->email; ?>"><?= ucwords($res->emp_name); ?></abbr>
 												</td>
-												<td class="is-narrow is-hidden-print">
-													<div class="field has-addons">
-														<?php if($AssetsAccess->update == 1) : ?>
-														<p class="control">
-															<a href="<?= base_url('admin/asset_detail/'.$res->id); ?>"
-																class="button is-small">
-																<span class="icon is-small">
-																	<i class="fas fa-edit"></i>
-																</span>
-															</a>
-														</p>
-														<?php endif ?>
-														<?php if ($AssetsAccess->delete == 1) : ?>
-														<a href="<?=base_url('admin/delete_asset/'.$res->id);?>"
-															onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
-															class="button is-small"><span
-																class="icon is-small has-text-danger"><i
-																	class="fa fa-times"></i></span></a>
-														<?php endif ?>
-													</div>
+												<td><?= $res->phone; ?></td>
+												<td><?= ucwords($res->loc_name); ?></td>
+												<td><?= ucwords($res->dep_name); ?></td>
+												<td><?= date('M d, Y', strtotime($res->doj)); ?></td>
+												<td>
+													<?php if($res->status == 1): ?>
+													<span class="tag is-success is-light">Active</span>
+													<?php else: ?>
+													<span class="tag is-danger is-light">Inactive</span>
+													<?php endif; ?>
+												</td>
+												<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
+												<td class="is-narrow">
+													<a data-id="<?= $res->id; ?>"
+														class="supplier_info button is-small"><span
+															class="icon is-small"><i class="fa fa-edit"></i></span></a>
+													<?php if($session == 'admin'){ ?>
+													<a href="<?=base_url('admin/delete_employ/'.$res->id);?>"
+														onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
+														class="button is-small"><span
+															class="icon is-small has-text-danger"><i
+																class="fa fa-times"></i></span></a>
+													<?php } ?>
 												</td>
 											</tr>
-											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
-										</tbody>
-										<?php endif; ?>
+											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
+										</tbody> 
 									</table>
 								</div>
+
 							</div>
 						</div>
 					</div>
 				</div>
-
 				<div class="column">
 					<div class="columns">
 						<div class="column is-hidden-print">
@@ -222,58 +217,7 @@
 	$(document).ready(function () {
 		$(".result_limit").on('change', function () {
 			var val = $(this).val();
-			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_asset_register' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_employ' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
 		})
 	})
-
-	function exportTableToExcel(tableId, filename) {
-		let dataType = 'application/vnd.ms-excel';
-		let extension = '.xls';
-
-		let base64 = function (s) {
-			return window.btoa(unescape(encodeURIComponent(s)))
-		};
-
-		let template =
-			'<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';
-		let render = function (template, content) {
-			var r1 = template.replace(/{(\w+)}/g, function (m, p) {
-				return content[p];
-			});
-			var r2 = r1.replace(/{(\w+)}/g, function (m, p) {
-				return content[p];
-			});
-			return r2
-		};
-
-		let tableElement = document.getElementById(tableId);
-
-		let tableExcel = render(template, {
-			worksheet: filename,
-			table: tableElement.innerHTML
-		});
-
-		filename = filename + extension;
-
-		if (navigator.msSaveOrOpenBlob) {
-			let blob = new Blob(
-				['\ufeff', tableExcel], {
-					type: dataType
-				}
-			);
-
-			navigator.msSaveOrOpenBlob(blob, filename);
-		} else {
-			let downloadLink = document.createElement("a");
-
-			document.body.appendChild(downloadLink);
-
-			downloadLink.href = 'data:' + dataType + ';base64,' + base64(tableExcel);
-
-			downloadLink.download = filename;
-
-			downloadLink.click();
-		}
-	}
-
 </script>

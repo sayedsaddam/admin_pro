@@ -16,7 +16,7 @@
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
-										placeholder="Search Invoices"
+										placeholder="Filter Invoices"
 										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
@@ -28,42 +28,73 @@
 										</span>
 									</button>
 								</div>
-								<div class="ml-1 control">
-									<a href="<?= base_url('report/invoice_report') ?>" class="button is-small">
-										<span class="icon is-small">
-											<i class="fas fa-sort-alpha-down"></i>
-										</span>
-										<span>Filter</span>
-									</a>
-								</div>
 							</div>
 						</form>
 					</div>
-					<div class="column is-hidden-print is-narrow">
+			
+                    <div class="column is-hidden-touch is-narrow is-hidden-print">
 						<div class="field has-addons">
 							<p class="control">
-								<a href='<?= base_url('admin/invoices'); ?>'"
-									class="button is-small <?= isset($invoices) ? 'has-background-primary-light' : '' ?>">
+								<a href='<?= base_url('report/asset_report'); ?>'
+									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-list"></i>
+										<i class="fas fa-file"></i>
 									</span>
-									<span>Invoice List</span>
+									<span>Assets</span>
+								</a>
+							</p>
+							<p class="control">
+								<a href='<?= base_url('report/supplier_report'); ?>'"
+									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-file"></i>
+									</span>
+									<span>Supplier</span>
+								</a>
+							</p>
+							<p class="control">
+								<a href='<?= base_url('report/employee_report'); ?>'
+									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-file"></i>
+									</span>
+									<span>Employee</span>
+								</a>
+							</p> 
+							<p class="control">
+								<a href='<?= base_url('report/item_report'); ?>'
+									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-file"></i>
+									</span>
+									<span>Item</span>
 								</a>
 							</p>
 							<?php if($AssetsAccess->write == 1) : ?>
 							<p class="control">
-								<a href='<?= base_url('admin/add_invoice'); ?>'"
-									data-target="#add_supplier"
-									class="button is-small <?= (isset($add_invoice)) ? 'has-background-primary-light' : '' ?>">
+								<a href='<?= base_url('report/project_report'); ?>'
+									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-plus"></i>
+										<i class="fas fa-file"></i>
 									</span>
-									<span>Add New</span>
+									<span>Project</span>
+								</a>
+							</p>
+							<?php endif ?>
+							<?php if($AssetsAccess->write == 1) : ?>
+							<p class="control">
+								<a href='<?= base_url('report/invoice_report'); ?>'"
+									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-file"></i>
+									</span>
+									<span>Invoice</span>
 								</a>
 							</p>
 							<?php endif ?>
 						</div>
 					</div>
+
 				</div>
 				<?php if($this->session->flashdata('success')) : ?>
 				<div class="columns">
@@ -116,57 +147,7 @@
 												<th class="has-text-weight-semibold">Action</th>
 											</tr>
 										</thead>
-										<?php if(empty($results)): ?>
-										<tbody>
-											<?php if(!empty($invoices)): foreach($invoices as $inv): ?>
-											<tr>
-												<td><?= 'S2S-'.$inv->id; ?></td>
-												<td><?= $inv->inv_no; ?></td>
-												<td><?= $inv->sup_name; ?></td>
-												<td><?= ucfirst($inv->name); ?></td>
-												<td><?= $inv->project_name; ?></td>
-												<td><?= $inv->item; ?></td>
-												<td><?= number_format($inv->amount); ?></td>
-												<td><?php if($inv->inv_date){ echo date('M d, Y', strtotime($inv->inv_date)); }else{ echo '--/--/--'; } ?>
-												</td>
-												<?php if(!empty($inv->status_reason)){?>
-												<td><?= $inv->status_reason; ?></td>
-												<?php }else{ ?>
-												<td>N/A</td>
-												<?php } ?>
-												<td><?php if($inv->status == 0){ echo "<span class='tag is-warning is-light'>Pending</span>"; }else{ echo "<span class='tag is-success is-light'>Cleared</span>"; } ?>
-												</td>
-
-												<td class="">
-													<div class="field has-addons">
-														<a href="<?= base_url('admin/edit_invoice/' . $inv->id) ?>"
-															class="button is-small"><span class="icon is-small"><i
-																	class="fa fa-edit"></i></span></a>
-														<?php if($inv->status == 0) {?>			
-														<a href="<?= base_url('admin/invoice_status/' . $inv->id) ?>"
-															class="button is-small"><span class="icon is-small"><i
-																	class="fa fa-check"></i></span></a>
-														<?php } else {?>
-															
-															<p class="control return-btn">
-															<button type="button" 
-																data-id="<?= $inv->id; ?>"
-																class="button is-small has-text-danger return-btn">
-																<span class="icon is-small">
-																	<i class="fas fa-ban"></i>
-																</span>
-															</button>
-														</p> 
-																	<?php } ?>
-														<a href="<?= base_url('admin/print_invoice/' . $inv->id) ?>"
-															class="button is-small"><span class="icon is-small"><i
-																	class="fa fa-print"></i></span></a>
-													</div>
-												</td>
-											</tr>
-											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
-										</tbody>
-										<?php else: ?>
+										 
 										<tbody>
 											<?php if(!empty($results)): $expenses = 0; foreach($results as $res): $expenses += $res->amount; ?>
 											<tr>
@@ -210,8 +191,7 @@
 											</tr>
 											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
 
-										</tbody>
-										<?php endif; ?>
+										</tbody> 
 									</table>
 								</div>
 							</div>
@@ -234,7 +214,7 @@
 						<div class="column is-hidden-print">
 							<nav class="pagination is-small" role="navigation" aria-label="pagination"
 								style="justify-content: center;">
-								<?php if(empty($results) AND !empty($invoices)){ echo $this->pagination->create_links(); } ?>
+								<?php if(!empty($results)){ echo $this->pagination->create_links(); } ?>
 							</nav>
 						</div>
 						<div class="column is-hidden-print">
@@ -257,32 +237,7 @@
 					</div>
 				</div>
 	
-				<div class="modal" id="modal-rej">
-			<div class="modal-background"></div>
-			<form action="<?= base_url('admin/invoice_status_pending'); ?>" method="POST" enctype="multipart/form-data">
-				<div class="modal-card">
-					<input type="hidden" name="id" id="invoice-id" value="">
-					<header class="modal-card-head">
-						<p class="modal-card-title">Revert Status</p>
-						<button class="delete" aria-label="close" id="exit-return-modal" type="button"></button>
-					</header>
-					<section class="modal-card-body"> 
-						<div class="columns">
-							<div class="column">
-								<textarea name="reason" class="textarea"
-									placeholder="Please elaboratly describe your reason for reverting the status."></textarea>
-							</div>
-						</div>
-					</section>
-					<footer class="modal-card-foot">
-						<button class="button is-success" type="submit">Apply</button>
-						<button class="button" aria-label="close" id="close-return-modal" type="reset">Cancel</button>
-					</footer>
-				</div>
-			</form>
-		</div>
-
-			</div>
+				 
 </section>
 
 <script>

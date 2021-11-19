@@ -211,7 +211,7 @@
 						<div class="column is-hidden-print">
 							<nav class="pagination is-small" role="navigation" aria-label="pagination"
 								style="justify-content: center;">
-								<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
+								<?php if(empty($results) AND !empty($assets)){ echo $this->pagination->create_links(); } ?>
 							</nav>
 						</div>
 						<div class="column is-hidden-print">
