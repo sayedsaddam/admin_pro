@@ -36,7 +36,7 @@
 								<a href='<?= base_url('report/asset_report'); ?>'
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-file"></i>
+										<i class="fas fa-list"></i>
 									</span>
 									<span>Assets</span>
 								</a>
@@ -45,7 +45,7 @@
 								<a href='<?= base_url('report/supplier_report'); ?>'"
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-file"></i>
+										<i class="fas fa-list"></i>
 									</span>
 									<span>Supplier</span>
 								</a>
@@ -54,7 +54,7 @@
 								<a href='<?= base_url('report/employee_report'); ?>'"
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-file"></i>
+										<i class="fas fa-list"></i>
 									</span>
 									<span>Employee</span>
 								</a>
@@ -63,7 +63,7 @@
 								<a href='<?= base_url('report/item_report'); ?>'"
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-file"></i>
+										<i class="fas fa-list"></i>
 									</span>
 									<span>Item</span>
 								</a>
@@ -73,7 +73,7 @@
 								<a href='<?= base_url('report/project_report'); ?>'"
 									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-file"></i>
+										<i class="fas fa-list"></i>
 									</span>
 									<span>Project</span>
 								</a>
@@ -84,7 +84,7 @@
 								<a href='<?= base_url('report/invoice_report'); ?>'"
 									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-file"></i>
+										<i class="fas fa-list"></i>
 									</span>
 									<span>Invoice</span>
 								</a>
