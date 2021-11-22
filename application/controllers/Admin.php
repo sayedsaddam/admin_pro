@@ -383,7 +383,7 @@ class Admin extends CI_Controller{
 
         $data['title'] = 'Employ | Admin & Procurement';
         $data['body'] = 'admin/employ/employ';
-        $data['employ'] = $this->admin_model->get_employ($limit, $offset);
+        $data['employ'] = $this->admin_model->get_employ($limit, $offset);  
         $data['locations'] = $this->admin_model->list_locations_suppliers();
         $data['employees_page'] = true;
         $data['breadcrumb'] = array("Employees");
@@ -447,6 +447,7 @@ class Admin extends CI_Controller{
     $data['body'] = 'admin/employ/add_employee';   
     $data['locations'] = $this->admin_model->get_item_location(); 
     $data['user_roles'] = $this->admin_model->UserRoles();
+    $data['departments'] = $this->admin_model->employee_department(); 
     $data['breadcrumb'] = array("admin/employee" => "Employee List", "Add Employee");
     $this->load->view('admin/commons/new_template', $data);
 }
@@ -485,6 +486,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/employ/add_employee';
         $data['locations'] = $this->admin_model->get_employ_location($id); 
         $data['edit'] = $this->admin_model->edit_employ($id);  
+        $data['departments'] = $this->admin_model->employee_department($id); 
         $data['user_roles'] = $this->admin_model->UserRoles();
         $data['breadcrumb'] = array("admin/employee" => "Employee List", "Edit Employee");
         $data['employees_page'] = true;

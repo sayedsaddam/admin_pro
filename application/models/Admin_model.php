@@ -597,6 +597,12 @@ public function update_invoice($id, $data){
         return $this->db->from('departments')->get()->result();
     }
     
+       // get department for add employee form
+       public function employee_department(){
+        $this->db->select('id,department as dep_name');
+        $this->db->from('departments');
+        return $this->db->get()->result();
+    }
     // Project - Get project by id
     public function edit_project($id){
         $this->db->select('id, project_name, project_desc,status');
@@ -1954,9 +1960,13 @@ public function update_invoice($id, $data){
                            users.doj, users.email,users.department, 
                            users.phone, users.location, users.region,
                            users.address, users.status, 
-                           users.created_at,locations.id,locations.name');
+                           users.created_at,
+                           locations.id,locations.name,
+                           departments.id as dep_id,
+                           departments.department as dep_name');
         $this->db->from('users');
         $this->db->join('locations', 'users.location = locations.id', 'left');
+        $this->db->join('departments', 'users.department = departments.id', 'left');
         // $this->db->where('status', 1);
         $this->db->order_by('users.id', 'DESC');
         $this->db->limit($limit, $offset);
@@ -1968,11 +1978,14 @@ public function update_invoice($id, $data){
                            users.phone, users.doj, users.location, users.department,
                            users.region, users.address, users.status,users.dob,
                            users.created_at,locations.id as loc_id,
-                           locations.name');
+                           locations.name,
+                           departments.id as dep_id,
+                           departments.department as dep_name');
         $this->db->from('users');
         $this->db->join('locations', 'users.location = locations.id', 'left');
+        $this->db->join('departments', 'users.department = departments.id', 'left');
         $this->db->like('fullname', $search);
-        $this->db->or_like('department', $search);
+        $this->db->or_like('users.department', $search);
         $this->db->or_like('email', $search);
         $this->db->or_like('phone', $search);
         $this->db->or_like('location', $search);
@@ -2006,10 +2019,13 @@ public function update_invoice($id, $data){
                             users.created_at,
                             locations.id as loc_id,
                             locations.name,
-                            users_roles.id as user_role');
+                            users_roles.id as user_role,
+                            departments.id as dep_id,
+                            departments.department as dep_name');
         $this->db->from('users');
         $this->db->join('locations', 'users.location = locations.id', 'left');
         $this->db->join('users_roles', 'users.user_role = users_roles.id', 'left');
+        $this->db->join('departments', 'users.department = departments.id', 'left');
         $this->db->where('users.id', $id);
         return $this->db->get()->row();
     } 

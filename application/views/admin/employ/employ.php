@@ -110,7 +110,7 @@
 												</td>
 												<td><?= $sup->phone; ?></td>
 												<td><?= ucwords($sup->name); ?></td>
-												<td><?= ucwords($sup->department); ?></td>
+												<td><?= ucwords($sup->dep_name); ?></td>
 												<td><?= date('M d, Y', strtotime($sup->doj)); ?></td>
 												<td>
 													<?php if($sup->status == 1): ?>
@@ -153,7 +153,7 @@
 												</td>
 												<td><?= $res->phone; ?></td>
 												<td><?= ucwords($res->name); ?></td>
-												<td><?= ucwords($res->department); ?></td>
+												<td><?= ucwords($res->dep_name); ?></td>
 												<td><?= date('M d, Y', strtotime($res->doj)); ?></td>
 												<td>
 													<?php if($res->status == 1): ?>
