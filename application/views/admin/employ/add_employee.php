@@ -226,7 +226,9 @@
 											<option disabled value="">Select Department</option>
 											<?php if(!empty($departments)): foreach($departments as $department): ?>
 											<option value="<?= $department->id; ?>"
-												<?= isset($edit->department) == $department->id ? 'selected' : '' ?>>
+											<?php if(!empty($edit)){ ?>
+												<?= ($edit->department == $department->id) ? 'selected' : '' ?>>
+												<?php } ?>
 												<?= ucwords($department->dep_name); ?>
 											</option> 
 											<?php endforeach; endif; ?>
