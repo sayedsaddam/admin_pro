@@ -223,13 +223,13 @@
 								<div class="control has-icons-left">
 									<span class="select is-small is-fullwidth">
 									<select name="department" id="" required>
-											<option disabled value="">Select Department</option>
+											<option disabled value="" <?= !empty($departments) ? 'selected' : '' ?>>Select Department</option>
 											<?php if(!empty($departments)): foreach($departments as $department): ?>
 											<option value="<?= $department->id; ?>"
-											<?php if(!empty($edit)){ ?>
+											<?php if(!empty($edit)) : ?>
 												<?= ($edit->department == $department->id) ? 'selected' : '' ?>>
-												<?php } ?>
-												<?= ucwords($department->dep_name); ?>
+											<?php endif ?>
+											<?= ucwords($department->dep_name); ?>
 											</option> 
 											<?php endforeach; endif; ?>
 										</select>
