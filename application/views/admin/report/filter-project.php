@@ -48,7 +48,7 @@
 								<a href='<?= base_url('report/supplier_report'); ?>'"
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="fas fa-list"></i>
+										<i class="fas fa-file"></i>
 									</span>
 									<span>Supplier</span>
 								</a>
