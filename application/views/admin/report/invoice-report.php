@@ -84,7 +84,7 @@
 							<?php if($AssetsAccess->write == 1) : ?>
 							<p class="control">
 								<a href='<?= base_url('report/invoice_report'); ?>'"
-									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($invoice_report) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
