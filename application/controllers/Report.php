@@ -33,6 +33,7 @@ public function asset_report(){
     $data['body'] = 'admin/report/asset-report';
     $data['locations'] = $this->admin_model->get_item_location();
     $data['categories'] = $this->admin_model->get_item_categories();
+    $data['asset_report'] = true;
     $data['breadcrumb'] = array("admin/report/asset-report" => "Assets Reports");
     $this->load->view('admin/commons/new_template', $data);
 } 
@@ -94,7 +95,7 @@ $data['title'] = 'Supplier Report| Admin & Procurement';
 $data['body'] = 'admin/report/supplier-report';
 $data['locations'] = $this->admin_model->list_locations_suppliers();
 $data['categories'] = $this->admin_model->suppliers_category();
-$data['add_supplier_page'] = true;
+$data['supplier_report'] = true;
 $data['breadcrumb'] = array("admin/report/supplier-report" => "Supplier Reports");
 $this->load->view('admin/commons/new_template', $data);
 } 
@@ -144,7 +145,7 @@ $data['title'] = 'Search Results > Filter Suppliers';
 $data['body'] = 'admin/report/filter-supplier';
 $data['results'] = $this->report_model->filter_supplier($limit, $offset,$data);
 $data['locations'] = $this->admin_model->list_locations_suppliers();
-$data['suppliers_page'] = true;
+$data['filter_supplier'] = true;
 $data['breadcrumb'] = array("admin/report/filter-suppliers" => "Filter Suppliers", "Search: ");
 $this->load->view('admin/commons/new_template', $data);
 }
@@ -159,6 +160,7 @@ public function employee_report(){
     $data['body'] = 'admin/report/employee-report';   
     $data['locations'] = $this->admin_model->get_item_location();
     $data['departments'] = $this->admin_model->department();
+    $data['employees_filter'] = true; 
     $data['breadcrumb'] = array("report/employee-report" => "Employee Report");
     $this->load->view('admin/commons/new_template', $data);
 }
@@ -207,7 +209,7 @@ public function filter_employee($offset = null){
     $data['body'] = 'admin/report/filter-employee';
     $data['results'] = $this->report_model->filter_employee($limit, $offset,$data);
     $data['locations'] = $this->admin_model->list_locations_suppliers();
-    $data['employees_filter'] = true; 
+    $data['filter_employee'] = true; 
     $data['breadcrumb'] = array("report/employee-filter" => "Employee Report filter");
     $this->load->view('admin/commons/new_template', $data);
     
@@ -226,6 +228,7 @@ public function item_report(){
     $data['departments'] = $this->admin_model->department(); 
     $data['projects'] = $this->admin_model->project(); 
     $data['status_list'] = $this->admin_model->status_list();  
+    $data['item_report'] = true; 
     $data['breadcrumb'] = array("report/item-report" => "Employee Report filter");
     $this->load->view('admin/commons/new_template', $data);
 }
@@ -294,7 +297,7 @@ $data = array(
 );
 $data['title'] = 'Item Report | Admin & Procurement';
 $data['body'] = 'admin/report/filter-item';
-$data['filter-item'] = true; 
+$data['filter_item'] = true; 
 $data['items'] = $this->report_model->filter_item($limit, $offset,$data);
 $data['breadcrumb'] = array("Filter Item");
 $this->load->view('admin/commons/new_template', $data);
@@ -355,7 +358,7 @@ public function filter_project($offset = null){
         $data['title'] = 'Invoice Report';
         $data['body'] = 'admin/report/invoice-report';
         $data['breadcrumb'] = array("admin/report/invoice-report" => "Invoice Report");
-        $data['add_invoice'] = true; 
+        $data['invoice_report'] = true; 
         $data['projects'] = $this->admin_model->inoice_project();
         $data['suppliers'] = $this->admin_model->suppliers();
         $data['locations'] = $this->login_model->get_locations();

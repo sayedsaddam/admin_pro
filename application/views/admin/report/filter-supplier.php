@@ -45,7 +45,7 @@
 							</p>
 							<p class="control">
 								<a href='<?= base_url('report/supplier_report'); ?>'"
-									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($filter_supplier) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
