@@ -364,7 +364,7 @@
 						
 					<div class="column">
 							<fieldset>
-								<div class="field">
+								<div class="field"> 
 									<label class="label is-small">Status <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
