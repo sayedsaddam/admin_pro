@@ -224,6 +224,7 @@ public function item_report(){
     $data['body'] = 'admin/report/item-report';  
     $data['categories'] = $this->admin_model->get_item_categories();
     $data['supplier'] = $this->admin_model->get_item_supplier();
+    $data['employees'] = $this->admin_model->get_item_employee();
     $data['locations'] = $this->admin_model->get_item_location(); 
     $data['departments'] = $this->admin_model->department(); 
     $data['projects'] = $this->admin_model->project(); 
@@ -239,6 +240,7 @@ public function filter_item($offset = null){
     $data = array(
         'location' => $this->input->get('location'),
         'department' => $this->input->get('department'),
+        'employee' => $this->input->get('employee'), 
         'category' => $this->input->get('category'),
         'sub_category' => $this->input->get('sub_category'),
         'project' => $this->input->get('project'),
@@ -251,7 +253,7 @@ public function filter_item($offset = null){
         'price' => $this->input->get('price'), 
         'purchasedate' => $this->input->get('purchasedate'),
         'depreciation' => $this->input->get('depreciation'),  
-    );
+    ); 
     $limit = 25;
     if($this->input->get('limit')) {
         $limit = $this->input->get('limit');
@@ -278,23 +280,7 @@ public function filter_item($offset = null){
     $config['attributes'] = array('class' => 'pagination-link');
     $config['reuse_query_string'] = true;
     $this->pagination->initialize($config);
-
-$data = array(
-    'location' => $this->input->get('location'),
-    'department' => $this->input->get('department'),
-    'category' => $this->input->get('category'),
-    'sub_category' => $this->input->get('sub_category'),
-    'project' => $this->input->get('project'),
-    'type_name' => $this->input->get('item_name'),
-    'status' => $this->input->get('status'),
-    'quantity' => $this->input->get('quantity'),
-    'model' => $this->input->get('model'),
-    'serial_number' => $this->input->get('serial_number'),
-    'supplier' => $this->input->get('supplier'),
-    'price' => $this->input->get('price'), 
-    'purchasedate' => $this->input->get('purchasedate'),
-    'depreciation' => $this->input->get('depreciation'),  
-);
+ 
 $data['title'] = 'Item Report | Admin & Procurement';
 $data['body'] = 'admin/report/filter-item';
 $data['filter_item'] = true; 
