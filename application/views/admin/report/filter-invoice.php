@@ -36,7 +36,7 @@
 						<div class="field has-addons">
 							<p class="control">
 								<a href='<?= base_url('report/asset_report'); ?>'
-									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($asset_report) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -44,8 +44,8 @@
 								</a>
 							</p>
 							<p class="control">
-								<a href='<?= base_url('report/supplier_report'); ?>'"
-									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+								<a href='<?= base_url('report/supplier_report'); ?>'
+									class="button is-small <?= isset($supplier_report) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -54,7 +54,7 @@
 							</p>
 							<p class="control">
 								<a href='<?= base_url('report/employee_report'); ?>'
-									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($employees_filter) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -63,7 +63,7 @@
 							</p> 
 							<p class="control">
 								<a href='<?= base_url('report/item_report'); ?>'
-									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($item_report) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -73,7 +73,7 @@
 							<?php if($AssetsAccess->write == 1) : ?>
 							<p class="control">
 								<a href='<?= base_url('report/project_report'); ?>'
-									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($project_report) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -83,8 +83,8 @@
 							<?php endif ?>
 							<?php if($AssetsAccess->write == 1) : ?>
 							<p class="control">
-								<a href='<?= base_url('report/invoice_report'); ?>'"
-									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
+								<a href='<?= base_url('report/invoice_report'); ?>'
+									class="button is-small <?= isset($filter_invoice) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -159,7 +159,8 @@
 												<td><?= $res->item; ?></td>
 												<td><?= number_format($res->amount); ?></td>
 												<td><?php if($res->inv_date){ echo date('M d, Y', strtotime($res->inv_date)); }else{ echo '--/--/--'; } ?>
-												</td>
+											    <td><?= $res->status_reason; ?></td>	
+											</td>
 												<td><?php if($res->status == 0){ echo "<span class='tag is-warning is-light'>Pending</span>"; }else{ echo "<span class='tag is-success is-light'>Cleared</span>"; } ?>
 												</td>
 												<td class="">
@@ -171,17 +172,7 @@
 														<a href="<?= base_url('admin/invoice_status/' . $res->id) ?>"
 															class="button is-small"><span class="icon is-small"><i
 																	class="fa fa-check"></i></span></a>
-														<?php } else {?>
-															
-															<p class="control return-btn">
-															<button type="button" 
-																data-id="<?= $res->id; ?>"
-																class="button is-small has-text-danger return-btn">
-																<span class="icon is-small">
-																	<i class="fas fa-ban"></i>
-																</span>
-															</button>
-														</p> 
+														<?php } else {?> 
 																	<?php } ?> 
 														<a href="<?= base_url('admin/print_invoice/' . $res->id) ?>"
 															class="button is-small"><span class="icon is-small"><i
@@ -247,43 +238,5 @@
 			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_invoices' ? 'search=' . $this->input->get('search') . ' & ' : '' ?>limit=' + val)
 		})
 	})
- 
-	$('.return-btn').click(function () {
-		var invoice_id = $(this).data('id');
- 
-		$('#invoice-id').val(invoice_id);
-	});
-
-	var btn2 = $(".return-btn")
-	var btn3 = $("#exit-report-modal")
-	var btn4 = $("#close-report-modal")
-	var btn5 = $("#exit-return-modal")
-	var btn6 = $("#close-return-modal")
-
-	var md2 = new BulmaModal("#modal-rej")
- 
-btn2.click(function (ev) {
-	md2.show();
-	$(".modal-card-head").show();
-	ev.stopPropagation();
-});
-btn3.click(function (ev) {
-	mdl.close();
-	ev.stopPropagation();
-});
-btn4.click(function (ev) {
-	mdl.close();
-	ev.stopPropagation();
-});
-btn5.click(function (ev) {
-	md2.close();
-	ev.stopPropagation();
-});
-btn6.click(function (ev) {
-	md2.close();
-	ev.stopPropagation();
-});
-
-
-
+  
 </script>

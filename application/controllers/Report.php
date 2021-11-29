@@ -33,6 +33,7 @@ public function asset_report(){
     $data['body'] = 'admin/report/asset-report';
     $data['locations'] = $this->admin_model->get_item_location();
     $data['categories'] = $this->admin_model->get_item_categories();
+    $data['asset_report'] = true;
     $data['breadcrumb'] = array("admin/report/asset-report" => "Assets Reports");
     $this->load->view('admin/commons/new_template', $data);
 } 
@@ -41,6 +42,14 @@ public function filter_asset($offset = null){
 if ($this->AccessList()["Assets"]->read == 0) {
     redirect('admin/dashboard');
 }
+$data = array(
+    'category' => $this->input->get('category'),
+    'sub_categories' => $this->input->get('sub_categories'),
+    'quantity' => $this->input->get('quantity'),
+    'price' => $this->input->get('price'),
+    'purchase_date' => $this->input->get('purchase_date'),
+    'location' => $this->input->get('location')
+);
 
 $limit = 25;
 if($this->input->get('limit')) {
@@ -53,8 +62,7 @@ if(!empty($offset)){
 
 $this->load->library('pagination');
 $url = base_url('report/filter_asset');
-$rowscount = $this->admin_model->count_assets();
-
+$rowscount = $this->report_model->count_filter_assets($data);
 $config['base_url'] = $url;
 $config['total_rows'] = $rowscount;
 $config['per_page'] = $limit;
@@ -70,15 +78,6 @@ $config['attributes'] = array('class' => 'pagination-link');
 $config['reuse_query_string'] = true;
 $this->pagination->initialize($config);
 
-
-$data = array(
-    'category' => $this->input->get('category'),
-    'sub_categories' => $this->input->get('sub_categories'),
-    'quantity' => $this->input->get('quantity'),
-    'price' => $this->input->get('price'),
-    'purchase_date' => $this->input->get('purchase_date'),
-    'location' => $this->input->get('location')
-); 
 //  print_r($data['category']);exit;
 $data['title'] = 'Search Results > Assets';
 $data['body'] = 'admin/report/filter-asset';
@@ -96,7 +95,7 @@ $data['title'] = 'Supplier Report| Admin & Procurement';
 $data['body'] = 'admin/report/supplier-report';
 $data['locations'] = $this->admin_model->list_locations_suppliers();
 $data['categories'] = $this->admin_model->suppliers_category();
-$data['add_supplier_page'] = true;
+$data['supplier_report'] = true;
 $data['breadcrumb'] = array("admin/report/supplier-report" => "Supplier Reports");
 $this->load->view('admin/commons/new_template', $data);
 } 
@@ -106,6 +105,16 @@ if ($this->AccessList()["Suppliers"]->read == 0) {
     redirect('admin/dashboard');
 }
 
+$data = array(
+    'name' => $this->input->get('name'),
+    'category' => $this->input->get('category'),
+    'email' => $this->input->get('email'),
+    'phone' => $this->input->get('phone'),
+    'location' => $this->input->get('location'), 
+    'ntn_number' => $this->input->get('ntn_number'),
+    'rating' => $this->input->get('rating')
+);
+
 $limit = 25;
 if($this->input->get('limit')) {
     $limit = $this->input->get('limit');
@@ -113,10 +122,9 @@ if($this->input->get('limit')) {
 if(!empty($offset)){
     $config['uri_segment'] = 3;
 }
-
 $this->load->library('pagination');
 $url = base_url('report/filter_supplier');
-$rowscount = $this->admin_model->count_suppliers();
+$rowscount = $this->report_model->count_filter_suppliers($data);
 
 $config['base_url'] = $url;
 $config['total_rows'] = $rowscount;
@@ -133,20 +141,11 @@ $config['attributes'] = array('class' => 'pagination-link');
 $config['reuse_query_string'] = true;
 $this->pagination->initialize($config);
 
-$data = array(
-    'name' => $this->input->get('name'),
-    'category' => $this->input->get('category'),
-    'email' => $this->input->get('email'),
-    'phone' => $this->input->get('phone'),
-    'location' => $this->input->get('location'), 
-    'ntn_number' => $this->input->get('ntn_number'),
-    'rating' => $this->input->get('rating')
-);
 $data['title'] = 'Search Results > Filter Suppliers';
 $data['body'] = 'admin/report/filter-supplier';
 $data['results'] = $this->report_model->filter_supplier($limit, $offset,$data);
 $data['locations'] = $this->admin_model->list_locations_suppliers();
-$data['suppliers_page'] = true;
+$data['filter_supplier'] = true;
 $data['breadcrumb'] = array("admin/report/filter-suppliers" => "Filter Suppliers", "Search: ");
 $this->load->view('admin/commons/new_template', $data);
 }
@@ -161,10 +160,23 @@ public function employee_report(){
     $data['body'] = 'admin/report/employee-report';   
     $data['locations'] = $this->admin_model->get_item_location();
     $data['departments'] = $this->admin_model->department();
+    $data['employees_filter'] = true; 
     $data['breadcrumb'] = array("report/employee-report" => "Employee Report");
     $this->load->view('admin/commons/new_template', $data);
 }
 public function filter_employee($offset = null){
+
+    $data = array(
+        'user_name' => ucfirst($this->input->get('user_name')),
+        'fullname' => ucfirst($this->input->get('full_name')),
+        'email' => $this->input->get('email'),
+        'phone' => $this->input->get('phone'), 
+        'department' =>ucfirst($this->input->get('department')),
+        'location' => $this->input->get('location'), 
+        'region' => ucfirst($this->input->get('region')), 
+        'dob' => $this->input->get('dob'),
+        'doj' => $this->input->get('doj')
+    );  
 
     $limit = 25;
     if($this->input->get('limit')) {
@@ -176,7 +188,7 @@ public function filter_employee($offset = null){
     
     $this->load->library('pagination');
     $url = base_url('report/filter_employee');
-    $rowscount = $this->admin_model->count_employ();
+    $rowscount = $this->report_model->count_filter_employee($data);
     
     $config['base_url'] = $url;
     $config['total_rows'] = $rowscount;
@@ -193,22 +205,11 @@ public function filter_employee($offset = null){
     $config['reuse_query_string'] = true;
     $this->pagination->initialize($config);
 
-    $data = array(
-        'user_name' => ucfirst($this->input->get('user_name')),
-        'fullname' => ucfirst($this->input->get('full_name')),
-        'email' => $this->input->get('email'),
-        'phone' => $this->input->get('phone'), 
-        'department' =>ucfirst($this->input->get('department')),
-        'location' => $this->input->get('location'), 
-        'region' => ucfirst($this->input->get('region')), 
-        'dob' => $this->input->get('dob'),
-        'doj' => $this->input->get('doj')
-    );  
     $data['title'] = 'Employ | Admin & Procurement';
     $data['body'] = 'admin/report/filter-employee';
     $data['results'] = $this->report_model->filter_employee($limit, $offset,$data);
     $data['locations'] = $this->admin_model->list_locations_suppliers();
-    $data['employees_filter'] = true; 
+    $data['filter_employee'] = true; 
     $data['breadcrumb'] = array("report/employee-filter" => "Employee Report filter");
     $this->load->view('admin/commons/new_template', $data);
     
@@ -227,6 +228,7 @@ public function item_report(){
     $data['departments'] = $this->admin_model->department(); 
     $data['projects'] = $this->admin_model->project(); 
     $data['status_list'] = $this->admin_model->status_list();  
+    $data['item_report'] = true; 
     $data['breadcrumb'] = array("report/item-report" => "Employee Report filter");
     $this->load->view('admin/commons/new_template', $data);
 }
@@ -234,6 +236,22 @@ public function filter_item($offset = null){
     if ($this->AccessList()["Register"]->read == 0) {
         redirect('admin/dashboard');
     }
+    $data = array(
+        'location' => $this->input->get('location'),
+        'department' => $this->input->get('department'),
+        'category' => $this->input->get('category'),
+        'sub_category' => $this->input->get('sub_category'),
+        'project' => $this->input->get('project'),
+        'type_name' => $this->input->get('item_name'),
+        'status' => $this->input->get('status'),
+        'quantity' => $this->input->get('quantity'),
+        'model' => $this->input->get('model'),
+        'serial_number' => $this->input->get('serial_number'),
+        'supplier' => $this->input->get('supplier'),
+        'price' => $this->input->get('price'), 
+        'purchasedate' => $this->input->get('purchasedate'),
+        'depreciation' => $this->input->get('depreciation'),  
+    );
     $limit = 25;
     if($this->input->get('limit')) {
         $limit = $this->input->get('limit');
@@ -245,7 +263,7 @@ public function filter_item($offset = null){
 
     $this->load->library('pagination');
     $url = base_url('report/filter_item');
-    $rowscount = $this->admin_model->count_item();
+    $rowscount = $this->report_model->count_filter_item($data);
     $config['base_url'] = $url;
     $config['total_rows'] = $rowscount;
     $config['per_page'] = $limit;
@@ -276,10 +294,10 @@ $data = array(
     'price' => $this->input->get('price'), 
     'purchasedate' => $this->input->get('purchasedate'),
     'depreciation' => $this->input->get('depreciation'),  
-); 
+);
 $data['title'] = 'Item Report | Admin & Procurement';
 $data['body'] = 'admin/report/filter-item';
-$data['filter-item'] = true; 
+$data['filter_item'] = true; 
 $data['items'] = $this->report_model->filter_item($limit, $offset,$data);
 $data['breadcrumb'] = array("Filter Item");
 $this->load->view('admin/commons/new_template', $data);
@@ -295,6 +313,11 @@ $this->load->view('admin/commons/new_template', $data);
 // Search filters - search asset register
 public function filter_project($offset = null){
 
+    $data = array(
+        'project_name' => $this->input->get('project_name'),
+        'created_at' => $this->input->get('date'),
+    );
+
     $limit = 25;
     if($this->input->get('limit')) {
         $limit = $this->input->get('limit');
@@ -306,7 +329,7 @@ public function filter_project($offset = null){
 
     $this->load->library('pagination');
     $url = base_url('report/filter_project');
-    $rowscount = $this->admin_model->count_projects();
+    $rowscount = $this->report_model->count_filter_projects($data);
 
     $config['base_url'] = $url;
     $config['total_rows'] = $rowscount;
@@ -322,11 +345,7 @@ public function filter_project($offset = null){
     $config['attributes'] = array('class' => 'pagination-link');
     $config['reuse_query_string'] = true;
     $this->pagination->initialize($config);
-
-    $data = array(
-        'project_name' => $this->input->get('project_name'),
-        'created_at' => $this->input->get('date'),
-    ); 
+ 
     $data['title'] = 'Project Report > Project Report';
     $data['body'] = 'admin/report/filter-project';
     $data['breadcrumb'] = array("admin/report/filter_project" => "Filter Project");
@@ -339,7 +358,7 @@ public function filter_project($offset = null){
         $data['title'] = 'Invoice Report';
         $data['body'] = 'admin/report/invoice-report';
         $data['breadcrumb'] = array("admin/report/invoice-report" => "Invoice Report");
-        $data['add_invoice'] = true; 
+        $data['invoice_report'] = true; 
         $data['projects'] = $this->admin_model->inoice_project();
         $data['suppliers'] = $this->admin_model->suppliers();
         $data['locations'] = $this->login_model->get_locations();
@@ -348,7 +367,15 @@ public function filter_project($offset = null){
     
     // Invoices - Add invoice into the database.
     public function filter_invoice($offset = null){ 
-        
+        $data = array(
+            'inv_no' => $this->input->get('inv_no'),
+            'inv_date' => $this->input->get('inv_date'),
+            'project' => $this->input->get('project'),
+            'supplier' => $this->input->get('supplier'),
+            'region' => $this->input->get('region'),
+            'item' => $this->input->get('item_name'),
+            'amount' => $this->input->get('amount'), 
+        );
         $limit = 25;
         if($this->input->get('limit')) {
             $limit = $this->input->get('limit');
@@ -358,7 +385,7 @@ public function filter_project($offset = null){
         }
         $this->load->library('pagination');
         $url = base_url('report/filter_invoice');
-        $rowscount = $this->admin_model->count_invoices();
+        $rowscount = $this->report_model->count_filter_invoices($data);
 
         $config['base_url'] = $url;
         $config['total_rows'] = $rowscount;
@@ -375,15 +402,6 @@ public function filter_project($offset = null){
         $config['reuse_query_string'] = true;
         $this->pagination->initialize($config);
 
-        $data = array(
-            'inv_no' => $this->input->get('inv_no'),
-            'inv_date' => $this->input->get('inv_date'),
-            'project' => $this->input->get('project'),
-            'supplier' => $this->input->get('supplier'),
-            'region' => $this->input->get('region'),
-            'item' => $this->input->get('item_name'),
-            'amount' => $this->input->get('amount'), 
-        );
     $data['title'] = 'Invoice Report > Invoice Report';
     $data['body'] = 'admin/report/filter-invoice';
     $data['breadcrumb'] = array("admin/report/filter-invoice" => "Filter Invoice");

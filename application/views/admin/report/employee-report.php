@@ -36,7 +36,7 @@
 						<div class="field has-addons">
 							<p class="control">
 								<a href='<?= base_url('report/asset_report'); ?>'
-									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($asset_report) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -45,7 +45,7 @@
 							</p>
 							<p class="control">
 								<a href='<?= base_url('report/supplier_report'); ?>'"
-									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($supplier_report) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -53,8 +53,8 @@
 								</a>
 							</p>
 							<p class="control">
-								<a href='<?= base_url('report/employee_report'); ?>'"
-									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+								<a href='<?= base_url('report/employee_report'); ?>'
+									class="button is-small <?= isset($employees_filter) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -63,7 +63,7 @@
 							</p> 
 							<p class="control">
 								<a href='<?= base_url('report/item_report'); ?>'
-									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($item_report) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -73,7 +73,7 @@
 							<?php if($AssetsAccess->write == 1) : ?>
 							<p class="control">
 								<a href='<?= base_url('report/project_report'); ?>'
-									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($project_report) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
@@ -84,7 +84,7 @@
 							<?php if($AssetsAccess->write == 1) : ?>
 							<p class="control">
 								<a href='<?= base_url('report/invoice_report'); ?>'
-									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($invoice_report) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
