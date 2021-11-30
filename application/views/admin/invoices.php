@@ -139,16 +139,20 @@
 
 												<td class="">
 													<div class="field has-addons">
-														<a href="<?= base_url('admin/edit_invoice/' . $inv->id) ?>"
-															class="button is-small"><span class="icon is-small"><i
-																	class="fa fa-edit"></i></span></a>
+														<p class="control">
+															<a href="<?= base_url('admin/edit_invoice/' . $inv->id) ?>"
+																class="button is-small"><span class="icon is-small"><i
+																		class="fa fa-edit"></i></span></a>
+														</p>
 														<?php if($inv->status == 0) {?>			
-														<a href="<?= base_url('admin/invoice_status/' . $inv->id) ?>"
-															class="button is-small"><span class="icon is-small"><i
+														<p class="control">
+															<a data-no-instant href="<?= base_url('admin/invoice_status/' . $inv->id) ?>" onclick="javascript:return confirm('Are you sure you want to clear this invoice? Click OK to continue!');"
+															class="button is-small"><span class="icon is-small has-text-success"><i
 																	class="fa fa-check"></i></span></a>
+														</p>
 														<?php } else {?>
 															
-															<p class="control return-btn">
+														<p class="control return-btn">
 															<button type="button" 
 																data-id="<?= $inv->id; ?>"
 																class="button is-small has-text-danger return-btn">
@@ -158,9 +162,11 @@
 															</button>
 														</p> 
 																	<?php } ?>
-														<a href="<?= base_url('admin/print_invoice/' . $inv->id) ?>"
+														<p class="control">
+															<a href="<?= base_url('admin/print_invoice/' . $inv->id) ?>"
 															class="button is-small"><span class="icon is-small"><i
 																	class="fa fa-print"></i></span></a>
+														</p>
 													</div>
 												</td>
 											</tr>
@@ -179,20 +185,29 @@
 												<td><?= number_format($res->amount); ?></td>
 												<td><?php if($res->inv_date){ echo date('M d, Y', strtotime($res->inv_date)); }else{ echo '--/--/--'; } ?>
 												</td>
+												<?php if(!empty($res->status_reason)){?>
+												<td><?= $res->status_reason; ?></td>
+												<?php }else{ ?>
+												<td>N/A</td>
+												<?php } ?>
 												<td><?php if($res->status == 0){ echo "<span class='tag is-warning is-light'>Pending</span>"; }else{ echo "<span class='tag is-success is-light'>Cleared</span>"; } ?>
 												</td>
 												<td class="">
 													<div class="field has-addons">
-														<a href="<?= base_url('admin/edit_invoice/' . $res->id) ?>"
+														<p class="control">
+															<a href="<?= base_url('admin/edit_invoice/' . $res->id) ?>"
 															class="button is-small"><span class="icon is-small"><i
 																	class="fa fa-edit"></i></span></a>
-																	<?php if($res->status == 0) {?>			
-														<a href="<?= base_url('admin/invoice_status/' . $res->id) ?>"
-															class="button is-small"><span class="icon is-small"><i
+														</p>
+														<?php if($res->status == 0) {?>		
+														<p class="control">
+														<a href="<?= base_url('admin/invoice_status/' . $res->id) ?>"onclick="javascript:return confirm('Are you sure you want to clear this invoice? Click OK to continue!');"
+															class="button is-small"><span class="icon is-small has-text-success"><i
 																	class="fa fa-check"></i></span></a>
+														</p>
 														<?php } else {?>
 															
-															<p class="control return-btn">
+														<p class="control return-btn">
 															<button type="button" 
 																data-id="<?= $res->id; ?>"
 																class="button is-small has-text-danger return-btn">
@@ -202,9 +217,11 @@
 															</button>
 														</p> 
 																	<?php } ?> 
-														<a href="<?= base_url('admin/print_invoice/' . $res->id) ?>"
+														<p class="control">
+															<a href="<?= base_url('admin/print_invoice/' . $res->id) ?>"
 															class="button is-small"><span class="icon is-small"><i
 																	class="fa fa-print"></i></span></a>
+														</p>
 													</div>
 												</td>
 											</tr>
