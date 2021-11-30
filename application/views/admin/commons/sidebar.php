@@ -95,11 +95,11 @@
 				style="<?= $this->uri->segment(2) == 'get_assign_item' ? '' : 'display: none;' ?>">
 				<li
 					class="is-size-7 <?= $this->uri->segment(2) == 'item_register' ? 'has-text-weight-bold' : '' ?>">
-					<a href="<?= base_url('admin/item_requisition_add'); ?>"><i class="fas fa-plus mr-1"></i>
+					<a href="<?= base_url('admin/add_requisition'); ?>"><i class="fas fa-plus mr-1"></i>
 						Add Request</a></li>
 				<li
 					class="is-size-7 <?= $this->uri->segment(2) == 'available_item_list' ? 'has-text-weight-bold' : '' ?>">
-					<a href="<?= base_url('admin/item_requisition_list'); ?>"><i class="far fa-list-alt mr-1"></i>
+					<a href="<?= base_url('admin/requisition_list'); ?>"><i class="far fa-list-alt mr-1"></i>
 						Request List</a></li>
 			</ul>
 		</li>
