@@ -198,7 +198,50 @@
 							</div>
 						</div>
 					</div>
-                    <hr>
+                    <table class="table is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th class="is-narrow">SR#</th>
+                                <th>Particulars</th>
+                                <th>Qty</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th class="is-narrow">SR#</th>
+                                <th>Particulars</th>
+                                <th>Qty</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <td>1.</td>
+                                <td><input type="text" class="input is-small"></td>
+                                <td><input type="text" class="input is-small"></td>
+                                <td><input type="text" class="input is-small"></td>
+                            </tr>
+                            <tr>
+                                <td>2.</td>
+                                <td><input type="text" class="input is-small"></td>
+                                <td><input type="text" class="input is-small"></td>
+                                <td><input type="text" class="input is-small"></td>
+                            </tr>
+                            <tr>
+                                <td>3.</td>
+                                <td><input type="text" class="input is-small"></td>
+                                <td><input type="text" class="input is-small"></td>
+                                <td><input type="text" class="input is-small"></td>
+                            </tr>
+                            <tr>
+                                <td>4   .</td>
+                                <td><input type="text" class="input is-small"></td>
+                                <td><input type="text" class="input is-small"></td>
+                                <td><input type="text" class="input is-small"></td>
+                            </tr>
+                        </tbody>
+                    </table>
 					<div class="columns">
 						<div class="column">
 							<fieldset>
@@ -214,82 +257,7 @@
 								</div>
 							</fieldset>
 						</div>
-
-						<div class="column">
-							<label class="label is-small">Date of Birth <span class="has-text-danger">*</span></label>
-							<div class="is-small is-fullwidth">
-								<?php if(!empty($edit)){ $dateob = strtotime($edit->dob); $date_of_birth= date('Y-m-d', $dateob);}?>
-								<div class="control has-icons-left">
-									<input type="date" name="dob" id="" class="input is-small"
-									value="<?= !empty($edit) ? $date_of_birth : '' ?>" placeholder="e.g 31/01/1990">
-									<span class="icon is-small is-left">
-										<i class="fas fa fa-birthday-cake"></i>
-									</span>
-								</div>
-							</div>
-						</div>
 					</div>
-
-					<div class="columns">
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Joining Date</label>
-									<div class="control has-icons-left">
-										<?php if(!empty($edit)){ $dateoj = strtotime($edit->doj); $date_of_joining = date('Y-m-d', $dateoj); }?>
-										<input name="doj" class="input is-small" type="date" required
-											value="<?= !empty($edit) ? $date_of_joining : '' ?>"
-											placeholder="e.g 31/01/2010">
-										<span class="icon is-small is-left">
-											<i class="fas fa fa-table"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">Address</label>
-									<div class="control has-icons-left">
-										<input class="input is-small" name="address" rows="1" id=""
-											placeholder="e.g Street No.1, Block No.E, Sector 11" value="<?= !empty($edit) ? $edit->address : '' ?>"></input>
-										<span class="icon is-small is-left">
-											<i class="fas fa-compass"></i>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-					</div>
-
-					
-					<div class="columns">
-						<div class="column">
-							<fieldset>
-								<div class="field">
-									<label class="label is-small">User Role <span class="has-text-danger">*</span></label>
-									<div class="control has-icons-left">
-									<div class="select select is-small is-fullwidth">
-										<select name="user_role" required>
-											<option selected disabled value="">Select User Role</option>
-											<?php foreach ($user_roles as $data) : ?>
-												<option value="<?= $data->id ?>" <?= isset($edit->user_role) && $edit->user_role == $data->id ? 'selected' : '' ?>><?= $data->title ?></option>
-											<?php endforeach ?>
-										</select>
-										<div class="icon is-small is-left">
-											<i class="fas fa-user-tag"></i>
-										</div>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-
-						<div class="column">
-						</div>
-					</div>
-
 					<div class="columns">
 						<div class="column has-text-right">
 							<div class="buttons is-pulled-right">
