@@ -176,7 +176,7 @@
 																</span>
 															</a>
 														</p>
-														<a href="<?=base_url('admin/complete_project/'.$res->id);?>"
+														<a href="<?=base_url('admin/active_project/'.$res->id);?>"
 															class="button is-small"><span
 																class="icon is-small has-text-success"><i
 																	class="fa fa-check"></i></span></a>

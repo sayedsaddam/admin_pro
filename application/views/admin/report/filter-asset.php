@@ -150,7 +150,7 @@
 													<div class="field has-addons">
 														<?php if($AssetsAccess->update == 1) : ?>
 														<p class="control">
-															<a href="<?= base_url('admin/asset_detail/'.$res->id); ?>"
+															<a data-no-instant filter_asset href="<?= base_url('admin/asset_detail/'.$res->id); ?>"
 																class="button is-small">
 																<span class="icon is-small">
 																	<i class="fas fa-edit"></i>
@@ -159,7 +159,7 @@
 														</p>
 														<?php endif ?>
 														<?php if ($AssetsAccess->delete == 1) : ?>
-														<a href="<?=base_url('admin/delete_asset/'.$res->id);?>"
+														<a data-no-instant filter_asset href="<?=base_url('admin/delete_asset/'.$res->id);?>"
 															onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
 															class="button is-small"><span
 																class="icon is-small has-text-danger"><i
@@ -205,7 +205,7 @@
 									</span>
 									<span>Print</span>
 								</button>
-								<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+								<a data-no-instant href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
 									class="button is-small ">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>

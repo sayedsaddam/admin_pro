@@ -308,7 +308,20 @@ public function filter(){
     } 
     // count filter item
     public function count_filter_item($data){
-        $this->db->select('id,location,category,sub_category,type_name,model,serial_number,supplier,quantity,price,depreciation,purchasedate,created_at');
+        $this->db->select('
+                         id,
+                         location,
+                         category,
+                         sub_category,
+                         type_name,
+                         model,
+                         serial_number,
+                         supplier,
+                         quantity,
+                         price,
+                         depreciation,
+                         purchasedate,
+                         created_at');
         $this->db->from('items');
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('location', $this->session->userdata('location'));
