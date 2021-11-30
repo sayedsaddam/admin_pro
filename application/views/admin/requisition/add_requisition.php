@@ -94,7 +94,7 @@
 				<?php endif ?>
 
 				<form
-					action="<?php if(empty($edit)){ echo base_url('admin/employee_save'); }else{ echo base_url('admin/update_employ'); } ?>"
+					action="<?php if(empty($edit)){ echo base_url('admin/add_requisition'); }else{ echo base_url('admin/edit_requisition'); } ?>"
 					method="POST">
 					<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">
