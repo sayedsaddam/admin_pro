@@ -198,23 +198,7 @@
 							</div>
 						</div>
 					</div>
-                    <table class="table is-small is-fullwidth">
-                        <thead>
-                            <tr>
-                                <th class="is-narrow">SR#</th>
-                                <th>Particulars</th>
-                                <th>Qty</th>
-                                <th>Remarks</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th class="is-narrow">SR#</th>
-                                <th>Particulars</th>
-                                <th>Qty</th>
-                                <th>Remarks</th>
-                            </tr>
-                        </tfoot>
+                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                         <tbody>
                             <tr>
                                 <td>1.</td>
