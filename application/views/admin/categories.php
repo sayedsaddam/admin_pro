@@ -108,7 +108,7 @@
  											</tr>
  										</tfoot>
  										<?php if(empty($results)): ?>
- 										<tbody>
+ 										<tbody style="cursor: pointer;">
  											<?php if(!empty($categories)): foreach($categories as $cat): ?>
  											<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';">
  												<td><?= 'S2S-'.$cat->id; ?></td>
@@ -132,9 +132,9 @@
  											<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='17'>No record found.</td></tr>"; endif; ?>
  										</tbody>
  										<?php else: ?>
- 										<tbody>
+ 										<tbody style="cursor: pointer;">
  											<?php if(!empty($results)): foreach($results as $res): ?>
- 											<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';">
+ 											<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$res->id) ?>';">
  												<td><?= 'S2S-'.$res->id; ?></td>
  												<td>
  													<div class="tag"><?= ucwords($res->cat_name); ?></div>
