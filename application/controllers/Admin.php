@@ -11,6 +11,7 @@ class Admin extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('supervisor_model');
         $this->load->helper('paginate');
+
         if(!$this->session->userdata('username')){
             redirect('');
         }
@@ -22,7 +23,13 @@ class Admin extends CI_Controller{
 
       
     }
-
+    public function add_requisition() {
+        $url = 'admin/add_requisition';
+        $data['title'] = 'Add Request | Admin & Procurement';
+        $data['body'] = 'admin/requisition/add_requisition';
+        $data['breadcrumb'] = array("Add Request");
+        $this->load->view('admin/commons/new_template', $data);
+    }
     private function AccessList() {
         $user_role = $this->session->userdata('user_role');
         $userAccess = $this->admin_model->request_db_configs($user_role);
