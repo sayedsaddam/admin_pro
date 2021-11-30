@@ -152,7 +152,7 @@
 															class="icon is-small"><i class="fa fa-edit"></i></span></a>
 													<?php endif ?>
 													<?php if($SuppliersAccess->delete == 1) : ?>
-													<a href="<?=base_url('admin/delete_supplier/'.$sup->sup_id);?>"
+													<a data-no-instant href="<?=base_url('admin/delete_supplier/'.$sup->sup_id);?>"
 														class="button is-small"><span
 															class="icon is-small has-text-danger"><i
 																class="fa fa-times"></i></span></a>
@@ -205,7 +205,7 @@
 															class="icon is-small"><i class="fa fa-edit"></i></span></a>
 													<?php endif ?>
 													<?php if($SuppliersAccess->delete == 1) : ?>
-													<a href="<?=base_url('admin/delete_supplier/'.$sup->id);?>"
+													<a data-no-instant href="<?=base_url('admin/delete_supplier/'.$sup->id);?>"
 														class="button is-small"><span
 															class="icon is-small has-text-danger"><i
 																class="fa fa-times"></i></span></a>
