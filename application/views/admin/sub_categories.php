@@ -54,105 +54,111 @@
 						</div>
 					</div>
 				</div>
-				<div class="columns" style="display: grid">
-					<div class="column table-container">
-						<table class="table is-hoverable is-fullwidth">
-						<thead>
-								<tr>
-									<th class="has-text-weight-semibold">ID</th>
-									<th class="has-text-weight-semibold">Subcategory</th>
-									<th class="has-text-weight-semibold">Added By</th>
-									<th class="has-text-weight-semibold">Date Added</th>
-									<th class="has-text-weight-semibold">Action</th>
-								</tr>
-							</thead>
-							<tfoot>
-								<tr>
-									<th class="has-text-weight-semibold">ID</th>
-									<th class="has-text-weight-semibold">Subcategory</th>
-									<th class="has-text-weight-semibold">Added By</th>
-									<th class="has-text-weight-semibold">Date Added</th>
-									<th class="has-text-weight-semibold">Action</th>
-								</tr>
-							</tfoot>
-							<?php if(empty($results)): ?>
-							<tbody id="myTable">
-								<?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
-								<tr>
-									<td><?= 'S2S-'.$cat->id; ?></td>
-									<td><div class="tag is-info is-light"><?= ucwords($cat->name); ?></div></td>
-									<td><?= ucwords($cat->fullname); ?></td>
-									<td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
-									<td class="is-narrow">
-										<a title="Edit" data-id="<?= $cat->id; ?>"
-											class="edit_inventory button is-small"><span class="icon is-small"><i
-													class="fa fa-edit"></i></span></a>
-										<a title="Delete" href="<?=base_url('admin/delete_sub_category/'.$cat->id);?>"
-											onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
-											class="button is-small"><span class="icon is-small has-text-danger"><i
-													class="fa fa-times"></i></span></a>
-									</td>
-								</tr>
-								<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='17'>No record found.</td></tr>"; endif; ?>
-							</tbody>
-							<?php else: ?>
-							<tbody>
-								<?php if(!empty($results)): foreach($results as $res): ?>
-								<tr>
-									<td><?= 'S2S-'.$res->id; ?></td>
-									<td><div class="tag is-light is-success"><?= ucwords($res->name); ?></div></td>
-									<td><?= ucwords($res->fullname); ?></td>
-									<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
-									<td class="is-narrow">
-										<a title="Edit" data-id="<?= $res->id; ?>"
-											class="edit_inventory button is-small"><span class="icon is-small"><i
-													class="fa fa-edit"></i></span></a>
-										<a title="Delete" href="<?=base_url('admin/delete_sub_category/'.$res->id);?>"
-											onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
-											class="button is-small"><span class="icon is-small has-text-danger"><i
-													class="fa fa-times"></i></span></a>
-									</td>
-								</tr>
-								<?php endforeach; else: echo "<tr class='has-background-danger-light text-center'><td colspan='17'>No record found.</td></tr>"; endif; ?>
-							</tbody>
-							<?php endif; ?>
-						</table>
-					</div>
-					<div class="column">
-						<div class="columns">
-							<div class="column is-hidden-print">
-								<label class="mr-2">Number of Records:</label>
-								<select class="result_limit">
-									<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
-									</option>
-									<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
-									</option>
-									<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
-									</option>
-								</select>
-							</div>
-							<div class="column is-hidden-print">
-								<nav class="pagination is-small" role="navigation" aria-label="pagination"
-									style="justify-content: center;">
-									<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
-								</nav>
-							</div>
-							<div class="column is-hidden-print">
-								<div class="buttons is-pulled-right">
-									<button onClick="window.print();" type="button" class="button is-small ">
-										<span class="icon is-small">
-											<i class="fas fa-print"></i>
-										</span>
-										<span>Print</span>
-									</button>
-									<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
-										class="button is-small ">
-										<span class="icon is-small">
-											<i class="fas fa-file-export"></i>
-										</span>
-										<span>Export</span>
-									</a>
+				<div class="tile is-ancestor">
+ 					<div class="tile is-parent">
+ 						<div class="tile is-child box">
+							<div class="columns" style="display: grid">
+								<div class="column table-container">
+									<table class="table is-hoverable is-fullwidth">
+									<thead>
+											<tr>
+												<th class="has-text-weight-semibold">ID</th>
+												<th class="has-text-weight-semibold">Subcategory</th>
+												<th class="has-text-weight-semibold">Added By</th>
+												<th class="has-text-weight-semibold">Date Added</th>
+												<th class="has-text-weight-semibold">Action</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th class="has-text-weight-semibold">ID</th>
+												<th class="has-text-weight-semibold">Subcategory</th>
+												<th class="has-text-weight-semibold">Added By</th>
+												<th class="has-text-weight-semibold">Date Added</th>
+												<th class="has-text-weight-semibold">Action</th>
+											</tr>
+										</tfoot>
+										<?php if(empty($results)): ?>
+										<tbody id="myTable">
+											<?php if(!empty($sub_categories)): foreach($sub_categories as $cat): ?>
+											<tr>
+												<td><?= 'S2S-'.$cat->id; ?></td>
+												<td><div class="tag is-info is-light"><?= ucwords($cat->name); ?></div></td>
+												<td><?= ucwords($cat->fullname); ?></td>
+												<td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
+												<td class="is-narrow">
+													<a title="Edit" data-id="<?= $cat->id; ?>"
+														class="edit_inventory button is-small"><span class="icon is-small"><i
+																class="fa fa-edit"></i></span></a>
+													<a data-no-instant title="Delete" href="<?=base_url('admin/delete_sub_category/'.$cat->id);?>"
+														onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
+														class="button is-small"><span class="icon is-small has-text-danger"><i
+																class="fa fa-times"></i></span></a>
+												</td>
+											</tr>
+											<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='17'>No record found.</td></tr>"; endif; ?>
+										</tbody>
+										<?php else: ?>
+										<tbody>
+											<?php if(!empty($results)): foreach($results as $res): ?>
+											<tr>
+												<td><?= 'S2S-'.$res->id; ?></td>
+												<td><div class="tag is-light is-success"><?= ucwords($res->name); ?></div></td>
+												<td><?= ucwords($res->fullname); ?></td>
+												<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
+												<td class="is-narrow">
+													<a title="Edit" data-id="<?= $res->id; ?>"
+														class="edit_inventory button is-small"><span class="icon is-small"><i
+																class="fa fa-edit"></i></span></a>
+													<a data-no-instant title="Delete" href="<?=base_url('admin/delete_sub_category/'.$res->id);?>"
+														onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
+														class="button is-small"><span class="icon is-small has-text-danger"><i
+																class="fa fa-times"></i></span></a>
+												</td>
+											</tr>
+											<?php endforeach; else: echo "<tr class='has-background-danger-light text-center'><td colspan='17'>No record found.</td></tr>"; endif; ?>
+										</tbody>
+										<?php endif; ?>
+									</table>
 								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="column">
+					<div class="columns">
+						<div class="column is-hidden-print">
+							<label class="mr-2">Number of Records:</label>
+							<select class="result_limit">
+								<option <?= $this->input->get('limit') == 25 ? 'selected' : '' ?> value="25">25
+								</option>
+								<option <?= $this->input->get('limit') == 50 ? 'selected' : '' ?> value="50">50
+								</option>
+								<option <?= $this->input->get('limit') == 100 ? 'selected' : '' ?> value="100">100
+								</option>
+							</select>
+						</div>
+						<div class="column is-hidden-print">
+							<nav class="pagination is-small" role="navigation" aria-label="pagination"
+								style="justify-content: center;">
+								<?php if(empty($results) AND !empty($items)){ echo $this->pagination->create_links(); } ?>
+							</nav>
+						</div>
+						<div class="column is-hidden-print">
+							<div class="buttons is-pulled-right">
+								<button onClick="window.print();" type="button" class="button is-small ">
+									<span class="icon is-small">
+										<i class="fas fa-print"></i>
+									</span>
+									<span>Print</span>
+								</button>
+								<a data-no-instant href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+									class="button is-small ">
+									<span class="icon is-small">
+										<i class="fas fa-file-export"></i>
+									</span>
+									<span>Export</span>
+								</a>
 							</div>
 						</div>
 					</div>

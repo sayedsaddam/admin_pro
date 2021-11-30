@@ -122,15 +122,14 @@
 								</div>
 							</fieldset>
 						</div>
-
 					</div>
 					<div class="columns">
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Model</label>
+									<label class="label is-small">Company</label>
 									<div class="control has-icons-left">
-										<input class="input is-small" type="text" value="<?= $returning_items->model ?>"
+										<input class="input is-small" type="text" value="<?= $returning_items->type_name ?>"
 											disabled>
 										<span class="icon is-small is-left">
 											<i class="fas fa-bookmark"></i>
@@ -142,21 +141,49 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Price</label>
+									<label class="label is-small">Model</label>
 									<div class="control has-icons-left">
-										<input class="input is-small" type="text" value="<?= $returning_items->price ?>"
+										<input class="input is-small" type="text" value="<?= $returning_items->model ?>"
 											disabled>
 										<span class="icon is-small is-left">
-											<i class="fas fa-dollar-sign"></i>
+											<i class="far fa-money-bill-alt"></i>
 										</span>
 									</div>
 								</div>
 							</fieldset>
 						</div>
 					</div>
-
-
-
+					<div class="columns">
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Price</label>
+									<div class="control has-icons-left">
+										<input class="input is-small" type="text" value="<?= $returning_items->price ?>"
+											disabled>
+										<span class="icon is-small is-left">
+											<i class="fas fa-bookmark"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">IMEI</label>
+									<div class="control has-icons-left">
+										<input class="input is-small" type="text" value="<?= $returning_items->serial_number ?>"
+											disabled>
+										<span class="icon is-small is-left">
+											<i class="far fa-money-bill-alt"></i>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					<hr>
 					<div class="columns">
 						<div class="column">
 							<fieldset>

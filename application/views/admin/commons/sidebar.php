@@ -15,6 +15,26 @@
 		</li>
 	</ul>
 	<p class="menu-label">
+		Requisition
+	</p>
+	<ul class="menu-list">
+		<li><a class="<?= $this->uri->segment(2) == 'get_assign_item' ? 'is-primary is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'get_assign_item' ? 'style="background-color:#f1f1f1;"' : '' ?>>Item
+				Requisition</a>
+			<ul class="sub-categories"
+				style="<?= $this->uri->segment(2) == 'get_assign_item' ? '' : 'display: none;' ?>">
+				<li
+					class="is-size-7 <?= $this->uri->segment(2) == 'item_register' ? 'has-text-weight-bold' : '' ?>">
+					<a href="<?= base_url('admin/add_requisition'); ?>"><i class="fas fa-plus mr-1"></i>
+						Add Request</a></li>
+				<li
+					class="is-size-7 <?= $this->uri->segment(2) == 'available_item_list' ? 'has-text-weight-bold' : '' ?>">
+					<a href="<?= base_url('admin/requisition_list'); ?>"><i class="fas fa-list mr-1"></i>
+						Request List</a></li>
+			</ul>
+		</li>
+	</ul>
+	<p class="menu-label">
 		Procurement
 	</p>
 	<?php if($AssetsAccess->read == 1) : ?>
@@ -137,12 +157,12 @@
 
 	<?php if($AssetsAccess->read == 1) : ?>
 	<ul class="menu-list">
-		<li><a class="<?= $this->uri->segment(2) == 'add_invoice' || $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'search_invoice' || $this->uri->segment(2) == 'add_invoice' ? 'is-primary is-inverted' : '' ?> nav-category"
-				<?= $this->uri->segment(2) == 'add_invoice' || $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'search_invoice' || $this->uri->segment(2) == 'invoices' ? 'style="background-color:#f1f1f1;"' : '' ?>>Invoices</a>
+		<li><a class="<?= $this->uri->segment(2) == 'add_invoice' || $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'search_invoices' || $this->uri->segment(2) == 'add_invoice' ? 'is-primary is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'add_invoice' || $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'search_invoices' || $this->uri->segment(2) == 'invoices' ? 'style="background-color:#f1f1f1;"' : '' ?>>Invoices</a>
 			<ul class="sub-categories"
-				style="<?= $this->uri->segment(2) == 'add_invoice' || $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'search_invoice' ? '' : 'display: none;' ?>">
+				style="<?= $this->uri->segment(2) == 'add_invoice' || $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'search_invoices' ? '' : 'display: none;' ?>">
 				<li
-					class="is-size-7 <?= $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'search_invoice' ? 'has-text-weight-bold' : '' ?>">
+					class="is-size-7 <?= $this->uri->segment(2) == 'invoices' || $this->uri->segment(2) == 'search_invoices' ? 'has-text-weight-bold' : '' ?>">
 					<a href="<?= base_url('admin/invoices'); ?>"><i class="fas fa-list mr-1"></i>
 						Invoices</a></li>
 				<?php if($AssetsAccess->write == 1) : ?>
