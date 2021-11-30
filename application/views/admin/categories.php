@@ -110,8 +110,7 @@
  										<?php if(empty($results)): ?>
  										<tbody>
  											<?php if(!empty($categories)): foreach($categories as $cat): ?>
- 											<tr
- 												onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';">
+ 											<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';">
  												<td><?= 'S2S-'.$cat->id; ?></td>
  												<td>
  													<div class="tag"><?= ucwords($cat->cat_name); ?></tag>
@@ -119,10 +118,10 @@
  												<td><?= ucwords($cat->fullname); ?></td>
  												<td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
  												<td class="is-narrow">
- 													<button type="button" title="Edit" data-id="<?= $cat->id; ?>"
+ 													<a data-no-instant type="button" title="Edit" data-id="<?= $cat->id; ?>"
  														class="category button is-small"><span class="icon is-small"><i
- 																class="fa fa-edit"></i></span></button>
- 													<a title="Delete"
+ 																class="fa fa-edit"></i></span></a>
+ 													<a data-no-instant title="Delete"
  														href="<?=base_url('admin/delete_category/'.$cat->id);?>"
  														class="button is-small has-text-danger"
  														onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');">
@@ -135,8 +134,7 @@
  										<?php else: ?>
  										<tbody>
  											<?php if(!empty($results)): foreach($results as $res): ?>
- 											<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$res->id) ?>';"
- 												style="cursor: pointer;">
+ 											<tr onclick="window.location='<?= base_url('admin/sub_categories/'.$cat->id) ?>';">
  												<td><?= 'S2S-'.$res->id; ?></td>
  												<td>
  													<div class="tag"><?= ucwords($res->cat_name); ?></div>
@@ -144,10 +142,10 @@
  												<td><?= ucwords($res->fullname); ?></td>
  												<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
  												<td class="is-narrow">
- 													<a title="Edit" data-id="<?= $res->id; ?>"
+ 													<a data-no-instant title="Edit" data-id="<?= $res->id; ?>"
  														class="category button is-small"><span class="icon is-small"><i
  																class="fa fa-edit"></i></span></a>
- 													<a title="Delete"
+ 													<a data-no-instant title="Delete"
  														href="<?=base_url('admin/delete_category/'.$res->id);?>"
  														class="button is-small has-text-danger"
  														onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
