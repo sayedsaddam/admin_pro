@@ -39,65 +39,13 @@
 
 <?php if(!isset($login_page)) : ?>
 
-<header>
-	<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-		<div class="navbar-brand">
-			<a class="navbar-item" href="https://bulma.io">
-				<img src="https://s2smark.com/assets/img/logo/s2s-logo-1.png" width="100%"
-					style="filter: invert(.5) brightness(2);">
-			</a>
-
-			<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-				data-target="navbarBasicExample">
-				<span aria-hidden="true"></span>
-				<span aria-hidden="true"></span>
-				<span aria-hidden="true"></span>
-			</a>
-		</div>
-
-		<div id="navbarBasicExample" class="navbar-menu">
-			<div class="navbar-start">
-				<a href="<?= base_url('admin/dashboard') ?>" class="navbar-item">
-					Home
-				</a>
-				<div class="navbar-item">
-					<span class="has-text-white viewing mr-1">0</span>others online, including management.
-				</div>
-			</div>
-
-			<div class="navbar-end">
-				<div class="navbar-item">
-					<div class="navbar-item has-dropdown is-hoverable">
-						<a class="navbar-link">
-							<?= $this->session->userdata('fullname') ?>
-						</a>
-						<div class="navbar-dropdown is-right">
-							<a href="<?= base_url('/admin/dashboard/') ?>" class="dropdown-item">
-								<i class="fas fa-user-tie mr-2" aria-hidden="true"></i> Profile Information
-							</a>
-							<?php if($this->session->userdata('user_role') == 1) : ?>
-							<a href="<?= base_url('/admin/acl/') ?>" class="dropdown-item">
-								<i class="fas fa-sliders-h mr-2" aria-hidden="true"></i> Access Control List
-							</a>
-							<?php endif ?>
-							<hr class="navbar-divider">
-							<a href="<?= base_url('login/logout') ?>" class="dropdown-item" data-no-instant>
-								<i class="fas fa-sign-out-alt mr-2" aria-hidden="true"></i> Logout
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</nav>
-</header>
 <!-- <div class="column is-centered has-text-centered">
 	
 </div> -->
-<body>
+<body style="background-color:#fcfcfc;">
 	<?php else: ?>
 
-	<body style="background-color:#fbfbfb;">
+	<body style="background-color:#fcfcfc;">
 		<section class="section" style="height: 100vh;">
 			<section class="hero is-small is-primary is-hidden-print" style="background-color:#fbfbfb;">
 				<div class="hero-body">

@@ -1,23 +1,10 @@
-<?php 
-/*
-* Filename: add_items.php
-* Author: Saddam
-*/
-?>
-<style>
-	#demo {
-		height: 50px;
-	}
-
-</style>
- 
 <section class="columns is-gapless mb-0 pb-0">
 	<div class="column is-narrow is-fullheight" style="background-color:#fafafa;">
 		<?php $this->view('admin/commons/sidebar'); ?>
 	</div>
 	<div class="column">
 		<div class="columns">
-			<div class="column section">
+			<div class="column section py-5">
 				<div class="columns">
 					<div class="column">
 						<form action="">

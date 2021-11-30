@@ -4,7 +4,7 @@
 	</div>
 	<div class="column">
 		<div class="columns">
-			<div class="column section">
+			<div class="column section py-5">
 				<div class="columns is-hidden-touch">
 				<div class="column">
 						<form action="">
