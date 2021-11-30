@@ -20,8 +20,6 @@ class Admin extends CI_Controller{
         $this->access['EmployeesAccess'] = $this->AccessList()["Employees"];
         $this->access['CategoriesAccess'] = $this->AccessList()["Categories"];
         $this->access['RegisterAccess'] = $this->AccessList()["Register"];
-
-      
     }
     public function add_requisition() {
         $url = 'admin/add_requisition';
