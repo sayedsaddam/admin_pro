@@ -120,7 +120,7 @@
 						Items List</a></li>
 				<li
 					class="is-size-7 <?= $this->uri->segment(2) == 'available_item_list' ? 'has-text-weight-bold' : '' ?>">
-					<a href="<?= base_url('admin/available_item_list'); ?>"><i class="far fa-list-alt mr-1"></i>
+					<a href="<?= base_url('admin/available_item_list'); ?>"><i class="fas fa-list mr-1"></i>
 						Available List</a></li>
 				<li class="is-size-7 <?= $this->uri->segment(2) == 'get_assign_item' ? 'has-text-weight-bold' : '' ?>">
 					<a href="<?= base_url('admin/get_assign_item'); ?>"><i class="fas fa-bars mr-1"></i> Assigned

@@ -190,34 +190,36 @@
 									</span>
 								</div>
 							</div>
-						</div>
-						<!-- <div class="column">
-							<label class="label is-small">Dapartment <span class="has-text-danger">*</span></label>
-							<div class="control has-icons-left">
-								<div class="select select is-small is-fullwidth">
-									<select name="department" id="" required>
-										<?php if(!isset($edit)): ?>
-										<option selected disabled value="">Select Department</option>
-										<?php endif ?>
-										<?php if(!empty($edit)): ?>
-										<option value="<?= $edit->department; ?>"
-											<?php !empty($edit)? 'selected' : '' ?>>
-											<?= $edit->dep_name; ?>
-										</option>
-										<?php endif; ?>
-										<?php foreach($departments as $department) {?>
-										<option value="<?= $department->id; ?>"><?= $department->department; ?></option>
+						</div> 
 
-										<?php } ?>	 
+						<div class="column">
+							<div class="control has-icons-left">
+								<label class="label is-small">Company <span class="has-text-danger">*</span></label>
+								<div class="select is-small is-fullwidth">
+									<select name="company" id="company" required>
+										<?php if(!isset($edit)): ?>
+										<option selected disabled value="">Select a Company</option>
+										<?php endif ?>
+										<?php if(!empty($companys)): foreach($companys as $company): ?>
+										<option value="<?= $company->id; ?>"
+											<?php !empty($edit) && $edit->company_id == $company->id ? 'selected' : '' ?>>
+											<?= $company->name; ?>
+										</option>
+										<?php endforeach; endif; ?>
 									</select>
-									<div class="icon is-small is-left">
-										<i class="fas fa-building"></i>
-									</div>
+									
+								<span class="icon is-small is-left">
+								<i class="fas fa-building"></i>
+								</span>
 								</div>
 							</div>
-						</div> -->
+						</div>
 					
-						<div class="column">
+					</div>
+					<div class="columns">
+
+
+					<div class="column">
 							<div class="control">
 								<label class="label is-small">Department <span class="has-text-danger">*</span></label>
 								<div class="control has-icons-left">
@@ -228,10 +230,11 @@
 											<option value="<?= $department->id; ?>"
 											<?php if(!empty($edit)){ ?>
 												<?= ($edit->department == $department->id) ? 'selected' : '' ?>>
-												<?php } ?>
+												<?php } ?>>
 												<?= ucwords($department->dep_name); ?>
 											</option> 
 											<?php endforeach; endif; ?>
+											
 										</select>
 									</span>
 									<span class="icon is-small is-left">
@@ -240,9 +243,9 @@
 								</div>
 							</div>
 						</div>
-					
-					</div>
-					<div class="columns">
+
+
+
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -258,7 +261,10 @@
 							</fieldset>
 						</div>
 
-						<div class="column">
+					</div>
+
+					<div class="columns">
+					<div class="column">
 							<label class="label is-small">Date of Birth <span class="has-text-danger">*</span></label>
 							<div class="is-small is-fullwidth">
 								<?php if(!empty($edit)){ $dateob = strtotime($edit->dob); $date_of_birth= date('Y-m-d', $dateob);}?>
@@ -271,9 +277,8 @@
 								</div>
 							</div>
 						</div>
-					</div>
-
-					<div class="columns">
+						
+						
 						<div class="column">
 							<fieldset>
 								<div class="field">
@@ -290,8 +295,13 @@
 								</div>
 							</fieldset>
 						</div>
+						
+					</div>
 
-						<div class="column">
+					
+					<div class="columns">
+					
+					<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Address</label>
@@ -304,12 +314,9 @@
 									</div>
 								</div>
 							</fieldset>
-						</div>
-					</div>
+						</div> 
 
-					
-					<div class="columns">
-						<div class="column">
+					<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">User Role <span class="has-text-danger">*</span></label>
@@ -328,9 +335,7 @@
 								</div>
 							</fieldset>
 						</div>
-
-						<div class="column">
-						</div>
+ 
 					</div>
 
 					<div class="columns">

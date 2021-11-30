@@ -450,7 +450,8 @@ class Admin extends CI_Controller{
     $data['title'] = 'Add Employee';
     $data['add_page'] = true;
     $data['body'] = 'admin/employ/add_employee';   
-    $data['locations'] = $this->admin_model->get_item_location(); 
+    $data['locations'] = $this->admin_model->get_item_location();
+    $data['companys'] = $this->admin_model->get_company();
     $data['user_roles'] = $this->admin_model->UserRoles();
     $data['departments'] = $this->admin_model->employee_department(); 
     $data['breadcrumb'] = array("admin/employee" => "Employee List", "Add Employee");
@@ -464,6 +465,7 @@ class Admin extends CI_Controller{
             'phone' => $this->input->post('phone'),
             'username' => ucfirst($this->input->post('user_name')),
             'department' =>ucfirst($this->input->post('department')),
+            'company_id' =>ucfirst($this->input->post('company')),
             'location' => $this->input->post('location'),
             'password' => sha1($this->input->post('phone')),
             'region' => ucfirst($this->input->post('region')),
@@ -492,6 +494,7 @@ class Admin extends CI_Controller{
         $data['locations'] = $this->admin_model->get_employ_location($id); 
         $data['edit'] = $this->admin_model->edit_employ($id);  
         $data['departments'] = $this->admin_model->employee_department($id); 
+        $data['companys'] = $this->admin_model->employee_company($id); 
         $data['user_roles'] = $this->admin_model->UserRoles();
         $data['breadcrumb'] = array("admin/employee" => "Employee List", "Edit Employee");
         $data['employees_page'] = true;
@@ -511,6 +514,7 @@ class Admin extends CI_Controller{
             'email' => $this->input->post('email'), 
             'phone' => $this->input->post('phone'), 
             'department' =>ucfirst($this->input->post('department')),
+            'company_id' =>ucfirst($this->input->post('company')),
             'location' => $this->input->post('location'), 
             'region' => ucfirst($this->input->post('region')),
             'address' => ucfirst($this->input->post('address')),
@@ -518,9 +522,7 @@ class Admin extends CI_Controller{
             'dob' => $this->input->post('dob'),
             'doj' => $this->input->post('doj'),
             'user_role' => $this->input->post('user_role')
-        );
-        // echo "<pre>";
-        // print_r($data);exit;  
+        ); 
         if($this->admin_model->update_employ($id, $data)){
             $this->session->set_flashdata('success', 'Employee (<strong>' . $this->input->post('full_name') . '</strong>) was updated successfully.'); 
             redirect('admin/edit_employ/' . $id);
