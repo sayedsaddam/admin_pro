@@ -169,70 +169,36 @@
 
 
 					<div class="columns">
-						<div class="column">
-							<label class="label is-small">Phone No <span class="has-text-danger">*</span></label>
+                    <div class="column">
 							<div class="control has-icons-left">
-								<div class="is-small is-fullwidth">
-									<input type="number" name="phone" id="" class="input is-small"
-										value="<?= !empty($edit) ? $edit->phone : '' ?>" type="text"
-										placeholder="e.g 03311234567" required="">
-									<span class="icon is-small is-left">
-										<i class="fas fa-phone"></i>
-									</span>
-								</div>
-							</div>
-						</div>
-						<!-- <div class="column">
-							<label class="label is-small">Dapartment <span class="has-text-danger">*</span></label>
-							<div class="control has-icons-left">
-								<div class="select select is-small is-fullwidth">
-									<select name="department" id="" required>
-										<?php if(!isset($edit)): ?>
-										<option selected disabled value="">Select Department</option>
-										<?php endif ?>
-										<?php if(!empty($edit)): ?>
-										<option value="<?= $edit->department; ?>"
-											<?php !empty($edit)? 'selected' : '' ?>>
-											<?= $edit->dep_name; ?>
-										</option>
-										<?php endif; ?>
-										<?php foreach($departments as $department) {?>
-										<option value="<?= $department->id; ?>"><?= $department->department; ?></option>
-
-										<?php } ?>	 
-									</select>
-									<div class="icon is-small is-left">
-										<i class="fas fa-building"></i>
-									</div>
-								</div>
-							</div>
-						</div> -->
-					
-						<div class="column">
-							<div class="control">
 								<label class="label is-small">Department <span class="has-text-danger">*</span></label>
-								<div class="control has-icons-left">
-									<span class="select is-small is-fullwidth">
-									<select name="department" id="" required>
-											<option disabled value="">Select Department</option>
-											<?php if(!empty($departments)): foreach($departments as $department): ?>
-											<option value="<?= $department->id; ?>"
-											<?php if(!empty($edit)){ ?>
-												<?= ($edit->department == $department->id) ? 'selected' : '' ?>>
-												<?php } ?>
-												<?= ucwords($department->dep_name); ?>
-											</option> 
-											<?php endforeach; endif; ?>
-										</select>
-									</span>
-									<span class="icon is-small is-left">
-										<i class="fas fa-globe"></i>
-									</span>
+								<div class="select is-small is-fullwidth">
+									<select required disabled>
+										<option selected disabled value="">Select a City</option>
+									</select>
+									
+								<span class="icon is-small is-left">
+									<i class="fas fa-street-view"></i>
+								</span>
+								</div>
+							</div>
+						</div>					
+						<div class="column">
+							<div class="control has-icons-left">
+								<label class="label is-small">Company <span class="has-text-danger">*</span></label>
+								<div class="select is-small is-fullwidth">
+									<select required disabled>
+										<option selected disabled value="">Select a City</option>
+									</select>
+									
+								<span class="icon is-small is-left">
+									<i class="fas fa-street-view"></i>
+								</span>
 								</div>
 							</div>
 						</div>
-					
 					</div>
+                    <hr>
 					<div class="columns">
 						<div class="column">
 							<fieldset>
