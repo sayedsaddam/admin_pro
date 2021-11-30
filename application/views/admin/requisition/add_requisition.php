@@ -198,7 +198,7 @@
 							</div>
 						</div>
 					</div>
-                    <table class="table is-fullwidth">
+                    <table class="table is-small is-fullwidth">
                         <thead>
                             <tr>
                                 <th class="is-narrow">SR#</th>
@@ -246,13 +246,9 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Region </label>
-									<div class="control has-icons-left">
-										<input type="text" name="region" id="" class="input is-small"
-											value="<?= !empty($edit) ? $edit->region : '' ?>" placeholder="e.g KPK">
-										<span class="icon is-small is-left">
-											<i class="fas fa fa-location-arrow"></i>
-										</span>
+									<label class="label is-small">Reason for Purchase </label>
+									<div class="control">
+										<textarea name="reason" class="textarea is-small" placeholder="Please enter brief description explaining why you are requesting the item(s)." rows="4"></textarea>
 									</div>
 								</div>
 							</fieldset>
