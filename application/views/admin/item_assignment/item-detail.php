@@ -405,6 +405,9 @@
 								<?php if(!isset($edit_item)): ?>
 								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
 								<?php endif ?>
+								<?php if(isset($edit_item)): ?>
+								<a href="<?= base_url('/admin/assign_item/' . $edit->id) ?>" class="button is-warning is-small">Assign Item</a>
+								<?php endif ?>
 								<p class="control">
 									<button class="button is-small is-success" type="submit">
 										<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
@@ -419,63 +422,8 @@
 				</form>
 			</div>
 		</div>
-
-		<div class="modal" id="modal-ter">
-			<div class="modal-background"></div>
-			<form action="<?= base_url('admin/product_report'); ?>" method="POST">
-				<div class="modal-card">
-					<header class="modal-card-head">
-						<p class="modal-card-title">Filter Report</p>
-						<button class="delete" aria-label="close" id="exit-report-modal" type="button"></button>
-					</header>
-					<section class="modal-card-body">
-						<div class="columns">
-							<div class="column">
-								<p class="control">
-									From:
-									<input class="input" type="date" placeholder="From" name="from_date">
-								</p>
-							</div>
-							<div class="column">
-								<p class="control">
-									To:
-									<input class="input" type="date" placeholder="From" name="to_date">
-								</p>
-							</div>
-						</div>
-					</section>
-					<footer class="modal-card-foot">
-						<button class="button is-success" type="submit">Apply</button>
-						<button class="button" aria-label="close" id="close-report-modal" type="button">Cancel</button>
-					</footer>
-				</div>
-			</form>
-		</div>
 	</div>
 </section>
-<script>
-	var btn1 = $("#report-btn")
-	var btn3 = $("#exit-report-modal")
-	var btn4 = $("#close-report-modal")
-
-	var mdl = new BulmaModal("#modal-ter")
-
-	btn1.click(function (ev) {
-		mdl.show();
-		$(".modal-card-head").show();
-		ev.stopPropagation();
-	});
-	btn3.click(function (ev) {
-		mdl.close();
-		ev.stopPropagation();
-	});
-	btn4.click(function (ev) {
-		mdl.close();
-		ev.stopPropagation();
-	});
-
-</script>
-
 <script>
 	$(document).ready(function () {
 

@@ -11,6 +11,7 @@ class Admin extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('supervisor_model');
         $this->load->helper('paginate');
+
         if(!$this->session->userdata('username')){
             redirect('');
         }
@@ -20,7 +21,13 @@ class Admin extends CI_Controller{
         $this->access['CategoriesAccess'] = $this->AccessList()["Categories"];
         $this->access['RegisterAccess'] = $this->AccessList()["Register"];
     }
-
+    public function add_requisition() {
+        $url = 'admin/add_requisition';
+        $data['title'] = 'Add Request | Admin & Procurement';
+        $data['body'] = 'admin/requisition/add_requisition';
+        $data['breadcrumb'] = array("Add Request");
+        $this->load->view('admin/commons/new_template', $data);
+    }
     private function AccessList() {
         $user_role = $this->session->userdata('user_role');
         $userAccess = $this->admin_model->request_db_configs($user_role);
@@ -2001,7 +2008,7 @@ class Admin extends CI_Controller{
         $data['locations'] = $this->admin_model->get_item_location(); 
         $data['returning_items'] = $this->admin_model->returning_assignment_list($id); 
         $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Assign Item");
-        $data['item_register'] = true;
+        $data['available_page'] = true;
         $this->load->view('admin/commons/new_template', $data);
     }
         // assign_item_save into the database
