@@ -166,7 +166,7 @@
 												<?php endif; ?>
 												<td><?= $item->depreciation.' (%)'; ?></td>
 												<td>
-													<?php if($status = $item->quantity > 0 && $item->status != 1 && (!isset($damaged_item))){
+													<?php if($item->assignd_to != null && $item->status == 1){
 											echo '<span class="tag is-success is-light">Available</span>';
 										}elseif((isset($damaged_item)) && $item->status != 1){
 											echo '<span class="tag is-danger is-light">'. $item->remarks;'</span>';

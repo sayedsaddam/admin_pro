@@ -56,13 +56,13 @@ return $this->db->get()->result();
 public function count_filter_assets($data){ 
     $this->db->select('assets.id,
     assets.category,
-    assets.quantity, 
+    assets.quantity,
     assets.purchase_date, 
     assets.location, 
     assets.sub_categories, 
-    assets.price,  
-    assets.user,  
-    assets.created_at, ');
+    assets.price,
+    assets.user, 
+    assets.created_at');
     $this->db->from('assets'); 
     if ($this->session->userdata('user_role') != '1') {
         $this->db->where('assets.location', $this->session->userdata('location'));
@@ -232,6 +232,14 @@ public function count_filter_suppliers($data){
     return $this->db->count_all_results();
 }
 
+public function filter(){
+    $this->db->select('users.id as user_id, users.full_name,item_assignment.id, item_assignment.assigned_to');
+    $this->db->from('use');
+    $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
+    $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+
+}
+
     // filter_item 
        public function filter_item($limit, $offset,$data){
         $this->db->select('items.id, items.location as item_location, items.category, items.sub_category, items.type_name, items.model, items.serial_number, items.supplier, items.quantity, items.price, items.depreciation, items.purchasedate, items.created_at, users.fullname as employ_name, users.id as employ_id, sub_categories.name as names, categories.cat_name, locations.name, item_assignment.status, item_assignment.assignd_to, item_assignment.id as item_ids, suppliers.id as sup_id, suppliers.name as sup_name');
@@ -241,11 +249,17 @@ public function count_filter_suppliers($data){
         $this->db->join('locations', 'items.location = locations.id', 'left');
         $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
         $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
-        $this->db->join('suppliers', 'items.supplier = suppliers.id', 'left');
+        $this->db->join('suppliers', 'items.supplier = suppliers.id', 'left'); 
+        $this->db->join('item_assignment as assignment', 'items.id = assignment.item_id', 'left');
         
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('items.location', $this->session->userdata('location'));
         } 
+
+        if($data['employee'] != null){ 
+            $this->db->where('assignment.assignd_to', $data['employee']);
+            $this->db->where('assignment.status',1); 
+        }
 
         if($data['location'] != null){
             $this->db->where('items.location', $data['location']);

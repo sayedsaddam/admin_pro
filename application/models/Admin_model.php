@@ -1600,7 +1600,12 @@ public function update_invoice($id, $data){
         return false;
         }
     } 
-    
+     // get Supplier for adding an item
+     public function get_item_employee(){
+        $this->db->select('id, fullname');
+        $this->db->from('users'); 
+        return $this->db->get()->result();
+    }   
      // get Supplier for adding an item
      public function get_item_supplier(){
         $this->db->select('id, name');

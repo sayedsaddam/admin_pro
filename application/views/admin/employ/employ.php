@@ -102,8 +102,7 @@
 										<?php if(empty($results)): ?>
 										<tbody id="myTable">
 											<?php if(!empty($employ)): foreach($employ as $sup): ?>
-											<tr
-												onclick="window.location='<?= base_url('admin/edit_employ/'.$sup->emp_id); ?>';">
+											<tr >
 												<td><?= 'S2S-'.$sup->emp_id; ?></td>
 												<td><abbr
 														title="<?= $sup->email; ?>"><?= ucwords($sup->emp_name); ?></abbr>
@@ -129,6 +128,14 @@
 																	<i class="fas fa-edit"></i>
 																</span>
 															</a>
+
+															<a href="<?= base_url('/report/filter_item?employee='.$sup->emp_id); ?>"
+																class="button is-small">
+																<span class="icon is-small">
+																	<i class="fas fa-list"></i>
+																</span>
+															</a>
+						
 														</p>
 														<?php if($session == 'admin'){ ?>
 														<a href="<?=base_url('admin/delete_employ/'.$sup->emp_id);?>"
@@ -145,8 +152,7 @@
 										<?php else: ?>
 										<tbody id="myTable">
 											<?php if(!empty($results)): foreach($results as $res): ?>
-											<tr
-												onclick="window.location='<?= base_url('admin/edit_employ/'.$res->id); ?>';">
+											<tr>
 												<td><?= 'S2S-'.$res->id; ?></td>
 												<td><abbr
 														title="<?= $res->email; ?>"><?= ucwords($res->fullname); ?></abbr>
@@ -164,9 +170,13 @@
 												</td>
 												<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
 												<td class="is-narrow">
-													<a data-id="<?= $res->id; ?>"
+												<a data-id="<?= $res->id; ?>"
 														class="supplier_info button is-small"><span
 															class="icon is-small"><i class="fa fa-edit"></i></span></a>
+
+										<a href="<?= $res->id; ?>" class="button is-small"><span
+															class="icon is-small"><i class="fa fa-list"></i></span></a>
+
 													<?php if($session == 'admin'){ ?>
 													<a href="<?=base_url('admin/delete_employ/'.$res->id);?>"
 														onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"

@@ -131,6 +131,50 @@
 							</div>
 						</div>
 					</div>
+			
+					<div class="columns"> 
+
+<div class="column">
+		<fieldset>
+			<div class="field">
+				<label class="label is-small">Item Type</label>
+				<div class="control has-icons-left">
+					<span class="select is-small is-fullwidth"> 
+						 <select name="item_type" id="item_type">
+							 <option value="" selected disabled>Select Item</option>
+							 <option value="available_item">Available Item</option>
+							 <option value="assigned_item">Assigned Item</option>
+							 <option value="damaged_item">Damaged Item</option>
+						 </select>
+					</span>
+					<span class="icon is-small is-left">
+							<i class="fas fa-list"></i>
+						</span>
+							</div>
+						</div>
+					</fieldset>
+				</div> 
+
+					<div class="column">
+							<div class="control">
+								<label class="label is-small">Employee</label>
+								<div class="control has-icons-left">
+									<span class="select is-small is-fullwidth">
+										<select name="employee" id="employee">
+											<option selected disabled value="">Select a Employee</option>
+											<?php if(!empty($employees)): foreach($employees as $employee): ?>
+											<option value="<?= $employee->id; ?>"
+												<?= !empty($edit) && $edit->employee == $employee->id ? 'selected' : '' ?>>
+												<?= ucwords($employee->fullname); ?>
+											</option>
+											<?php endforeach; endif; ?>
+										</select>
+									</span>
+								</div>
+							</div>
+						</div>
+					
+				</div>
 					<div class="columns"> 
 
 					<div class="column">
@@ -521,4 +565,17 @@ $(document).ready(function(){
 });
 });
 
+$(document).ready(function () {
+	// item type to select employe detail
+	$('#item_type').on('change', function () {
+			var item_type = $(this).val();
+			var item_type_text = $("#item_type option:selected").text(); 
+			if (item_type_text.includes('Assigned Item')) {
+				$("#employee").attr('disabled', false);
+			} else {
+				$("#employee").attr('disabled', true);
+			}
+		});
+})
+$("#employee").select2();
 </script>
