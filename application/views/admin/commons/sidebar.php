@@ -1,4 +1,9 @@
-<aside class="section is-narrow-mobile is-hidden-mobile" id="categories">
+<div class="is-flex is-justify-content-center">
+	<div class="mx-5 my-2">
+		<img src="https://s2smark.com/assets/img/logo/s2s-logo-1.png" >
+	</div>
+</div>
+<aside class="section py-4 is-narrow-mobile is-hidden-mobile" id="categories">
 	<p class="menu-label">
 		General
 	</p>
