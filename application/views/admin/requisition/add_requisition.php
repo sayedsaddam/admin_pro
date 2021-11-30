@@ -16,7 +16,7 @@
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" type="search"
-										placeholder="Search Employees"
+										placeholder="Search Request"
 										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
 									<span class="icon is-small is-left">
 										<i class="fas fa-search"></i>
@@ -29,7 +29,7 @@
 									</button>
 								</div>
 								<div class="ml-1 control">
-									<a href="<?= base_url('report/employee_report') ?>" class="button is-small">
+									<a href="<?= base_url('report/requisition_report') ?>" class="button is-small">
 										<span class="icon is-small">
 											<i class="fas fa-sort-alpha-down"></i>
 										</span>
