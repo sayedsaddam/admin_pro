@@ -136,7 +136,7 @@
 														</p>
 														<?php endif ?>
 														<?php if ($AssetsAccess->delete == 1) : ?>
-														<a href="<?=base_url('admin/delete_asset/'.$asset->id);?>"
+														<a data-no-instant href="<?=base_url('admin/delete_asset/'.$asset->id);?>"
 															onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
 															class="button is-small"><span
 																class="icon is-small has-text-danger"><i
