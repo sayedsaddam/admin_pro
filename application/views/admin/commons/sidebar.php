@@ -99,7 +99,7 @@
 						Add Request</a></li>
 				<li
 					class="is-size-7 <?= $this->uri->segment(2) == 'available_item_list' ? 'has-text-weight-bold' : '' ?>">
-					<a href="<?= base_url('admin/requisition_list'); ?>"><i class="far fa-list-alt mr-1"></i>
+					<a href="<?= base_url('admin/requisition_list'); ?>"><i class="fas fa-list mr-1"></i>
 						Request List</a></li>
 			</ul>
 		</li>
