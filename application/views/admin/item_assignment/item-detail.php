@@ -174,7 +174,7 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="category" id="category" required <?= isset($edit) ? 'disabled' : '' ?>>
-												<option selected disabled value="">Select a Category</option>
+												<option selected disabled>Select a Category</option>
 												<?php if(!empty($categories)): foreach($categories as $cat): ?>
 												<option value="<?= $cat->id; ?>"
 													<?= isset($edit) && $edit->category == $cat->id ? 'selected' : '' ?>>
@@ -406,12 +406,12 @@
 								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
 								<?php endif ?> 
 								<?php if(isset($edit_item) && isset($assign_item) && $assign_item->assignd_to != null) :?>
-								<a href="<?= base_url('/admin/assign_item/' . $edit->id) ?>" class="button is-warning is-small">
+								<button name="assign" value="true" class="button is-warning is-small" type="submit">
 									<span>Assign Item</span>
 									<span class="icon is-small">
 										<i class="fas fa-people-arrows"></i>
 									</span>
-								</a>
+								</button>
 								<?php endif ?>
 								<button class="button is-small is-success" type="submit">
 									<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
