@@ -1590,6 +1590,7 @@ public function update_invoice($id, $data){
         } elseif ($quantity == null) {
             $quantity = 1;
         }
+        
         for ($i = 0; $i<$quantity; $i++) {
             $this->db->insert('items', $data);
             $id = $this->db->insert_id();
@@ -1599,11 +1600,11 @@ public function update_invoice($id, $data){
             );  
             $this->db->insert('item_model', $item_type);
         }
-        $this->db->insert('item_model', $item_type);
-        if($this->db->affected_rows() > 0){
-        return true;
-        }else{
-        return false;
+
+        if($this->db->affected_rows() > 0) {
+            return true;
+        } else{
+            return false;
         }
     } 
      // get Supplier for adding an item
