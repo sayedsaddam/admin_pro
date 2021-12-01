@@ -11,7 +11,6 @@
 						<?php $this->view('admin/commons/breadcrumb'); ?>
 					</div>
 				</div>
-
 				<div class="columns is-hidden-touch">
 					<div class="column is-hidden-print">
 						<form action="<?= base_url('admin/search_employ') ?>" method="get">
@@ -96,7 +95,6 @@
 						</div>
 					</div>
 				</div>
-
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
 						<div class="tile is-child box">

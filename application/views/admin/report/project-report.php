@@ -96,27 +96,6 @@
 						</div>
 					</div>
 				</div>
-
-				<?php if($this->session->flashdata('success')) : ?>
-				<div class="columns">
-					<div class="column">
-						<div class="notification is-success is-light">
-							<button class="delete"></button>
-							<?= $message = $this->session->flashdata('success'); ?>
-						</div>
-					</div>
-				</div>
-				<?php elseif($this->session->flashdata('failed')) : ?>
-				<div class="columns">
-					<div class="column">
-						<div class="notification is-danger is-light">
-							<button class="delete"></button>
-							<?= $message = $this->session->flashdata('failed'); ?>
-						</div>
-					</div>
-				</div>
-				<?php endif ?>
-
 				<form action="<?php echo base_url('report/filter_project'); ?>" method="GET">
 					<input type="hidden" name="project_id" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">

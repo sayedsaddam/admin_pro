@@ -29,7 +29,6 @@
 							</div>
 						</form>
 					</div>
-
 				<div class="column is-hidden-touch is-narrow is-hidden-print">
 						<div class="field has-addons">
 							<p class="control">

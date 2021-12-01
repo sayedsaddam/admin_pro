@@ -10,7 +10,6 @@
 						<?php $this->view('admin/commons/breadcrumb'); ?>
 					</div>
 				</div>
-
 				<div class="columns is-hidden-touch">
 					<div class="column is-hidden-print">
 						<form action="<?= base_url('admin/filter_asset'); ?>" method="get">
@@ -32,7 +31,6 @@
 							</div>
 						</form>
 					</div>
-				
 					<div class="column is-hidden-touch is-narrow is-hidden-print">
 						<div class="field has-addons">
 							<p class="control">
@@ -96,8 +94,6 @@
 						</div>
 					</div>
 				</div>
-
-
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
 						<div class="tile is-child box">
