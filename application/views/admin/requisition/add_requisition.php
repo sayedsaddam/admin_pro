@@ -198,7 +198,7 @@
 							</div>
 						</div>
 					</div>
-                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                    <table class="table is-narrow is-fullwidth">
                         <tbody>
                             <tr>
                                 <td>1.</td>
