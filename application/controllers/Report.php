@@ -62,7 +62,7 @@ if(!empty($offset)){
 
 $this->load->library('pagination');
 $url = base_url('report/filter_asset');
-$rowscount = $this->report_model->count_filter_assets($data);
+$rowscount = $this->report_model->filter_asset($limit, $offset,$data, $count = true);
 $config['base_url'] = $url;
 $config['total_rows'] = $rowscount;
 $config['per_page'] = $limit;
@@ -124,7 +124,7 @@ if(!empty($offset)){
 }
 $this->load->library('pagination');
 $url = base_url('report/filter_supplier');
-$rowscount = $this->report_model->count_filter_suppliers($data);
+$rowscount = $this->report_model->filter_supplier($limit, $offset,$data, $count = true);
 
 $config['base_url'] = $url;
 $config['total_rows'] = $rowscount;
@@ -188,7 +188,7 @@ public function filter_employee($offset = null){
     
     $this->load->library('pagination');
     $url = base_url('report/filter_employee');
-    $rowscount = $this->report_model->count_filter_employee($data);
+    $rowscount = $this->report_model->filter_employee($limit, $offset, $data, $count = true);
     
     $config['base_url'] = $url;
     $config['total_rows'] = $rowscount;
@@ -315,7 +315,7 @@ public function filter_project($offset = null){
 
     $this->load->library('pagination');
     $url = base_url('report/filter_project');
-    $rowscount = $this->report_model->count_filter_projects($data);
+    $rowscount = $this->report_model->filter_project($limit, $offset,$data, $count = true);
 
     $config['base_url'] = $url;
     $config['total_rows'] = $rowscount;
@@ -371,8 +371,7 @@ public function filter_project($offset = null){
         }
         $this->load->library('pagination');
         $url = base_url('report/filter_invoice');
-        $rowscount = $this->report_model->count_filter_invoices($data);
-
+        $rowscount = $this->report_model->filter_invoice($limit, $offset,$data,$count = true);
         $config['base_url'] = $url;
         $config['total_rows'] = $rowscount;
         $config['per_page'] = $limit;

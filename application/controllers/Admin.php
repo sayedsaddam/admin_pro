@@ -1916,6 +1916,7 @@ class Admin extends CI_Controller{
         $data['title'] = 'Item Detail';
         $data['body'] = 'admin/item_assignment/item-detail';
         $data['edit'] = $this->admin_model->item_detail($id);
+        $data['assign_item'] = $this->admin_model->assign_item($id);
         $data['categories'] = $this->admin_model->get_item_categories();
         $data['sub_categories'] = $this->admin_model->get_item_sub_category();    
         $data['supplier'] = $this->admin_model->get_item_supplier();

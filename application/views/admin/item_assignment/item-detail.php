@@ -404,10 +404,12 @@
 							<div class="buttons is-pulled-right">
 								<?php if(!isset($edit_item)): ?>
 								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
-								<?php endif ?>
+								<?php endif ?> 
 								<?php if(isset($edit_item)): ?>
+									<?php if($assign_item->assignd_to != null && $assign_item->status == 0 || $assign_item->assignd_to == null && $assign_item->status == null) {?>
 								<a href="<?= base_url('/admin/assign_item/' . $edit->id) ?>" class="button is-warning is-small">Assign Item</a>
-								<?php endif ?>
+								
+								<?php } endif ?>
 								<p class="control">
 									<button class="button is-small is-success" type="submit">
 										<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
