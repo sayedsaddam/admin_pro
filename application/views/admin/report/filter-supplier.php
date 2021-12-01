@@ -44,7 +44,7 @@
 								</a>
 							</p>
 							<p class="control">
-								<a href='<?= base_url('report/supplier_report'); ?>'"
+								<a data-no-instant href='<?= base_url('report/supplier_report'); ?>'"
 									class="button is-small <?= isset($filter_supplier) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
@@ -53,7 +53,7 @@
 								</a>
 							</p>
 							<p class="control">
-								<a href='<?= base_url('report/employee_report'); ?>'"
+								<a data-no-instant href='<?= base_url('report/employee_report'); ?>'"
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
@@ -62,7 +62,7 @@
 								</a>
 							</p> 
 							<p class="control">
-								<a href='<?= base_url('report/item_report'); ?>'
+								<a data-no-instant href='<?= base_url('report/item_report'); ?>'
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
@@ -72,7 +72,7 @@
 							</p>
 							<?php if($AssetsAccess->write == 1) : ?>
 							<p class="control">
-								<a href='<?= base_url('report/project_report'); ?>'
+								<a data-no-instant href='<?= base_url('report/project_report'); ?>'
 									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
@@ -83,7 +83,7 @@
 							<?php endif ?>
 							<?php if($AssetsAccess->write == 1) : ?>
 							<p class="control">
-								<a href='<?= base_url('report/invoice_report'); ?>'
+								<a data-no-instant href='<?= base_url('report/invoice_report'); ?>'
 									class="button is-small <?= isset($add_asset) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
@@ -165,12 +165,12 @@
 												<?php if($SuppliersAccess->update == 1 || $SuppliersAccess->delete == 1) : ?>
 												<td class="is-narrow">
 													<?php if($SuppliersAccess->update == 1) : ?>
-													<a href="<?= base_url('admin/edit_supplier/' . $sup->id) ?>"
+													<a data-no-instant href="<?= base_url('admin/edit_supplier/' . $sup->id) ?>"
 														class="supplier_info button is-small"><span
 															class="icon is-small"><i class="fa fa-edit"></i></span></a>
 													<?php endif ?>
 													<?php if($SuppliersAccess->delete == 1) : ?>
-													<a href="<?=base_url('admin/delete_supplier/'.$sup->id);?>"
+													<a data-no-instant href="<?=base_url('admin/delete_supplier/'.$sup->id);?>"
 														class="button is-small"><span
 															class="icon is-small has-text-danger"><i
 																class="fa fa-times"></i></span></a>
@@ -213,7 +213,7 @@
 									</span>
 									<span>Print</span>
 								</button>
-								<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+								<a data-no-instant href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
 									class="button is-small ">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>

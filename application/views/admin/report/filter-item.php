@@ -178,7 +178,7 @@
 												<td class="is-hidden-print is-narrow">
 													<div class="field has-addons">
 														<p class="control">
-															<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"
+															<a data-no-instant href="<?= base_url('admin/item_detail/'.$item->id); ?>"
 																class="button is-small">
 																<span class="icon is-small">
 																	<i class="fas fa-edit"></i>
@@ -187,7 +187,7 @@
 														</p>
 														<?php if($item->quantity > 0 && $item->status != 1 || isset($available_page)): ?>
 														<p class="control">
-															<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"
+															<a data-no-instant href="<?= base_url('admin/assign_item/'.$item->id); ?>"
 																class="button is-small">
 																<span class="icon is-small has-text-success">
 																	<i class="fas fa-check"></i>

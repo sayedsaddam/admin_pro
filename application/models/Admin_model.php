@@ -603,6 +603,12 @@ public function update_invoice($id, $data){
         $this->db->from('departments');
         return $this->db->get()->result();
     }
+        // get company for add employee form
+        public function employee_company(){
+            $this->db->select('id,name,code');
+            $this->db->from('company');
+            return $this->db->get()->result();
+        }
     // Project - Get project by id
     public function edit_project($id){
         $this->db->select('id, project_name, project_desc,status');
@@ -2016,6 +2022,7 @@ public function update_invoice($id, $data){
                             users.phone, 
                             users.location,
                             users.doj, 
+                            users.company_id,
                             users.department,
                             users.region, 
                             users.address, 
@@ -2321,6 +2328,15 @@ public function update_invoice($id, $data){
     public function get_item_location(){
         $location = $this->session->userdata('location'); 
         $this->db->from('locations');
+        if ($this->session->userdata('user_role') != '1') {
+            $this->db->where('id', $this->session->userdata('location'));
+        }
+        return $this->db->get()->result();
+    }     
+    // get company
+    public function get_company(){
+       $this->db->select('id,name,code');
+        $this->db->from('company');
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('id', $this->session->userdata('location'));
         }

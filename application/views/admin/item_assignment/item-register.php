@@ -43,7 +43,7 @@
 					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
 							<p class="control">
-								<a href='<?= base_url('admin/item_register'); ?>'"
+								<a  href='<?= base_url('admin/item_register'); ?>'"
 									class="button is-small <?= (isset($item_register)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
@@ -55,7 +55,7 @@
 								<a href='<?= base_url('admin/available_item_list'); ?>'"
 									class="button is-small <?= (isset($available_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
-										<i class="far fa-list-alt"></i>
+										<i class="fas fa-list"></i>
 									</span>
 									<span>Available List</span>
 								</a>
@@ -141,7 +141,7 @@
 										</tfoot>
 										<tbody>
 											<?php if(!empty($items)): foreach($items as $item): ?>
-											<tr>
+											<tr onclick="window.location='<?= base_url('admin/product_card/'.$item->id) ?>';">
 												<td><span><?= 'S2S-'.$item->id; ?></a></td>
 												<td><?= $item->name; ?></td>
 												<td>
@@ -170,7 +170,7 @@
 												<td class="is-hidden-print is-narrow">
 													<div class="field has-addons">
 														<p class="control">
-															<a href="<?= base_url('admin/item_detail/'.$item->id); ?>"
+															<a data-no-instant href="<?= base_url('admin/item_detail/'.$item->id); ?>"
 																class="button is-small">
 																<span class="icon is-small">
 																	<i class="fas fa-edit"></i>
@@ -179,7 +179,7 @@
 														</p>
 														<?php if($item->quantity > 0 && $item->status != 1 || isset($available_page)): ?>
 														<p class="control">
-															<a href="<?= base_url('admin/assign_item/'.$item->id); ?>"
+															<a data-no-instant href="<?= base_url('admin/assign_item/'.$item->id); ?>"
 																class="button is-small">
 																<span class="icon is-small has-text-success">
 																	<i class="fas fa-check"></i>
@@ -196,15 +196,7 @@
 																</span>
 															</button>
 														</p>
-														<?php endif; ?>
-														<p class="control">
-															<a href="<?= base_url('admin/product_card/'.$item->id) ?>"
-																class="button is-small">
-																<span class="icon is-small">
-																	<i class="fas fa-print"></i>
-																</span>
-															</a>
-														</p>
+														<?php endif; ?> 
 													</div>
 											</tr>
 											<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='17'>No records found.</td></tr>"; endif; ?>
@@ -243,7 +235,7 @@
 									</span>
 									<span>Print</span>
 								</button>
-								<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+								<a data-no-instant href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
 									class="button is-small ">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>
