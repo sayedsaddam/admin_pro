@@ -96,38 +96,6 @@
 						</div>
 					</div>
 				</div>
-
-				<?php if($this->session->flashdata('success')) : ?>
-				<div class="columns">
-					<div class="column">
-						<div class="notification is-success is-light">
-							<button class="delete is-small"></button>
-							<div class="columns is-vcentered">
-								<div class="column is-size-7">
-									<i class="fas fa-check pr-1"></i>
-									<?= $message = $this->session->flashdata('success'); ?>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<?php elseif($this->session->flashdata('failed')) : ?>
-				<div class="columns">
-					<div class="column">
-						<div class="notification is-danger is-light">
-							<button class="delete is-small"></button>
-							<div class="columns is-vcentered">
-								<div class="column is-size-7">
-									<i class="fas fa-exclamation pr-1"></i>
-									<?= $message = $this->session->flashdata('failed'); ?>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<?php endif ?>
-
-
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
 						<div class="tile is-child box">
@@ -163,7 +131,7 @@
 												<td><?= $res->project_name; ?></td>
 												<td><?= ucfirst($res->project_desc); ?></td>
 												<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
-												<td><?php if($res->status == 0){ echo "<span class='tag is-warning'>Progress</span>"; }else{ echo "<span class='tag is-success'>Completed</span>"; } ?>
+												<td><?php if($res->status == 0){ echo "<span class='tag is-warning is-light'>In Progress</span>"; }else{ echo "<span class='tag is-success is-light'>Completed</span>"; } ?>
 												</td>
 												<td class="">
 													<div class="field has-addons">
