@@ -247,5 +247,4 @@
 </section>
 <script>
 	$("#supplier").select2();
-
 </script>
