@@ -405,7 +405,7 @@
 								<?php if(!isset($edit_item)): ?>
 								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
 								<?php endif ?> 
-								<?php if(isset($edit_item) && isset($assign_item) && $assign_item->status == 0) :?>
+								<?php if(isset($edit_item) && isset($assign_item) && $assign_item->status == 0 || !isset($assign_item)) :?>
 								<button name="assign" value="true" class="button is-warning is-small" type="submit">
 									<span>Assign Item</span>
 									<span class="icon is-small">
