@@ -32,7 +32,7 @@
                                 <a href="<?= base_url('/admin/acl') ?>" class="dropdown-item">Admin Controlled Logics</a>
                                 <hr class="dropdown-divider">
                                 <?php endif ?>
-                                <a href="<?= base_url('#') ?>" class="dropdown-item">Profile Information</a>
+                                <a href="<?= base_url('/admin/dashboard') ?>" class="dropdown-item">Profile Information</a>
                             </div> 
                         </div>
                     </div>
