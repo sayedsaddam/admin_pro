@@ -2,11 +2,9 @@
 	<div class="column is-narrow is-fullheight is-hidden-print" id="custom-sidebar">
 		<?php $this->view('admin/commons/sidebar'); ?>
 	</div>
-
 	<div class="column">
 		<div class="columns">
 			<div class="column section py-5">
-
 			<div class="columns is-hidden-touch">
 					<div class="column is-hidden-print">
 						<form action="<?= base_url('admin/search_project'); ?>" method="get">

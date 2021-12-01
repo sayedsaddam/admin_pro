@@ -42,21 +42,21 @@
 					<div class="column is-hidden-touch is-narrow">
 						<div class="field has-addons">
 							<p class="control">
-								<a href="<?= base_url("admin/add_requisition") ?>"
-									class="button is-small <?= (isset($employees_page)) ? 'has-background-primary-light' : '' ?>">
-									<span class="icon is-small">
-										<i class="fas fa-plus"></i>
-									</span>
-									<span>Add Requsition</span>
-								</a>
-							</p>
-							<p class="control">
 								<a href='<?= base_url('admin/requisition_list'); ?>'"
 									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
 									<span>Request List</span>
+								</a>
+							</p>
+							<p class="control">
+								<a href="<?= base_url("admin/add_requisition") ?>"
+									class="button is-small <?= (isset($employees_page)) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-plus"></i>
+									</span>
+									<span>Add Requsition</span>
 								</a>
 							</p>
 						</div>
@@ -198,7 +198,7 @@
 							</div>
 						</div>
 					</div>
-                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                    <table class="table is-narrow is-fullwidth">
                         <tbody>
                             <tr>
                                 <td>1.</td>

@@ -241,7 +241,7 @@ public function filter(){
 }
 
     // filter_item 
-       public function filter_item($limit, $offset,$data){
+       public function filter_item($limit, $offset, $data, $count = null){
         $this->db->select('items.id, items.location as item_location, items.category, items.sub_category, items.type_name, items.model, items.serial_number, items.supplier, items.quantity, items.price, items.depreciation, items.purchasedate, items.created_at, users.fullname as employ_name, users.id as employ_id, sub_categories.name as names, categories.cat_name, locations.name, item_assignment.status, item_assignment.assignd_to, item_assignment.id as item_ids, suppliers.id as sup_id, suppliers.name as sup_name');
         $this->db->from('items');
         $this->db->join('categories', 'items.category = categories.id', 'left');
@@ -303,73 +303,11 @@ public function filter(){
         if($data['status'] != null){
             $this->db->where('item_assignment.status', $data['status']);
         } 
+        if($count != false) {
+            return $this->db->count_all_results();
+        }
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
-    } 
-    // count filter item
-    public function count_filter_item($data){
-        $this->db->select('
-                         id,
-                         location,
-                         category,
-                         sub_category,
-                         type_name,
-                         model,
-                         serial_number,
-                         supplier,
-                         quantity,
-                         price,
-                         depreciation,
-                         purchasedate,
-                         created_at');
-        $this->db->from('items');
-        if ($this->session->userdata('user_role') != '1') {
-            $this->db->where('location', $this->session->userdata('location'));
-        } 
-
-        if($data['location'] != null){
-            $this->db->where('location', $data['location']);
-        } 
-        if($data['department'] != null){
-            $this->db->where('department', $data['department']);
-        } 
-        if($data['category'] != null){ // not work
-            $this->db->where('category', $data['category']);
-        } 
-        if($data['sub_category'] != null){
-            $this->db->where('sub_category', $data['sub_category']);
-        } 
-        if($data['project'] != null){ 
-            $this->db->where('project', $data['project']);
-        }  
-        if($data['type_name'] != null){
-            $this->db->where('type_name', $data['type_name']);
-        }  
-        if($data['quantity'] != null){
-            $this->db->where('quantity', $data['quantity']);
-        }  
-        if($data['model'] != null){
-            $this->db->where('model', $data['model']);
-        }  
-        if($data['serial_number'] != null){
-            $this->db->where('serial_number', $data['serial_number']);
-        }  
-        if($data['supplier'] != null){
-            $this->db->where('supplier', $data['supplier']);
-        }  
-        if($data['price'] != null){
-            $this->db->where('price', $data['price']);
-        }  
-        if($data['purchasedate'] != null){
-            $this->db->where('purchasedate', $data['purchasedate']);
-        }  
-        if($data['depreciation'] != null){
-            $this->db->where('depreciation', $data['depreciation']);
-        } 
-        if($data['status'] != null){
-            $this->db->where('item_assignment.status', $data['status']);
-        }
-        return $this->db->count_all_results();
     } 
 // filter_project
 public function filter_project($limit, $offset,$data){

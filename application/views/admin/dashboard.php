@@ -6,11 +6,8 @@
 	<div class="column">
 		<div class="columns">
 			<div class="column section py-5">
-				<div class="columns">
-					<div class="column">
-						<?php $this->view('admin/commons/breadcrumb'); ?>
-					</div>
-				</div>
+				
+				<?php $this->view('admin/commons/breadcrumb'); ?>
 
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">

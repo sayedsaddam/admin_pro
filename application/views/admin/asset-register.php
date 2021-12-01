@@ -79,8 +79,7 @@
 												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Category</th>
 												<th class="has-text-weight-semibold">Description</th>
-												<th class="has-text-weight-semibold"><abbr
-														title="Quantity">Quantity</abbr></th>
+												<th class="has-text-weight-semibold">Quantity</th>
 												<th class="has-text-weight-semibold"><abbr
 														title="Purchase Date">PD</abbr></th>
 												<th class="has-text-weight-semibold">Location</th>
@@ -96,8 +95,7 @@
 												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Category</th>
 												<th class="has-text-weight-semibold">Description</th>
-												<th class="has-text-weight-semibold"><abbr
-														title="Quantity">Quantity</abbr></th>
+												<th class="has-text-weight-semibold">Quantity</th>
 												<th class="has-text-weight-semibold"><abbr
 														title="Purchase Date">PD</abbr></th>
 												<th class="has-text-weight-semibold">Location</th>
