@@ -174,7 +174,7 @@
 									<div class="control has-icons-left">
 										<span class="select is-small is-fullwidth">
 											<select name="category" id="category" required <?= isset($edit) ? 'disabled' : '' ?>>
-												<option selected disabled value="">Select a Category</option>
+												<option selected disabled>Select a Category</option>
 												<?php if(!empty($categories)): foreach($categories as $cat): ?>
 												<option value="<?= $cat->id; ?>"
 													<?= isset($edit) && $edit->category == $cat->id ? 'selected' : '' ?>>
@@ -405,19 +405,20 @@
 								<?php if(!isset($edit_item)): ?>
 								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
 								<?php endif ?> 
-								<?php if(isset($edit_item)): ?>
-									<?php if($assign_item->assignd_to != null && $assign_item->status == 0 || $assign_item->assignd_to == null && $assign_item->status == null) {?>
-								<a href="<?= base_url('/admin/assign_item/' . $edit->id) ?>" class="button is-warning is-small">Assign Item</a>
-								
-								<?php } endif ?>
-								<p class="control">
-									<button class="button is-small is-success" type="submit">
-										<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
-										<span class="icon is-small">
-											<i class="fas fa-arrow-right"></i>
-										</span>
-									</button>
-								</p>
+								<?php if(isset($edit_item) && isset($assign_item) && $assign_item->status == 0 || isset($edit_item) && !isset($assign_item)) :?>
+								<button name="assign" value="true" class="button is-warning is-small" type="submit">
+									<span>Save & Assign</span>
+									<span class="icon is-small">
+										<i class="fas fa-people-arrows"></i>
+									</span>
+								</button>
+								<?php endif ?>
+								<button class="button is-small is-success" type="submit">
+									<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
+									<span class="icon is-small">
+										<i class="fas fa-arrow-right"></i>
+									</span>
+								</button>
 							</div>
 						</div>
 					</div>

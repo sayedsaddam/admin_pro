@@ -3,7 +3,7 @@
         <div class="tile is-child box py-3">
             <div class="columns">
                 <div class="column is-flex is-justify-content-center is-flex-direction-column">
-                    <div class="bc">
+                    <div class="is-size-7">
                         <a href="<?= base_url('admin') ?>" class="has-text-black">Admin</a> 
                         <?php if(isset($breadcrumb)) : ?>
                             <?php foreach($breadcrumb as $index => $value ) : ?>
@@ -19,7 +19,7 @@
                 <div class="is-narrow column is-right is-flex is-justify-content-center is-flex-direction-column">
                     <div class="dropdown is-hoverable is-right is-small">
                         <div class="dropdown-trigger">
-                            <button class="button is-small is-white" aria-haspopup="true" aria-controls="dropdown-menu4">
+                            <button class="button is-small is-white" aria-haspopup="true" aria-controls="dropdown-menu">
                             <span><?= ucwords($this->session->userdata('fullname')) ?></span>
                             <span class="icon is-small">
                                 <i class="fas fa-angle-down" aria-hidden="true"></i>

@@ -1888,6 +1888,7 @@ class Admin extends CI_Controller{
     // Update an existing asset record
     public function modify_item(){
         $id = $this->input->post('id'); 
+        $assign = $this->input->post('assign'); 
         $data = array(
             'department' => $this->input->post('department'),
             'type_name' => $this->input->post('item_name'),
@@ -1902,10 +1903,14 @@ class Admin extends CI_Controller{
         );
         if($this->admin_model->modify_item($id, $data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Item was updated successfully.');
-            redirect('admin/item_register');
+            if ($assign != null) {
+                redirect('admin/assign_item/' . $id);
+            } else {
+                redirect('admin/item_detail/' . $id);
+            }
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');
-            redirect('admin/item_register');
+            redirect('admin/item_detail/' . $id);
         }
     }
     // Item detail

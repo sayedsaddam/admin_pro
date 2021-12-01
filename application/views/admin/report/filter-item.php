@@ -32,7 +32,6 @@
 							</div>
 						</form>
 					</div>
-				
                     <div class="column is-hidden-touch is-narrow is-hidden-print">
 						<div class="field has-addons">
 							<p class="control">
@@ -95,9 +94,7 @@
 							<?php endif ?>
 						</div>
 					</div>
-
 				</div>
-
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
 						<div class="tile is-child box">
