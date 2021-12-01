@@ -229,7 +229,7 @@
 											<?php if(!empty($departments)): foreach($departments as $department): ?>
 											<option value="<?= $department->id; ?>"
 											<?php if(!empty($edit)){ ?>
-												<?= ($edit->department == $department->id) ? 'selected' : '' ?>>
+												<?= ($edit->department == $department->id) ? 'selected' : '' ?>
 												<?php } ?>>
 												<?= ucwords($department->dep_name); ?>
 											</option> 

@@ -10,7 +10,7 @@ class Report_model extends CI_Model{
 
 // ************************ all report start below *********************** 
  // Search filters - Asset search 
- public function filter_asset($limit, $offset,$data){
+ public function filter_asset($limit, $offset,$data,$count = null){
     $this->db->select('assets.id,
     assets.category,
     assets.quantity, 
@@ -48,48 +48,16 @@ if($data['location'] != null) {
 if($data['quantity'] != null) {
     $this->db->where('quantity', $data['quantity']); 
 } 
+if($count != false) {
+    return $this->db->count_all_results();
+}
 $this->db->limit($limit, $offset);
 return $this->db->get()->result();
 
 }
-// count filter asset
-public function count_filter_assets($data){ 
-    $this->db->select('assets.id,
-    assets.category,
-    assets.quantity,
-    assets.purchase_date, 
-    assets.location, 
-    assets.sub_categories, 
-    assets.price,
-    assets.user, 
-    assets.created_at');
-    $this->db->from('assets'); 
-    if ($this->session->userdata('user_role') != '1') {
-        $this->db->where('assets.location', $this->session->userdata('location'));
-    } 
-    if($data['category'] != null){
-    $this->db->where('category', $data['category']); 
-    }
-    if($data['sub_categories'] != null) {
-        $this->db->where('sub_categories', $data['sub_categories']); 
-    }
-    if($data['price'] != null) {
-        $this->db->where('price', $data['price']); 
-    }
-    if($data['purchase_date'] != null) {
-        $this->db->where('purchase_date', $data['purchase_date']);
-    }
-    if($data['location'] != null) {
-        $this->db->where('location', $data['location']); 
-    }
-    if($data['quantity'] != null) {
-        $this->db->where('quantity', $data['quantity']);  
-    }
-        return $this->db->count_all_results();
-    }
-
+ 
 // filter supplier 
-  public function filter_supplier($limit, $offset,$data){ 
+  public function filter_supplier($limit, $offset,$data,$count = null){ 
     $this->db->select('suppliers.id, suppliers.name,suppliers.email, suppliers.phone, suppliers.location,suppliers.ntn_number,suppliers.category,suppliers.rating, suppliers.region, suppliers.created_at,locations.id as loc_id,locations.name as loc_name');
     $this->db->from('suppliers');
     $this->db->join('locations', 'suppliers.location = locations.id', 'left'); 
@@ -121,45 +89,15 @@ public function count_filter_assets($data){
     if($data['rating'] != null){
         $this->db->where('rating', $data['rating']);
     }
+    if($count != false) {
+     return $this->db->count_all_results();
+ }
     $this->db->limit($limit, $offset);
     return $this->db->get()->result();
 }
-// count filter suppler
-public function count_filter_suppliers($data){ 
-    $this->db->select('id, name,email, phone, location,ntn_number,category,rating, region,created_at');
-    $this->db->from('suppliers'); 
-    
-    if($data['name'] != null){
-        $this->db->where('name', $data['name']);
-    }
 
-    if($data['category'] != null){
-        $this->db->where('category', $data['category']);
-    }
-
-    if($data['email'] != null){
-        $this->db->where('email', $data['email']);
-    }
-
-    if($data['phone'] != null){
-        $this->db->where('phone', $data['phone']);
-    }
-
-    if($data['location'] != null){
-        $this->db->where('location', $data['location']);
-    }
-
-    if($data['ntn_number'] != null){
-        $this->db->where('ntn_number', $data['ntn_number']);
-    }
-
-    if($data['rating'] != null){
-        $this->db->where('rating', $data['rating']);
-    } 
-    return $this->db->count_all_results();
-}
      // Filter employee
-     public function filter_employee($limit, $offset,$data){
+     public function filter_employee($limit, $offset, $data, $count = null){
         $this->db->select('users.id as emp_id, users.fullname as emp_name,
                            users.doj, users.email,users.department, 
                            users.phone, users.location,
@@ -196,41 +134,13 @@ public function count_filter_suppliers($data){
         }
         if($data['location'] != null){
             $this->db->where('location', $data['location']);
-        } 
+        }
+           if($count != false) {
+            return $this->db->count_all_results();
+        }
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
-    // count filter employee
-  public function count_filter_employee($data){
-    $this->db->select('id,fullname,doj,email,department,phone,location,address,status,created_at');
-    $this->db->from('users'); 
-    
-    if($data['fullname'] != null){
-        $this->db->where('fullname', $data['fullname']);
-    }  
-    if($data['user_name'] != null){
-        $this->db->where('username', $data['user_name']);
-    }
-    if($data['doj'] != null){
-        $this->db->where('doj', $data['doj']);
-    }
-    if($data['dob'] != null){
-        $this->db->where('dob', $data['dob']);
-    }
-    if($data['email'] != null){
-        $this->db->where('email', $data['email']);
-    }
-    if($data['department'] != null){ 
-        $this->db->where('department', $data['department']);
-    }
-    if($data['phone'] != null){
-        $this->db->where('phone', $data['phone']);
-    }
-    if($data['location'] != null){
-        $this->db->where('location', $data['location']);
-    }
-    return $this->db->count_all_results();
-}
 
 public function filter(){
     $this->db->select('users.id as user_id, users.full_name,item_assignment.id, item_assignment.assigned_to');
@@ -310,20 +220,7 @@ public function filter(){
         return $this->db->get()->result();
     } 
 // filter_project
-public function filter_project($limit, $offset,$data){
-    $this->db->select('id,project_name,project_desc,status,created_at');
-    $this->db->from('projects');
-    if($data['created_at'] != null){ 
-        $this->db->like(array('created_at' => $data['created_at']));
-    }
-    if($data['project_name'] != null){ 
-        $this->db->like(array('project_name' => $data['project_name']));
-    }
-    $this->db->limit($limit, $offset);
-    return $this->db->get()->result();
-}
-// count filter projects
-public function count_filter_projects($data){
+public function filter_project($limit, $offset,$data,$count = null){
     $this->db->select('id,project_name,project_desc,status,created_at');
     $this->db->from('projects');
     if($data['created_at'] != null){ 
@@ -332,10 +229,15 @@ public function count_filter_projects($data){
     if($data['project_name'] != null){ 
         $this->db->like(array('project_name' => $data['project_name']));
     } 
-    return $this->db->count_all_results();
+    if($count != false) {
+        return $this->db->count_all_results();
+    }
+    $this->db->limit($limit, $offset);
+    return $this->db->get()->result();
 }
+ 
 // filter_invoice 
-  public function filter_invoice($limit, $offset,$data){
+  public function filter_invoice($limit, $offset,$data,$count = null){
     $this->db->select('invoices.id, 
     invoices.inv_no, 
     invoices.inv_date, 
@@ -380,35 +282,10 @@ if($data['item'] != null){
 if($data['amount'] != null){
     $this->db->where('amount', $data['amount']);
 }
+if($count != false) {
+    return $this->db->count_all_results();
+}
 $this->db->limit($limit, $offset);
 return $this->db->get()->result();
 }
-// count filter invoices
-public function count_filter_invoices($data){
-    $this->db->select('id,inv_no,inv_date,project,supplier,region,item,amount,inv_desc,status,created_at,');
-    $this->db->from('invoices'); 
-
-    if($data['inv_no'] != null){
-        $this->db->where('inv_no', $data['inv_no']);
-    } 
-    if($data['inv_date'] != null){ 
-        $this->db->like('inv_date', $data['inv_date']);
-    } 
-    if($data['project'] != null){
-        $this->db->where('project', $data['project']);
-    } 
-    if($data['supplier'] != null){
-        $this->db->where('supplier', $data['supplier']);
-    } 
-    if($data['region'] != null){
-        $this->db->where('invoices.region', $data['region']);
-    } 
-    if($data['item'] != null){
-        $this->db->where('item', $data['item']);
-    } 
-    if($data['amount'] != null){
-        $this->db->where('amount', $data['amount']);
-    } 
-    return $this->db->count_all_results();
-    }
 }

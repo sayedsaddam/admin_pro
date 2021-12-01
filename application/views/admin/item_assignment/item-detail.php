@@ -404,9 +404,9 @@
 							<div class="buttons is-pulled-right">
 								<?php if(!isset($edit_item)): ?>
 								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
-								<?php endif ?>
-								<?php if(isset($edit_item)): ?>
-								<a href="<?= base_url('/admin/assign_item/' . $edit->id) ?>" class="button is-warning is-small">
+								<?php endif ?> 
+								<?php if(isset($edit_item) && $assign_item->assignd_to != null && $assign_item->status == 0 || $assign_item->assignd_to == null && $assign_item->status == null) :?>
+									<a href="<?= base_url('/admin/assign_item/' . $edit->id) ?>" class="button is-warning is-small">
 									<span>Assign Item</span>
 									<span class="icon is-small">
 										<i class="fas fa-people-arrows"></i>
