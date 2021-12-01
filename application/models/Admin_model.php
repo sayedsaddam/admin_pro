@@ -1642,7 +1642,12 @@ public function update_invoice($id, $data){
     public function get_item_sub_category(){
         return $this->db->from('sub_categories')->get()->result();
     }
-    
+    public function assign_item($id){
+        $this->db->select('id,assignd_to,status,item_id');
+        $this->db->from('item_assignment');
+        $this->db->where('item_id',$id);
+        return $this->db->get()->row();
+    }
     // Count all items 
     public function count_subcategory(){
         $this->db->from('sub_categories');
