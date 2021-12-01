@@ -406,16 +406,19 @@
 								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
 								<?php endif ?>
 								<?php if(isset($edit_item)): ?>
-								<a href="<?= base_url('/admin/assign_item/' . $edit->id) ?>" class="button is-warning is-small">Assign Item</a>
+								<a href="<?= base_url('/admin/assign_item/' . $edit->id) ?>" class="button is-warning is-small">
+									<span>Assign Item</span>
+									<span class="icon is-small">
+										<i class="fas fa-people-arrows"></i>
+									</span>
+								</a>
 								<?php endif ?>
-								<p class="control">
-									<button class="button is-small is-success" type="submit">
-										<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
-										<span class="icon is-small">
-											<i class="fas fa-arrow-right"></i>
-										</span>
-									</button>
-								</p>
+								<button class="button is-small is-success" type="submit">
+									<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
+									<span class="icon is-small">
+										<i class="fas fa-arrow-right"></i>
+									</span>
+								</button>
 							</div>
 						</div>
 					</div>
