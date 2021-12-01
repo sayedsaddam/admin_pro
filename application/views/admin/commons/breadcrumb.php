@@ -3,7 +3,7 @@
         <div class="tile is-child box py-3">
             <div class="columns">
                 <div class="column is-flex is-justify-content-center is-flex-direction-column">
-                    <div class="bc">
+                    <div class="is-size-7">
                         <a href="<?= base_url('admin') ?>" class="has-text-black">Admin</a> 
                         <?php if(isset($breadcrumb)) : ?>
                             <?php foreach($breadcrumb as $index => $value ) : ?>
