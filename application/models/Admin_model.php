@@ -1646,7 +1646,8 @@ public function update_invoice($id, $data){
         $this->db->select('id,assignd_to,status,item_id');
         $this->db->from('item_assignment');
         $this->db->where('item_id',$id);
-        $this->db->where('status',0);
+        $this->db->order_by('id','DESC');
+        
         return $this->db->get()->row();
     }
     // Count all items 
