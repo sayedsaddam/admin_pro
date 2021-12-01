@@ -265,7 +265,7 @@ public function filter_item($offset = null){
 
     $this->load->library('pagination');
     $url = base_url('report/filter_item');
-    $rowscount = $this->report_model->count_filter_item($data);
+    $rowscount = $this->report_model->filter_item($limit, $offset, $data, $count = true);
     $config['base_url'] = $url;
     $config['total_rows'] = $rowscount;
     $config['per_page'] = $limit;

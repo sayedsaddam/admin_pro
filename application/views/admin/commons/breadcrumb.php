@@ -28,9 +28,11 @@
                         </div>
                         <div class="dropdown-menu" id="dropdown-menu" role="menu">
                             <div class="dropdown-content">
+                                <?php if($this->session->userdata('user_role') == 1) : ?>
                                 <a href="<?= base_url('/admin/acl') ?>" class="dropdown-item">Admin Controlled Logics</a>
                                 <hr class="dropdown-divider">
-                                <a href="<?= base_url('#') ?>" class="dropdown-item">Profile Information</a>
+                                <?php endif ?>
+                                <a href="<?= base_url('/admin/dashboard') ?>" class="dropdown-item">Profile Information</a>
                             </div> 
                         </div>
                     </div>
