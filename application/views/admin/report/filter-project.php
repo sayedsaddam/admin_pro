@@ -131,7 +131,7 @@
 												<td><?= $res->project_name; ?></td>
 												<td><?= ucfirst($res->project_desc); ?></td>
 												<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
-												<td><?php if($res->status == 0){ echo "<span class='tag is-warning'>Progress</span>"; }else{ echo "<span class='tag is-success'>Completed</span>"; } ?>
+												<td><?php if($res->status == 0){ echo "<span class='tag is-warning is-light'>In Progress</span>"; }else{ echo "<span class='tag is-success is-light'>Completed</span>"; } ?>
 												</td>
 												<td class="">
 													<div class="field has-addons">
