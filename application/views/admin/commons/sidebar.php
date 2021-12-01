@@ -124,7 +124,7 @@
 					<a href="<?= base_url('admin/item_register'); ?>"><i class="fas fa-list mr-1"></i>
 						Items List</a></li>
 				<li
-					class="is-size-7 <?= $this->uri->segment(2) == 'available_item_list' ? 'has-text-weight-bold' : '' ?>">
+					class="is-size-7 <?= $this->uri->segment(2) == 'available_item_list' || $this->uri->segment(2) == 'assign_item' ? 'has-text-weight-bold' : '' ?>">
 					<a href="<?= base_url('admin/available_item_list'); ?>"><i class="fas fa-list mr-1"></i>
 						Available List</a></li>
 				<li class="is-size-7 <?= $this->uri->segment(2) == 'get_assign_item' ? 'has-text-weight-bold' : '' ?>">
