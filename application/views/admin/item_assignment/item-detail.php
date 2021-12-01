@@ -407,7 +407,7 @@
 								<?php endif ?> 
 								<?php if(isset($edit_item) && isset($assign_item) && $assign_item->status == 0 || isset($edit_item) && !isset($assign_item)) :?>
 								<button name="assign" value="true" class="button is-warning is-small" type="submit">
-									<span>Assign Item</span>
+									<span>Save & Assign</span>
 									<span class="icon is-small">
 										<i class="fas fa-people-arrows"></i>
 									</span>
