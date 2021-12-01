@@ -198,34 +198,62 @@
 							</div>
 						</div>
 					</div>
-                    <table class="table is-narrow is-fullwidth">
-                        <tbody>
-                            <tr>
-                                <td>1.</td>
-                                <td><input type="text" class="input is-small"></td>
-                                <td><input type="text" class="input is-small"></td>
-                                <td><input type="text" class="input is-small"></td>
-                            </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td><input type="text" class="input is-small"></td>
-                                <td><input type="text" class="input is-small"></td>
-                                <td><input type="text" class="input is-small"></td>
-                            </tr>
-                            <tr>
-                                <td>3.</td>
-                                <td><input type="text" class="input is-small"></td>
-                                <td><input type="text" class="input is-small"></td>
-                                <td><input type="text" class="input is-small"></td>
-                            </tr>
-                            <tr>
-                                <td>4   .</td>
-                                <td><input type="text" class="input is-small"></td>
-                                <td><input type="text" class="input is-small"></td>
-                                <td><input type="text" class="input is-small"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+					<hr>
+                    <div class="columns">
+						<div class="column">
+							<div class="columns">
+								<div class="column is-narrow">
+									1.
+								</div>
+								<div class="column">
+									<input type="text" class="input is-small" placeholder="Particular">
+								</div>
+								<div class="column">
+									<input type="number" class="input is-small" placeholder="Quantity" min="1" max="10">
+								</div>
+								<div class="column">
+									<input type="text" class="input is-small" placeholder="Remarks">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="columns">
+						<div class="column">
+							<div class="columns">
+								<div class="column is-narrow">
+									2.
+								</div>
+								<div class="column">
+									<input type="text" class="input is-small" placeholder="Particular">
+								</div>
+								<div class="column">
+									<input type="number" class="input is-small" placeholder="Quantity" min="1" max="10">
+								</div>
+								<div class="column">
+									<input type="text" class="input is-small" placeholder="Remarks">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="columns">
+						<div class="column">
+							<div class="columns">
+								<div class="column is-narrow">
+									3.
+								</div>
+								<div class="column">
+									<input type="text" class="input is-small" placeholder="Particular">
+								</div>
+								<div class="column">
+									<input type="number" class="input is-small" placeholder="Quantity" min="1" max="10">
+								</div>
+								<div class="column">
+									<input type="text" class="input is-small" placeholder="Remarks">
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr>
 					<div class="columns">
 						<div class="column">
 							<fieldset>
