@@ -138,7 +138,10 @@
 								<label class="label is-small">Location <span class="has-text-danger">*</span></label>
 								<div class="select is-small is-fullwidth">
 									<select required disabled>
-										<option selected disabled value="">Select a City</option>
+										<option value="">Select a City</option>
+										<?php foreach ($locations as $data) : ?>
+											<option value="<?= $data->id ?>" <?= $data->id == $this->session->userdata('location') ? 'selected' : '' ?>><?= $data->name ?></option>
+										<?php endforeach ?>
 									</select>
 									
 								<span class="icon is-small is-left">

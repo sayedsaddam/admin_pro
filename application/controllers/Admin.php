@@ -23,6 +23,9 @@ class Admin extends CI_Controller{
     }
     public function add_requisition() {
         $url = 'admin/add_requisition';
+        
+        $data['locations'] = $this->login_model->get_locations();
+
         $data['title'] = 'Add Request | Admin & Procurement';
         $data['body'] = 'admin/requisition/add_requisition';
         $data['breadcrumb'] = array("Add Request");
