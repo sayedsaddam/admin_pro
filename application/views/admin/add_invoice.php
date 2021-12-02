@@ -137,17 +137,15 @@
 							<label class="label is-small">Location <span class="has-text-danger">*</span></label>
 							<div class="control has-icons-left">
 								<span class="select select is-small is-fullwidth">
-									<select name="region" required>
-										<?php if(!isset($edit)): ?>
-										<option selected disabled value="">Select a Location</option>
-										<?php endif ?>
-										<?php if(!empty($locations)): foreach($locations as $loc): ?>
-										<option value="<?= $loc->id; ?>"
-											<?php !empty($edit) && $edit->region == $loc->id ? 'selected' : '' ?>>
-											<?= $loc->name; ?>
-										</option>
-										<?php endforeach; endif; ?>
-									</select>
+								<select name="region" required id="location">
+											<option selected disabled value="">Select a Location</option>
+											<?php if(!empty($locations)): foreach($locations as $loc): ?>
+											<option value="<?= $loc->id; ?>"
+												<?= !empty($edit) && $edit->region == $loc->id ? 'selected' : '' ?>>
+												<?= $loc->name; ?>
+											</option>
+											<?php endforeach; endif; ?>
+										</select>
 
 									<span class="icon is-small is-left">
 										<i class="fas fa-globe"></i>
@@ -158,17 +156,16 @@
 						<div class="column">
 							<label class="label is-small">Project <span class="has-text-danger">*</span></label>
 							<div class="control has-icons-left">
-								<span class="select is-small is-fullwidth">
+								<span class="select is-small is-fullwidth"> 
 									<select name="project" required>
-										<?php if(!isset($edit)): ?>
-										<option selected disabled value="">Select a Project</option>
-										<?php endif ?>
-										<?php if(!empty($projects)): foreach($projects as $proj): ?>
-										<option value="<?= $proj->id; ?>" <?php !empty($edit) ? 'selected' : '' ?>>
-											<?= ucwords($proj->project_name); ?>
-										</option>
-										<?php endforeach; endif; ?>
-									</select>
+											<option selected disabled value="">Select a Project</option>
+											<?php if(!empty($projects)): foreach($projects as $proj): ?>
+											<option value="<?= $proj->id; ?>"
+												<?= !empty($edit) && $edit->project == $proj->id ? 'selected' : '' ?>>
+												<?= $proj->project_name; ?>
+											</option>
+											<?php endforeach; endif; ?>
+										</select>
 								</span>
 								<span class="icon is-small is-left">
 									<i class="fa fa-tasks" aria-hidden="true"></i>

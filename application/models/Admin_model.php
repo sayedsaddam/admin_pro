@@ -581,8 +581,7 @@ public function update_invoice($id, $data){
     public function project($id = null){
         $this->db->select('projects.id,projects.project_name,invoices.id as inv_id,invoices.project');
         $this->db->from('projects');
-        $this->db->join('invoices', 'projects.id = invoices.project', 'left');
-        $this->db->where('invoices.id',$id);
+        $this->db->join('invoices', 'projects.id = invoices.project', 'left'); 
         return $this->db->get()->result(); 
     }
     // get suppliers for edit invoice form
@@ -1858,11 +1857,11 @@ public function update_invoice($id, $data){
     }
 
     // Get locationfor invoice form
-    public function get_invoice_location($id){
+    public function get_invoice_location($id = null){
           $this->db->select('locations.id,locations.name,invoices.id as inv_id,invoices.region');
           $this->db->from('locations');
           $this->db->join('invoices', 'locations.id = invoices.region', 'left');
-          $this->db->where('invoices.id',$id);
+        //   $this->db->where('invoices.id',$id);
           return $this->db->get()->result(); 
     }
   // Get employee based on city
