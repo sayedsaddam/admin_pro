@@ -1138,7 +1138,7 @@ class Admin extends CI_Controller{
             }
         }
     // Update an existing asset record
-    public function update_item(){
+    public function update_asset(){
         $id = $this->input->post('id');
         $data = array(
             'purchase_date' => $this->input->post('purchase_date'), 
@@ -1152,7 +1152,7 @@ class Admin extends CI_Controller{
             'created_at' => date('Y-m-d')
         );
                 if($this->admin_model->update_item($id, $data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Item was updated successfully.');
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Asset was updated successfully.');
             redirect('admin/asset_register');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again.');

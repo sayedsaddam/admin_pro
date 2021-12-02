@@ -177,6 +177,7 @@
 											</option>
 											<?php endforeach; endif; ?>
 										</select>
+										
 									</span>
 									<span class="icon is-small is-left">
 										<i class="fas fa-tag"></i>
