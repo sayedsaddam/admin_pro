@@ -86,7 +86,7 @@
 				<?php endif ?>
 
 				<form
-					action="<?php if(empty($edit)){ echo base_url('admin/save_item'); }else{ echo base_url('admin/update_item'); } ?>"
+					action="<?php if(empty($edit)){ echo base_url('admin/save_item'); }else{ echo base_url('admin/update_asset'); } ?>"
 					method="post">
 					<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">

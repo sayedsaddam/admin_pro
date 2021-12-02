@@ -13,26 +13,7 @@
 				</div>
 
 				<div class="columns is-hidden-touch">
-					<div class="column is-hidden-print">
-						<form action="<?= base_url('admin/search_employ') ?>" method="get">
-							<div class="field has-addons">
-								<div class="control has-icons-left is-expanded">
-									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
-										placeholder="Search Employees"
-										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
-									<span class="icon is-small is-left">
-										<i class="fas fa-search"></i>
-									</span>
-								</div>
-								<div class="control">
-									<button class="button is-small" type="submit"><span class="icon is-small">
-											<i class="fas fa-arrow-right"></i>
-										</span>
-									</button>
-								</div>
-							</div>
-						</form>
-					</div>
+                    <div class="column"></div>
 					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
 							<p class="control">
