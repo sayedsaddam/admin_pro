@@ -118,7 +118,7 @@
 											</tr>
 										</thead>
 										 
-										<tbody>
+										<tbody id="myTable">
 											<?php if(!empty($results)): $expenses = 0; foreach($results as $res): $expenses += $res->amount; ?>
 											<tr>
 												<td><?= 'S2S-'.$res->id; ?></td>
@@ -208,5 +208,55 @@
 			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_invoices' ? 'search=' . $this->input->get('search') . ' & ' : '' ?>limit=' + val)
 		})
 	})
+
+	function exportTableToExcel(tableId, filename) {
+		let dataType = 'application/vnd.ms-excel';
+		let extension = '.xls';
+
+		let base64 = function (s) {
+			return window.btoa(unescape(encodeURIComponent(s)))
+		};
+
+		let template =
+			'<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';
+		let render = function (template, content) {
+			var r1 = template.replace(/{(\w+)}/g, function (m, p) {
+				return content[p];
+			});
+			var r2 = r1.replace(/{(\w+)}/g, function (m, p) {
+				return content[p];
+			});
+			return r2
+		};
+
+		let tableElement = document.getElementById(tableId);
+
+		let tableExcel = render(template, {
+			worksheet: filename,
+			table: tableElement.innerHTML
+		});
+
+		filename = filename + extension;
+
+		if (navigator.msSaveOrOpenBlob) {
+			let blob = new Blob(
+				['\ufeff', tableExcel], {
+					type: dataType
+				}
+			);
+
+			navigator.msSaveOrOpenBlob(blob, filename);
+		} else {
+			let downloadLink = document.createElement("a");
+
+			document.body.appendChild(downloadLink);
+
+			downloadLink.href = 'data:' + dataType + ';base64,' + base64(tableExcel);
+
+			downloadLink.download = filename;
+
+			downloadLink.click();
+		}
+	}
   
 </script>
