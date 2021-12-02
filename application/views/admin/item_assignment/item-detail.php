@@ -183,9 +183,9 @@
 											<?php } else {?>
 											<select name="supplier" id="" required <?= isset($edit) ? 'disabled' : '' ?>> 
 												<option selected disabled value="">Select a Supplier</option>
-												<?php $suppliers = $this->admin_model->get_location_suplier($role);
+												<?php $suppliers = $this->admin_model->get_location_suplier();
 												if(!empty($suppliers)): foreach($suppliers as $sup): ?>
-												<option value="<?= $sup->id; ?>" <?= isset($edit) && $edit->supplier == $sup->id ? 'selected' : '' ?>>
+												<option value="<?= $sup->id; ?>" <?= isset($edit) && $edit->supplier == $sup->id || isset($edit) && $edit->supplier == $sup->name  ? 'selected' : '' ?>>
 													<?= ucwords($sup->name); ?>
 												</option>
 												<?php endforeach; endif; ?>

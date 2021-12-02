@@ -3,8 +3,14 @@
       src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
 }
 
+* {
+      margin: 0px;
+      padding: 0px;
+}
+
 body {
       font-family: Product Sans, sans-serif;
+      background-color: #fcfcfc;
 }
 
 table {
@@ -40,11 +46,6 @@ tr {
       height: 40px;
 }
 
-tbody tr:hover {
-      transform: scale(1.01);
-      transition: 0.1s ease-in-out;
-}
-
 th, td {
       border: none !important;
 }
@@ -61,4 +62,27 @@ th, td {
 #custom-sidebar {
       background-color:#fff; 
       max-width: 250px;
+}
+
+#top-menu-item {
+      cursor: pointer;
+      color:dimgray
+}
+
+#top-menu-item:hover {
+      background-color: #00000005; 
+}
+
+.darkmode--activated .bg-secondary {
+      background-color: #ededed;
+      color: #000;
+}
+
+.darkmode--activated table {
+      background-color: #ededed;
+      color: #000;
+}
+
+.darkmode--activated .has-text-dark:hover {
+      color: #fff!important;
 }
