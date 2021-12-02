@@ -174,7 +174,7 @@
 														class="supplier_info button is-small"><span
 															class="icon is-small"><i class="fa fa-edit"></i></span></a>
 
-										<a href="<?= $res->id; ?>" class="button is-small"><span
+										<a href="<?= base_url('/report/filter_item?employee='.$res->id); ?>" class="button is-small"><span
 															class="icon is-small"><i class="fa fa-list"></i></span></a>
 
 													<?php if($session == 'admin'){ ?>
