@@ -320,7 +320,8 @@ class Admin extends CI_Controller{
         }
 
         $data = array(
-            'status' => 0
+            'status' => 0,
+            'deleted_by' => $this->session->userdata('id')
         );
 
         if($this->admin_model->delete_supplier($id,$data)){
@@ -549,13 +550,20 @@ class Admin extends CI_Controller{
         $this->load->view('admin/commons/new_template', $data);
     } 
     // Employ - Remove employ
-    public function delete_employ($id){
-        if($this->admin_model->delete_employ($id)){
+    public function delete_employee($id){
+        if ($this->AccessList()["Employees"]->delete == 0) {
+            redirect('admin/dashboard');
+        }
+        $data = array(
+            'status' => 0,
+            'deleted_by' => $this->session->userdata('id') 
+        );
+        if($this->admin_model->delete_employee($id,$data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Employ removal was successful.');
-            redirect('admin/employ');
+            redirect('admin/employee');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('admin/employ');
+            redirect('admin/employee');
         }
     }
     // Inventory - Go to inventory page.
@@ -1164,7 +1172,11 @@ class Admin extends CI_Controller{
         if ($this->AccessList()["Assets"]->delete == 0) {
             redirect('admin/dashboard');
         }
-        if($this->admin_model->delete_asset($id)){
+        $data = array(
+            'status' => 0,
+            'deleted_by' => $this->session->userdata('id') 
+        );
+        if($this->admin_model->delete_asset($id,$data)){
             $this->session->set_flashdata('success', '<strong>Delete! </strong>Item was deleted successfully.');
             redirect('admin/asset_register');
         }else{
@@ -1432,7 +1444,11 @@ class Admin extends CI_Controller{
         if ($this->AccessList()["Categories"]->delete == 0) {
             redirect('admin/dashboard');
         }
-        if($this->admin_model->delete_category($id)){
+        $data = array(
+            'status' => 0,
+            'deleted_by' => $this->session->userdata('id')
+        );
+        if($this->admin_model->delete_category($id,$data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Deleting a category was successful.');
             redirect($_SERVER['HTTP_REFERER']);
         }else{
@@ -1980,12 +1996,16 @@ class Admin extends CI_Controller{
     }
     // Delete item
     public function delete_item($id){
-        if($this->admin_model->delete_item($id)){
+        $data = array(
+            'status' => 0,
+            'deleted_by' => $this->session->userdata('id')
+        );
+        if($this->admin_model->delete_item($id,$data)){
             $this->session->set_flashdata('success', '<strong>Delete! </strong>Item was deleted successfully.');
-            redirect('admin/asset_register');
+            redirect('admin/item_register');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('admin/asset_register');
+            redirect('admin/item_register');
         }
     }
      // Assignment Item List- 

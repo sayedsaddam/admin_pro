@@ -135,6 +135,13 @@
 																	<i class="fas fa-list"></i>
 																</span>
 															</a>
+
+															<a href="<?= base_url('/admin/delete_employee/'.$sup->emp_id); ?>"
+																class="button is-small">
+																<span class="icon is-small has-text-danger">
+																	<i class="fas fa-times"></i>
+																</span>
+															</a>
 						
 														</p>
 														<?php if($session == 'admin'){ ?>

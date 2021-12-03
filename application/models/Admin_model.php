@@ -262,7 +262,7 @@ class Admin_model extends CI_Model{
         $this->db->from('suppliers');
         $this->db->join('locations', 'suppliers.location = locations.id', 'left');
         $this->db->join('categories', 'suppliers.category = categories.id', 'left');
-        $this->db->where('status', 1);
+        $this->db->where('suppliers.status', 1);
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('suppliers.location', $this->session->userdata('location'));
         }
@@ -827,8 +827,7 @@ public function update_invoice($id, $data){
     }
     // Get assets/items.
     public function get_assets($limit, $offset){
-        $this->db->select('assets.id, 
-        assets.date, 
+        $this->db->select('assets.id,
         assets.category, 
         assets.description, 
         assets.quantity, 
@@ -850,14 +849,14 @@ public function update_invoice($id, $data){
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('assets.location', $this->session->userdata('location'));
         }
+        $this->db->where(array('assets.status' => 1));
         $this->db->order_by('id', 'ASC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
     // Asset detail - view and edit.
     public function asset_detail($id){ 
-        $this->db->select('assets.id, 
-                        assets.date,
+        $this->db->select('assets.id,
                         assets.category,
                         assets.sub_categories,
                         assets.description,
@@ -887,9 +886,9 @@ public function update_invoice($id, $data){
         return true;
     }
     // Asset register - Delete an asset
-    public function delete_asset($id){
+    public function delete_asset($id,$data){
         $this->db->where('id', $id);
-        $this->db->delete('assets');
+        $this->db->update('assets', $data);
         return true;
     }
     // Count contacts
@@ -1046,13 +1045,15 @@ public function update_invoice($id, $data){
                             categories.cat_name,
                             categories.added_by,
                             categories.cat_location,
+                            categories.status,
                             categories.created_at,
                             users.fullname,
                             locations.name');
         $this->db->from('categories');
         $this->db->join('users', 'categories.added_by = users.id', 'left');
         $this->db->join('locations', 'categories.cat_location = locations.id', 'left');
-        $this->db->order_by('created_at', 'DESC');
+        $this->db->where('categories.status', '1');
+        $this->db->order_by('created_at', 'DESC');        
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -1079,9 +1080,9 @@ public function update_invoice($id, $data){
         return true;
     }
     // Delete category by ID
-    public function delete_category($id){
+    public function delete_category($id,$data){
         $this->db->where('id', $id);
-        $this->db->delete('categories');
+        $this->db->update('categories', $data);
         return true;
     }
     // Get Parent Category Name
@@ -1209,8 +1210,7 @@ public function update_invoice($id, $data){
     }
     // Search filters - assets search
     public function search_asset_register($search){
-        $this->db->select('assets.id, 
-        assets.date, 
+        $this->db->select('assets.id,
         assets.category, 
         assets.description, 
         assets.quantity, 
@@ -1426,6 +1426,7 @@ public function update_invoice($id, $data){
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('items.location', $this->session->userdata('location'));
         }
+        $this->db->where('items.status', '1'); 
         $this->db->group_by('items.id'); 
         $this->db->group_by('item_assignment.status'); 
         $this->db->order_by('id', 'DESC');
@@ -2055,9 +2056,9 @@ public function update_invoice($id, $data){
         return true;
     }
     // Remove employ
-    public function delete_employ($id){
+    public function delete_employee($id,$data){
         $this->db->where('id', $id);
-        $this->db->delete('employ');
+        $this->db->update('users', $data);
         return true;
     }
     // Get item serial number based on item type
@@ -2347,10 +2348,10 @@ public function update_invoice($id, $data){
     } 
 
     // Item register - Delete an Item
-    public function delete_item($id){
+    public function delete_item($id,$data){
         $this->db->where('id', $id);
-        $this->db->delete('items_detail');
-        return true;
+        $this->db->update('items', $data);
+        return true; 
     }
 
     public function total_items_count_by_days() {

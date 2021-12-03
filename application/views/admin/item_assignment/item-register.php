@@ -91,6 +91,26 @@
 					</div>
 				</div>
 
+				<?php if($this->session->flashdata('success')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-success is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('success'); ?>
+						</div>
+					</div>
+				</div>
+				<?php elseif($this->session->flashdata('failed')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-danger is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('failed'); ?>
+						</div>
+					</div>
+				</div>
+				<?php endif ?>
+
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
 						<div class="tile is-child box">
@@ -197,6 +217,15 @@
 															</button>
 														</p>
 														<?php endif; ?> 
+
+														<p class="control">
+															<a data-no-instant href="<?= base_url('admin/delete_item/'.$item->id); ?>"
+																class="button is-small">
+																<span class="icon is-small has-text-danger">
+																	<i class="fas fa-times"></i>
+																</span>
+															</a>
+														</p>
 													</div>
 											</tr>
 											<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='17'>No records found.</td></tr>"; endif; ?>
