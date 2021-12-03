@@ -92,7 +92,7 @@
 						<div class="tile is-child box">
 							<div class="columns" style="display: grid">
 								<div class="column table-container ">
-									<table class="table table-sm is-fullwidth">
+									<table class="table is-hoverable table-sm is-fullwidth">
 										<thead>
 											<tr>
 												<th class="has-text-weight-semibold">ID</th>
@@ -130,11 +130,11 @@
 												<td><?= 'S2S-0'.$asset->id; ?></td>
 												<td>
 													<div class="tags">
-														<span class="tag"><?= $asset->cat_name; ?></span>
-														<span class="tag is-info is-light"><?= $asset->sub_category; ?></span>
+														<span class="tag"><?= ucwords($asset->cat_name); ?></span>
+														<span class="tag is-info is-light"><?= ucwords($asset->sub_category); ?></span>
 													</div>
 												</td>
-												<td><span class="is-size-7"><?= ucfirst(substr($asset->description,0,75)); ?></span></td>
+												<td><span class="is-size-7"><?= ucwords(substr($asset->description,0,75)); ?></span></td>
 												<td><?= ucwords($asset->quantity); ?></td>
 												<td><?= ucwords($asset->purchase_date); ?></td>
 												<td><?= ucwords($asset->name); ?></td>
@@ -173,11 +173,11 @@
 												<td><?= 'S2S-0'.$res->id; ?></td>
 												<td>
 													<div class="tags">
-														<span class="tag"><?= $res->cat_name; ?></span>
-														<span class="tag is-info is-light"><?= $res->sub_category; ?></span>
+														<span class="tag"><?= ucwords($res->cat_name); ?></span>
+														<span class="tag is-info is-light"><?= ucwords($res->sub_category); ?></span>
 													</div>
 												</td>
-												<td><span class="is-size-7"><?= ucfirst(substr($res->description,0,75)); ?></span></td>
+												<td><span class="is-size-7"><?= ucwords(substr($res->description,0,75)); ?></span></td>
 												<td><?= ucwords($res->quantity); ?></td>
 												<td><?= ucwords($res->purchase_date); ?></td>
 												<td><?= ucwords($res->location); ?></td>
