@@ -129,7 +129,10 @@
 											<tr>
 												<td><?= 'S2S-0'.$asset->id; ?></td>
 												<td>
-													<div class="tag"><?= $asset->cat_name; ?></div> <div class="tag is-info is-light"><?= $asset->sub_category; ?></div>
+													<div class="tags">
+														<span class="tag"><?= $asset->cat_name; ?></span>
+														<span class="tag is-info is-light"><?= $asset->sub_category; ?></span>
+													</div>
 												</td>
 												<td><span class="is-size-7"><?= ucwords(substr($asset->description,0,50)); ?></span></td>
 												<td><?= ucwords($asset->quantity); ?></td>
@@ -169,7 +172,10 @@
 
 												<td><?= 'S2S-0'.$res->id; ?></td>
 												<td>
-													<div class="tag"><?= $res->cat_name; ?></div> <div class="tag is-info is-light"><?= $res->sub_category; ?></div>
+													<div class="tags">
+														<span class="tag"><?= $res->cat_name; ?></span>
+														<span class="tag is-info is-light"><?= $res->sub_category; ?></span>
+													</div>
 												</td>
 												<td><span class="is-size-7"><?= ucwords(substr($res->description,0,50)); ?></span></td>
 												<td><?= ucwords($res->quantity); ?></td>
