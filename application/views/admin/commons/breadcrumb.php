@@ -30,6 +30,7 @@
                                 <hr class="dropdown-divider">
                                 <?php endif ?>
                                 <a href="<?= base_url('/admin/dashboard') ?>" class="dropdown-item">Profile Information</a>
+                                <a href="<?= base_url('login/logout') ?>" class="dropdown-item">Logout</a>
                             </div> 
                         </div>
                     </div>
