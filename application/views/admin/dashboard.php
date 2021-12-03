@@ -288,7 +288,7 @@
 							</div>
 							<div class="tile is-parent">
 								<div class="tile is-child">
-									<table class="table is-fullwidth">
+									<table class="table is-hoverable is-fullwidth">
 										<thead>
 											<tr>
 												<th class="has-text-weight-semibold"><abbr title="Item Identification Number">ID</abbr></th>

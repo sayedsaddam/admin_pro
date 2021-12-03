@@ -544,7 +544,7 @@ class Admin extends CI_Controller{
         $data['body'] = 'admin/employ/employ';
         $data['results'] = $this->admin_model->search_employ($search); 
         $data['breadcrumb'] = array("admin/employ" => "Employees", "Search: " . $search); 
-        $data['search_employ_page'] = true;
+        $data['employees_page'] = true;
 
         $this->load->view('admin/commons/new_template', $data);
     } 
