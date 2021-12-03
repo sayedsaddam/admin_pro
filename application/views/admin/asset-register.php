@@ -134,7 +134,7 @@
 														<span class="tag is-info is-light"><?= $asset->sub_category; ?></span>
 													</div>
 												</td>
-												<td><span class="is-size-7"><?= ucwords(substr($asset->description,0,50)); ?></span></td>
+												<td><span class="is-size-7"><?= ucfirst(substr($asset->description,0,75)); ?></span></td>
 												<td><?= ucwords($asset->quantity); ?></td>
 												<td><?= ucwords($asset->purchase_date); ?></td>
 												<td><?= ucwords($asset->name); ?></td>
@@ -177,7 +177,7 @@
 														<span class="tag is-info is-light"><?= $res->sub_category; ?></span>
 													</div>
 												</td>
-												<td><span class="is-size-7"><?= ucwords(substr($res->description,0,50)); ?></span></td>
+												<td><span class="is-size-7"><?= ucfirst(substr($res->description,0,75)); ?></span></td>
 												<td><?= ucwords($res->quantity); ?></td>
 												<td><?= ucwords($res->purchase_date); ?></td>
 												<td><?= ucwords($res->location); ?></td>
