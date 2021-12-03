@@ -1462,11 +1462,8 @@ class Admin extends CI_Controller{
         if ($this->AccessList()["Categories"]->delete == 0) {
             redirect('admin/dashboard');
         }
-        $data = array(
-            'status' => 0,
-            'deleted_by' => $this->session->userdata('id')
-        );
-        if($this->admin_model->delete_category($id,$data)){
+
+        if($this->admin_model->delete_category($id)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Deleting a category was successful.');
             redirect($_SERVER['HTTP_REFERER']);
         }else{

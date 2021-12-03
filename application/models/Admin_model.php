@@ -1090,9 +1090,9 @@ public function update_invoice($id, $data){
         return true;
     }
     // Delete category by ID
-    public function delete_category($id,$data){
+    public function delete_category($id){ 
         $this->db->where('id', $id);
-        $this->db->update('categories', $data);
+        $this->db->delete('categories');
         return true;
     }
     // Get Parent Category Name
