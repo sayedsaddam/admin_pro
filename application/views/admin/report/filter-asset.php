@@ -161,6 +161,7 @@
 																class="icon is-small has-text-danger"><i
 																	class="fa fa-times"></i></span></a>
 														<?php endif ?>
+														
 													</div>
 												</td>
 											</tr>
