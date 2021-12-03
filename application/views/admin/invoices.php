@@ -167,6 +167,11 @@
 															class="button is-small"><span class="icon is-small"><i
 																	class="fa fa-print"></i></span></a>
 														</p>
+														<p class="control">
+															<a href="<?= base_url('admin/delete_invoice/' . $inv->id) ?>"
+															class="button is-small"><span class="icon is-small has-text-danger"><i
+																	class="fa fa-times"></i></span></a>
+														</p>
 													</div>
 												</td>
 											</tr>

@@ -65,6 +65,25 @@
 					</div>
 				</div>
 
+				<?php if($this->session->flashdata('success')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-success is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('success'); ?>
+						</div>
+					</div>
+				</div>
+				<?php elseif($this->session->flashdata('failed')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-danger is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('failed'); ?>
+						</div>
+					</div>
+				</div>
+				<?php endif ?>
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
 						<div class="tile is-child box">
@@ -135,7 +154,7 @@
 																		class="fa fa-list"></i></span></a>
 														</p>
 														<p class="control">
-															<a href="<?=base_url('admin/delete_employ/'.$sup->id);?>"
+															<a href="<?=base_url('admin/delete_employee/'.$sup->id);?>"
 																onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
 																class="button is-small"><span
 																	class="icon is-small has-text-danger"><i

@@ -559,7 +559,7 @@ class Admin extends CI_Controller{
             'deleted_by' => $this->session->userdata('id') 
         );
         if($this->admin_model->delete_employee($id,$data)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Employ removal was successful.');
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Employ removed was successful.');
             redirect('admin/employee');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
@@ -839,8 +839,11 @@ class Admin extends CI_Controller{
     }
     // Invoices - Remove invoices
     public function delete_invoice($id){
-        if($this->admin_model->delete_invoice($id)){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Invoice removal was successful.');
+        $data = array( 
+            'deleted_by' => $this->session->userdata('id')
+        );
+        if($this->admin_model->delete_invoice($id,$data)){
+            $this->session->set_flashdata('success', '<strong>Success! </strong>Invoice removed was successful.');
             redirect('admin/invoices');
         }else{
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
@@ -995,7 +998,22 @@ class Admin extends CI_Controller{
         redirect('admin/projects');
     }
 }
-
+ // Employ - Remove employ
+ public function delete_project($id){
+    if ($this->AccessList()["Projects"]->delete == 0) {
+        redirect('admin/dashboard');
+    }
+    $data = array( 
+        'deleted_by' => $this->session->userdata('id') 
+    );
+    if($this->admin_model->delete_project($id,$data)){
+        $this->session->set_flashdata('success', '<strong>Success! </strong>Project removed was successful.');
+        redirect('admin/projects');
+    }else{
+        $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+        redirect('admin/projects');
+    }
+}
     // Search filters - search asset register
     public function search_project(){ 
         $search = $this->input->get('search');

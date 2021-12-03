@@ -480,6 +480,7 @@ public function update_invoice($id, $data){
                         invoices.inv_desc, 
                         invoices.status_reason, 
                         invoices.status, 
+                        invoices.deleted_by, 
                         invoices.created_at,
                         locations.id as loc_id,
                         locations.name,
@@ -491,6 +492,7 @@ public function update_invoice($id, $data){
         $this->db->join('locations', 'invoices.region = locations.id', 'left');
         $this->db->join('suppliers', 'invoices.supplier = suppliers.id', 'left');
         $this->db->join('projects', 'invoices.project = projects.id', 'left');
+        $this->db->where('invoices.deleted_by',null);
         $this->db->limit($limit, $offset);
         $this->db->order_by('invoices.id', 'DESC');
         return $this->db->get()->result();
@@ -534,10 +536,10 @@ public function update_invoice($id, $data){
         return true;
     }
     // Invoices - Remove invoice
-    public function delete_invoice($id){
+    public function delete_invoice($id,$data){
         $this->db->where('id', $id);
-        $this->db->delete('invoices');
-        return true;
+        $this->db->update('invoices', $data);
+        return true; 
     }
       // Invoice image - Remove from invoice invoice
       public function invoice_file($id){
@@ -559,7 +561,7 @@ public function update_invoice($id, $data){
     public function get_projects($limit, $offset){
         $this->db->select('id, project_name, project_desc, status, created_at');
         $this->db->from('projects');
-        // $this->db->where('status', 1);
+        $this->db->where('deleted_by', null);
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
@@ -633,6 +635,12 @@ public function update_invoice($id, $data){
         $this->db->update('projects',$data);
         return true;
     } 
+       // Projects - Delete Active project
+       public function delete_project($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('projects',$data);
+        return true;
+    }
     // Search projects / company
     public function search_project($search){
         $this->db->select('id, project_name, project_desc,status,created_at');
