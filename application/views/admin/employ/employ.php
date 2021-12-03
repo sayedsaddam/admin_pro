@@ -201,7 +201,7 @@
 																		class="fa fa-list"></i></span></a>
 														</p>
 														<p class="control">
-															<a href="<?=base_url('admin/delete_employ/'.$res->id);?>"
+															<a href="<?=base_url('admin/delete_employee/'.$res->id);?>"
 																onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
 																class="button is-small"><span
 																	class="icon is-small has-text-danger"><i

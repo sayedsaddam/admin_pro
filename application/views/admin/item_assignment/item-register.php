@@ -227,7 +227,7 @@
 														</p>
 														<?php endif; ?> 
 														<p class="control">
-															<a class="button is-small" href="<?= base_url("/admin/delete_item/" . $item->id) ?>" title="Delete Item">
+															<a class="button is-small" href="<?= base_url("/admin/delete_item/" . $item->id) ?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"  title="Delete Item">
 																<span class="icon is-small has-text-danger">
 																	<i class="fas fa-times"></i>
 																</span>

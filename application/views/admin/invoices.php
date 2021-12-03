@@ -169,7 +169,7 @@
 														</p>
 														<p class="control">
 															<a href="<?= base_url('admin/delete_invoice/' . $inv->id) ?>"
-															class="button is-small"><span class="icon is-small has-text-danger"><i
+															class="button is-small" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="icon is-small has-text-danger"><i
 																	class="fa fa-times"></i></span></a>
 														</p>
 													</div>
@@ -226,6 +226,11 @@
 															<a href="<?= base_url('admin/print_invoice/' . $res->id) ?>"
 															class="button is-small"><span class="icon is-small"><i
 																	class="fa fa-print"></i></span></a>
+														</p>
+														<p class="control">
+															<a href="<?= base_url('admin/delete_invoice/' . $res->id) ?>"
+															class="button is-small" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span class="icon is-small has-text-danger"><i
+																	class="fa fa-times"></i></span></a>
 														</p>
 													</div>
 												</td>

@@ -1090,9 +1090,9 @@ public function update_invoice($id, $data){
         return true;
     }
     // Delete category by ID
-    public function delete_category($id,$data){
+    public function delete_category($id){ 
         $this->db->where('id', $id);
-        $this->db->update('categories', $data);
+        $this->db->delete('categories');
         return true;
     }
     // Get Parent Category Name
@@ -1220,7 +1220,7 @@ public function update_invoice($id, $data){
     }
     // Search filters - assets search
     public function search_asset_register($search){
-        $this->db->select('assets.id,
+        $this->db->select('assets.id as asset_id,
         assets.category, 
         sub_categories.name as sub_category, 
         assets.description, 

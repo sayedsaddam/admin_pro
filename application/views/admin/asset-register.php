@@ -170,7 +170,7 @@
 											<?php if(!empty($results)): foreach($results as $res): ?>
 											<tr>
 
-												<td><?= 'S2S-0'.$res->id; ?></td>
+												<td><?= 'S2S-0'.$res->asset_id; ?></td>
 												<td>
 													<div class="tags">
 														<span class="tag"><?= ucwords($res->cat_name); ?></span>
@@ -188,7 +188,7 @@
 													<div class="field has-addons">
 														<?php if($AssetsAccess->update == 1) : ?>
 														<p class="control">
-															<a href="<?= base_url('admin/asset_detail/'.$res->id); ?>"
+															<a href="<?= base_url('admin/asset_detail/'.$res->asset_id); ?>"
 																class="button is-small">
 																<span class="icon is-small">
 																	<i class="fas fa-edit"></i>
@@ -197,12 +197,13 @@
 														</p>
 														<?php endif ?>
 														<?php if ($AssetsAccess->delete == 1) : ?>
-														<a href="<?=base_url('admin/delete_asset/'.$res->id);?>"
+														<a href="<?=base_url('admin/delete_asset/'.$res->asset_id);?>"
 															onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
 															class="button is-small"><span
 																class="icon is-small has-text-danger"><i
 																	class="fa fa-times"></i></span></a>
 														<?php endif ?>
+														
 													</div>
 												</td>
 											</tr>

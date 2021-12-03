@@ -157,7 +157,7 @@
 														<?php if($SuppliersAccess->delete == 1) : ?>
 														<p class="control">
 															<a data-no-instant href="<?=base_url('admin/delete_supplier/'.$sup->sup_id);?>"
-															class="button is-small"><span
+															class="button is-small" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span
 																class="icon is-small has-text-danger"><i
 																	class="fa fa-times"></i></span></a>
 														</p>
@@ -216,7 +216,7 @@
 														<?php if($SuppliersAccess->delete == 1) : ?>
 														<p class="control">
 															<a data-no-instant href="<?=base_url('admin/delete_supplier/'.$sup->id);?>"
-															class="button is-small"><span
+															class="button is-small" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span
 																class="icon is-small has-text-danger"><i
 																	class="fa fa-times"></i></span></a>
 														</p>
