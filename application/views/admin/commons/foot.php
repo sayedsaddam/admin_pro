@@ -6,21 +6,15 @@
 		}
 	}
 </style>
-<script src="<?= base_url('assets/js/instantclick.min.js'); ?>" data-no-instant></script>
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+<script>
+	let darkmode = new Darkmode();
+	$(".toggle-darkmode").click(function() {
+		darkmode.toggle();
+	});
+</script>
 <script data-no-instant>
-	var flag = true;
-	function onlineUsers() {
-		if (flag == true) {
-			flag = false;
-			setInterval(function () {
-				var spanNumber = $('.viewing');
-				var number = Math.floor(Math.random() * 12) + 3;
-				spanNumber.text(number);
-			}, 3000);
-		}
-	}
-	InstantClick.on('change', function() {
-		onlineUsers();
+	$( document ).ready(function() {
 		$(".nav-category").click(function () {
 			$(this).siblings().toggle('fast');
 		});
@@ -29,6 +23,5 @@
 		});	
 	});
 </script>
-<script data-no-instant>InstantClick.init(100);</script>
 
 </html>
