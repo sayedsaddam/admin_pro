@@ -227,7 +227,7 @@
 														</p>
 														<?php endif; ?> 
 														<p class="control">
-															<a class="button is-small" href="<?= base_url("/admin/delete_item/" . $item->id) ?>" title="Move to Asset List">
+															<a class="button is-small" href="<?= base_url("/admin/delete_item/" . $item->id) ?>" title="Delete Item">
 																<span class="icon is-small has-text-danger">
 																	<i class="fas fa-times"></i>
 																</span>
