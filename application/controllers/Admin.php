@@ -1981,7 +1981,7 @@ class Admin extends CI_Controller{
   // item move to asset
   public function move_item_to_asset($id){
     $item_data = $this->admin_model->item_data($id);
-    if($this->admin_model->move_item_to_asset($item_data)){
+    if($this->admin_model->move_item_to_asset($item_data, $this->session->userdata('id'))){
         $this->session->set_flashdata('success', '<strong>Item Moved!</strong> Item moved successfully.');
         redirect('admin/asset_register');
     }else{

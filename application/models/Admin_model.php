@@ -2352,9 +2352,9 @@ public function update_invoice($id, $data){
     } 
 
     // Move Item From `Item List` to `Asset List`
-    public function move_item_to_asset($data) {
+    public function move_item_to_asset($data, $user) {
         $this->db->trans_start();
-        $this->db->query("INSERT INTO assets (`category`, `sub_categories`, `quantity`, `price`, `purchase_date`, `location`, `user`, `description`) VALUES ('$data->category', '$data->sub_category', '$data->quantity', '$data->price', '$data->purchasedate', '$data->location', '$data->added_by', 'Moved item ($data->id) from item list to asset list.')");
+        $this->db->query("INSERT INTO assets (`category`, `sub_categories`, `quantity`, `price`, `purchase_date`, `location`, `user`, `description`) VALUES ('$data->category', '$data->sub_category', '$data->quantity', '$data->price', '$data->purchasedate', '$data->location', '$user', '$data->type_name ($data->id) moved to asset list.')");
         $this->db->query("UPDATE items SET `status`=0 WHERE `id`=$data->id");
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE)
@@ -2366,7 +2366,7 @@ public function update_invoice($id, $data){
 
     // Fetch Item Data
     public function item_data($id){
-        $this->db->select('id, category, sub_category, quantity, price, purchasedate, location, added_by');
+        $this->db->select('id, type_name, category, sub_category, quantity, price, purchasedate, location, added_by');
         $this->db->from('items');
         $this->db->where('id', $id); 
         return $this->db->get()->row();
