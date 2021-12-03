@@ -103,7 +103,6 @@
 														title="Purchase Date">PD</abbr></th>
 												<th class="has-text-weight-semibold">Location</th>
 												<th class="has-text-weight-semibold">User</th>
-												<th class="has-text-weight-semibold">Remarks</th>
 												<?php if($AssetsAccess->update == 1 || $AssetsAccess->delete == 1) : ?>
 												<th class="has-text-weight-semibold">Action</th>
 												<?php endif ?>
@@ -119,7 +118,6 @@
 														title="Purchase Date">PD</abbr></th>
 												<th class="has-text-weight-semibold">Location</th>
 												<th class="has-text-weight-semibold">User</th>
-												<th class="has-text-weight-semibold">Remarks</th>
 												<?php if($AssetsAccess->update == 1 || $AssetsAccess->delete == 1) : ?>
 												<th class="has-text-weight-semibold">Action</th>
 												<?php endif ?>
@@ -131,14 +129,13 @@
 											<tr>
 												<td><?= 'S2S-0'.$asset->id; ?></td>
 												<td>
-													<div class="tag"><?= $asset->cat_name; ?></div>
+													<div class="tag"><?= $asset->cat_name; ?></div> <div class="tag is-info is-light"><?= $asset->sub_category; ?></div>
 												</td>
-												<td><?= ucfirst(substr($asset->description,0,50)); ?></td>
-												<td><?= ucfirst($asset->quantity); ?></td>
-												<td><?= ucfirst($asset->purchase_date); ?></td>
-												<td><?= ucfirst($asset->name); ?></td>
-												<td><?= ucfirst($asset->fullname); ?></td>
-												<td><?= ucfirst($asset->remarks); ?></td>
+												<td><span class="is-size-7"><?= ucwords(substr($asset->description,0,50)); ?></span></td>
+												<td><?= ucwords($asset->quantity); ?></td>
+												<td><?= ucwords($asset->purchase_date); ?></td>
+												<td><?= ucwords($asset->name); ?></td>
+												<td><?= ucwords($asset->fullname); ?></td>
 												<?php if($AssetsAccess->update == 1 || $AssetsAccess->delete == 1) : ?>
 												<td class="is-narrow">
 													<div class="field has-addons">
@@ -170,14 +167,15 @@
 											<?php if(!empty($results)): foreach($results as $res): ?>
 											<tr>
 
-												<td><?= 'CTC-0'.$res->id; ?></td>
-												<td><?= $res->cat_name; ?></td>
-												<td><?= ucfirst(substr($res->description,0,50)); ?></td>
-												<td><?= ucfirst($res->quantity); ?></td>
-												<td><?= ucfirst($res->purchase_date); ?></td>
-												<td><?= ucfirst($res->location); ?></td>
-												<td><?= ucfirst($res->user); ?></td>
-												<td><?= ucfirst($res->remarks); ?></td>
+												<td><?= 'S2S-0'.$res->id; ?></td>
+												<td>
+													<div class="tag"><?= $asset->cat_name; ?></div> <div class="tag is-info is-light"><?= $asset->sub_category; ?></div>
+												</td>
+												<td><span class="is-size-7"><?= ucwords(substr($res->description,0,50)); ?></span></td>
+												<td><?= ucwords($res->quantity); ?></td>
+												<td><?= ucwords($res->purchase_date); ?></td>
+												<td><?= ucwords($res->location); ?></td>
+												<td><?= ucwords($res->user); ?></td>
 
 												</td>
 												<td class="is-narrow">

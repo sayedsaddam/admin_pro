@@ -1978,6 +1978,18 @@ class Admin extends CI_Controller{
         $data['breadcrumb'] = array("admin/item_register" => "Item Register", "Search: " . $search);
         $this->load->view('admin/commons/new_template', $data);
     }
+  // item move to asset
+  public function move_item_to_asset($id){
+    $item_data = $this->admin_model->item_data($id);
+    if($this->admin_model->move_item_to_asset($item_data)){
+        $this->session->set_flashdata('success', '<strong>Item Moved!</strong> Item moved successfully.');
+        redirect('admin/asset_register');
+    }else{
+        $this->session->set_flashdata('failed', '<strong>Failed!</strong> There was an error moving the item.');
+        redirect('admin/asset_register');
+    }
+}
+
     // Delete item
     public function delete_item($id){
         if($this->admin_model->delete_item($id)){
