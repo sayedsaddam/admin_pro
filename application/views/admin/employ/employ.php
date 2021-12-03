@@ -170,9 +170,12 @@
 												</td>
 												<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
 												<td class="is-narrow">
-												<a data-id="<?= $res->id; ?>"
-														class="supplier_info button is-small"><span
-															class="icon is-small"><i class="fa fa-edit"></i></span></a>
+												<a href="<?= base_url('admin/edit_employ/'.$res->id); ?>"
+																class="button is-small">
+																<span class="icon is-small">
+																	<i class="fas fa-edit"></i>
+																</span>
+															</a> 
 
 										<a href="<?= base_url('/report/filter_item?employee='.$res->id); ?>" class="button is-small"><span
 															class="icon is-small"><i class="fa fa-list"></i></span></a>

@@ -153,9 +153,11 @@
 																<?php } ?>
 															<th>Current Value</th> 
 															<td><span id="current_v">
+																<?php if(!empty($items[0]->price) &&  $items[0]->depreciation) {?>
 															<?php $percent = $items[0]->price * $items[0]->depreciation / 100;
 															echo $current = $items[0]->price - $percent;
 															?>
+															<?php } ?>
 															</span></td>
 														</tr>
 														<tr>

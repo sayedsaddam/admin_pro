@@ -212,7 +212,7 @@
 									</span>
 									<span>Print</span>
 								</button>
-								<a data-no-instant href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+								<a data-no-instant href="javascript:exportTableToExcel('myTable','Supplier  Records');" type="button"
 									class="button is-small ">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>
