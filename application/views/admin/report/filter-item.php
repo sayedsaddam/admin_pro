@@ -354,9 +354,7 @@
 			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_item' ? 'search=' . $this->input->get('search') . ' & ' : '' ?>limit=' + val)
 		})
 	})
-
-</script>
-<script>
+ 
 	$('.return-btn').click(function () {
 		var item_id = $(this).data('id');
 		$('#item-id').val(item_id);

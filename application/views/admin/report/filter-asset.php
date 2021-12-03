@@ -201,7 +201,7 @@
 									</span>
 									<span>Print</span>
 								</button>
-								<a data-no-instant href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+								<a data-no-instant href="javascript:exportTableToExcel('myTable','Asset  Records');" type="button"
 									class="button is-small ">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>
@@ -257,7 +257,7 @@
 					type: dataType
 				}
 			);
-
+			
 			navigator.msSaveOrOpenBlob(blob, filename);
 		} else {
 			let downloadLink = document.createElement("a");
@@ -270,6 +270,5 @@
 
 			downloadLink.click();
 		}
-	}
-
+	} 
 </script>
