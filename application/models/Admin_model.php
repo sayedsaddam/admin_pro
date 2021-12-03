@@ -2077,8 +2077,7 @@ public function update_invoice($id, $data){
             return $total;
  }
   // Return Item Save - 
-  public function return_item_save($data,$invantory,$item,$item_id,$assign_item_id){    
- 
+  public function return_item_save($data,$invantory,$item,$item_id,$assign_item_id){
         $this->db->where(array('item_assignment.id' => $assign_item_id, 'item_assignment.status' => 1));
         $this->db->update('item_assignment', $data); 
         $this->db->update('inventory', $invantory);
@@ -2343,10 +2342,7 @@ public function update_invoice($id, $data){
     // get company
     public function get_company(){
        $this->db->select('id,name,code');
-        $this->db->from('company');
-        if ($this->session->userdata('user_role') != '1') {
-            $this->db->where('id', $this->session->userdata('location'));
-        }
+        $this->db->from('company'); 
         return $this->db->get()->result();
     } 
 
