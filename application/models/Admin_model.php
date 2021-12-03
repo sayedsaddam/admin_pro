@@ -2361,8 +2361,10 @@ public function update_invoice($id, $data){
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE)
         {
+            $this->db->trans_rollback();
             return false;
         }
+        $this->db->trans_commit();
         return true;
     }
 
