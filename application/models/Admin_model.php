@@ -827,8 +827,9 @@ public function update_invoice($id, $data){
     }
     // Get assets/items.
     public function get_assets($limit, $offset){
-        $this->db->select('assets.id,
+        $this->db->select('assets.id, 
         assets.category, 
+        sub_categories.name as sub_category,
         assets.description, 
         assets.quantity, 
         assets.purchase_date, 
@@ -845,12 +846,13 @@ public function update_invoice($id, $data){
         $this->db->from('assets');
         $this->db->join('locations', 'assets.location = locations.id', 'left');
         $this->db->join('categories', 'assets.category = categories.id', 'left');
+        $this->db->join('sub_categories', 'assets.sub_categories = sub_categories.id', 'left');
         $this->db->join('users', 'assets.user = users.id', 'left');
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('assets.location', $this->session->userdata('location'));
         }
         $this->db->where(array('assets.status' => 1));
-        $this->db->order_by('id', 'ASC');
+        $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -1212,6 +1214,7 @@ public function update_invoice($id, $data){
     public function search_asset_register($search){
         $this->db->select('assets.id,
         assets.category, 
+        sub_categories.name as sub_category, 
         assets.description, 
         assets.quantity, 
         assets.purchase_date, 
@@ -1224,6 +1227,7 @@ public function update_invoice($id, $data){
         categories.cat_name,');
         $this->db->from('assets');
         $this->db->join('categories', 'assets.category = categories.id', 'left'); 
+        $this->db->join('sub_categories', 'assets.sub_categories = sub_categories.id', 'left');
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('assets.location', $this->session->userdata('location'));
         }
@@ -1426,7 +1430,7 @@ public function update_invoice($id, $data){
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('items.location', $this->session->userdata('location'));
         }
-        $this->db->where('items.status', '1'); 
+        $this->db->where('items.status', 1);
         $this->db->group_by('items.id'); 
         $this->db->group_by('item_assignment.status'); 
         $this->db->order_by('id', 'DESC');
@@ -1447,6 +1451,7 @@ public function update_invoice($id, $data){
             if ($this->session->userdata('user_role') != '1') {
                 $this->db->where('items.location', $this->session->userdata('location'));
             }
+            $this->db->where('items.status', 1);
             $this->db->group_by('items.id'); 
             $this->db->order_by('id', 'DESC');
             $this->db->limit($limit, $offset);
@@ -1466,6 +1471,7 @@ public function update_invoice($id, $data){
             if ($this->session->userdata('user_role') != '1') {
                 $this->db->where('items.location', $this->session->userdata('location'));
             }
+            $this->db->where('items.status', 1);
             $this->db->group_by('item_assignment.id'); 
             $this->db->order_by('id', 'DESC');
             $this->db->limit($limit, $offset);
@@ -1481,13 +1487,12 @@ public function update_invoice($id, $data){
             $this->db->join('item_assignment', 'items.id = item_assignment.item_id', 'left');
             $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
             $this->db->join('suppliers', 'items.sub_category = suppliers.id', 'left');
-            // $this->db->join('item_assignment', 'items.category = item_assignment.item_id', 'left');
-            // $this->db->group_by('item_assignment.item_id'); 
             $this->db->where('item_assignment.item_id !=', null);
             $this->db->where('item_assignment.status', 1);
             if ($this->session->userdata('user_role') != '1') {
                 $this->db->where('items.location', $this->session->userdata('location'));
             }
+            $this->db->where('items.status', 1);
             $this->db->order_by('id', 'DESC');
             $this->db->limit($limit, $offset);
             return $this->db->get()->result(); 
@@ -2346,6 +2351,27 @@ public function update_invoice($id, $data){
         $this->db->from('company'); 
         return $this->db->get()->result();
     } 
+
+    // Move Item From `Item List` to `Asset List`
+    public function move_item_to_asset($data, $user) {
+        $this->db->trans_start();
+        $this->db->query("INSERT INTO assets (`category`, `sub_categories`, `quantity`, `price`, `purchase_date`, `location`, `user`, `description`) VALUES ('$data->category', '$data->sub_category', '$data->quantity', '$data->price', '$data->purchasedate', '$data->location', '$user', '$data->type_name (ID: S2S-$data->id) moved to asset list.')");
+        $this->db->query("UPDATE items SET `status`=0 WHERE `id`=$data->id");
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    // Fetch Item Data
+    public function item_data($id){
+        $this->db->select('id, type_name, category, sub_category, quantity, price, purchasedate, location, added_by');
+        $this->db->from('items');
+        $this->db->where('id', $id); 
+        return $this->db->get()->row();
+    }
 
     // Item register - Delete an Item
     public function delete_item($id,$data){

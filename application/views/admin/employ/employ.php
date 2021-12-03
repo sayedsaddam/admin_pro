@@ -54,7 +54,7 @@
 							</p>
 							<p class="control">
 								<a href='<?= base_url('admin/add_employee'); ?>'"
-									class="button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
+									class=" button is-small <?= (isset($add_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-plus"></i>
 									</span>
@@ -102,7 +102,7 @@
 										<?php if(empty($results)): ?>
 										<tbody id="myTable">
 											<?php if(!empty($employ)): foreach($employ as $sup): ?>
-											<tr >
+											<tr>
 												<td><?= 'S2S-'.$sup->emp_id; ?></td>
 												<td><abbr
 														title="<?= $sup->email; ?>"><?= ucwords($sup->emp_name); ?></abbr>
@@ -122,35 +122,25 @@
 												<td class="is-narrow">
 													<div class="field has-addons">
 														<p class="control">
-															<a href="<?= base_url('admin/edit_employ/'.$sup->emp_id); ?>"
+															<a href="<?= base_url('admin/edit_employ/'.$sup->id); ?>"
 																class="button is-small">
 																<span class="icon is-small">
 																	<i class="fas fa-edit"></i>
 																</span>
 															</a>
-
-															<a href="<?= base_url('/report/filter_item?employee='.$sup->emp_id); ?>"
-																class="button is-small">
-																<span class="icon is-small">
-																	<i class="fas fa-list"></i>
-																</span>
-															</a>
-
-															<a href="<?= base_url('/admin/delete_employee/'.$sup->emp_id); ?>"
-																class="button is-small">
-																<span class="icon is-small has-text-danger">
-																	<i class="fas fa-times"></i>
-																</span>
-															</a>
-						
 														</p>
-														<?php if($session == 'admin'){ ?>
-														<a href="<?=base_url('admin/delete_employ/'.$sup->emp_id);?>"
-															onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
-															class="button is-small"><span
-																class="icon is-small has-text-danger"><i
-																	class="fa fa-times"></i></span></a>
-														<?php } ?>
+														<p class="control">
+															<a href="<?= base_url('/report/filter_item?employee='.$sup->id); ?>"
+																class="button is-small"><span class="icon is-small"><i
+																		class="fa fa-list"></i></span></a>
+														</p>
+														<p class="control">
+															<a href="<?=base_url('admin/delete_employ/'.$sup->id);?>"
+																onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
+																class="button is-small"><span
+																	class="icon is-small has-text-danger"><i
+																		class="fa fa-times"></i></span></a>
+														</p>
 													</div>
 												</td>
 											</tr>
@@ -177,23 +167,28 @@
 												</td>
 												<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
 												<td class="is-narrow">
-												<a href="<?= base_url('admin/edit_employ/'.$res->id); ?>"
+													<div class="field has-addons">
+														<p class="control">
+															<a href="<?= base_url('admin/edit_employ/'.$res->id); ?>"
 																class="button is-small">
 																<span class="icon is-small">
 																	<i class="fas fa-edit"></i>
 																</span>
-															</a> 
-
-										<a href="<?= base_url('/report/filter_item?employee='.$res->id); ?>" class="button is-small"><span
-															class="icon is-small"><i class="fa fa-list"></i></span></a>
-
-													<?php if($session == 'admin'){ ?>
-													<a href="<?=base_url('admin/delete_employ/'.$res->id);?>"
-														onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
-														class="button is-small"><span
-															class="icon is-small has-text-danger"><i
-																class="fa fa-times"></i></span></a>
-													<?php } ?>
+															</a>
+														</p>
+														<p class="control">
+															<a href="<?= base_url('/report/filter_item?employee='.$res->id); ?>"
+																class="button is-small"><span class="icon is-small"><i
+																		class="fa fa-list"></i></span></a>
+														</p>
+														<p class="control">
+															<a href="<?=base_url('admin/delete_employ/'.$res->id);?>"
+																onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
+																class="button is-small"><span
+																	class="icon is-small has-text-danger"><i
+																		class="fa fa-times"></i></span></a>
+														</p>
+													</div>
 												</td>
 											</tr>
 											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='7'>No record found.</td></tr>"; endif; ?>
@@ -250,7 +245,12 @@
 	$(document).ready(function () {
 		$(".result_limit").on('change', function () {
 			var val = $(this).val();
-			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_employ' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == '
+				search_employ ' ? '
+				search = ' . $this->input->get('
+				search ') . ' & ' : '
+				' ?>limit=' + val)
 		})
 	})
+
 </script>
