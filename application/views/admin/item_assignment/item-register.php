@@ -197,6 +197,7 @@
 															</button>
 														</p>
 														<?php endif; ?> 
+														<?php if($item->quantity > 0 && $item->status != 1) : ?>
 														<p class="control">
 															<a class="button is-small" href="<?= base_url("/admin/move_item_to_asset/" . $item->id) ?>" title="Move to Asset List">
 																<span class="icon is-small">
@@ -204,6 +205,7 @@
 																</span>
 															</a>
 														</p>
+														<?php endif; ?> 
 													</div>
 													
 													
