@@ -39,7 +39,7 @@
 <!-- <div class="column is-centered has-text-centered">
 	
 </div> -->
-<body style="background-color:#fcfcfc;">
+<body>
 	<?php else: ?>
 
 	<body style="background-color:#fcfcfc;">

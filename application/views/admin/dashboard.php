@@ -11,7 +11,7 @@
 
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
-						<div class="tile is-child box">
+						<div class="tile is-child box bg-secondary">
 							<div class="tile is-parent">
 								<div class="tile is-child">
 									<div class="columns is-vcentered">
@@ -224,7 +224,7 @@
 						</div>
 					</div>
 					<div class="tile is-parent">
-						<div class="tile is-child box">
+						<div class="tile is-child box bg-secondary">
 							<div class="tile is-parent">
 								<div class="tile is-child">
 									<div class="columns is-vcentered">
@@ -268,7 +268,7 @@
 				<?php if($this->session->userdata('user_role') == 1) : ?>
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
-						<div class="tile is-child box">
+						<div class="tile is-child box bg-secondary">
 							<div class="tile is-parent">
 								<div class="tile is-child">
 									<div class="columns is-vcentered">
