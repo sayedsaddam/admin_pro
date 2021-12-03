@@ -1211,6 +1211,7 @@ public function update_invoice($id, $data){
     public function search_asset_register($search){
         $this->db->select('assets.id,
         assets.category, 
+        sub_categories.name as sub_category, 
         assets.description, 
         assets.quantity, 
         assets.purchase_date, 
@@ -1223,6 +1224,7 @@ public function update_invoice($id, $data){
         categories.cat_name,');
         $this->db->from('assets');
         $this->db->join('categories', 'assets.category = categories.id', 'left'); 
+        $this->db->join('sub_categories', 'assets.sub_categories = sub_categories.id', 'left');
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('assets.location', $this->session->userdata('location'));
         }
