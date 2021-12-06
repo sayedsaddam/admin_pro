@@ -118,15 +118,20 @@
  												<td><?= ucwords($cat->fullname); ?></td>
  												<td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
  												<td class="is-narrow">
+												 <div class="field has-addons">
+													 <p class="control">
  													<a data-no-instant type="button" title="Edit" data-id="<?= $cat->id; ?>"
  														class="category button is-small"><span class="icon is-small"><i
  																class="fa fa-edit"></i></span></a>
+													 </p>
+													 <p class="control">
  													<a data-no-instant title="Delete"
  														href="<?=base_url('admin/delete_category/'.$cat->id);?>"
  														class="button is-small has-text-danger"
  														onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');">
  														<span class="icon is-small"><i
  																class="fa fa-times"></i></span></a>
+													 </p>
  												</td>
  											</tr>
  											<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='17'>No record found.</td></tr>"; endif; ?>

@@ -317,7 +317,7 @@ class Admin extends CI_Controller{
     public function delete_supplier($id){
         if ($this->AccessList()["Suppliers"]->delete == 0) {
             redirect('admin/dashboard');
-        }
+        } 
 
         $data = array(
             'status' => 0,
@@ -2023,6 +2023,9 @@ class Admin extends CI_Controller{
 
     // Delete item
     public function delete_item($id){
+        if ($this->AccessList()["Register"]->delete == 0) {
+            redirect('admin/dashboard');
+        } 
         $data = array(
             'status' => 0,
             'deleted_by' => $this->session->userdata('id')
