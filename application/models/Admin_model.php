@@ -1442,7 +1442,7 @@ public function update_invoice($id, $data){
         }
         $this->db->where('items.status', 1);
         $this->db->group_by('items.id'); 
-        $this->db->group_by('item_assignment.status'); 
+        // $this->db->group_by('item_assignment.status'); 
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result(); 
