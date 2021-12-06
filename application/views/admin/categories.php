@@ -118,15 +118,21 @@
  												<td><?= ucwords($cat->fullname); ?></td>
  												<td><?= date('M d, Y', strtotime($cat->created_at)); ?></td>
  												<td class="is-narrow">
- 													<a data-no-instant type="button" title="Edit" data-id="<?= $cat->id; ?>"
- 														class="category button is-small"><span class="icon is-small"><i
- 																class="fa fa-edit"></i></span></a>
- 													<a data-no-instant title="Delete"
- 														href="<?=base_url('admin/delete_category/'.$cat->id);?>"
- 														class="button is-small has-text-danger"
- 														onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');">
- 														<span class="icon is-small"><i
- 																class="fa fa-times"></i></span></a>
+												 	<div class="field has-addons">
+														<p class="control">
+															<a data-no-instant type="button" title="Edit" data-id="<?= $cat->id; ?>"
+																class="category button is-small"><span class="icon is-small"><i
+																		class="fa fa-edit"></i></span></a>
+											 			</p>
+														<p class="control">
+															<a data-no-instant title="Delete"
+																href="<?=base_url('admin/delete_category/'.$cat->id);?>"
+																class="button is-small has-text-danger"
+																onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');">
+																<span class="icon is-small"><i
+																		class="fa fa-times"></i></span></a>
+											 			</p>
+											 		</div>
  												</td>
  											</tr>
  											<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='17'>No record found.</td></tr>"; endif; ?>
@@ -142,15 +148,21 @@
  												<td><?= ucwords($res->fullname); ?></td>
  												<td><?= date('M d, Y', strtotime($res->created_at)); ?></td>
  												<td class="is-narrow">
- 													<a data-no-instant title="Edit" data-id="<?= $res->id; ?>"
- 														class="category button is-small"><span class="icon is-small"><i
- 																class="fa fa-edit"></i></span></a>
- 													<a data-no-instant title="Delete"
- 														href="<?=base_url('admin/delete_category/'.$res->id);?>"
- 														class="button is-small has-text-danger"
- 														onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
- 														class=""><span class="icon is-small "><i
- 																class="fa fa-times"></i></span></a>
+												 	<div class="field has-addons">
+														<p class="control">
+															<a data-no-instant type="button" title="Edit" data-id="<?= $res->id; ?>"
+																class="category button is-small"><span class="icon is-small"><i
+																		class="fa fa-edit"></i></span></a>
+											 			</p>
+														<p class="control">
+															<a data-no-instant title="Delete"
+																href="<?=base_url('admin/delete_category/'.$res->id);?>"
+																class="button is-small has-text-danger"
+																onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');">
+																<span class="icon is-small"><i
+																		class="fa fa-times"></i></span></a>
+											 			</p>
+											 		</div>
  												</td>
  											</tr>
  											<?php endforeach; else: echo "<tr class='has-background-danger-light'><td colspan='7'>No record found.</td></tr>"; endif; ?>
