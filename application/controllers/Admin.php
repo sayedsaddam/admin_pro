@@ -2073,7 +2073,7 @@ class Admin extends CI_Controller{
         // assign_item_save into the database
         public function assign_item_save(){  
         $item_id = $this->input->post('item_id');   
-        $assign = $this->input->post('employ');
+        $assign = $this->input->post('employ');   
         if(!empty($assign)){
         $data = array(
             'assignd_to' => $this->input->post('employ'),

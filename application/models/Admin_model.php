@@ -1842,18 +1842,15 @@ public function update_invoice($id, $data){
         $this->db->from('item_assignment');
         $this->db->where('item_id',$item_id);
         $item_assign = $this->db->count_all_results();
-        // $item_assign;
-        $total = $qty - $item_assign;
-         $total = $qty - 1; 
+        // $item_assign; 
+        $total = $qty - 1; 
+
         $quantity = array( 
-            'quantity' => $total, 
-            'status' => 1
+            'quantity' => $total,
         );
         $this->db->where('id',$item_id);
-        $this->db->update('items', $quantity);
-    //   $this->db->insert('item_assignment', $data);
-    //   $this->db->update('inventory', $invantory);
-    //   $this->db->update('items', $item); 
+        $this->db->update('items', $quantity); 
+ 
         if($this->db->affected_rows() > 0){
         return true;
         }else{
@@ -2106,8 +2103,7 @@ public function update_invoice($id, $data){
         $total = $qty + 1;   
         // echo $total;exit;
         $quantity = array( 
-            'quantity' => $total,  
-            'status' => 0 
+            'quantity' => $total, 
         );
         $this->db->where('id', $item_id);
         $this->db->update('items', $quantity);  
