@@ -242,8 +242,8 @@
                         <td><?= $pen_req->fullname; ?></td>
                         <td><?= date('M d, Y', strtotime($pen_req->created_at)); ?></td>
                         <td>
-                          <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
-                          <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                          <a href="<?= base_url('admin/approve_request/'.$pen_req->id); ?>"><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                          <a href="<?= base_url('admin/reject_request/'.$pen_req->id); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                           <a href="<?= base_url('admin/request_detail/'.$pen_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                         </td>
                       </tr>
@@ -292,8 +292,8 @@
                         <td><?= $app_req->fullname; ?></td>
                         <td><?= date('M d, Y', strtotime($app_req->created_at)); ?></td>
                         <td>
-                          <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
-                          <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                          <a href="<?= base_url('admin/approve_request/'.$app_req->id); ?>"><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                          <a href="<?= base_url('admin/reject_request/'.$app_req->id); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                           <a href="<?= base_url('admin/request_detail/'.$app_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                         </td>
                       </tr>
@@ -342,8 +342,8 @@
                         <td><?= $rej_req->fullname; ?></td>
                         <td><?= date('M d, Y', strtotime($rej_req->created_at)); ?></td>
                         <td>
-                          <a href=""><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
-                          <a href=""><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
+                          <a href="<?= base_url('admin/approve_request/'.$rej_req->id); ?>"><span class="badge badge-primary"><i class="fa fa-check"></i></span></a>
+                          <a href="<?= base_url('admin/reject_request/'.$rej_req->id); ?>"><span class="badge badge-danger"><i class="fa fa-times"></i></span></a>
                           <a href="<?= base_url('admin/request_detail/'.$rej_req->id); ?>"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
                         </td>
                       </tr>
