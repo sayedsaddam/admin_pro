@@ -91,6 +91,26 @@
 					</div>
 				</div>
 
+				<?php if($this->session->flashdata('success')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-success is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('success'); ?>
+						</div>
+					</div>
+				</div>
+				<?php elseif($this->session->flashdata('failed')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-danger is-light">
+							<button class="delete"></button>
+							<?= $message = $this->session->flashdata('failed'); ?>
+						</div>
+					</div>
+				</div>
+				<?php endif ?>
+
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
 						<div class="tile is-child box">
@@ -197,10 +217,19 @@
 															</button>
 														</p>
 														<?php endif; ?> 
+														<?php if($item->quantity > 0 && $item->status != 1) : ?>
 														<p class="control">
 															<a class="button is-small" href="<?= base_url("/admin/move_item_to_asset/" . $item->id) ?>" title="Move to Asset List">
 																<span class="icon is-small">
 																	<i class="fas fa-arrow-right"></i>
+																</span>
+															</a>
+														</p>
+														<?php endif; ?> 
+														<p class="control">
+															<a class="button is-small" href="<?= base_url("/admin/delete_item/" . $item->id) ?>" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');">
+																<span class="icon is-small has-text-danger">
+																	<i class="fas fa-times"></i>
 																</span>
 															</a>
 														</p>

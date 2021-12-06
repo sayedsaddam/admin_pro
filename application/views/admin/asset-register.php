@@ -129,9 +129,12 @@
 											<tr>
 												<td><?= 'S2S-0'.$asset->id; ?></td>
 												<td>
-													<div class="tag"><?= $asset->cat_name; ?></div> <div class="tag is-info is-light"><?= $asset->sub_category; ?></div>
+													<div class="tags">
+														<span class="tag"><?= $asset->cat_name; ?></span>
+														<span class="tag is-info is-light"><?= $asset->sub_category; ?></span>
+													</div>
 												</td>
-												<td><span class="is-size-7"><?= ucwords(substr($asset->description,0,50)); ?></span></td>
+												<td><span class="is-size-7"><?= ucfirst(substr($asset->description,0,75)); ?></span></td>
 												<td><?= ucwords($asset->quantity); ?></td>
 												<td><?= ucwords($asset->purchase_date); ?></td>
 												<td><?= ucwords($asset->name); ?></td>
@@ -167,11 +170,14 @@
 											<?php if(!empty($results)): foreach($results as $res): ?>
 											<tr>
 
-												<td><?= 'S2S-0'.$res->id; ?></td>
+												<td><?= 'S2S-0'.$res->asset_id; ?></td>
 												<td>
-													<div class="tag"><?= $asset->cat_name; ?></div> <div class="tag is-info is-light"><?= $asset->sub_category; ?></div>
+													<div class="tags">
+														<span class="tag"><?= $res->cat_name; ?></span>
+														<span class="tag is-info is-light"><?= $res->sub_category; ?></span>
+													</div>
 												</td>
-												<td><span class="is-size-7"><?= ucwords(substr($res->description,0,50)); ?></span></td>
+												<td><span class="is-size-7"><?= ucfirst(substr($res->description,0,75)); ?></span></td>
 												<td><?= ucwords($res->quantity); ?></td>
 												<td><?= ucwords($res->purchase_date); ?></td>
 												<td><?= ucwords($res->location); ?></td>
@@ -182,7 +188,7 @@
 													<div class="field has-addons">
 														<?php if($AssetsAccess->update == 1) : ?>
 														<p class="control">
-															<a href="<?= base_url('admin/asset_detail/'.$res->id); ?>"
+															<a href="<?= base_url('admin/asset_detail/'.$res->asset_id); ?>"
 																class="button is-small">
 																<span class="icon is-small">
 																	<i class="fas fa-edit"></i>
@@ -191,12 +197,13 @@
 														</p>
 														<?php endif ?>
 														<?php if ($AssetsAccess->delete == 1) : ?>
-														<a href="<?=base_url('admin/delete_asset/'.$res->id);?>"
+														<a href="<?=base_url('admin/delete_asset/'.$res->asset_id);?>"
 															onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
 															class="button is-small"><span
 																class="icon is-small has-text-danger"><i
 																	class="fa fa-times"></i></span></a>
 														<?php endif ?>
+														
 													</div>
 												</td>
 											</tr>

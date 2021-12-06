@@ -150,6 +150,12 @@
 																<a data-no-instant href="<?=base_url('admin/active_project/'.$project->id);?>" onclick="javascript:return confirm('Are you sure to change this record. Click OK to continue!');"
 															class="button is-small"><span class="icon is-small has-text-success"><i class="fa fa-check"></i></span></a>
                                                         <?php } ?>
+														<a href="<?= base_url('admin/delete_project/'.$project->id); ?>"
+															class="button is-small" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');">
+															<span class="icon is-small has-text-danger">
+																<i class="fas fa-times"></i>
+															</span>
+														</a>
 													</div>
 												</td>
 											</tr>
@@ -181,6 +187,13 @@
 																<a data-no-instant href="<?=base_url('admin/active_project/'.$res->id);?>" onclick="javascript:return confirm('Are you sure to change this record. Click OK to continue!');"
 															class="button is-small"><span class="icon is-small has-text-success"><i class="fa fa-check"></i></span></a>
                                                         <?php } ?>
+														
+														<a href="<?= base_url('admin/delete_project/'.$res->id); ?>"
+															class="button is-small" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');">
+															<span class="icon is-small has-text-danger">
+																<i class="fas fa-times"></i>
+															</span>
+														</a>
 													</div>
 												</td>
 											</tr>

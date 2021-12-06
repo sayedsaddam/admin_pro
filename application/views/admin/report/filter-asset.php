@@ -99,8 +99,8 @@
 						<div class="tile is-child box">
 							<div class="columns" style="display: grid">
 								<div class="column table-container ">
-									<table class="table table-sm is-fullwidth" id="myTable">
-										<thead>
+									<table class="table table-sm is-fullwidth">
+										<thead class="myTable">
 											<tr>
 												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Category</th> 
@@ -130,9 +130,9 @@
 												<?php endif ?>
 											</tr>
 										</tfoot>
+										<tbody class="myTable">
 										<?php if(empty($results)): ?>
 										<?php else: ?>
-										<tbody>
 											<?php if(!empty($results)): foreach($results as $res): ?>
 											<tr> 
 												<td><?= 'S2S-0'.$res->id; ?></td>
@@ -161,6 +161,7 @@
 																class="icon is-small has-text-danger"><i
 																	class="fa fa-times"></i></span></a>
 														<?php endif ?>
+														
 													</div>
 												</td>
 											</tr>
@@ -242,7 +243,7 @@
 			return r2
 		};
 
-		let tableElement = document.getElementById(tableId);
+		let tableElement = document.getElementsByClassName(tableId);
 
 		let tableExcel = render(template, {
 			worksheet: filename,

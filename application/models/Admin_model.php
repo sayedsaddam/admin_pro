@@ -262,7 +262,7 @@ class Admin_model extends CI_Model{
         $this->db->from('suppliers');
         $this->db->join('locations', 'suppliers.location = locations.id', 'left');
         $this->db->join('categories', 'suppliers.category = categories.id', 'left');
-        $this->db->where('status', 1);
+        $this->db->where('suppliers.status', 1);
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('suppliers.location', $this->session->userdata('location'));
         }
@@ -480,6 +480,7 @@ public function update_invoice($id, $data){
                         invoices.inv_desc, 
                         invoices.status_reason, 
                         invoices.status, 
+                        invoices.deleted_by, 
                         invoices.created_at,
                         locations.id as loc_id,
                         locations.name,
@@ -491,6 +492,7 @@ public function update_invoice($id, $data){
         $this->db->join('locations', 'invoices.region = locations.id', 'left');
         $this->db->join('suppliers', 'invoices.supplier = suppliers.id', 'left');
         $this->db->join('projects', 'invoices.project = projects.id', 'left');
+        $this->db->where('invoices.deleted_by',null);
         $this->db->limit($limit, $offset);
         $this->db->order_by('invoices.id', 'DESC');
         return $this->db->get()->result();
@@ -534,10 +536,10 @@ public function update_invoice($id, $data){
         return true;
     }
     // Invoices - Remove invoice
-    public function delete_invoice($id){
+    public function delete_invoice($id,$data){
         $this->db->where('id', $id);
-        $this->db->delete('invoices');
-        return true;
+        $this->db->update('invoices', $data);
+        return true; 
     }
       // Invoice image - Remove from invoice invoice
       public function invoice_file($id){
@@ -559,7 +561,7 @@ public function update_invoice($id, $data){
     public function get_projects($limit, $offset){
         $this->db->select('id, project_name, project_desc, status, created_at');
         $this->db->from('projects');
-        // $this->db->where('status', 1);
+        $this->db->where('deleted_by', null);
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
@@ -633,6 +635,12 @@ public function update_invoice($id, $data){
         $this->db->update('projects',$data);
         return true;
     } 
+       // Projects - Delete Active project
+       public function delete_project($id, $data){
+        $this->db->where('id', $id);
+        $this->db->update('projects',$data);
+        return true;
+    }
     // Search projects / company
     public function search_project($search){
         $this->db->select('id, project_name, project_desc,status,created_at');
@@ -851,6 +859,7 @@ public function update_invoice($id, $data){
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('assets.location', $this->session->userdata('location'));
         }
+        $this->db->where(array('assets.status' => 1));
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
@@ -887,9 +896,9 @@ public function update_invoice($id, $data){
         return true;
     }
     // Asset register - Delete an asset
-    public function delete_asset($id){
+    public function delete_asset($id,$data){
         $this->db->where('id', $id);
-        $this->db->delete('assets');
+        $this->db->update('assets', $data);
         return true;
     }
     // Count contacts
@@ -1046,13 +1055,15 @@ public function update_invoice($id, $data){
                             categories.cat_name,
                             categories.added_by,
                             categories.cat_location,
+                            categories.status,
                             categories.created_at,
                             users.fullname,
                             locations.name');
         $this->db->from('categories');
         $this->db->join('users', 'categories.added_by = users.id', 'left');
         $this->db->join('locations', 'categories.cat_location = locations.id', 'left');
-        $this->db->order_by('created_at', 'DESC');
+        $this->db->where('categories.status', '1');
+        $this->db->order_by('created_at', 'DESC');        
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -1079,7 +1090,7 @@ public function update_invoice($id, $data){
         return true;
     }
     // Delete category by ID
-    public function delete_category($id){
+    public function delete_category($id){ 
         $this->db->where('id', $id);
         $this->db->delete('categories');
         return true;
@@ -1209,8 +1220,9 @@ public function update_invoice($id, $data){
     }
     // Search filters - assets search
     public function search_asset_register($search){
-        $this->db->select('assets.id,
+        $this->db->select('assets.id as asset_id,
         assets.category, 
+        sub_categories.name as sub_category, 
         assets.description, 
         assets.quantity, 
         assets.purchase_date, 
@@ -1223,6 +1235,7 @@ public function update_invoice($id, $data){
         categories.cat_name,');
         $this->db->from('assets');
         $this->db->join('categories', 'assets.category = categories.id', 'left'); 
+        $this->db->join('sub_categories', 'assets.sub_categories = sub_categories.id', 'left');
         if ($this->session->userdata('user_role') != '1') {
             $this->db->where('assets.location', $this->session->userdata('location'));
         }
@@ -2056,9 +2069,9 @@ public function update_invoice($id, $data){
         return true;
     }
     // Remove employ
-    public function delete_employ($id){
+    public function delete_employee($id,$data){
         $this->db->where('id', $id);
-        $this->db->delete('employ');
+        $this->db->update('users', $data);
         return true;
     }
     // Get item serial number based on item type
@@ -2078,8 +2091,7 @@ public function update_invoice($id, $data){
             return $total;
  }
   // Return Item Save - 
-  public function return_item_save($data,$invantory,$item,$item_id,$assign_item_id){    
- 
+  public function return_item_save($data,$invantory,$item,$item_id,$assign_item_id){
         $this->db->where(array('item_assignment.id' => $assign_item_id, 'item_assignment.status' => 1));
         $this->db->update('item_assignment', $data); 
         $this->db->update('inventory', $invantory);
@@ -2344,39 +2356,39 @@ public function update_invoice($id, $data){
     // get company
     public function get_company(){
        $this->db->select('id,name,code');
-        $this->db->from('company');
-        if ($this->session->userdata('user_role') != '1') {
-            $this->db->where('id', $this->session->userdata('location'));
-        }
+        $this->db->from('company'); 
         return $this->db->get()->result();
     } 
 
     // Move Item From `Item List` to `Asset List`
-    public function move_item_to_asset($data) {
-        $this->db->trans_start();
-        $this->db->query("INSERT INTO assets (`category`, `sub_categories`, `quantity`, `price`, `purchase_date`, `location`, `user`, `description`) VALUES ('$data->category', '$data->sub_category', '$data->quantity', '$data->price', '$data->purchasedate', '$data->location', '$data->added_by', 'Moved item ($data->id) from item list to asset list.')");
+    public function move_item_to_asset($data, $user) {
+        $this->db->trans_begin();
+        
+        $this->db->query("INSERT INTO assets (`category`, `sub_categories`, `quantity`, `price`, `purchase_date`, `location`, `user`, `description`) VALUES ('$data->category', '$data->sub_category', '$data->quantity', '$data->price', '$data->purchasedate', '$data->location', '$user', '$data->type_name (ID: S2S-$data->id) moved to asset list.')");
         $this->db->query("UPDATE items SET `status`=0 WHERE `id`=$data->id");
-        $this->db->trans_complete();
+
         if ($this->db->trans_status() === FALSE)
         {
+            $this->db->trans_rollback();
             return false;
         }
+        $this->db->trans_commit();
         return true;
     }
 
     // Fetch Item Data
     public function item_data($id){
-        $this->db->select('id, category, sub_category, quantity, price, purchasedate, location, added_by');
+        $this->db->select('id, type_name, category, sub_category, quantity, price, purchasedate, location, added_by');
         $this->db->from('items');
         $this->db->where('id', $id); 
         return $this->db->get()->row();
     }
 
     // Item register - Delete an Item
-    public function delete_item($id){
+    public function delete_item($id,$data){
         $this->db->where('id', $id);
-        $this->db->delete('items_detail');
-        return true;
+        $this->db->update('items', $data);
+        return true; 
     }
 
     public function total_items_count_by_days() {
