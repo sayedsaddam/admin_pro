@@ -1830,6 +1830,7 @@ public function update_invoice($id, $data){
     // Assign Item Save - 
     public function assign_item_save($data,$item,$invantory,$item_id){ 
            $this->db->insert('item_assignment', $data);
+        //    print_r($data);exit;
 //  select items quantity from items to subtract assign item from it
         $this->db->select('quantity');
         $this->db->from('items');
