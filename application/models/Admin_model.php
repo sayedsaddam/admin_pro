@@ -1293,6 +1293,7 @@ public function update_invoice($id, $data){
                             categories.cat_location,
                             categories.cat_name,
                             categories.created_at,
+                            categories.status,
                             locations.name,
                             users.fullname');
         $this->db->from('categories');
@@ -1300,6 +1301,7 @@ public function update_invoice($id, $data){
         $this->db->join('users', 'categories.added_by = users.id', 'left');
         $this->db->like('categories.cat_name', $search);
         $this->db->or_like('locations.name', $search);
+        $this->db->where('categories.status', 1);
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get()->result();
     }
