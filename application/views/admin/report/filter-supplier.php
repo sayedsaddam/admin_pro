@@ -162,18 +162,24 @@
 												<td><?= ucwords($sup->category); ?></td> 
 												<td><?= date('M d, Y', strtotime($sup->created_at)); ?></td>
 												<?php if($SuppliersAccess->update == 1 || $SuppliersAccess->delete == 1) : ?>
-												<td class="is-narrow">
-													<?php if($SuppliersAccess->update == 1) : ?>
-													<a data-no-instant href="<?= base_url('admin/edit_supplier/' . $sup->id) ?>"
-														class="supplier_info button is-small"><span
-															class="icon is-small"><i class="fa fa-edit"></i></span></a>
-													<?php endif ?>
-													<?php if($SuppliersAccess->delete == 1) : ?>
-													<a data-no-instant href="<?=base_url('admin/delete_supplier/'.$sup->id);?>"
-														class="button is-small"><span
-															class="icon is-small has-text-danger"><i
-																class="fa fa-times"></i></span></a>
-													<?php endif ?>
+													<td class="is-narrow">
+													<div class="field has-addons">
+														<?php if($SuppliersAccess->update == 1) : ?>
+														<p class="control">
+															<a href="<?= base_url('admin/edit_supplier/' . $sup->id) ?>"
+															class="supplier_info button is-small"><span
+																class="icon is-small"><i class="fa fa-edit"></i></span></a>
+														</p>
+														<?php endif ?>
+														<?php if($SuppliersAccess->delete == 1) : ?>
+														<p class="control">
+															<a data-no-instant href="<?=base_url('admin/delete_supplier/'.$sup->id);?>"
+															class="button is-small" onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"><span
+																class="icon is-small has-text-danger"><i
+																	class="fa fa-times"></i></span></a>
+														</p>
+														<?php endif ?>
+													</div>
 												</td>
 												<?php endif ?>
 											</tr>
