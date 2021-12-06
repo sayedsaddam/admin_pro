@@ -1852,8 +1852,8 @@ public function update_invoice($id, $data){
         $this->db->where('id',$item_id);
         $this->db->update('items', $quantity);
     //   $this->db->insert('item_assignment', $data);
-      $this->db->update('inventory', $invantory);
-      $this->db->update('items', $item); 
+    //   $this->db->update('inventory', $invantory);
+    //   $this->db->update('items', $item); 
         if($this->db->affected_rows() > 0){
         return true;
         }else{
