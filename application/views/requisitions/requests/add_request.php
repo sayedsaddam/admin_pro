@@ -1,43 +1,17 @@
 <section class="columns is-gapless mb-0 pb-0">
 	<div class="column is-narrow is-fullheight" id="custom-sidebar">
-		<?php $this->view('admin/commons/sidebar'); ?>
+		<?php $this->view('requisitions/commons/sidebar'); ?>
 	</div>
 	<div class="column">
 		<div class="columns">
 			<div class="column section py-5">
 				<div class="columns">
 					<div class="column">
-						<?php $this->view('admin/commons/breadcrumb'); ?>
+						<?php $this->view('requisitions/commons/breadcrumb'); ?>
 					</div>
 				</div>
 				<div class="columns">
 					<div class="column">
-						<form action="<?= base_url('admin/search_requistion') ?>" method="GET">
-							<div class="field has-addons">
-								<div class="control has-icons-left is-expanded">
-									<input class="input is-small is-fullwidth" name="search" type="search"
-										placeholder="Search Request"
-										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
-									<span class="icon is-small is-left">
-										<i class="fas fa-search"></i>
-									</span>
-								</div>
-								<div class="control">
-									<button class="button is-small" type="submit"><span class="icon is-small">
-											<i class="fas fa-arrow-right"></i>
-										</span>
-									</button>
-								</div>
-								<div class="ml-1 control">
-									<a href="<?= base_url('report/requisition_report') ?>" class="button is-small">
-										<span class="icon is-small">
-											<i class="fas fa-sort-alpha-down"></i>
-										</span>
-										<span>Filter</span>
-									</a>
-								</div>
-							</div>
-						</form>
 					</div>
 					<div class="column is-hidden-touch is-narrow">
 						<div class="field has-addons">
@@ -52,7 +26,7 @@
 							</p>
 							<p class="control">
 								<a href="<?= base_url("admin/add_requisition") ?>"
-									class="button is-small <?= (isset($employees_page)) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= (isset($addRequestPage)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-plus"></i>
 									</span>
@@ -177,7 +151,10 @@
 								<label class="label is-small">Department <span class="has-text-danger">*</span></label>
 								<div class="select is-small is-fullwidth">
 									<select required disabled>
-										<option selected disabled value="">Select a City</option>
+										<option selected disabled value="">Select a Department</option>
+										<?php foreach ($departments as $data) : ?>
+											<option value="<?= $data->id ?>" <?= $data->id == $this->session->userdata('department') ? 'selected' : '' ?>><?= $data->department ?></option>
+										<?php endforeach ?>
 									</select>
 									
 								<span class="icon is-small is-left">
@@ -191,7 +168,10 @@
 								<label class="label is-small">Company <span class="has-text-danger">*</span></label>
 								<div class="select is-small is-fullwidth">
 									<select required disabled>
-										<option selected disabled value="">Select a City</option>
+										<option selected disabled value="">Select a Company</option>
+										<?php foreach ($companies as $data) : ?>
+											<option value="<?= $data->id ?>" <?= $data->id == $this->session->userdata('company_id') ? 'selected' : '' ?>><?= $data->name ?></option>
+										<?php endforeach ?>
 									</select>
 									
 								<span class="icon is-small is-left">
