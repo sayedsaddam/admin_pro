@@ -54,6 +54,37 @@
 						</div>
 					</div>
 				</div>
+				
+				<?php if($this->session->flashdata('success')) : ?>
+ 				<div class="columns">
+ 					<div class="column">
+ 						<div class="notification is-success is-light">
+ 							<button class="delete is-small"></button>
+ 							<div class="columns is-vcentered">
+ 								<div class="column is-size-7">
+ 									<i class="fas fa-check pr-1"></i>
+ 									<?= $message = $this->session->flashdata('success'); ?>
+ 								</div>
+ 							</div>
+ 						</div>
+ 					</div>
+ 				</div>
+ 				<?php elseif($this->session->flashdata('failed')) : ?>
+ 				<div class="columns">
+ 					<div class="column">
+ 						<div class="notification is-danger is-light">
+ 							<button class="delete is-small"></button>
+ 							<div class="columns is-vcentered">
+ 								<div class="column is-size-7">
+ 									<i class="fas fa-exclamation pr-1"></i>
+ 									<?= $message = $this->session->flashdata('failed'); ?>
+ 								</div>
+ 							</div>
+ 						</div>
+ 					</div>
+ 				</div>
+ 				<?php endif ?>
+
 				<div class="tile is-ancestor">
  					<div class="tile is-parent">
  						<div class="tile is-child box">
