@@ -1847,7 +1847,7 @@ public function update_invoice($id, $data){
         $total = $qty - 1; 
 
         $quantity = array( 
-            'quantity' => $total,
+            'quantity' => $total,   
         );
         $this->db->where('id',$item_id);
         $this->db->update('items', $quantity); 

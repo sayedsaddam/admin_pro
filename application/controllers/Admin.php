@@ -288,6 +288,7 @@ class Admin extends CI_Controller{
     }
     // Suppliers - Add new supplier
     public function add_supplier_request(){ 
+        $email = $this->input->post('email');
         $data = array(
             'name' => $this->input->post('name'),
             'added_by' => $this->session->userdata('id'),
@@ -300,13 +301,20 @@ class Admin extends CI_Controller{
             'address' => ucfirst($this->input->post('address')),
             'created_at' => date('Y-m-d')
         ); 
-        if ($id = $this->admin_model->add_supplier($data)) {
-            $this->session->set_flashdata('success', 'Supplier (<strong>' . $this->input->post('name') . '</strong>) was added successfully.');
-            redirect('admin/edit_supplier/' . $id);
-        }else{
-            $this->session->set_flashdata('failed', 'Something went wrong, please try again!');
-            redirect('admin/suppliers');
-        }
+  // validate supliers  
+  $checkIfExist = $this->db->select('email')->from('suppliers')->where('email' , $email)->get()->row(); // Get email from suppliers to check suppliers exsist.   
+  if(isset($checkIfExist)){ 
+      $this->session->set_flashdata('failed', '<strong class="mr-1">Failed.</strong>suppllier already exsist, try adding a different one.');
+      redirect($_SERVER['HTTP_REFERER']); 
+      exit;
+  }
+  elseif($id = $this->admin_model->add_supplier($data)) {
+    $this->session->set_flashdata('success', 'Supplier (<strong>' . $this->input->post('name') . '</strong>) was added successfully.');
+    redirect('admin/edit_supplier/' . $id);
+}else{
+    $this->session->set_flashdata('failed', 'Something went wrong, please try again!');
+    redirect('admin/suppliers');
+} 
     }
      // get_supplier against location 
      public function supplier_against_location($loc_id){
@@ -463,6 +471,7 @@ class Admin extends CI_Controller{
 }
     // Suppliers - Add new supplier
     public function employee_save(){ 
+       $email = $this->input->post('email');
         $data = array(
             'fullname' => ucfirst($this->input->post('full_name')),
             'email' => $this->input->post('email'),
@@ -480,13 +489,21 @@ class Admin extends CI_Controller{
             'user_role' => $this->input->post('user_role'),
             'created_at' => date('Y-m-d')
         );  
-        if($this->admin_model->add_employ($data)){
-            $this->session->set_flashdata('success', '<strong>Success! /strong>Employ added successfully.');
-            redirect('admin/employee');
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-            redirect('admin/employee');
-        }
+
+  // validate employee  
+  $checkIfExist = $this->db->select('email')->from('users')->where('email' , $email)->get()->row(); // Get email from users to check employee exsist.   
+  if(isset($checkIfExist)){ 
+      $this->session->set_flashdata('failed', '<strong class="mr-1">Failed.</strong>Employee already exsist, try adding a different one.');
+      redirect($_SERVER['HTTP_REFERER']); 
+      exit;
+  }
+  else if($this->admin_model->add_employ($data)){
+    $this->session->set_flashdata('success', '<strong>Success! /strong>Employ added successfully.');
+    redirect('admin/employee');
+}else{
+    $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+    redirect('admin/employee');
+} 
     } 
     // Edit detail
     public function edit_employ($id){
@@ -1892,7 +1909,8 @@ class Admin extends CI_Controller{
     // Add new Item into the database
     public function item_save(){  
         $model = $this->input->post('model');
-        $result = $this->input->post('type_name');  
+        $result = $this->input->post('type_name');
+        $serial_number = $this->input->post('serial_number');
         $data = array(
             'location' => $this->input->post('location'),
             'department' => $this->input->post('department'),
@@ -1911,13 +1929,20 @@ class Admin extends CI_Controller{
             'added_by' => $this->session->userdata('id'),
             'created_at' => date('Y-m-d')
         );  
-        if($this->admin_model->item_save($data, $model, $this->input->post('quantity'))){
-            $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
-            redirect('admin/item_register');
-        }else{
-            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
-            redirect('admin/item_register');
-        }
+     // validate item  
+     $checkIfExist = $this->db->select('serial_number')->from('items')->where(array('serial_number' => $serial_number))->get()->row(); // Get serial number from items.   
+     if(isset($checkIfExist)){ 
+         $this->session->set_flashdata('failed', '<strong class="mr-1">Failed.</strong>Item already exsist, try adding a different one.');
+         redirect($_SERVER['HTTP_REFERER']); 
+         exit;
+     }
+     elseif($this->admin_model->item_save($data, $model, $this->input->post('quantity'))){ 
+        $this->session->set_flashdata('success', '<strong>Success! </strong>Item was added successfully.');
+        redirect('admin/item_register');
+    }else{
+        $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
+        redirect('admin/item_register');
+    } 
     }
     // Update an existing asset record
     public function modify_item(){
@@ -2073,7 +2098,8 @@ class Admin extends CI_Controller{
         // assign_item_save into the database
         public function assign_item_save(){  
         $item_id = $this->input->post('item_id');   
-        $assign = $this->input->post('employ');   
+        $assign = $this->input->post('employ');  
+    
         if(!empty($assign)){
         $data = array(
             'assignd_to' => $this->input->post('employ'),
@@ -2092,8 +2118,15 @@ class Admin extends CI_Controller{
         $return_back = array( 
             'return_back_date' => null,   
         );
-        } 
-        if($this->admin_model->assign_item_save($data,$item,$invantory,$item_id)){
+        }
+        // validate item  
+        $checkIfExist = $this->db->select('item_id,status')->from('item_assignment')->where(array('item_id' => $item_id, 'status' => 1))->get()->row(); // Get sub_category name.   
+        if(isset($checkIfExist)){ 
+            $this->session->set_flashdata('failed', '<strong class="mr-1">Failed.</strong>Item already assigned, try adding a different one.');
+            redirect($_SERVER['HTTP_REFERER']); 
+            exit;
+        }
+        elseif($this->admin_model->assign_item_save($data,$item,$invantory,$item_id)){ 
             $this->session->set_flashdata('success', '<strong>Success! </strong>Item was assignd successfully.');
             redirect('admin/item_register');
         }else{
