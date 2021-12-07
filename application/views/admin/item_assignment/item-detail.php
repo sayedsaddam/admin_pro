@@ -328,6 +328,7 @@
 										<span class="icon is-small is-left">
 											<i class="fas fa-hashtag"></i>
 										</span>
+										<p id="exsist_alert" class="has-text-danger"></p>
 									</div>
 								</div>
 							</fieldset>
@@ -551,6 +552,26 @@ $(document).ready(function(){
      }
   });
   event.stopPropagation();
+});
+});
+
+
+	// code for item validation base on serial number 
+	$(document).ready(function(){ 
+ $('#serial-number').on('change', function(){
+   var serial_number = $(this).val();
+   // AJAX request
+   $.ajax({
+     url:'<?=base_url('admin/item_validation/')?>',
+     method: 'post',
+     data: {serial_number: serial_number},
+     dataType: 'json',
+     success: function(response){
+      console.log(response);
+	  var alert = response; 
+	  document.getElementById("exsist_alert").innerHTML = alert;
+     }
+  }); 
 });
 });
 

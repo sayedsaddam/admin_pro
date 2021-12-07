@@ -146,11 +146,12 @@
 								<div class="field">
 									<label class="label is-small">Email <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input type="email" name="email" id="" class="input is-small" value=""
+										<input type="email" name="email" id="email" class="input is-small" value=""
 											type="text" placeholder="e.g example@domain.com" required="">
 										<span class="icon is-small is-left">
 											<i class="far fa-envelope"></i>
 										</span>
+										<p id="exsist_alert" class="has-text-danger"></p>
 									</div>
 								</div>
 							</div>
@@ -290,3 +291,28 @@
 		</div>
 	</div>
 </section>
+<script>
+	// code for email validation 
+$(document).ready(function(){
+ // City change
+ $('#email').on('change', function(){
+   var email = $(this).val();
+   // AJAX request
+   $.ajax({
+     url:'<?=base_url('admin/supplier_validation/')?>',
+     method: 'post',
+     data: {email: email},
+     dataType: 'json',
+     success: function(response){
+      console.log(response);
+	  var alert = response; 
+	  document.getElementById("exsist_alert").innerHTML = alert;
+     }
+  }); 
+});
+});
+
+
+</script>
+
+
