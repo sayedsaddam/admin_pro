@@ -51,4 +51,32 @@ class Requisitions extends CI_Controller{
 
         $this->load->view('admin/commons/new_template', $data);
     }
+
+    public function save_request() {
+        $user = $this->session->userdata('id');
+
+        $countParticular = count($this->input->post('particular'));
+        $countQuantity = count($this->input->post('quantity'));
+
+        if ($countParticular != $countQuantity) {
+            $this->session->set_flashdata('failed', '<strong class="mr-1">Failed.</strong>Particular Count & Item Count do not match!');
+            redirect('requisitions/add_request');
+            return false;
+        }
+
+        for ($i = 0; $i < $countParticular; $i++) {
+            if ($this->input->post('particular')[$i] && $this->input->post('quantity')[$i] != NULL) {
+                
+                $data = new stdClass();
+                $data->item_name = $this->input->post('particular')[$i];
+                $data->item_desc = $this->input->post('reason');
+                $data->item_qty = $this->input->post('quantity')[$i];
+
+                $this->Requisition_Model->AddRequest($data, $this->session->userdata('id'));
+            }
+        }
+        
+        $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>Items were added successfully!');
+        redirect('requisitions/request_list');
+    }
 }
