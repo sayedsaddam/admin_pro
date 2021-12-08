@@ -9,7 +9,6 @@ class Login_model extends CI_Model{
     }
     // Get all users where role is supervisor.
     public function get_supervisors(){
-        $this->db->select('id, fullname, user_role');
         $this->db->from('users');
         $this->db->where('user_role', 'supervisor');
         return $this->db->get()->result();
@@ -29,7 +28,6 @@ class Login_model extends CI_Model{
     }
     // Signin - Check for user credentials and login to the system. > This table will no hold all employees data.
     public function signin($email, $password){
-        $this->db->select('id, fullname, username, email, department, password, location, user_role');
         $this->db->from('users');
         $this->db->where(array('email' => $email, 'password' => $password));
         return $this->db->get()->row();
@@ -42,7 +40,6 @@ class Login_model extends CI_Model{
     }
     // verify otp and continue to login
     public function verify_and_login($otp){
-        $this->db->select('id, fullname, username, email, department, password, location, user_role');
         $this->db->from('users');
         $this->db->where(array('otp' => $otp, 'email' => $this->session->userdata('email')));
         return $this->db->get()->row();
