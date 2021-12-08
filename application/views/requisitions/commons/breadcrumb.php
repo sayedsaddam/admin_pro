@@ -4,7 +4,7 @@
             <div class="columns">
                 <div class="column is-flex is-justify-content-center is-flex-direction-column">
                     <div class="is-size-7">
-                        <a href="<?= base_url('admin') ?>">Admin</a> 
+                        <a href="<?= base_url('requisitions') ?>">Requisitions</a> 
                         <?php if(isset($breadcrumb)) : ?>
                             <?php foreach($breadcrumb as $index => $value ) : ?>
                                 <?php if ($index === array_keys($breadcrumb)[count($breadcrumb)-1]) : ?>
@@ -16,8 +16,8 @@
                         <?php endif ?>
                     </div>
                 </div>
-                <a href="<?= base_url("requisitions/dashboard") ?>" target="_blank" class="column is-right is-flex is-justify-content-center is-flex-direction-column is-narrow" id="top-menu-item">
-                    Requisitions
+                <a href="<?= base_url("/admin/dashboard") ?>" target="_blank" class="column is-right is-flex is-justify-content-center is-flex-direction-column is-narrow" id="top-menu-item">
+                    Procurements
                 </a>
                 <div class="is-narrow column is-flex is-justify-content-center is-flex-direction-column" id="top-menu-item">
                     <div class="dropdown is-hoverable is-right is-small">

@@ -21,16 +21,6 @@ class Admin extends CI_Controller{
         $this->access['CategoriesAccess'] = $this->AccessList()["Categories"];
         $this->access['RegisterAccess'] = $this->AccessList()["Register"];
     }
-    public function add_requisition() {
-        $url = 'admin/add_requisition';
-        
-        $data['locations'] = $this->login_model->get_locations();
-
-        $data['title'] = 'Add Request | Admin & Procurement';
-        $data['body'] = 'admin/requisition/add_requisition';
-        $data['breadcrumb'] = array("Add Request");
-        $this->load->view('admin/commons/new_template', $data);
-    }
     private function AccessList() {
         $user_role = $this->session->userdata('user_role');
         $userAccess = $this->admin_model->request_db_configs($user_role);

@@ -2361,16 +2361,17 @@ public function update_invoice($id, $data){
 
     // Move Item From `Item List` to `Asset List`
     public function move_item_to_asset($data, $user) {
-        $this->db->trans_start();
+        $this->db->trans_begin();
         
         $this->db->query("INSERT INTO assets (`category`, `sub_categories`, `quantity`, `price`, `purchase_date`, `location`, `user`, `description`) VALUES ('$data->category', '$data->sub_category', '$data->quantity', '$data->price', '$data->purchasedate', '$data->location', '$user', '$data->type_name (ID: S2S-$data->id) moved to asset list.')");
         $this->db->query("UPDATE items SET `status`=0 WHERE `id`=$data->id");
 
         if ($this->db->trans_status() === FALSE)
         {
+            $this->db->trans_rollback();
             return false;
         }
-        $this->db->trans_complete();
+        $this->db->trans_commit();
         return true;
     }
 
