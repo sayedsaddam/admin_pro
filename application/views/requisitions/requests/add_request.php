@@ -66,11 +66,10 @@
 					</div>
 				</div>
 				<?php endif ?>
-
 				<form
-					action="<?php if(empty($edit)){ echo base_url('admin/add_requisition'); }else{ echo base_url('admin/edit_requisition'); } ?>"
+					action="<?= empty($edit) ? base_url('requisitions/save_request') : base_url('requisitions/edit_request') ?>"
 					method="POST">
-					<input type="hidden" name="id" value="<?php echo $this->uri->segment(3); ?>">
+					<input type="hidden" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">
 						<div class="column">
 							<fieldset>
@@ -189,13 +188,10 @@
 									1.
 								</div>
 								<div class="column">
-									<input type="text" class="input is-small" placeholder="Particular">
+									<input type="text" name="particular[]" class="input is-small" placeholder="Particular" required>
 								</div>
 								<div class="column">
-									<input type="number" class="input is-small" placeholder="Quantity" min="1" max="10">
-								</div>
-								<div class="column">
-									<input type="text" class="input is-small" placeholder="Remarks">
+									<input type="number" name="quantity[]" class="input is-small" placeholder="Quantity" min="1" max="10" required>
 								</div>
 							</div>
 						</div>
@@ -207,13 +203,10 @@
 									2.
 								</div>
 								<div class="column">
-									<input type="text" class="input is-small" placeholder="Particular">
+									<input type="text" name="particular[]" class="input is-small" placeholder="Particular">
 								</div>
 								<div class="column">
-									<input type="number" class="input is-small" placeholder="Quantity" min="1" max="10">
-								</div>
-								<div class="column">
-									<input type="text" class="input is-small" placeholder="Remarks">
+									<input type="number" name="quantity[]" class="input is-small" placeholder="Quantity" min="1" max="10">
 								</div>
 							</div>
 						</div>
@@ -225,13 +218,10 @@
 									3.
 								</div>
 								<div class="column">
-									<input type="text" class="input is-small" placeholder="Particular">
+									<input type="text" name="particular[]" class="input is-small" placeholder="Particular">
 								</div>
 								<div class="column">
-									<input type="number" class="input is-small" placeholder="Quantity" min="1" max="10">
-								</div>
-								<div class="column">
-									<input type="text" class="input is-small" placeholder="Remarks">
+									<input type="number" name="quantity[]" class="input is-small" placeholder="Quantity" min="1" max="10">
 								</div>
 							</div>
 						</div>
@@ -243,7 +233,7 @@
 								<div class="field">
 									<label class="label is-small">Reason for Purchase </label>
 									<div class="control">
-										<textarea name="reason" class="textarea is-small" placeholder="Please enter brief description explaining why you are requesting the item(s)." rows="4"></textarea>
+										<textarea name="reason" class="textarea is-small" placeholder="Please enter brief description explaining why you are requesting the item(s)." rows="4" required></textarea>
 									</div>
 								</div>
 							</fieldset>
