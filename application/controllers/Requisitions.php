@@ -72,7 +72,7 @@ class Requisitions extends CI_Controller{
                 $data->item_desc = $this->input->post('reason');
                 $data->item_qty = $this->input->post('quantity')[$i];
 
-                $this->Requisition_Model->AddRequest($data, $this->session->userdata('id'));
+                $this->Requisition_Model->AddRequest($data, $user);
             }
         }
         
@@ -109,7 +109,9 @@ class Requisitions extends CI_Controller{
         $config['attributes'] = array('class' => 'pagination-link');
         $config['reuse_query_string'] = true;
         $this->pagination->initialize($config);
-               
+        
+        $user = $this->session->userdata('id');
+
         $data['title'] = 'Request List | Requisitions';
         $data['body'] = 'requisitions/requests/request_list';
         $data['requests'] = $this->Requisition_Model->RequestList($limit, $offset,$user);

@@ -127,7 +127,7 @@
 										<tbody>
 											<?php if(!empty($assets)): foreach($assets as $asset): ?>
 											<tr>
-												<td><?= 'S2S-0'.$asset->id; ?></td>
+												<td><?= 'S2S-'.$asset->id; ?></td>
 												<td>
 													<div class="tags">
 														<span class="tag"><?= ucwords($asset->cat_name); ?></span>
@@ -170,7 +170,7 @@
 											<?php if(!empty($results)): foreach($results as $res): ?>
 											<tr>
 
-												<td><?= 'S2S-0'.$res->asset_id; ?></td>
+												<td><?= 'S2S-'.$res->asset_id; ?></td>
 												<td>
 													<div class="tags">
 														<span class="tag"><?= ucwords($res->cat_name); ?></span>
