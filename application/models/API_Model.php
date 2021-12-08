@@ -29,5 +29,10 @@ class API_Model extends CI_Model{
         $this->db->where('role_id', $user_role);
         return $this->db->get()->result();
     }
-    
+
+    // count request 
+    public function CountRequest(){
+        $this->db->from('item_requisitions'); 
+        return $this->db->count_all_results();
+    }
 }

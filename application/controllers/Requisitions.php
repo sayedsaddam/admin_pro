@@ -50,5 +50,57 @@ class Requisitions extends CI_Controller{
         $data['addRequestPage'] = true;
 
         $this->load->view('admin/commons/new_template', $data);
+    } 
+    // Reuest list 
+    public function request_list($offset = null){ 
+        $limit = 25;
+        if($this->input->get('limit')) {
+            $limit = $this->input->get('limit');
+        }
+
+        if(!empty($offset)){
+            $config['uri_segment'] = 3;
+        }
+    
+        $this->load->library('pagination');
+        $url = base_url('requisitions/request_list');
+        $rowscount = $this->API_Model->CountRequest();
+
+        $config['base_url'] = $url;
+        $config['total_rows'] = $rowscount;
+        $config['per_page'] = $limit;
+        $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+        $config['cur_tag_close'] = '</a>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_open'] = '</li>';
+        $config['first_link'] = 'First';
+        $config['prev_link'] = 'Previous';
+        $config['next_link'] = 'Next';
+        $config['last_link'] = 'Last';
+        $config['attributes'] = array('class' => 'pagination-link');
+        $config['reuse_query_string'] = true;
+        $this->pagination->initialize($config);
+               
+        $data['title'] = 'Request List | Admin & Procurement';
+        $data['body'] = 'requisitions/requests/request_list';
+        $data['requests'] = $this->Requisition_Model->RequestList($limit, $offset);
+        $data['request_list'] = true;
+        $data['breadcrumb'] = array("requests/Request List");
+        $this->load->view('admin/commons/new_template', $data);
+
     }
+// search request
+  // Search filters - search asset register
+  public function search_request(){ 
+
+    $search = $this->input->get('search'); 
+    $data['title'] = 'Search Results > Request List';
+    $data['body'] = 'requisitions/requests/request_list';
+    $data['breadcrumb'] = array("requests/request_list" => "Request List", "Search: " . $search);
+    $data['request_list'] = true;
+    $data['results'] = $this->Requisition_Model->SearchRequest($search);
+    $this->load->view('admin/commons/new_template', $data);
+}
+
+
 }
