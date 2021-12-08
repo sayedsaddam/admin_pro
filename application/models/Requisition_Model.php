@@ -12,12 +12,9 @@ class Requisition_Model extends CI_Model{
         item_requisitions.requested_by,
         item_requisitions.status,
         item_requisitions.created_at as date,
-        items.id as itemId,
-        items.type_name,
         users.id as userId,
         users.fullname');
-    $this->db->from('item_requisitions');   
-    $this->db->join('items', 'item_requisitions.item_name = items.id', 'left');  
+    $this->db->from('item_requisitions');
     $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');  
     return $this->db->get()->result();
     } 
@@ -30,12 +27,9 @@ public function SearchRequest($search){
         item_requisitions.requested_by,
         item_requisitions.status,
         item_requisitions.created_at as date,
-        items.id as itemId,
-        items.type_name,
         users.id as userId,
         users.fullname');
-    $this->db->from('item_requisitions');   
-    $this->db->join('items', 'item_requisitions.item_name = items.id', 'left');  
+    $this->db->from('item_requisitions');     
     $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left'); 
     
     $this->db->group_start(); //start group
@@ -44,7 +38,6 @@ public function SearchRequest($search){
     $this->db->or_like('item_desc', $search);
     $this->db->or_like('item_qty', $search);
     $this->db->or_like('requested_by', $search);
-    $this->db->or_like('type_name', $search);
     $this->db->or_like('fullname', $search); 
     $this->db->group_end(); //close group
 
@@ -66,5 +59,6 @@ public function AddRequest($data, $user) {
     $this->db->trans_commit();
     return true;
 }
+
 
 }

@@ -120,7 +120,7 @@
 											<?php if(!empty($requests)): foreach($requests as $request): ?>
 											<tr>
 												<td><?= 'S2S-0'.$request->id; ?></td> 
-                                                <td><?= ucwords($request->type_name); ?></td>
+                                                <td><?= ucwords($request->item_name); ?></td>
 												<td><span class="is-size-7"><?= ucwords(substr($request->item_desc,0,75)); ?></span></td>
 												<td><?= ucwords($request->fullname); ?></td>
                                                 <td><?= ucwords($request->item_qty); ?></td>
@@ -150,7 +150,7 @@
 											<?php if(!empty($results)): foreach($results as $res): ?>
                                                 <tr>
 												<td><?= 'S2S-0'.$res->id; ?></td> 
-                                                <td><?= ucwords($res->type_name); ?></td>
+                                                <td><?= ucwords($res->item_name); ?></td>
 												<td><span class="is-size-7"><?= ucwords(substr($res->item_desc,0,75)); ?></span></td>
 												<td><?= ucwords($res->fullname); ?></td>
                                                 <td><?= ucwords($res->item_qty); ?></td>
