@@ -5,7 +5,7 @@
 class Requisition_Model extends CI_Model{
     
 // trequest list
-    public function RequestList(){
+    public function RequestList($limit, $offset,$user){
         $this->db->select('item_requisitions.id,item_requisitions.item_name,
         item_requisitions.item_desc,
         item_requisitions.item_qty,
@@ -15,7 +15,9 @@ class Requisition_Model extends CI_Model{
         users.id as userId,
         users.fullname');
     $this->db->from('item_requisitions');
-    $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');  
+    $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
+    $this->db->where('item_requisitions.requested_by', $user);
+    $this->db->limit($limit, $offset);
     return $this->db->get()->result();
     } 
 // search request list --> record    
@@ -32,8 +34,7 @@ public function SearchRequest($search){
     $this->db->from('item_requisitions');     
     $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left'); 
     
-    $this->db->group_start(); //start group
-    $this->db->like('category', $search);
+    $this->db->group_start(); //start group 
     $this->db->or_like('item_name', $search);
     $this->db->or_like('item_desc', $search);
     $this->db->or_like('item_qty', $search);

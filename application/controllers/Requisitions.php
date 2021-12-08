@@ -109,10 +109,12 @@ class Requisitions extends CI_Controller{
         $config['attributes'] = array('class' => 'pagination-link');
         $config['reuse_query_string'] = true;
         $this->pagination->initialize($config);
-               
+        
+        $user = $this->session->userdata('id');
+
         $data['title'] = 'Request List | Admin & Procurement';
         $data['body'] = 'requisitions/requests/request_list';
-        $data['requests'] = $this->Requisition_Model->RequestList($limit, $offset);
+        $data['requests'] = $this->Requisition_Model->RequestList($limit, $offset,$user);
         $data['request_list'] = true;
         $data['breadcrumb'] = array("requests/Request List");
         $this->load->view('admin/commons/new_template', $data);

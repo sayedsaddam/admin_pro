@@ -101,6 +101,7 @@
 												<th class="has-text-weight-semibold">Requested By</th> 
 												<th class="has-text-weight-semibold">Quantity</th>
 												<th class="has-text-weight-semibold">Date</th>
+                                                <th class="has-text-weight-semibold">Status</th>
  												<th class="has-text-weight-semibold">Action</th>
 											</tr>
 										</thead>
@@ -112,6 +113,7 @@
 												<th class="has-text-weight-semibold">Requested By</th> 
 												<th class="has-text-weight-semibold">Quantity</th>
 												<th class="has-text-weight-semibold">Date</th>
+                                                <th class="has-text-weight-semibold">Status</th>
  												<th class="has-text-weight-semibold">Action</th>
 											</tr>
 										</tfoot>
@@ -125,6 +127,7 @@
 												<td><?= ucwords($request->fullname); ?></td>
                                                 <td><?= ucwords($request->item_qty); ?></td>
 												<td><?= ucwords($request->date); ?></td> 
+												<td><?= ucwords($request->status); ?></td> 
 												<td class="is-narrow">
 													<div class="field has-addons"> 
 														<p class="control">
@@ -155,6 +158,7 @@
 												<td><?= ucwords($res->fullname); ?></td>
                                                 <td><?= ucwords($res->item_qty); ?></td>
 												<td><?= ucwords($res->date); ?></td> 
+												<td><?= ucwords($res->status); ?></td> 
 												<td class="is-narrow">
 													<div class="field has-addons"> 
 														<p class="control">
