@@ -45,7 +45,7 @@ class Requisitions extends CI_Controller{
 
         $data['title'] = 'Add Request | Requisitions';
         $data['body'] = 'requisitions/requests/add_request';
-        $data['breadcrumb'] = array("Add Request");
+        $data['breadcrumb'] = array("requisitions/request_list" => "Request List", "Add Request");
 
         $data['addRequestPage'] = true;
 
