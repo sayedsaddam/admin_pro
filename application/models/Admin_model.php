@@ -1442,7 +1442,7 @@ public function update_invoice($id, $data){
         }
         $this->db->where('items.status', 1);
         $this->db->group_by('items.id'); 
-        $this->db->group_by('item_assignment.status'); 
+        // $this->db->group_by('item_assignment.status'); 
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result(); 
@@ -1830,6 +1830,7 @@ public function update_invoice($id, $data){
     // Assign Item Save - 
     public function assign_item_save($data,$item,$invantory,$item_id){ 
            $this->db->insert('item_assignment', $data);
+        //    print_r($data);exit;
 //  select items quantity from items to subtract assign item from it
         $this->db->select('quantity');
         $this->db->from('items');
@@ -1842,18 +1843,15 @@ public function update_invoice($id, $data){
         $this->db->from('item_assignment');
         $this->db->where('item_id',$item_id);
         $item_assign = $this->db->count_all_results();
-        // $item_assign;
-        $total = $qty - $item_assign;
-         $total = $qty - 1; 
+        // $item_assign; 
+        $total = $qty - 1; 
+
         $quantity = array( 
-            'quantity' => $total, 
-            'status' => 1
+            'quantity' => $total,   
         );
         $this->db->where('id',$item_id);
-        $this->db->update('items', $quantity);
-    //   $this->db->insert('item_assignment', $data);
-      $this->db->update('inventory', $invantory);
-      $this->db->update('items', $item); 
+        $this->db->update('items', $quantity); 
+ 
         if($this->db->affected_rows() > 0){
         return true;
         }else{
@@ -2106,8 +2104,7 @@ public function update_invoice($id, $data){
         $total = $qty + 1;   
         // echo $total;exit;
         $quantity = array( 
-            'quantity' => $total,  
-            'status' => 0 
+            'quantity' => $total, 
         );
         $this->db->where('id', $item_id);
         $this->db->update('items', $quantity);  

@@ -89,4 +89,37 @@ th, td {
 
 .darkmode--activated .has-text-dark:hover {
       color: #fff!important;
+} 
+.darkmode--activated input{
+      background-color: #000;
+      color: lightgray; 
+} 
+.darkmode--activated select label{ 
+      color: lightgray; 
+}
+
+.darkmode--activated .label{ 
+      color: lightgray; 
+}
+.darkmode--activated input{ 
+      border-color: gray; 
+}
+
+.darkmode--activated select{ 
+      border-color: gray; 
+}
+.darkmode--activated textarea{ 
+      border-color: gray; 
+}
+
+.darkmode--activated input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+      color: lightgray;
+}
+.darkmode--activated select{
+      background-color: #000;
+      color: #fff; 
+}
+.darkmode--activated textarea{
+      background-color: #000;
+      color: #fff; 
 }

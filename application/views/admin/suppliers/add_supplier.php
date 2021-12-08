@@ -64,6 +64,38 @@
 						</div>
 					</div>
 				</div>
+
+				<?php if($this->session->flashdata('success')) : ?>
+ 				<div class="columns">
+ 					<div class="column">
+ 						<div class="notification is-success is-light">
+ 							<button class="delete is-small"></button>
+ 							<div class="columns is-vcentered">
+ 								<div class="column is-size-7">
+ 									<i class="fas fa-check pr-1"></i>
+ 									<?= $message = $this->session->flashdata('success'); ?>
+ 								</div>
+ 							</div>
+ 						</div>
+ 					</div>
+ 				</div>
+ 				<?php elseif($this->session->flashdata('failed')) : ?>
+ 				<div class="columns">
+ 					<div class="column">
+ 						<div class="notification is-danger is-light">
+ 							<button class="delete is-small"></button>
+ 							<div class="columns is-vcentered">
+ 								<div class="column is-size-7">
+ 									<i class="fas fa-exclamation pr-1"></i>
+ 									<?= $message = $this->session->flashdata('failed'); ?>
+ 								</div>
+ 							</div>
+ 						</div>
+ 					</div>
+ 				</div>
+ 				<?php endif ?>
+
+				
 				<form
 					action="<?= empty($edit_supplier) ? base_url('admin/add_supplier_request') : base_url('admin/edit_supplier_request') ?>"
 					method="POST">
@@ -114,11 +146,12 @@
 								<div class="field">
 									<label class="label is-small">Email <span class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
-										<input type="email" name="email" id="" class="input is-small" value=""
+										<input type="email" name="email" id="email" class="input is-small" value=""
 											type="text" placeholder="e.g example@domain.com" required="">
 										<span class="icon is-small is-left">
 											<i class="far fa-envelope"></i>
 										</span>
+										<p id="exsist_alert" class="has-text-danger"></p>
 									</div>
 								</div>
 							</div>
@@ -258,3 +291,28 @@
 		</div>
 	</div>
 </section>
+<script>
+	// code for email validation 
+$(document).ready(function(){
+ // City change
+ $('#email').on('change', function(){
+   var email = $(this).val();
+   // AJAX request
+   $.ajax({
+     url:'<?=base_url('admin/supplier_validation/')?>',
+     method: 'post',
+     data: {email: email},
+     dataType: 'json',
+     success: function(response){
+      console.log(response);
+	  var alert = response; 
+	  document.getElementById("exsist_alert").innerHTML = alert;
+     }
+  }); 
+});
+});
+
+
+</script>
+
+
