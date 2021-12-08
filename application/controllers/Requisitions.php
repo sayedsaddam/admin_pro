@@ -45,11 +45,11 @@ class Requisitions extends CI_Controller{
 
         $data['title'] = 'Add Request | Requisitions';
         $data['body'] = 'requisitions/requests/add_request';
-        $data['breadcrumb'] = array("Add Request");
+        $data['breadcrumb'] = array("requisitions/request_list" => "Request List", "Add Request");
 
         $data['addRequestPage'] = true;
 
-        $this->load->view('admin/commons/new_template', $data);
+        $this->load->view('requisitions/commons/new_template', $data);
     } 
 
     public function save_request() {
@@ -76,7 +76,7 @@ class Requisitions extends CI_Controller{
             }
         }
         
-        $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>Items were added successfully!');
+        $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>Items were requested successfully!');
         redirect('requisitions/request_list');
     }
 
@@ -109,28 +109,24 @@ class Requisitions extends CI_Controller{
         $config['attributes'] = array('class' => 'pagination-link');
         $config['reuse_query_string'] = true;
         $this->pagination->initialize($config);
-        
-        $user = $this->session->userdata('id');
-
-        $data['title'] = 'Request List | Admin & Procurement';
+               
+        $data['title'] = 'Request List | Requisitions';
         $data['body'] = 'requisitions/requests/request_list';
         $data['requests'] = $this->Requisition_Model->RequestList($limit, $offset,$user);
         $data['request_list'] = true;
-        $data['breadcrumb'] = array("requests/Request List");
-        $this->load->view('admin/commons/new_template', $data);
+        $data['breadcrumb'] = array("Request List");
+        $this->load->view('requisitions/commons/new_template', $data);
 
     } 
-  // Search filters - search asset register
-  public function search_request(){ 
 
-    $search = $this->input->get('search'); 
-    $data['title'] = 'Search Results > Request List';
-    $data['body'] = 'requisitions/requests/request_list';
-    $data['breadcrumb'] = array("requests/request_list" => "Request List", "Search: " . $search);
-    $data['request_list'] = true;
-    $data['results'] = $this->Requisition_Model->SearchRequest($search);
-    $this->load->view('admin/commons/new_template', $data);
-}
-
-
+    // Search filters - search asset register
+    public function search_request(){ 
+        $search = $this->input->get('search'); 
+        $data['title'] = 'Search Requests | Requisitions';
+        $data['body'] = 'requisitions/requests/request_list';
+        $data['breadcrumb'] = array("requests/request_list" => "Request List", "Search: " . $search);
+        $data['request_list'] = true;
+        $data['results'] = $this->Requisition_Model->SearchRequest($search);
+        $this->load->view('requisitions/commons/new_template', $data);
+    }
 }
