@@ -11,12 +11,30 @@
 					</div>
 				</div>
 				<div class="columns">
-					<div class="column">
+					<div class="column is-hidden-print">
+						<form action="<?= base_url('requisitions/search_request'); ?>" method="get">
+							<div class="field has-addons">
+								<div class="control has-icons-left is-expanded">
+									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
+										placeholder="Search Request"
+										value="<?= isset($_GET['search']) ? $_GET['search'] : '' ?>" required>
+									<span class="icon is-small is-left">
+										<i class="fas fa-search"></i>
+									</span>
+								</div>
+								<div class="control">
+									<button class="button is-small" type="submit"><span class="icon is-small">
+											<i class="fas fa-arrow-right"></i>
+										</span>
+									</button>
+								</div>
+							</div>
+						</form>
 					</div>
 					<div class="column is-hidden-touch is-narrow">
 						<div class="field has-addons">
 							<p class="control">
-								<a href='<?= base_url('admin/requisition_list'); ?>'"
+								<a href='<?= base_url('requisitions/request_list'); ?>'
 									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
@@ -25,7 +43,7 @@
 								</a>
 							</p>
 							<p class="control">
-								<a href="<?= base_url("admin/add_requisition") ?>"
+								<a href="<?= base_url("requisitions/add_request") ?>"
 									class="button is-small <?= (isset($addRequestPage)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-plus"></i>

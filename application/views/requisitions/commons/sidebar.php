@@ -23,13 +23,13 @@
 		Requisition
 	</p>
 	<ul class="menu-list">
-		<li><a class="<?= $this->uri->segment(2) == 'add_request' ? 'is-primary is-inverted' : '' ?> nav-category"
-				<?= $this->uri->segment(2) == 'add_request' ? 'style="background-color:#f1f1f1;"' : '' ?>>Requests</a>
+		<li><a class="<?= $this->uri->segment(2) == 'request_list' || $this->uri->segment(2) == 'add_request' ? 'is-primary is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'request_list' || $this->uri->segment(2) == 'add_request' ? 'style="background-color:#f1f1f1;"' : '' ?>>Requests</a>
 			<ul class="sub-categories"
-				style="<?= $this->uri->segment(2) == 'add_request' ? '' : 'display: none;' ?>">
+				style="<?= $this->uri->segment(2) == 'request_list' || $this->uri->segment(2) == 'add_request' ? '' : 'display: none;' ?>">
 				<li
 					class="is-size-7 <?= $this->uri->segment(2) == 'request_list' ? 'has-text-weight-bold' : '' ?>">
-					<a href="<?= base_url('admin/requisition_list'); ?>"><i class="fas fa-list mr-1"></i>
+					<a href="<?= base_url('requisitions/request_list'); ?>"><i class="fas fa-list mr-1"></i>
 						Request List</a></li>
 				<li
 					class="is-size-7 <?= $this->uri->segment(2) == 'add_request' ? 'has-text-weight-bold' : '' ?>">
