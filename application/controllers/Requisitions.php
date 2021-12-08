@@ -76,7 +76,7 @@ class Requisitions extends CI_Controller{
             }
         }
         
-        $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>Items were added successfully!');
+        $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>Items were requested successfully!');
         redirect('requisitions/request_list');
     }
 
@@ -110,7 +110,7 @@ class Requisitions extends CI_Controller{
         $config['reuse_query_string'] = true;
         $this->pagination->initialize($config);
                
-        $data['title'] = 'Request List | Admin & Procurement';
+        $data['title'] = 'Request List | Requisitions';
         $data['body'] = 'requisitions/requests/request_list';
         $data['requests'] = $this->Requisition_Model->RequestList($limit, $offset);
         $data['request_list'] = true;
@@ -118,17 +118,15 @@ class Requisitions extends CI_Controller{
         $this->load->view('requisitions/commons/new_template', $data);
 
     } 
-  // Search filters - search asset register
-  public function search_request(){ 
 
-    $search = $this->input->get('search'); 
-    $data['title'] = 'Search Results > Request List';
-    $data['body'] = 'requisitions/requests/request_list';
-    $data['breadcrumb'] = array("requests/request_list" => "Request List", "Search: " . $search);
-    $data['request_list'] = true;
-    $data['results'] = $this->Requisition_Model->SearchRequest($search);
-    $this->load->view('requisitions/commons/new_template', $data);
-}
-
-
+    // Search filters - search asset register
+    public function search_request(){ 
+        $search = $this->input->get('search'); 
+        $data['title'] = 'Search Requests | Requisitions';
+        $data['body'] = 'requisitions/requests/request_list';
+        $data['breadcrumb'] = array("requests/request_list" => "Request List", "Search: " . $search);
+        $data['request_list'] = true;
+        $data['results'] = $this->Requisition_Model->SearchRequest($search);
+        $this->load->view('requisitions/commons/new_template', $data);
+    }
 }
