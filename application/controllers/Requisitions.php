@@ -49,7 +49,7 @@ class Requisitions extends CI_Controller{
 
         $data['addRequestPage'] = true;
 
-        $this->load->view('admin/commons/new_template', $data);
+        $this->load->view('requisitions/commons/new_template', $data);
     } 
 
     public function save_request() {
@@ -114,8 +114,8 @@ class Requisitions extends CI_Controller{
         $data['body'] = 'requisitions/requests/request_list';
         $data['requests'] = $this->Requisition_Model->RequestList($limit, $offset);
         $data['request_list'] = true;
-        $data['breadcrumb'] = array("requests/Request List");
-        $this->load->view('admin/commons/new_template', $data);
+        $data['breadcrumb'] = array("Request List");
+        $this->load->view('requisitions/commons/new_template', $data);
 
     } 
   // Search filters - search asset register
@@ -127,7 +127,7 @@ class Requisitions extends CI_Controller{
     $data['breadcrumb'] = array("requests/request_list" => "Request List", "Search: " . $search);
     $data['request_list'] = true;
     $data['results'] = $this->Requisition_Model->SearchRequest($search);
-    $this->load->view('admin/commons/new_template', $data);
+    $this->load->view('requisitions/commons/new_template', $data);
 }
 
 
