@@ -2354,7 +2354,7 @@ public function update_invoice($id, $data){
     }     
     // get company
     public function get_company(){
-       $this->db->select('id,name,code');
+        $this->db->select('id,name,code');
         $this->db->from('company'); 
         return $this->db->get()->result();
     } 
