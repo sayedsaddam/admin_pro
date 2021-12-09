@@ -52,7 +52,7 @@ class Requisitions extends CI_Controller{
         $this->load->view('requisitions/commons/new_template', $data);
     } 
 
-    public function save_request() {
+    public function save_request() {  
         $user = $this->session->userdata('id');
 
         $countParticular = count($this->input->post('particular'));
@@ -71,6 +71,11 @@ class Requisitions extends CI_Controller{
                 $data->item_name = $this->input->post('particular')[$i];
                 $data->item_desc = $this->input->post('reason');
                 $data->item_qty = $this->input->post('quantity')[$i];
+
+                $data->location = $this->input->post('location');
+                $data->department = $this->input->post('department');
+                $data->company = $this->input->post('company');
+
 
                 $this->Requisition_Model->AddRequest($data, $this->session->userdata('id'));
             }
@@ -110,6 +115,8 @@ class Requisitions extends CI_Controller{
         $config['reuse_query_string'] = true;
         $this->pagination->initialize($config);
                
+        $user = $this->session->userdata('id');
+
         $data['title'] = 'Request List | Requisitions';
         $data['body'] = 'requisitions/requests/request_list';
         $data['requests'] = $this->Requisition_Model->RequestList($limit, $offset,$user);
@@ -119,14 +126,27 @@ class Requisitions extends CI_Controller{
 
     } 
 
+// view request detail
+public function view_request($id){
+
+    $data['title'] = 'View Request | Requisitions';
+    $data['body'] = 'requisitions/requests/view_request'; 
+    $data['edit'] = $this->Requisition_Model->ViewRequest($id);
+
+
+    $data['breadcrumb'] = array("View Request");
+    $this->load->view('requisitions/commons/new_template', $data);
+
+}
     // Search filters - search asset register
     public function search_request(){ 
+        $user = $this->session->userdata('id');
         $search = $this->input->get('search'); 
         $data['title'] = 'Search Requests | Requisitions';
         $data['body'] = 'requisitions/requests/request_list';
         $data['breadcrumb'] = array("requests/request_list" => "Request List", "Search: " . $search);
         $data['request_list'] = true;
-        $data['results'] = $this->Requisition_Model->SearchRequest($search);
+        $data['results'] = $this->Requisition_Model->SearchRequest($search,$user);
         $this->load->view('requisitions/commons/new_template', $data);
     }
 }

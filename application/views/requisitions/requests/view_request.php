@@ -96,7 +96,7 @@
 											class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<input type="text" class="input is-small"
-											value="<?= $this->session->userdata('fullname') ?>" type="text"
+											value="<?= $edit->fullname; ?>" type="text"
 											placeholder="e.g John Doe" required disabled>
 										<span class="icon is-small is-left">
 											<i class="fas fa-user-tie"></i>
@@ -112,7 +112,7 @@
 											class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<input type="text" class="input is-small"
-											value="S2S-<?= $this->session->userdata('id') ?>" type="text"
+											value="S2S-<?= $edit->id; ?>" type="text"
 											placeholder="e.g S2S-123" required disabled>
 										<span class="icon is-small is-left">
 											<i class="fas fa-signature"></i>
@@ -124,23 +124,23 @@
 					</div>
 
 					<div class="columns">
-						<div class="column">
-							<div class="control has-icons-left">
-								<label class="label is-small">Location <span class="has-text-danger">*</span></label>
-								<div class="select is-small is-fullwidth">
-									<select required disabled>
-										<option value="">Select a City</option>
-										<?php foreach ($locations as $data) : ?> 
-											<option value="<?= $data->id ?>" <?= $data->id == $this->session->userdata('location') ? 'selected' : '' ?>><?= $data->name ?></option>
-										<?php endforeach ?>
-									</select>
-									<input type="hidden" name="location" value="<?= $data->id; ?>">
+
+
+                    <div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Location</label>
+									<div class="control has-icons-left">
+										<input type="text" class="input is-small"
+											value="<?= $edit->loc_name; ?>" type="text"
+											placeholder="e.g location" required disabled>
 								<span class="icon is-small is-left">
 									<i class="fas fa-street-view"></i>
 								</span>
+									</div>
 								</div>
-							</div>
-						</div>
+							</fieldset>
+						</div> 
 						<div class="column">
 							<div class="control">
 
@@ -149,8 +149,8 @@
 										<label class="label is-small">Requisition Date <span
 												class="has-text-danger">*</span></label>
 										<div class="control has-icons-left">
-											<input type="date" class="input is-small"
-												value="<?= date("Y-m-d") ?>" required disabled>
+											<input type="" class="input is-small" 
+												value="<?= date('M d, Y', strtotime($edit->date)); ?>" required disabled>
 											<span class="icon is-small is-left">
 												<i class="fas fa-envelope"></i>
 											</span>
@@ -163,41 +163,36 @@
 
 
 					<div class="columns">
+              
                     <div class="column">
-							<div class="control has-icons-left">
-								<label class="label is-small">Department <span class="has-text-danger">*</span></label>
-								<div class="select is-small is-fullwidth">
-									<select required disabled>
-										<option selected disabled value="">Select a Department</option>
-										<?php foreach ($departments as $data) : ?>
-											<option value="<?= $data->id ?>" <?= $data->id == $this->session->userdata('department') ? 'selected' : '' ?>><?= $data->department ?></option>
-										<?php endforeach ?>
-									</select>
-									<input type="hidden" name="department" value="<?= $data->id; ?>">
-									
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Department</label>
+									<div class="control has-icons-left">
+										<input type="text" class="input is-small"
+											value="<?= $edit->department; ?>" type="text" required disabled>
 								<span class="icon is-small is-left">
-									<i class="fas fa-street-view"></i>
+									<i class="fas fa-building"></i>
 								</span>
+									</div>
 								</div>
-							</div>
-						</div>		
-						<div class="column">
-							<div class="control has-icons-left">
-								<label class="label is-small">Company <span class="has-text-danger">*</span></label>
-								<div class="select is-small is-fullwidth">
-									<select required disabled>
-										<option selected disabled value="">Select a Company</option>
-										<?php foreach ($companies as $data) : ?>
-											<option value="<?= $data->id ?>" <?= $data->id == $this->session->userdata('company_id') ? 'selected' : '' ?>><?= $data->name ?></option>
-										<?php endforeach ?>
-									</select>
-									<input type="hidden" name="company" value="<?= $data->id; ?>">
+							</fieldset>
+						</div> 					
+					
+                        <div class="column">
+							<fieldset>
+								<div class="field">
+									<label class="label is-small">Company</label>
+									<div class="control has-icons-left">
+										<input type="text" class="input is-small"
+											value="<?= $edit->company_name; ?>" type="text" required disabled>
 								<span class="icon is-small is-left">
-									<i class="fas fa-street-view"></i>
+									<i class="fas fa-building"></i>
 								</span>
+									</div>
 								</div>
-							</div>
-						</div>
+							</fieldset>
+						</div> 
 					</div>
 					<hr>
                     <div class="columns">
@@ -207,52 +202,21 @@
 									1.
 								</div>
 								<div class="column">
-									<input type="text" name="particular[]" class="input is-small" placeholder="Particular" required>
+									<input type="text" name="particular" class="input is-small" value="<?= $edit->item_name; ?>">
 								</div>
 								<div class="column">
-									<input type="number" name="quantity[]" class="input is-small" placeholder="Quantity" min="1" max="10" required>
+									<input type="text" class="input is-small" value="<?= $edit->item_name; ?>">
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="columns">
-						<div class="column">
-							<div class="columns">
-								<div class="column is-narrow">
-									2.
-								</div>
-								<div class="column">
-									<input type="text" name="particular[]" class="input is-small" placeholder="Particular">
-								</div>
-								<div class="column">
-									<input type="number" name="quantity[]" class="input is-small" placeholder="Quantity" min="1" max="10">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="columns">
-						<div class="column">
-							<div class="columns">
-								<div class="column is-narrow">
-									3.
-								</div>
-								<div class="column">
-									<input type="text" name="particular[]" class="input is-small" placeholder="Particular">
-								</div>
-								<div class="column">
-									<input type="number" name="quantity[]" class="input is-small" placeholder="Quantity" min="1" max="10">
-								</div>
-							</div>
-						</div>
-					</div>
-					<hr>
+					</div> 
 					<div class="columns">
 						<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Reason for Purchase </label>
 									<div class="control">
-										<textarea name="reason" class="textarea is-small" placeholder="Please enter brief description explaining why you are requesting the item(s)." rows="4" required></textarea>
+										<textarea name="reason" class="textarea is-small" rows="4" value=""><?= $edit->item_desc; ?></textarea>
 									</div>
 								</div>
 							</fieldset>

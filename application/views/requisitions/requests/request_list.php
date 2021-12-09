@@ -29,37 +29,28 @@
 										</span>
 									</button>
 								</div>
-								<div class="ml-1 control">
-									<a href="<?= base_url('report/asset_report') ?>" class="button is-small">
-										<span class="icon is-small">
-											<i class="fas fa-sort-alpha-down"></i>
-										</span>
-										<span>Filter</span>
-									</a>
-								</div>
 							</div>
 						</form>
 					</div>
 					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
 							<p class="control">
-								<a href='<?= base_url('admin/asset_register'); ?>'"
+								<a href='<?= base_url('requisitions/request_list'); ?>'
 									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
-									<span>Assets List</span>
+									<span>Request List</span>
 								</a>
 							</p>
 							<?php if($AssetsAccess->write == 1) : ?>
 							<p class="control">
-								<a href='<?= base_url('admin/add_asset'); ?>'"
-									data-target="#add_supplier"
+								<a href='<?= base_url('requisitions/add_request'); ?>' data-target="#add_supplier"
 									class="button is-small <?= (isset($add_asset)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-plus"></i>
 									</span>
-									<span>Add New</span>
+									<span>Add Request</span>
 								</a>
 							</p>
 							<?php endif ?>
@@ -98,84 +89,91 @@
 												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Item</th>
 												<th class="has-text-weight-semibold">Description</th>
-												<th class="has-text-weight-semibold">Requested By</th> 
+												<th class="has-text-weight-semibold">Requested By</th>
 												<th class="has-text-weight-semibold">Quantity</th>
 												<th class="has-text-weight-semibold">Date</th>
-                                                <th class="has-text-weight-semibold">Status</th>
- 												<th class="has-text-weight-semibold">Action</th>
+												<th class="has-text-weight-semibold">Status</th>
+												<th class="has-text-weight-semibold">Action</th>
 											</tr>
 										</thead>
 										<tfoot>
 											<tr>
-                                            <th class="has-text-weight-semibold">ID</th>
+												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Item</th>
 												<th class="has-text-weight-semibold">Description</th>
-												<th class="has-text-weight-semibold">Requested By</th> 
+												<th class="has-text-weight-semibold">Requested By</th>
 												<th class="has-text-weight-semibold">Quantity</th>
 												<th class="has-text-weight-semibold">Date</th>
-                                                <th class="has-text-weight-semibold">Status</th>
- 												<th class="has-text-weight-semibold">Action</th>
+												<th class="has-text-weight-semibold">Status</th>
+												<th class="has-text-weight-semibold">Action</th>
 											</tr>
 										</tfoot>
 										<?php if(empty($results)): ?>
 										<tbody>
 											<?php if(!empty($requests)): foreach($requests as $request): ?>
 											<tr>
-												<td><?= 'S2S-0'.$request->id; ?></td> 
-                                                <td><?= ucwords($request->item_name); ?></td>
-												<td><span class="is-size-7"><?= ucwords(substr($request->item_desc,0,75)); ?></span></td>
+												<td class="is-narrow"><?= 'S2S-'.$request->id; ?></td>
+												<td><?= ucwords($request->item_name); ?></td>
+												<td><span
+														class="is-size-7"><?= ucwords(substr($request->item_desc,0,75)); ?></span>
+												</td>
 												<td><?= ucwords($request->fullname); ?></td>
-                                                <td><?= ucwords($request->item_qty); ?></td>
-												<td><?= ucwords($request->date); ?></td> 
-												<td><?= ucwords($request->status); ?></td> 
+												<td><?= ucwords($request->item_qty); ?></td>
+												<td><?= date('M d, Y', strtotime($request->date)); ?></td>
+												<?php if($request->status == NULL) : ?>
+												<td class="tag is-warning is-light">In-Process</td>
+												<?php elseif($request->status == 0) : ?>
+												<td class="tag is-danger is-light">Rejected</td>
+												<?php else : ?>
+												<td class="tag is-success is-light">Accepted</td>
+												<?php endif ?>
 												<td class="is-narrow">
-													<div class="field has-addons"> 
+													<div class="field has-addons">
 														<p class="control">
-															<a href="<?= base_url('admin/asset_detail/'.$request->id); ?>"
+															<a href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
 																class="button is-small">
 																<span class="icon is-small">
-																	<i class="fas fa-edit"></i>
+																	<i class="fas fa-eye"></i>
 																</span>
 															</a>
-														</p>  
-														<a data-no-instant href="<?=base_url('admin/delete_asset/'.$request->id);?>"
-															onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
-															class="button is-small"><span
-																class="icon is-small has-text-danger"><i
-																	class="fa fa-times"></i></span></a> 
+														</p> 
 													</div>
-												</td> 
+												</td>
 											</tr>
 											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
 										</tbody>
 										<?php else: ?>
 										<tbody>
 											<?php if(!empty($results)): foreach($results as $res): ?>
-                                                <tr>
-												<td><?= 'S2S-0'.$res->id; ?></td> 
-                                                <td><?= ucwords($res->item_name); ?></td>
-												<td><span class="is-size-7"><?= ucwords(substr($res->item_desc,0,75)); ?></span></td>
+											<tr>
+												<td class="is-narrow"><?= 'S2S-'.$res->id; ?></td>
+												<td><?= ucwords($res->item_name); ?></td>
+												<td><span
+														class="is-size-7"><?= ucwords(substr($res->item_desc,0,75)); ?></span>
+												</td>
 												<td><?= ucwords($res->fullname); ?></td>
-                                                <td><?= ucwords($res->item_qty); ?></td>
-												<td><?= ucwords($res->date); ?></td> 
-												<td><?= ucwords($res->status); ?></td> 
+												<td><?= ucwords($res->item_qty); ?></td>
+												<td><?= date('M d, Y', strtotime($res->date)); ?></td>
+
+												<?php if($res->status == NULL) : ?>
+												<td class="tag is-warning is-light">In-Process</td>
+												<?php elseif($res->status == 0) : ?>
+												<td class="tag is-danger is-light">Rejected</td>
+												<?php else : ?>
+												<td class="tag is-success is-light">Accepted</td>
+												<?php endif ?>
 												<td class="is-narrow">
-													<div class="field has-addons"> 
+													<div class="field has-addons">
 														<p class="control">
 															<a href="<?= base_url('admin/asset_detail/'.$res->id); ?>"
 																class="button is-small">
 																<span class="icon is-small">
-																	<i class="fas fa-edit"></i>
+																	<i class="fas fa-eye"></i>
 																</span>
 															</a>
-														</p>  
-														<a data-no-instant href="<?=base_url('admin/delete_asset/'.$res->id);?>"
-															onclick="javascript:return confirm('Are you sure to delete this record. This can not be undone. Click OK to continue!');"
-															class="button is-small"><span
-																class="icon is-small has-text-danger"><i
-																	class="fa fa-times"></i></span></a> 
+														</p> 
 													</div>
-												</td> 
+												</td>
 											</tr>
 											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
 										</tbody>
@@ -234,4 +232,5 @@
 			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_request' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
 		})
 	})
+
 </script>
