@@ -21,7 +21,7 @@ class Requisition_Model extends CI_Model{
     return $this->db->get()->result();
     } 
 // search request list --> record    
-public function SearchRequest($search){
+public function SearchRequest($search,$user){
         $this->db->select('item_requisitions.id,
         item_requisitions.item_name,
         item_requisitions.item_desc,
@@ -42,6 +42,7 @@ public function SearchRequest($search){
     $this->db->or_like('fullname', $search); 
     $this->db->group_end(); //close group
 
+    $this->db->where('item_requisitions.requested_by', $user);
     $this->db->order_by('item_requisitions.created_at', 'DESC');
     return $this->db->get()->result();    
 
@@ -50,7 +51,7 @@ public function SearchRequest($search){
 public function AddRequest($data, $user) {
     $this->db->trans_begin();
 
-    $this->db->query("INSERT INTO item_requisitions (`item_name`, `item_desc`, `item_qty`, `requested_by`, `status`) VALUES ('$data->item_name', '$data->item_desc', $data->item_qty, '$user', NULL)");
+    $this->db->query("INSERT INTO item_requisitions (`item_name`, `item_desc`, `item_qty`,`location_id`,`department_id`,`company_id`, `requested_by`, `status`) VALUES ('$data->item_name', '$data->item_desc', $data->item_qty, ' $data->location','$data->department','$data->company','$user', NULL)");
 
     if ($this->db->trans_status() === FALSE)
     {
@@ -60,6 +61,34 @@ public function AddRequest($data, $user) {
     $this->db->trans_commit();
     return true;
 }
+// view request -- detail
+public function ViewRequest($id){
 
+    $this->db->select('item_requisitions.id, 
+    item_requisitions.item_name,
+    item_requisitions.item_desc,
+    item_requisitions.item_qty,
+    item_requisitions.status,
+    item_requisitions.created_at as date, 
+    item_requisitions.requested_by,
+    item_requisitions.location_id,
+    item_requisitions.department_id,
+    item_requisitions.company_id,
+    users.id as user_id, users.fullname,
+    departments.id as dep_id,
+    departments.department,
+    locations.id as loc_id,
+    locations.name as loc_name,
+    company.id as company_id,
+    company.name as company_name ');
+    $this->db->from('item_requisitions');
+    $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
+    $this->db->join('locations', 'item_requisitions.location_id = locations.id', 'left');
+    $this->db->join('departments', 'item_requisitions.department_id = departments.id', 'left');
+    $this->db->join('company', 'item_requisitions.company_id = company.id', 'left');
+    $this->db->where('item_requisitions.id', $id);
+    return $this->db->get()->row();
+
+}
 
 }
