@@ -25,7 +25,6 @@
       <div class="col-lg-7 col-md-7">
         <h1 class="font-weight-bold">Admin & Procurement</h1>
         <h5 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h5>
-		<h4 class="font-weight-bold"><a href="<?= base_url('finance'); ?>" class="text-dark">Finance &raquo; Petty Cash</a></h4>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
         <a href="<?= base_url('users/profile'); ?>" class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></a>
@@ -40,6 +39,9 @@
     <div class="col-lg-2 col-md-2">
       <ul class="list-group list-group-flush">
         <ul class="list-group">
+					<li class="list-group-item">
+            <a href="<?= base_url('finance'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-box"></i></a> Petty Cash
+          </li>
           <li class="list-group-item">
             <a href="<?= base_url('admin/suppliers'); ?>" class="text-white btn-floating btn-fb btn-sm"><i class="fas fa-truck-moving"></i></a> Suppliers
           </li>
