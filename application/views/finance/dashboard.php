@@ -55,7 +55,7 @@
           <i class="fas fa-envelope fa-3x deep-purple z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
             <p class="text-uppercase mt-2 mb-1 ml-3"><small>cash in hand &raquo; <a href="" class="text-light font-weight-bold">read more</a></small></p>
-            <p class="font-weight-bold mb-1 ml-3"><?= !empty($cash_issued) ? number_format($cash_issued->total_amount - $petty_cash_requested->requested_amount) : '0'; ?></p>
+            <p class="font-weight-bold mb-1 ml-3"><?= !empty($cash_issued) && !empty($petty_cash_requested) ? number_format($cash_issued->total_amount - $petty_cash_requested->requested_amount) : '0'; ?></p>
           </div>
         </div>
       </div>
