@@ -85,18 +85,17 @@
 				</div>
 				<?php endif ?>
 				<form
-					action="<?= empty($edit) ? base_url('requisitions/save_request') : base_url('requisitions/edit_request') ?>"
+					action="<?= empty($view) ? base_url('requisitions/save_request') : base_url('requisitions/edit_request') ?>"
 					method="POST">
 					<input type="hidden" value="<?php echo $this->uri->segment(3); ?>">
 					<div class="columns">
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Employee Name <span
-											class="has-text-danger">*</span></label>
+									<label class="label is-small">Employee Name </label>
 									<div class="control has-icons-left">
 										<input type="text" class="input is-small"
-											value="<?= $edit->fullname; ?>" type="text"
+											value="<?= $view->fullname; ?>" type="text"
 											placeholder="e.g John Doe" required disabled>
 										<span class="icon is-small is-left">
 											<i class="fas fa-user-tie"></i>
@@ -108,11 +107,10 @@
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Employee Code <span
-											class="has-text-danger">*</span></label>
+									<label class="label is-small">Employee Code </label>
 									<div class="control has-icons-left">
 										<input type="text" class="input is-small"
-											value="S2S-<?= $edit->id; ?>" type="text"
+											value="S2S-<?= $view->id; ?>" type="text"
 											placeholder="e.g S2S-123" required disabled>
 										<span class="icon is-small is-left">
 											<i class="fas fa-signature"></i>
@@ -132,7 +130,7 @@
 									<label class="label is-small">Location</label>
 									<div class="control has-icons-left">
 										<input type="text" class="input is-small"
-											value="<?= $edit->loc_name; ?>" type="text"
+											value="<?= $view->loc_name; ?>" type="text"
 											placeholder="e.g location" required disabled>
 								<span class="icon is-small is-left">
 									<i class="fas fa-street-view"></i>
@@ -146,11 +144,10 @@
 
 								<fieldset>
 									<div class="field">
-										<label class="label is-small">Requisition Date <span
-												class="has-text-danger">*</span></label>
+										<label class="label is-small">Requisition Date </label>
 										<div class="control has-icons-left">
 											<input type="" class="input is-small" 
-												value="<?= date('M d, Y', strtotime($edit->date)); ?>" required disabled>
+												value="<?= date('M d, Y', strtotime($view->date)); ?>" required disabled>
 											<span class="icon is-small is-left">
 												<i class="fas fa-envelope"></i>
 											</span>
@@ -170,7 +167,7 @@
 									<label class="label is-small">Department</label>
 									<div class="control has-icons-left">
 										<input type="text" class="input is-small"
-											value="<?= $edit->department; ?>" type="text" required disabled>
+											value="<?= $view->department; ?>" type="text" required disabled>
 								<span class="icon is-small is-left">
 									<i class="fas fa-building"></i>
 								</span>
@@ -185,7 +182,7 @@
 									<label class="label is-small">Company</label>
 									<div class="control has-icons-left">
 										<input type="text" class="input is-small"
-											value="<?= $edit->company_name; ?>" type="text" required disabled>
+											value="<?= $view->company_name; ?>" type="text" required disabled>
 								<span class="icon is-small is-left">
 									<i class="fas fa-building"></i>
 								</span>
@@ -197,18 +194,42 @@
 					<hr>
                     <div class="columns">
 						<div class="column">
-							<div class="columns">
-								<div class="column is-narrow">
-									1.
-								</div>
+							<div class="columns"> 
 								<div class="column">
-									<input type="text" name="particular" class="input is-small" value="<?= $edit->item_name; ?>">
+
+
+								<fieldset>
+								<div class="field">
+									<label class="label is-small">Item</label>
+									<div class="control has-icons-left">
+										<input type="text" class="input is-small"
+											value="<?= $view->item_name; ?>" type="text" readonly>
+								<span class="icon is-small is-left">
+									<i class="fas fa-luggage-cart"></i>
+								</span>
+									</div>
 								</div>
+							</fieldset>
+									
+ 								</div>
 								<div class="column">
-									<input type="text" class="input is-small" value="<?= $edit->item_name; ?>">
+
+								<fieldset>
+								<div class="field">
+									<label class="label is-small">Quantity</label>
+									<div class="control has-icons-left">
+										<input type="number" class="input is-small"
+											value="<?= $view->item_qty; ?>" type="text" readonly>
+								<span class="icon is-small is-left">
+									<i class="fas fa-sort-numeric-up"></i>
+								</span>
+									</div>
+								</div>
+							</fieldset>
 								</div>
 							</div>
 						</div>
+						
 					</div> 
 					<div class="columns">
 						<div class="column">
@@ -216,29 +237,12 @@
 								<div class="field">
 									<label class="label is-small">Reason for Purchase </label>
 									<div class="control">
-										<textarea name="reason" class="textarea is-small" rows="4" value=""><?= $edit->item_desc; ?></textarea>
+										<textarea name="reason" class="textarea is-small" rows="4" value=""><?= $view->item_desc; ?></textarea>
 									</div>
 								</div>
 							</fieldset>
 						</div>
-					</div>
-					<div class="columns">
-						<div class="column has-text-right">
-							<div class="buttons is-pulled-right">
-								<?php if(!isset($edit_item)): ?>
-								<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
-								<?php endif ?>
-								<p class="control">
-									<button class="button is-small is-success" type="submit">
-										<span><?= !isset($edit_item) ? 'Save and continue' : 'Save Changes' ?></span>
-										<span class="icon is-small">
-											<i class="fas fa-arrow-right"></i>
-										</span>
-									</button>
-								</p>
-							</div>
-						</div>
-					</div>
+					</div> 
 				</form>
 			</div>
 		</div>

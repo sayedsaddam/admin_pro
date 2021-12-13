@@ -121,11 +121,14 @@
 												<td><?= ucwords($request->item_qty); ?></td>
 												<td><?= date('M d, Y', strtotime($request->date)); ?></td>
 												<?php if($request->status == NULL) : ?>
-												<td class="tag is-warning is-light">In-Process</td>
+												<td>
+													<span class="tag is-warning is-light">In-Process</span></td>
 												<?php elseif($request->status == 0) : ?>
-												<td class="tag is-danger is-light">Rejected</td>
+												<td>
+												<span class="tag is-danger is-light">Rejected</span></td>
 												<?php else : ?>
-												<td class="tag is-success is-light">Accepted</td>
+												<td>
+												<span class="tag is-success is-light">	Accepted </span></td>
 												<?php endif ?>
 												<td class="is-narrow">
 													<div class="field has-addons">
