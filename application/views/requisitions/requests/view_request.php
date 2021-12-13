@@ -203,7 +203,7 @@
 									<label class="label is-small">Item</label>
 									<div class="control has-icons-left">
 										<input type="text" class="input is-small"
-											value="<?= $view->item_name; ?>" type="text" required disabled>
+											value="<?= $view->item_name; ?>" type="text" readonly>
 								<span class="icon is-small is-left">
 									<i class="fas fa-building"></i>
 								</span>
@@ -219,7 +219,7 @@
 									<label class="label is-small">Quantity</label>
 									<div class="control has-icons-left">
 										<input type="number" class="input is-small"
-											value="<?= $view->item_qty; ?>" type="text" required disabled>
+											value="<?= $view->item_qty; ?>" type="text" readonly>
 								<span class="icon is-small is-left">
 									<i class="fas fa-building"></i>
 								</span>
