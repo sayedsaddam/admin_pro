@@ -6,7 +6,7 @@
 		<div class="columns">
 			<div class="column section py-5">
 				<div class="columns">
-					<div class="column">
+					<div class="column is-hidden-print">
 						<?php $this->view('requisitions/commons/breadcrumb'); ?>
 					</div>
 				</div>
@@ -76,8 +76,29 @@
 						</div>
 					</div>
 				</div>
-				<?php endif ?>
+				<?php endif ?> 
+				<!-- tab start here -->
 
+<?php
+$id = $this->uri->segment(3);
+
+?>
+
+
+<div class="tabs is-left is-hidden-print">
+  <ul>
+  <li class="<?php if($id == null){ echo "is-active";} ?>">
+		<a href="<?= base_url('requisitions/request_list') ?>">All</a>
+	</li>  
+    <li class="<?php if($id == 3){ echo "is-active";} ?>">
+		<a href="<?= base_url('requisitions/request_list/3') ?>">Pending</a>
+	</li>
+    <li class="<?php if($id == 2){ echo "is-active";} ?>"><a href="<?= base_url('requisitions/request_list/2') ?>">Process</a></li> 
+    <li class="<?php if($id == 1){ echo "is-active";} ?>"><a href="<?= base_url('requisitions/request_list/1') ?>">Approved</a></li>
+    <li class="<?php if($id == '0'){ echo "is-active";} ?>"><a href="<?= base_url('requisitions/request_list/0') ?>">Reject</a></li>
+  </ul>
+</div>
+				<!-- tab end here -->
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
 						<div class="tile is-child box">
@@ -122,13 +143,17 @@
 												<td><?= date('M d, Y', strtotime($request->date)); ?></td>
 												<?php if($request->status == NULL) : ?>
 												<td>
-													<span class="tag is-warning is-light">In-Process</span></td>
-												<?php elseif($request->status == 0) : ?>
+													<span class="tag is-warning is-light">Pending</span></td>
+												<?php elseif($request->status == 2) : ?>
 												<td>
-												<span class="tag is-danger is-light">Rejected</span></td>
-												<?php else : ?>
+												<span class="tag is-warning is-light">Process</span></td>
+												<?php elseif($request->status == 1) : ?> 
 												<td>
-												<span class="tag is-success is-light">	Accepted </span></td>
+												<span class="tag is-success is-light">Approved </span></td> 
+												<?php else : ?> 
+												<td>
+												<span class="tag is-danger is-light">Rejected </span>
+												</td>
 												<?php endif ?>
 												<td class="is-narrow">
 													<div class="field has-addons">
@@ -160,13 +185,17 @@
 
 												<?php if($res->status == NULL) : ?>
 												<td>
-												<span class="tag is-warning is-light">In-Process</span></td>
-												<?php elseif($res->status == 0) : ?>
+													<span class="tag is-warning is-light">Pending</span></td>
+												<?php elseif($res->status == 2) : ?>
 												<td>
-												<span  class="tag is-danger is-light">Rejected </span></td>
-												<?php else : ?>
+												<span class="tag is-warning is-light">Process</span></td>
+												<?php elseif($res->status == 1) : ?> 
 												<td>
-													<span class="tag is-success is-light">Accepted</span></td>
+												<span class="tag is-success is-light">Approved </span></td> 
+												<?php else : ?> 
+												<td>
+												<span class="tag is-danger is-light">Rejected </span>
+												</td>
 												<?php endif ?>
 												<td class="is-narrow">
 													<div class="field has-addons">

@@ -16,8 +16,27 @@ class Requisition_Model extends CI_Model{
         users.fullname');
     $this->db->from('item_requisitions');
     $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
-    $this->db->where('item_requisitions.requested_by', $user);
-    $this->db->limit($limit, $offset);
+
+    $data = $this->uri->segment(3);
+    if(isset($data)){
+    if($data == 0){ 
+        $this->db->where(array('item_requisitions.requested_by' => $user, 'item_requisitions.status' => $data));
+    }
+    if($data == 1){ 
+        $this->db->where(array('item_requisitions.requested_by' => $user, 'item_requisitions.status' => $data));
+    }
+    if($data == 2){ 
+        $this->db->where(array('item_requisitions.requested_by' => $user, 'item_requisitions.status' => $data));
+    }
+    if($data == 3){ 
+        $this->db->where(array('item_requisitions.requested_by' => $user, 'item_requisitions.status' => null));
+    }
+    
+    if(!isset($data)){ 
+        $this->db->where('item_requisitions.requested_by', $user);
+        $this->db->limit($limit, $offset); 
+    } 
+}
     return $this->db->get()->result();
     } 
 // search request list --> record    
