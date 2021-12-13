@@ -103,7 +103,15 @@ class Login extends CI_Controller{
             $location = $login->location;
             $user_role = $login->user_role;
             $this->session->set_userdata(array('id' => $id, 'username' => $username, 'fullname' => $name, 'department' => $department, 'company_id' => $company_id, 'location' => $location, 'user_role' => $user_role));
-            redirect('admin/dashboard');
+            if($user_role == 1) {
+                redirect('admin/dashboard');
+            } else if($user_role == 2) {
+                redirect('requisitions/dashboard');
+            } else if($user_role == 3) {
+                redirect('admin/dashboard');
+            } else {
+                redirect('admin/dashboard');
+            }
         }else{
             $this->session->set_flashdata('login_failed', "<strong>Oops! </strong>Looks like that's not the code we sent you. Try again!");
             $this->verify_credentials();
