@@ -1,16 +1,16 @@
 <section class="columns is-gapless mb-0 pb-0">
-	<div class="column is-narrow is-fullheight" id="custom-sidebar">
+	<div class="column is-narrow is-fullheight is-hidden-print" id="custom-sidebar">
 		<?php $this->view('requisitions/commons/sidebar'); ?>
 	</div>
 	<div class="column">
 		<div class="columns">
 			<div class="column section py-5">
 				<div class="columns">
-					<div class="column">
+					<div class="column is-hidden-print">
 						<?php $this->view('requisitions/commons/breadcrumb'); ?>
 					</div>
 				</div>
-				<div class="columns">
+				<div class="columns is-hidden-print" >
 					<div class="column is-hidden-print">
 						<form action="<?= base_url('requisitions/search_request'); ?>" method="get">
 							<div class="field has-addons">
@@ -32,8 +32,8 @@
 						</form>
 					</div>
 					<div class="column is-hidden-touch is-narrow">
-						<div class="field has-addons">
-							<p class="control">
+						<div class="field has-addons is-hidden-print">
+							<p class="control is-hidden-print">
 								<a href='<?= base_url('requisitions/request_list'); ?>'
 									class="button is-small <?= isset($add_page) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
@@ -42,7 +42,7 @@
 									<span>Request List</span>
 								</a>
 							</p>
-							<p class="control">
+							<p class="control is-hidden-print">
 								<a href="<?= base_url("requisitions/add_request") ?>"
 									class="button is-small <?= (isset($addRequestPage)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
@@ -231,18 +231,35 @@
 						</div>
 						
 					</div> 
+					<hr>
 					<div class="columns">
 						<div class="column">
 							<fieldset>
 								<div class="field">
 									<label class="label is-small">Reason for Purchase </label>
 									<div class="control">
-										<textarea name="reason" class="textarea is-small" rows="4" value=""><?= $view->item_desc; ?></textarea>
+										<textarea name="reason" class="textarea is-small" rows="4" value="" readonly><?= $view->item_desc; ?></textarea>
 									</div>
 								</div>
 							</fieldset>
 						</div>
 					</div> 
+
+					<div class="columns">
+						<div class="column"></div>
+						<div class="column">
+
+						<div class="buttons is-pulled-right is-hidden-print">
+						<button onClick="window.print();" type="button" class="button is-small ">
+									<span class="icon is-small">
+										<i class="fas fa-print"></i>
+									</span>
+									<span>Print</span>
+								</button>
+										</div>
+
+						</div>
+					</div>
 				</form>
 			</div>
 		</div>
