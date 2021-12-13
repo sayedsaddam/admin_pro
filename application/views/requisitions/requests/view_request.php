@@ -231,6 +231,7 @@
 						</div>
 						
 					</div> 
+					<hr>
 					<div class="columns">
 						<div class="column">
 							<fieldset>
@@ -243,6 +244,22 @@
 							</fieldset>
 						</div>
 					</div> 
+
+					<div class="columns">
+						<div class="column"></div>
+						<div class="column">
+
+						<div class="buttons is-pulled-right">
+						<button onClick="window.print();" type="button" class="button is-small ">
+									<span class="icon is-small">
+										<i class="fas fa-print"></i>
+									</span>
+									<span>Print</span>
+								</button>
+										</div>
+
+						</div>
+					</div>
 				</form>
 			</div>
 		</div>
