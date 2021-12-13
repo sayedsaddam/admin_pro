@@ -134,7 +134,7 @@
 											<option value="<?= $data->id ?>" <?= $data->id == $this->session->userdata('location') ? 'selected' : '' ?>><?= $data->name ?></option>
 										<?php endforeach ?>
 									</select>
-									<input type="hidden" name="location" value="<?= $data->id; ?>">
+									<input type="hidden" name="location" value="<?= $this->session->userdata('location'); ?>">
 								<span class="icon is-small is-left">
 									<i class="fas fa-street-view"></i>
 								</span>
@@ -173,7 +173,7 @@
 											<option value="<?= $data->id ?>" <?= $data->id == $this->session->userdata('department') ? 'selected' : '' ?>><?= $data->department ?></option>
 										<?php endforeach ?>
 									</select>
-									<input type="hidden" name="department" value="<?= $data->id; ?>">
+									<input type="hidden" name="department" value="<?= $this->session->userdata('department'); ?>">
 									
 								<span class="icon is-small is-left">
 									<i class="fas fa-street-view"></i>
@@ -191,10 +191,10 @@
 											<option value="<?= $data->id ?>" <?= $data->id == $this->session->userdata('company_id') ? 'selected' : '' ?>><?= $data->name ?></option>
 										<?php endforeach ?>
 									</select>
-									<input type="hidden" name="company" value="<?= $data->id; ?>">
-								<span class="icon is-small is-left">
+									<input type="hidden" name="company" value="<?= $this->session->userdata('company_id'); ?>">
+								    <span class="icon is-small is-left">
 									<i class="fas fa-street-view"></i>
-								</span>
+								    </span>
 								</div>
 							</div>
 						</div>

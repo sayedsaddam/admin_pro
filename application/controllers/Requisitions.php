@@ -76,7 +76,6 @@ class Requisitions extends CI_Controller{
                 $data->department = $this->input->post('department');
                 $data->company = $this->input->post('company');
 
-
                 $this->Requisition_Model->AddRequest($data, $this->session->userdata('id'));
             }
         }
@@ -131,7 +130,7 @@ public function view_request($id){
 
     $data['title'] = 'View Request | Requisitions';
     $data['body'] = 'requisitions/requests/view_request'; 
-    $data['edit'] = $this->Requisition_Model->ViewRequest($id);
+    $data['view'] = $this->Requisition_Model->ViewRequest($id);
 
 
     $data['breadcrumb'] = array("View Request");
