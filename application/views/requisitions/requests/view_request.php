@@ -205,7 +205,7 @@
 										<input type="text" class="input is-small"
 											value="<?= $view->item_name; ?>" type="text" readonly>
 								<span class="icon is-small is-left">
-									<i class="fas fa-building"></i>
+									<i class="fas fa-luggage-cart"></i>
 								</span>
 									</div>
 								</div>
@@ -221,7 +221,7 @@
 										<input type="number" class="input is-small"
 											value="<?= $view->item_qty; ?>" type="text" readonly>
 								<span class="icon is-small is-left">
-									<i class="fas fa-building"></i>
+									<i class="fas fa-sort-numeric-up"></i>
 								</span>
 									</div>
 								</div>
