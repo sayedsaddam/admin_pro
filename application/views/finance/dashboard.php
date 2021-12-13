@@ -15,7 +15,8 @@
         <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
         <h4 class="font-weight-bold orange-text mt-2">Finance Dashboard <i class="fa fa-chart-bar"></i><br>
 					<?php if($this->session->userdata('user_role') == 'admin'): ?>
-						<a href="<?=base_url('admin');?>" class="text-light font-weight-bold">Home</a>
+						<a href="<?=base_url('admin');?>" class="text-light font-weight-bold">Home</a> |
+						<a href="<?= base_url('users'); ?>" class="btn btn-outline-light btn-sm">Employee Board</a>
 					<?php endif; ?>
 				</h4>
       </div>
