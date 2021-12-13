@@ -237,7 +237,7 @@
 								<div class="field">
 									<label class="label is-small">Reason for Purchase </label>
 									<div class="control">
-										<textarea name="reason" class="textarea is-small" rows="4" value=""><?= $view->item_desc; ?></textarea>
+										<textarea name="reason" class="textarea is-small" rows="4" value="" readonly><?= $view->item_desc; ?></textarea>
 									</div>
 								</div>
 							</fieldset>
