@@ -68,19 +68,21 @@ class Requisition_Model extends CI_Model{
             users.fullname'
         );
     
-        $this->db->from('item_requisitions');     
-        $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left'); 
-        $this->db->group_start(); //start group 
+        $this->db->from('item_requisitions');
+        $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
+
+        $this->db->group_start(); //Start Grouping
         $this->db->or_like('item_name', $search);
         $this->db->or_like('item_desc', $search);
         $this->db->or_like('item_qty', $search);
         $this->db->or_like('requested_by', $search);
         $this->db->or_like('fullname', $search); 
-        $this->db->group_end(); //close group
+        $this->db->group_end(); //Close Grouping
+        
         $this->db->where('item_requisitions.requested_by', $user);
         $this->db->order_by('item_requisitions.created_at', 'DESC');
 
-        return $this->db->get()->result();    
+        return $this->db->get()->result();
     }
 
     // AddRequest() function - Adds request for requisition from user

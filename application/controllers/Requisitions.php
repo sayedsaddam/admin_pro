@@ -30,7 +30,6 @@ class Requisitions extends CI_Controller{
     public function dashboard() {
         $data['title'] = 'Home | Requisitions';
         $data['body'] = 'requisitions/dashboard';
-        
         $data['breadcrumb'] = array("Dashboard");
         
         $this->load->view('requisitions/commons/new_template', $data);
@@ -42,11 +41,9 @@ class Requisitions extends CI_Controller{
         $data['locations'] = $this->API_Model->FetchLocations();
         $data['departments'] = $this->API_Model->FetchDepartments();
         $data['companies'] = $this->API_Model->FetchCompanies();
-
         $data['title'] = 'Add Request | Requisitions';
         $data['body'] = 'requisitions/requests/add_request';
         $data['breadcrumb'] = array("requisitions/request_list" => "Request List", "Add Request");
-
         $data['addRequestPage'] = true;
 
         $this->load->view('requisitions/commons/new_template', $data);
@@ -71,7 +68,6 @@ class Requisitions extends CI_Controller{
                 $data->item_name = $this->input->post('particular')[$i];
                 $data->item_desc = $this->input->post('reason');
                 $data->item_qty = $this->input->post('quantity')[$i];
-
                 $data->location = $this->input->post('location');
                 $data->department = $this->input->post('department');
                 $data->company = $this->input->post('company');
@@ -87,6 +83,7 @@ class Requisitions extends CI_Controller{
     // Reuest list 
     public function request_list($offset = null){ 
         $limit = 25;
+        
         if($this->input->get('limit')) {
             $limit = $this->input->get('limit');
         }
@@ -112,8 +109,9 @@ class Requisitions extends CI_Controller{
         $config['last_link'] = 'Last';
         $config['attributes'] = array('class' => 'pagination-link');
         $config['reuse_query_string'] = true;
+
         $this->pagination->initialize($config);
-               
+        
         $user = $this->session->userdata('id');
 
         $data['title'] = 'Request List | Requisitions';
@@ -121,8 +119,8 @@ class Requisitions extends CI_Controller{
         $data['requests'] = $this->Requisition_Model->RequestList($limit, $offset,$user);
         $data['request_list'] = true;
         $data['breadcrumb'] = array("Request List");
-        $this->load->view('requisitions/commons/new_template', $data);
 
+        $this->load->view('requisitions/commons/new_template', $data);
     } 
 
     // view request detail
@@ -151,7 +149,9 @@ class Requisitions extends CI_Controller{
         if ($this->AccessList()["Approval"]->read == 0) {
             redirect('requisitions/dashboard');
         }
+
         $limit = 25;
+        
         if($this->input->get('limit')) {
             $limit = $this->input->get('limit');
         }
@@ -161,6 +161,7 @@ class Requisitions extends CI_Controller{
         }
     
         $this->load->library('pagination');
+
         $url = base_url('requisitions/approval_list');
         $rowscount = $this->API_Model->CountRequest();
 
@@ -177,8 +178,9 @@ class Requisitions extends CI_Controller{
         $config['last_link'] = 'Last';
         $config['attributes'] = array('class' => 'pagination-link');
         $config['reuse_query_string'] = true;
+
         $this->pagination->initialize($config);
-               
+
         $user = $this->session->userdata('id');
 
         $data['title'] = 'Approval List | Requisitions';
@@ -186,6 +188,7 @@ class Requisitions extends CI_Controller{
         $data['requests'] = $this->Requisition_Model->RequestList($limit, $offset,$user);
         $data['approval_list'] = true;
         $data['breadcrumb'] = array("Approval List");
+
         $this->load->view('requisitions/commons/new_template', $data);
     }
 
@@ -203,27 +206,21 @@ class Requisitions extends CI_Controller{
 
     // forward_request
     public function forward_request($id){
-        $data = array(
-            'status' => 2
-        ); 
+        $data = array('status' => 2); 
         $data['requests'] = $this->Requisition_Model->ForwardList($id,$data); 
         redirect('requisitions/approval_list'); 
     }
 
     // Approved Request
     public function approved_request($id){
-        $data = array(
-            'status' => 1
-        ); 
+        $data = array('status' => 1); 
         $data['requests'] = $this->Requisition_Model->ApprovedList($id,$data); 
         redirect('requisitions/approval_list'); 
     }
 
     // Reject Request
     public function reject_request($id){
-        $data = array(
-            'status' => 0
-        ); 
+        $data = array('status' => 0); 
         $data['requests'] = $this->Requisition_Model->RejectList($id,$data); 
         redirect('requisitions/approval_list'); 
     }
