@@ -91,6 +91,7 @@ class Requisitions extends CI_Controller{
 
     // Reuest list 
     public function request_list($offset = null){ 
+        
         $limit = 25;
         if($this->input->get('limit')) {
             $limit = $this->input->get('limit');

@@ -202,49 +202,18 @@
 					<hr>
                     <div class="columns">
 						<div class="column">
-							<div class="columns">
-								<div class="column is-narrow">
-									1.
-								</div>
+							<div class="columns"> 
 								<div class="column">
+								<label for="">Particular</label>
 									<input type="text" name="particular[]" class="input is-small" placeholder="Particular" required>
 								</div>
 								<div class="column">
+								<label for="">Quantity</label>
 									<input type="number" name="quantity[]" class="input is-small" placeholder="Quantity" min="1" max="10" required>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="columns">
-						<div class="column">
-							<div class="columns">
-								<div class="column is-narrow">
-									2.
-								</div>
-								<div class="column">
-									<input type="text" name="particular[]" class="input is-small" placeholder="Particular">
-								</div>
-								<div class="column">
-									<input type="number" name="quantity[]" class="input is-small" placeholder="Quantity" min="1" max="10">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="columns">
-						<div class="column">
-							<div class="columns">
-								<div class="column is-narrow">
-									3.
-								</div>
-								<div class="column">
-									<input type="text" name="particular[]" class="input is-small" placeholder="Particular">
-								</div>
-								<div class="column">
-									<input type="number" name="quantity[]" class="input is-small" placeholder="Quantity" min="1" max="10">
-								</div>
-							</div>
-						</div>
-					</div>
+					</div>  
 					<hr>
 					<div class="columns">
 						<div class="column">
