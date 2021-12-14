@@ -4,8 +4,8 @@
  */
 class Requisition_Model extends CI_Model{
     
-    // RequestList function
-    public function RequestList($limit, $offset,$user){
+    // RequestList() function
+    public function RequestList($limit, $offset, $user) {
         
         $this->db->select('
             item_requisitions.id,
@@ -54,8 +54,8 @@ class Requisition_Model extends CI_Model{
         return $this->db->get()->result();
     } 
     
-    // SearchRequest function - Searches the request list in requisitions    
-    public function SearchRequest($search,$user){
+    // SearchRequest() function - Searches the request list in requisitions    
+    public function SearchRequest($search, $user) {
     
         $this->db->select('item_requisitions.id,
             item_requisitions.item_name,
@@ -83,7 +83,7 @@ class Requisition_Model extends CI_Model{
         return $this->db->get()->result();    
     }
 
-    // AddRequest function - Adds request for requisition from user
+    // AddRequest() function - Adds request for requisition from user
     public function AddRequest($data, $user) {
         $this->db->trans_begin();
 
@@ -99,8 +99,8 @@ class Requisition_Model extends CI_Model{
         return true;
     }
 
-    // ViewRequest function - View details of request
-    public function ViewRequest($id){
+    // ViewRequest() function - View details of request
+    public function ViewRequest($id) {
 
         $this->db->select('item_requisitions.id, 
             item_requisitions.item_name,
@@ -131,24 +131,24 @@ class Requisition_Model extends CI_Model{
         return $this->db->get()->row();
     }
 
-    // forwarder request to director or GM
-    public function ForwardList($id,$data){
+    // ForwardList() function - Forwardes the request
+    public function ForwardList($id, $data) {
         $this->db->where('id', $id);
         $this->db->update('item_requisitions', $data);
 
         return true;
     }
 
-    // Approved request List
-    public function ApprovedList($id,$data){
+    // ApprovedList() function - Approved request List
+    public function ApprovedList($id, $data) {
         $this->db->where('id', $id);
         $this->db->update('item_requisitions', $data);
 
         return true;
     }
 
-    // Reject request
-    public function RejectList($id,$data){
+    // RejectList() function - Rejects request
+    public function RejectList($id, $data) {
         $this->db->where('id', $id);
         $this->db->update('item_requisitions', $data);
 
