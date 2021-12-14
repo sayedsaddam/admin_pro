@@ -22,6 +22,7 @@ class Requisition_Model extends CI_Model{
         $data = $this->uri->segment(3);
 
         if(isset($data)){
+
             if($data == 0){ 
                 $this->db->where(array('item_requisitions.requested_by' => $user, 'item_requisitions.status' => $data));
             }
@@ -42,6 +43,7 @@ class Requisition_Model extends CI_Model{
                 $this->db->where('item_requisitions.requested_by', $user);
                 $this->db->limit($limit, $offset); 
             } 
+            
         }
 
         $this->db->order_by('item_requisitions.id', 'desc');
@@ -76,8 +78,9 @@ class Requisition_Model extends CI_Model{
         $this->db->where('item_requisitions.requested_by', $user);
         $this->db->order_by('item_requisitions.created_at', 'DESC');
         return $this->db->get()->result();    
-}
+    }
 
+    // AddRequest function - Adds request for requisition from user
     public function AddRequest($data, $user) {
         $this->db->trans_begin();
 
@@ -92,7 +95,8 @@ class Requisition_Model extends CI_Model{
 
         return true;
     }
-    // view request -- detail
+
+    // ViewRequest function - View details of request
     public function ViewRequest($id){
         $this->db->select('item_requisitions.id, 
             item_requisitions.item_name,
