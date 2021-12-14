@@ -36,7 +36,14 @@ class Requisition_Model extends CI_Model{
         $this->db->where('item_requisitions.requested_by', $user);
         $this->db->limit($limit, $offset); 
     } 
-}
+} 
+// $this->db->order_by(array('item_requisitions.id' => 'DESC', 'item_requisitions.status' => 2));
+// $this->db->order_by("item_requisitions.id DESC, item_requisitions.status 2");
+
+$this->db->order_by('item_requisitions.id', 'desc');
+// $this->db->order_by('item_requisitions.status', 'null');
+$this->db->order_by('item_requisitions.status', '3');
+
     return $this->db->get()->result();
     } 
 // search request list --> record    
@@ -109,5 +116,22 @@ public function ViewRequest($id){
     return $this->db->get()->row();
 
 }
-
+// forwarder request to director or GM
+public function ForwardList($id,$data){
+    $this->db->where('id', $id);
+    $this->db->update('item_requisitions', $data);
+    return true;
+}
+// Approved request List
+public function ApprovedList($id,$data){
+    $this->db->where('id', $id);
+    $this->db->update('item_requisitions', $data);
+    return true;
+}
+// Reject request
+public function RejectList($id,$data){
+    $this->db->where('id', $id);
+    $this->db->update('item_requisitions', $data);
+    return true;
+}
 }
