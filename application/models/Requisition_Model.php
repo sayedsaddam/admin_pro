@@ -7,7 +7,9 @@ class Requisition_Model extends CI_Model{
     // RequestList function
     public function RequestList($limit, $offset,$user){
         
-        $this->db->select('item_requisitions.id,item_requisitions.item_name,
+        $this->db->select('
+            item_requisitions.id,
+            item_requisitions.item_name,
             item_requisitions.item_desc,
             item_requisitions.item_qty,
             item_requisitions.requested_by,
@@ -52,7 +54,7 @@ class Requisition_Model extends CI_Model{
         return $this->db->get()->result();
     } 
     
-    // search request list --> record    
+    // SearchRequest function - Searches the request list in requisitions    
     public function SearchRequest($search,$user){
     
         $this->db->select('item_requisitions.id,
@@ -149,7 +151,7 @@ class Requisition_Model extends CI_Model{
     public function RejectList($id,$data){
         $this->db->where('id', $id);
         $this->db->update('item_requisitions', $data);
-        
+
         return true;
     }
 
