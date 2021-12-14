@@ -3,8 +3,8 @@
  * undocumented class
  */
 class Requisitions extends CI_Controller{
-    function __construct()
-    {
+    
+    function __construct() {
         parent::__construct();
         $this->load->model('login_model');
         $this->load->model('Requisition_Model');
@@ -86,7 +86,6 @@ class Requisitions extends CI_Controller{
 
     // Reuest list 
     public function request_list($offset = null){ 
-        
         $limit = 25;
         if($this->input->get('limit')) {
             $limit = $this->input->get('limit');
@@ -126,18 +125,15 @@ class Requisitions extends CI_Controller{
 
     } 
 
-// view request detail
-public function view_request($id){
+    // view request detail
+    public function view_request($id){
+        $data['title'] = 'View Request | Requisitions';
+        $data['body'] = 'requisitions/requests/view_request'; 
+        $data['view'] = $this->Requisition_Model->ViewRequest($id);
+        $data['breadcrumb'] = array("View Request");
+        $this->load->view('requisitions/commons/new_template', $data);
+    }
 
-    $data['title'] = 'View Request | Requisitions';
-    $data['body'] = 'requisitions/requests/view_request'; 
-    $data['view'] = $this->Requisition_Model->ViewRequest($id);
-
-
-    $data['breadcrumb'] = array("View Request");
-    $this->load->view('requisitions/commons/new_template', $data);
-
-}
     // Search filters - search request
     public function search_request(){ 
         $user = $this->session->userdata('id');
@@ -149,8 +145,9 @@ public function view_request($id){
         $data['results'] = $this->Requisition_Model->SearchRequest($search,$user);
         $this->load->view('requisitions/commons/new_template', $data);
     }
+
     // Approval list 
-      public function approval_list($offset = null){ 
+    public function approval_list($offset = null){ 
         if ($this->AccessList()["Approval"]->read == 0) {
             redirect('requisitions/dashboard');
         }
@@ -190,10 +187,10 @@ public function view_request($id){
         $data['approval_list'] = true;
         $data['breadcrumb'] = array("Approval List");
         $this->load->view('requisitions/commons/new_template', $data);
-
     }
-      // Search filters - search Approval request
-      public function search_approval_request(){ 
+
+    // Search filters - search Approval request
+    public function search_approval_request(){ 
         $user = $this->session->userdata('id');
         $search = $this->input->get('search'); 
         $data['title'] = 'Search Requests | Requisitions';
@@ -203,29 +200,32 @@ public function view_request($id){
         $data['results'] = $this->Requisition_Model->SearchRequest($search,$user);
         $this->load->view('requisitions/commons/new_template', $data);
     }
+
     // forward_request
-public function forward_request($id){
-    $data = array(
-        'status' => 2
-    ); 
+    public function forward_request($id){
+        $data = array(
+            'status' => 2
+        ); 
         $data['requests'] = $this->Requisition_Model->ForwardList($id,$data); 
         redirect('requisitions/approval_list'); 
-}
-// Approved Request
-public function approved_request($id){
-    $data = array(
-        'status' => 1
-    ); 
+    }
+
+    // Approved Request
+    public function approved_request($id){
+        $data = array(
+            'status' => 1
+        ); 
         $data['requests'] = $this->Requisition_Model->ApprovedList($id,$data); 
         redirect('requisitions/approval_list'); 
-}
-// Reject Request
-public function reject_request($id){
-    $data = array(
-        'status' => 0
-    ); 
+    }
+
+    // Reject Request
+    public function reject_request($id){
+        $data = array(
+            'status' => 0
+        ); 
         $data['requests'] = $this->Requisition_Model->RejectList($id,$data); 
         redirect('requisitions/approval_list'); 
-}
+    }
 
 }
