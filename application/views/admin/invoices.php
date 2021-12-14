@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <?php if($success = $this->session->flashdata('success')): ?>
         <div class="row">
             <div class="col-lg-12 col-md-12">
@@ -48,6 +48,7 @@
               <th class="font-weight-bold">Item</th>
               <th class="font-weight-bold">Amount</th>
               <th class="font-weight-bold">Date</th>
+							<th class="font-weight-bold">File <small>(Click to view file)</small></th>
               <th class="font-weight-bold">Status</th>
               <th class="font-weight-bold">Action</th>
             </tr>
@@ -63,6 +64,9 @@
                   <td><?= $inv->item; ?></td>
                   <td><?= number_format($inv->amount); ?></td>
                   <td><?php if($inv->inv_date){ echo date('M d, Y', strtotime($inv->inv_date)); }else{ echo '--/--/--'; } ?></td>
+									<td>
+										<a target="_blank" href="<?= base_url('upload/invoices/'.$inv->invoice_file); ?>"><?= $inv->invoice_file; ?></a>
+									</td>
                   <td><?php if($inv->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }else{ echo "<span class='badge badge-success'>cleared</span>"; } ?></td>
                   <td>
                       <a href="<?=base_url('admin/print_invoice/'.$inv->id);?>"><span class="badge badge-primary"><i class="fa fa-print"></i></span></a>

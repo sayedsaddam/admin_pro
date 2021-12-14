@@ -269,7 +269,7 @@ class Admin_model extends CI_Model{
     }
     // Invoices - Get invoices
     public function get_invoices($limit, $offset){
-        $this->db->select('id, inv_no, inv_date, project, vendor, region, item, amount, inv_desc, status, created_at');
+        $this->db->select('id, inv_no, inv_date, project, vendor, region, item, amount, inv_desc, invoice_file, status, created_at');
         $this->db->from('invoices');
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $offset);
