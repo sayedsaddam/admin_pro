@@ -6,8 +6,13 @@ class Requisitions extends CI_Controller{
     function __construct()
     {
         parent::__construct();
+        $this->load->model('login_model');
         $this->load->model('Requisition_Model');
         $this->load->model('API_Model');
+
+        if(!$this->session->userdata('username')){
+            redirect('');
+        }
 
         $this->access['AssetsAccess'] = $this->AccessList()["Assets"];
         $this->access['SuppliersAccess'] = $this->AccessList()["Suppliers"];
