@@ -204,11 +204,11 @@
 						<div class="column">
 							<div class="columns"> 
 								<div class="column">
-								<label for="">Particular</label>
+								<label for="" class="label is-small">Particular</label>
 									<input type="text" name="particular[]" class="input is-small" placeholder="Particular" required>
 								</div>
 								<div class="column">
-								<label for="">Quantity</label>
+								<label for="" class="label is-small">Quantity</label>
 									<input type="number" name="quantity[]" class="input is-small" placeholder="Quantity" min="1" max="10" required>
 								</div>
 							</div>

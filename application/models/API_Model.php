@@ -22,7 +22,6 @@ class API_Model extends CI_Model{
         return $this->db->get()->result();
     }
 
-    
     // Access Configs - Fetch access configs => $user_role = {USER_SESSION - Role ID}
     public function FetchAccessConfigs($user_role) {
         $this->db->from('acl_configuration');

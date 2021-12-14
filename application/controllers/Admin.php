@@ -19,7 +19,7 @@ class Admin extends CI_Controller{
         $this->access['SuppliersAccess'] = $this->AccessList()["Suppliers"];
         $this->access['EmployeesAccess'] = $this->AccessList()["Employees"];
         $this->access['CategoriesAccess'] = $this->AccessList()["Categories"];
-        $this->access['RegisterAccess'] = $this->AccessList()["Register"];
+        $this->access['RegisterAccess'] = $this->AccessList()["Register"]; 
     }
     private function AccessList() {
         $user_role = $this->session->userdata('user_role');
