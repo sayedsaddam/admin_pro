@@ -43,7 +43,7 @@ class Requisition_Model extends CI_Model{
                 $this->db->where('item_requisitions.requested_by', $user);
                 $this->db->limit($limit, $offset); 
             } 
-            
+
         }
 
         $this->db->order_by('item_requisitions.id', 'desc');
@@ -77,6 +77,7 @@ class Requisition_Model extends CI_Model{
         $this->db->group_end(); //close group
         $this->db->where('item_requisitions.requested_by', $user);
         $this->db->order_by('item_requisitions.created_at', 'DESC');
+
         return $this->db->get()->result();    
     }
 
@@ -98,6 +99,7 @@ class Requisition_Model extends CI_Model{
 
     // ViewRequest function - View details of request
     public function ViewRequest($id){
+
         $this->db->select('item_requisitions.id, 
             item_requisitions.item_name,
             item_requisitions.item_desc,
@@ -123,6 +125,7 @@ class Requisition_Model extends CI_Model{
         $this->db->join('departments', 'item_requisitions.department_id = departments.id', 'left');
         $this->db->join('company', 'item_requisitions.company_id = company.id', 'left');
         $this->db->where('item_requisitions.id', $id);
+
         return $this->db->get()->row();
     }
 
@@ -130,6 +133,7 @@ class Requisition_Model extends CI_Model{
     public function ForwardList($id,$data){
         $this->db->where('id', $id);
         $this->db->update('item_requisitions', $data);
+
         return true;
     }
 
@@ -137,6 +141,7 @@ class Requisition_Model extends CI_Model{
     public function ApprovedList($id,$data){
         $this->db->where('id', $id);
         $this->db->update('item_requisitions', $data);
+
         return true;
     }
 
@@ -144,6 +149,7 @@ class Requisition_Model extends CI_Model{
     public function RejectList($id,$data){
         $this->db->where('id', $id);
         $this->db->update('item_requisitions', $data);
+        
         return true;
     }
 
