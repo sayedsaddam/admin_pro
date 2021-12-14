@@ -23,21 +23,21 @@ class Requisition_Model extends CI_Model{
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $data = $this->uri->segment(3);
 
-        if(isset($data)){
+        if(isset($data)) {
 
-            if($data == 0){ 
+            if($data == 0) { 
                 $this->db->where(array('item_requisitions.requested_by' => $user, 'item_requisitions.status' => $data));
             }
             
-            if($data == 1){ 
+            if($data == 1) { 
                 $this->db->where(array('item_requisitions.requested_by' => $user, 'item_requisitions.status' => $data));
             }
             
-            if($data == 2){ 
+            if($data == 2) { 
                 $this->db->where(array('item_requisitions.requested_by' => $user, 'item_requisitions.status' => $data));
             }
             
-            if($data == 3){ 
+            if($data == 3) { 
                 $this->db->where(array('item_requisitions.requested_by' => $user, 'item_requisitions.status' => null));
             }
             
