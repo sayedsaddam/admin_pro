@@ -38,6 +38,19 @@
 			</ul>
 		</li>
 	</ul>
+	
+	<ul class="menu-list">
+		<li><a class="<?= $this->uri->segment(2) == 'approval_list' ? 'is-primary is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'approval_list' ? 'style="background-color:#f1f1f1;"' : '' ?>>Approval</a>
+			<ul class="sub-categories"
+				style="<?= $this->uri->segment(2) == 'approval_list' ? '' : 'display: none;' ?>">
+				<li
+					class="is-size-7 <?= $this->uri->segment(2) == 'approval_list' ? 'has-text-weight-bold' : '' ?>">
+					<a href="<?= base_url('requisitions/approval_list'); ?>"><i class="fas fa-list mr-1"></i>
+						Approval List</a></li>
+			</ul>
+		</li>
+	</ul>
 	<p class="menu-label">
 		Control
 	</p>

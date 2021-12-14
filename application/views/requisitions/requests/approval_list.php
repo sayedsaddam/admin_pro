@@ -13,7 +13,7 @@
 
 				<div class="columns is-hidden-touch">
 					<div class="column is-hidden-print">
-						<form action="<?= base_url('requisitions/search_request'); ?>" method="get">
+						<form action="<?= base_url('requisitions/search_approval_request'); ?>" method="get">
 							<div class="field has-addons">
 								<div class="control has-icons-left is-expanded">
 									<input class="input is-small is-fullwidth" name="search" id="myInput" type="search"
@@ -76,28 +76,31 @@
 						</div>
 					</div>
 				</div>
-				<?php endif ?> 
+				<?php endif ?>
 				<!-- tab start here -->
 
-<?php
+				<?php
 $id = $this->uri->segment(3);
 
 ?>
 
 
-<div class="tabs is-left is-hidden-print">
-  <ul>
-  <li class="<?php if($id == null){ echo "is-active";} ?>">
-		<a href="<?= base_url('requisitions/request_list') ?>">All</a>
-	</li>  
-    <li class="<?php if($id == 3){ echo "is-active";} ?>">
-		<a href="<?= base_url('requisitions/request_list/3') ?>">Pending</a>
-	</li>
-    <li class="<?php if($id == 2){ echo "is-active";} ?>"><a href="<?= base_url('requisitions/request_list/2') ?>">Process</a></li> 
-    <li class="<?php if($id == 1){ echo "is-active";} ?>"><a href="<?= base_url('requisitions/request_list/1') ?>">Approved</a></li>
-    <li class="<?php if($id == '0'){ echo "is-active";} ?>"><a href="<?= base_url('requisitions/request_list/0') ?>">Reject</a></li>
-  </ul>
-</div>
+				<div class="tabs is-left is-hidden-print">
+					<ul>
+						<li class="<?php if($id == null){ echo "is-active";} ?>">
+							<a href="<?= base_url('requisitions/request_list') ?>">All</a>
+						</li>
+						<li class="<?php if($id == 3){ echo "is-active";} ?>">
+							<a href="<?= base_url('requisitions/request_list/3') ?>">Pending</a>
+						</li>
+						<li class="<?php if($id == 2){ echo "is-active";} ?>"><a
+								href="<?= base_url('requisitions/request_list/2') ?>">Process</a></li>
+						<li class="<?php if($id == 1){ echo "is-active";} ?>"><a
+								href="<?= base_url('requisitions/request_list/1') ?>">Approved</a></li>
+						<li class="<?php if($id == '0'){ echo "is-active";} ?>"><a
+								href="<?= base_url('requisitions/request_list/0') ?>">Reject</a></li>
+					</ul>
+				</div>
 				<!-- tab end here -->
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
@@ -146,26 +149,72 @@ $id = $this->uri->segment(3);
 													<span class="tag is-warning is-light">Pending</span></td>
 												<?php elseif($request->status == 2) : ?>
 												<td>
-												<span class="tag is-info is-light">Process</span></td>
-												<?php elseif($request->status == 1) : ?> 
+													<span class="tag is-info is-light">Process</span></td>
+												<?php elseif($request->status == 1) : ?>
 												<td>
-												<span class="tag is-success is-light">Approved </span></td> 
-												<?php else : ?> 
+													<span class="tag is-success is-light">Approved </span></td>
+												<?php else : ?>
 												<td>
-												<span class="tag is-danger is-light">Rejected </span>
+													<span class="tag is-danger is-light">Rejected </span>
 												</td>
 												<?php endif ?>
 												<td class="is-narrow">
+
+
 													<div class="field has-addons">
-														<p class="control">
-															<a href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
-																class="button is-small">
+													
+                                                    <?php if($request->status == 1 || $request->status == '0'){ ?>
+                                                            <p class="control">
+                                                                <a data-no-instant
+                                                                href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
+                                                                title="View Request" class="button is-small">
+                                                                    <span class="icon is-small">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </p>
+
+                                                    <?php }else{ ?>	
+                                                        <p class="control">
+                                                                <a data-no-instant
+                                                                href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
+                                                                title="View Request" class="button is-small">
+                                                                    <span class="icon is-small">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </p>
+                                                        <p class="control">
+															<a class="button is-small"
+																href="<?= base_url("/requisitions/forward_request/" . $request->id) ?>" onclick="javascript:return confirm('Are you sure to Forward this request. Click OK to continue!');">
 																<span class="icon is-small">
-																	<i class="fas fa-eye"></i>
+																	<i class="fas fa-arrow-right"></i>
 																</span>
 															</a>
-														</p> 
+														</p>
+
+														<p class="control return-btn">
+															<a class="button is-small"
+																href="<?= base_url("/requisitions/approved_request/" . $request->id) ?>" onclick="javascript:return confirm('Are you sure to Aproved this request. Click OK to continue!');"
+																title="approved request">
+																<span class="icon is-small  has-text-success">
+																	<i class="fas fa-check"></i>
+																</span>
+															</a>
+														</p>
+														<p class="control">
+															<a class="button is-small"
+																href="<?= base_url("/requisitions/reject_request/" . $request->id) ?>"
+																onclick="javascript:return confirm('Are you sure to Reject this request. Click OK to continue!');"
+																title="reject request">
+																<span class="icon is-small has-text-danger">
+																	<i class="fas fa-times"></i>
+																</span>
+															</a>
+														</p>
+                                                        <?php } ?>
 													</div>
+
 												</td>
 											</tr>
 											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
@@ -188,26 +237,57 @@ $id = $this->uri->segment(3);
 													<span class="tag is-warning is-light">Pending</span></td>
 												<?php elseif($res->status == 2) : ?>
 												<td>
-												<span class="tag is-info is-light">Process</span></td>
-												<?php elseif($res->status == 1) : ?> 
+													<span class="tag is-info is-light">Process</span></td>
+												<?php elseif($res->status == 1) : ?>
 												<td>
-												<span class="tag is-success is-light">Approved </span></td> 
-												<?php else : ?> 
+													<span class="tag is-success is-light">Approved </span></td>
+												<?php else : ?>
 												<td>
-												<span class="tag is-danger is-light">Rejected </span>
+													<span class="tag is-danger is-light">Rejected </span>
 												</td>
 												<?php endif ?>
 												<td class="is-narrow">
 													<div class="field has-addons">
-														<p class="control">
-															<a href="<?= base_url('admin/asset_detail/'.$res->id); ?>"
-																class="button is-small">
-																<span class="icon is-small">
-																	<i class="fas fa-eye"></i>
-																</span>
-															</a>
-														</p> 
-													</div>
+														<div class="field has-addons">
+															<p class="control">
+																<a data-no-instant
+																	href="<?= base_url('requisitions/view_request/'.$res->id); ?>"
+																	title="View Request" class="button is-small">
+																	<span class="icon is-small">
+																		<i class="fas fa-eye"></i>
+																	</span>
+																</a>
+															</p>
+
+															<p class="control">
+																<a class="button is-small"
+																	href="<?= base_url("/requisitions/forward_request/" . $res->id) ?>" onclick="javascript:return confirm('Are you sure to Forward this request. Click OK to continue!');">
+																	<span class="icon is-small">
+																		<i class="fas fa-arrow-right"></i>
+																	</span>
+																</a>
+															</p>
+
+															<p class="control return-btn">
+																<a class="button is-small"
+																	href="<?= base_url("/requisitions/approved_request/" . $res->id) ?>" onclick="javascript:return confirm('Are you sure to Approved this request. Click OK to continue!');"
+																	title="approved request">
+																	<span class="icon is-small  has-text-success">
+																		<i class="fas fa-check"></i>
+																	</span>
+																</a>
+															</p>
+															<p class="control">
+																<a class="button is-small"
+																	href="<?= base_url("/requisitions/reject_request/" . $res->id) ?>"
+																	onclick="javascript:return confirm('Are you sure to Reject this request. Click OK to continue!');"
+																	title="reject request">
+																	<span class="icon is-small has-text-danger">
+																		<i class="fas fa-times"></i>
+																	</span>
+																</a>
+															</p>
+														</div>
 												</td>
 											</tr>
 											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>
@@ -260,12 +340,11 @@ $id = $this->uri->segment(3);
 				</div>
 			</div>
 </section>
-<script>
-	$(document).ready(function () {
+<script> 
+$(document).ready(function () {
 		$(".result_limit").on('change', function () {
 			var val = $(this).val();
 			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_request' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
 		})
 	})
-
 </script>
