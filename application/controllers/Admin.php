@@ -311,6 +311,17 @@ class Admin extends CI_Controller{
     }
     // Invoices - Add invoice into the database.
     public function add_invoice(){
+		$config['upload_path'] = 'upload/invoices/';
+		$config['allowed_types'] = 'jpg|jpeg|png';
+        $config['encrypt_name'] = false;
+        // $config['max_size'] = '2048000';
+        $this->load->library('upload', $config);
+        if(!$this->upload->do_upload('inv_file')){
+            echo $this->upload->display_errors();
+        }else{
+            $fileData = $this->upload->data();
+            $file_name = $fileData['file_name'];
+        }
         $data = array(
             'inv_no' => $this->input->post('inv_no'),
             'inv_date' => date('Y-m-d', strtotime($this->input->post('inv_date'))),
@@ -319,7 +330,8 @@ class Admin extends CI_Controller{
             'region' => $this->input->post('region'),
             'item' => $this->input->post('item_name'),
             'amount' => $this->input->post('amount'),
-            'inv_desc' => $this->input->post('inv_desc')
+            'inv_desc' => $this->input->post('inv_desc'),
+			'invoice_file' => $file_name
         );
         if($this->admin_model->add_invoice($data)){
             $this->session->set_flashdata('success', '<strong>Success! </strong>Adding invoice was successful.');

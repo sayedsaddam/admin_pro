@@ -120,7 +120,7 @@
         </button>
       </div>
       <div class="modal-body mx-3">
-        <form action="<?=base_url('admin/add_invoice');?>" method="post" class="md-form">
+        <form action="<?=base_url('admin/add_invoice');?>" method="post" class="md-form" enctype="multipart/form-data">
             <div class="md-form mb-5">
               <input name="inv_no" type="text" id="form34" class="form-control validate">
               <label data-error="wrong" data-success="right" for="form34">Invoice number</label>
@@ -173,7 +173,11 @@
               <textarea name="inv_desc" type="text" class="md-textarea form-control" rows="3"></textarea>
               <label data-error="wrong" data-success="right" for="form8">Description</label>
             </div>
-
+						<div class="custom-file">
+							<input type="file" name="inv_file" class="custom-file-input" id="inputGroupFile01"
+								aria-describedby="inputGroupFileAddon01">
+							<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+						</div>
             <div class="md-form mb-5">
               <input type="submit" class="btn btn-primary" value="Save Changes">
             </div>
