@@ -13,12 +13,7 @@ class Requisitions extends CI_Controller{
         if(!$this->session->userdata('username')){
             redirect('');
         }
-
-        $this->access['AssetsAccess'] = $this->AccessList()["Assets"];
-        $this->access['SuppliersAccess'] = $this->AccessList()["Suppliers"];
-        $this->access['EmployeesAccess'] = $this->AccessList()["Employees"];
-        $this->access['CategoriesAccess'] = $this->AccessList()["Categories"];
-        $this->access['RegisterAccess'] = $this->AccessList()["Register"];
+        
         $this->access['ApprovalAccess'] = $this->AccessList()["Approval"];
     }
 
