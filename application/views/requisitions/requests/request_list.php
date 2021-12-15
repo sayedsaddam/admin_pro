@@ -43,7 +43,7 @@
 									<span>Request List</span>
 								</a>
 							</p>
-							<?php if($AssetsAccess->write == 1) : ?>
+							<?php if($ApprovalAccess->write == 1) : ?>
 							<p class="control">
 								<a href='<?= base_url('requisitions/add_request'); ?>' data-target="#add_supplier"
 									class="button is-small <?= (isset($add_asset)) ? 'has-background-primary-light' : '' ?>">

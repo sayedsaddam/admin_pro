@@ -113,7 +113,6 @@ class Requisitions extends CI_Controller{
         $this->pagination->initialize($config);
         
         $user = $this->session->userdata('id');
-
         $data['title'] = 'Request List | Requisitions';
         $data['body'] = 'requisitions/requests/request_list';
         $data['requests'] = $this->Requisition_Model->RequestList($limit, $offset,$user);
@@ -182,10 +181,11 @@ class Requisitions extends CI_Controller{
         $this->pagination->initialize($config);
 
         $user = $this->session->userdata('id');
+        $role_id = $this->session->userdata('user_role');
 
         $data['title'] = 'Approval List | Requisitions';
         $data['body'] = 'requisitions/requests/approval_list';
-        $data['requests'] = $this->Requisition_Model->RequestList($limit, $offset,$user);
+        $data['requests'] = $this->Requisition_Model->ApprovaltList($limit, $offset,$user,$role_id);
         $data['approval_list'] = true;
         $data['breadcrumb'] = array("Approval List");
 
@@ -205,9 +205,12 @@ class Requisitions extends CI_Controller{
     }
 
     // forward_request
-    public function forward_request($id){
+    public function forward_request(){
+        $id = $this->input->post('id');
+        $role_id = $this->input->post('forward_to');
         $data = array('status' => 2); 
-        $data['requests'] = $this->Requisition_Model->ForwardList($id,$data); 
+        $forward_request = array('read' => 1);
+        $data['requests'] = $this->Requisition_Model->ForwardList($id,$role_id,$data,$forward_request);
         redirect('requisitions/approval_list'); 
     }
 

@@ -43,7 +43,7 @@
 									<span>Request List</span>
 								</a>
 							</p>
-							<?php if($AssetsAccess->write == 1) : ?>
+							<?php if($ApprovalAccess->write == 1) : ?>
 							<p class="control">
 								<a href='<?= base_url('requisitions/add_request'); ?>' data-target="#add_supplier"
 									class="button is-small <?= (isset($add_asset)) ? 'has-background-primary-light' : '' ?>">
@@ -184,13 +184,23 @@ $id = $this->uri->segment(3);
                                                                     </span>
                                                                 </a>
                                                             </p>
-                                                        <p class="control">
+                                                        <!-- <p class="control">
 															<a class="button is-small"
 																href="<?= base_url("/requisitions/forward_request/" . $request->id) ?>" onclick="javascript:return confirm('Are you sure to Forward this request. Click OK to continue!');">
 																<span class="icon is-small">
 																	<i class="fas fa-arrow-right"></i>
 																</span>
 															</a>
+														</p> -->
+
+														<p class="control forwad-btn">
+															<button type="button"
+																data-id="<?= $request->id; ?>"  title="Forwad Request"
+																class="button is-small forwad-btn">
+																<span class="icon is-small">
+																<i class="fas fa-arrow-right"></i>
+																</span>
+															</button>
 														</p>
 
 														<p class="control return-btn">
@@ -340,6 +350,49 @@ $id = $this->uri->segment(3);
 				</div>
 			</div>
 </section>
+
+<!-- forwaded list start modal -->
+
+<div class="modal" id="modal-forwad">
+			<div class="modal-background"></div>
+			<form action="<?= base_url('requisitions/forward_request'); ?>" method="POST">
+				<div class="modal-card">
+					<input type="hidden" name="id" id="request_id" value="">
+					<header class="modal-card-head">
+						<p class="modal-card-title">Request Forward</p>
+						<button class="delete" aria-label="close" id="exit-forward-modal" type="button"></button>
+					</header>
+					<section class="modal-card-body">
+						<div class="columns">
+							<div class="column">
+								<div class="control has-icons-left">
+									<div class="select is-small is-fullwidth">
+										<select name="forward_to" required>
+											<option value="" disabled selected>Forward To</option>
+											<option value="1">Administrator</option>
+											<option value="3">Supervisor</option>
+											<option value="2">User</option>
+											<option value="4">Employee</option>
+										</select>
+									</div>
+									<span class="icon is-small is-left">
+										<i class="fas fa-random"></i>
+									</span>
+								</div>
+							</div> 
+						</div> 	
+					</section>
+					<footer class="modal-card-foot">
+						<button class="button is-success" type="submit"> <span class="icon is-small">
+						<i class="fas fa-arrow-right"></i></span> </button>
+						<button class="button" aria-label="close" id="close-forward-modal" type="reset">Cancel</button>
+					</footer>
+				</div>
+			</form>
+		</div>
+
+<!-- forwaded list end modal-->
+
 <script> 
 $(document).ready(function () {
 		$(".result_limit").on('change', function () {
@@ -347,4 +400,32 @@ $(document).ready(function () {
 			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_request' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
 		})
 	})
+
+	// code for forwaded model
+	$('.forwad-btn').click(function () { 
+		var request_id = $(this).data('id'); 
+		$('#request_id').val(request_id);
+	});
+
+	var btn2 = $(".forwad-btn")
+	var md2 = new BulmaModal("#modal-forwad")
+
+	var btn5 = $("#exit-forward-modal")
+	var btn6 = $("#close-forward-modal")
+
+	btn2.click(function (ev) {
+		md2.show();
+		$(".modal-card-head").show();
+		ev.stopPropagation();
+	});
+
+	btn5.click(function (ev) {
+		md2.close();
+		ev.stopPropagation();
+	});
+	btn6.click(function (ev) {
+		md2.close();
+		ev.stopPropagation();
+	});
+
 </script>
