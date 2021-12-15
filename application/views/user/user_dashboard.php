@@ -2,7 +2,13 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-8 col-md-8">
-        <h1 class="font-weight-bold">Admin & Procurement <?php if($this->session->userdata('user_role') == 'supervisor'): ?>|<a href="<?= base_url('supervisor'); ?>" class="btn btn-outline-light btn-sm">Supervisor board</a><?php endif; ?></h1>
+        <h1 class="font-weight-bold">Admin & Procurement 
+					<?php if($this->session->userdata('user_role') == 'supervisor'): ?>|
+						<a href="<?= base_url('supervisor'); ?>" class="btn btn-outline-light btn-sm">Supervisor board</a>
+					<?php elseif($this->session->userdata('user_role') == 'finance'): ?>
+						<a href="<?= base_url('finance'); ?>" class="btn btn-outline-light btn-sm">Finance board</a>
+					<?php endif; ?>
+				</h1>
         <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
