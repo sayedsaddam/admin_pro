@@ -145,9 +145,9 @@ class Requisitions extends CI_Controller{
 
     // Approval list 
     public function approval_list($offset = null){ 
-        if ($this->AccessList()["Approval"]->read == 0) {
-            redirect('requisitions/dashboard');
-        }
+        // if ($this->AccessList()["Approval"]->read == 0) {
+        //     redirect('requisitions/dashboard');
+        // }
 
         $limit = 25;
         

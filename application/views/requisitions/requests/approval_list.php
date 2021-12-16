@@ -160,7 +160,6 @@ $id = $this->uri->segment(3);
 												<?php endif ?>
 												<td class="is-narrow">
 
-
 													<div class="field has-addons">
 													
                                                     <?php if($request->status == 1 || $request->status == '0'){ ?>
@@ -205,7 +204,7 @@ $id = $this->uri->segment(3);
 
 														<p class="control return-btn">
 															<a class="button is-small"
-																href="<?= base_url("/requisitions/approved_request/" . $request->id) ?>" onclick="javascript:return confirm('Are you sure to Aproved this request. Click OK to continue!');"
+																href="<?= base_url("/requisitions/approved_request/" . $request->id) ?>" onclick="javascript:return confirm('Are you sure to Approved this request. Click OK to continue!');"
 																title="approved request">
 																<span class="icon is-small  has-text-success">
 																	<i class="fas fa-check"></i>

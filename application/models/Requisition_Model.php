@@ -49,8 +49,14 @@ class Requisition_Model extends CI_Model{
     } 
 
     // Approval list
-    public function ApprovaltList($limit, $offset, $user,$role_id) {
-        
+    public function ApprovaltList($limit, $offset, $user,$role_id) { 
+        $role = $this->db->select('role_id,read')->from('request_access')->where(array('role_id' => $role_id, 'read' => 1))->get()->row(); 
+        if(!empty($role)){
+            $roleId = $role->role_id; // this query is used to take common role id --
+        }else{
+            $roleId = 0;
+        }
+      
         $this->db->select('
             item_requisitions.id,
             item_requisitions.item_name,
@@ -67,12 +73,14 @@ class Requisition_Model extends CI_Model{
             request_access.role_id,
             request_access.read'
         ); 
-        // echo $user_id;exit;
+        // echo $roleId;exit;
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('request_access', 'users.user_role = request_access.role_id', 'left');
         // $this->db->where('request_access.role_id', $role_id); 
-        $this->db->where('request_access.read', 1); 
+        $this->db->where(array($roleId => $role_id, 'request_access.read' => 1));
+        // $this->db->where($roleId,$role_id); 
+        // $this->db->where('request_access.read', 1); 
         $this->db->group_by('item_requisitions.id');
         $data = $this->uri->segment(3);
         if(isset($data)) { 
@@ -95,8 +103,7 @@ class Requisition_Model extends CI_Model{
         }
 
         $this->db->order_by('item_requisitions.id', 'desc');
-        $this->db->order_by('item_requisitions.status', '3');
-
+        $this->db->order_by('item_requisitions.status', '3'); 
         return $this->db->get()->result();
     } 
     // aproval list end
