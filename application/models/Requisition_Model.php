@@ -41,12 +41,8 @@ class Requisition_Model extends CI_Model{
                 $this->db->limit($limit, $offset); 
             }
         }
-
-        $this->db->order_by('item_requisitions.id', 'desc');
-        $this->db->order_by('item_requisitions.status', '3');
-
         return $this->db->get()->result();
-    } 
+    }
 
     // Approval list
     public function ApprovaltList($limit, $offset, $user,$role_id) { 
