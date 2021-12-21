@@ -101,7 +101,7 @@
 
 							<div class="columns" style="display: grid">
 								<div class="column table-container ">
-									<table class="table table-sm is-fullwidth">
+									<table class="table table-sm is-fullwidth" id="myTable">
 										<thead>
 											<tr>
 												<th class="has-text-weight-semibold">ID</th>
@@ -114,11 +114,11 @@
 												<th class="has-text-weight-semibold">Date</th>
 												<th class="has-text-weight-semibold">R/Reason</th>
 												<th class="has-text-weight-semibold">Status</th>
-												<th class="has-text-weight-semibold">Action</th>
+												<th class="has-text-weight-semibold" id="action">Action</th>
 											</tr>
 										</thead>
 										 
-										<tbody id="myTable">
+										<tbody>
 											<?php if(!empty($results)): $expenses = 0; foreach($results as $res): $expenses += $res->amount; ?>
 											<tr>
 												<td><?= 'S2S-'.$res->id; ?></td>
@@ -187,7 +187,7 @@
 									<span>Print</span>
 								</button>
 								<a href="javascript:exportTableToExcel('myTable','Invoice  Records');" type="button"
-									class="button is-small ">
+									class="button is-small exporttable">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>
 									</span>
@@ -259,4 +259,9 @@
 		}
 	}
   
+   // Hide tfoot when table search returns empty
+$('.exporttable').click(function () {
+  $('tfoot').remove();
+  $('#action').remove();
+});
 </script>

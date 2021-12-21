@@ -101,7 +101,7 @@
 
 							<div class="columns" style="display: grid">
 								<div class="column table-container">
-									<table class="table is-hoverable is-fullwidth">
+									<table class="table is-hoverable is-fullwidth" id="myTable">
 										<caption><?php if(empty($results)){ echo ''; }else{ echo ''; } ?></caption>
 										<thead>
 											<tr>
@@ -114,7 +114,7 @@
 												<th class="has-text-weight-semibold">Category</th> 
 												<th class="has-text-weight-semibold">Date</th>
 												<?php if($SuppliersAccess->update == 1 || $SuppliersAccess->delete == 1) : ?>
-												<th class="has-text-weight-semibold">Action</th>
+												<th class="has-text-weight-semibold" id="action">Action</th>
 												<?php endif ?>
 											</tr>
 										</thead>
@@ -133,7 +133,7 @@
 												<?php endif ?>
 											</tr>
 										</tfoot> 
-										<tbody id="myTable">
+										<tbody>
 											<?php if(!empty($results)): foreach($results as $sup): ?>
 											<tr
 												onclick="window.location='<?= base_url('admin/edit_supplier/' . $sup->id); ?>';">
@@ -219,7 +219,7 @@
 									<span>Print</span>
 								</button>
 								<a data-no-instant href="javascript:exportTableToExcel('myTable','Supplier  Records');" type="button"
-									class="button is-small ">
+									class="button is-small exporttable">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>
 									</span>
@@ -288,5 +288,9 @@
 			downloadLink.click();
 		}
 	}
-
+   // Hide tfoot when table search returns empty
+   $('.exporttable').click(function () {
+  $('tfoot').remove();
+  $('#action').remove();
+});
 </script>

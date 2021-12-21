@@ -111,7 +111,7 @@
 												<th class="has-text-weight-semibold">Location</th>
 												<th class="has-text-weight-semibold">User</th> 
 												<?php if($AssetsAccess->update == 1 || $AssetsAccess->delete == 1) : ?>
-												<th class="has-text-weight-semibold is-hidden-print">Action</th>
+												<th class="has-text-weight-semibold is-hidden-print" id="action">Action</th>
 												<?php endif ?>
 											</tr>
 										</thead>
@@ -126,7 +126,7 @@
 												<th class="has-text-weight-semibold">Location</th>
 												<th class="has-text-weight-semibold">User</th> 
 												<?php if($AssetsAccess->update == 1 || $AssetsAccess->delete == 1) : ?>
-												<th class="has-text-weight-semibold is-hidden-print">Action</th>
+												<th class="has-text-weight-semibold is-hidden-print" >Action</th>
 												<?php endif ?>
 											</tr>
 										</tfoot>
@@ -203,7 +203,7 @@
 									<span>Print</span>
 								</button>
 								<a data-no-instant href="javascript:exportTableToExcel('myTable','Asset  Records');" type="button"
-									class="button is-small ">
+									class="button is-small exporttable">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>
 									</span>
