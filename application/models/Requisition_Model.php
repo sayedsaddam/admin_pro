@@ -218,8 +218,32 @@ class Requisition_Model extends CI_Model{
     public function RejectList($id, $data) {
         $this->db->where('id', $id);
         $this->db->update('item_requisitions', $data);
-
         return true;
     }
+// slect supplier for po - purchase order
+    public function supplier(){
+        $this->db->select('suppliers.id as sup_id, suppliers.name sup_name,suppliers.email, suppliers.phone, suppliers.location,suppliers.status');
+        $this->db->from('suppliers');
+        // $this->db->where('suppliers.status', 1); 
+        $this->db->where('suppliers.location', $this->session->userdata('location')); 
+        $this->db->order_by('suppliers.rating', 'DESC');
+        return $this->db->get()->result();
+    }
+    // select supplier email
+public function supplier_email($vendor){
+    $this->db->select('id,email');
+    $this->db->from('suppliers');
+    $this->db->where('id', $vendor); 
+    return $this->db->get()->row();
+}
+// select product detail for qutation
+public function product_detail($request_id){
+    $this->db->select('id,item_name,item_desc,item_qty');
+    $this->db->from('item_requisitions');
+    $this->db->where('id', $request_id);
+    // echo "<pre>";
+    // print_r($this->db->get()->row());exit;
+    return $this->db->get()->row();
+}
 
 }

@@ -162,7 +162,43 @@ $id = $this->uri->segment(3);
 
 													<div class="field has-addons">
 													
-                                                    <?php if($request->status == 1 || $request->status == '0'){ ?>
+
+													
+                                                    <?php
+													
+													if($request->status == 1){ ?>
+													  <p class="control">
+                                                                <a data-no-instant
+                                                                href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
+                                                                title="View Request" class="button is-small">
+                                                                    <span class="icon is-small">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </p>
+														 
+															<!-- <p class="control vendor">
+                                                                <a data-no-instant class="vendor"
+                                                                href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
+                                                                title="View Request" class="button is-small">
+                                                                    <span class="icon is-small">
+                                                                    <i class="fas fa-shopping-cart"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </p> -->
+															<p class="control vendor">
+															<button type="button"
+																data-id="<?= $request->id; ?>"  title="Select Vendor"
+																class="button is-small vendor">
+																<span class="icon is-small">
+																<i class="fas fa-shopping-cart"></i>
+																</span>
+															</button>
+														</p>
+
+													<?php }
+													
+													elseif($request->status == 1 || $request->status == '0'){ ?>
                                                             <p class="control">
                                                                 <a data-no-instant
                                                                 href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
@@ -173,7 +209,8 @@ $id = $this->uri->segment(3);
                                                                 </a>
                                                             </p>
 
-                                                    <?php }else{ ?>	
+                                                    <?php }
+													else{ ?>	
                                                         <p class="control">
                                                                 <a data-no-instant
                                                                 href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
@@ -209,7 +246,7 @@ $id = $this->uri->segment(3);
 																<span class="icon is-small  has-text-success">
 																	<i class="fas fa-check"></i>
 																</span>
-															</a>
+															</a> 
 														</p>
 														<p class="control">
 															<a class="button is-small"
@@ -351,7 +388,6 @@ $id = $this->uri->segment(3);
 </section>
 
 <!-- forwaded list start modal -->
-
 <div class="modal" id="modal-forwad">
 			<div class="modal-background"></div>
 			<form action="<?= base_url('requisitions/forward_request'); ?>" method="POST">
@@ -392,6 +428,53 @@ $id = $this->uri->segment(3);
 
 <!-- forwaded list end modal-->
 
+<!-- select vendor start modal -->
+<div class="modal" id="modal-vendor">
+			<div class="modal-background"></div>
+			<form action="<?= base_url('requisitions/rfq'); ?>" method="POST">
+				<div class="modal-card">
+					<input type="hidden" name="request_id" id="requestid" value="">
+					<header class="modal-card-head">
+						<p class="modal-card-title">Select Vendor</p>
+						<button class="delete" aria-label="close" id="exit-vendor-modal" type="button"></button>
+					</header>
+					<section class="modal-card-body">
+						<div class="columns">  
+							<div class="column">
+							<div class="control">
+								<label class="label is-small">Vendor <span class="has-text-danger">*</span></label>
+								<div class="control has-icons-left">
+									<span class="select is-small is-fullwidth">
+										<select name="vendor" id="" class="browser-default custom-select ">
+											<option disabled value="" selected>Select Vendor</option>
+											<?php if(!empty($suppliers)): foreach($suppliers as $supplier): ?>
+											<option value="<?= $supplier->sup_id; ?>">
+												<?= ucwords($supplier->sup_name); ?>
+											</option> 
+											<?php endforeach; endif; ?>
+										</select>
+									</span>
+									<span class="icon is-small is-left">
+										<i class="fas fa-user"></i>
+									</span>
+								</div>
+							</div>
+						</div> 
+
+						</div> 	
+					</section>
+					<footer class="modal-card-foot">
+						<button class="button is-success" type="submit"> <span class="icon is-small">
+						<i class="fas fa-arrow-right"></i></span> </button>
+						<button class="button" aria-label="close" id="close-vendor-modal" type="reset">Cancel</button>
+					</footer>
+				</div>
+			</form>
+		</div>
+
+<!-- select vendor modal-->
+
+
 <script> 
 $(document).ready(function () {
 		$(".result_limit").on('change', function () {
@@ -426,5 +509,33 @@ $(document).ready(function () {
 		md2.close();
 		ev.stopPropagation();
 	});
+
+// code for select vendor modal
+$('.vendor').click(function () { 
+		var request_id = $(this).data('id');
+		$('#requestid').val(request_id);
+	});
+
+	var btnven2 = $(".vendor")
+	var mdven2 = new BulmaModal("#modal-vendor")
+
+	var btnven5 = $("#exit-vendor-modal")
+	var btnven6 = $("#close-vendor-modal")
+
+	btnven2.click(function (ev) {
+		mdven2.show();
+		$(".modal-card-head").show();
+		ev.stopPropagation();
+	});
+
+	btnven5.click(function (ev) {
+		mdven2.close();
+		ev.stopPropagation();
+	});
+	btnven6.click(function (ev) {
+		mdven2.close();
+		ev.stopPropagation();
+	});
+
 
 </script>

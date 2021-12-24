@@ -186,6 +186,7 @@ class Requisitions extends CI_Controller{
         $data['title'] = 'Approval List | Requisitions';
         $data['body'] = 'requisitions/requests/approval_list';
         $data['requests'] = $this->Requisition_Model->ApprovaltList($limit, $offset,$user,$role_id);
+        $data['suppliers'] = $this->Requisition_Model->supplier();
         $data['approval_list'] = true;
         $data['breadcrumb'] = array("Approval List");
 
@@ -227,5 +228,38 @@ class Requisitions extends CI_Controller{
         $data['requests'] = $this->Requisition_Model->RejectList($id,$data); 
         redirect('requisitions/approval_list'); 
     }
+// request for quotation
+public function rfq(){
+    $request_id = $this->input->post('request_id');
+    $vendor_id = $this->input->post('vendor');
+
+// select product detail
+    $data = $this->Requisition_Model->product_detail($request_id); 
+    $product = $data->item_name;
+    $description = $data->item_desc;
+    $quantity = $data->item_qty;
+// get supplier email 
+$email = $this->Requisition_Model->supplier_email($vendor_id); 
+$sup_email = $email->email;
+// send email code
+$this->load->library('form_validation');
+$this->form_validation->set_rules('email', 'Email', 'trim|valid_email|callback_check_email');
+$this->form_validation->set_rules('password', 'Password', 'trim|required'); 
+    //   below email code check and work
+        $from_email = "no-reply@alhayyatgroup.com";
+        $to_email = $sup_email; 
+        $product = $product;
+        $quantity = $quantity;; 
+        $description = $description;  
+        $this->load->library("email");
+        $this->email->from($from_email,"AH Group");
+        $this->email->to($to_email);
+        $this->email->subject("Product Requisition");
+        $this->email->message("office of Islamabad request for ".' '.$product.' - '.$quantity.'quantity'.'<br> Remarks :'.$description);
+
+        $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>Email For Qutation was send successfully!');
+        redirect('requisitions/request_list');
+}
+
 
 }
