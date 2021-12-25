@@ -43,7 +43,7 @@
 									<span>Request List</span>
 								</a>
 							</p>
-							<?php if($AssetsAccess->write == 1) : ?>
+							<?php if($ApprovalAccess->write == 1) : ?>
 							<p class="control">
 								<a href='<?= base_url('requisitions/add_request'); ?>' data-target="#add_supplier"
 									class="button is-small <?= (isset($add_asset)) ? 'has-background-primary-light' : '' ?>">
@@ -160,10 +160,45 @@ $id = $this->uri->segment(3);
 												<?php endif ?>
 												<td class="is-narrow">
 
-
 													<div class="field has-addons">
 													
-                                                    <?php if($request->status == 1 || $request->status == '0'){ ?>
+
+													
+                                                    <?php
+													
+													if($request->status == 1){ ?>
+													  <p class="control">
+                                                                <a data-no-instant
+                                                                href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
+                                                                title="View Request" class="button is-small">
+                                                                    <span class="icon is-small">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </p>
+														 
+															<!-- <p class="control vendor">
+                                                                <a data-no-instant class="vendor"
+                                                                href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
+                                                                title="View Request" class="button is-small">
+                                                                    <span class="icon is-small">
+                                                                    <i class="fas fa-shopping-cart"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </p> -->
+															<p class="control vendor">
+															<button type="button"
+																data-id="<?= $request->id; ?>"  title="Select Vendor"
+																class="button is-small vendor">
+																<span class="icon is-small">
+																<i class="fas fa-shopping-cart"></i>
+																</span>
+															</button>
+														</p>
+
+													<?php }
+													
+													elseif($request->status == 1 || $request->status == '0'){ ?>
                                                             <p class="control">
                                                                 <a data-no-instant
                                                                 href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
@@ -174,7 +209,8 @@ $id = $this->uri->segment(3);
                                                                 </a>
                                                             </p>
 
-                                                    <?php }else{ ?>	
+                                                    <?php }
+													else{ ?>	
                                                         <p class="control">
                                                                 <a data-no-instant
                                                                 href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
@@ -184,23 +220,33 @@ $id = $this->uri->segment(3);
                                                                     </span>
                                                                 </a>
                                                             </p>
-                                                        <p class="control">
+                                                        <!-- <p class="control">
 															<a class="button is-small"
 																href="<?= base_url("/requisitions/forward_request/" . $request->id) ?>" onclick="javascript:return confirm('Are you sure to Forward this request. Click OK to continue!');">
 																<span class="icon is-small">
 																	<i class="fas fa-arrow-right"></i>
 																</span>
 															</a>
+														</p> -->
+
+														<p class="control forwad-btn">
+															<button type="button"
+																data-id="<?= $request->id; ?>"  title="Forwad Request"
+																class="button is-small forwad-btn">
+																<span class="icon is-small">
+																<i class="fas fa-arrow-right"></i>
+																</span>
+															</button>
 														</p>
 
 														<p class="control return-btn">
 															<a class="button is-small"
-																href="<?= base_url("/requisitions/approved_request/" . $request->id) ?>" onclick="javascript:return confirm('Are you sure to Aproved this request. Click OK to continue!');"
+																href="<?= base_url("/requisitions/approved_request/" . $request->id) ?>" onclick="javascript:return confirm('Are you sure to Approved this request. Click OK to continue!');"
 																title="approved request">
 																<span class="icon is-small  has-text-success">
 																	<i class="fas fa-check"></i>
 																</span>
-															</a>
+															</a> 
 														</p>
 														<p class="control">
 															<a class="button is-small"
@@ -340,6 +386,95 @@ $id = $this->uri->segment(3);
 				</div>
 			</div>
 </section>
+
+<!-- forwaded list start modal -->
+<div class="modal" id="modal-forwad">
+			<div class="modal-background"></div>
+			<form action="<?= base_url('requisitions/forward_request'); ?>" method="POST">
+				<div class="modal-card">
+					<input type="hidden" name="id" id="request_id" value="">
+					<header class="modal-card-head">
+						<p class="modal-card-title">Request Forward</p>
+						<button class="delete" aria-label="close" id="exit-forward-modal" type="button"></button>
+					</header>
+					<section class="modal-card-body">
+						<div class="columns">
+							<div class="column">
+								<div class="control has-icons-left">
+									<div class="select is-small is-fullwidth">
+										<select name="forward_to" required>
+											<option value="" disabled selected>Forward To</option>
+											<option value="1">Administrator</option>
+											<option value="3">Supervisor</option>
+											<option value="2">User</option>
+											<option value="4">Employee</option>
+										</select>
+									</div>
+									<span class="icon is-small is-left">
+										<i class="fas fa-random"></i>
+									</span>
+								</div>
+							</div> 
+						</div> 	
+					</section>
+					<footer class="modal-card-foot">
+						<button class="button is-success" type="submit"> <span class="icon is-small">
+						<i class="fas fa-arrow-right"></i></span> </button>
+						<button class="button" aria-label="close" id="close-forward-modal" type="reset">Cancel</button>
+					</footer>
+				</div>
+			</form>
+		</div>
+
+<!-- forwaded list end modal-->
+
+<!-- select vendor start modal -->
+<div class="modal" id="modal-vendor">
+			<div class="modal-background"></div>
+			<form action="<?= base_url('requisitions/rfq'); ?>" method="POST">
+				<div class="modal-card">
+					<input type="hidden" name="request_id" id="requestid" value="">
+					<header class="modal-card-head">
+						<p class="modal-card-title">Select Vendor</p>
+						<button class="delete" aria-label="close" id="exit-vendor-modal" type="button"></button>
+					</header>
+					<section class="modal-card-body">
+						<div class="columns">  
+							<div class="column">
+							<div class="control">
+								<label class="label is-small">Vendor <span class="has-text-danger">*</span></label>
+								<div class="control has-icons-left">
+									<span class="select is-small is-fullwidth">
+										<select name="vendor" id="" class="browser-default custom-select ">
+											<option disabled value="" selected>Select Vendor</option>
+											<?php if(!empty($suppliers)): foreach($suppliers as $supplier): ?>
+											<option value="<?= $supplier->sup_id; ?>">
+												<?= ucwords($supplier->sup_name); ?>
+											</option> 
+											<?php endforeach; endif; ?>
+										</select>
+									</span>
+									<span class="icon is-small is-left">
+										<i class="fas fa-user"></i>
+									</span>
+								</div>
+							</div>
+						</div> 
+
+						</div> 	
+					</section>
+					<footer class="modal-card-foot">
+						<button class="button is-success" type="submit"> <span class="icon is-small">
+						<i class="fas fa-arrow-right"></i></span> </button>
+						<button class="button" aria-label="close" id="close-vendor-modal" type="reset">Cancel</button>
+					</footer>
+				</div>
+			</form>
+		</div>
+
+<!-- select vendor modal-->
+
+
 <script> 
 $(document).ready(function () {
 		$(".result_limit").on('change', function () {
@@ -347,4 +482,60 @@ $(document).ready(function () {
 			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_request' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
 		})
 	})
+
+	// code for forwaded model
+	$('.forwad-btn').click(function () { 
+		var request_id = $(this).data('id'); 
+		$('#request_id').val(request_id);
+	});
+
+	var btn2 = $(".forwad-btn")
+	var md2 = new BulmaModal("#modal-forwad")
+
+	var btn5 = $("#exit-forward-modal")
+	var btn6 = $("#close-forward-modal")
+
+	btn2.click(function (ev) {
+		md2.show();
+		$(".modal-card-head").show();
+		ev.stopPropagation();
+	});
+
+	btn5.click(function (ev) {
+		md2.close();
+		ev.stopPropagation();
+	});
+	btn6.click(function (ev) {
+		md2.close();
+		ev.stopPropagation();
+	});
+
+// code for select vendor modal
+$('.vendor').click(function () { 
+		var request_id = $(this).data('id');
+		$('#requestid').val(request_id);
+	});
+
+	var btnven2 = $(".vendor")
+	var mdven2 = new BulmaModal("#modal-vendor")
+
+	var btnven5 = $("#exit-vendor-modal")
+	var btnven6 = $("#close-vendor-modal")
+
+	btnven2.click(function (ev) {
+		mdven2.show();
+		$(".modal-card-head").show();
+		ev.stopPropagation();
+	});
+
+	btnven5.click(function (ev) {
+		mdven2.close();
+		ev.stopPropagation();
+	});
+	btnven6.click(function (ev) {
+		mdven2.close();
+		ev.stopPropagation();
+	});
+
+
 </script>

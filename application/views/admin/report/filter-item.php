@@ -119,7 +119,7 @@
 												<th class="has-text-weight-semibold">Status</th>
 												<th class="has-text-weight-semibold"><abbr
 														title="Purchase Date">PD</abbr></th>
-												<th class="has-text-weight-semibold is-hidden-print">Action</th>
+												<th class="has-text-weight-semibold is-hidden-print" id="action">Action</th>
 											</tr>
 										</thead>
 										<tfoot>
@@ -138,9 +138,8 @@
 														title="Depreciation Percentage">D%</abbr>
 												</th>
 												<th class="has-text-weight-semibold">Status</th>
-												<th class="has-text-weight-semibold"><abbr
-														title="Purchase Date">PD</abbr></th>
-												<th class="has-text-weight-semibold is-hidden-print">Action</th>
+												<th class="has-text-weight-semibold"><abbr														title="Purchase Date">PD</abbr></th>
+												<th class="has-text-weight-semibold is-hidden-print is-hidden-excel">Action</th>
 											</tr>
 										</tfoot>
 										<tbody>
@@ -257,7 +256,7 @@
 									<span>Print</span>
 								</button>
 								<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
-									class="button is-small ">
+									class="button is-small exporttable">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>
 									</span>
@@ -466,4 +465,12 @@
 			downloadLink.click();
 		}
 	}
+
+
+ // Hide tfoot when table search returns empty
+$('.exporttable').click(function () {
+  $('tfoot').remove();
+  $('#action').remove();
+});
+
 </script>

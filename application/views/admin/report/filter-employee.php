@@ -101,7 +101,7 @@
 
 							<div class="columns" style="display: grid">
 								<div class="column table-container">
-									<table class="table is-hoverable is-fullwidth">
+									<table class="table is-hoverable is-fullwidth" id="myTable">
 										<caption><?php if(empty($results)){ echo ''; }else{ echo ''; } ?></caption>
 										<thead>
 											<tr>
@@ -113,7 +113,7 @@
 												<th class="font-weight-bold">DOJ</th>
 												<th class="font-weight-bold">Status</th>
 												<th class="font-weight-bold">Date</th>
-												<th class="font-weight-bold">Action</th>
+												<th class="font-weight-bold" id="action">Action</th>
 											</tr>
 										</thead>
 										<tfoot>
@@ -129,7 +129,7 @@
 												<th class="font-weight-bold">Action</th>
 											</tr>
 										</tfoot> 
-										<tbody id="myTable">
+										<tbody>
 											<?php if(!empty($results)): foreach($results as $res): ?>
 											<tr
 												onclick="window.location='<?= base_url('admin/edit_employ/'.$res->id); ?>';">
@@ -209,7 +209,7 @@
 									<span>Print</span>
 								</button>
 								<a href="javascript:exportTableToExcel('myTable','Employee  Records');" type="button"
-									class="button is-small ">
+									class="button is-small exporttable">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>
 									</span>
@@ -278,5 +278,9 @@
 			downloadLink.click();
 		}
 	}
-
+   // Hide tfoot when table search returns empty
+   $('.exporttable').click(function () {
+  $('tfoot').remove();
+  $('#action').remove();
+});
 </script>

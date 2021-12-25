@@ -99,8 +99,8 @@
 						<div class="tile is-child box">
 							<div class="columns" style="display: grid">
 								<div class="column table-container ">
-									<table class="table table-sm is-fullwidth">
-										<thead class="myTable">
+								<table class="table is-hoverable is-fullwidth" id="myTable">
+										<thead>
 											<tr>
 												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Category</th> 
@@ -111,11 +111,11 @@
 												<th class="has-text-weight-semibold">Location</th>
 												<th class="has-text-weight-semibold">User</th> 
 												<?php if($AssetsAccess->update == 1 || $AssetsAccess->delete == 1) : ?>
-												<th class="has-text-weight-semibold is-hidden-print">Action</th>
+												<th class="has-text-weight-semibold is-hidden-print" id="action">Action</th>
 												<?php endif ?>
 											</tr>
 										</thead>
-										<tfoot class="is-hidden-print">
+										<tfoot>
 											<tr>
 												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Category</th> 
@@ -126,11 +126,11 @@
 												<th class="has-text-weight-semibold">Location</th>
 												<th class="has-text-weight-semibold">User</th> 
 												<?php if($AssetsAccess->update == 1 || $AssetsAccess->delete == 1) : ?>
-												<th class="has-text-weight-semibold is-hidden-print">Action</th>
+												<th class="has-text-weight-semibold is-hidden-print" >Action</th>
 												<?php endif ?>
 											</tr>
 										</tfoot>
-										<tbody class="myTable">
+										<tbody >
 										<?php if(empty($results)): ?>
 										<?php else: ?>
 											<?php if(!empty($results)): foreach($results as $res): ?>
@@ -203,7 +203,7 @@
 									<span>Print</span>
 								</button>
 								<a data-no-instant href="javascript:exportTableToExcel('myTable','Asset  Records');" type="button"
-									class="button is-small ">
+									class="button is-small exporttable">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>
 									</span>
@@ -243,7 +243,7 @@
 			return r2
 		};
 
-		let tableElement = document.getElementsByClassName(tableId);
+		let tableElement = document.getElementById(tableId);
 
 		let tableExcel = render(template, {
 			worksheet: filename,
@@ -258,7 +258,7 @@
 					type: dataType
 				}
 			);
-			
+
 			navigator.msSaveOrOpenBlob(blob, filename);
 		} else {
 			let downloadLink = document.createElement("a");
@@ -271,5 +271,12 @@
 
 			downloadLink.click();
 		}
-	} 
+	}
+
+
+ // Hide tfoot when table search returns empty
+$('.exporttable').click(function () {
+  $('tfoot').remove();
+  $('#action').remove();
+});
 </script>
