@@ -54,7 +54,8 @@
                 </thead>
                 <tbody>
                     <?php if(!empty($cash_issued)): foreach($cash_issued as $ci): ?>
-										<?php $remaining_amount = $this->finance_model->approved_requests_amount($ci->id); ?>
+										<?php $rem_amt = 0; $remaining_amount = $this->finance_model->approved_requests_amount($ci->id); 
+													if(!empty($remaining_amount)){ $rem_amt += $remaining_amount->requested_amount; }	?>
                     <tr>
                         <td scope="row"><?= 'CTC-'.$ci->id; ?></td>
                         <td><?= number_format($ci->amount_issued); ?></td>
@@ -62,7 +63,7 @@
                         <td><?= $ci->location_name; ?></td>
                         <td><?= ucfirst($ci->remarks); ?></td>
                         <td><?= date('M d, Y', strtotime($ci->created_at)); ?></td>
-                        <td><?= number_format($ci->amount_issued - $remaining_amount->requested_amount); ?></td>
+                        <td><?= number_format($ci->amount_issued - $rem_amt); ?></td>
                         <td>
                             <a data-id="<?= $ci->id; ?>" class="badge badge-primary edit_cash_issuance" title="Approve leave..."><i class="fa fa-check"></i></a>
                             <a data-id="<?= $ci->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
