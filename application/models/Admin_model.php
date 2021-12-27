@@ -802,7 +802,7 @@ class Admin_model extends CI_Model{
     }
     // Search filters - invoices search
     public function search_invoices($search){
-        $this->db->select('id, inv_no, inv_date, project, vendor, region, item, amount, inv_desc, status, created_at');
+        $this->db->select('id, inv_no, inv_date, project, vendor, region, item, amount, inv_desc, invoice_file, status, created_at');
         $this->db->from('invoices');
         $this->db->like('inv_no', $search);
         $this->db->or_like('project', $search);

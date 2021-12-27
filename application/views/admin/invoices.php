@@ -74,11 +74,15 @@
                       <a href="<?= base_url('admin/invoice_status/'.$inv->id); ?>"><span class="badge badge-success"><i class="fa fa-check"></i></span></a>
                   </td>
                 </tr>
-              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
+              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
             </tbody>
           <?php else: ?>
             <tbody>
-              <?php if(!empty($results)): $expenses = 0; foreach($results as $res): $expenses += $res->amount; ?>
+              <?php if(!empty($results)):
+							$pendding_amount = 0; $cleared_amount = 0;
+							foreach($results as $res):
+								if($res->status == 0){ $pendding_amount += $res->amount; }elseif($res->status == 1){ $cleared_amount += $res->amount; }
+							?>
                 <tr>
                   <td><?= 'Inv-0'.$res->id; ?></td>
                   <td><?= $res->inv_no; ?></td>
@@ -87,6 +91,9 @@
                   <td><?= $res->item; ?></td>
                   <td><?= number_format($res->amount); ?></td>
                   <td><?php if($res->inv_date){ echo date('M d, Y', strtotime($res->inv_date)); }else{ echo '--/--/--'; } ?></td>
+									<td>
+										<a target="_blank" href="<?= base_url('upload/invoices/'.$res->invoice_file); ?>"><?= $res->invoice_file; ?></a>
+									</td>
                   <td><?php if($res->status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }else{ echo "<span class='badge badge-success'>cleared</span>"; } ?></td>
                   <td>
                       <a href="<?=base_url('admin/print_invoice/'.$res->id);?>"><span class="badge badge-primary"><i class="fa fa-print"></i></span></a>
@@ -94,11 +101,13 @@
                       <a href="<?= base_url('admin/invoice_status/'.$res->id); ?>"><span class="badge badge-success"><i class="fa fa-check"></i></span></a>
                   </td>
                 </tr>
-              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='9'>No record found.</td></tr>"; endif; ?>
+              <?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='10'>No record found.</td></tr>"; endif; ?>
               <tr class="bg-success">
-                <td colspan="5" class="text-white font-weight-bold">Total</td>
-                <td class="text-white font-weight-bold"><?= number_format($expenses); ?></td>
-                <td colspan="3"></td>
+                <td colspan="6" class="text-white font-weight-bold">Total</td>
+								<td class="text-white font-weight-bold">Pending</td>
+                <td class="text-white font-weight-bold"><?= number_format($pendding_amount); ?></td>
+								<td class="text-white font-weight-bold">Cleared</td>
+								<td class="text-white font-weight-bold"><?= number_format($cleared_amount); ?></td>
               </tr>
             </tbody>
           <?php endif; ?>
