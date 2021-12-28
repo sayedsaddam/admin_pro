@@ -88,17 +88,17 @@ $id = $this->uri->segment(3);
 				<div class="tabs is-left is-hidden-print">
 					<ul>
 						<li class="<?php if($id == null){ echo "is-active";} ?>">
-							<a href="<?= base_url('requisitions/request_list') ?>">All</a>
+							<a href="<?= base_url('requisitions/approval_list') ?>">All</a>
 						</li>
 						<li class="<?php if($id == 3){ echo "is-active";} ?>">
-							<a href="<?= base_url('requisitions/request_list/3') ?>">Pending</a>
+							<a href="<?= base_url('requisitions/approval_list/3') ?>">Pending</a>
 						</li>
 						<li class="<?php if($id == 2){ echo "is-active";} ?>"><a
-								href="<?= base_url('requisitions/request_list/2') ?>">Process</a></li>
+								href="<?= base_url('requisitions/approval_list/2') ?>">Process</a></li>
 						<li class="<?php if($id == 1){ echo "is-active";} ?>"><a
-								href="<?= base_url('requisitions/request_list/1') ?>">Approved</a></li>
+								href="<?= base_url('requisitions/approval_list/1') ?>">Approved</a></li>
 						<li class="<?php if($id == '0'){ echo "is-active";} ?>"><a
-								href="<?= base_url('requisitions/request_list/0') ?>">Reject</a></li>
+								href="<?= base_url('requisitions/approval_list/0') ?>">Reject</a></li>
 					</ul>
 				</div>
 				<!-- tab end here -->
@@ -165,8 +165,8 @@ $id = $this->uri->segment(3);
 
 													
                                                     <?php
-													
-													if($request->status == 1){ ?>
+													$role = ($this->session->userdata('user_role'));
+													if($request->status == 1 && $role == 1){ ?>
 													  <p class="control">
                                                                 <a data-no-instant
                                                                 href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
@@ -175,17 +175,7 @@ $id = $this->uri->segment(3);
                                                                     <i class="fas fa-eye"></i>
                                                                     </span>
                                                                 </a>
-                                                            </p>
-														 
-															<!-- <p class="control vendor">
-                                                                <a data-no-instant class="vendor"
-                                                                href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
-                                                                title="View Request" class="button is-small">
-                                                                    <span class="icon is-small">
-                                                                    <i class="fas fa-shopping-cart"></i>
-                                                                    </span>
-                                                                </a>
-                                                            </p> -->
+                                                            </p> 
 															<p class="control vendor">
 															<button type="button"
 																data-id="<?= $request->id; ?>"  title="Select Vendor"
@@ -196,8 +186,19 @@ $id = $this->uri->segment(3);
 															</button>
 														</p>
 
-													<?php }
-													
+														<?php }
+													elseif($request->status == 1){ ?>
+                                                            <p class="control">
+                                                                <a data-no-instant
+                                                                href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
+                                                                title="View Request" class="button is-small">
+                                                                    <span class="icon is-small">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </p>
+ 
+                                                    <?php }
 													elseif($request->status == 1 || $request->status == '0'){ ?>
                                                             <p class="control">
                                                                 <a data-no-instant
@@ -431,7 +432,7 @@ $id = $this->uri->segment(3);
 <!-- select vendor start modal -->
 <div class="modal" id="modal-vendor">
 			<div class="modal-background"></div>
-			<form action="<?= base_url('requisitions/rfq'); ?>" method="POST">
+			<form action="<?= base_url('requisitions/request_for_qutation'); ?>" method="POST">
 				<div class="modal-card">
 					<input type="hidden" name="request_id" id="requestid" value="">
 					<header class="modal-card-head">

@@ -173,8 +173,7 @@
 											<option value="<?= $data->id ?>" <?= $data->id == $this->session->userdata('department') ? 'selected' : '' ?>><?= $data->department ?></option>
 										<?php endforeach ?>
 									</select>
-									<input type="hidden" name="department" value="<?= $this->session->userdata('department'); ?>">
-									
+								<input type="hidden" name="department" value="<?= $this->session->userdata('department'); ?>">	
 								<span class="icon is-small is-left">
 									<i class="fas fa-street-view"></i>
 								</span>
