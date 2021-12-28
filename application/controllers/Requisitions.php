@@ -20,7 +20,7 @@ class Requisitions extends CI_Controller{
     private function AccessList() {
         $user_role = $this->session->userdata('user_role');
         $userAccess = $this->API_Model->FetchAccessConfigs($user_role);
-        return $arrayName = array('Assets' => $userAccess[0], 'Suppliers' => $userAccess[1], 'Employees' => $userAccess[2], 'Categories' => $userAccess[3], 'Register' => $userAccess[4],'Approval' => $userAccess[5]);
+        return $arrayName = array('Assets' => $userAccess[0], 'Suppliers' => $userAccess[1], 'Employees' => $userAccess[2], 'Categories' => $userAccess[3], 'Register' => $userAccess[4],'Approval' => $userAccess[5],'User' => $userAccess[6]);
     }
 
     public function index(){
@@ -80,7 +80,7 @@ class Requisitions extends CI_Controller{
         redirect('requisitions/request_list');
     }
 
-    // Reuest list 
+    // login users Reuest list
     public function request_list($offset = null){ 
         $limit = 25;
         
@@ -142,15 +142,12 @@ class Requisitions extends CI_Controller{
         $data['results'] = $this->Requisition_Model->SearchRequest($search,$user);
         $this->load->view('requisitions/commons/new_template', $data);
     }
-
     // Approval list 
     public function approval_list($offset = null){ 
         // if ($this->AccessList()["Approval"]->read == 0) {
         //     redirect('requisitions/dashboard');
-        // }
-
-        $limit = 25;
-        
+        // } 
+        $limit = 25; 
         if($this->input->get('limit')) {
             $limit = $this->input->get('limit');
         }
@@ -158,7 +155,6 @@ class Requisitions extends CI_Controller{
         if(!empty($offset)){
             $config['uri_segment'] = 3;
         }
-    
         $this->load->library('pagination');
 
         $url = base_url('requisitions/approval_list');
@@ -229,23 +225,26 @@ class Requisitions extends CI_Controller{
         redirect('requisitions/approval_list'); 
     }
 // request for quotation
-public function rfq(){
+public function request_for_qutation(){
     $request_id = $this->input->post('request_id');
     $vendor_id = $this->input->post('vendor');
-
-// select product detail
+// select current location
+$location_id = $this->session->userdata('location');
+$location = $this->Requisition_Model->location($location_id); 
+$office = $location->name;
+// select product detail of selected id
     $data = $this->Requisition_Model->product_detail($request_id); 
     $product = $data->item_name;
     $description = $data->item_desc;
     $quantity = $data->item_qty;
-// get supplier email 
+// select supplier email of selected id
 $email = $this->Requisition_Model->supplier_email($vendor_id); 
 $sup_email = $email->email;
-// send email code
+// email validation
 $this->load->library('form_validation');
 $this->form_validation->set_rules('email', 'Email', 'trim|valid_email|callback_check_email');
 $this->form_validation->set_rules('password', 'Password', 'trim|required'); 
-    //   below email code check and work
+    //   code to send email for qutation
         $from_email = "no-reply@alhayyatgroup.com";
         $to_email = $sup_email; 
         $product = $product;
@@ -255,10 +254,10 @@ $this->form_validation->set_rules('password', 'Password', 'trim|required');
         $this->email->from($from_email,"AH Group");
         $this->email->to($to_email);
         $this->email->subject("Product Requisition");
-        $this->email->message("office of Islamabad request for ".' '.$product.' - '.$quantity.'quantity'.'<br> Remarks :'.$description);
+        $this->email->message("office of ".$office." request for ".' '.$product.' - '.$quantity.'quantity'.'<br> Remarks :'.$description);
 
         $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>Email For Qutation was send successfully!');
-        redirect('requisitions/request_list');
+        redirect('requisitions/approval_list');
 }
 
 

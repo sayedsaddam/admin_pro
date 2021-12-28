@@ -21,7 +21,10 @@ class Requisition_Model extends CI_Model{
 
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
+
+        if($this->session->userdata('user_role') != 1){
         $this->db->where('item_requisitions.requested_by' , $user);
+        }
         $data = $this->uri->segment(3); // take segment 3 when click on tab
         if(isset($data)) { 
             if($data == 0) { 
@@ -96,14 +99,13 @@ class Requisition_Model extends CI_Model{
                 $this->db->where('item_requisitions.requested_by', $role_id);
                 $this->db->limit($limit, $offset); 
             }  
-        }
-
+        } 
         $this->db->order_by('item_requisitions.id', 'desc');
         $this->db->order_by('item_requisitions.status', '3'); 
         return $this->db->get()->result();
     } 
     // aproval list end
-
+ 
     // SearchRequest() function - Searches the request list in requisitions    
     public function SearchRequest($search, $user) {
     
@@ -240,9 +242,14 @@ public function supplier_email($vendor){
 public function product_detail($request_id){
     $this->db->select('id,item_name,item_desc,item_qty');
     $this->db->from('item_requisitions');
-    $this->db->where('id', $request_id);
-    // echo "<pre>";
-    // print_r($this->db->get()->row());exit;
+    $this->db->where('id', $request_id); 
+    return $this->db->get()->row();
+}
+// select location for quotation
+public function location($location_id){
+    $this->db->select('id,name');
+    $this->db->from('locations');
+    $this->db->where('id', $location_id);
     return $this->db->get()->row();
 }
 
