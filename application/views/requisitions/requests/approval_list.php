@@ -471,8 +471,7 @@ $id = $this->uri->segment(3);
 					</footer>
 				</div>
 			</form>
-		</div>
-
+		</div> 
 <!-- select vendor modal-->
 
 

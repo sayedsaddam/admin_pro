@@ -17,6 +17,19 @@
 					<div class="column is-hidden-print is-narrow">
 						<div class="field has-addons">
 							<p class="control">
+								<a href="<?= base_url("admin/acl_component/") ?>"
+									class="button is-small <?= (isset($acl_component)) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-list"></i>
+									</span>
+									<span>Add Component</span>
+								</a>
+							</p>
+						</div>
+					</div>
+					<div class="column is-hidden-print is-narrow">
+						<div class="field has-addons">
+							<p class="control">
 								<a href="<?= base_url("admin/acl/") ?>"
 									class="button is-small <?= (isset($acl_page)) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
@@ -28,6 +41,37 @@
 						</div>
 					</div>
 				</div>
+
+                <?php if($this->session->flashdata('success')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-success is-light">
+							<button class="delete is-small"></button>
+							<div class="columns is-vcentered">
+								<div class="column is-size-7">
+									<i class="fas fa-check pr-1"></i>
+									<?= $message = $this->session->flashdata('success'); ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php elseif($this->session->flashdata('failed')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-danger is-light">
+							<button class="delete is-small"></button>
+							<div class="columns is-vcentered">
+								<div class="column is-size-7">
+									<i class="fas fa-exclamation pr-1"></i>
+									<?= $message = $this->session->flashdata('failed'); ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php endif ?>
+
                 <form method="POST" action="<?= base_url('admin/update_access_list') ?>">
                     <div class="columns">
                         <div class="column">
