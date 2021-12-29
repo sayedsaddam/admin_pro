@@ -112,7 +112,7 @@ class Admin extends CI_Controller{
         $data['breadcrumb'] = array("Dashboard");
         
         $this->load->view('admin/commons/new_template', $data);
-    }    
+    } 
     // Pending requests - listing
     public function pending_requests($offset = null){
         $limit = 10;
@@ -406,6 +406,9 @@ public function supplier_validation(){
     public function acl(){
         $data['title'] = 'Access Control List | Admin & Procurement';
         $data['body'] = 'admin/ACL/acl';
+        
+        $data['user_roles'] = $this->admin_model->UserRoles();
+        $data['AclComponents'] = $this->admin_model->FetchAclComponent();
         $data['assets_access_list'] = $this->admin_model->component_access_list('assets');
         $data['suppliers_access_list'] = $this->admin_model->component_access_list('suppliers');
         $data['employees_access_list'] = $this->admin_model->component_access_list('employees');
@@ -448,6 +451,54 @@ public function supplier_validation(){
             redirect('admin/acl');
         }
     }
+    // add acl components
+    public function acl_component() { 
+        $data['title'] = 'Add Component'; 
+        $data['body'] = 'admin/ACL/component'; 
+        $data['user_roles'] = $this->admin_model->UserRoles();
+        $data['AclComponents'] = $this->admin_model->FetchAclComponent();
+        
+        $data['acl_component'] = true;
+        $data['breadcrumb'] = array("Access Control List");  
+        $this->load->view('admin/commons/new_template', $data);
+}
+
+  // add acl components
+  public function add_component() {
+     
+    $data = array(
+        'title' => $this->input->post('title'),
+        'type' => $this->input->post('type'),
+    );   
+   $id = $this->admin_model->AclComponent($data);// save new component and return id
+
+   $roles = $this->admin_model->UserRoles(); // select user role
+   $data2 = array();
+    foreach($roles as $key3 => $value2){
+        if($value2 != ''){
+            array_push($data2, $value2->id);// array_push($data2, $value2);
+        }
+    } 
+    $datas = array(); 
+    for($i = 0; $i < count($data2); $i++){ 
+        $datas[$i] = array(
+            'role_id' => $data2[$i],  
+            'component' => $id,
+            'read' => 1,
+            'write' => 1, 
+            'update' => 1, 
+            'delete' => 1
+        ); 
+    }
+        if($this->admin_model->AclConfiguration($datas)){ 
+            $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>Acl component was added successfully!');            
+                redirect('admin/acl', );
+        }else{  
+            $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+        }
+    } 
+
+// end acl component 
   // employee register - add new employee.
   public function add_employee(){
     if ($this->AccessList()["Employees"]->write == 0) {

@@ -6,7 +6,12 @@ class Admin_model extends CI_Model{
     public function UserRoles() {
         $this->db->from('users_roles');
         return $this->db->get()->result();
-    }
+    } 
+        public function FetchAclComponent() {
+            $this->db->from('acl_components');
+            return $this->db->get()->result();
+        }
+
     public function EmployeesStatistics() {
         $this->db->select('users.id, users.fullname, users_roles.type as role_type, locations.name as location');
         $this->db->from('users');
@@ -44,6 +49,24 @@ class Admin_model extends CI_Model{
         $this->db->where('acl_components.type', $component_type);
         return $this->db->get()->result();
     }
+// add acl components
+public function AclComponent($data){
+    $this->db->insert('acl_components',$data);
+    if($this->db->affected_rows() > 0){
+    return $this->db->insert_id();
+    }else{
+        return false;
+    }
+}
+// add acl configuration
+public function AclConfiguration($data){
+    $this->db->insert_batch('acl_configuration', $data);
+    if($this->db->affected_rows() > 0){
+        return true;
+    }else{
+        return false;
+    }
+}
     // Get pending requisitions.
     public function pending_requisitions(){
         $this->db->select('item_requisitions.id,
