@@ -8,7 +8,7 @@
       <div class="col-lg-4 col-md-4 text-right">
         <button class="btn btn-outline-light font-weight-bold" title="Currently logged in..."><?php echo $this->session->userdata('fullname'); ?></button>
         <a href="<?= base_url('login/logout'); ?>" class="btn btn-dark font-weight-bold" title="Logout...">Logout <i class="fa fa-sign-out-alt"></i></a>
-        <h4 class="font-weight-bold orange-text mt-2">Finance Dashboard <i class="fa fa-chart-bar"></i><br><span class="font-weight-light">Petty Cash Requests</span> | <a href="<?=base_url('admin');?>" class="text-light">Home</a></h4>
+        <h4 class="font-weight-bold orange-text mt-2">Finance Dashboard <i class="fa fa-chart-bar"></i><br><span class="font-weight-light">Petty Cash Requests</span> | <a href="<?=base_url('users');?>" class="text-light">Home</a></h4>
       </div>
     </div>
   </div>
