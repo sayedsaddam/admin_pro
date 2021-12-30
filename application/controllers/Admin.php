@@ -492,7 +492,7 @@ public function supplier_validation(){
     }
         if($this->admin_model->AclConfiguration($datas)){ 
             $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>Acl component was added successfully!');            
-                redirect('admin/acl', );
+                redirect('admin/acl');
         }else{  
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
         }
