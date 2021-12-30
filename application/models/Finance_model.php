@@ -59,6 +59,26 @@ class Finance_model extends CI_Model{
 		$this->db->order_by('petty_cash_issuance.created_at', 'DESC');
 		return $this->db->get()->result();
 	}
+	// get all petty cash issued - when finance admin is logged in, use this query
+	public function petty_cash_issued_location($limit, $offset){
+		$this->db->select('petty_cash_issuance.id,
+							petty_cash_issuance.amount_issued,
+							petty_cash_issuance.issued_by,
+							petty_cash_issuance.location,
+							petty_cash_issuance.remarks,
+							petty_cash_issuance.created_at,
+							locations.id as locaction_id,
+							locations.name as location_name,
+							users.id as user_id,
+							users.fullname');
+		$this->db->from('petty_cash_issuance');
+		$this->db->join('locations', 'petty_cash_issuance.location = locations.id', 'left');
+		$this->db->join('users', 'petty_cash_issuance.issued_by = users.id', 'left');
+		$this->db->where('locations.id', $this->session->userdata('location'));
+		$this->db->limit($limit, $offset);
+		$this->db->order_by('petty_cash_issuance.created_at', 'DESC');
+		return $this->db->get()->result();
+	}
 	// add petty cash request
 	public function add_petty_cash_request($data){
 		$this->db->insert('petty_cash_requests', $data);
@@ -84,6 +104,27 @@ class Finance_model extends CI_Model{
 		$this->db->from('petty_cash_requests');
 		$this->db->join('locations', 'petty_cash_requests.location = locations.id', 'left');
 		$this->db->join('users', 'petty_cash_requests.requested_by = users.id', 'left');
+		$this->db->limit($limit, $offset);
+		$this->db->order_by('petty_cash_requests.created_at', 'DESC');
+		return $this->db->get()->result();
+	}
+	// petty cash requests list - when finance admin is logged in, use this query.
+	public function petty_cash_requests_location($limit, $offset){
+		$this->db->select('petty_cash_requests.id,
+							petty_cash_requests.requested_by,
+							petty_cash_requests.amount,
+							petty_cash_requests.justification,
+							petty_cash_requests.remarks,
+							petty_cash_requests.status,
+							petty_cash_requests.created_at,
+							locations.id as location_id,
+							locations.name as location_name,
+							users.id as user_id,
+							users.fullname');
+		$this->db->from('petty_cash_requests');
+		$this->db->join('locations', 'petty_cash_requests.location = locations.id', 'left');
+		$this->db->join('users', 'petty_cash_requests.requested_by = users.id', 'left');
+		$this->db->where('locations.id', $this->session->userdata('location'));
 		$this->db->limit($limit, $offset);
 		$this->db->order_by('petty_cash_requests.created_at', 'DESC');
 		return $this->db->get()->result();

@@ -46,7 +46,11 @@ class Finance extends CI_Controller{
 		$data['title'] = 'Petty Cash Issued | Admin & Procurement';
 		$data['body'] = 'finance/petty_cash_issued';
 		$data['locations'] = $this->admin_model->list_locations_suppliers();
-		$data['cash_issued'] = $this->finance_model->petty_cash_issued($limit, $offset);
+		if($this->session->userdata('user_role') == 'admin'){
+			$data['cash_issued'] = $this->finance_model->petty_cash_issued($limit, $offset);
+		}else{
+			$data['cash_issued'] = $this->finance_model->petty_cash_issued_location($limit, $offset);
+		}
 		$this->load->view('admin/commons/template', $data);
 	}
 	// edit petty cash issued
@@ -98,7 +102,11 @@ class Finance extends CI_Controller{
         paginate($url, $rowscount, $limit);
 		$data['title'] = 'Petty Cash Requests | Admin & Procurement';
 		$data['body'] = 'finance/petty_cash_requests';
-		$data['cash_requests'] = $this->finance_model->petty_cash_requests($limit, $offset);
+		if($this->session->userdata('user_role') == 'admin'){
+			$data['cash_requests'] = $this->finance_model->petty_cash_requests($limit, $offset);
+		}else{
+			$data['cash_requests'] = $this->finance_model->petty_cash_requests_location($limit, $offset);
+		}
 		$this->load->view('admin/commons/template', $data);
 	}
 	// petty cash request detail
