@@ -372,7 +372,7 @@
                       </div>
                       <div class="form-group">
                         <label for="approx_cash">Approx. Cash Needed</label>
-                        <input type="text" name="approx_cash" class="form-control" placeholder="approximate cash...">
+                        <input type="number" name="approx_cash" class="form-control" value="0">
                       </div>
                     </div>
                   </div>
