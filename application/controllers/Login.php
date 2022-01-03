@@ -10,6 +10,7 @@ class Login extends CI_Controller{
         $this->load->model('admin_model');
         $this->access['hasAssetAccess'] = NULL;
     }
+
     public function index(){
         $data['title'] = 'Login | Admin & Procurement';
         $data['body'] = 'login';

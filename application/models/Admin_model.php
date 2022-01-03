@@ -299,6 +299,12 @@ public function AclConfiguration($data){
         $this->db->update('suppliers',$data);
         return true;
     }
+       // Complained supplier
+       public function complained_supplier($id,$data){
+        $this->db->where('id', $id);
+        $this->db->update('suppliers',$data);
+        return true;
+    }
     // Get supplier for edit by id
     public function edit_supplier($id){
         $this->db->select('id, name, category, email, phone, location, region,ntn_number,rating ,address, status, created_at');

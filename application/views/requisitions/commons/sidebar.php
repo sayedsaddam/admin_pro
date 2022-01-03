@@ -48,6 +48,10 @@
 					class="is-size-7 <?= $this->uri->segment(2) == 'approval_list' ? 'has-text-weight-bold' : '' ?>">
 					<a href="<?= base_url('requisitions/approval_list'); ?>"><i class="fas fa-list mr-1"></i>
 						Approval List</a></li>
+
+					<li class="is-size-7 <?= $this->uri->segment(2) == 'quotation_list' ? 'has-text-weight-bold' : '' ?>">
+					<a href="<?= base_url('requisitions/quotation_list'); ?>"><i class="fa fa-question-circle mr-1" aria-hidden="true"></i>
+						Qutotation</a></li>			
 			</ul>
 		</li>
 	</ul>

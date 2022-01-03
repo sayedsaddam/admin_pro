@@ -334,6 +334,24 @@ public function supplier_validation(){
             redirect('admin/suppliers');
         }
     }
+       // Suppliers - complained supplier
+       public function complained_supplier($id){ 
+        $data = array(
+            'complained' => 'This Vendor is not suitable for us !!'
+        );
+        if($this->admin_model->complained_supplier($id,$data)){
+            $this->session->set_flashdata('success', '<strong>Success:</strong> Supplier complained was registered successful.');
+            redirect('admin/suppliers');
+        }else{
+            $this->session->set_flashdata('failed', '<strong>Failed:</strong> Something went wrong, please try again!');
+            redirect('admin/suppliers');
+        }
+    }
+    // get_vendor_complained
+    public function get_vendor_complained($id){
+        $complained = $this->db->select('complained')->from('suppliers')->where('id',$id)->get()->row();
+        echo json_encode($complained);
+    }
     // Update supplier
     public function update_supplier($id = NULL){
         if ($id == NULL) {
@@ -497,6 +515,7 @@ public function supplier_validation(){
             $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
         }
     } 
+
 
 // end acl component 
   // employee register - add new employee.

@@ -85,22 +85,6 @@ $id = $this->uri->segment(3);
 ?>
 
 
-				<div class="tabs is-left is-hidden-print">
-					<ul>
-						<li class="<?php if($id == null){ echo "is-active";} ?>">
-							<a href="<?= base_url('requisitions/approval_list') ?>">All</a>
-						</li>
-						<li class="<?php if($id == 3){ echo "is-active";} ?>">
-							<a href="<?= base_url('requisitions/approval_list/3') ?>">Pending</a>
-						</li>
-						<li class="<?php if($id == 2){ echo "is-active";} ?>"><a
-								href="<?= base_url('requisitions/approval_list/2') ?>">Process</a></li>
-						<li class="<?php if($id == 1){ echo "is-active";} ?>"><a
-								href="<?= base_url('requisitions/approval_list/1') ?>">Approved</a></li>
-						<li class="<?php if($id == '0'){ echo "is-active";} ?>"><a
-								href="<?= base_url('requisitions/approval_list/0') ?>">Reject</a></li>
-					</ul>
-				</div>
 				<!-- tab end here -->
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
@@ -113,8 +97,9 @@ $id = $this->uri->segment(3);
 												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Item</th>
 												<th class="has-text-weight-semibold">Description</th>
-												<th class="has-text-weight-semibold">Requested By</th>
 												<th class="has-text-weight-semibold">Quantity</th>
+												<th class="has-text-weight-semibold">Price</th>
+												<th class="has-text-weight-semibold">Requested By</th>
 												<th class="has-text-weight-semibold">Date</th>
 												<th class="has-text-weight-semibold">Status</th>
 												<th class="has-text-weight-semibold">Action</th>
@@ -125,8 +110,9 @@ $id = $this->uri->segment(3);
 												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Item</th>
 												<th class="has-text-weight-semibold">Description</th>
-												<th class="has-text-weight-semibold">Requested By</th>
 												<th class="has-text-weight-semibold">Quantity</th>
+												<th class="has-text-weight-semibold">Price</th>
+												<th class="has-text-weight-semibold">Requested By</th>
 												<th class="has-text-weight-semibold">Date</th>
 												<th class="has-text-weight-semibold">Status</th>
 												<th class="has-text-weight-semibold">Action</th>
@@ -137,12 +123,13 @@ $id = $this->uri->segment(3);
 											<?php if(!empty($requests)): foreach($requests as $request): ?>
 											<tr>
 												<td class="is-narrow"><?= 'S2S-'.$request->id; ?></td>
-												<td><?= ucwords($request->item_name); ?></td>
+												<td><?= ucwords($request->item); ?></td>
 												<td><span
-														class="is-size-7"><?= ucwords(substr($request->item_desc,0,75)); ?></span>
+														class="is-size-7"><?= ucwords(substr($request->description,0,75)); ?></span>
 												</td>
+												<td><?= ucwords($request->quantity); ?></td>
+												<td><?= ucwords($request->price); ?></td>
 												<td><?= ucwords($request->fullname); ?></td>
-												<td><?= ucwords($request->item_qty); ?></td>
 												<td><?= date('M d, Y', strtotime($request->date)); ?></td>
 												<?php if($request->status == NULL) : ?>
 												<td>
@@ -157,7 +144,7 @@ $id = $this->uri->segment(3);
 												<td>
 													<span class="tag is-danger is-light">Rejected </span>
 												</td>
-												<?php endif ?>
+												<?php endif ?> 
 												<td class="is-narrow">
 
 													<div class="field has-addons">
@@ -169,28 +156,19 @@ $id = $this->uri->segment(3);
 													if($request->status == 1 && $role == 1){ ?>
 													  <p class="control">
                                                                 <a data-no-instant
-                                                                href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
-                                                                title="View Request" class="button is-small">
+                                                                href="<?= base_url('requisitions/vendor_quotation/'.base64_encode($request->id)); ?>"
+                                                                title="View Quotation" class="button is-small">
                                                                     <span class="icon is-small">
                                                                     <i class="fas fa-eye"></i>
                                                                     </span>
                                                                 </a>
                                                             </p> 
-															<p class="control vendor">
-															<button type="button"
-																data-id="<?= $request->id; ?>"  title="Select Vendor"
-																class="button is-small vendor">
-																<span class="icon is-small">
-																<i class="fas fa-shopping-cart"></i>
-																</span>
-															</button>
-														</p>
-
+															 
 														<?php }
 													elseif($request->status == 1){ ?>
                                                             <p class="control">
                                                                 <a data-no-instant
-                                                                href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
+                                                                href="<?= base_url('requisitions/vendor_quotation/'.base64_encode($request->id)); ?>"
                                                                 title="View Request" class="button is-small">
                                                                     <span class="icon is-small">
                                                                     <i class="fas fa-eye"></i>
@@ -202,7 +180,7 @@ $id = $this->uri->segment(3);
 													elseif($request->status == 1 || $request->status == '0'){ ?>
                                                             <p class="control">
                                                                 <a data-no-instant
-                                                                href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
+                                                                href="<?= base_url('requisitions/vendor_quotation/'.base64_encode($request->id)); ?>"
                                                                 title="View Request" class="button is-small">
                                                                     <span class="icon is-small">
                                                                     <i class="fas fa-eye"></i>
@@ -214,21 +192,13 @@ $id = $this->uri->segment(3);
 													else{ ?>	
                                                         <p class="control">
                                                                 <a data-no-instant
-                                                                href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
+                                                                href="<?= base_url('requisitions/vendor_quotation/'.base64_encode($request->id)); ?>"
                                                                 title="View Request" class="button is-small">
                                                                     <span class="icon is-small">
                                                                     <i class="fas fa-eye"></i>
                                                                     </span>
                                                                 </a>
-                                                            </p>
-                                                        <!-- <p class="control">
-															<a class="button is-small"
-																href="<?= base_url("/requisitions/forward_request/" . $request->id) ?>" onclick="javascript:return confirm('Are you sure to Forward this request. Click OK to continue!');">
-																<span class="icon is-small">
-																	<i class="fas fa-arrow-right"></i>
-																</span>
-															</a>
-														</p> -->
+                                                            </p> 
 
 														<p class="control forwad-btn">
 															<button type="button"
@@ -242,8 +212,8 @@ $id = $this->uri->segment(3);
 
 														<p class="control return-btn">
 															<a class="button is-small"
-																href="<?= base_url("/requisitions/approved_request/" . $request->id) ?>" onclick="javascript:return confirm('Are you sure to Approved this request. Click OK to continue!');"
-																title="approved request">
+																href="<?= base_url("/requisitions/approved_quotation/" . $request->id) ?>" onclick="javascript:return confirm('Are you sure to Approved this quotation. Click OK to continue!');"
+																title="approved quotation">
 																<span class="icon is-small  has-text-success">
 																	<i class="fas fa-check"></i>
 																</span>
@@ -251,9 +221,9 @@ $id = $this->uri->segment(3);
 														</p>
 														<p class="control">
 															<a class="button is-small"
-																href="<?= base_url("/requisitions/reject_request/" . $request->id) ?>"
-																onclick="javascript:return confirm('Are you sure to Reject this request. Click OK to continue!');"
-																title="reject request">
+																href="<?= base_url("/requisitions/reject_quotation/" . $request->id) ?>"
+																onclick="javascript:return confirm('Are you sure to Reject this quotation. Click OK to continue!');"
+																title="reject quotation">
 																<span class="icon is-small has-text-danger">
 																	<i class="fas fa-times"></i>
 																</span>
@@ -261,6 +231,9 @@ $id = $this->uri->segment(3);
 														</p>
                                                         <?php } ?>
 													</div>
+
+												</td>
+
 
 												</td>
 											</tr>
@@ -271,7 +244,7 @@ $id = $this->uri->segment(3);
 											<?php if(!empty($results)): foreach($results as $res): ?>
 											<tr>
 												<td class="is-narrow"><?= 'S2S-'.$res->id; ?></td>
-												<td><?= ucwords($res->item_name); ?></td>
+												<td><?= ucwords($res->item); ?></td>
 												<td><span
 														class="is-size-7"><?= ucwords(substr($res->item_desc,0,75)); ?></span>
 												</td>
@@ -296,6 +269,10 @@ $id = $this->uri->segment(3);
 												<td class="is-narrow">
 													<div class="field has-addons">
 														<div class="field has-addons">
+															
+													<?php $role = ($this->session->userdata('user_role'));
+													if($request->read == 1 && $request->price >= 100000 || $role == 1 &&  $request->price <= 100000){ ?>
+
 															<p class="control">
 																<a data-no-instant
 																	href="<?= base_url('requisitions/view_request/'.$res->id); ?>"
@@ -306,19 +283,21 @@ $id = $this->uri->segment(3);
 																</a>
 															</p>
 
-															<p class="control">
-																<a class="button is-small"
-																	href="<?= base_url("/requisitions/forward_request/" . $res->id) ?>" onclick="javascript:return confirm('Are you sure to Forward this request. Click OK to continue!');">
+															<p class="control forwad-btn">
+																<button type="button" data-id="<?= $request->id; ?>"
+																	title="Forwad Request"
+																	class="button is-small forwad-btn">
 																	<span class="icon is-small">
 																		<i class="fas fa-arrow-right"></i>
 																	</span>
-																</a>
+																</button>
 															</p>
 
 															<p class="control return-btn">
 																<a class="button is-small"
-																	href="<?= base_url("/requisitions/approved_request/" . $res->id) ?>" onclick="javascript:return confirm('Are you sure to Approved this request. Click OK to continue!');"
-																	title="approved request">
+																	href="<?= base_url("/requisitions/approved_request/" . $res->id) ?>"
+																	onclick="javascript:return confirm('Are you sure to Approved this quotation. Click OK to continue!');"
+																	title="approved quotation">
 																	<span class="icon is-small  has-text-success">
 																		<i class="fas fa-check"></i>
 																	</span>
@@ -326,14 +305,15 @@ $id = $this->uri->segment(3);
 															</p>
 															<p class="control">
 																<a class="button is-small"
-																	href="<?= base_url("/requisitions/reject_request/" . $res->id) ?>"
-																	onclick="javascript:return confirm('Are you sure to Reject this request. Click OK to continue!');"
-																	title="reject request">
+																	href="<?= base_url("/requisitions/reject_quotation/" . $res->id) ?>"
+																	onclick="javascript:return confirm('Are you sure to Reject this quotation. Click OK to continue!');"
+																	title="reject quotation">
 																	<span class="icon is-small has-text-danger">
 																		<i class="fas fa-times"></i>
 																	</span>
 																</a>
 															</p>
+															<?php } ?>
 														</div>
 												</td>
 											</tr>
@@ -390,103 +370,56 @@ $id = $this->uri->segment(3);
 
 <!-- forwaded list start modal -->
 <div class="modal" id="modal-forwad">
-			<div class="modal-background"></div>
-			<form action="<?= base_url('requisitions/forward_request'); ?>" method="POST">
-				<div class="modal-card">
-					<input type="hidden" name="id" id="request_id" value="">
-					<header class="modal-card-head">
-						<p class="modal-card-title">Request Forward</p>
-						<button class="delete" aria-label="close" id="exit-forward-modal" type="button"></button>
-					</header>
-					<section class="modal-card-body">
-						<div class="columns">
-							<div class="column">
-								<div class="control has-icons-left">
-									<div class="select is-small is-fullwidth">
-										<select name="forward_to" required>
-											<option value="" disabled selected>Forward To</option>
-											<option value="1">Administrator</option>
-											<option value="3">Supervisor</option>
-											<option value="2">User</option>
-											<option value="4">Employee</option>
-										</select>
-									</div>
-									<span class="icon is-small is-left">
-										<i class="fas fa-random"></i>
-									</span>
-								</div>
-							</div> 
-						</div> 	
-					</section>
-					<footer class="modal-card-foot">
-						<button class="button is-success" type="submit"> <span class="icon is-small">
-						<i class="fas fa-arrow-right"></i></span> </button>
-						<button class="button" aria-label="close" id="close-forward-modal" type="reset">Cancel</button>
-					</footer>
+	<div class="modal-background"></div>
+	<form action="<?= base_url('requisitions/forward_quotation'); ?>" method="POST">
+		<div class="modal-card">
+			<input type="hidden" name="id" id="request_id" value="">
+			<header class="modal-card-head">
+				<p class="modal-card-title">Quotation Forward</p>
+				<button class="delete" aria-label="close" id="exit-forward-modal" type="button"></button>
+			</header>
+			<section class="modal-card-body">
+				<div class="columns">
+					<div class="column">
+						<div class="control has-icons-left">
+							<div class="select is-small is-fullwidth">
+								<select name="forward_to" required>
+									<option value="" disabled selected>Forward To</option>
+									<option value="1">Administrator</option>
+									<option value="3">Supervisor</option>
+									<option value="2">User</option>
+									<option value="4">Employee</option>
+								</select>
+							</div>
+							<span class="icon is-small is-left">
+								<i class="fas fa-random"></i>
+							</span>
+						</div>
+					</div>
 				</div>
-			</form>
+			</section>
+			<footer class="modal-card-foot">
+				<button class="button is-success" type="submit"> <span class="icon is-small">
+						<i class="fas fa-arrow-right"></i></span> </button>
+				<button class="button" aria-label="close" id="close-forward-modal" type="reset">Cancel</button>
+			</footer>
 		</div>
+	</form>
+</div>
 
 <!-- forwaded list end modal-->
 
-<!-- select vendor start modal -->
-<div class="modal" id="modal-vendor">
-			<div class="modal-background"></div>
-			<form action="<?= base_url('requisitions/request_for_quotation'); ?>" method="POST">
-				<div class="modal-card">
-					<input type="hidden" name="request_id" id="requestid" value="">
-					<header class="modal-card-head">
-						<p class="modal-card-title">Select Vendor</p>
-						<button class="delete" aria-label="close" id="exit-vendor-modal" type="button"></button>
-					</header>
-					<section class="modal-card-body">
-						<p id="comment" style="color: red"></p>
-						<div class="columns">  
-							<div class="column">
-							<div class="control">
-								<label class="label is-small">Vendor <span class="has-text-danger">*</span></label>
-								<div class="control has-icons-left">
-									<span class="select is-small is-fullwidth">
-										<select name="vendor" id="vendor" class="browser-default custom-select ">
-											<option disabled value="" selected>Select Vendor</option>
-											<?php if(!empty($suppliers)): foreach($suppliers as $supplier): ?>
-											<option value="<?= $supplier->sup_id; ?>">
-												<?= ucwords($supplier->sup_name); ?>
-											</option> 
-											<?php endforeach; endif; ?>
-										</select>
-									</span>
-									<span class="icon is-small is-left">
-										<i class="fas fa-user"></i>
-									</span>
-								</div>
-							</div>
-						</div> 
-
-						</div> 	
-					</section>
-					<footer class="modal-card-foot">
-						<button class="button is-success" type="submit"> <span class="icon is-small">
-						<i class="fas fa-arrow-right"></i></span> </button>
-						<button class="button" aria-label="close" id="close-vendor-modal" type="reset">Cancel</button>
-					</footer>
-				</div>
-			</form>
-		</div> 
-<!-- select vendor modal-->
-
-
-<script> 
-$(document).ready(function () {
+<script>
+	$(document).ready(function () {
 		$(".result_limit").on('change', function () {
 			var val = $(this).val();
-			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_request' ? 'search=' . $this->input->get('search') . '&' : '' ?>limit=' + val)
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == ' search_request ' ? ' search = ' . $this->input->get('search') . ' & ' : '' ?>limit=' + val)
 		})
 	})
 
 	// code for forwaded model
-	$('.forwad-btn').click(function () { 
-		var request_id = $(this).data('id'); 
+	$('.forwad-btn').click(function () {
+		var request_id = $(this).data('id');
 		$('#request_id').val(request_id);
 	});
 
@@ -509,57 +442,6 @@ $(document).ready(function () {
 	btn6.click(function (ev) {
 		md2.close();
 		ev.stopPropagation();
-	});
-
-// code for select vendor modal
-$('.vendor').click(function () { 
-		var request_id = $(this).data('id');
-		$('#requestid').val(request_id);
-	});
-
-	var btnven2 = $(".vendor")
-	var mdven2 = new BulmaModal("#modal-vendor")
-
-	var btnven5 = $("#exit-vendor-modal")
-	var btnven6 = $("#close-vendor-modal")
-
-	btnven2.click(function (ev) {
-		mdven2.show();
-		$(".modal-card-head").show();
-		ev.stopPropagation();
-	});
-
-	btnven5.click(function (ev) {
-		mdven2.close();
-		ev.stopPropagation();
-	});
-	btnven6.click(function (ev) {
-		mdven2.close();
-		ev.stopPropagation();
-	});
-
-	// select coplained on vondor
-	$(document).ready(function () { 
-		$('#vendor').on('change', function () {
-			var vendor = $(this).val();
-			// AJAX request
-			$.ajax({
-				url: "<?=base_url("admin/get_vendor_complained/")?>" + vendor,
-				method: "POST",
-				data: {
-					vendor: vendor
-				},
-				dataType: 'json',
-				success: function (response) {
-					// Remove options
-					if(response['complained'].length != '0'){ 
-						var comment = response['complained']; 
-						$('#comment').html(comment);
-
-					}
-				}
-			});
-		});
 	});
 
 </script>

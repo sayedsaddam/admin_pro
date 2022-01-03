@@ -162,6 +162,12 @@
 																	class="fa fa-times"></i></span></a>
 														</p>
 														<?php endif ?>
+														<p class="control">
+														<a data-no-instant href="<?=base_url('admin/complained_supplier/'.$sup->sup_id);?>"
+														class="button is-small" onclick="javascript:return confirm('Are you sure to register complained on this Vendor. This can not be undone. Click OK to continue!');"><span
+															class="icon is-small has-text-secondary" title="Some Comment"><i
+																class="fa fa-comment"></i></span></a>
+														</p>
 													</div>
 												</td>
 												<?php endif ?>
