@@ -47,9 +47,9 @@
                         <th class="font-weight-bold">Requested By</th>
                         <th class="font-weight-bold">Location</th>
                         <th class="font-weight-bold">Justification</th>
-						<th class="font-weight-bold">Status</th>
+												<th class="font-weight-bold">Status</th>
                         <th class="font-weight-bold">Date</th>
-						<th class="font-weight-bold">Action</th>
+												<th class="font-weight-bold">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,12 +60,16 @@
                         <td><?= ucfirst($cr->fullname); ?></td>
                         <td><?= $cr->location_name; ?></td>
                         <td><?= ucfirst($cr->justification); ?></td>
-						<td>
-							<?php if($cr->status == 0){ echo 'Pending'; }elseif($cr->status == 1){ echo 'Approved'; }else{ echo 'Rejected'; } ?>
-						</td>
+												<td>
+													<?php if($cr->status == 0){ echo 'Pending'; }elseif($cr->status == 1){ echo 'Approved'; }else{ echo 'Rejected'; } ?>
+												</td>
                         <td><?= date('M d, Y', strtotime($cr->created_at)); ?></td>
                         <td>
-                            <a data-id="<?= $cr->id; ?>" class="badge badge-primary edit_cash_issuance" title="Updated request status..."><i class="fa fa-eye"></i></a>
+													<?php if($cr->requested_by == $this->session->userdata('id')): ?>
+														<span type="button" class="badge badge-danger">NFA</span>
+													<?php else: ?>
+                          	<a data-id="<?= $cr->id; ?>" class="badge badge-primary edit_cash_issuance" title="Update request status..."><i class="fa fa-eye"></i></a>
+													<?php endif; ?>
                         </td>
                     </tr>
                     <?php endforeach; else: echo '<tr class="table-danger"><td colspan="7" align="center">No record found.</td></tr>'; endif; ?>

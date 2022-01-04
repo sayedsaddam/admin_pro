@@ -65,8 +65,8 @@
                         <td><?= date('M d, Y', strtotime($ci->created_at)); ?></td>
                         <td><?= number_format($ci->amount_issued - $rem_amt); ?></td>
                         <td>
-                            <a data-id="<?= $ci->id; ?>" class="badge badge-primary edit_cash_issuance" title="Approve leave..."><i class="fa fa-check"></i></a>
-                            <a data-id="<?= $ci->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
+                            <a data-id="<?= $ci->id; ?>" class="badge badge-primary edit_cash_issuance" title="Edit..."><i class="fa fa-check"></i></a>
+                            <a data-id="<?= $ci->id; ?>" class="badge badge-danger reject_leave" title="Delete..."><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                     <?php endforeach; else: echo '<tr class="table-danger"><td colspan="7" align="center">No record found.</td></tr>'; endif; ?>
