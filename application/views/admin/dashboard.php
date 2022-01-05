@@ -113,7 +113,7 @@
 									</div>
 									<?php endif ?>
 								</a>
-								<a href="<?= base_url('admin/dashboard') ?>"
+								<!-- <a href="<?= base_url('admin/dashboard') ?>"
 									class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Total Offices</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_offices ?></div>
@@ -132,7 +132,29 @@
 											class="has-text-danger">(<?= number_format(( ($total_offices_week_change - $total_offices_last_week_change) / $total_offices_last_week_change) * 100, 2, '.', '') ?>%)
 										</span></div>
 									<?php endif ?>
+								</a> -->
+
+								<a href="<?= base_url('admin/asset_register') ?>"
+									class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Total Assets</div>
+									<div class="has-text-weight-semibold is-size-4"><?= $total_assets ?></div>
+									<?php if($total_assets_week_change > $count_asset_last_week_change) : ?>
+									<div class="has-text-weight-light is-size-7"><span
+											class="has-text-success">+<?= $total_assets_week_change ?></span> <span
+											class="has-text-success">(+<?= number_format(( ($total_assets_week_change - $count_asset_last_week_change) / $count_asset_last_week_change) * 100, 2, '.', '') ?>%)</span>
+									</div>
+									<?php elseif($total_assets_week_change == $count_asset_last_week_change || ($total_assets_week_change == 0 AND $count_asset_last_week_change == 0)) : ?>
+									<div class="has-text-weight-light is-size-7"><span
+											class="has-text-success">+<?= $total_assets_week_change ?></span> <span
+											class="has-text-grey">(0.00%)</span></div>
+									<?php else : ?>
+									<div class="has-text-weight-light is-size-7"><span
+											class="has-text-grey">+<?= $total_assets_week_change ?></span> <span
+											class="has-text-danger">(<?= number_format(( ($total_assets_week_change - $count_asset_last_week_change) / $count_asset_last_week_change) * 100, 2, '.', '') ?>%)</span>
+									</div>
+									<?php endif ?>
 								</a>
+
 								<a href="<?= base_url('admin/dashboard') ?>"
 									class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Total Locations</div>

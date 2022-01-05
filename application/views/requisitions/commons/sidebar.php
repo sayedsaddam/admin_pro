@@ -55,6 +55,21 @@
 			</ul>
 		</li>
 	</ul>
+
+	<ul class="menu-list">
+		<li><a class="<?= $this->uri->segment(2) == 'user_asset_list' ? 'is-primary is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'user_asset_list' ? 'style="background-color:#f1f1f1;"' : '' ?>>My Assets</a>
+			<ul class="sub-categories"
+				style="<?= $this->uri->segment(2) == 'user_asset_list' || $this->uri->segment(2) == 'Asset List' ? '' : 'display: none;' ?>">
+				<li
+					class="is-size-7 <?= $this->uri->segment(2) == 'user_asset_list' ? 'has-text-weight-bold' : '' ?>">
+					<a href="<?= base_url('requisitions/user_asset_list'); ?>"><i class="fas fa-list mr-1"></i>
+						Asset List</a></li>
+			</ul>
+		</li>
+	</ul>
+
+
 	<p class="menu-label">
 		Control
 	</p>

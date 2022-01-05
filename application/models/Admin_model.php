@@ -1370,6 +1370,42 @@ public function update_invoice($id, $data){
         $num_results = $this->db->count_all_results();
         return $num_results;
     }
+
+// assets 
+    public function count_asset(){
+        $this->db->from('assets');
+        if ($this->session->userdata('user_role') != '1') {
+            $this->db->where('assets.location', $this->session->userdata('location'));
+        }
+        $num_results = $this->db->count_all_results();
+        return $num_results;
+    }
+
+
+    // Count all assets between two weeks
+    public function count_asset_week_change(){
+        $this->db->from('assets');
+        if ($this->session->userdata('user_role') != '1') {
+            $this->db->where('assets.location', $this->session->userdata('location'));
+        }
+        $this->db->where('assets.created_at BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now()');
+        $num_results = $this->db->count_all_results();
+        return $num_results;
+    }
+
+   // Count all assets by last two week
+   public function count_asset_last_week_change(){
+    $this->db->from('assets');
+    if ($this->session->userdata('user_role') != '1') {
+        $this->db->where('assets.location', $this->session->userdata('location'));
+    }
+    $this->db->where('assets.created_at BETWEEN date_sub(now(),INTERVAL 2 WEEK) and date_sub(now(),INTERVAL 1 WEEK)');
+    $num_results = $this->db->count_all_results();
+    return $num_results;
+}
+
+// assets end
+
     // Count all items 
     public function count_item(){
         $this->db->from('items');

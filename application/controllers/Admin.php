@@ -52,6 +52,14 @@ class Admin extends CI_Controller{
         } else {
             $data['total_items_last_week_change'] = 1;
         }
+// assests
+        $data['total_assets'] = $this->admin_model->count_asset();
+        $data['total_assets_week_change'] = $this->admin_model->count_asset_week_change();
+        if ($this->admin_model->count_asset_last_week_change() != 0) {
+            $data['count_asset_last_week_change'] = $this->admin_model->count_asset_last_week_change();
+        } else {
+            $data['count_asset_last_week_change'] = 1;
+        }
 
         $data['total_suppliers'] = $this->admin_model->count_suppliers();
         $data['total_suppliers_week_change'] = $this->admin_model->count_suppliers_week_change();
