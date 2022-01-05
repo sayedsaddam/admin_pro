@@ -26,24 +26,44 @@
 								</div>
 							</div>
 							<div class="tile is-parent">
-								<a href="#" class="tile is-child clickable hoverable has-text-dark">
-									<div class="has-text-weight-light has-text-grey">Pending Request</div>
-									<!-- <div class="has-text-weight-semibold is-size-6">Pending</div> -->
+								<a href="<?= base_url('requisitions/request_list/3') ?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Pending Request</div> 
 
-									<div class="has-text-weight-light is-size-10"><span
-											class="has-text-warning is-centered is-half"> 4 </span>
+									<div class="has-text-weight-semibold is-size-10"><span
+											class="has-text-warning is-centered is-half"> <?= $pending_requests; ?> </span>
 									</div>
 
 								</a>
-								<a href="#" class="tile is-child clickable hoverable has-text-dark">
+								<a href="<?= base_url('requisitions/request_list/2') ?>" class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Process Request</div>
 									<!-- <div class="has-text-weight-semibold is-size-6">Process</div> -->
 
-									<div class="has-text-weight-light is-size-10"><span class="has-text-info">6</span>
+									<div class="has-text-weight-semibold is-size-10"><span class="has-text-info"><?= $process_requests; ?></span>
 									</div>
 								</a>
 
 							</div>
+
+							<div class="tile is-parent">
+								<a href="<?= base_url('requisitions/request_list/1') ?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Approved Request</div>
+									<!-- <div class="has-text-weight-semibold is-size-6">Approved</div> -->
+
+									<div class="has-text-weight-semibold is-size-10"><span
+											class="has-text-success is-centered is-half"> <?= $approved_requests; ?> </span>
+									</div>
+
+								</a>
+								<a href="<?= base_url('requisitions/request_list/0') ?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Rejected Request</div>
+									<!-- <div class="has-text-weight-semibold is-size-6">Rejected</div> -->
+
+									<div class="has-text-weight-semibold is-size-10"><span class="has-text-danger"><?= $rejected_requests; ?></span>
+									</div>
+								</a>
+
+							</div>
+
 
 						</div>
 					</div>
@@ -57,7 +77,7 @@
 								<div class="tile is-child">
 									<div class="columns is-vcentered">
 										<div class="column">
-											<div class="is-size-5">Request Statistics</div>
+											<div class="is-size-5">Assigned Item</div>
 
 										</div>
 									</div>
@@ -66,8 +86,8 @@
 							</div>
 							<div class="tile is-parent">
 								<a href="#" class="tile is-child clickable hoverable has-text-dark">
-									<div class="has-text-weight-light has-text-grey">Approved Request</div>
-									<!-- <div class="has-text-weight-semibold is-size-6">Approved</div> -->
+									<div class="has-text-weight-light has-text-grey">Electronics</div>
+									<!-- <div class="has-text-weight-semibold is-size-6">Electronics</div> -->
 
 									<div class="has-text-weight-light is-size-10"><span
 											class="has-text-success is-centered is-half"> 4 </span>
@@ -75,8 +95,8 @@
 
 								</a>
 								<a href="#" class="tile is-child clickable hoverable has-text-dark">
-									<div class="has-text-weight-light has-text-grey">Rejected Request</div>
-									<!-- <div class="has-text-weight-semibold is-size-6">Rejected</div> -->
+									<div class="has-text-weight-light has-text-grey">Furniture</div>
+									<!-- <div class="has-text-weight-semibold is-size-6">Furniture</div> -->
 
 									<div class="has-text-weight-light is-size-10"><span class="has-text-danger">6</span>
 									</div>
