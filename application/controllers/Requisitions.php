@@ -30,6 +30,10 @@ class Requisitions extends CI_Controller{
     public function dashboard() {
         $data['title'] = 'Home | Requisitions';
         $data['body'] = 'requisitions/dashboard';
+        $data['pending_requests'] = $this->API_Model->CountPendingRequest();
+        $data['process_requests'] = $this->API_Model->CountProcessRequest();
+        $data['approved_requests'] = $this->API_Model->CountApprovedRequest();
+        $data['rejected_requests'] = $this->API_Model->CountRejectedRequest();
         $data['breadcrumb'] = array("Dashboard");
         
         $this->load->view('requisitions/commons/new_template', $data);

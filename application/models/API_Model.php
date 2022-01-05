@@ -34,4 +34,41 @@ class API_Model extends CI_Model{
         $this->db->from('item_requisitions'); 
         return $this->db->count_all_results();
     }
+    // CountPendingRequest
+    public function CountPendingRequest(){
+        $this->db->from('item_requisitions'); 
+        if ($this->session->userdata('user_role') != '1') {
+        $this->db->where('requested_by', $this->session->userdata('id'));
+        }
+        $this->db->where('status', null);
+        return $this->db->count_all_results();
+    }
+    // CountProcessRequest
+    public function CountProcessRequest(){
+        $this->db->from('item_requisitions');
+        if ($this->session->userdata('user_role') != '1') {
+            $this->db->where('requested_by', $this->session->userdata('id'));
+            } 
+        $this->db->where('status', 2);
+        return $this->db->count_all_results();
+    }
+    // CountApprovedRequest
+    public function CountApprovedRequest(){
+        $this->db->from('item_requisitions');
+        if ($this->session->userdata('user_role') != '1') {
+            $this->db->where('requested_by', $this->session->userdata('id'));
+            } 
+        $this->db->where('status', 1); 
+        return $this->db->count_all_results();
+    }
+       // CountRejectedRequest
+       public function CountRejectedRequest(){
+        $this->db->from('item_requisitions'); 
+        if ($this->session->userdata('user_role') != '1') {
+            $this->db->where('requested_by', $this->session->userdata('id'));
+            }
+        $this->db->where('status', 0); 
+        return $this->db->count_all_results();
+    }
+
 }
