@@ -360,4 +360,42 @@ public function reject_quotation($id){
         $data['requests'] = $this->Requisition_Model->ForwardQuotation($id,$role_id,$data,$forward_request);
         redirect('requisitions/approval_list'); 
     }
+  //User Assign Asset List
+  public function user_asset_list($offset = null){
+    $limit = 25;
+    if($this->input->get('limit')) {
+        $limit = $this->input->get('limit');
+    }
+    if(!empty($offset)){
+        $config['uri_segment'] = 3;
+    }
+
+    $this->load->library('pagination');
+    $url = 'requisitions/user_asset_list';
+    $rowscount = $this->Requisition_Model->count_user_assign_asset();
+
+    $config['base_url'] = $url;
+    $config['total_rows'] = $rowscount;
+    $config['per_page'] = $limit;
+    $config['cur_tag_open'] = '<a class="pagination-link has-background-success has-text-white" aria-current="page">';
+    $config['cur_tag_close'] = '</a>';
+    $config['num_tag_open'] = '<li>';
+    $config['num_tag_open'] = '</li>';
+    $config['first_link'] = 'First';
+    $config['prev_link'] = 'Previous';
+    $config['next_link'] = 'Next';
+    $config['last_link'] = 'Last';
+    $config['attributes'] = array('class' => 'pagination-link');
+    $config['reuse_query_string'] = true;
+    $this->pagination->initialize($config);
+
+    $data['title'] = 'Assign Asset List | Requisitions';
+    $data['body'] = 'requisitions/assign_asset';
+    $data['user_asset_list'] = true;
+    $data['items'] = $this->Requisition_Model->user_asset_list($limit, $offset); 
+    $data['breadcrumb'] = array("User Asset List"); 
+    $this->load->view('requisitions/commons/new_template', $data);
+}
+
+
 }

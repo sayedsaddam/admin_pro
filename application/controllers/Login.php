@@ -85,7 +85,7 @@ class Login extends CI_Controller{
         if ($this->session->userdata('email') == NULL)  {
             $this->session->sess_destroy();
             $this->index();
-        }
+        } 
         $data['title'] = 'Login | Operations Dept';
         $data['body'] = 'verify-otp';
         $data['login_page'] = true;

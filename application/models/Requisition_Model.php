@@ -382,4 +382,39 @@ public function RejectQuotation($id, $data) {
     return true;
 }
 
+    // Count user assign asset
+    public function count_user_assign_asset(){
+        $this->db->select('item_assignment.id as assign_id, item_assignment.assignd_to');
+        $this->db->from('item_assignment');
+        $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
+        $this->db->where('return_back_date =', null);
+        if ($this->session->userdata('user_role') != '1') {
+            $this->db->where('items.location', $this->session->userdata('location'));
+            $this->db->where('item_assignment.assignd_to', $this->session->userdata('id'));
+
+        }
+        return $this->db->count_all_results();
+    }
+
+// user item detail list 
+public function user_asset_list($limit, $offset){
+    $this->db->select('items.id, items.location, items.category, items.sub_category, items.type_name, items.model, items.serial_number, items.supplier, items.price, items.quantity, items.depreciation, items.purchasedate, items.created_at, users.fullname as employ_name, users.id as employ_id, item_assignment.item_id, item_assignment.status, item_assignment.id as item_ids, item_assignment.assignd_to, sub_categories.name as names, categories.cat_name, locations.name, suppliers.id as sup_id, suppliers.name as sup_name');
+    $this->db->from('item_assignment');
+    $this->db->join('items', 'item_assignment.item_id = items.id', 'left');
+    $this->db->join('categories', 'items.category = categories.id', 'left');
+    $this->db->join('sub_categories', 'items.sub_category = sub_categories.id', 'left');
+    $this->db->join('users', 'item_assignment.assignd_to = users.id', 'left');
+    $this->db->join('locations', 'users.location = locations.id', 'left'); 
+    $this->db->join('suppliers', 'items.sub_category = suppliers.id', 'left'); 
+    $this->db->where('item_assignment.item_id !=', null);
+    $this->db->where('item_assignment.status', 1);
+    if ($this->session->userdata('user_role') != '1') {
+        $this->db->where('users.location', $this->session->userdata('location'));
+        $this->db->where('item_assignment.assignd_to', $this->session->userdata('id'));
+    } 
+    $this->db->limit($limit, $offset);
+    // echo "<pre>";  print_r($this->db->get()->result());exit; 
+    return $this->db->get()->result(); 
+}
+
 }

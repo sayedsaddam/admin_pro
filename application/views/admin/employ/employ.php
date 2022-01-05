@@ -141,7 +141,7 @@
 												<td class="is-narrow">
 													<div class="field has-addons">
 														<p class="control">
-															<a href="<?= base_url('admin/edit_employ/'.$sup->id); ?>"
+															<a href="<?= base_url('admin/edit_employ/'.$sup->emp_id); ?>"
 																class="button is-small">
 																<span class="icon is-small">
 																	<i class="fas fa-edit"></i>
