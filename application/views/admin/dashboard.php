@@ -134,7 +134,7 @@
 									<?php endif ?>
 								</a> -->
 
-								<a href="<?= base_url('admin/item_register') ?>"
+								<a href="<?= base_url('admin/asset_register') ?>"
 									class="tile is-child clickable hoverable has-text-dark">
 									<div class="has-text-weight-light has-text-grey">Total Assets</div>
 									<div class="has-text-weight-semibold is-size-4"><?= $total_assets ?></div>
