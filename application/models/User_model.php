@@ -76,6 +76,7 @@ class User_model extends CI_Model{
         $this->db->select('id, emp_id, leave_status, SUM(no_of_days) as availed_leaves');
         $this->db->from('employee_leaves');
         $this->db->where(array('emp_id' => $this->session->userdata('id'), 'leave_status' => 1));
+		$this->db->like('created_at', date('Y'));
         return $this->db->get()->row();
     }
     // Get leaves > Track leaves record.
