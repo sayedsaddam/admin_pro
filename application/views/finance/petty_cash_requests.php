@@ -65,7 +65,7 @@
 												</td>
                         <td><?= date('M d, Y', strtotime($cr->created_at)); ?></td>
                         <td>
-													<?php if($cr->requested_by == $this->session->userdata('id')): ?>
+													<?php if($cr->requested_by == $this->session->userdata('id') OR $cr->status == 1): ?>
 														<span type="button" class="badge badge-danger">NFA</span>
 													<?php else: ?>
                           	<a data-id="<?= $cr->id; ?>" class="badge badge-primary edit_cash_issuance" title="Update request status..."><i class="fa fa-eye"></i></a>

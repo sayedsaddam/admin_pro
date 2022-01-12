@@ -20,14 +20,35 @@ class Finance extends CI_Controller{
 	}
 	// petty cash issuance
 	public function cash_issuance(){
+		$cash_issued = $this->input->post('amount_issued'); // new cash issuance
+		$existing_cash = $this->finance_model->get_older_cash($_POST['location']);
+		if(!empty($existing_cash)){
+			$total_cash = $existing_cash->amount_issued + $cash_issued;
+		}
 		$data = array(
 			'amount_issued' => $this->input->post('amount_issued'),
 			'issued_by' => $this->session->userdata('id'),
 			'location' => $this->input->post('location'),
 			'remarks' => $this->input->post('remarks')
 		);
-		if($this->finance_model->cash_issuance($data)){
+		if(empty($existing_cash)){
+			$this->finance_model->cash_issuance($data);
 			$this->session->set_flashdata('success', '<strong>Success! </strong>Petty cash issued successfully!');
+			redirect($_SERVER['HTTP_REFERER']);
+		}elseif(!empty($existing_cash)){
+			$data2 = array(
+				'amount_issued' => $total_cash,
+				'issued_by' => $this->session->userdata('id'),
+				'remarks' => $this->input->post('remarks')
+			);
+			$this->finance_model->update_petty_cash_issued($_POST['location'], $data2);
+			$data3 = array(
+				'amount' => $this->input->post('amount_issued'),
+				'issued_by' => $this->session->userdata('id'),
+				'location' => $this->input->post('location')
+			);
+			$this->finance_model->add_petty_cash_logs($data3);
+			$this->session->set_flashdata('success', '<strong>Success! </strong>Petty cash was updated successfully.');
 			redirect($_SERVER['HTTP_REFERER']);
 		}else{
 			$this->session->set_flashdata('failed', '<strong>Failed! </strong>Petty cash issuance was not successful.');
@@ -114,7 +135,7 @@ class Finance extends CI_Controller{
 		$detail = $this->finance_model->petty_cash_request_detail($id);
 		echo json_encode($detail);
 	}
-	// update petty cash request by is with status of accept or reject
+	// update petty cash request by id with status of accept or reject
 	public function update_request_status(){
 		$id = $this->input->post('id');
 		$data = array(

@@ -37,8 +37,22 @@ class Finance_model extends CI_Model{
 	// update petty cash issuance
 	public function update_petty_cash_issued($id, $data){
 		$this->db->where('id', $id);
+		$this->db->or_where('location', $id);
 		$this->db->update('petty_cash_issuance', $data);
 		return true;
+	}
+	// get petty cash by location id while issuing new amount
+	public function get_older_cash($location_id){
+		return $this->db->get_where('petty_cash_issuance', array('location' => $location_id))->row();
+	}
+	// insert petty cash update logs into another table while issuing more petty cash
+	public function add_petty_cash_logs($data){
+		$this->db->insert('petty_cash_logs', $data);
+		if($this->db->affected_rows() > 0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	// get all petty cash issued
 	public function petty_cash_issued($limit, $offset){

@@ -138,18 +138,18 @@
       </div>
       <div class="modal-body mx-3">
         <form action="<?=base_url('finance/cash_issuance');?>" method="post" class="md-form">
-            <div class="md-form mb-5">
-              <input name="amount_issued" type="number" id="form34" class="form-control validate">
-              <label data-error="wrong" data-success="right" for="form34">Amount Issued</label>
-            </div>
-
-						<div class="md-form mb-5">
-              <select name="location" id="supplier_location" class="browser-default custom-select">
+					<div class="md-form mb-5">
+              <select name="location" id="location" class="browser-default custom-select">
                 <option value="" disabled selected>--Select location--</option>
                 <?php if(!empty($locations)): foreach($locations as $loc): ?>
                   <option value="<?= $loc->id ?>"><?= $loc->name; ?></option>
                 <?php endforeach; endif; ?>
               </select>
+            </div>
+
+            <div class="md-form mb-5">
+              <input name="amount_issued" type="number" id="form34" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="form34">Amount Issued</label>
             </div>
 
             <div class="md-form">
