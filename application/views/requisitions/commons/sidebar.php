@@ -37,8 +37,8 @@
 						Add Request</a></li>
 			</ul>
 		</li>
-	</ul>
-	
+	</ul> 
+	<?php if($this->session->userdata('user_role') == 1 || $this->session->userdata('user_role') == 3) {?>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'approval_list' ? 'is-primary is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'approval_list' ? 'style="background-color:#f1f1f1;"' : '' ?>>Approval</a>
@@ -55,7 +55,7 @@
 			</ul>
 		</li>
 	</ul>
-
+<?php } ?>
 	<ul class="menu-list">
 		<li><a class="<?= $this->uri->segment(2) == 'user_asset_list' ? 'is-primary is-inverted' : '' ?> nav-category"
 				<?= $this->uri->segment(2) == 'user_asset_list' ? 'style="background-color:#f1f1f1;"' : '' ?>>My Assets</a>

@@ -5,8 +5,7 @@
 class Requisition_Model extends CI_Model{
     
     // RequestList() function
-    public function RequestList($limit, $offset, $user) {
-        
+    public function RequestList($limit, $offset, $user) {        
         $this->db->select('
             item_requisitions.id,
             item_requisitions.item_name,
@@ -21,9 +20,9 @@ class Requisition_Model extends CI_Model{
 
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
-
-        if($this->session->userdata('user_role') != 1){
-        $this->db->where('item_requisitions.requested_by' , $user);
+        $role = $this->session->userdata('user_role');
+        if($role != 3 && $role != 1){
+            $this->db->where('item_requisitions.requested_by' , $user);
         }
         $data = $this->uri->segment(3); // take segment 3 when click on tab
         if(isset($data)) { 
@@ -50,8 +49,10 @@ class Requisition_Model extends CI_Model{
     // Approval list
     public function ApprovalList($limit, $offset, $user,$role_id) { 
         $role = $this->db->select('role_id,read')->from('request_access')->where(array('role_id' => $role_id, 'read' => 1))->get()->row(); 
+    //    echo $role->role_id;exit;
         if(!empty($role)){
             $roleId = $role->role_id; // this query is used to take common role id --
+            $read = $role->read;
         }else{
             $roleId = 0;
         }
@@ -60,6 +61,7 @@ class Requisition_Model extends CI_Model{
             item_requisitions.id,
             item_requisitions.item_name,
             item_requisitions.item_desc,
+            item_requisitions.reject_reason,
             item_requisitions.item_qty,
             item_requisitions.requested_by,
             item_requisitions.status,
@@ -77,8 +79,11 @@ class Requisition_Model extends CI_Model{
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('request_access', 'users.user_role = request_access.role_id', 'left');
         // $this->db->where('request_access.role_id', $role_id); 
+        if(!empty($read)){
+        $this->db->where(array($roleId => $role_id, $read => 1));
+        }else{
         $this->db->where(array($roleId => $role_id, 'request_access.read' => 1));
-        // $this->db->where($roleId,$role_id); 
+        }// $this->db->where($roleId,$role_id); 
         // $this->db->where('request_access.read', 1); 
         $this->db->group_by('item_requisitions.id');
         $data = $this->uri->segment(3);
@@ -141,7 +146,7 @@ class Requisition_Model extends CI_Model{
     public function AddRequest($data, $user) {
         $this->db->trans_begin();
 
-        $this->db->query("INSERT INTO item_requisitions (`item_name`, `item_desc`, `item_qty`,`location_id`,`department_id`,`company_id`, `requested_by`, `status`) VALUES ('$data->item_name', '$data->item_desc', $data->item_qty, ' $data->location','$data->department','$data->company','$user', NULL)");
+        $this->db->query("INSERT INTO item_requisitions (`item_name`,`item_requirement`, `item_desc`, `item_qty`,`location_id`,`department_id`,`company_id`, `requested_by`, `status`) VALUES ('$data->item_name','$data->item_requirement', '$data->item_desc', $data->item_qty, ' $data->location','$data->department','$data->company','$user', NULL)");
         $last_insert_id = $this->db->insert_id();
         
         $users_roles = $this->db->query("SELECT `id`, `type` FROM users_roles")->result();
@@ -320,12 +325,12 @@ public function location($location_id){
 } 
 // qutation list end
 // vendor qutation form
-public function VendorQuotation($id){
-    // $id = base64_decode($id);
-
+public function VendorQuotation($id){ 
         $this->db->select('
             quotations.id as qut_id, 
             quotations.item,
+            quotations.item,
+            quotations.description,
             quotations.quantity,
             quotations.price,
             quotations.created_at as date, 
@@ -334,6 +339,7 @@ public function VendorQuotation($id){
             quotations.location_id,
             item_requisitions.id,
             item_requisitions.item_name,
+            item_requisitions.item_requirement,
             item_requisitions.item_qty,
             item_requisitions.location_id,
             item_requisitions.department_id,
@@ -407,14 +413,24 @@ public function user_asset_list($limit, $offset){
     $this->db->join('locations', 'users.location = locations.id', 'left'); 
     $this->db->join('suppliers', 'items.sub_category = suppliers.id', 'left'); 
     $this->db->where('item_assignment.item_id !=', null);
-    $this->db->where('item_assignment.status', 1);
-    if ($this->session->userdata('user_role') != '1') {
-        $this->db->where('users.location', $this->session->userdata('location'));
+
+    $role = $this->session->userdata('user_role'); 
+    if($role != 3 && $role != 1){ 
         $this->db->where('item_assignment.assignd_to', $this->session->userdata('id'));
-    } 
-    $this->db->limit($limit, $offset);
+    }
+    
+    $data = $this->uri->segment(3); // take segment 3 when click on tab
+    if(isset($data)) { 
+        if($data == 0) { 
+            $this->db->where(array('item_assignment.status' => 0));
+        } 
+        if($data == 1) {
+            $this->db->where(array('item_assignment.status' => 1));
+        } 
+    }
     // echo "<pre>";  print_r($this->db->get()->result());exit; 
     return $this->db->get()->result(); 
-}
+
+   }
 
 }

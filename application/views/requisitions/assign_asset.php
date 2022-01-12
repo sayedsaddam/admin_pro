@@ -68,6 +68,22 @@
 				</div>
 				<?php endif ?>
 
+				<?php
+$id = $this->uri->segment(3);
+
+?>
+<div class="tabs is-left is-hidden-print">
+  <ul>
+  <li class="<?php if($id == null){ echo "is-active";} ?>">
+		<a href="<?= base_url('requisitions/user_asset_list') ?>">All</a>
+	</li>  
+    <li class="<?php if($id == 3){ echo "is-active";} ?>">
+		<a href="<?= base_url('requisitions/user_asset_list/1') ?>">Assigned</a>
+	</li>
+    <li class="<?php if($id == 2){ echo "is-active";} ?>"><a href="<?= base_url('requisitions/user_asset_list/0') ?>">Returned</a></li> 
+  </ul>
+</div>
+
 				<div class="tile is-ancestor">
 					<div class="tile is-parent">
 						<div class="tile is-child box">
@@ -78,41 +94,40 @@
 											<tr>
 												<th class="has-text-weight-semibold"><abbr
 														title="Item Identification Number">ID</abbr></th> 
+												<th class="has-text-weight-semibold">Assigned To</th>
 												<th class="has-text-weight-semibold">Category</th>
 												<th class="has-text-weight-semibold">Company</th>
 												<th class="has-text-weight-semibold">Model</th> 
-												<?php if(isset($assign_page)) : ?>
-												<th class="has-text-weight-semibold">Assign To</th>
-												<?php endif ?>
+											 
 												<th class="has-text-weight-semibold"><abbr
 														title="Depreciation Percentage">D%</abbr>
 												</th>
 												<th class="has-text-weight-semibold">Status</th>
-												<th class="has-text-weight-semibold"> Purchase Date</th>
+												<th class="has-text-weight-semibold"> P-Date</th>
  											</tr>
 										</thead>
 										<tfoot>
 											<tr>
 												<th class="has-text-weight-semibold"><abbr
 														title="Item Identification Number">ID</abbr></th>
+												<th class="has-text-weight-semibold">Assigned To</th>
 												<th class="has-text-weight-semibold">Category</th>
 												<th class="has-text-weight-semibold">Company</th>
 												<th class="has-text-weight-semibold">Model</th> 
-												<?php if(isset($assign_page)) : ?>
-												<th class="has-text-weight-semibold">Assigned To</th>
-												<?php endif ?>
+											 
 												<th class="has-text-weight-semibold"><abbr
 														title="Depreciation Percentage">D%</abbr>
 												</th>
 												<th class="has-text-weight-semibold">Status</th>
 												<th class="has-text-weight-semibold"><abbr
-														title="Purchase Date">Purchase Date</abbr></th>
+														title="Purchase Date">P-Date</abbr></th>
 											</tr>
 										</tfoot>
 										<tbody>
 											<?php if(!empty($items)): foreach($items as $item): ?>
 											<tr>
 												<td><span><?= 'S2S-'.$item->id; ?></a></td> 
+												<td><?= $item->employ_name; ?></td>
 												<td>
 													<div class="tags"><span
 															class="tag"><?= ucwords($item->cat_name); ?></span><span
@@ -120,10 +135,7 @@
 													</div>
 												</td>
 												<td><?= ucwords($item->type_name); ?></td>
-												<td><?= ucwords($item->model); ?></td> 
-												<?php if(isset($assign_page)) : ?>
-												<td><?= ucwords($item->employ_name); ?></td>
-												<?php endif; ?>
+												<td><?= ucwords($item->model); ?></td>  
 												<td><?= $item->depreciation.' (%)'; ?></td>
 												<td>
 													<?php if($status = $item->quantity > 0 && $item->status != 1 && (!isset($damaged_item))){

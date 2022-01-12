@@ -8,6 +8,7 @@ class Login extends CI_Controller{
         parent::__construct();
         $this->load->model('login_model');
         $this->load->model('admin_model');
+        $this->load->model('Requisition_Model');
         $this->access['hasAssetAccess'] = NULL;
     }
 
@@ -122,4 +123,13 @@ class Login extends CI_Controller{
         $this->session->sess_destroy();
         $this->index();
     }
+
+        // vendor link code start
+        public function vendor_quotation($id){
+            $data['title'] = 'Quotation | Admin & Procurement';
+            $data['body'] = 'quotation';
+            $data['quotation'] = true;
+            $this->load->view('admin/commons/new_template',$data);
+        }
+        // vendor link code end
 }

@@ -37,7 +37,8 @@ class API_Model extends CI_Model{
     // CountPendingRequest
     public function CountPendingRequest(){
         $this->db->from('item_requisitions'); 
-        if ($this->session->userdata('user_role') != '1') {
+        $role = $this->session->userdata('user_role');
+        if ($role != '1' && $role != 3) {
         $this->db->where('requested_by', $this->session->userdata('id'));
         }
         $this->db->where('status', null);
@@ -46,7 +47,8 @@ class API_Model extends CI_Model{
     // CountProcessRequest
     public function CountProcessRequest(){
         $this->db->from('item_requisitions');
-        if ($this->session->userdata('user_role') != '1') {
+        $role = $this->session->userdata('user_role');
+        if ($role != '1' && $role != 3) {
             $this->db->where('requested_by', $this->session->userdata('id'));
             } 
         $this->db->where('status', 2);
@@ -55,7 +57,8 @@ class API_Model extends CI_Model{
     // CountApprovedRequest
     public function CountApprovedRequest(){
         $this->db->from('item_requisitions');
-        if ($this->session->userdata('user_role') != '1') {
+        $role = $this->session->userdata('user_role');
+        if ($role != '1' && $role != 3) {
             $this->db->where('requested_by', $this->session->userdata('id'));
             } 
         $this->db->where('status', 1); 
@@ -64,11 +67,45 @@ class API_Model extends CI_Model{
        // CountRejectedRequest
        public function CountRejectedRequest(){
         $this->db->from('item_requisitions'); 
-        if ($this->session->userdata('user_role') != '1') {
+        $role = $this->session->userdata('user_role');
+        if ($role != '1' && $role != 3) {
             $this->db->where('requested_by', $this->session->userdata('id'));
             }
         $this->db->where('status', 0); 
         return $this->db->count_all_results();
     }
+
+    // count total assigned item
+    public function CountTotalItem(){ 
+        $this->db->from('item_assignment'); 
+        $role = $this->session->userdata('user_role');
+        if ($role != '1' && $role != 3) {
+            $this->db->where('assignd_to', $this->session->userdata('id'));
+            }
+        return $this->db->count_all_results();
+    }
+// count assigned item
+public function CountAssignedItem(){
+    $this->db->from('item_assignment'); 
+    $role = $this->session->userdata('user_role');
+    if ($role != '1' && $role != 3) {
+        $this->db->where('assignd_to', $this->session->userdata('id'));
+        } 
+    $this->db->where(array('status' => 1,'return_back_date' => null));
+    return $this->db->count_all_results(); 
+}
+
+// count Returned item
+public function CountReturnedItem(){
+    $this->db->from('item_assignment'); 
+    $role = $this->session->userdata('user_role');
+    if ($role != '1' && $role != 3) {
+        $this->db->where('assignd_to', $this->session->userdata('id'));
+        } 
+        // $this->db->where('status', 0); 
+        $this->db->where('return_back_date !=' , NULL); 
+ 
+    return $this->db->count_all_results(); 
+}
 
 }
