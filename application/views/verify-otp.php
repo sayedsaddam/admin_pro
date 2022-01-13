@@ -117,5 +117,5 @@
 	.form-control.form-control-solid:focus,
 	.form-control.form-control-solid.focus {
 		transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-	}
-</script>
+	} 
+	</style>

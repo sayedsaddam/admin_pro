@@ -34,6 +34,11 @@ class Requisitions extends CI_Controller{
         $data['process_requests'] = $this->API_Model->CountProcessRequest();
         $data['approved_requests'] = $this->API_Model->CountApprovedRequest();
         $data['rejected_requests'] = $this->API_Model->CountRejectedRequest();
+
+        $data['CountTotalAssignItem'] = $this->API_Model->CountTotalItem();
+        $data['CountAssignedItem'] = $this->API_Model->CountAssignedItem();
+        $data['CountReturnedItem'] = $this->API_Model->CountReturnedItem();
+
         $data['breadcrumb'] = array("Dashboard");
         
         $this->load->view('requisitions/commons/new_template', $data);
@@ -70,6 +75,7 @@ class Requisitions extends CI_Controller{
                 
                 $data = new stdClass();
                 $data->item_name = $this->input->post('particular')[$i];
+                $data->item_requirement = $this->input->post('requirement')[$i];
                 $data->item_desc = $this->input->post('reason');
                 $data->item_qty = $this->input->post('quantity')[$i];
                 $data->location = $this->input->post('location');
@@ -223,13 +229,17 @@ class Requisitions extends CI_Controller{
     }
 
     // Reject Request
-    public function reject_request($id){
-        $data = array('status' => 0); 
+    public function reject_request(){
+        $id = $this->input->post('id');
+        $data = array(
+            'reject_reason' => $this->input->post('reason'),
+            'status' => 0
+        );  
         $data['requests'] = $this->Requisition_Model->RejectList($id,$data); 
         redirect('requisitions/approval_list'); 
     }
 // request for quotation
-public function request_for_quotation(){
+public function request_for_quotation(){ 
     $request_id = $this->input->post('request_id');
     $vendor_id = $this->input->post('vendor');
     
@@ -261,7 +271,7 @@ $this->Requisition_Model->send_quotation($data); //save qutation data
 // create form link
 $hid = base64_encode($vendor_id);
 // $link = base_url('requisitions/vendor_qutation/'.$sup_email);
-$hlink = base_url('requisitions/vendor_quotation/'.$hid);
+$hlink = base_url('Login/vendor_quotation/'.$hid);
 // create form link end
 
 // email validation
@@ -281,7 +291,7 @@ $this->form_validation->set_rules('password', 'Password', 'trim|required');
         $this->email->message("office of ".$office." request for ".' '. $product .' - '. $quantity .'quantity'.'<br> Remarks :'. $description .'Link is provided to give quotation on this product : click on link'. $hlink);
         $this->email->send();
         $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>Email For Quotation was send successfully!');
-        redirect('requisitions/approval_list');
+        redirect('requisitions/quotation_list');
 }
 
 // save qutation
@@ -293,16 +303,18 @@ public function save_quotation(){
         'updated_at' => date('Y-m-d')
     ); 
     $this->Requisition_Model->SaveQuotation($id,$data); //save qutation data  
+
+    $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>We appreciate you contacting us. One of our colleagues will get back in touch with you soon!Have a great day!');
     redirect('requisitions/vendor_quotation/'.base64_encode($id));
 }
-    // vendor link code start
-    public function vendor_quotation($id){
-        $data['title'] = 'Quotation | Admin & Procurement';
-        $data['body'] = 'quotation';
-        $data['quotation'] = true;
-        $this->load->view('admin/commons/new_template',$data);
-    }
-    // vendor link code end
+    // // vendor link code start
+    // public function vendor_quotation($id){
+    //     $data['title'] = 'Quotation | Admin & Procurement';
+    //     $data['body'] = 'quotation';
+    //     $data['quotation'] = true;
+    //     $this->load->view('admin/commons/new_template',$data);
+    // }
+    // // vendor link code end
 
 // qutation list
 public function quotation_list($offset = null) {
@@ -350,8 +362,12 @@ public function quotation_list($offset = null) {
     redirect('requisitions/approval_list'); 
 }
 // reject_quotation
-public function reject_quotation($id){
-    $data = array('status' => 0); 
+public function reject_quotation(){
+    $id = $this->input->post('id');
+    $data = array(
+        'reject_reason' => $this->input->post('reason'),
+        'status' => 0
+    );
     $data['quotations'] = $this->Requisition_Model->RejectQuotation($id,$data); 
     redirect('requisitions/approval_list'); 
 }

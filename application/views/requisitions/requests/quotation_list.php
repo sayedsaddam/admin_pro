@@ -156,7 +156,7 @@ $id = $this->uri->segment(3);
 													if($request->status == 1 && $role == 1){ ?>
 													  <p class="control">
                                                                 <a data-no-instant
-                                                                href="<?= base_url('requisitions/vendor_quotation/'.base64_encode($request->id)); ?>"
+                                                                href="<?= base_url('login/vendor_quotation/'.base64_encode($request->id)); ?>"
                                                                 title="View Quotation" class="button is-small">
                                                                     <span class="icon is-small">
                                                                     <i class="fas fa-eye"></i>
@@ -168,7 +168,7 @@ $id = $this->uri->segment(3);
 													elseif($request->status == 1){ ?>
                                                             <p class="control">
                                                                 <a data-no-instant
-                                                                href="<?= base_url('requisitions/vendor_quotation/'.base64_encode($request->id)); ?>"
+                                                                href="<?= base_url('login/vendor_quotation/'.base64_encode($request->id)); ?>"
                                                                 title="View Request" class="button is-small">
                                                                     <span class="icon is-small">
                                                                     <i class="fas fa-eye"></i>
@@ -180,7 +180,7 @@ $id = $this->uri->segment(3);
 													elseif($request->status == 1 || $request->status == '0'){ ?>
                                                             <p class="control">
                                                                 <a data-no-instant
-                                                                href="<?= base_url('requisitions/vendor_quotation/'.base64_encode($request->id)); ?>"
+                                                                href="<?= base_url('login/vendor_quotation/'.base64_encode($request->id)); ?>"
                                                                 title="View Request" class="button is-small">
                                                                     <span class="icon is-small">
                                                                     <i class="fas fa-eye"></i>
@@ -192,7 +192,7 @@ $id = $this->uri->segment(3);
 													else{ ?>	
                                                         <p class="control">
                                                                 <a data-no-instant
-                                                                href="<?= base_url('requisitions/vendor_quotation/'.base64_encode($request->id)); ?>"
+                                                                href="<?= base_url('login/vendor_quotation/'.base64_encode($request->id)); ?>"
                                                                 title="View Request" class="button is-small">
                                                                     <span class="icon is-small">
                                                                     <i class="fas fa-eye"></i>
@@ -218,17 +218,17 @@ $id = $this->uri->segment(3);
 																	<i class="fas fa-check"></i>
 																</span>
 															</a> 
-														</p>
-														<p class="control">
-															<a class="button is-small"
-																href="<?= base_url("/requisitions/reject_quotation/" . $request->id) ?>"
-																onclick="javascript:return confirm('Are you sure to Reject this quotation. Click OK to continue!');"
-																title="reject quotation">
-																<span class="icon is-small has-text-danger">
+														</p>  
+														<p class="control reject-btn">
+															<button type="button"
+																data-id="<?= $request->id; ?>"  title="Reject quotation"
+																class="button is-small has-text-danger reject-btn">
+																<span class="icon is-small">
 																	<i class="fas fa-times"></i>
 																</span>
-															</a>
+															</button>
 														</p>
+
                                                         <?php } ?>
 													</div>
 
@@ -409,6 +409,38 @@ $id = $this->uri->segment(3);
 
 <!-- forwaded list end modal-->
 
+
+<!-- modal reject start -->
+
+<div class="modal" id="modal-rej">
+			<div class="modal-background"></div>
+			<form action="<?= base_url('requisitions/reject_quotation'); ?>" method="POST">
+				<div class="modal-card">
+					<input type="hidden" name="id" id="quot_id" value="">
+					<header class="modal-card-head">
+						<p class="modal-card-title">Reject Quotation</p>
+						<button class="delete" aria-label="close" id="exit-reject-modal" type="button"></button>
+					</header>
+					<section class="modal-card-body">
+					 
+						<div class="columns">
+							<div class="column">
+								<textarea name="reason" class="textarea"
+									placeholder="Please elaboratly describe your reason for reject the Quotation."></textarea>
+							</div>
+						</div>
+					</section>
+					<footer class="modal-card-foot">
+						<button class="button is-success" type="submit">Apply</button>
+						<button class="button" aria-label="close" id="close-reject-modal" type="reset">Cancel</button>
+					</footer>
+				</div>
+			</form>
+		</div>
+
+<!-- modal reject end -->
+
+
 <script>
 	$(document).ready(function () {
 		$(".result_limit").on('change', function () {
@@ -441,6 +473,32 @@ $id = $this->uri->segment(3);
 	});
 	btn6.click(function (ev) {
 		md2.close();
+		ev.stopPropagation();
+	});
+
+
+// reject quotation code 
+$('.reject-btn').click(function () {
+		var req_id = $(this).data('id');
+		$('#quot_id').val(req_id);
+	});
+	var rejbtn = $(".reject-btn")
+	var mdrej = new BulmaModal("#modal-rej")
+
+	var rejbtn5 = $("#exit-reject-modal")
+	var rejbtn6 = $("#close-reject-modal")
+
+	rejbtn.click(function (ev) {
+		mdrej.show();
+		$(".modal-card-head").show();
+		ev.stopPropagation();
+	});
+	rejbtn5.click(function (ev) {
+		mdrej.close();
+		ev.stopPropagation();
+	});
+	rejbtn6.click(function (ev) {
+		mdrej.close();
 		ev.stopPropagation();
 	});
 

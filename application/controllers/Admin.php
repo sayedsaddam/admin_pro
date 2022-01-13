@@ -34,6 +34,9 @@ class Admin extends CI_Controller{
 
     // Loads the `Dashboard` view.
     public function dashboard() {
+        if ($this->AccessList()["Employees"]->read == 0) {
+            redirect('requisitions/dashboard');
+        }
         $data['title'] = 'Home | Admin & Procurement';
         $data['body'] = 'admin/dashboard';
         $data['total_employees'] = $this->admin_model->count_employ();

@@ -113,6 +113,7 @@ $id = $this->uri->segment(3);
 												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Item</th>
 												<th class="has-text-weight-semibold">Description</th>
+												<th class="has-text-weight-semibold">Rejectction Reason</th>
 												<th class="has-text-weight-semibold">Requested By</th>
 												<th class="has-text-weight-semibold">Quantity</th>
 												<th class="has-text-weight-semibold">Date</th>
@@ -125,6 +126,7 @@ $id = $this->uri->segment(3);
 												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Item</th>
 												<th class="has-text-weight-semibold">Description</th>
+												<th class="has-text-weight-semibold">Rejectction Reason</th>
 												<th class="has-text-weight-semibold">Requested By</th>
 												<th class="has-text-weight-semibold">Quantity</th>
 												<th class="has-text-weight-semibold">Date</th>
@@ -140,6 +142,9 @@ $id = $this->uri->segment(3);
 												<td><?= ucwords($request->item_name); ?></td>
 												<td><span
 														class="is-size-7"><?= ucwords(substr($request->item_desc,0,75)); ?></span>
+												</td>
+												<td><span
+														class="is-size-7"><?= ucwords(substr($request->reject_reason,0,75)); ?></span>
 												</td>
 												<td><?= ucwords($request->fullname); ?></td>
 												<td><?= ucwords($request->item_qty); ?></td>
@@ -166,7 +171,7 @@ $id = $this->uri->segment(3);
 													
                                                     <?php
 													$role = ($this->session->userdata('user_role'));
-													if($request->status == 1 && $role == 1){ ?>
+													if($request->status == 1 && $role == 3){ ?>
 													  <p class="control">
                                                                 <a data-no-instant
                                                                 href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
@@ -248,17 +253,17 @@ $id = $this->uri->segment(3);
 																	<i class="fas fa-check"></i>
 																</span>
 															</a> 
-														</p>
-														<p class="control">
-															<a class="button is-small"
-																href="<?= base_url("/requisitions/reject_request/" . $request->id) ?>"
-																onclick="javascript:return confirm('Are you sure to Reject this request. Click OK to continue!');"
-																title="reject request">
-																<span class="icon is-small has-text-danger">
+														</p>  
+														<p class="control reject-btn">
+															<button type="button"
+																data-id="<?= $request->id; ?>"  title="Reject request"
+																class="button is-small has-text-danger reject-btn">
+																<span class="icon is-small">
 																	<i class="fas fa-times"></i>
 																</span>
-															</a>
+															</button>
 														</p>
+
                                                         <?php } ?>
 													</div>
 
@@ -436,7 +441,7 @@ $id = $this->uri->segment(3);
 				<div class="modal-card">
 					<input type="hidden" name="request_id" id="requestid" value="">
 					<header class="modal-card-head">
-						<p class="modal-card-title">Select Vendor</p>
+						<p class="modal-card-title">Select Vendor </p>
 						<button class="delete" aria-label="close" id="exit-vendor-modal" type="button"></button>
 					</header>
 					<section class="modal-card-body">
@@ -474,6 +479,36 @@ $id = $this->uri->segment(3);
 			</form>
 		</div> 
 <!-- select vendor modal-->
+
+<!-- modal reject start -->
+
+<div class="modal" id="modal-rej">
+			<div class="modal-background"></div>
+			<form action="<?= base_url('requisitions/reject_request'); ?>" method="POST">
+				<div class="modal-card">
+					<input type="hidden" name="id" id="req_id" value="">
+					<header class="modal-card-head">
+						<p class="modal-card-title">Reject Request</p>
+						<button class="delete" aria-label="close" id="exit-reject-modal" type="button"></button>
+					</header>
+					<section class="modal-card-body">
+					 
+						<div class="columns">
+							<div class="column">
+								<textarea name="reason" class="textarea"
+									placeholder="Please elaboratly describe your reason for reject the request."></textarea>
+							</div>
+						</div>
+					</section>
+					<footer class="modal-card-foot">
+						<button class="button is-success" type="submit">Apply</button>
+						<button class="button" aria-label="close" id="close-reject-modal" type="reset">Cancel</button>
+					</footer>
+				</div>
+			</form>
+		</div>
+
+<!-- modal reject end -->
 
 
 <script> 
@@ -560,6 +595,31 @@ $('.vendor').click(function () {
 				}
 			});
 		});
+	});
+
+// reject request code 
+$('.reject-btn').click(function () {
+		var req_id = $(this).data('id');
+		$('#req_id').val(req_id);
+	});
+	var rejbtn = $(".reject-btn")
+	var mdrej = new BulmaModal("#modal-rej")
+
+	var rejbtn5 = $("#exit-reject-modal")
+	var rejbtn6 = $("#close-reject-modal")
+
+	rejbtn.click(function (ev) {
+		mdrej.show();
+		$(".modal-card-head").show();
+		ev.stopPropagation();
+	});
+	rejbtn5.click(function (ev) {
+		mdrej.close();
+		ev.stopPropagation();
+	});
+	rejbtn6.click(function (ev) {
+		mdrej.close();
+		ev.stopPropagation();
 	});
 
 </script>

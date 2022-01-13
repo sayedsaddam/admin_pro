@@ -13,6 +13,35 @@ $quotations = $this->Requisition_Model->VendorQuotation($id);
  
             ?>
 
+<?php if($this->session->flashdata('success')) : ?>
+				<div class="columns">
+					<div class="column">
+						<div class="notification is-success is-light">
+							<button class="delete is-small"></button>
+							<div class="columns is-vcentered">
+								<div class="column is-size-14">
+									<i class="fas fa-check pr-1"></i> <?= $message = $this->session->flashdata('success'); ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php elseif($this->session->flashdata('failed')) : ?>
+				<div class="columns">
+					<div class="column">
+					<div class="notification is-danger is-light">
+							<button class="delete is-small"></button>
+							<div class="columns is-vcentered">
+								<div class="column is-size-7">
+									<i class="fas fa-exclamation pr-1"></i> <?= $message = $this->session->flashdata('failed'); ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php endif ?>
+
+
 			<?php if(!empty($quotations->qut_id)){ ?>
 
 			<form action="<?= base_url('requisitions/save_quotation')?>" method="POST">
@@ -104,10 +133,10 @@ $quotations = $this->Requisition_Model->VendorQuotation($id);
 							<div class="column">
 								<fieldset>
 									<div class="field">
-										<label class="label is-small">Price</label>
+										<label class="label is-small">Requirement</label>
 										<div class="control has-icons-left">
-											<input type="text" class="input is-small" name="price"
-												value="<?= $quotations->price; ?>" type="text" placeholder="30,000 e.g">
+											<input type="text" class="input is-small" name="requirement"
+												value="<?= $quotations->item_requirement; ?>" type="text" placeholder="e.g laptop core i5 6th Gen">
 											<span class="icon is-small is-left">
 												<i class="fas fa-rupee-sign"></i>
 											</span>
@@ -135,7 +164,20 @@ $quotations = $this->Requisition_Model->VendorQuotation($id);
 									</div>
 								</fieldset>
 							</div>
-							<div class="column"></div>
+							<div class="column">
+								<fieldset>
+									<div class="field">
+										<label class="label is-small">Price</label>
+										<div class="control has-icons-left">
+											<input type="text" class="input is-small" name="price" required
+												value="<?= $quotations->price; ?>" type="text" placeholder="30,000 e.g">
+											<span class="icon is-small is-left">
+												<i class="fas fa-rupee-sign"></i>
+											</span>
+										</div>
+									</div>
+								</fieldset>
+							</div>
 						</div>
 
 					</div>
@@ -149,7 +191,7 @@ $quotations = $this->Requisition_Model->VendorQuotation($id);
 								<label class="label is-small">Description (Quotation) </label>
 								<div class="control">
 									<textarea name="quotation" class="textarea is-small" rows="4" value=""
-										placeholder="Quotation for product"></textarea>
+										placeholder="Quotation for product"><?= $quotations->description; ?></textarea>
 								</div>
 							</div>
 						</fieldset>
@@ -162,6 +204,7 @@ $quotations = $this->Requisition_Model->VendorQuotation($id);
 
 						<div class="buttons is-pulled-right">
 							<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
+							<?php if(empty($quotations->price)){ ?>
 							<p class="control">
 								<button class="button is-small is-success" type="submit">
 									<span>Save and continue</span>
@@ -170,6 +213,7 @@ $quotations = $this->Requisition_Model->VendorQuotation($id);
 									</span>
 								</button>
 							</p>
+							<?php } ?>
 						</div>
 
 					</div>

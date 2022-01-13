@@ -77,7 +77,7 @@
 								<div class="tile is-child">
 									<div class="columns is-vcentered">
 										<div class="column">
-											<div class="is-size-5">Assigned Item</div>
+											<div class="is-size-5">Item Statistics</div>
 
 										</div>
 									</div>
@@ -85,22 +85,33 @@
 								</div>
 							</div>
 							<div class="tile is-parent">
-								<a href="#" class="tile is-child clickable hoverable has-text-dark">
-									<div class="has-text-weight-light has-text-grey">Electronics</div>
+								<a href="<?= base_url('requisitions/user_asset_list')?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Total Assigned</div>
 									<!-- <div class="has-text-weight-semibold is-size-6">Electronics</div> -->
 
 									<div class="has-text-weight-light is-size-10"><span
-											class="has-text-success is-centered is-half"> 4 </span>
+											class="has-text-info is-centered is-half"> <?= $CountTotalAssignItem; ?> </span>
 									</div>
 
 								</a>
-								<a href="#" class="tile is-child clickable hoverable has-text-dark">
-									<div class="has-text-weight-light has-text-grey">Furniture</div>
+								<a href="<?= base_url('requisitions/user_asset_list/1')?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Assigned</div>
 									<!-- <div class="has-text-weight-semibold is-size-6">Furniture</div> -->
 
-									<div class="has-text-weight-light is-size-10"><span class="has-text-danger">6</span>
+									<div class="has-text-weight-light is-size-10"><span class="has-text-success"><?= $CountAssignedItem; ?></span>
 									</div>
 								</a>
+
+							</div>
+
+							<div class="tile is-parent">
+								<a href="<?= base_url('requisitions/user_asset_list/0')?>" class="tile is-child clickable hoverable has-text-dark">
+									<div class="has-text-weight-light has-text-grey">Returned Item</div>
+									<div class="has-text-weight-light is-size-10"><span
+											class="has-text-danger is-centered is-half"> <?= $CountReturnedItem; ?> </span>
+									</div>
+
+								</a> 
 
 							</div>
 

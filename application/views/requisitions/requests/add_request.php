@@ -207,10 +207,23 @@
 									<input type="text" name="particular[]" class="input is-small" placeholder="Particular" required>
 								</div>
 								<div class="column">
+								<label for="" class="label is-small">Requirements <small>(optional)</small> </label>
+									<input type="text" name="requirement[]" class="input is-small" placeholder="e.g laptop core i5 6th Gen">
+								</div>
+							</div>
+						</div>
+					</div>  
+					
+					<div class="columns">
+						<div class="column">
+							<div class="columns"> 
+							<div class="column">
 								<label for="" class="label is-small">Quantity</label>
 									<input type="number" name="quantity[]" class="input is-small" placeholder="Quantity" min="1" max="10" required>
 								</div>
-							</div>
+							<div class="column"></div>
+							
+						</div>
 						</div>
 					</div>  
 					<hr>
