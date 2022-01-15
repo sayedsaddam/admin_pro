@@ -180,4 +180,26 @@ class Finance_model extends CI_Model{
 		$this->db->group_by('location');
 		return $this->db->get()->row();
 	}
+	// sum of petty cash issued so far.
+	public function sum_of_petty_cash(){
+		return $this->db->select_sum('amount')->from('petty_cash_logs')->where('location', $this->session->userdata('location'))->get()->row();
+	}
+	// count all cash logs
+	public function total_logs(){
+		return $this->db->from('petty_cash_logs')->count_all_results();
+	}
+	// petty cash logs >> get all logs for cash issuance
+	public function get_petty_cash_logs($limit, $offset){
+		$this->db->select('petty_cash_logs.id,
+							petty_cash_logs.amount,
+							petty_cash_logs.created_at,
+							locations.name,
+							users.fullname');
+		$this->db->from('petty_cash_logs');
+		$this->db->join('locations', 'petty_cash_logs.location = locations.id', 'left');
+		$this->db->join('users', 'petty_cash_logs.issued_by = users.id', 'left');
+		$this->db->limit($limit, $offset);
+		$this->db->order_by('petty_cash_logs.created_at', 'DESC');
+		return $this->db->get()->result();
+	}
 }

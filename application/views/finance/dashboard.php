@@ -45,7 +45,7 @@
         <div class="media blue lighten-2 text-white z-depth-1 rounded">
           <i class="fas fa-paper-plane fa-3x blue z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
-              <p class="text-uppercase mt-2 mb-1 ml-3"><small>cash issued &raquo; <a href="<?= base_url('finance/petty_cash_issued'); ?>" class="text-light font-weight-bold">read more</a></small></p>
+              <p class="text-uppercase mt-2 mb-1 ml-3"><small>cash in hand &raquo; <a href="<?= base_url('finance/petty_cash_issued'); ?>" class="text-light font-weight-bold">read more</a></small></p>
               <p class="font-weight-bold mb-1 ml-3"><?= !empty($cash_issued) ? number_format($cash_issued->total_amount) : '0'; ?></p>
           </div>
         </div>
@@ -57,8 +57,8 @@
         <div class="media deep-purple lighten-2 text-white z-depth-1 rounded">
           <i class="fas fa-envelope fa-3x deep-purple z-depth-1 p-4 rounded-left text-white"></i>
           <div class="media-body">
-            <p class="text-uppercase mt-2 mb-1 ml-3"><small>cash in hand &raquo; <a href="" class="text-light font-weight-bold">read more</a></small></p>
-            <p class="font-weight-bold mb-1 ml-3"><?= !empty($cash_issued) && !empty($petty_cash_requested) ? number_format($cash_issued->total_amount - $petty_cash_requested->requested_amount) : '0'; ?></p>
+            <p class="text-uppercase mt-2 mb-1 ml-3"><small>cash logs &raquo; <a href="<?= base_url('finance/petty_cash_logs'); ?>" class="text-light font-weight-bold">read more</a></small></p>
+            <p class="font-weight-bold mb-1 ml-3"><?= number_format($cash_logs->amount); ?></p>
           </div>
         </div>
       </div>

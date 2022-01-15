@@ -16,6 +16,7 @@ class Finance extends CI_Controller{
 		$data['cash_issued'] = $this->finance_model->issued_petty_cash_total();
 		$data['petty_cash_requested'] = $this->finance_model->petty_requested_and_approved();
 		$data['pending_cash_requests'] = $this->finance_model->pending_requests_amount();
+		$data['cash_logs'] = $this->finance_model->sum_of_petty_cash();
         $this->load->view('admin/commons/template', $data);
 	}
 	// petty cash issuance
@@ -160,5 +161,19 @@ class Finance extends CI_Controller{
 			$this->session->set_flashdata('failed', '<strong>Failed! </strong>Updating request status was not successful.');
 			redirect($_SERVER['HTTP_REFERER']);
 		}
+	}
+	// petty cash logs >> issued so far
+	public function petty_cash_logs($offset = null){
+		$limit = 15;
+		if(!empty($offset)){
+			$this->uri->segment(3);
+		}
+		$url = 'finance/petty_cash_logs';
+		$rowscount = $this->finance_model->total_logs();
+		paginate($url, $rowscount, $limit);
+		$data['title'] = 'Petty Cash Logs | Admin & Procurement';
+		$data['body'] = 'finance/petty_cash_logs';
+		$data['cash_logs'] = $this->finance_model->get_petty_cash_logs($limit, $offset);
+		$this->load->view('admin/commons/template', $data);
 	}
 }
