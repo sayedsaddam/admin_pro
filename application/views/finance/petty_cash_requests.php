@@ -99,20 +99,22 @@
       </div>
       <div class="modal-body mx-3">
         <form action="<?=base_url('finance/update_request_status');?>" method="post" class="md-form">
-			<input type="hidden" name="id" class="id">
+					<input type="hidden" name="id" class="id">
+					<input type="hidden" name="location" class="location">
+					<input type="hidden" name="amount_requested" class="amount_requested">
 			
-			<div class="row">
-				<div class="col-md-3">
-					Justification
-				</div>
-				<div class="col-md-9 justification"></div>
-			</div>
+					<div class="row">
+						<div class="col-md-3">
+							Justification
+						</div>
+						<div class="col-md-9 justification"></div>
+					</div>
 
-			<div class="md-form">
+						<div class="md-form">
               <select name="status" id="status" class="browser-default custom-select">
-                <option value="" disabled selected>--Select Status--</option>
-                <option value="1">Accept</option>
-				<option value="2">Reject</option>
+								<option value="" disabled selected>--Select Status--</option>
+								<option value="1">Accept</option>
+								<option value="2">Reject</option>
               </select>
             </div>
 		
@@ -146,6 +148,8 @@ $(document).ready(function(){
       success: function(response){ 
         console.log(response);
         $('.id').val(response.id);
+				$('.location').val(response.location);
+				$('.amount_requested').val(response.amount);
         $('.justification').html(response.justification);
         // Display Modal
         $('#edit_cash_issuance').modal('show'); 

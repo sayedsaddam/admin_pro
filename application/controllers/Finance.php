@@ -138,12 +138,22 @@ class Finance extends CI_Controller{
 	// update petty cash request by id with status of accept or reject
 	public function update_request_status(){
 		$id = $this->input->post('id');
+		$location = $this->input->post('location');
+		$amount_requested = $this->input->post('amount_requested');
+		$cash_in_hand = $this->finance_model->get_older_cash($location);
 		$data = array(
 			'status' => $this->input->post('status'),
 			'remarks' => $this->input->post('remarks'),
 			'reviewed_by' => $this->session->userdata('id')
 		);
+		if($_POST['status'] == 1){
+			$udpate_cash = $cash_in_hand->amount_issued - $amount_requested;
+		}
 		if($this->finance_model->update_request_status($id, $data)){
+			$data2 = array(
+				'amount_issued' => $udpate_cash
+			);
+			$this->finance_model->update_petty_cash_issued($_POST['location'], $data2);
 			$this->session->set_flashdata('success', '<strong>Success! </strong>Request status was updated successfully!');
 			redirect($_SERVER['HTTP_REFERER']);
 		}else{

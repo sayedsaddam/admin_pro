@@ -145,7 +145,7 @@ class Finance_model extends CI_Model{
 	}
 	// petty cash request detail
 	public function petty_cash_request_detail($id){
-		$this->db->select('id, justification');
+		$this->db->select('id, amount, justification, location');
 		$this->db->from('petty_cash_requests');
 		$this->db->where('id', $id);
 		return $this->db->get()->row();
