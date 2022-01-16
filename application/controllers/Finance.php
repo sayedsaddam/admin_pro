@@ -176,4 +176,15 @@ class Finance extends CI_Controller{
 		$data['cash_logs'] = $this->finance_model->get_petty_cash_logs($limit, $offset);
 		$this->load->view('admin/commons/template', $data);
 	}
+	// get petty cash logs by location id.
+	public function logs_by_location($location, $offset = null){
+		$limit = 15;
+		$url = 'finance/petty_cash_logs';
+		$rowscount = $this->finance_model->total_logs();
+		paginate($url, $rowscount, $limit);
+		$data['title'] = 'Petty Cash Logs | Admin & Procurement';
+		$data['body'] = 'finance/petty_cash_logs';
+		$data['cash_logs'] = $this->finance_model->get_location_cash_logs($location, $limit, $offset);
+		$this->load->view('admin/commons/template', $data);
+	}
 }

@@ -31,7 +31,7 @@
       <div class="col-12">
       	<div class="card card-list">
           <div class="card-header white d-flex justify-content-between align-items-center py-3">
-            <p class="h5-responsive font-weight-bold mb-0">Petty Cash Issued | <small><a href="javascript:history.go(-1)" class="grey-text"><i class="fa fa-angle-left"></i> Back</a></small></p>
+            <p class="h5-responsive font-weight-bold mb-0">Petty Cash Issued | <small><a href="javascript:history.go(-1)" class="grey-text"><i class="fa fa-angle-left"></i> Back</a></small> &raquo; <small class="font-weight-light">Cash in hand is the total cash the region currently has.</small></p>
             <ul class="list-unstyled d-flex align-items-center mb-0">
               <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
               <li><i class="fas fa-times fa-sm pl-3"></i></li>
@@ -43,19 +43,17 @@
                 <thead>
                     <tr>
                         <th class="font-weight-bold">ID</th>
-                        <th class="font-weight-bold">Amount</th>
+                        <th class="font-weight-bold">Cash in Hand</th>
                         <th class="font-weight-bold">Issued By</th>
                         <th class="font-weight-bold">Location</th>
                         <th class="font-weight-bold">Remarks</th>
                         <th class="font-weight-bold">Date</th>
-                        <th class="font-weight-bold">Remaining</th>
+												<th class="font-weight-bold">Logs</th>
 												<th class="font-weight-bold">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if(!empty($cash_issued)): foreach($cash_issued as $ci): ?>
-										<?php $rem_amt = 0; $remaining_amount = $this->finance_model->approved_requests_amount($ci->id); 
-													if(!empty($remaining_amount)){ $rem_amt += $remaining_amount->requested_amount; }	?>
                     <tr>
                         <td scope="row"><?= 'CTC-'.$ci->id; ?></td>
                         <td><?= number_format($ci->amount_issued); ?></td>
@@ -63,7 +61,7 @@
                         <td><?= $ci->location_name; ?></td>
                         <td><?= ucfirst($ci->remarks); ?></td>
                         <td><?= date('M d, Y', strtotime($ci->created_at)); ?></td>
-                        <td><?= number_format($ci->amount_issued - $rem_amt); ?></td>
+												<td><a href="<?= base_url('finance/logs_by_location/'.$ci->location_id); ?>">view logs</a></td>
                         <td>
                             <a data-id="<?= $ci->id; ?>" class="badge badge-primary edit_cash_issuance" title="Edit..."><i class="fa fa-check"></i></a>
                             <a data-id="<?= $ci->id; ?>" class="badge badge-danger reject_leave" title="Delete..."><i class="fa fa-times"></i></a>

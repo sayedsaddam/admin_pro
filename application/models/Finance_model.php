@@ -62,7 +62,7 @@ class Finance_model extends CI_Model{
 							petty_cash_issuance.location,
 							petty_cash_issuance.remarks,
 							petty_cash_issuance.created_at,
-							locations.id as locaction_id,
+							locations.id as location_id,
 							locations.name as location_name,
 							users.id as user_id,
 							users.fullname');
@@ -199,6 +199,21 @@ class Finance_model extends CI_Model{
 		$this->db->join('locations', 'petty_cash_logs.location = locations.id', 'left');
 		$this->db->join('users', 'petty_cash_logs.issued_by = users.id', 'left');
 		$this->db->limit($limit, $offset);
+		$this->db->order_by('petty_cash_logs.created_at', 'DESC');
+		return $this->db->get()->result();
+	}
+	// get petty cash logs by location id
+	public function get_location_cash_logs($location, $limit, $offset){
+		$this->db->select('petty_cash_logs.id,
+							petty_cash_logs.amount,
+							petty_cash_logs.created_at,
+							locations.name,
+							users.fullname');
+		$this->db->from('petty_cash_logs');
+		$this->db->join('locations', 'petty_cash_logs.location = locations.id', 'left');
+		$this->db->join('users', 'petty_cash_logs.issued_by = users.id', 'left');
+		$this->db->limit($limit, $offset);
+		$this->db->where('locations.id', $location);
 		$this->db->order_by('petty_cash_logs.created_at', 'DESC');
 		return $this->db->get()->result();
 	}
