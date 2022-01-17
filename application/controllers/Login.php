@@ -123,7 +123,19 @@ class Login extends CI_Controller{
         $this->session->sess_destroy();
         $this->index();
     }
+// save qutation
+public function save_quotation(){ 
+    $id = $this->input->post('quot_id');
+    $data = array(
+        'price' => $this->input->post('price'),
+        'description' => $this->input->post('quotation'),
+        'updated_at' => date('Y-m-d')
+    ); 
+    $this->Requisition_Model->SaveQuotation($id,$data); //save qutation data  
 
+    $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>We appreciate you contacting us. One of our colleagues will get back in touch with you soon!Have a great day!');
+    redirect('login/vendor_quotation/'.base64_encode($id));
+}
         // vendor link code start
         public function vendor_quotation($id){
             $data['title'] = 'Quotation | Admin & Procurement';

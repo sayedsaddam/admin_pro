@@ -96,7 +96,7 @@
 											class="has-text-danger">*</span></label>
 									<div class="control has-icons-left">
 										<input type="text" class="input is-small"
-											value="<?= $this->session->userdata('fullname') ?>" type="text"
+											value="<?= ucwords($this->session->userdata('fullname')); ?>" type="text"
 											placeholder="e.g John Doe" required disabled>
 										<span class="icon is-small is-left">
 											<i class="fas fa-user-tie"></i>
@@ -130,14 +130,17 @@
 								<div class="select is-small is-fullwidth">
 									<select required disabled>
 										<option value="">Select a City</option>
-										<?php foreach ($locations as $data) : ?> 
-											<option value="<?= $data->id ?>" <?= $data->id == $this->session->userdata('location') ? 'selected' : '' ?>><?= $data->name ?></option>
+										<?php foreach ($locations as $data) : ?>
+										<option value="<?= $data->id ?>"
+											<?= $data->id == $this->session->userdata('location') ? 'selected' : '' ?>>
+											<?= ucwords($data->name); ?></option>
 										<?php endforeach ?>
 									</select>
-									<input type="hidden" name="location" value="<?= $this->session->userdata('location'); ?>">
-								<span class="icon is-small is-left">
-									<i class="fas fa-street-view"></i>
-								</span>
+									<input type="hidden" name="location"
+										value="<?= ucwords($this->session->userdata('location')); ?>">
+									<span class="icon is-small is-left">
+										<i class="fas fa-street-view"></i>
+									</span>
 								</div>
 							</div>
 						</div>
@@ -149,8 +152,8 @@
 										<label class="label is-small">Requisition Date <span
 												class="has-text-danger">*</span></label>
 										<div class="control has-icons-left">
-											<input type="date" class="input is-small"
-												value="<?= date("Y-m-d") ?>" required disabled>
+											<input type="date" class="input is-small" value="<?= date("Y-m-d") ?>"
+												required disabled>
 											<span class="icon is-small is-left">
 												<i class="fas fa-envelope"></i>
 											</span>
@@ -163,23 +166,26 @@
 
 
 					<div class="columns">
-                    <div class="column">
+						<div class="column">
 							<div class="control has-icons-left">
 								<label class="label is-small">Department <span class="has-text-danger">*</span></label>
 								<div class="select is-small is-fullwidth">
 									<select required disabled>
 										<option selected disabled value="">Select a Department</option>
 										<?php foreach ($departments as $data) : ?>
-											<option value="<?= $data->id ?>" <?= $data->id == $this->session->userdata('department') ? 'selected' : '' ?>><?= $data->department ?></option>
+										<option value="<?= $data->id ?>"
+											<?= $data->id == $this->session->userdata('department') ? 'selected' : '' ?>>
+											<?= ucwords($data->department); ?></option>
 										<?php endforeach ?>
 									</select>
-								<input type="hidden" name="department" value="<?= $this->session->userdata('department'); ?>">	
-								<span class="icon is-small is-left">
-									<i class="fas fa-street-view"></i>
-								</span>
+									<input type="hidden" name="department"
+										value="<?= ucwords($this->session->userdata('department')); ?>">
+									<span class="icon is-small is-left">
+										<i class="fas fa-street-view"></i>
+									</span>
 								</div>
 							</div>
-						</div>		
+						</div>
 						<div class="column">
 							<div class="control has-icons-left">
 								<label class="label is-small">Company <span class="has-text-danger">*</span></label>
@@ -187,53 +193,90 @@
 									<select required disabled>
 										<option selected disabled value="">Select a Company</option>
 										<?php foreach ($companies as $data) : ?>
-											<option value="<?= $data->id ?>" <?= $data->id == $this->session->userdata('company_id') ? 'selected' : '' ?>><?= $data->name ?></option>
+										<option value="<?= $data->id ?>"
+											<?= $data->id == $this->session->userdata('company_id') ? 'selected' : '' ?>>
+											<?= ucwords($data->name); ?></option>
 										<?php endforeach ?>
 									</select>
-									<input type="hidden" name="company" value="<?= $this->session->userdata('company_id'); ?>">
-								    <span class="icon is-small is-left">
-									<i class="fas fa-street-view"></i>
-								    </span>
+									<input type="hidden" name="company"
+										value="<?= $this->session->userdata('company_id'); ?>">
+									<span class="icon is-small is-left">
+										<i class="fas fa-street-view"></i>
+									</span>
 								</div>
 							</div>
 						</div>
 					</div>
 					<hr>
-                    <div class="columns">
-						<div class="column">
-							<div class="columns"> 
-								<div class="column">
-								<label for="" class="label is-small">Particular</label>
-									<input type="text" name="particular[]" class="input is-small" placeholder="Particular" required>
-								</div>
-								<div class="column">
-								<label for="" class="label is-small">Requirements <small>(optional)</small> </label>
-									<input type="text" name="requirement[]" class="input is-small" placeholder="e.g laptop core i5 6th Gen">
-								</div>
-							</div>
-						</div>
-					</div>  
-					
 					<div class="columns">
 						<div class="column">
 							<div class="columns"> 
-							<div class="column">
-								<label for="" class="label is-small">Quantity</label>
-									<input type="number" name="quantity[]" class="input is-small" placeholder="Quantity" min="1" max="10" required>
+								<div class="column">
+									<fieldset>
+										<div class="field">
+											<label for="" class="label is-small">Particular</label>
+											<div class="control has-icons-left">
+												<input type="text" name="particular[]" class="input is-small"
+													placeholder="Particular" required> <span
+													class="icon is-small is-left">
+													<i class="fas fa-quote-left"></i>
+												</span>
+											</div>
+										</div>
+									</fieldset>
+								</div> 
+								<div class="column">
+									<fieldset>
+										<div class="field">
+											<label for="" class="label is-small">Requirements <small>(optional)</small>
+											</label>
+											<div class="control has-icons-left">
+												<input type="text" name="requirement[]" class="input is-small"
+													placeholder="e.g laptop core i5 6th Gen">
+												<span class="icon is-small is-left">
+													<i class="fas fa-asterisk"></i>
+												</span>
+											</div>
+										</div>
+									</fieldset>
 								</div>
-							<div class="column"></div>
-							
+							</div>
 						</div>
+					</div>
+
+					<div class="columns">
+						<div class="column">
+							<div class="columns">  
+								<div class="column">
+									<fieldset>
+										<div class="field">
+										<label for="" class="label is-small">Quantity</label>
+											</label>
+											<div class="control has-icons-left">
+											<input type="number" name="quantity[]" class="input is-small" placeholder="Quantity"
+										min="1" max="10" required>
+												<span class="icon is-small is-left">
+													<i class="fas fa-sort-numeric-up"></i>
+												</span>
+											</div>
+										</div>
+									</fieldset>
+								</div> 
+								<div class="column"></div>
+
+							</div>
 						</div>
-					</div>  
+					</div>
 					<hr>
 					<div class="columns">
 						<div class="column">
 							<fieldset>
 								<div class="field">
-									<label class="label is-small">Reason for Purchase </label>
+									<label class="label is-small">Reason for Requests </label>
 									<div class="control">
-										<textarea name="reason" class="textarea is-small" placeholder="Please enter brief description explaining why you are requesting the item(s)." rows="4" required></textarea>
+										<textarea name="reason" class="textarea is-small"
+											placeholder="Please enter brief description explaining why you are requesting the item(s)."
+											rows="4" required></textarea>
 									</div>
 								</div>
 							</fieldset>

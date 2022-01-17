@@ -113,7 +113,6 @@ class Requisition_Model extends CI_Model{
  
     // SearchRequest() function - Searches the request list in requisitions    
     public function SearchRequest($search, $user) {
-    
         $this->db->select('item_requisitions.id,
             item_requisitions.item_name,
             item_requisitions.item_desc,
@@ -135,8 +134,10 @@ class Requisition_Model extends CI_Model{
         $this->db->or_like('requested_by', $search);
         $this->db->or_like('fullname', $search); 
         $this->db->group_end(); //Close Grouping
-        
+        $role = $this->session->userdata('user_role');
+        if($role != 1 && $role != 3){
         $this->db->where('item_requisitions.requested_by', $user);
+        }
         $this->db->order_by('item_requisitions.created_at', 'DESC');
 
         return $this->db->get()->result();
@@ -429,6 +430,7 @@ public function user_asset_list($limit, $offset){
         } 
     }
     // echo "<pre>";  print_r($this->db->get()->result());exit; 
+    $this->db->limit($limit, $offset); 
     return $this->db->get()->result(); 
 
    }

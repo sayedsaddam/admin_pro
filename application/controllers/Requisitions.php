@@ -142,7 +142,7 @@ class Requisitions extends CI_Controller{
     }
 
     // Search filters - search request
-    public function search_request(){ 
+    public function search_request(){
         $user = $this->session->userdata('id');
         $search = $this->input->get('search'); 
         $data['title'] = 'Search Requests | Requisitions';
@@ -250,6 +250,7 @@ $office = $location->name;
 
 // select product detail of selected id
     $data = $this->Requisition_Model->product_detail($request_id); 
+    $product_id = $data->id;
     $product = $data->item_name;
     $description = $data->item_desc;
     $quantity = $data->item_qty;
@@ -259,13 +260,15 @@ $email = $this->Requisition_Model->supplier_email($vendor_id);
 $sup_email = $email->email;
 
 $data = array(
-    'item' => $product,
+    'item' => $product_id,
     'quantity' => $quantity,
     'requested_by' => $this->session->userdata('id'),
     'supplier_id' => $vendor_id,
     'location_id' => $location_id,
     'created_at' => date('Y-m-d')
 );
+// echo "<pre>";
+// print_r($data);exit;
 $this->Requisition_Model->send_quotation($data); //save qutation data
 
 // create form link
@@ -295,18 +298,18 @@ $this->form_validation->set_rules('password', 'Password', 'trim|required');
 }
 
 // save qutation
-public function save_quotation(){
-    $id = $this->input->post('quot_id');
-    $data = array(
-        'price' => $this->input->post('price'),
-        'description' => $this->input->post('quotation'),
-        'updated_at' => date('Y-m-d')
-    ); 
-    $this->Requisition_Model->SaveQuotation($id,$data); //save qutation data  
+// public function save_quotation(){
+//     $id = $this->input->post('quot_id');
+//     $data = array(
+//         'price' => $this->input->post('price'),
+//         'description' => $this->input->post('quotation'),
+//         'updated_at' => date('Y-m-d')
+//     ); 
+//     $this->Requisition_Model->SaveQuotation($id,$data); //save qutation data  
 
-    $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>We appreciate you contacting us. One of our colleagues will get back in touch with you soon!Have a great day!');
-    redirect('requisitions/vendor_quotation/'.base64_encode($id));
-}
+//     $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>We appreciate you contacting us. One of our colleagues will get back in touch with you soon!Have a great day!');
+//     redirect('requisitions/vendor_quotation/'.base64_encode($id));
+// }
     // // vendor link code start
     // public function vendor_quotation($id){
     //     $data['title'] = 'Quotation | Admin & Procurement';
@@ -390,8 +393,9 @@ public function reject_quotation(){
         $config['uri_segment'] = 3;
     }
 
-    $this->load->library('pagination');
-    $url = 'requisitions/user_asset_list';
+    $this->load->library('pagination'); 
+    $url = base_url('requisitions/user_asset_list');
+
     $rowscount = $this->Requisition_Model->count_user_assign_asset();
 
     $config['base_url'] = $url;

@@ -115,8 +115,8 @@
 												<?php endif ?>
 											</tr>
 										</thead>
-										<tfoot>
-											<tr>
+										<tfoot class="is-hidden-print">
+											<tr class="is-hidden-print">
 												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Category</th> 
 												<th class="has-text-weight-semibold"><abbr
