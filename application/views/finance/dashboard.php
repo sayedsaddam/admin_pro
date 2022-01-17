@@ -108,6 +108,11 @@
               <label data-error="wrong" data-success="right" for="form34">Amount Required</label>
             </div>
 
+						<div class="md-form mb-5">
+              <input name="request_date" type="date" id="form34" class="form-control validate" required>
+              <label data-error="wrong" data-success="right" for="form34">Request Date</label>
+            </div>
+
             <div class="md-form">
               <textarea name="reason" type="text" class="md-textarea form-control" rows="3" required></textarea>
               <label data-error="wrong" data-success="right" for="form8">Justification / Reason</label>

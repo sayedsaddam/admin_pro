@@ -107,6 +107,7 @@ class Finance_model extends CI_Model{
 		$this->db->select('petty_cash_requests.id,
 							petty_cash_requests.requested_by,
 							petty_cash_requests.amount,
+							petty_cash_requests.req_date,
 							petty_cash_requests.justification,
 							petty_cash_requests.remarks,
 							petty_cash_requests.status,
@@ -127,6 +128,7 @@ class Finance_model extends CI_Model{
 		$this->db->select('petty_cash_requests.id,
 							petty_cash_requests.requested_by,
 							petty_cash_requests.amount,
+							petty_cash_requests.req_date,
 							petty_cash_requests.justification,
 							petty_cash_requests.remarks,
 							petty_cash_requests.status,
@@ -145,7 +147,7 @@ class Finance_model extends CI_Model{
 	}
 	// petty cash request detail
 	public function petty_cash_request_detail($id){
-		$this->db->select('id, amount, justification, location');
+		$this->db->select('id, amount, req_date, justification, location');
 		$this->db->from('petty_cash_requests');
 		$this->db->where('id', $id);
 		return $this->db->get()->row();

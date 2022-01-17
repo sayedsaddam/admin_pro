@@ -48,7 +48,8 @@
                         <th class="font-weight-bold">Location</th>
                         <th class="font-weight-bold">Justification</th>
 												<th class="font-weight-bold">Status</th>
-                        <th class="font-weight-bold">Date</th>
+												<th class="font-weight-bold">Date Requested</th>
+                        <th class="font-weight-bold">Date Recorded</th>
 												<th class="font-weight-bold">Action</th>
                     </tr>
                 </thead>
@@ -59,10 +60,11 @@
                         <td><?= number_format($cr->amount); ?></td>
                         <td><?= ucfirst($cr->fullname); ?></td>
                         <td><?= $cr->location_name; ?></td>
-                        <td><?= ucfirst($cr->justification); ?></td>
+                        <td title="<?= $cr->justification; ?>"><?= ucfirst(substr($cr->justification, 0, 30).' ...'); ?></td>
 												<td>
 													<?php if($cr->status == 0){ echo 'Pending'; }elseif($cr->status == 1){ echo 'Approved'; }else{ echo 'Rejected'; } ?>
 												</td>
+												<td><?= date('M d, Y', strtotime($cr->req_date)); ?></td>
                         <td><?= date('M d, Y', strtotime($cr->created_at)); ?></td>
                         <td>
 													<?php if($cr->requested_by == $this->session->userdata('id') OR $cr->status == 1): ?>

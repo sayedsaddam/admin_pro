@@ -102,6 +102,7 @@ class Finance extends CI_Controller{
 		$data = array(
 			'requested_by' => $this->session->userdata('id'),
 			'amount' => $this->input->post('amount'),
+			'req_date' => $this->input->post('request_date'),
 			'justification' => $this->input->post('reason'),
 			'location' => $this->session->userdata('location')
 		);
