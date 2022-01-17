@@ -27,7 +27,7 @@
 							</div>
 							<div class="tile is-parent">
 								<a href="<?= base_url('requisitions/request_list/3') ?>" class="tile is-child clickable hoverable has-text-dark">
-									<div class="has-text-weight-light has-text-grey">Pending Request</div> 
+									<div class="has-text-weight-light has-text-grey">Pending Requests</div> 
 
 									<div class="has-text-weight-semibold is-size-10"><span
 											class="has-text-warning is-centered is-half"> <?= $pending_requests; ?> </span>
@@ -35,7 +35,7 @@
 
 								</a>
 								<a href="<?= base_url('requisitions/request_list/2') ?>" class="tile is-child clickable hoverable has-text-dark">
-									<div class="has-text-weight-light has-text-grey">Process Request</div>
+									<div class="has-text-weight-light has-text-grey">Processd Requests</div>
 									<!-- <div class="has-text-weight-semibold is-size-6">Process</div> -->
 
 									<div class="has-text-weight-semibold is-size-10"><span class="has-text-info"><?= $process_requests; ?></span>
@@ -46,7 +46,7 @@
 
 							<div class="tile is-parent">
 								<a href="<?= base_url('requisitions/request_list/1') ?>" class="tile is-child clickable hoverable has-text-dark">
-									<div class="has-text-weight-light has-text-grey">Approved Request</div>
+									<div class="has-text-weight-light has-text-grey">Approved Requests</div>
 									<!-- <div class="has-text-weight-semibold is-size-6">Approved</div> -->
 
 									<div class="has-text-weight-semibold is-size-10"><span
@@ -55,7 +55,7 @@
 
 								</a>
 								<a href="<?= base_url('requisitions/request_list/0') ?>" class="tile is-child clickable hoverable has-text-dark">
-									<div class="has-text-weight-light has-text-grey">Rejected Request</div>
+									<div class="has-text-weight-light has-text-grey">Rejected Requests</div>
 									<!-- <div class="has-text-weight-semibold is-size-6">Rejected</div> -->
 
 									<div class="has-text-weight-semibold is-size-10"><span class="has-text-danger"><?= $rejected_requests; ?></span>
@@ -77,7 +77,7 @@
 								<div class="tile is-child">
 									<div class="columns is-vcentered">
 										<div class="column">
-											<div class="is-size-5">Item Statistics</div>
+											<div class="is-size-5">Your Items</div>
 
 										</div>
 									</div>
@@ -86,7 +86,7 @@
 							</div>
 							<div class="tile is-parent">
 								<a href="<?= base_url('requisitions/user_asset_list')?>" class="tile is-child clickable hoverable has-text-dark">
-									<div class="has-text-weight-light has-text-grey">Total Assigned</div>
+									<div class="has-text-weight-light has-text-grey">Assignment History</div>
 									<!-- <div class="has-text-weight-semibold is-size-6">Electronics</div> -->
 
 									<div class="has-text-weight-light is-size-10"><span
@@ -95,7 +95,7 @@
 
 								</a>
 								<a href="<?= base_url('requisitions/user_asset_list/1')?>" class="tile is-child clickable hoverable has-text-dark">
-									<div class="has-text-weight-light has-text-grey">Assigned</div>
+									<div class="has-text-weight-light has-text-grey">Currently Assigned</div>
 									<!-- <div class="has-text-weight-semibold is-size-6">Furniture</div> -->
 
 									<div class="has-text-weight-light is-size-10"><span class="has-text-success"><?= $CountAssignedItem; ?></span>
@@ -106,7 +106,7 @@
 
 							<div class="tile is-parent">
 								<a href="<?= base_url('requisitions/user_asset_list/0')?>" class="tile is-child clickable hoverable has-text-dark">
-									<div class="has-text-weight-light has-text-grey">Returned Item</div>
+									<div class="has-text-weight-light has-text-grey">Item Returned</div>
 									<div class="has-text-weight-light is-size-10"><span
 											class="has-text-danger is-centered is-half"> <?= $CountReturnedItem; ?> </span>
 									</div>

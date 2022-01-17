@@ -5,8 +5,8 @@
 	<div class="column">
 		<div class="columns">
 			<div class="column section py-5">
-				<div class="columns">
-					<div class="column">
+				<div class="columns is-hidden-print">
+					<div class="column is-hidden-print">
 						<?php $this->view('admin/commons/breadcrumb'); ?>
 					</div>
 				</div>
@@ -77,10 +77,10 @@ $id = $this->uri->segment(3);
   <li class="<?php if($id == null){ echo "is-active";} ?>">
 		<a href="<?= base_url('requisitions/user_asset_list') ?>">All</a>
 	</li>  
-    <li class="<?php if($id == 3){ echo "is-active";} ?>">
+    <li class="<?php if($id == 1){ echo "is-active";} ?>">
 		<a href="<?= base_url('requisitions/user_asset_list/1') ?>">Assigned</a>
 	</li>
-    <li class="<?php if($id == 2){ echo "is-active";} ?>"><a href="<?= base_url('requisitions/user_asset_list/0') ?>">Returned</a></li> 
+    <li class="<?php if($id == '0'){ echo "is-active";} ?>"><a href="<?= base_url('requisitions/user_asset_list/0') ?>">Returned</a></li> 
   </ul>
 </div>
 
@@ -103,10 +103,11 @@ $id = $this->uri->segment(3);
 														title="Depreciation Percentage">D%</abbr>
 												</th>
 												<th class="has-text-weight-semibold">Status</th>
-												<th class="has-text-weight-semibold"> P-Date</th>
+												<th class="has-text-weight-semibold"> <abbr
+														title="Purchase Date">PD</abbr></th>
  											</tr>
 										</thead>
-										<tfoot>
+										<tfoot class="is-hidden-print">
 											<tr>
 												<th class="has-text-weight-semibold"><abbr
 														title="Item Identification Number">ID</abbr></th>
@@ -119,8 +120,8 @@ $id = $this->uri->segment(3);
 														title="Depreciation Percentage">D%</abbr>
 												</th>
 												<th class="has-text-weight-semibold">Status</th>
-												<th class="has-text-weight-semibold"><abbr
-														title="Purchase Date">P-Date</abbr></th>
+												<th class="has-text-weight-semibold"> <abbr
+														title="Purchase Date">PD</abbr></th>
 											</tr>
 										</tfoot>
 										<tbody>
@@ -201,3 +202,12 @@ $id = $this->uri->segment(3);
 		
 	</div>
 </section> 
+<script>
+	$(document).ready(function () {
+		$(".result_limit").on('change', function () {
+			var val = $(this).val();
+			$(location).prop('href', '<?= current_url() ?>?<?= $this->uri->segment(2) == 'search_item' ? 'search=' . $this->input->get('search') . ' & ' : '' ?>limit=' + val)
+		})
+	})
+
+</script>

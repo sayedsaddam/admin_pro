@@ -36,11 +36,21 @@
 						<div class="field has-addons">
 							<p class="control">
 								<a href='<?= base_url('requisitions/request_list'); ?>'
-									class="button is-small <?= isset($asset_register) ? 'has-background-primary-light' : '' ?>">
+									class="button is-small <?= isset($request_list) ? 'has-background-primary-light' : '' ?>">
 									<span class="icon is-small">
 										<i class="fas fa-list"></i>
 									</span>
 									<span>Request List</span>
+								</a>
+							</p>
+							
+							<p class="control">
+								<a href="<?= base_url("requisitions/add_request") ?>"
+									class="button is-small <?= (isset($addRequestPage)) ? 'has-background-primary-light' : '' ?>">
+									<span class="icon is-small">
+										<i class="fas fa-plus"></i>
+									</span>
+									<span>Add Request</span>
 								</a>
 							</p>
 							<?php if($ApprovalAccess->write == 1) : ?>
@@ -112,19 +122,19 @@ $id = $this->uri->segment(3);
 												<th class="has-text-weight-semibold">Description</th>
 												<th class="has-text-weight-semibold">Requested By</th>
 												<th class="has-text-weight-semibold">Quantity</th>
-												<th class="has-text-weight-semibold">Date</th>
+												<th class="has-text-weight-semibold">Request Date</th>
 												<th class="has-text-weight-semibold">Status</th>
-												<th class="has-text-weight-semibold">Action</th>
+												<th class="has-text-weight-semibold is-hidden-print" id="action">Action</th>
 											</tr>
 										</thead>
-										<tfoot>
+										<tfoot class="is-hidden-print">
 											<tr>
 												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Item</th>
 												<th class="has-text-weight-semibold">Description</th>
 												<th class="has-text-weight-semibold">Requested By</th>
 												<th class="has-text-weight-semibold">Quantity</th>
-												<th class="has-text-weight-semibold">Date</th>
+												<th class="has-text-weight-semibold">Request Date</th>
 												<th class="has-text-weight-semibold">Status</th>
 												<th class="has-text-weight-semibold">Action</th>
 											</tr>
@@ -136,7 +146,7 @@ $id = $this->uri->segment(3);
 												<td class="is-narrow"><?= 'S2S-'.$request->id; ?></td>
 												<td><?= ucwords($request->item_name); ?></td>
 												<td><span
-														class="is-size-7"><?= ucwords(substr($request->item_desc,0,75)); ?></span>
+														class=""><?= ucwords(substr($request->item_desc,0,75)); ?></span>
 												</td>
 												<td><?= ucwords($request->fullname); ?></td>
 												<td><?= ucwords($request->item_qty); ?></td>
@@ -155,7 +165,7 @@ $id = $this->uri->segment(3);
 												<span class="tag is-danger is-light">Rejected </span>
 												</td>
 												<?php endif ?>
-												<td class="is-narrow">
+												<td class="is-narrow is-hidden-print">
 													<div class="field has-addons">
 														<p class="control">
 															<a href="<?= base_url('requisitions/view_request/'.$request->id); ?>"
@@ -268,4 +278,10 @@ $id = $this->uri->segment(3);
 		})
 	})
 
+
+ // Hide tfoot when table search returns empty
+ $('.exporttable').click(function () {
+  $('tfoot').remove();
+  $('#action').remove();
+});
 </script>

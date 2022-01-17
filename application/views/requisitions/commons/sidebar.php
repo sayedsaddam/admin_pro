@@ -23,18 +23,19 @@
 		Requisition
 	</p>
 	<ul class="menu-list">
-		<li><a class="<?= $this->uri->segment(2) == 'request_list' || $this->uri->segment(2) == 'add_request' ? 'is-primary is-inverted' : '' ?> nav-category"
-				<?= $this->uri->segment(2) == 'request_list' || $this->uri->segment(2) == 'add_request' ? 'style="background-color:#f1f1f1;"' : '' ?>>Requests</a>
+		<li><a class="<?= $this->uri->segment(2) == 'request_list' || $this->uri->segment(2) == 'add_request' || $this->uri->segment(2) == 'search_request' ? 'is-primary is-inverted' : '' ?> nav-category"
+				<?= $this->uri->segment(2) == 'request_list' || $this->uri->segment(2) == 'add_request' || $this->uri->segment(2) == 'search_request' ? 'style="background-color:#f1f1f1;"' : '' ?>>Requests</a>
 			<ul class="sub-categories"
-				style="<?= $this->uri->segment(2) == 'request_list' || $this->uri->segment(2) == 'add_request' ? '' : 'display: none;' ?>">
-				<li
-					class="is-size-7 <?= $this->uri->segment(2) == 'request_list' ? 'has-text-weight-bold' : '' ?>">
-					<a href="<?= base_url('requisitions/request_list'); ?>"><i class="fas fa-list mr-1"></i>
-						Request List</a></li>
+				style="<?= $this->uri->segment(2) == 'request_list' || $this->uri->segment(2) == 'add_request' || $this->uri->segment(2) == 'search_request' ? '' : 'display: none;' ?>">
 				<li
 					class="is-size-7 <?= $this->uri->segment(2) == 'add_request' ? 'has-text-weight-bold' : '' ?>">
 					<a href="<?= base_url('requisitions/add_request'); ?>"><i class="fas fa-plus mr-1"></i>
 						Add Request</a></li>
+				<li
+					class="is-size-7 <?= $this->uri->segment(2) == 'request_list' || $this->uri->segment(2) == 'search_request' ? 'has-text-weight-bold' : '' ?>">
+					<a href="<?= base_url('requisitions/request_list'); ?>"><i class="fas fa-list mr-1"></i>
+						Request List</a></li>
+				
 			</ul>
 		</li>
 	</ul> 

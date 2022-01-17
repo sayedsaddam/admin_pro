@@ -44,7 +44,7 @@ $quotations = $this->Requisition_Model->VendorQuotation($id);
 
 			<?php if(!empty($quotations->qut_id)){ ?>
 
-			<form action="<?= base_url('requisitions/save_quotation')?>" method="POST">
+			<form action="<?= base_url('login/save_quotation')?>" method="POST">
 				<input type="hidden" name="quot_id" value="<?php echo $id; ?>">
 				<div class="columns">
 					<div class="column">
@@ -136,9 +136,9 @@ $quotations = $this->Requisition_Model->VendorQuotation($id);
 										<label class="label is-small">Requirement</label>
 										<div class="control has-icons-left">
 											<input type="text" class="input is-small" name="requirement"
-												value="<?= $quotations->item_requirement; ?>" type="text" placeholder="e.g laptop core i5 6th Gen">
+												value="<?= $quotations->item_requirement; ?>" placeholder="e.g laptop core i5 6th Gen">
 											<span class="icon is-small is-left">
-												<i class="fas fa-rupee-sign"></i>
+												<i class="fas fa-asterisk"></i>
 											</span>
 										</div>
 									</div>
@@ -203,8 +203,8 @@ $quotations = $this->Requisition_Model->VendorQuotation($id);
 					<div class="column">
 
 						<div class="buttons is-pulled-right">
+								<?php if(empty($quotations->price)){ ?>
 							<button class="button is-danger is-small is-outlined" type="reset">Reset Form</button>
-							<?php if(empty($quotations->price)){ ?>
 							<p class="control">
 								<button class="button is-small is-success" type="submit">
 									<span>Save and continue</span>

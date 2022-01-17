@@ -96,26 +96,26 @@ $id = $this->uri->segment(3);
 											<tr>
 												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Item</th>
-												<th class="has-text-weight-semibold">Description</th>
+												<th class="has-text-weight-semibold"><abbr title="Depreciation Percentage">D%</abbr></th>
 												<th class="has-text-weight-semibold">Quantity</th>
 												<th class="has-text-weight-semibold">Price</th>
 												<th class="has-text-weight-semibold">Requested By</th>
 												<th class="has-text-weight-semibold">Date</th>
 												<th class="has-text-weight-semibold">Status</th>
-												<th class="has-text-weight-semibold">Action</th>
+												<th class="has-text-weight-semibold is-hidden-print">Action</th>
 											</tr>
 										</thead>
-										<tfoot>
+										<tfoot class="is-hidden-print">
 											<tr>
 												<th class="has-text-weight-semibold">ID</th>
 												<th class="has-text-weight-semibold">Item</th>
-												<th class="has-text-weight-semibold">Description</th>
+												<th class="has-text-weight-semibold"><abbr title="Depreciation Percentage">D%</abbr></th>
 												<th class="has-text-weight-semibold">Quantity</th>
 												<th class="has-text-weight-semibold">Price</th>
 												<th class="has-text-weight-semibold">Requested By</th>
 												<th class="has-text-weight-semibold">Date</th>
 												<th class="has-text-weight-semibold">Status</th>
-												<th class="has-text-weight-semibold">Action</th>
+												<th class="has-text-weight-semibold is-hidden-print">Action</th>
 											</tr>
 										</tfoot>
 										<?php if(empty($results)): ?>
@@ -125,7 +125,7 @@ $id = $this->uri->segment(3);
 												<td class="is-narrow"><?= 'S2S-'.$request->id; ?></td>
 												<td><?= ucwords($request->item); ?></td>
 												<td><span
-														class="is-size-7"><?= ucwords(substr($request->description,0,75)); ?></span>
+														class=""><?= ucwords(substr($request->description,0,75)); ?></span>
 												</td>
 												<td><?= ucwords($request->quantity); ?></td>
 												<td><?= ucwords($request->price); ?></td>
@@ -145,7 +145,7 @@ $id = $this->uri->segment(3);
 													<span class="tag is-danger is-light">Rejected </span>
 												</td>
 												<?php endif ?> 
-												<td class="is-narrow">
+												<td class="is-narrow is-hidden-print">
 
 													<div class="field has-addons">
 													
@@ -246,7 +246,7 @@ $id = $this->uri->segment(3);
 												<td class="is-narrow"><?= 'S2S-'.$res->id; ?></td>
 												<td><?= ucwords($res->item); ?></td>
 												<td><span
-														class="is-size-7"><?= ucwords(substr($res->item_desc,0,75)); ?></span>
+														class=""><?= ucwords(substr($res->item_desc,0,75)); ?></span>
 												</td>
 												<td><?= ucwords($res->fullname); ?></td>
 												<td><?= ucwords($res->item_qty); ?></td>
