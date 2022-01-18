@@ -171,7 +171,7 @@ $id = $this->uri->segment(3);
 													
                                                     <?php
 													$role = ($this->session->userdata('user_role'));
-													if($request->status == 1 && $role == 3){ ?>
+													if($request->status == 1 && $role == 3 && $request->price == null){ ?>
 													  <p class="control">
                                                                 <a data-no-instant
                                                                 href="<?= base_url('requisitions/view_request/'.$request->id); ?>"

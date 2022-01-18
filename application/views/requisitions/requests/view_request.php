@@ -216,6 +216,26 @@
 
 								<fieldset>
 								<div class="field">
+									<label class="label is-small">Requirements</label>
+									<div class="control has-icons-left">
+										<input type="text" class="input is-small"
+											value="<?= $view->item_requirement; ?>" type="text" readonly>
+								<span class="icon is-small is-left">
+									<i class="fas fa-asterisk"></i>
+								</span>
+									</div>
+								</div>
+							</fieldset>
+								</div>
+							</div>
+						</div>
+						
+					</div> 
+
+					<div class="columns">
+						<div class="column">
+						<fieldset>
+								<div class="field">
 									<label class="label is-small">Quantity</label>
 									<div class="control has-icons-left">
 										<input type="number" class="input is-small"
@@ -226,11 +246,11 @@
 									</div>
 								</div>
 							</fieldset>
-								</div>
-							</div>
-						</div>
-						
+						</div> 
+						<div class="column"></div>
+
 					</div> 
+					
 					<hr>
 					<div class="columns">
 						<div class="column">
@@ -250,7 +270,7 @@
 						<div class="column">
 
 						<div class="buttons is-pulled-right is-hidden-print">
-						<button onClick="window.print();" type="button" class="button is-small ">
+						<button onClick="window.print();" type="button" class="button is-small print">
 									<span class="icon is-small">
 										<i class="fas fa-print"></i>
 									</span>
@@ -266,6 +286,9 @@
 	</div>
 </section>
 <script>
-
+	$(".print").focus(function () {
+		$("input").css("border", "none"); 
+		$("textarea").css("border", "none"); 
+	});
 
 </script>
