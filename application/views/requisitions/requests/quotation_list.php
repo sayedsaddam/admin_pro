@@ -152,10 +152,10 @@ $id = $this->uri->segment(3);
 
 													
                                                     <?php
-													$role = ($this->session->userdata('user_role'));
-													if($request->status == 1 && $role == 1){ ?>
-													  <p class="control">
-                                                                <a data-no-instant
+												
+												$role = ($this->session->userdata('user_role'));
+												if($request->status == 2 && $role == 1){ ?>
+												           <a data-no-instant
                                                                 href="<?= base_url('login/vendor_quotation/'.base64_encode($request->id)); ?>"
                                                                 title="View Quotation" class="button is-small">
                                                                     <span class="icon is-small">
@@ -163,34 +163,61 @@ $id = $this->uri->segment(3);
                                                                     </span>
                                                                 </a>
                                                             </p> 
-															 
-														<?php }
-													elseif($request->status == 1){ ?>
-                                                            <p class="control">
-                                                                <a data-no-instant
-                                                                href="<?= base_url('login/vendor_quotation/'.base64_encode($request->id)); ?>"
-                                                                title="View Request" class="button is-small">
-                                                                    <span class="icon is-small">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    </span>
-                                                                </a>
-                                                            </p>
- 
-                                                    <?php }
-													elseif($request->status == 1 || $request->status == '0'){ ?>
-                                                            <p class="control">
-                                                                <a data-no-instant
-                                                                href="<?= base_url('login/vendor_quotation/'.base64_encode($request->id)); ?>"
-                                                                title="View Request" class="button is-small">
-                                                                    <span class="icon is-small">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    </span>
-                                                                </a>
-                                                            </p>
+												
+															<p class="control return-btn">
+															<a class="button is-small"
+																href="<?= base_url("/requisitions/approved_quotation/" . $request->id) ?>" onclick="javascript:return confirm('Are you sure to Approved this quotation. Click OK to continue!');"
+																title="approved quotation">
+																<span class="icon is-small  has-text-success">
+																	<i class="fas fa-check"></i>
+																</span>
+															</a> 
+														</p>  
+														<p class="control reject-btn">
+															<button type="button"
+																data-id="<?= $request->id; ?>"  title="Reject quotation"
+																class="button is-small has-text-danger reject-btn">
+																<span class="icon is-small">
+																	<i class="fas fa-times"></i>
+																</span>
+															</button>
+														</p>
 
-                                                    <?php }
-													else{ ?>	
-                                                        <p class="control">
+														<?php } elseif($request->status == 3 && $role == 1){ ?> 
+															<p class="control return-btn">
+															<a class="button is-small"
+																href="<?= base_url("/requisitions/approved_quotation/" . $request->id) ?>" onclick="javascript:return confirm('Are you sure to Approved this quotation. Click OK to continue!');"
+																title="approved quotation">
+																<span class="icon is-small  has-text-success">
+																	<i class="fas fa-check"></i>
+																</span>
+															</a> 
+														</p>  
+														<p class="control reject-btn">
+															<button type="button"
+																data-id="<?= $request->id; ?>"  title="Reject quotation"
+																class="button is-small has-text-danger reject-btn">
+																<span class="icon is-small">
+																	<i class="fas fa-times"></i>
+																</span>
+															</button>
+														</p>
+
+												<?php } elseif($request->status == 1) {?>
+
+													<p class="control">
+                                                                <a data-no-instant
+                                                                href="<?= base_url('login/vendor_quotation/'.base64_encode($request->id)); ?>"
+                                                                title="View Request" class="button is-small">
+                                                                    <span class="icon is-small">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </p>  
+
+											<?php } elseif($request->price <= 100000 && $role == 3 && $request->price == null){ ?>
+
+												<p class="control">
                                                                 <a data-no-instant
                                                                 href="<?= base_url('login/vendor_quotation/'.base64_encode($request->id)); ?>"
                                                                 title="View Request" class="button is-small">
@@ -229,12 +256,52 @@ $id = $this->uri->segment(3);
 															</button>
 														</p>
 
-                                                        <?php } ?>
+
+												<?php } elseif($request->price <= 100000 && $role == 3 && $request->price != null){ ?>
+												
+													<p class="control">
+                                                                <a data-no-instant
+                                                                href="<?= base_url('login/vendor_quotation/'.base64_encode($request->id)); ?>"
+                                                                title="View Request" class="button is-small">
+                                                                    <span class="icon is-small">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </p>  
+
+														<p class="control return-btn">
+															<a class="button is-small"
+																href="<?= base_url("/requisitions/approved_quotation/" . $request->id) ?>" onclick="javascript:return confirm('Are you sure to Approved this quotation. Click OK to continue!');"
+																title="approved quotation">
+																<span class="icon is-small  has-text-success">
+																	<i class="fas fa-check"></i>
+																</span>
+															</a> 
+														</p>  
+														<p class="control reject-btn">
+															<button type="button"
+																data-id="<?= $request->id; ?>"  title="Reject quotation"
+																class="button is-small has-text-danger reject-btn">
+																<span class="icon is-small">
+																	<i class="fas fa-times"></i>
+																</span>
+															</button>
+														</p>
+
+												<?php } else {?>
+													<p class="control">
+                                                                <a data-no-instant
+                                                                href="<?= base_url('login/vendor_quotation/'.base64_encode($request->id)); ?>"
+                                                                title="View Request" class="button is-small">
+                                                                    <span class="icon is-small">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </p> 
+                                               <?php } ?> 
 													</div>
 
-												</td>
-
-
+												</td> 
 												</td>
 											</tr>
 											<?php endforeach; else: echo "<tr class='table-danger text-center'><td colspan='12'>No record found.</td></tr>"; endif; ?>

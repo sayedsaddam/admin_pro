@@ -52,7 +52,7 @@ class Requisition_Model extends CI_Model{
     //    echo $role->role_id;exit;
         if(!empty($role)){
             $roleId = $role->role_id; // this query is used to take common role id --
-            $read = $role->read;
+            $read = $role->read; 
         }else{
             $roleId = 0;
         }
@@ -72,12 +72,15 @@ class Requisition_Model extends CI_Model{
             request_access.id as access_id,
             request_access.request_id,
             request_access.role_id,
-            request_access.read'
+            request_access.read,
+            quotations.id as quot_id,
+            quotations.price'
         ); 
         // echo $roleId;exit;
         $this->db->from('item_requisitions');
         $this->db->join('users', 'item_requisitions.requested_by = users.id', 'left');
         $this->db->join('request_access', 'users.user_role = request_access.role_id', 'left');
+        $this->db->join('quotations', 'item_requisitions.id = quotations.item', 'left');
         // $this->db->where('request_access.role_id', $role_id); 
         if(!empty($read)){
         $this->db->where(array($roleId => $role_id, $read => 1));
@@ -86,21 +89,21 @@ class Requisition_Model extends CI_Model{
         }// $this->db->where($roleId,$role_id); 
         // $this->db->where('request_access.read', 1); 
         $this->db->group_by('item_requisitions.id');
-        $data = $this->uri->segment(3);
-        if(isset($data)) { 
-            if($data == 0) { 
-                $this->db->where(array('item_requisitions.status' => $data));
+        $id = $this->uri->segment(3);
+        if(isset($id)) { 
+            if($id == 0) { 
+                $this->db->where(array('item_requisitions.status' => $id));
             } 
-            if($data == 1) { 
-                $this->db->where(array('item_requisitions.status' => $data));
+            if($id == 1) { 
+                $this->db->where(array('item_requisitions.status' => $id));
             } 
-            if($data == 2) { 
-                $this->db->where(array('item_requisitions.status' => $data));
+            if($id == 2) { 
+                $this->db->where(array('item_requisitions.status' => $id));
             } 
-            if($data == 3) { 
+            if($id == 3) { 
                 $this->db->where(array('item_requisitions.status' => null));
             } 
-            if(!isset($data)) { 
+            if(!isset($id)) { 
                 $this->db->where('item_requisitions.requested_by', $role_id);
                 $this->db->limit($limit, $offset); 
             }  
@@ -177,6 +180,7 @@ class Requisition_Model extends CI_Model{
             item_requisitions.item_name,
             item_requisitions.item_desc,
             item_requisitions.item_qty,
+            item_requisitions.item_requirement,
             item_requisitions.status,
             item_requisitions.created_at as date, 
             item_requisitions.requested_by,
@@ -420,17 +424,19 @@ public function user_asset_list($limit, $offset){
         $this->db->where('item_assignment.assignd_to', $this->session->userdata('id'));
     }
     
-    $data = $this->uri->segment(3); // take segment 3 when click on tab
-    if(isset($data)) { 
-        if($data == 0) { 
+    $id = $this->uri->segment(3); // taking segment 3 when click on tab 
+    if(isset($id)) { 
+        if($id == 0) {
             $this->db->where(array('item_assignment.status' => 0));
         } 
-        if($data == 1) {
+        if($id == 1) { 
             $this->db->where(array('item_assignment.status' => 1));
         } 
+    } 
+    if(!isset($id)){
+        $this->db->limit($limit, $offset); 
     }
-    // echo "<pre>";  print_r($this->db->get()->result());exit; 
-    $this->db->limit($limit, $offset); 
+    // echo $this->db->last_query(); exit;
     return $this->db->get()->result(); 
 
    }

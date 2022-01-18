@@ -1,3 +1,11 @@
+<style>
+	.print:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+</style>
+
 <div class="container ">
 	<div class="columns is-centered ">
 
@@ -214,10 +222,20 @@ $quotations = $this->Requisition_Model->VendorQuotation($id);
 								</button>
 							</p>
 							<?php } ?>
-						</div>
+							<p class="control">
+						<button onClick="window.print();" type="button" class="button is-small print">
+									<span class="icon is-small">
+										<i class="fas fa-print"></i>
+									</span>
+									<span>Print</span>
+								</button>
+							</p>
+										</div>
 
-					</div>
-				</div>
+						</div>
+ 
+				</div> 
+
 			</form>
 			<?php } ?>
 		</div>
@@ -246,11 +264,13 @@ $quotations = $this->Requisition_Model->VendorQuotation($id);
 	$("#login-form").submit(function (event) {
 		$(".button").addClass('is-loading');
 		var userPassword = document.getElementById('user-password').value;
-
 		var passwordBytes = CryptoJS.enc.Utf8.parse(userPassword);
-		var sha1Hash = CryptoJS.SHA1(passwordBytes);
-
+		var sha1Hash = CryptoJS.SHA1(passwordBytes); 
 		$("#user-password").val(sha1Hash);
 	});
 
+	$(".print").focus(function () {
+		$("input").css("border", "none"); 
+		$("textarea").css("border", "none"); 
+	});
 </script>

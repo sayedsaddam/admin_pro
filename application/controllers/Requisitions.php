@@ -187,7 +187,7 @@ class Requisitions extends CI_Controller{
         $this->pagination->initialize($config);
 
         $user = $this->session->userdata('id');
-        $role_id = $this->session->userdata('user_role');
+        $role_id = $this->session->userdata('user_role'); 
 
         $data['title'] = 'Approval List | Requisitions';
         $data['body'] = 'requisitions/requests/approval_list';
@@ -362,7 +362,7 @@ public function quotation_list($offset = null) {
   public function approved_quotation($id){
     $data = array('status' => 1); 
     $data['quotations'] = $this->Requisition_Model->ApprovedQuotation($id,$data); 
-    redirect('requisitions/approval_list'); 
+    redirect('requisitions/quotation_list'); 
 }
 // reject_quotation
 public function reject_quotation(){
@@ -372,7 +372,7 @@ public function reject_quotation(){
         'status' => 0
     );
     $data['quotations'] = $this->Requisition_Model->RejectQuotation($id,$data); 
-    redirect('requisitions/approval_list'); 
+    redirect('requisitions/quotation_list'); 
 }
 // forward quotation on base of price 
     public function forward_quotation(){
