@@ -34,8 +34,13 @@
 	</script>
 </head>
 
-<?php if(!isset($login_page)) : ?>
-
+<?php if(!isset($login_page)) : ?> 
+	<button class="navbar-burger toggle" id="menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+	
 <!-- <div class="column is-centered has-text-centered">
 	
 </div> -->

@@ -379,13 +379,13 @@ $id = $this->uri->segment(3);
 									</span>
 									<span>Print</span>
 								</button>
-								<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+								<!-- <a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
 									class="button is-small ">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>
 									</span>
 									<span>Export</span>
-								</a>
+								</a> -->
 							</div>
 						</div>
 					</div>

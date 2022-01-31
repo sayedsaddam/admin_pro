@@ -44,4 +44,5 @@ class BulmaModal {
 	addEventListener(event, callback) {
 		this.elem.addEventListener(event, callback)
 	}
+
 }

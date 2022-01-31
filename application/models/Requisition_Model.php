@@ -309,12 +309,10 @@ public function location($location_id){
         item_requisitions.id as req_id,
         item_requisitions.item_name,
         users.id as user_id,
-        users.fullname,
-
+        users.fullname, 
         quotations_access.id as quot_id,
         quotations_access.quotation_id,
-        quotations_access.read,
-
+        quotations_access.read, 
         suppliers.id as sup_id,
         suppliers.name as sup_name
         '); 
@@ -333,8 +331,7 @@ public function location($location_id){
 public function VendorQuotation($id){ 
         $this->db->select('
             quotations.id as qut_id, 
-            quotations.item,
-            quotations.item,
+            quotations.item, 
             quotations.description,
             quotations.quantity,
             quotations.price,
@@ -380,10 +377,33 @@ public function ForwardQuotation($id,$role_id, $data,$forward_request) {
     return true;
 }
 
+public function email_id($id){
+    $this->db->select('item_requisitions.id as item_id,item_requisitions.item_name,item_requirement,item_requisitions.item_qty,quotations.id as quot_id,quotations.supplier_id,quotations.item,quotations.price');
+    $this->db->from('quotations'); 
+    $this->db->join('item_requisitions', 'quotations.item = item_requisitions.id', 'left');
+    $this->db->where('quotations.id', $id);
+    return $this->db->get()->row();
+}
+
 // approved quotation  
  public function ApprovedQuotation($id, $data) {
+    $dataa = array(
+        'status' => 3
+    ); 
     $this->db->where('id', $id);
     $this->db->update('quotations', $data);
+
+    $this->db->select('id,item,status');
+    $this->db->from('quotations');
+    $this->db->where(array('id' => $id, 'status' => 1));
+    $item = $this->db->get()->row();
+    $item_id = $item->item;  
+    // $this->db->select('item,status');
+    // $this->db->from('quotations');
+    // $this->db->where(array('item' => $item_id)); 
+    $this->db->where('item', $item_id);
+    $this->db->where('status', NULL);
+    $this->db->update('quotations', $dataa); 
     return true;
 }
 // Reject Quotation
@@ -392,24 +412,22 @@ public function RejectQuotation($id, $data) {
     $this->db->update('quotations', $data);
     return true;
 }
-
     // Count user assign asset
     public function count_user_assign_asset(){
         $this->db->select('item_assignment.id as assign_id, item_assignment.assignd_to');
         $this->db->from('item_assignment');
         $this->db->join('items', 'items.id = item_assignment.item_id', 'left');
         $this->db->where('return_back_date =', null);
-        if ($this->session->userdata('user_role') != '1') {
+        if ($this->session->userdata('user_role') != '1' && $this->session->userdata('user_role') != '3') {
             $this->db->where('items.location', $this->session->userdata('location'));
-            $this->db->where('item_assignment.assignd_to', $this->session->userdata('id'));
-
-        }
-        return $this->db->count_all_results();
+            $this->db->where('item_assignment.assignd_to', $this->session->userdata('id')); 
+        } 
+        return $this->db->count_all_results(); 
     }
 
 // user item detail list 
 public function user_asset_list($limit, $offset){
-    $this->db->select('items.id, items.location, items.category, items.sub_category, items.type_name, items.model, items.serial_number, items.supplier, items.price, items.quantity, items.depreciation, items.purchasedate, items.created_at, users.fullname as employ_name, users.id as employ_id, item_assignment.item_id, item_assignment.status, item_assignment.id as item_ids, item_assignment.assignd_to, sub_categories.name as names, categories.cat_name, locations.name, suppliers.id as sup_id, suppliers.name as sup_name');
+    $this->db->select('items.id, items.location, items.category, items.sub_category, items.type_name, items.model, items.serial_number, items.supplier, items.price, items.quantity, items.depreciation, items.purchasedate, items.created_at, users.fullname as employ_name, users.id as employ_id, item_assignment.id,item_assignment.item_id, item_assignment.status, item_assignment.id as item_ids, item_assignment.assignd_to, sub_categories.name as names, categories.cat_name, locations.name, suppliers.id as sup_id, suppliers.name as sup_name');
     $this->db->from('item_assignment');
     $this->db->join('items', 'item_assignment.item_id = items.id', 'left');
     $this->db->join('categories', 'items.category = categories.id', 'left');
@@ -418,6 +436,7 @@ public function user_asset_list($limit, $offset){
     $this->db->join('locations', 'users.location = locations.id', 'left'); 
     $this->db->join('suppliers', 'items.sub_category = suppliers.id', 'left'); 
     $this->db->where('item_assignment.item_id !=', null);
+    $this->db->group_by('item_assignment.id');
 
     $role = $this->session->userdata('user_role'); 
     if($role != 3 && $role != 1){ 
@@ -440,5 +459,113 @@ public function user_asset_list($limit, $offset){
     return $this->db->get()->result(); 
 
    }
+
+// all report code below
+  // Locations - Get item locations
+  public function get_item_location(){
+    $location = $this->session->userdata('location'); 
+    $this->db->from('locations');
+    if ($this->session->userdata('user_role') != '1') {
+        $this->db->where('id', $this->session->userdata('location'));
+    }
+    return $this->db->get()->result();
+} 
+   // get department for for report
+   public function department(){
+    return $this->db->from('departments')->get()->result();
+}
+   // get company
+   public function get_company(){
+    $this->db->select('id,name,code');
+    $this->db->from('company'); 
+    return $this->db->get()->result();
+} 
+
+    // Count request
+    public function request_count(){
+        $this->db->select('item_requisitions.id as req_id, item_requisitions.status');
+        $this->db->from('item_requisitions'); ;
+        $this->db->where('item_requisitions.status', null);
+        if ($this->session->userdata('user_role') != '1' && $this->session->userdata('user_role') != '3') {
+            $this->db->where('item_requisitions.location_id', $this->session->userdata('location'));
+        } 
+        return $this->db->count_all_results(); 
+    }
+ 
+    // filter_request 
+    public function filter_request($limit, $offset,$data,$report = null,$count = null){
+        $this->db->select('item_requisitions.id, 
+        item_requisitions.item_name, 
+        item_requisitions.item_requirement, 
+        item_requisitions.item_qty,
+        item_requisitions.status,
+        item_requisitions.item_desc,
+        item_requisitions.location_id, 
+        item_requisitions.department_id, 
+        item_requisitions.company_id, 
+        item_requisitions.requested_by, 
+        item_requisitions.created_at as date,
+        locations.id as loc_id,
+        locations.name,
+        users.id as user_id,
+        users.fullname,
+        company.id as company_id,
+        company.name as company_name,
+        departments.id as dep_id,
+        departments.department as department_name,
+        locations.id as loc_id,
+        locations.name as loc_name');
+    $this->db->from('item_requisitions');
+    $this->db->join('locations','item_requisitions.location_id = locations.id');
+    $this->db->join('users','item_requisitions.requested_by = users.id');
+    $this->db->join('company','item_requisitions.company_id = company.id');
+    $this->db->join('departments','item_requisitions.department_id = departments.id');
+
+    if($data['city'] != null){
+        $this->db->where('location_id', $data['city']);
+    } 
+    if($data['company'] != null){ 
+        $this->db->like('item_requisitions.company_id', $data['company']);
+    } 
+    if($data['department'] != null){
+        $this->db->where('department_id', $data['department']);
+    } 
+    if($data['name'] != null){
+        $this->db->where('requested_by', $data['name']);
+    } 
+    if($data['item'] != null){
+        $this->db->where('item_name', $data['item']);
+    } 
+    if($data['model'] != null){
+        $this->db->where('item_requirement', $data['model']);
+    } 
+    if($data['quantity'] != null){
+        $this->db->where('item_qty', $data['quantity']);
+    }
+    if($count != false) {
+        return $this->db->count_all_results();
+    }
+    if($report == "filter_process_request"){ 
+        $this->db->where('item_requisitions.status', '2');
+    }if(empty($report)){
+        $this->db->where('item_requisitions.status', null);
+    }if($report == "filter_approved_request"){
+        $this->db->where('item_requisitions.status', '1');
+    }if($report == "reject_request_report"){
+        $this->db->where('item_requisitions.status', '0');
+    }
+
+    $this->db->limit($limit, $offset);
+    
+    return $this->db->get()->result();
+    } 
+  // Get employee against on location
+  public function employee_against_location($loc_id){
+    $this->db->select('id, fullname, email');
+    $this->db->from('users');
+    $this->db->where(array('location'=> $loc_id));
+    return $this->db->get()->result();
+}
+
 
 }

@@ -35,7 +35,11 @@
 </head>
 
 <?php if(!isset($login_page)) : ?>
-
+	<button class="navbar-burger toggle" id="menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 <!-- <div class="column is-centered has-text-centered">
 	
 </div> -->
@@ -43,6 +47,7 @@
 	<?php else: ?>
 
 	<body style="background-color:#fcfcfc;">
+	
 		<section class="section" style="height: 100vh;">
 			<section class="hero is-small is-primary is-hidden-print" style="background-color:#fbfbfb;">
 				<div class="hero-body">
@@ -52,6 +57,6 @@
 								title="S2S Marketing Logo">
 						</div>
 					</div>
-				</div>
-			</section>
-			<?php endif ?>
+			</div>
+		</section>
+		<?php endif ?>
