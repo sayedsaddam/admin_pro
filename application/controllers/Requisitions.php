@@ -297,7 +297,7 @@ $this->form_validation->set_rules('password', 'Password', 'trim|required');
         redirect('requisitions/quotation_list');
 }
 
-// save qutation
+// save qutation move to login controller
 // public function save_quotation(){
 //     $id = $this->input->post('quot_id');
 //     $data = array(
@@ -331,7 +331,7 @@ public function quotation_list($offset = null) {
     }
     $this->load->library('pagination');
 
-    $url = base_url('requisitions/approval_list');
+    $url = base_url('requisitions/quotation_list');
     $rowscount = $this->API_Model->CountRequest();
 
     $config['base_url'] = $url;
@@ -360,9 +360,37 @@ public function quotation_list($offset = null) {
 
 // approved quotation 
   public function approved_quotation($id){
+    // select supplier and item detail  
+      $supplier_email = $this->Requisition_Model->email_id($id); 
+      $item_name = $supplier_email->item_name;
+      $item_requirement = $supplier_email->item_requirement;
+      $item_qty = $supplier_email->item_qty; 
+      $price = $supplier_email->price;
+      $sup_id = $supplier_email->supplier_id;
+    // select supplier email from suppliers  
+      $email = $this->Requisition_Model->supplier_email($sup_id); 
+      $sup_email = $email->email; 
     $data = array('status' => 1); 
-    $data['quotations'] = $this->Requisition_Model->ApprovedQuotation($id,$data); 
-    redirect('requisitions/quotation_list'); 
+    $data['quotations'] = $this->Requisition_Model->ApprovedQuotation($id,$data);  
+    // email validation
+$this->load->library('form_validation');
+$this->form_validation->set_rules('email', 'Email', 'trim|valid_email|callback_check_email');
+$this->form_validation->set_rules('password', 'Password', 'trim|required'); 
+    //   send email to inform supplier about quotation
+        $from_email = "no-reply@alhayyatgroup.com";
+        $to_email = $sup_email;
+        $price = $price;
+        $product = $item_name;
+        $quantity = $item_qty;; 
+        $item_requirement = $item_requirement;  
+        $this->load->library("email");
+        $this->email->from($from_email,"AH Group");
+        $this->email->to($to_email);
+        $this->email->subject("Quotation Detail");
+        $this->email->message("Quotation for ".' '. $product .' - ' . $item_requirement . $quantity .'quantity'. 'is approved on the given amount'. $price .'<br> : Contact us for detail');
+        $this->email->send();
+        $this->session->set_flashdata('success', '<strong class="mr-1">Success.</strong>Email For Information was send successfully!');
+        redirect('requisitions/quotation_list');
 }
 // reject_quotation
 public function reject_quotation(){

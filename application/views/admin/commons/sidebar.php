@@ -3,7 +3,7 @@
 		<img src="https://s2smark.com/assets/img/logo/s2s-logo-1.png" class="logo">
 	</div>
 </div>
-<aside class="section py-4 is-narrow-mobile is-hidden-mobile" id="categories">
+<aside class="section py-4 is-narrow-mobile" id="categories">
 	<p class="menu-label">
 		General
 	</p>
@@ -172,7 +172,7 @@
 						Assets</a></li>
 				<li
 					class="is-size-7 <?= $this->uri->segment(2) == 'supplier_report' || $this->uri->segment(2) == 'filter_supplier' ? 'has-text-weight-bold' : '' ?>">
-					<a href="<?= base_url('report/asset_report'); ?>"><i class="fas fa-list mr-1"></i>
+					<a href="<?= base_url('report/supplier_report'); ?>"><i class="fas fa-list mr-1"></i>
 						Suppliers</a></li>
 				<li
 					class="is-size-7 <?= $this->uri->segment(2) == 'employee_report' || $this->uri->segment(2) == 'filter_employee' ? 'has-text-weight-bold' : '' ?>">
@@ -220,3 +220,15 @@
 			<li><a><b class="has-text-grey">Travel</b> Requests <span class="tag is-info is-light">2</span></a></li>
 		</ul> -->
 </aside>
+
+
+<script>
+$(document).ready(function(){
+	$(".toggle").click(function(){ 
+		$("aside").animate({
+                width: "toggle"
+            },800);
+		// $("aside").slideToggle();
+	}); 
+}) 
+</script>

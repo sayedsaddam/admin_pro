@@ -7,9 +7,7 @@
 	<div class="column">
 		<div class="columns">
 			<div class="column section py-5">
-
-				<?php $this->view('admin/commons/breadcrumb'); ?>
-
+				<?php $this->view('requisitions/commons/breadcrumb'); ?>
 				<div class="tile is-ancestor">
 					<!-- left card start -->
 					<div class="tile is-parent">

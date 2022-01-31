@@ -1826,8 +1826,6 @@ $email = $this->input->post('email');
 
         $this->load->view('admin/commons/new_template', $data);
     }
-
-    
     //Assign item employee detail 
     public function assigned_item_emp($id){ 
         $employee = $this->admin_model->assigned_item_emp($id);
@@ -2017,14 +2015,14 @@ $email = $this->input->post('email');
     } 
     }
     // validate item on serial number
-    public function item_validation(){
-        $serial_number = $this->input->post('serial_number');
-        $checkIfExist = $this->db->select('serial_number')->from('items')->where(array('serial_number' => $serial_number))->get()->row(); // Get serial number from items.   
-        if(isset($checkIfExist)){
-          $alert = "Item already exsist, try adding a different one.";
-        echo json_encode($alert); 
+        public function item_validation(){
+            $serial_number = $this->input->post('serial_number');
+            $checkIfExist = $this->db->select('serial_number')->from('items')->where(array('serial_number' => $serial_number))->get()->row(); // Get serial number from items.   
+            if(isset($checkIfExist)){
+            $alert = "Item already exsist, try adding a different one.";
+            echo json_encode($alert); 
+        }
     }
-}
 
     // Update an existing asset record
     public function modify_item(){

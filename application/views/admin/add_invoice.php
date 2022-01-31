@@ -125,11 +125,6 @@
 							</div>
 						</div>
 
-
-
-
-
-
 					</div>
 					<div class="columns">
 
@@ -285,5 +280,4 @@
 </section>
 <script>
 	$("#supplier").select2();
-
 </script>

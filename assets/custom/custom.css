@@ -61,6 +61,7 @@ th, td {
 
 #custom-sidebar {
       background-color:#fff; 
+      /* background-color:rgb(42, 196, 42);  */
       max-width: 250px;
 }
 
@@ -123,3 +124,34 @@ th, td {
       background-color: #000;
       color: #fff; 
 }
+#menu{
+      display: none;
+}
+@media only screen and (max-width: 600px) {
+      #categories {
+        display: none;
+      }
+      .logo{
+            display: none;
+      }
+      #menu{
+            width: 40px;
+            height: 30px; 
+            margin: 14px;
+            display: block;
+            float: right;
+      }
+      #breadcrumb{
+            padding-top: 30px;
+      }
+      #custom-sidebar{
+            width: 400px;
+            padding: 10px; 
+            float:left;
+            overflow: hidden;
+            transition: 1000;
+      }
+      aside{
+            background: #198754;
+      }
+    }

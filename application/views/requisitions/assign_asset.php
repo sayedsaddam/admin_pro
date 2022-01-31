@@ -7,7 +7,7 @@
 			<div class="column section py-5">
 				<div class="columns is-hidden-print">
 					<div class="column is-hidden-print">
-						<?php $this->view('admin/commons/breadcrumb'); ?>
+						<?php $this->view('requisitions/commons/breadcrumb'); ?>
 					</div>
 				</div>
 				<div class="columns is-hidden-touch">
@@ -185,13 +185,13 @@ $id = $this->uri->segment(3);
 									</span>
 									<span>Print</span>
 								</button>
-								<a data-no-instant href="javascript:exportTableToExcel('myTable','User Asset Records');" type="button"
+								<!-- <a data-no-instant href="javascript:exportTableToExcel('myTable','User Asset Records');" type="button"
 									class="button is-small ">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>
 									</span>
 									<span>Export</span>
-								</a>
+								</a> -->
 							</div>
 						</div>
 					</div>

@@ -100,6 +100,7 @@ $id = $this->uri->segment(3);
 												<th class="has-text-weight-semibold">Quantity</th>
 												<th class="has-text-weight-semibold">Price</th>
 												<th class="has-text-weight-semibold">Requested By</th>
+												<th class="has-text-weight-semibold">Supplier</th>
 												<th class="has-text-weight-semibold">Date</th>
 												<th class="has-text-weight-semibold">Status</th>
 												<th class="has-text-weight-semibold is-hidden-print">Action</th>
@@ -113,6 +114,7 @@ $id = $this->uri->segment(3);
 												<th class="has-text-weight-semibold">Quantity</th>
 												<th class="has-text-weight-semibold">Price</th>
 												<th class="has-text-weight-semibold">Requested By</th>
+												<th class="has-text-weight-semibold">Supplier</th>
 												<th class="has-text-weight-semibold">Date</th>
 												<th class="has-text-weight-semibold">Status</th>
 												<th class="has-text-weight-semibold is-hidden-print">Action</th>
@@ -122,14 +124,23 @@ $id = $this->uri->segment(3);
 										<tbody>
 											<?php if(!empty($requests)): foreach($requests as $request): ?>
 											<tr>
-												<td class="is-narrow"><?= 'S2S-'.$request->id; ?></td>
-												<td><?= ucwords($request->item); ?></td>
+												<td class="is-narrow"><?= 'S2S-'.$request->id; ?></td> 
+												<td><?= ucwords($request->item_name); ?></td> 
+												<?php if(!empty($request->description)) {?>
 												<td><span
 														class=""><?= ucwords(substr($request->description,0,75)); ?></span>
 												</td>
+												<?php } else {?>
+												<td>. . . .</td>
+												<?php } ?>
 												<td><?= ucwords($request->quantity); ?></td>
-												<td><?= ucwords($request->price); ?></td>
+												<?php if(!empty($request->price)) {?>
+												<td><?= ucwords($request->price); ?></td> 
+												<?php } else {?>
+												<td>. . . .</td>
+												<?php } ?>
 												<td><?= ucwords($request->fullname); ?></td>
+												<td><?= ucwords($request->sup_name); ?></td>
 												<td><?= date('M d, Y', strtotime($request->date)); ?></td>
 												<?php if($request->status == NULL) : ?>
 												<td>
@@ -203,7 +214,27 @@ $id = $this->uri->segment(3);
 															</button>
 														</p>
 
-												<?php } elseif($request->status == 1) {?>
+										    <?php } elseif($request->status == Null && $role == 3 && $request->price >= 100000){ ?>
+												<p class="control return-btn">
+												<a data-no-instant
+                                                                href="<?= base_url('login/vendor_quotation/'.base64_encode($request->id)); ?>"
+                                                                title="View Quotation" class="button is-small">
+                                                                    <span class="icon is-small">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </p> 
+															<p class="control forwad-btn">
+															<button type="button"
+																data-id="<?= $request->id; ?>"  title="Forwad Request"
+																class="button is-small forwad-btn">
+																<span class="icon is-small">
+																<i class="fas fa-arrow-right"></i>
+																</span>
+															</button>
+														</p>
+														 
+												<?php } elseif($request->status == 1 || $request->status == 3 || $request->status == '0') {?>
 
 													<p class="control">
                                                                 <a data-no-instant
@@ -215,7 +246,19 @@ $id = $this->uri->segment(3);
                                                                 </a>
                                                             </p>  
 
-											<?php } elseif($request->price <= 100000 && $role == 3 && $request->price == null){ ?>
+															<?php } elseif($request->price <= 100000 && $role == 3 && $request->price == null){ ?>
+
+																<p class="control">
+                                                                <a data-no-instant
+                                                                href="<?= base_url('login/vendor_quotation/'.base64_encode($request->id)); ?>"
+                                                                title="View Request" class="button is-small">
+                                                                    <span class="icon is-small">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </p>  
+
+											<?php } elseif($request->price <= 100000 && $role == 3 && $request->price != null){ ?>
 
 												<p class="control">
                                                                 <a data-no-instant
@@ -278,6 +321,7 @@ $id = $this->uri->segment(3);
 																</span>
 															</a> 
 														</p>  
+														
 														<p class="control reject-btn">
 															<button type="button"
 																data-id="<?= $request->id; ?>"  title="Reject quotation"
@@ -311,11 +355,12 @@ $id = $this->uri->segment(3);
 											<?php if(!empty($results)): foreach($results as $res): ?>
 											<tr>
 												<td class="is-narrow"><?= 'S2S-'.$res->id; ?></td>
-												<td><?= ucwords($res->item); ?></td>
+												<td><?= ucwords($res->item_name); ?></td>
 												<td><span
 														class=""><?= ucwords(substr($res->item_desc,0,75)); ?></span>
 												</td>
 												<td><?= ucwords($res->fullname); ?></td>
+												<td><?= ucwords($res->sup_name); ?></td>
 												<td><?= ucwords($res->item_qty); ?></td>
 												<td><?= date('M d, Y', strtotime($res->date)); ?></td>
 
@@ -421,13 +466,13 @@ $id = $this->uri->segment(3);
 									</span>
 									<span>Print</span>
 								</button>
-								<a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
+								<!-- <a href="javascript:exportTableToExcel('myTable','Item  Records');" type="button"
 									class="button is-small ">
 									<span class="icon is-small">
 										<i class="fas fa-file-export"></i>
 									</span>
 									<span>Export</span>
-								</a>
+								</a> -->
 							</div>
 						</div>
 					</div>
