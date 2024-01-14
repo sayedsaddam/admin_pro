@@ -44,6 +44,7 @@
                   <th class="font-weight-bold">Charge To</th>
                   <th class="font-weight-bold">Status</th>
                   <th class="font-weight-bold">Requested On</th>
+									<th class="font-weight-bold">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -63,6 +64,9 @@
                         <?php if($travel->travel_status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($travel->travel_status == 1){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
                     </td>
                     <td><?= date('M d, Y', strtotime($travel->created_at)); ?></td>
+										<td>
+											<a href="<?= base_url('users/dsa_claim/'.$travel->id); ?>" class="btn btn-outline-primary btn-sm">DSA Claim</a>
+										</td>
                   </tr>
                 <?php endforeach; else: echo "<tr class='table-danger'><td colspan='12' align='center'>No record found.</td></tr>"; endif; ?>
               </tbody>

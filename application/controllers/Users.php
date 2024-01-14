@@ -97,7 +97,7 @@ class Users extends CI_Controller{
         $leave_detail = $this->user_model->leave_detail($id);
         echo json_encode($leave_detail);
     }
-    //== ---------------------------------------------- Employee Travel Requests --------------------------------------------- ==//
+    //== ---------------------------------------- Employee Travel Requests ---------------------------------------- ==//
     // Place a travel request.
     public function apply_travel(){
         $stay_request = $this->input->post('stay_request');
@@ -140,6 +140,10 @@ class Users extends CI_Controller{
         $data['travels'] = $this->user_model->travel_history($limit, $offset);
         $this->load->view('admin/commons/template', $data);   
     }
+	// Request a DSA claim
+	public function dsa_claim($id){
+		echo $id;
+	}
     // Profile > user profile
     public function profile(){
         $data['title'] = 'Profile | Admin & Procurement';
