@@ -74,6 +74,7 @@
             <option value="admin" <?php if(!empty($edit) && $edit->user_role == 'admin'){ echo 'selected'; } ?>>Admin</option>
             <option value="supervisor" <?php if(!empty($edit) && $edit->user_role == 'supervisor'){ echo 'selected'; } ?>>Supervisor</option>
 						<option value="finance" <?php if(!empty($edit) && $edit->user_role == 'finance'){ echo 'selected'; } ?>>Finance</option>
+						<option value="director" <?php if(!empty($edit) && $edit->user_role == 'director'){ echo 'selected'; } ?>>Director</option>
           </select>
 
           <!-- Sign up button -->

@@ -92,6 +92,8 @@ class Login extends CI_Controller{
                 redirect('supervisor');
             }elseif($this->session->userdata('user_role') == 'finance'){
 				redirect('finance');
+			}elseif($this->session->userdata('user_role') == 'director'){
+				redirect('director');
 			}
         }else{
             $this->session->set_flashdata('login_failed', "<strong>Oops! </strong>Something went wrong but don't fret, let's give it another shot.");
