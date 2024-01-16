@@ -75,111 +75,111 @@
 <div class="modal fade" id="approve_leave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Leave Approval Form</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="col-md-12">
-                <h5>Leave Reason</h5>
-                <p class="leave_reason"></p>
-                <form action="<?= base_url('director/approve_leave'); ?>" method="post">
-                    <input type="hidden" name="id" id="app_leave_id" value="">
-                    <div class="form-group">
-                        <label for="remarks">Director Remarks</label>
-                        <textarea name="remarks" rows="3" id="app_sup_remarks" class="form-control" placeholder="Director Remarks..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success">Save Changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Leave Approval Form</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<h5>Leave Reason</h5>
+						<p class="leave_reason"></p>
+						<form action="<?= base_url('director/approve_leave'); ?>" method="post">
+							<input type="hidden" name="id" id="app_leave_id" value="">
+							<div class="form-group">
+								<label for="remarks">Director Remarks</label>
+								<textarea name="remarks" rows="3" id="app_sup_remarks" class="form-control" placeholder="Director Remarks..."></textarea>
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-success">Save Changes</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
   </div>
 </div>
 
 <!-- Modal > Leave rejection. -->
 <div class="modal fade" id="reject_leave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Leave Rejection Form</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="col-md-12">
-               <h5>Leave Reason</h5>
-                <p class="leave_reason"></p>
-                <form action="<?= base_url('director/reject_leave'); ?>" method="post">
-                    <input type="hidden" name="id" id="rej_leave_id" value="">
-                    <div class="form-group">
-                        <label for="remarks">Director Remarks</label>
-                        <textarea name="remarks" id="rej_sup_remarks" rows="3" class="form-control" placeholder="Director Remarks..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-danger">Save Changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Leave Rejection Form</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<h5>Leave Reason</h5>
+						<p class="leave_reason"></p>
+						<form action="<?= base_url('director/reject_leave'); ?>" method="post">
+							<input type="hidden" name="id" id="rej_leave_id" value="">
+							<div class="form-group">
+								<label for="remarks">Director Remarks</label>
+								<textarea name="remarks" id="rej_sup_remarks" rows="3" class="form-control" placeholder="Director Remarks..."></textarea>
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-danger">Save Changes</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
 </div>
 <script>
 $(document).ready(function(){
-  $('.approve_leave').click(function(){  // Leave approval modal will be displayed.
-    var leave_id = $(this).data('id');
-    // AJAX request
-    $.ajax({
-    url: '<?= base_url('supervisor/leave_info/'); ?>' + leave_id,
-    method: 'POST',
-    dataType: 'JSON',
-    data: {leave_id: leave_id},
-      success: function(response){ 
-        console.log(response);
-        $('#app_leave_id').val(response.id);
-        $('.leave_reason').html(response.leave_reason);
-        $('#app_sup_remarks').val(response.sup_remarks);
-        // Display Modal
-        $('#approve_leave').modal('show'); 
-      }
-    });
-  });
+  	$('.approve_leave').click(function(){  // Leave approval modal will be displayed.
+		var leave_id = $(this).data('id');
+		// AJAX request
+		$.ajax({
+		url: '<?= base_url('supervisor/leave_info/'); ?>' + leave_id,
+		method: 'POST',
+		dataType: 'JSON',
+		data: {leave_id: leave_id},
+			success: function(response){ 
+			console.log(response);
+			$('#app_leave_id').val(response.id);
+			$('.leave_reason').html(response.leave_reason);
+			$('#app_sup_remarks').val(response.sup_remarks);
+			// Display Modal
+			$('#approve_leave').modal('show'); 
+			}
+		});
+  	});
   // 
-  $('.reject_leave').click(function(){  
-    var leave_id = $(this).data('id');
-    // AJAX request
-    $.ajax({
-    url: '<?= base_url('supervisor/leave_info/'); ?>' + leave_id,
-    method: 'POST',
-    dataType: 'JSON',
-    data: {leave_id: leave_id},
-      success: function(response){ 
-        console.log(response);
-        $('#rej_leave_id').val(response.id);
-        $('.leave_reason').html(response.leave_reason);
-        $('#rej_sup_remarks').val(response.sup_remarks);
-        // Display Modal
-        $('#reject_leave').modal('show'); 
-      }
-    });
-  });
+	$('.reject_leave').click(function(){  
+		var leave_id = $(this).data('id');
+		// AJAX request
+		$.ajax({
+		url: '<?= base_url('supervisor/leave_info/'); ?>' + leave_id,
+		method: 'POST',
+		dataType: 'JSON',
+		data: {leave_id: leave_id},
+			success: function(response){ 
+			console.log(response);
+			$('#rej_leave_id').val(response.id);
+			$('.leave_reason').html(response.leave_reason);
+			$('#rej_sup_remarks').val(response.sup_remarks);
+			// Display Modal
+			$('#reject_leave').modal('show'); 
+			}
+		});
+	});
 });
 </script>
