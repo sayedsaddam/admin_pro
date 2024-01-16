@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-8 col-md-8">
-        <h1 class="font-weight-bold">Admin & Procurement 
+        <h1 class="font-weight-bold">HRM 
 					<?php if($this->session->userdata('user_role') == 'supervisor'): ?>|
 						<a href="<?= base_url('supervisor'); ?>" class="btn btn-outline-light btn-sm">Supervisor board</a>
 					<?php elseif($this->session->userdata('user_role') == 'finance'): ?>

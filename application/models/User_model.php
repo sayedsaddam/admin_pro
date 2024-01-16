@@ -89,7 +89,7 @@ class User_model extends CI_Model{
     }
     // Leave detail > Reason for leave.
     public function leave_detail($id){
-        $this->db->select('id, leave_reason, sup_remarks');
+        $this->db->select('id, leave_reason, sup_remarks, leave_status');
         $this->db->from('employee_leaves');
         $this->db->where('id', $id);
         return $this->db->get()->row();

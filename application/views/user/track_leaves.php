@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-8">
-        <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
+        <h2 class="display-4 font-weight-bold">HRM</h2>
         <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
@@ -51,7 +51,7 @@
                     <td><?= date('M d, Y', strtotime($leave->leave_to)); ?></td>
                     <td><?= $leave->no_of_days; ?></td>
                     <td>
-                        <?php if($leave->leave_status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($leave->leave_status == 1){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
+                        <?php if($leave->leave_status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($leave->leave_status == 1){ echo "<span class='badge badge-warning' title='pending for director approval'>approved</span>"; }elseif($leave->leave_status == 2){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
                     </td>
                     <td><?= date('M d, Y', strtotime($leave->created_at)); ?></td>
                     <td><a data-id="<?= $leave->id; ?>" class="btn btn-outline-info btn-sm leave_detail">Detail</a></td>
@@ -154,9 +154,13 @@
                 <div class="col-4">Leave Reason: </div>
                 <div class="col-8 leave_reason"></div>
               </div>
-              <div class="row">
+              <div class="row mb-3">
                 <div class="col-4">Supervisor Remarks: </div>
                 <div class="col-8 sup_remarks"></div>
+              </div>
+							<div class="row">
+                <div class="col-4">Progress: </div>
+                <div class="col-8 leaveProcess"></div>
               </div>
             </div>
           </div>
@@ -178,9 +182,14 @@
         dataType: 'JSON',
         data:{leave_id: leave_id},
         success: function(response){
-          console.log(response);
+					console.log(response);
+					var status = response.leave_status;
+					if(status == 1){
+						status = "Pending for director\'s approval."
+					}
           $('.leave_reason').html(response.leave_reason);
           $('.sup_remarks').html(response.sup_remarks);
+					$('.leaveProcess').html(status);
           $('#leave_detail').modal('show');
         }
       });

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-8">
-        <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
+        <h2 class="display-4 font-weight-bold">HRM</h2>
         <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
@@ -61,7 +61,7 @@
                     <td><?= date('M d, Y', strtotime($travel->visit_date_end)); ?></td>
                     <td><?= ucfirst($travel->charge_to); ?></td>
                     <td>
-                        <?php if($travel->travel_status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($travel->travel_status == 1){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
+                        <?php if($travel->travel_status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($travel->travel_status == 1){ echo "<span class='badge badge-warning' title='pending for director approval'>approved</span>"; }elseif($travel->travel_status == 2){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
                     </td>
                     <td><?= date('M d, Y', strtotime($travel->created_at)); ?></td>
 										<td>
