@@ -8,7 +8,7 @@ class Director_model extends CI_Model{
 	}
 	// count all leave requests pending for director's approval
 	public function countPendingLeaveRequests(){
-		return $this->db->from('employee_leaves')->count_all_results();
+		return $this->db->from('employee_leaves')->where('leave_status', 1)->count_all_results();
 	}
 	// get all leave requests pending for director's approval
 	public function getPendingLeaveRequests($limit, $offset){
@@ -38,6 +38,10 @@ class Director_model extends CI_Model{
 		$this->db->update('employee_leaves', $data);
 		return true;
   	}
+	// count travel requests
+	public function countTravelRequests(){
+		return $this->db->from('travel_hotel_stay')->where('travel_status', 1)->count_all_results();
+	}
 	// Get leave applications by employees.
 	public function getTravelApplications($limit, $offset){
 		$this->db->select('travel_hotel_stay.*,

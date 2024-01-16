@@ -95,4 +95,18 @@ class Director extends CI_Controller{
 		$data['leaves'] = $this->director_model->getPendingLeaveRequests($limit, $offset);
 		$this->load->view('admin/commons/template', $data);
 	}
+	// get all travel requests for director's approval
+	public function get_all_travels($offset = null){
+		$limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'director/get_all_travels';
+        echo $rowscount = $this->director_model->countTravelRequests();
+        paginate($url, $rowscount, $limit);
+        $data['title'] = 'Travel Requests | HRM';
+        $data['body'] = 'director/travel_requests';
+        $data['travels'] = $this->director_model->getTravelApplications($limit, $offset);
+        $this->load->view('admin/commons/template', $data);
+	}
 }

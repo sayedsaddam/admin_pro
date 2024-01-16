@@ -101,7 +101,7 @@
 						</table>
 					</div>
 					<div class="card-footer white py-3 d-flex justify-content-end">
-						<a href="" class="btn btn-outline-primary btn-md">View All</a>
+						<a href="<?= base_url('director/get_all_travels'); ?>" class="btn btn-outline-primary btn-md">View All</a>
 					</div>
 				</div>
 			</div>
