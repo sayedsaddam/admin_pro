@@ -158,9 +158,17 @@
                 <div class="col-4">Supervisor Remarks: </div>
                 <div class="col-8 sup_remarks"></div>
               </div>
-							<div class="row">
+							<div class="row mb-3">
+                <div class="col-4">Director Remarks: </div>
+                <div class="col-8 dir_remarks"></div>
+              </div>
+							<div class="row mb-3">
                 <div class="col-4">Progress: </div>
                 <div class="col-8 leaveProcess"></div>
+              </div>
+							<div class="row">
+                <div class="col-4">Last Updated: </div>
+                <div class="col-8 lastUpdated"></div>
               </div>
             </div>
           </div>
@@ -189,7 +197,9 @@
 					}
           $('.leave_reason').html(response.leave_reason);
           $('.sup_remarks').html(response.sup_remarks);
+					$('.dir_remarks').html(response.dir_remarks);
 					$('.leaveProcess').html(status);
+					$('.lastUpdated').html(response.updated_at);
           $('#leave_detail').modal('show');
         }
       });

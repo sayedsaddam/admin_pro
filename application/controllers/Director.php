@@ -26,11 +26,11 @@ class Director extends CI_Controller{
 			'updated_at' => date('Y-m-d H:i:s')
 		);
 		if($this->director_model->leaveActions($id, $data)){
-			 $this->session->set_flashdata('success', '<strong>Success! </strong>Leave request was approved successfully.');
-			 redirect($_SERVER['HTTP_REFERER']);
+			$this->session->set_flashdata('success', '<strong>Success! </strong>Leave request was approved successfully.');
+			redirect($_SERVER['HTTP_REFERER']);
 		}else{
-			 $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-			 redirect($_SERVER['HTTP_REFERER']);
+			$this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+			redirect($_SERVER['HTTP_REFERER']);
 		}
   	}
 	// reject leave.
@@ -42,11 +42,11 @@ class Director extends CI_Controller{
 			'updated_at' => date('Y-m-d H:i:s')
 		);
 		if($this->direcotor_model->leaveActions($id, $data)){
-			 $this->session->set_flashdata('success', '<strong>Success! </strong>Leave request was rejected successfully.');
-			 redirect($_SERVER['HTTP_REFERER']);
+			$this->session->set_flashdata('success', '<strong>Success! </strong>Leave request was rejected successfully.');
+			redirect($_SERVER['HTTP_REFERER']);
 		}else{
-			 $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
-			 redirect($_SERVER['HTTP_REFERER']);
+			$this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again!');
+			redirect($_SERVER['HTTP_REFERER']);
 		}
   	}
 	// Approve travel request
@@ -55,32 +55,32 @@ class Director extends CI_Controller{
 			 redirect('');
 		}
 		$data = array(
-			 'travel_status' => 2,
-			 'updated_at' => date('Y-m-d')
+			'travel_status' => 2,
+			'updated_at' => date('Y-m-d')
 		);
 		if($this->director_model->travelActions($id, $data)){
-			 $this->session->set_flashdata('success', '<strong>Success! </strong>Request approval was successful.');
-			 redirect($_SERVER['HTTP_REFERER']);
+			$this->session->set_flashdata('success', '<strong>Success! </strong>Request approval was successful.');
+			redirect($_SERVER['HTTP_REFERER']);
 		}else{
-			 $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong in request rejection. Please try again.');
-			 redirect($_SERVER['HTTP_REFERER']);
+			$this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong in request rejection. Please try again.');
+			redirect($_SERVER['HTTP_REFERER']);
 		}
   	}
   // Reject travel request
   public function reject_travel($id){
 		if(!$this->session->userdata('username')){
-			 redirect('');
+			redirect('');
 		}
 		$data = array(
-			 'travel_status' => 3,
-			 'updated_at' => date('Y-m-d')
+			'travel_status' => 3,
+			'updated_at' => date('Y-m-d')
 		);
 		if($this->director_model->travelActions($id, $data)){
-			 $this->session->set_flashdata('success', '<strong>Success! </strong>Request rejection was successful.');
-			 redirect($_SERVER['HTTP_REFERER']);
+			$this->session->set_flashdata('success', '<strong>Success! </strong>Request rejection was successful.');
+			redirect($_SERVER['HTTP_REFERER']);
 		}else{
-			 $this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong in request rejection. Please try again.');
-			 redirect($_SERVER['HTTP_REFERER']);
+			$this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong in request rejection. Please try again.');
+			redirect($_SERVER['HTTP_REFERER']);
 		}
  	}
 	// get all leave requests pending for director's approval
@@ -100,15 +100,15 @@ class Director extends CI_Controller{
 	// get all travel requests for director's approval
 	public function get_all_travels($offset = null){
 		$limit = 15;
-        if(!empty($offset)){
-            $this->uri->segment(3);
-        }
-        $url = 'director/get_all_travels';
-        echo $rowscount = $this->director_model->countTravelRequests();
-        paginate($url, $rowscount, $limit);
-        $data['title'] = 'Travel Requests | HRM';
-        $data['body'] = 'director/travel_requests';
-        $data['travels'] = $this->director_model->getTravelApplications($limit, $offset);
-        $this->load->view('admin/commons/template', $data);
+		if(!empty($offset)){
+			$this->uri->segment(3);
+		}
+		$url = 'director/get_all_travels';
+		echo $rowscount = $this->director_model->countTravelRequests();
+		paginate($url, $rowscount, $limit);
+		$data['title'] = 'Travel Requests | HRM';
+		$data['body'] = 'director/travel_requests';
+		$data['travels'] = $this->director_model->getTravelApplications($limit, $offset);
+		$this->load->view('admin/commons/template', $data);
 	}
 }
