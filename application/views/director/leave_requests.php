@@ -87,6 +87,8 @@
 					<div class="col-md-12">
 						<h5>Leave Reason</h5>
 						<p class="leave_reason"></p>
+						<h5>Supervisor's Remarks</h5>
+						<p class="sup_remarks"></p>
 						<form action="<?= base_url('director/approve_leave'); ?>" method="post">
 							<input type="hidden" name="id" id="app_leave_id" value="">
 							<div class="form-group">
@@ -123,6 +125,8 @@
 					<div class="col-md-12">
 						<h5>Leave Reason</h5>
 						<p class="leave_reason"></p>
+						<h5>Supervisor's Remarks</h5>
+						<p class="sup_remarks"></p>
 						<form action="<?= base_url('director/reject_leave'); ?>" method="post">
 							<input type="hidden" name="id" id="rej_leave_id" value="">
 							<div class="form-group">
@@ -156,6 +160,7 @@ $(document).ready(function(){
 			console.log(response);
 			$('#app_leave_id').val(response.id);
 			$('.leave_reason').html(response.leave_reason);
+			$('.sup_remarks').html(response.sup_remarks);
 			$('#app_sup_remarks').val(response.sup_remarks);
 			// Display Modal
 			$('#approve_leave').modal('show'); 
@@ -175,6 +180,7 @@ $(document).ready(function(){
 			console.log(response);
 			$('#rej_leave_id').val(response.id);
 			$('.leave_reason').html(response.leave_reason);
+			$('.sup_remarks').html(response.sup_remarks);
 			$('#rej_sup_remarks').val(response.sup_remarks);
 			// Display Modal
 			$('#reject_leave').modal('show'); 

@@ -21,8 +21,9 @@ class Director extends CI_Controller{
 	public function approve_leave(){
 		$id = $this->input->post('id'); // Leave id.
 		$data = array(
-			 'leave_status' => 2,
-			 'sup_remarks' => $this->input->post('remarks')
+			'leave_status' => 2,
+			'dir_remarks' => $this->input->post('remarks'),
+			'updated_at' => date('Y-m-d H:i:s')
 		);
 		if($this->director_model->leaveActions($id, $data)){
 			 $this->session->set_flashdata('success', '<strong>Success! </strong>Leave request was approved successfully.');
@@ -36,8 +37,9 @@ class Director extends CI_Controller{
 	public function reject_leave(){
 		$id = $this->input->post('id');
 		$data = array(
-			 'leave_status' => 3,
-			 'sup_remarks' => $this->input->post('remarks')
+			'leave_status' => 3,
+			'dir_remarks' => $this->input->post('remarks'),
+			'updated_at' => date('Y-m-d H:i:s')
 		);
 		if($this->direcotor_model->leaveActions($id, $data)){
 			 $this->session->set_flashdata('success', '<strong>Success! </strong>Leave request was rejected successfully.');
