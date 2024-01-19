@@ -79,57 +79,56 @@
   <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
   <div class="modal-dialog modal-right" role="document">
     <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title w-100" id="myModalLabel">Apply Leave</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-lg-12 col-md-12">
-              <h4 class="font-weight-lighter mb-5 text-center">Pleas fill out the form below.</h4>
-              <!-- Form -->
-              <form action="<?= base_url('users/apply_leave'); ?>" method="post">
-                  <!-- First name -->
-                  <div class="form-group">
-                      <label for="itemName">Leave Type</label>
-                      <select name="leave_type" id="leave_type" class="browser-default custom-select">
-                          <option value="" disabled selected>-- Select Type --</option>
-                          <option value="Annual">Annual</option>
-                          <option value="Casual">Casual</option>
-                          <option value="Medical">Medical</option>
-                          <option value="Maternity">Maternity</option>
-                      </select>
-                  </div>
-                  <div class="form-group">
-                      <label for="from_date">Date From</label>
-                      <input type="date" name="from_date" id="from_date" class="form-control">
-                  </div>
-                  <div class="form-group">
-                      <label for="to_date">Date To</label>
-                      <input type="date" name="to_date" id="to_date" class="form-control">
-                  </div>
-                  <div class="form-group">
-                      <label for="no_of_days">Number of Days</label>
-                      <input type="number" name="no_of_days" id="no_of_days" placeholder="No. of days..." class="form-control">
-                  </div>
-                  <div class="form-group">
-                      <label for="reason">Reason for Leave</label>
-                      <textarea name="leave_reason" id="leave_reason" rows="3" class="form-control" placeholder="Reason for leave..."></textarea>
-                  </div>
-                  
-                  <div class="form-group">
-                      <input type="submit" name="submit" class="btn btn-primary" value="Apply Leave">
-                  </div>
-              </form>
-              <!-- Form -->
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+			<div class="modal-header">
+					<h4 class="modal-title w-100" id="myModalLabel">Apply Leave</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<h4 class="font-weight-lighter mb-5 text-center">Pleas fill out the form below.</h4>
+						<!-- Form -->
+						<form action="<?= base_url('users/apply_leave'); ?>" method="post">
+							<!-- First name -->
+							<div class="form-group">
+								<label for="itemName">Leave Type</label>
+								<select name="leave_type" id="leave_type" class="browser-default custom-select">
+									<option value="" disabled selected>-- Select Type --</option>
+									<option value="Annual">Annual</option>
+									<option value="Casual">Casual</option>
+									<option value="Medical">Medical</option>
+									<option value="Maternity">Maternity</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="from_date">Date From</label>
+								<input type="date" name="from_date" id="from_date" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="to_date">Date To</label>
+								<input type="date" name="to_date" id="to_date" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="no_of_days">Number of Days</label>
+								<input type="number" name="no_of_days" id="no_of_days" placeholder="No. of days..." class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="reason">Reason for Leave</label>
+								<textarea name="leave_reason" id="leave_reason" rows="3" class="form-control" placeholder="Reason for leave..."></textarea>
+							</div>
+							<div class="form-group">
+								<input type="submit" name="submit" class="btn btn-primary" value="Apply Leave">
+							</div>
+						</form>
+						<!-- Form -->
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
     </div>
   </div>
 </div>
@@ -140,43 +139,43 @@
   aria-hidden="true">
   <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
   <div class="modal-dialog modal-lg modal-right" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title w-100" id="myModalLabel">Leave Detail</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-lg-12 col-md-12">
-              <div class="row mb-3">
-                <div class="col-4">Leave Reason: </div>
-                <div class="col-8 leave_reason"></div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-4">Supervisor Remarks: </div>
-                <div class="col-8 sup_remarks"></div>
-              </div>
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title w-100" id="myModalLabel">Leave Detail</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
 							<div class="row mb-3">
-                <div class="col-4">Director Remarks: </div>
-                <div class="col-8 dir_remarks"></div>
-              </div>
+								<div class="col-4">Leave Reason: </div>
+								<div class="col-8 leave_reason"></div>
+							</div>
 							<div class="row mb-3">
-                <div class="col-4">Progress: </div>
-                <div class="col-8 leaveProcess"></div>
-              </div>
+								<div class="col-4">Supervisor Remarks: </div>
+								<div class="col-8 sup_remarks"></div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-4">Director Remarks: </div>
+								<div class="col-8 dir_remarks"></div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-4">Progress: </div>
+								<div class="col-8 leaveProcess"></div>
+							</div>
 							<div class="row">
-                <div class="col-4">Last Updated: </div>
-                <div class="col-8 lastUpdated"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-    </div>
+								<div class="col-4">Last Updated: </div>
+								<div class="col-8 lastUpdated"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
   </div>
 </div>
 <!-- Leave detail > Reason for leave -->
