@@ -189,17 +189,17 @@
         dataType: 'JSON',
         data:{leave_id: leave_id},
         success: function(response){
-					console.log(response);
-					var status = response.leave_status;
-					if(status == 1){
-						status = "Pending for director\'s approval."
-					}
-          $('.leave_reason').html(response.leave_reason);
-          $('.sup_remarks').html(response.sup_remarks);
-					$('.dir_remarks').html(response.dir_remarks);
-					$('.leaveProcess').html(status);
-					$('.lastUpdated').html(response.updated_at);
-          $('#leave_detail').modal('show');
+				console.log(response);
+				var status = response.leave_status;
+				if(status == 1){
+					status = "Pending for director\'s approval."
+				}
+			$('.leave_reason').html(response.leave_reason);
+			$('.sup_remarks').html(response.sup_remarks);
+			$('.dir_remarks').html(response.dir_remarks);
+			$('.leaveProcess').html(status);
+			$('.lastUpdated').html(response.updated_at);
+			$('#leave_detail').modal('show');
         }
       });
     });

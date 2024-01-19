@@ -65,7 +65,7 @@
                     </td>
                     <td><?= date('M d, Y', strtotime($travel->created_at)); ?></td>
 										<td>
-											<a href="<?= base_url('users/dsa_claim/'.$travel->id); ?>" class="btn btn-outline-primary btn-sm">DSA Claim</a>
+											<a data-id="<?= $travel->id; ?>" class="btn btn-outline-primary btn-sm dsaClaim">DSA Claim</a>
 										</td>
                   </tr>
                 <?php endforeach; else: echo "<tr class='table-danger'><td colspan='12' align='center'>No record found.</td></tr>"; endif; ?>
@@ -92,10 +92,10 @@
   <div class="modal-dialog modal-xl modal-right" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title w-100" id="myModalLabel">Travel Application Form</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+					<h4 class="modal-title w-100" id="myModalLabel">Travel Application Form</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
         </div>
         <div class="modal-body">
           <div class="row">
@@ -207,4 +207,46 @@
     </div>
   </div>
 </div>
-<!-- Full Height Modal Right -->
+<!-- Full Height Modal Right > claim dsa -->
+<div class="modal fade" id="dsa_claim" tabindex="-1" role="dialog" aria-labelledby="dsaClaimModalLabel"
+  aria-hidden="true">
+<div class="modal-dialog modal-full-height" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="dsaClaimModalLabel">DSA Claim Form</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+					<div class="col-md-12">
+						
+					</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+	$(document).ready(function(){
+		$('.dsaClaim').click(function(){
+			var travelId = $(this).data('id');
+			$.ajax({
+				url: '<?= base_url('users/dsa_claim/') ?>' + travelId,
+				method: 'POST',
+				dataType: 'json',
+				data: { travelId: travelId },
+				success: function(res){
+					console.log(res);
+					$('#dsa_claim').modal('show');
+				}
+			});
+		});
+	});
+</script>
+

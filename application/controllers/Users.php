@@ -142,7 +142,8 @@ class Users extends CI_Controller{
     }
 	// Request a DSA claim
 	public function dsa_claim($id){
-		echo $id;
+		$data = $this->user_model->travel_info($id);
+		echo json_encode($data);
 	}
     // Profile > user profile
     public function profile(){
