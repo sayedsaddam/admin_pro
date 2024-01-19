@@ -70,7 +70,7 @@
 									<a href="<?= base_url('supervisor/reject_travel/'.$travel->id); ?>" class="badge badge-danger" title="Reject request..." onclick="javascript: return confirm('Are you sure to perform this action?');"><i class="fa fa-times"></i></a>
 								</td>
 							</tr>
-						<?php endforeach; else: echo "<tr class='table-danger'><td colspan='7' align='center'>No record found.</td></tr>"; endif; ?>
+						<?php endforeach; else: echo "<tr class='table-danger'><td colspan='14' align='center'>No record found.</td></tr>"; endif; ?>
 						</tbody>
 					</table>
 				</div>
