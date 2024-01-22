@@ -83,7 +83,8 @@ class Login extends CI_Controller{
             $location = $login->location;
             $role = $login->user_role;
             $department = $login->department;
-            $this->session->set_userdata(array('id' => $id, 'username' => $username, 'fullname' => $name, 'location' => $location, 'user_role' => $role, 'department' => $department));
+			$grader = $login->grader;
+            $this->session->set_userdata(array('id' => $id, 'username' => $username, 'fullname' => $name, 'location' => $location, 'user_role' => $role, 'department' => $department, $grader => 'grader'));
             if($this->session->userdata('user_role') == 'admin'){
                 redirect('admin');
             }elseif($this->session->userdata('user_role') == 'user'){

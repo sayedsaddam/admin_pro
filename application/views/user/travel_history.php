@@ -72,10 +72,11 @@
               </tbody>
             </table>
           </div>
-          <div class="card-footer white py-3 d-flex justify-content-between">
+          <div class="card-footer white py-3 d-flex justify-content-start">
             <button type="button" class="btn btn-primary px-3 my-0 ml-0" data-toggle="modal" data-target="#apply_travel">
                 <i class="fa fa-plane"></i> Apply travel
             </button>
+						<a href="" class="btn btn-info px-3 my-0 ml-0">DSA Claims</a>
             <?= $this->pagination->create_links(); ?>
           </div>
         </div>
@@ -219,11 +220,67 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="row">
-					<div class="col-md-12">
-						
+				<form action="" method="post">
+					<input type="hidden" name="travelId" class="travelId">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row font-weight-bold">
+								<div class="col-md-4">Name</div>
+								<div class="col-md-8"><?= $this->session->userdata('fullname') ?></div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">Destination</div>
+								<div class="col-md-8 destination"></div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">Transport</div>
+								<div class="col-md-8 transport"></div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">Stay</div>
+								<div class="col-md-8 stay"></div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">Starts</div>
+								<div class="col-md-8 starts"></div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">Ends</div>
+								<div class="col-md-8 ends"></div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">Charge To</div>
+								<div class="col-md-8 chargeTo"></div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">Cash</div>
+								<div class="col-md-8 cash"></div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">Payment</div>
+								<div class="col-md-8 paymentMode"></div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">Assignment</div>
+								<div class="col-md-8 assignment"></div>
+							</div>
+							<hr>
+							<div class="row mt-3">
+								<div class="col-md-12">
+									<input type="checkbox" name="breakfast" value="3000"> Breakfast
+									<input type="checkbox" name="lunch" value="3500"> Lunch
+									<input type="checkbox" name="dinner" value="3500"> Dinner
+								</div>
+							</div>
+							<div class="row mt-5">
+								<div class="col-md-12">
+									<button type="submit" class="btn btn-primary">Save Changes</button>
+									<button type="reset" class="btn btn-warning">Clear</button>
+								</div>
+							</div>
+						</div>
 					</div>
-        </div>
+				</form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -243,6 +300,16 @@
 				data: { travelId: travelId },
 				success: function(res){
 					console.log(res);
+					$('.travelId').val(travelId);
+					$('.destination').html(res.place_of_visit);
+					$('.transport').html(res.request_type);
+					$('.stay').html(res.staying_at);
+					$('.starts').html(new Date(res.visit_date_start).toDateString());
+					$('.ends').html(new Date(res.visit_date_end).toDateString());
+					$('.chargeTo').html(res.charge_to);
+					$('.cash').html(Number(res.approx_cash).toLocaleString());
+					$('.paymentMode').html(res.payment_mode);
+					$('.assignment').html(res.assignment);
 					$('#dsa_claim').modal('show');
 				}
 			});

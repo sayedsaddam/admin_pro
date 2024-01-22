@@ -145,6 +145,12 @@ class Users extends CI_Controller{
 		$data = $this->user_model->travel_info($id);
 		echo json_encode($data);
 	}
+	// add dsa claim form's data to the database
+	public function add_dsa_claim(){
+		$data = array(
+			''
+		);
+	}
     // Profile > user profile
     public function profile(){
         $data['title'] = 'Profile | Admin & Procurement';
