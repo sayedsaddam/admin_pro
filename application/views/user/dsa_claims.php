@@ -40,26 +40,26 @@
                   <th class="font-weight-bold">ID</th>
                   <th class="font-weight-bold">Facilities</th>
                   <th class="font-weight-bold">Amount</th>
-						<th class="font-weight-bold">Status</th>
-						<th class="font-weight-bold">Created</th>
-						<th class="font-weight-bold">Updated</th>
-						<th class="font-weight-bold">Action</th>
+                  <th class="font-weight-bold">Status</th>
+                  <th class="font-weight-bold">Created</th>
+                  <th class="font-weight-bold">Updated</th>
+                  <th class="font-weight-bold">Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php if(!empty($dsa_claims)): foreach($dsa_claims as $claim): ?>
                   <tr>
-							<th scope="row"><?= 'CTC-0'.$claim->id; ?></th>
-							<td><?= $claim->facilities; ?></td>
-							<td><?= number_format($claim->amount_released); ?></td>
-							<td>
-									<?php if($claim->dsa_status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($claim->dsa_status == 1){ echo "<span class='badge badge-warning' title='pending for director approval'>approved</span>"; }elseif($claim->dsa_status == 2){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
-							</td>
-							<td><?= date('M d, Y', strtotime($claim->created_at)); ?></td>
-							<td><?= !empty($claim->updated_at) ? date('M d, Y', strtotime($claim->updated_at)) : '-/-'; ?></td>
-							<td>
-								<a data-id="<?= $claim->id; ?>" class="btn btn-outline-primary btn-sm dsa_detail">Detail</a>
-							</td>
+                    <th scope="row"><?= 'CTC-0'.$claim->id; ?></th>
+                    <td><?= $claim->facilities; ?></td>
+                    <td><?= number_format($claim->amount_released); ?></td>
+                    <td>
+                      <?php if($claim->dsa_status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($claim->dsa_status == 1){ echo "<span class='badge badge-success''>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
+                    </td>
+                    <td><?= date('M d, Y', strtotime($claim->created_at)); ?></td>
+                    <td><?= !empty($claim->updated_at) ? date('M d, Y', strtotime($claim->updated_at)) : '-/-'; ?></td>
+                    <td>
+                      <a data-id="<?= $claim->id; ?>" class="btn btn-outline-primary btn-sm dsa_detail">Detail</a>
+                    </td>
                   </tr>
                 <?php endforeach; else: echo "<tr class='table-danger'><td colspan='12' align='center'>No record found.</td></tr>"; endif; ?>
               </tbody>
