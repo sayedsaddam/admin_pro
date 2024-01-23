@@ -20,6 +20,11 @@
   <section>
     <div class="row">
       <div class="col-12">
+				<?php if($success = $this->session->flashdata('success')): ?>
+					<div class="alert alert-success"><?= $success; ?></div>
+				<?php elseif($failed = $this->session->flashdata('failed')): ?>
+					<div class="alert alert-danger"><?= $failed; ?></div>
+				<?php endif; ?>
       	<div class="card card-list">
           <div class="card-header white d-flex justify-content-between align-items-center py-3">
             <p class="h5-responsive font-weight-bold mb-0">Travel History | <small><a href="javascript:history.go(-1)" class="grey-text"><i class="fa fa-angle-left"></i> Back</a></small></p>
@@ -76,7 +81,7 @@
             <button type="button" class="btn btn-primary px-3 my-0 ml-0" data-toggle="modal" data-target="#apply_travel">
                 <i class="fa fa-plane"></i> Apply travel
             </button>
-						<a href="" class="btn btn-info px-3 my-0 ml-0">DSA Claims</a>
+						<a href="<?= base_url('users/dsa_claims'); ?>" class="btn btn-info px-3 my-0 ml-0">DSA Claims</a>
             <?= $this->pagination->create_links(); ?>
           </div>
         </div>
@@ -211,7 +216,7 @@
 <!-- Full Height Modal Right > claim dsa -->
 <div class="modal fade" id="dsa_claim" tabindex="-1" role="dialog" aria-labelledby="dsaClaimModalLabel"
   aria-hidden="true">
-<div class="modal-dialog modal-full-height" role="document">
+	<div class="modal-dialog modal-full-height" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="dsaClaimModalLabel">DSA Claim Form</h5>
@@ -220,7 +225,7 @@
         </button>
       </div>
       <div class="modal-body">
-				<form action="" method="post">
+				<form action="<?= base_url('users/add_dsa_claim'); ?>" method="post">
 					<input type="hidden" name="travelId" class="travelId">
 					<div class="row">
 						<div class="col-md-12">
@@ -267,9 +272,9 @@
 							<hr>
 							<div class="row mt-3">
 								<div class="col-md-12">
-									<input type="checkbox" name="breakfast" value="3000"> Breakfast
-									<input type="checkbox" name="lunch" value="3500"> Lunch
-									<input type="checkbox" name="dinner" value="3500"> Dinner
+									<input type="checkbox" name="facilities[]" value="breakfast"> Breakfast
+									<input type="checkbox" name="facilities[]" value="lunch"> Lunch
+									<input type="checkbox" name="facilities[]" value="dinner"> Dinner
 								</div>
 							</div>
 							<div class="row mt-5">

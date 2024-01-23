@@ -116,6 +116,33 @@ class User_model extends CI_Model{
 	public function travel_info($id){
 		return $this->db->where('id', $id)->from('travel_hotel_stay')->get()->row();
 	}
+	// add dsa claim
+	public function add_dsa_claim($data){
+		$this->db->insert('dsa_claims', $data);
+		if($this->db->affected_rows() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	// count dsa claims for pagination
+	public function total_dsa_claims(){
+		return $this->db->where('user_id', $this->session->userdata('id'))->from('dsa_claims')->count_all_results();
+	}
+	// get all dsa claims
+	public function get_dsa_claims($limit, $offset){
+		return $this->db->where('user_id', $this->session->userdata('id'))->from('dsa_claims')->limit($limit, $offset)->get()->result();
+	}
+	// check for existing dsa claim
+	public function dsa_info($id){
+		return $this->db->where('travel_id', $id)->from('dsa_claims')->get()->row();
+	}
+	// store claim information into the database
+	public function update_dsa_info($id, $data){
+		$this->db->where('id', $id);
+		$this->db->update('dsa_claims', $data);
+		return true;
+	}
     //== ------------------------------------------ User profile ------------------------------------------ ==//
     // Profile > view profile
     public function profile(){

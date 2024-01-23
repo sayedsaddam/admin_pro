@@ -147,9 +147,62 @@ class Users extends CI_Controller{
 	}
 	// add dsa claim form's data to the database
 	public function add_dsa_claim(){
+		$facilities = !empty($this->input->post('facilities')) ? implode(',', $this->input->post('facilities')) : '0';
+		// check for existing dsa claim
+		$dsa = $this->user_model->dsa_info($this->input->post('travelId'));
+		if($dsa){
+			$this->session->set_flashdata('failed', 'Claim for the selected travel request has already been added!');
+			redirect($_SERVER['HTTP_REFERER']);
+			return false;
+		}
 		$data = array(
-			''
+			'travel_id' => $this->input->post('travelId'),
+			'user_id' => $this->session->userdata('id'),
+			'facilities' => $facilities
+ 		);
+		if($this->user_model->add_dsa_claim($data)){
+			$this->session->set_flashdata('success', '<strong>Success! </strong>Adding DSA Claim was successful.');
+            redirect($_SERVER['HTTP_REFERER']);
+		}else{
+			$this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
+            redirect($_SERVER['HTTP_REFERER']);
+		}
+	}
+	// list dsa claims
+	public function dsa_claims($offset = null){
+		$limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'users/dsa_claims';
+        $rowscount = $this->user_model->total_dsa_claims();
+        paginate($url, $rowscount, $limit);
+		$data['title'] = 'DSA Claim | HRM';
+		$data['body'] = 'user/dsa_claims';
+		$data['dsa_claims'] = $this->user_model->get_dsa_claims($limit, $offset);
+		$this->load->view('admin/commons/template', $data);
+	}
+	// dsa information
+	public function dsa_info($id){
+		$data = $this->user_model->dsa_info($id);
+		echo json_encode($data);
+	}
+	// update dsa information
+	public function update_dsa_info(){
+		$id = $this->input->post('dsaId');
+		$data = array(
+			'amount_released' => $this->input->post('amount'),
+			'dsa_status' => $this->input->post('status'),
+			'remarks' => $this->input->post('remarks'),
+			'updated_at' => date('Y-m-d H:i:s')
 		);
+		if($this->user_model->update_dsa_info($id, $data)){
+			$this->session->set_flashdata('success', '<strong>Success! </strong>Updating DSA Claim was successful.');
+            redirect($_SERVER['HTTP_REFERER']);
+		}else{
+			$this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
+            redirect($_SERVER['HTTP_REFERER']);
+		}
 	}
     // Profile > user profile
     public function profile(){
