@@ -100,7 +100,7 @@
 					<label for="materialLoginFormUsername">Amount</label>
 				</div>
 				<div class="md-form">
-					<textarea name="remarks" id="remarks" rows="3" class="md-textarea form-control" "></textarea>
+					<textarea name="remarks" id="remarks" rows="3" class="md-textarea form-control" required></textarea>
 					<label for="remarks">Remarks</label>
 				</div>
 				<button type="submit" class="btn btn-primary">Save Changes</button>
