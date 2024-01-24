@@ -204,6 +204,27 @@ class Users extends CI_Controller{
             redirect($_SERVER['HTTP_REFERER']);
 		}
 	}
+	// send form data to the database
+	public function add_officeBackReport(){
+		$obr = $this->user_model->obr_info($this->input->post('travelIdObr'));
+		if($obr){
+			$this->session->set_flashdata('failed', '<strong>Failed! </strong>Report for the selected travel has already been added!');
+            redirect($_SERVER['HTTP_REFERER']);
+			return false;
+		}
+		$data = array(
+			'travel_id' => $this->input->post('travelIdObr'),
+			'user_id' => $this->session->userdata('id'),
+            'travel_description' => $this->input->post('description'),
+		);
+		if($this->user_model->save_obr($data)){
+			$this->session->set_flashdata('success', '<strong>Success! </strong>Adding OBR was successful.');
+            redirect($_SERVER['HTTP_REFERER']);
+		}else{
+			$this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
+            redirect($_SERVER['HTTP_REFERER']);
+		}
+	}
     // Profile > user profile
     public function profile(){
         $data['title'] = 'Profile | Admin & Procurement';

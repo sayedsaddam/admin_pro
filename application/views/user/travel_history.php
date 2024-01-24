@@ -70,7 +70,8 @@
                     </td>
                     <td><?= date('M d, Y', strtotime($travel->created_at)); ?></td>
 										<td>
-											<a data-id="<?= $travel->id; ?>" class="btn btn-outline-primary btn-sm dsaClaim">DSA Claim</a>
+											<a data-id="<?= $travel->id; ?>" class="btn btn-outline-primary btn-sm dsaClaim" title="DSA Claim">dsa</a>
+											<a data-id="<?= $travel->id; ?>" class="btn btn-outline-primary btn-sm obr" title="Office back report">obr</a>
 										</td>
                   </tr>
                 <?php endforeach; else: echo "<tr class='table-danger'><td colspan='12' align='center'>No record found.</td></tr>"; endif; ?>
@@ -293,6 +294,38 @@
     </div>
   </div>
 </div>
+<!-- Full Height Modal Right > office back report -->
+<div class="modal fade" id="officeBackReport" tabindex="-1" role="dialog" aria-labelledby="dsaClaimModalLabel"
+  aria-hidden="true">
+	<div class="modal-dialog modal-full-height" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="dsaClaimModalLabel">Office Back Report</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+				<form action="<?= base_url('users/add_officeBackReport'); ?>" method="post">
+					<input type="hidden" name="travelIdObr" class="travelIdObr">
+					<div class="row font-weight-bold">
+						<div class="col-md-3">Name</div>
+						<div class="col-md-9"><?= $this->session->userdata('fullname'); ?></div>
+					</div>
+					<div class="md-form">
+						<textarea name="description" class="md-textarea form-control" rows="5" required></textarea>
+						<label for="description">Description</label>
+					</div>
+					<button type="submit" class="btn btn-primary">Save Changes</button>
+					<button type="reset" class="btn btn-warning">Clear</button>
+				</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 	$(document).ready(function(){
@@ -319,6 +352,12 @@
 				}
 			});
 		});
+		// office back report
+		$('.obr').click(function(){
+			var travelIdObr = $(this).data('id');
+			$('.travelIdObr').val(travelIdObr);
+			$('#officeBackReport').modal('show');
+		})
 	});
 </script>
 

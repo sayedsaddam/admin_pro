@@ -143,6 +143,19 @@ class User_model extends CI_Model{
 		$this->db->update('dsa_claims', $data);
 		return true;
 	}
+	// save office back report to database > obr = office back report
+	public function save_obr($data){
+		$this->db->insert('office_back_report', $data);
+		if($this->db->affected_rows() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	// check for existing office back report
+	public function obr_info($id){
+		return $this->db->where('travel_id', $id)->from('office_back_report')->get()->row();
+	}
     //== ------------------------------------------ User profile ------------------------------------------ ==//
     // Profile > view profile
     public function profile(){
