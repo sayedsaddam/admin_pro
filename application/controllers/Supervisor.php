@@ -19,6 +19,7 @@ class Supervisor extends CI_Controller{
         $data['total_leaves'] = $this->supervisor_model->total_leave_applications();
         $data['total_requisitions'] = $this->supervisor_model->total_item_requisitions();
         $data['total_travels'] = $this->supervisor_model->total_travel_requisitions();
+		$data['total_dsaClaims'] = $this->supervisor_model->total_dsa_claims();
         $data['leaves'] = $this->supervisor_model->get_leave_applications($limit, $offset);
         $data['requisitions'] = $this->supervisor_model->get_requisitions($limit, $offset);
         $data['travels'] = $this->supervisor_model->get_travel_applications($limit, $offset);

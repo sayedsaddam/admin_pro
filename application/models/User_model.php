@@ -152,9 +152,21 @@ class User_model extends CI_Model{
 			return false;
 		}
 	}
+	// count all office back reports
+	public function count_office_back_reports(){
+		return $this->db->where('user_id', $this->session->userdata('id'))->from('office_back_report')->count_all_results();
+	}
+	// get office back report listing from database
+	public function get_office_back_report($limit, $offset){
+		return $this->db->where('user_id', $this->session->userdata('id'))->from('office_back_report')->limit($limit, $offset)->get()->result();
+	}
 	// check for existing office back report
 	public function obr_info($id){
 		return $this->db->where('travel_id', $id)->from('office_back_report')->get()->row();
+	}
+	// get obr info from database
+	public function obr_detail($id){
+		return $this->db->where('id', $id)->from('office_back_report')->get()->row();
 	}
     //== ------------------------------------------ User profile ------------------------------------------ ==//
     // Profile > view profile

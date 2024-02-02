@@ -66,7 +66,7 @@
                     <td><?= date('M d, Y', strtotime($travel->visit_date_end)); ?></td>
                     <td><?= ucfirst($travel->charge_to); ?></td>
                     <td>
-                        <?php if($travel->travel_status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($travel->travel_status == 1){ echo "<span class='badge badge-warning' title='pending for director approval'>approved</span>"; }elseif($travel->travel_status == 2){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
+                      <?php if($travel->travel_status == 0){ echo "<span class='badge badge-warning'>pending</span>"; }elseif($travel->travel_status == 1){ echo "<span class='badge badge-warning' title='pending for director approval'>approved</span>"; }elseif($travel->travel_status == 2){ echo "<span class='badge badge-success'>approved</span>"; }else{ echo "<span class='badge badge-danger'>rejected</span>"; } ?>
                     </td>
                     <td><?= date('M d, Y', strtotime($travel->created_at)); ?></td>
 										<td>
@@ -80,9 +80,10 @@
           </div>
           <div class="card-footer white py-3 d-flex justify-content-start">
             <button type="button" class="btn btn-primary px-3 my-0 ml-0" data-toggle="modal" data-target="#apply_travel">
-                <i class="fa fa-plane"></i> Apply travel
+              <i class="fa fa-plane"></i> Apply travel
             </button>
 						<a href="<?= base_url('users/dsa_claims'); ?>" class="btn btn-info px-3 my-0 ml-0">DSA Claims</a>
+						<a href="<?= base_url('users/office_back_reports'); ?>" class="btn btn-success px-3 my-0 ml-0">Office Back Reports</a>
             <?= $this->pagination->create_links(); ?>
           </div>
         </div>
@@ -217,7 +218,7 @@
 <!-- Full Height Modal Right > claim dsa -->
 <div class="modal fade" id="dsa_claim" tabindex="-1" role="dialog" aria-labelledby="dsaClaimModalLabel"
   aria-hidden="true">
-	<div class="modal-dialog modal-full-height" role="document">
+	<div class="modal-dialog modal-lg modal-full-height modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="dsaClaimModalLabel">DSA Claim Form</h5>
@@ -226,6 +227,7 @@
         </button>
       </div>
       <div class="modal-body">
+				<h5 class="modal-title font-weight-bold mb-3">Traveler Info</h5>
 				<form action="<?= base_url('users/add_dsa_claim'); ?>" method="post">
 					<input type="hidden" name="travelId" class="travelId">
 					<div class="row">
@@ -255,6 +257,10 @@
 								<div class="col-md-8 ends"></div>
 							</div>
 							<div class="row">
+								<div class="col-md-4">Days</div>
+								<div class="col-md-8 days"></div>
+							</div>
+							<div class="row">
 								<div class="col-md-4">Charge To</div>
 								<div class="col-md-8 chargeTo"></div>
 							</div>
@@ -271,11 +277,14 @@
 								<div class="col-md-8 assignment"></div>
 							</div>
 							<hr>
+							<div class="row">
+								<div class="col-md-12 mt-3">
+									<h5 class="modal-title font-weight-bold">Facilities claimed</h5>
+								</div>
+							</div>
 							<div class="row mt-3">
-								<div class="col-md-12">
-									<input type="checkbox" name="facilities[]" value="breakfast"> Breakfast
-									<input type="checkbox" name="facilities[]" value="lunch"> Lunch
-									<input type="checkbox" name="facilities[]" value="dinner"> Dinner
+								<div class="col-md-12 facilities">
+									
 								</div>
 							</div>
 							<div class="row mt-5">
@@ -338,12 +347,37 @@
 				data: { travelId: travelId },
 				success: function(res){
 					console.log(res);
+					var checkBoxes = '';
+					const diffInMs = new Date(res.visit_date_end) - new Date(res.visit_date_start);
+					const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+					const startDate = new Date(res.visit_date_start);
+					for(var i = 0; i < diffInDays + 1; i++){
+						const currentDate = new Date(startDate);
+						currentDate.setDate(startDate.getDate() + i);
+						checkBoxes += `
+							<div class="custom-control custom-checkbox custom-control-inline">
+								<input type="checkbox" name="facilities[]" class="custom-control-input" id="breakfast${currentDate.toLocaleDateString().split('T')[0]}" value="breakfast - ${currentDate.toLocaleDateString().split('T')[0]},">
+								<label class="custom-control-label" for="breakfast${currentDate.toLocaleDateString().split('T')[0]}">Breakfast</label> 
+							</div>
+							<div class="custom-control custom-checkbox custom-control-inline">
+								<input type="checkbox" name="facilities[]" class="custom-control-input" id="lunch${currentDate.toLocaleDateString().split('T')[0]}" value="lunch - ${currentDate.toLocaleDateString().split('T')[0]},">
+								<label class="custom-control-label" for="lunch${currentDate.toLocaleDateString().split('T')[0]}">Lunch</label>
+							</div>
+							<div class="custom-control custom-checkbox custom-control-inline">
+								<input type="checkbox" name="facilities[]" class="custom-control-input" id="dinner${currentDate.toLocaleDateString().split('T')[0]}" value="dinner - ${currentDate.toLocaleDateString().split('T')[0]}">
+								<label class="custom-control-label" for="dinner${currentDate.toLocaleDateString().split('T')[0]}">Dinner</label>
+							</div> - Date - ${currentDate.toLocaleDateString().split('T')[0]}
+							<hr>
+						`;
+					}
+					$('.facilities').html(checkBoxes);
 					$('.travelId').val(travelId);
 					$('.destination').html(res.place_of_visit);
 					$('.transport').html(res.request_type);
 					$('.stay').html(res.staying_at);
 					$('.starts').html(new Date(res.visit_date_start).toDateString());
 					$('.ends').html(new Date(res.visit_date_end).toDateString());
+					$('.days').html(diffInDays);
 					$('.chargeTo').html(res.charge_to);
 					$('.cash').html(Number(res.approx_cash).toLocaleString());
 					$('.paymentMode').html(res.payment_mode);

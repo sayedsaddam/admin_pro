@@ -147,7 +147,11 @@ class Users extends CI_Controller{
 	}
 	// add dsa claim form's data to the database
 	public function add_dsa_claim(){
-		$facilities = !empty($this->input->post('facilities')) ? implode(',', $this->input->post('facilities')) : '0';
+		// $facility = !empty($this->input->post('facilities')) ? implode(',', $this->input->post('facilities')) : '0';
+		$facilities = array(
+			'facilities' =>  $this->input->post('facilities')
+		);
+		$facilitiesJson = json_encode($facilities);
 		// check for existing dsa claim
 		$dsa = $this->user_model->dsa_info($this->input->post('travelId'));
 		if($dsa){
@@ -158,7 +162,7 @@ class Users extends CI_Controller{
 		$data = array(
 			'travel_id' => $this->input->post('travelId'),
 			'user_id' => $this->session->userdata('id'),
-			'facilities' => $facilities
+			'facilities' => $facilitiesJson
  		);
 		if($this->user_model->add_dsa_claim($data)){
 			$this->session->set_flashdata('success', '<strong>Success! </strong>Adding DSA Claim was successful.');
@@ -186,6 +190,13 @@ class Users extends CI_Controller{
 	public function dsa_info($id){
 		$data = $this->user_model->dsa_info($id);
 		echo json_encode($data);
+	}
+	// dsa claim detail
+	public function claim_detail($id){
+		$data['title'] = 'Claim Detail | HRM';
+		$data['body'] = 'user/claim_detail';
+		$data['dsa_claim'] = $this->user_model->dsa_info($id);
+		$this->load->view('admin/commons/template', $data);
 	}
 	// update dsa information
 	public function update_dsa_info(){
@@ -224,6 +235,25 @@ class Users extends CI_Controller{
 			$this->session->set_flashdata('failed', '<strong>Failed! </strong>Something went wrong, please try again later.');
             redirect($_SERVER['HTTP_REFERER']);
 		}
+	}
+	// list all office back reports
+	public function office_back_reports($offset = null){
+		$limit = 15;
+        if(!empty($offset)){
+            $this->uri->segment(3);
+        }
+        $url = 'users/office_back_reports';
+        $rowscount = $this->user_model->count_office_back_reports();
+		paginate($url, $rowscount, $limit);
+		$data['title'] = 'Office Back Reports | HRM';
+		$data['body'] = 'user/office_back_reports';
+		$data['ob_reports'] = $this->user_model->get_office_back_report($limit, $offset);
+		$this->load->view('admin/commons/template', $data);
+	}
+	// get obr info
+	public function obr_detail($id){
+		$data = $this->user_model->obr_detail($id);
+		echo json_encode($data);
 	}
     // Profile > user profile
     public function profile(){

@@ -37,6 +37,16 @@ class Supervisor_model extends CI_Model{
         $this->db->where('users.supervisor', $this->session->userdata('id'));
         return $this->db->count_all_results();
     }
+	// Count all DSA claims for logged in supervisor
+	public function total_dsa_claims(){
+		$this->db->select('dsa_claim.id,
+                            dsa_claim.user_id,
+                            users.supervisor');
+        $this->db->from('dsa_claims');
+        $this->db->join('users', 'dsa_claims.user_id = users.id', 'left');
+        $this->db->where('users.supervisor', $this->session->userdata('id'));
+        return $this->db->count_all_results();
+	}
     // Get leave applications by employees.
     public function get_leave_applications($limit, $offset){
         $this->db->select('employee_leaves.id,
@@ -121,4 +131,17 @@ class Supervisor_model extends CI_Model{
         $this->db->update('travel_hotel_stay', $data);
         return true;
     }
+	// get dsa claims for requested by a user
+	public function get_dsa_claims(){
+		$this->db->select('dsa_claims.*,
+                            users.id as user_id,
+                            users.fullname,
+                            users.department,
+                            users.supervisor');
+        $this->db->from('dsa_claims');
+        $this->db->join('users', 'dsa_claims.user_id = users.id', 'left');
+        $this->db->where('users.supervisor', $this->session->userdata('id'));
+        $this->db->order_by('dsa_claims.created_at', 'DESC');
+        return $this->db->get()->result();
+	}
 }
