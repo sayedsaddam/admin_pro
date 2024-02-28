@@ -17,6 +17,14 @@ class Supervisor_model extends CI_Model{
         $this->db->where('users.supervisor', $this->session->userdata('id'));
         return $this->db->count_all_results();
     }
+	// total leaves availed by a user
+	public function leaves_availed_by_user($user_id){
+		$this->db->select('SUM(no_of_days) as availed_leaves');
+		$this->db->from('employee_leaves');
+		$this->db->where(array('emp_id' => $user_id, 'leave_status' => 1));
+		$this->db->like('created_at', date('Y-m'));
+		return $this->db->get()->row();
+	}
     // Count all items requisitions for logged in supervisor.
     public function total_item_requisitions(){
         $this->db->select('item_requisitions.id,

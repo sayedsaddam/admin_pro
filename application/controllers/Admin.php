@@ -21,7 +21,7 @@ class Admin extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
-        $data['title'] = 'Home | Admin & Procurement';
+        $data['title'] = 'Home | HRIM';
         $data['body'] = 'admin/dashboard';
         $data['total_isbd'] = $this->admin_model->expenses_isbd();
         $data['ctc_own_isbd'] = $this->admin_model->ctc_own_isbd();
@@ -55,7 +55,7 @@ class Admin extends CI_Controller{
         $url = 'admin/pending_requests';
         $rowscount = $this->admin_model->total_pending();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Pending Requests | Admin & Procurement';
+        $data['title'] = 'Pending Requests | HRIM';
         $data['body'] = 'admin/pending-requests';
         $data['pending_requisitions'] = $this->admin_model->pending_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
@@ -69,7 +69,7 @@ class Admin extends CI_Controller{
         $url = 'admin/approved_requests';
         $rowscount = $this->admin_model->total_approved();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Approved Requests | Admin & Procurement';
+        $data['title'] = 'Approved Requests | HRIM';
         $data['body'] = 'admin/approved-requests';
         $data['approved_requisitions'] = $this->admin_model->approved_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
@@ -83,7 +83,7 @@ class Admin extends CI_Controller{
         $url = 'admin/rejected_requests';
         $rowscount = $this->admin_model->total_rejected();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Rejected Requests | Admin & Procurement';
+        $data['title'] = 'Rejected Requests | HRIM';
         $data['body'] = 'admin/rejected-requests';
         $data['rejected_requisitions'] = $this->admin_model->rejected_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
@@ -93,7 +93,7 @@ class Admin extends CI_Controller{
         if(!$this->session->userdata('username')){
             redirect('');
         }
-        $data['title'] = 'Request Detail | Admin & Procurement';
+        $data['title'] = 'Request Detail | HRIM';
         $data['body'] = 'admin/request_detail';
         $data['request_detail'] = $this->admin_model->request_detail($id);
         $this->load->view('admin/commons/template', $data);
@@ -141,7 +141,7 @@ class Admin extends CI_Controller{
         $url = 'admin/suppliers';
         $rowscount = $this->admin_model->count_suppliers();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Suppliers | Admin & Procurement';
+        $data['title'] = 'Suppliers | HRIM';
         $data['body'] = 'admin/suppliers';
         $data['suppliers'] = $this->admin_model->get_suppliers($limit, $offset);
         $data['locations'] = $this->admin_model->list_locations_suppliers();
@@ -210,7 +210,7 @@ class Admin extends CI_Controller{
         $url = 'admin/inventory';
         $rowscount = $this->admin_model->count_inventory();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Inventory | Admin & Procurement';
+        $data['title'] = 'Inventory | HRIM';
         $data['body'] = 'admin/inventory';
         $data['locations'] = $this->login_model->get_locations();
         $data['inventory'] = $this->admin_model->get_inventory($limit, $offset);
@@ -277,7 +277,7 @@ class Admin extends CI_Controller{
         $url = 'admin/users';
         $rowscount = $this->admin_model->count_users();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Users | Admin & Procurement';
+        $data['title'] = 'Users | HRIM';
         $data['body'] = 'admin/users';
         $data['users'] = $this->admin_model->get_users($limit, $offset);
         $this->load->view('admin/commons/template', $data);
@@ -301,7 +301,7 @@ class Admin extends CI_Controller{
         $url = 'admin/invoices';
         $rowscount = $this->admin_model->count_invoices();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Invoices | Admin & Procurement';
+        $data['title'] = 'Invoices | HRIM';
         $data['body'] = 'admin/invoices';
         $data['suppliers'] = $this->admin_model->get_suppliers_for_invoice();
         $data['invoices'] = $this->admin_model->get_invoices($limit, $offset);
@@ -343,7 +343,7 @@ class Admin extends CI_Controller{
     }
     // Invoices - print invoice
     public function print_invoice($id){
-        $data['title'] = 'Print Invoice | Admin & Procurement';
+        $data['title'] = 'Print Invoice | HRIM';
         $data['body'] = 'admin/print_invoice';
         $data['invoice'] = $this->admin_model->print_invoice($id);
         $this->load->view('admin/commons/template', $data);
@@ -373,7 +373,7 @@ class Admin extends CI_Controller{
     }
     // Projects - Go to projects page.
     public function projects(){
-        $data['title'] = 'Projects | Admin & Procurement';
+        $data['title'] = 'Projects | HRIM';
         $data['body'] = 'admin/projects';
         $data['projects'] = $this->admin_model->get_projects();
         $this->load->view('admin/commons/template', $data);
@@ -431,7 +431,7 @@ class Admin extends CI_Controller{
         $url = 'admin/maintenance';
         $rowscount = $this->admin_model->count_maint_record();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Maintenance | Admin & Procurement';
+        $data['title'] = 'Maintenance | HRIM';
         $data['body'] = 'admin/maintenance';
         $data['maintenance_items'] = $this->admin_model->get_maint_record($limit, $offset);
         $data['locations'] = $this->login_model->get_locations();
@@ -477,7 +477,7 @@ class Admin extends CI_Controller{
         $url = 'admin/asset_register';
         $rowscount = $this->admin_model->count_assets();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Asset Register | Admin & Procurement';
+        $data['title'] = 'Asset Register | HRIM';
         $data['body'] = 'admin/asset-register';
         $data['assets'] = $this->admin_model->get_assets($limit, $offset);
         $this->load->view('admin/commons/template', $data);
@@ -577,14 +577,14 @@ class Admin extends CI_Controller{
         $url = 'admin/contact_list';
         $rowscount = $this->admin_model->count_contacts();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Contact List | Admin & Procurement';
+        $data['title'] = 'Contact List | HRIM';
         $data['body'] = 'admin/contact_list';
         $data['contacts'] = $this->admin_model->get_contacts($limit, $offset);
         $this->load->view('admin/commons/template', $data);
     }
     // Contact list - Load, view or edit contact.
     public function add_contact(){
-        $data['title'] = 'Contact List | Admin & Procurement';
+        $data['title'] = 'Contact List | HRIM';
         $data['body'] = 'admin/add_contact';
         $this->load->view('admin/commons/template', $data);
     }
@@ -617,7 +617,7 @@ class Admin extends CI_Controller{
     }
     // Contact list - contact detail
     public function contact_detail($id){
-        $data['title'] = 'Contact List | Admin & Procurement';
+        $data['title'] = 'Contact List | HRIM';
         $data['body'] = 'admin/add_contact';
         $data['edit'] = $this->admin_model->contact_detail($id);
         $this->load->view('admin/commons/template', $data);
@@ -669,7 +669,7 @@ class Admin extends CI_Controller{
         $url = 'admin/locations';
         $rowscount = $this->admin_model->count_locations();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Locations | Admin & Procurement';
+        $data['title'] = 'Locations | HRIM';
         $data['body'] = 'admin/locations';
         $data['locations'] = $this->admin_model->get_locations($limit, $offset);
         $this->load->view('admin/commons/template', $data);
@@ -727,7 +727,7 @@ class Admin extends CI_Controller{
         $url = 'admin/leaves_info';
         $rowscount = $this->admin_model->count_leaves();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Leaves Info | Admin & Procurement';
+        $data['title'] = 'Leaves Info | HRIM';
         $data['body'] = 'admin/leaves';
         $data['leaves'] = $this->admin_model->get_leave_applications($limit, $offset);
         $data['users'] = $this->admin_model->attendance_employees();
@@ -750,7 +750,7 @@ class Admin extends CI_Controller{
         $url = 'admin/travels_info';
         $rowscount = $this->admin_model->total_travel_requests();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Travle & Stay Info | Admin & Procurement';
+        $data['title'] = 'Travle & Stay Info | HRIM';
         $data['body'] = 'admin/travels_info';
         $data['travels'] = $this->admin_model->total_travel_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
@@ -766,7 +766,7 @@ class Admin extends CI_Controller{
     // Search travel requisitions.
     public function search_travel_requisitions(){
         $search = $this->input->get('search');
-        $data['title'] = 'Travle & Stay Info | Admin & Procurement';
+        $data['title'] = 'Travle & Stay Info | HRIM';
         $data['body'] = 'admin/travels_info';
         $data['results'] = $this->admin_model->search_travel_requisitions($search);
         $this->load->view('admin/commons/template', $data);
@@ -837,7 +837,7 @@ class Admin extends CI_Controller{
         // $url = 'admin/daily_attendance';
         // $rowscount = $this->admin_model->count_attendace();
         // paginate($url, $rowscount, $limit);
-        $data['title'] = 'Daily Attendance | Admin & Procurement';
+        $data['title'] = 'Daily Attendance | HRIM';
         $data['body'] = 'admin/daily_attendance';
         $data['attendance'] = $this->admin_model->get_daily_attendance();
         $data['users'] = $this->admin_model->attendance_employees();

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-8">
-        <h2 class="display-4 font-weight-bold">HRM</h2>
+				<h2 class="display-4 font-weight-bold" title="Human resource Information Management">HRIM</h2>
         <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
@@ -100,10 +100,10 @@
   <div class="modal-dialog modal-xl modal-right" role="document">
     <div class="modal-content">
         <div class="modal-header">
-					<h4 class="modal-title w-100" id="myModalLabel">Travel Application Form</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-					</button>
+            <h4 class="modal-title w-100" id="myModalLabel">Travel Request Form</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body">
           <div class="row">
@@ -139,10 +139,6 @@
                         <input type="date" name="visit_end" class="form-control">
                       </div>
                       <div class="form-group">
-                        <label for="charge">Charge To</label>
-                        <input type="text" name="charge_to" class="form-control" placeholder="charge to...">
-                      </div>
-                      <div class="form-group">
                         <label for="travel_request_type">Travel Request Type</label>
                         <select name="request_type" class="browser-default custom-select" required>
                           <option value="" selected disabled>Select one</option>
@@ -155,22 +151,19 @@
                     </div>
                     <div class="col-6">
                       <div class="form-group">
-                        <label for="stay_request">Hotel Stay Request</label>
+                        <label for="stay_request">Gender</label>
                         <div class="row">
                           <div class="col-3"><input type="radio" name="stay_request" value="Male"> Male</div>
                           <div class="col-6"><input type="radio" name="stay_request" value="Female"> Female</div>
                         </div>
-                        <div class="row">
-                          <div class="col-3"><input type="radio" name="stay_request_one" value="Single Room"> Single Room</div>
-                          <div class="col-6"><input type="radio" name="stay_request_one" value="Twins"> Twins</div>
-                        </div>
                       </div>
                       <div class="form-group">
-                        <label for="staying_at">Staying at</label>
+                        <label for="staying_at">Stay Type</label>
                         <select name="staying_at" class="browser-default custom-select" required>
                           <option value="" selected disabled>Select one</option>
                           <option value="hotel">Hotel</option>
                           <option value="guest house">Guest House</option>
+													<option value="other">Other</option>
                           <option value="none">None</option>
                         </select>
                       </div>
@@ -193,7 +186,7 @@
                         </select>
                       </div>
                       <div class="form-group">
-                        <label for="approx_cash">Approx. Cash Needed</label>
+                        <label for="approx_cash">Advance Request</label>
                         <input type="number" name="approx_cash" class="form-control" value="0">
                       </div>
                     </div>

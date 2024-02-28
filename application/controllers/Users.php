@@ -19,7 +19,7 @@ class Users extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
-        $data['title'] = 'Dashboard | Admin & Procurement';
+        $data['title'] = 'Dashboard | HRIM';
         $data['body'] = 'user/user_dashboard';
         $data['pending'] = $this->user_model->total_pending();
         $data['approved'] = $this->user_model->total_approved();
@@ -55,7 +55,7 @@ class Users extends CI_Controller{
         $url = 'users/requisitions';
         $rowscount = $this->user_model->count_all_requisitions();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Requisitions | Admin & Procurement';
+        $data['title'] = 'Requisitions | HRIM';
         $data['body'] = 'user/requisitions';
         $data['requisitions'] = $this->user_model->get_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
@@ -87,7 +87,7 @@ class Users extends CI_Controller{
         $url = 'users/track_leaves';
         $rowscount = $this->user_model->total_leaves();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Track Leaves | Admin & Procurement';
+        $data['title'] = 'Track Leaves | HRIM';
         $data['body'] = 'user/track_leaves';
         $data['leaves'] = $this->user_model->track_leaves($limit, $offset);
         $this->load->view('admin/commons/template', $data);
@@ -109,7 +109,6 @@ class Users extends CI_Controller{
             'place_of_visit' => $this->input->post('place_of_visit'),
             'visit_date_start' => $this->input->post('visit_start'),
             'visit_date_end' => $this->input->post('visit_end'),
-            'charge_to' => $this->input->post('charge_to'),
             'request_type' => $this->input->post('request_type'),
             'stay_request_type' => $stay_request.', '.$stay_request_one,
             'staying_at' => $this->input->post('staying_at'),
@@ -135,7 +134,7 @@ class Users extends CI_Controller{
         $url = 'users/travel_history';
         $rowscount = $this->user_model->total_travel_requests();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Travel History | Admin & Procurement';
+        $data['title'] = 'Travel History | HRIM';
         $data['body'] = 'user/travel_history';
         $data['travels'] = $this->user_model->travel_history($limit, $offset);
         $this->load->view('admin/commons/template', $data);   
@@ -257,7 +256,7 @@ class Users extends CI_Controller{
 	}
     // Profile > user profile
     public function profile(){
-        $data['title'] = 'Profile | Admin & Procurement';
+        $data['title'] = 'Profile | HRIM';
         $data['body'] = 'user/profile';
         $data['profile'] = $this->user_model->profile();
         $data['locations'] = $this->login_model->get_locations();

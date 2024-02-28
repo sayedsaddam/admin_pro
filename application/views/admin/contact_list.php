@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-8">
-        <h2 class="display-4 font-weight-bold">Admin & Procurement</h2>
+				<h2 class="display-4 font-weight-bold" title="Human resource Information Management">HRIM</h2>
         <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
@@ -125,7 +125,7 @@
                 </tr>
               <?php endforeach; endif; ?>
             </tbody>
-        <?php endif; ?>
+        	<?php endif; ?>
         </table>
       </div>
     </div>

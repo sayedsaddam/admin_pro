@@ -11,7 +11,7 @@ class Director extends CI_Controller{
 	// get all pending leave requests for director's approval
 	public function index($offset = null){
 		$limit = 10;
-		$data['title'] = 'Leave Applications | HRM';
+		$data['title'] = 'Leave Applications | HRIM';
 		$data['body'] = 'director/dashboard';
 		$data['leaves'] = $this->director_model->getPendingLeaveRequests($limit, $offset);
 		$data['travels'] = $this->director_model->getTravelApplications($limit, $offset);
@@ -92,7 +92,7 @@ class Director extends CI_Controller{
 		$url = 'director/get_all_leaves';
 		$rowscount = $this->director_model->countPendingLeaveRequests();
 		paginate($url, $rowscount, $limit);
-		$data['title'] = 'Leave Applications | HRM';
+		$data['title'] = 'Leave Applications | HRIM';
 		$data['body'] = 'director/leave_requests';
 		$data['leaves'] = $this->director_model->getPendingLeaveRequests($limit, $offset);
 		$this->load->view('admin/commons/template', $data);
@@ -106,7 +106,7 @@ class Director extends CI_Controller{
 		$url = 'director/get_all_travels';
 		echo $rowscount = $this->director_model->countTravelRequests();
 		paginate($url, $rowscount, $limit);
-		$data['title'] = 'Travel Requests | HRM';
+		$data['title'] = 'Travel Requests | HRIM';
 		$data['body'] = 'director/travel_requests';
 		$data['travels'] = $this->director_model->getTravelApplications($limit, $offset);
 		$this->load->view('admin/commons/template', $data);

@@ -10,13 +10,13 @@ class Login extends CI_Controller{
         $this->load->model('admin_model');
     }
     public function index(){
-        $data['title'] = 'Login | Admin & Procurement';
+        $data['title'] = 'Login | HRIM';
         $data['body'] = 'login';
         $this->load->view('admin/commons/template', $data);
     }
     // Sign up form
     public function signup(){
-        $data['title'] = 'Sign Up | Admin & Procurement';
+        $data['title'] = 'Sign Up | HRIM';
         $data['body'] = 'signup';
         $data['supervisors'] = $this->login_model->get_supervisors();
         $data['locations'] = $this->login_model->get_locations();
@@ -44,7 +44,7 @@ class Login extends CI_Controller{
     }
     // Edit user.
     public function edit_user($id){
-        $data['title'] = 'Edit User | Admin & Procurement';
+        $data['title'] = 'Edit User | HRIM';
         $data['body'] = 'signup';
         $data['supervisors'] = $this->login_model->get_supervisors();
         $data['locations'] = $this->login_model->get_locations();

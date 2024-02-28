@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-8">
-        <h2 class="display-4 font-weight-bold">HRM</h2>
+			<h2 class="display-4 font-weight-bold" title="Human resource Information Management">HRIM</h2>
         <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
@@ -97,9 +97,10 @@
 								<select name="leave_type" id="leave_type" class="browser-default custom-select">
 									<option value="" disabled selected>-- Select Type --</option>
 									<option value="Annual">Annual</option>
-									<option value="Casual">Casual</option>
+									<option value="Emergency">Emergency</option>
 									<option value="Medical">Medical</option>
 									<option value="Maternity">Maternity</option>
+									<option value="Other">Other</option>
 								</select>
 							</div>
 							<div class="form-group">

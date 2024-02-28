@@ -14,7 +14,7 @@ class Supervisor extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
-        $data['title'] = 'Supervisor Dashboard | Admin & Procurement';
+        $data['title'] = 'Supervisor Dashboard | HRIM';
         $data['body'] = 'supervisor/dashboard';
         $data['total_leaves'] = $this->supervisor_model->total_leave_applications();
         $data['total_requisitions'] = $this->supervisor_model->total_item_requisitions();
@@ -34,7 +34,7 @@ class Supervisor extends CI_Controller{
         $url = 'supervisor/view_all_leaves';
         $rowscount = $this->supervisor_model->total_leave_applications();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Leave Applications | Admin & Procurement';
+        $data['title'] = 'Leave Applications | HRIM';
         $data['body'] = 'supervisor/leaves_list';
         $data['leaves'] = $this->supervisor_model->get_leave_applications($limit, $offset);
         $this->load->view('admin/commons/template', $data);
@@ -45,10 +45,10 @@ class Supervisor extends CI_Controller{
         if(!empty($offset)){
             $this->uri->segment(3);
         }
-        $url = 'supervisor/view_item_requisitions';
+        $url = 'supervisor/view_all_requisitions';
         $rowscount = $this->supervisor_model->total_item_requisitions();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Item Requisitions | Admin & Procurement';
+        $data['title'] = 'Item Requisitions | HRIM';
         $data['body'] = 'supervisor/requisitions_list';
         $data['requisitions'] = $this->supervisor_model->get_requisitions($limit, $offset);
         $this->load->view('admin/commons/template', $data);
@@ -62,7 +62,7 @@ class Supervisor extends CI_Controller{
         $url = 'supervisor/view_travel_history';
         $rowscount = $this->supervisor_model->total_travel_requisitions();
         paginate($url, $rowscount, $limit);
-        $data['title'] = 'Item Requisitions | Admin & Procurement';
+        $data['title'] = 'Item Requisitions | HRIM';
         $data['body'] = 'supervisor/travels_list';
         $data['travels'] = $this->supervisor_model->get_travel_applications($limit, $offset);
         $this->load->view('admin/commons/template', $data);

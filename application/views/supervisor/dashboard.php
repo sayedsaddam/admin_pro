@@ -5,7 +5,7 @@
         <img src="<?= base_url('assets/img/chip.png'); ?>" alt="admin-and-procurement" class="img-thumbnail" width="200">
       </div>
       <div class="col-lg-7 col-md-7">
-        <h1 class="font-weight-bold">HRM |<a href="<?= base_url('users'); ?>" class="btn btn-outline-light btn-sm" title="Click to go to employee board where you can place requisition, apply leave & other stuff...">employee dashboard</a></h1>
+        <h1 class="font-weight-bold" title="Human Resource Information Management">HRIM |<a href="<?= base_url('users'); ?>" class="btn btn-outline-light btn-sm" title="Click to go to employee board where you can place requisition, apply leave & other stuff...">employee dashboard</a></h1>
         <h5 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h5>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
@@ -103,7 +103,8 @@
 									<th class="font-weight-bold">ID</th>
 									<th class="font-weight-bold">Employee</th>
 									<th class="font-weight-bold">Days</th>
-									<th class="font-weight-bold">Requested</th>
+									<th class="font-weight-bold">Availed</th>
+									<th class="font-weight-bold">Requested On</th>
 									<th class="font-weight-bold">Status</th>
 									<th class="font-weight-bold">Action</th>
 								</tr>
@@ -114,6 +115,12 @@
 									<td scope="row"><?= 'CTC-'.$leave->id; ?></td>
 									<td><?= ucfirst($leave->fullname); ?></td>
 									<td><?= $leave->no_of_days; ?></td>
+									<td>
+										<?php 
+											$leaves_availed = $this->supervisor_model->leaves_availed_by_user($leave->emp_id);
+											echo $leaves_availed->availed_leaves > 0 ? $leaves_availed->availed_leaves : '0';
+										?>
+									</td>
 									<td><?= date('M d, Y', strtotime($leave->created_at)); ?></td>
 									<td><?php if($leave->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($leave->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
 									<td>

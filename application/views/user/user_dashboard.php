@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-8 col-md-8">
-        <h1 class="font-weight-bold">HRM 
+        <h1 class="font-weight-bold" title="Human Resource Information Management">HRIM 
 					<?php if($this->session->userdata('user_role') == 'supervisor'): ?>|
 						<a href="<?= base_url('supervisor'); ?>" class="btn btn-outline-light btn-sm">Supervisor board</a>
 					<?php elseif($this->session->userdata('user_role') == 'finance'): ?>
@@ -232,10 +232,11 @@
                       <select name="leave_type" id="leave_type" class="browser-default custom-select">
                           <option value="" disabled selected>-- Leave Type --</option>
                           <option value="Annual">Annual</option>
-                          <option value="Casual">Casual</option>
+                          <option value="Emergency">Emergency</option>
                           <option value="Sick">Sick</option>
                           <option value="Maternity">Maternity</option>
                           <option value="Compensatory">Compensatory</option>
+													<option value="Other">Other</option>
                       </select>
                   </div>
                   <div class="form-group">
@@ -278,7 +279,7 @@
   <div class="modal-dialog modal-xl modal-right" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title w-100" id="myModalLabel">Travel Application Form</h4>
+            <h4 class="modal-title w-100" id="myModalLabel">Travel Request Form</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -317,10 +318,6 @@
                         <input type="date" name="visit_end" class="form-control">
                       </div>
                       <div class="form-group">
-                        <label for="charge">Charge To</label>
-                        <input type="text" name="charge_to" class="form-control" placeholder="charge to...">
-                      </div>
-                      <div class="form-group">
                         <label for="travel_request_type">Travel Request Type</label>
                         <select name="request_type" class="browser-default custom-select" required>
                           <option value="" selected disabled>Select one</option>
@@ -333,22 +330,19 @@
                     </div>
                     <div class="col-6">
                       <div class="form-group">
-                        <label for="stay_request">Hotel Stay Request</label>
+                        <label for="stay_request">Gender</label>
                         <div class="row">
                           <div class="col-3"><input type="radio" name="stay_request" value="Male"> Male</div>
                           <div class="col-6"><input type="radio" name="stay_request" value="Female"> Female</div>
                         </div>
-                        <div class="row">
-                          <div class="col-3"><input type="radio" name="stay_request_one" value="Single Room"> Single Room</div>
-                          <div class="col-6"><input type="radio" name="stay_request_one" value="Twins"> Twins</div>
-                        </div>
                       </div>
                       <div class="form-group">
-                        <label for="staying_at">Staying at</label>
+                        <label for="staying_at">Stay Type</label>
                         <select name="staying_at" class="browser-default custom-select" required>
                           <option value="" selected disabled>Select one</option>
                           <option value="hotel">Hotel</option>
                           <option value="guest house">Guest House</option>
+													<option value="other">Other</option>
                           <option value="none">None</option>
                         </select>
                       </div>
@@ -371,7 +365,7 @@
                         </select>
                       </div>
                       <div class="form-group">
-                        <label for="approx_cash">Approx. Cash Needed</label>
+                        <label for="approx_cash">Advance Request</label>
                         <input type="number" name="approx_cash" class="form-control" value="0">
                       </div>
                     </div>

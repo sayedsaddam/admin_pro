@@ -12,7 +12,7 @@
     <div class="col-md-6">
 
         <h1 class="font-weight-bold grey-text display-4">CHIP Training and Consulting (Pvt.) Ltd. <span class="font-weight-light grey-text">Islamabad 44000.</span></h1>
-        <h3 class="font-weight-light text-success">Admin & Procurement <br>department</h3>
+        <h3 class="font-weight-light text-success">Human Resource <br>department</h3>
         <p class="text-grey font-weight-light">While CHIP Training & Consulting Pvt. Ltd. (CTC) was launched as an independent consultancy firm fairly recently, its roots go back to 1993 when it was initially a Swiss NGO Programme Office (SNPO as part of SDC / Embassy of Switzerland) later becoming an independent non-profit organization, namely CHIP (Civil Society Human & Institutional Development Programme).</p>
 
     </div>

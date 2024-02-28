@@ -65,7 +65,7 @@ class Finance extends CI_Controller{
 		$url = 'finance/petty_cash_issued';
         $rowscount = $this->finance_model->total_petty_cash_issued();
         paginate($url, $rowscount, $limit);
-		$data['title'] = 'Petty Cash Issued | Admin & Procurement';
+		$data['title'] = 'Petty Cash Issued | HRIM';
 		$data['body'] = 'finance/petty_cash_issued';
 		$data['locations'] = $this->admin_model->list_locations_suppliers();
 		if($this->session->userdata('user_role') == 'admin'){
@@ -123,7 +123,7 @@ class Finance extends CI_Controller{
 		$url = 'finance/petty_cash_requests';
         $rowscount = $this->finance_model->total_petty_cash_requests();
         paginate($url, $rowscount, $limit);
-		$data['title'] = 'Petty Cash Requests | Admin & Procurement';
+		$data['title'] = 'Petty Cash Requests | HRIM';
 		$data['body'] = 'finance/petty_cash_requests';
 		if($this->session->userdata('user_role') == 'admin'){
 			$data['cash_requests'] = $this->finance_model->petty_cash_requests($limit, $offset);
@@ -172,7 +172,7 @@ class Finance extends CI_Controller{
 		$url = 'finance/petty_cash_logs';
 		$rowscount = $this->finance_model->total_logs();
 		paginate($url, $rowscount, $limit);
-		$data['title'] = 'Petty Cash Logs | Admin & Procurement';
+		$data['title'] = 'Petty Cash Logs | HRIM';
 		$data['body'] = 'finance/petty_cash_logs';
 		$data['cash_logs'] = $this->finance_model->get_petty_cash_logs($limit, $offset);
 		$this->load->view('admin/commons/template', $data);
@@ -183,7 +183,7 @@ class Finance extends CI_Controller{
 		$url = 'finance/petty_cash_logs';
 		$rowscount = $this->finance_model->total_logs();
 		paginate($url, $rowscount, $limit);
-		$data['title'] = 'Petty Cash Logs | Admin & Procurement';
+		$data['title'] = 'Petty Cash Logs | HRIM';
 		$data['body'] = 'finance/petty_cash_logs';
 		$data['cash_logs'] = $this->finance_model->get_location_cash_logs($location, $limit, $offset);
 		$this->load->view('admin/commons/template', $data);

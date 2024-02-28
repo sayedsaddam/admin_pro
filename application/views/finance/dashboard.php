@@ -5,7 +5,7 @@
         <img src="<?= base_url('assets/img/chip.png'); ?>" alt="admin-and-procurement" class="img-thumbnail" width="200">
       </div>
       <div class="col-lg-7 col-md-7">
-        <h1 class="font-weight-bold">Admin & Procurement | 
+        <h1 class="font-weight-bold" title="Human Resource Information Management">HRIM | 
 					<button data-toggle="modal" data-target="#add_request" class="btn btn-outline-light btn-md">add request</button>
 					<button data-toggle="modal" data-target="#cash_issuance" class="btn btn-outline-light btn-md">cash issuance</button>
         <h5 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h5>

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-8">
-        <h2 class="display-4 font-weight-bold">HRM</h2>
+				<h2 class="display-4 font-weight-bold" title="Human resource Information Management">HRIM</h2>
         <h3 class="font-weight-bold text-dark">CHIP Training & Consulting (Pvt.) Ltd.</h3>
       </div>
       <div class="col-lg-4 col-md-4 text-right">
@@ -30,7 +30,7 @@
           </div>
           <div class="card-body">
             <table class="table table-sm">
-            <caption>Leaves Record</caption>
+            	<caption>Leaves Record</caption>
                 <thead>
                     <tr>
                         <th class="font-weight-bold">ID</th>
@@ -38,7 +38,8 @@
                         <th class="font-weight-bold">Leave From</th>
                         <th class="font-weight-bold">Leave To</th>
                         <th class="font-weight-bold">Days</th>
-                        <th class="font-weight-bold">Requested</th>
+												<th class="font-weight-bold">Availed</th>
+                        <th class="font-weight-bold">Requested On</th>
                         <th class="font-weight-bold">Status</th>
                         <th class="font-weight-bold">Action</th>
                     </tr>
@@ -51,11 +52,17 @@
                         <td><?= date('M d, Y', strtotime($leave->leave_from)); ?></td>
                         <td><?= date('M d, Y', strtotime($leave->leave_to)); ?></td>
                         <td><?= $leave->no_of_days; ?></td>
+												<td>
+													<?php 
+														$leaves_availed = $this->supervisor_model->leaves_availed_by_user($leave->emp_id);
+														echo $leaves_availed->availed_leaves > 0 ? $leaves_availed->availed_leaves : '0';
+													?>
+												</td>
                         <td><?= date('M d, Y', strtotime($leave->created_at)); ?></td>
                         <td><?php if($leave->leave_status == 0){ echo '<span class="badge badge-warning">pending</span>'; }elseif($leave->leave_status == 1){ echo '<span class="badge badge-success">approved</span>'; }else{ echo '<span class="badge badge-danger">rejected</span>'; } ?></td>
                         <td>
-                            <a data-id="<?= $leave->id; ?>" class="badge badge-primary approve_leave" title="Approve leave..."><i class="fa fa-check"></i></a>
-                            <a data-id="<?= $leave->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
+													<a data-id="<?= $leave->id; ?>" class="badge badge-primary approve_leave" title="Approve leave..."><i class="fa fa-check"></i></a>
+													<a data-id="<?= $leave->id; ?>" class="badge badge-danger reject_leave" title="Reject leave..."><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                     <?php endforeach; else: echo '<tr class="table-danger"><td colspan="7" align="center">No record found.</td></tr>'; endif; ?>
