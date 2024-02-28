@@ -15,6 +15,7 @@ class Supervisor_model extends CI_Model{
         $this->db->from('employee_leaves');
         $this->db->join('users', 'employee_leaves.emp_id = users.id', 'left');
         $this->db->where('users.supervisor', $this->session->userdata('id'));
+		$this->db->like('employee_leaves.created_at', date('Y-m'));
         return $this->db->count_all_results();
     }
 	// total leaves availed by a user
@@ -75,6 +76,7 @@ class Supervisor_model extends CI_Model{
         $this->db->limit($limit, $offset);
         $this->db->order_by('employee_leaves.created_at', 'DESC');
         $this->db->where('users.supervisor', $this->session->userdata('id'));
+		$this->db->like('employee_leaves.created_at', date('Y-m'));
         return $this->db->get()->result();
     }
     // Get pending requisitions. > Only pending requisitions to be displayed on supervisor's dashboard.
