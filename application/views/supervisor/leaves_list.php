@@ -38,7 +38,7 @@
                         <th class="font-weight-bold">Leave From</th>
                         <th class="font-weight-bold">Leave To</th>
                         <th class="font-weight-bold">Days</th>
-												<th class="font-weight-bold">Availed</th>
+												<th class="font-weight-bold">Balance</th>
                         <th class="font-weight-bold">Requested On</th>
                         <th class="font-weight-bold">Status</th>
                         <th class="font-weight-bold">Action</th>
@@ -55,7 +55,7 @@
 												<td>
 													<?php 
 														$leaves_availed = $this->supervisor_model->leaves_availed_by_user($leave->emp_id);
-														echo $leaves_availed->availed_leaves > 0 ? $leaves_availed->availed_leaves : '0';
+														echo $leaves_availed->availed_leaves > 0 ? (22 - $leaves_availed->availed_leaves) : '22';
 													?>
 												</td>
                         <td><?= date('M d, Y', strtotime($leave->created_at)); ?></td>
